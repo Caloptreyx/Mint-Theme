@@ -2,6 +2,16 @@
 
 A dark navy theme for Calagopus Panel with a built-in visual theme editor.
 
+## Preview
+
+| Server list | Server home |
+| --- | --- |
+| ![Server list](docs/dashboard.png) | ![Server home](docs/server-home.png) |
+
+| Grid view | Theme editor |
+| --- | --- |
+| ![Grid view](docs/dashboard-grid.png) | ![Theme editor](docs/theme-editor.png) |
+
 ## Requirements
 
 Calagopus Panel 1.2.0 or newer.
