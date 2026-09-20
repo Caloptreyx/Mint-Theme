@@ -26,6 +26,14 @@ the full colour palette, fonts and corners, the background image, per egg banner
 getting started links and which cards the home page shows, with a live preview of the real panel.
 Saving applies the theme for everyone, including the login page.
 
+## Credits
+
+Built by wrrfsub, co-authored with Claude (Anthropic). The whole theme was written with Claude.
+
+## Support
+
+This is provided as is. I do not promise updates, fixes, or support for future panel versions.
+
 ## Licence
 
 The code is covered by [LICENSE](LICENSE). The bundled fonts are licensed under the SIL Open Font
