@@ -1,4 +1,4 @@
-# Nebula Theme for Calagopus
+# Fox Theme for Calagopus
 
 [![Built with Claude Code](https://img.shields.io/badge/built%20with-Claude%20Code-D97757?logo=claude&logoColor=white)](https://claude.com/claude-code)
 
