@@ -129,7 +129,7 @@ export const PRESETS: { name: string; theme: Partial<NebulaTheme> }[] = [
 
 const HEX = /^#[0-9a-f]{6}$/i;
 // anything that could close the url("...") or the rule it sits in is refused outright
-const SAFE_URL = /^(https?:\/\/|\/)[^\s"'()\\<>;{}]+$/i;
+export const SAFE_URL = /^(https?:\/\/|\/)[^\s"'()\\<>;{}]+$/i;
 
 const clamp = (n: unknown, min: number, max: number, fallback: number) =>
   typeof n === 'number' && Number.isFinite(n) ? Math.min(max, Math.max(min, Math.round(n))) : fallback;

@@ -4,6 +4,7 @@ use shared::{
 };
 use std::sync::Arc;
 
+mod banner;
 mod routes;
 pub mod settings;
 
@@ -26,6 +27,12 @@ impl Extension for ExtensionStruct {
             .add_global_router(|routes| routes.nest("/nebula", routes::public(&state)))
             .add_admin_api_router(|routes| {
                 routes.nest("/extensions/dev.s4way.nebula", routes::admin(&state))
+            })
+            .add_client_api_router(|routes| {
+                routes.nest(
+                    "/extensions/dev.s4way.nebula/banner",
+                    banner::router(&state),
+                )
             })
     }
 

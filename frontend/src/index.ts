@@ -4,6 +4,7 @@ import type { MantineThemeOverride } from '@mantine/core';
 import { createElement } from 'react';
 import { Extension, type ExtensionContext } from 'shared';
 import Sidebar from '@/elements/Sidebar.tsx';
+import ProfileCard from './elements/account/ProfileCard.tsx';
 import GroupedNav from './elements/sidebar/GroupedNav.tsx';
 import { applyCachedTheme, listenForPreview, loadTheme } from './lib/apply.ts';
 import ServerConsole from './pages/ServerConsole.tsx';
@@ -37,6 +38,11 @@ class DevS4wayNebulaExtension extends Extension {
         children: createElement(ServerList),
       })),
     );
+
+    // the profile card stands in for the account page's title
+    ctx.extensionRegistry.pages.dashboard.account.container
+      .addPropsInterceptor((props) => ({ ...props, hideTitleComponent: true }))
+      .prependContentComponent(ProfileCard);
 
     // Home becomes the server landing page, the console keeps its name, icon and permission at /console with Nebula's layout
     ctx.extensionRegistry.routes.addServerRouteInterceptor((routes) => {

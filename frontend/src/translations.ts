@@ -61,6 +61,16 @@ const translations = defineTranslations({
         grid: 'Grid view',
       },
     },
+    account: {
+      changeBanner: 'Change banner',
+      removeBanner: 'Remove banner',
+      changeAvatar: 'Change avatar',
+      bannerFile: 'Image',
+      bannerHint: 'PNG, JPEG, WebP or GIF. Drag it to pick the part that shows. Only you see it.',
+      admin: 'Administrator',
+      twoFactorOn: '2FA enabled',
+      twoFactorOff: '2FA disabled',
+    },
     editor: {
       close: 'Close editor',
       undo: 'Undo',

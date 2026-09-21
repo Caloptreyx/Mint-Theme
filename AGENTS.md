@@ -10,11 +10,12 @@ Metadata.toml              package name, display name, panel version range
 backend/src/lib.rs         Extension impl: mounts the routers, hands over the settings deserializer
 backend/src/settings.rs    one opaque setting, `theme`, holding the editor's JSON
 backend/src/routes.rs      GET /nebula/theme (public) and PUT /api/admin/.../theme (settings.update)
+backend/src/banner.rs      per user account banner upload/remove (client API)
 frontend/src/index.ts      entry point: hooks, route interceptors, Mantine theme
 frontend/src/lib/theme.ts  the theme model, normalizeTheme() and buildCss()
 frontend/src/lib/apply.ts  applies CSS, caches it, live preview bridge, useNebulaTheme()
 frontend/src/pages/        ServerHome, ServerConsole, ServerList (dashboard), ThemeEditor
-frontend/src/elements/     home/, dashboard/, editor/, sidebar/ pieces
+frontend/src/elements/     account/, home/, dashboard/, editor/, sidebar/ pieces
 frontend/src/app.css       static CSS: @font-face, flush sidebar, active link, sidebar sections
 frontend/src/translations.ts  every user facing string
 ```
@@ -50,6 +51,12 @@ and break silently when core moves a file. Everything here is runtime:
   in the panel. Unlabelled dividers stay plain rules.
 - `routes.addServerRouteInterceptor` puts Home at `/` and moves the console to `/console`, swapping its
   element for `ServerConsole`: the Home banner with live stat pills, then core's terminal and charts.
+- `pages.dashboard.account.container` hides the account title and prepends `ProfileCard`. The banner is
+  uploaded to `PUT/DELETE /api/client/extensions/dev.s4way.nebula/banner` (`backend/src/banner.rs`, the
+  avatar route's checks, re-encoded to a 1500x500 JPEG at `publicdata/nebula/banners/<user>.jpg`, the
+  storage prefix core serves for extensions). Its URL sits in core's synced user settings
+  (`nebula::account_banner`) and is still checked with `SAFE_URL` before use. The avatar opens core's
+  `AvatarContainer` in a modal; `app.css` hides the grid copy (`.order-60`).
 - `routes.addAdminRoute` adds the editor; it is also the extension's `cardConfigurationPage`.
 - `pages.dashboard.home.enterContainerAll(...).addPropsInterceptor` replaces the servers list. The
   list route is hardcoded in the panel's router, so this props interceptor (it can replace `children`

@@ -88,6 +88,11 @@ html {
   grid-template-columns: minmax(0, 1fr);
 }
 
+/* the profile card's avatar opens core's avatar card in a modal, so the grid copy goes */
+.nebula-profile ~ .grid > .order-60 {
+  display: none;
+}
+
 /* collapsible sidebar sections (GroupedNav): a toggle row, then the links hanging off a left rail */
 .nebula-sb-section {
   margin-top: 0.125rem;
