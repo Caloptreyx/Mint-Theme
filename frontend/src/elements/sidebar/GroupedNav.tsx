@@ -39,20 +39,12 @@ function Section({ label, children }: { label: string; children: ReactNode }) {
   };
 
   return (
-    <div className='mt-2'>
-      <UnstyledButton
-        className='flex! items-center justify-between w-full px-2 py-1 text-xs font-semibold tracking-wider uppercase text-(--mantine-color-dimmed)'
-        onClick={toggle}
-        aria-expanded={open}
-      >
-        {label}
-        <FontAwesomeIcon
-          icon={faChevronDown}
-          size='xs'
-          className={`transition-transform ${open ? '' : '-rotate-90'}`}
-        />
+    <div className='nebula-sb-section' data-open={open || undefined}>
+      <UnstyledButton className='nebula-sb-toggle' onClick={toggle} aria-expanded={open}>
+        <span className='truncate'>{label}</span>
+        <FontAwesomeIcon icon={faChevronDown} className='nebula-sb-chevron' />
       </UnstyledButton>
-      {open && children}
+      {open && <div className='nebula-sb-items'>{children}</div>}
     </div>
   );
 }
