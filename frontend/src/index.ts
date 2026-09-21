@@ -4,10 +4,9 @@ import type { MantineThemeOverride } from '@mantine/core';
 import { createElement } from 'react';
 import { Extension, type ExtensionContext } from 'shared';
 import Sidebar from '@/elements/Sidebar.tsx';
-import EggLabel from './elements/EggLabel.tsx';
-import ServerState from './elements/ServerState.tsx';
 import GroupedNav from './elements/sidebar/GroupedNav.tsx';
 import { applyCachedTheme, listenForPreview, loadTheme } from './lib/apply.ts';
+import ServerConsole from './pages/ServerConsole.tsx';
 import ServerHome from './pages/ServerHome.tsx';
 import ServerList from './pages/ServerList.tsx';
 import ThemeEditor from './pages/ThemeEditor.tsx';
@@ -39,13 +38,13 @@ class DevS4wayNebulaExtension extends Extension {
       })),
     );
 
-    ctx.extensionRegistry.pages.server.console.powerButtonComponents.prependComponent(ServerState);
-    ctx.extensionRegistry.pages.server.console.container.prependContentComponent(EggLabel);
-
-    // Home becomes the server landing page, the console keeps its name, icon and permission at /console
+    // Home becomes the server landing page, the console keeps its name, icon and permission at /console with Nebula's layout
     ctx.extensionRegistry.routes.addServerRouteInterceptor((routes) => {
       const console = routes.find((route) => route.path === '/');
-      if (console) console.path = '/console';
+      if (console) {
+        console.path = '/console';
+        console.element = ServerConsole;
+      }
 
       routes.unshift({
         name: () => getExtTranslations().t('home.title', {}),

@@ -1,29 +1,30 @@
-import Group from '@/elements/Group.tsx';
-import Text from '@/elements/Text.tsx';
+import { useShallow } from 'zustand/react/shallow';
+import Badge from '@/elements/Badge.tsx';
+import { serverStatusInfo } from '@/lib/server.ts';
 import { useTranslations } from '@/providers/TranslationProvider.tsx';
 import { useServerStore } from '@/stores/server.ts';
 
-function formatUptime(ms: number) {
-  const total = Math.floor(ms / 1000);
-  return `${Math.floor(total / 3600)}h ${Math.floor((total % 3600) / 60)}m ${total % 60}s`;
-}
-
+/** The open server's state as a pill, shared by the Home banner and the console bar. */
 export default function ServerState() {
   const { t } = useTranslations();
-  const state = useServerStore((s) => s.state);
-  const uptime = useServerStore((s) => s.stats?.uptime ?? 0);
+  const { server, state } = useServerStore(useShallow((s) => ({ server: s.server, state: s.state })));
+
+  let label = t(`common.enum.serverState.${state}`, {});
+  let color = state === 'running' ? 'green' : state === 'offline' ? 'red' : 'yellow';
+  if (server.isSuspended) {
+    label = t('common.server.state.suspended', {});
+    color = 'red';
+  } else if (server.status) {
+    label = serverStatusInfo[server.status].label();
+    color = serverStatusInfo[server.status].badgeColor;
+  }
 
   return (
-    <Group gap={8} wrap='nowrap' className='self-center mr-2'>
-      <span className={`size-2.5 rounded-full bg-server-status-${state}`} />
-      <Text size='sm' fw={500}>
-        {t(`common.enum.serverState.${state}`, {})}
-      </Text>
-      {state === 'running' && uptime > 0 && (
-        <Text size='sm' c='dimmed'>
-          {formatUptime(uptime)}
-        </Text>
-      )}
-    </Group>
+    <Badge variant='light' color={color} tt='none' size='lg' radius='sm' className='shrink-0'>
+      <span className='flex items-center gap-2'>
+        <span className={`size-2 rounded-full bg-server-status-${server.isSuspended ? 'offline' : state}`} />
+        {label}
+      </span>
+    </Badge>
   );
 }

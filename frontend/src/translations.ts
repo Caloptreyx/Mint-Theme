@@ -104,7 +104,7 @@ const translations = defineTranslations({
       accent: 'Accent',
       accentDescription: 'Buttons, links and the active menu item',
       highlight: 'Highlight',
-      highlightDescription: 'Small labels like the egg name on the console',
+      highlightDescription: 'Stat icons on the console banner',
       background: 'Background',
       backgroundDescription: 'The page behind everything',
       surface: 'Surface',

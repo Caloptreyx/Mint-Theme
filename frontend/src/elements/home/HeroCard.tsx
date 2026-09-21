@@ -1,31 +1,52 @@
-import { faCopy, faGamepad } from '@fortawesome/free-solid-svg-icons';
+import { faCopy, faGamepad, type IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useShallow } from 'zustand/react/shallow';
+import type { ReactNode } from 'react';
 import Badge from '@/elements/Badge.tsx';
 import Card from '@/elements/Card.tsx';
 import CopyOnClick from '@/elements/CopyOnClick.tsx';
 import Group from '@/elements/Group.tsx';
 import Title from '@/elements/Title.tsx';
-import { formatAllocation, serverStatusInfo } from '@/lib/server.ts';
+import { formatAllocation } from '@/lib/server.ts';
 import { useTranslations } from '@/providers/TranslationProvider.tsx';
 import { useServerStore } from '@/stores/server.ts';
+import ServerState from '../ServerState.tsx';
 import PowerButtons from './PowerButtons.tsx';
 
 const SHADE = 'var(--nebula-card)';
 
-export default function HeroCard({ banner, icon }: { banner: string; icon?: string }) {
-  const { t } = useTranslations();
-  const { server, state } = useServerStore(useShallow((s) => ({ server: s.server, state: s.state })));
+/** A banner pill; stat pills pass `icon` and `label`, the label is the icon's hover title. */
+export function Pill({
+  icon,
+  label,
+  left,
+  right,
+  children,
+}: {
+  icon?: IconDefinition;
+  label?: string;
+  left?: ReactNode;
+  right?: ReactNode;
+  children: ReactNode;
+}) {
+  return (
+    <Badge
+      variant='light'
+      color='gray'
+      tt='none'
+      size='lg'
+      radius='sm'
+      className='tabular-nums bg-(--nebula-card)/70! backdrop-blur-sm'
+      leftSection={icon ? <FontAwesomeIcon icon={icon} title={label} className='text-(--nebula-highlight)' /> : left}
+      rightSection={right}
+    >
+      {children}
+    </Badge>
+  );
+}
 
-  let label = t(`common.enum.serverState.${state}`, {});
-  let color = state === 'running' ? 'green' : state === 'offline' ? 'red' : 'yellow';
-  if (server.isSuspended) {
-    label = t('common.server.state.suspended', {});
-    color = 'red';
-  } else if (server.status) {
-    label = serverStatusInfo[server.status].label();
-    color = serverStatusInfo[server.status].badgeColor;
-  }
+export default function HeroCard({ banner, icon, children }: { banner: string; icon?: string; children?: ReactNode }) {
+  const { t } = useTranslations();
+  const server = useServerStore((s) => s.server);
 
   const address = server.allocation
     ? formatAllocation(server.allocation, server.egg.separatePort)
@@ -45,19 +66,9 @@ export default function HeroCard({ banner, icon }: { banner: string; icon?: stri
         <div className='min-w-0'>
           <Title order={1}>{server.name}</Title>
           <Group gap='xs' mt='sm'>
-            <Badge variant='light' color={color} tt='none' size='lg' radius='sm'>
-              <span className='flex items-center gap-2'>
-                <span className={`size-2 rounded-full bg-server-status-${server.isSuspended ? 'offline' : state}`} />
-                {label}
-              </span>
-            </Badge>
-            <Badge
-              variant='light'
-              color='gray'
-              tt='none'
-              size='lg'
-              radius='sm'
-              leftSection={
+            <ServerState />
+            <Pill
+              left={
                 icon ? (
                   <img src={icon} alt='' className='size-4 rounded-sm object-cover' />
                 ) : (
@@ -66,20 +77,16 @@ export default function HeroCard({ banner, icon }: { banner: string; icon?: stri
               }
             >
               {server.egg.name}
-            </Badge>
+            </Pill>
             <CopyOnClick content={address} enabled={!!server.allocation}>
-              <Badge
-                variant='light'
-                color='gray'
-                tt='none'
-                size='lg'
-                radius='sm'
-                rightSection={server.allocation && <FontAwesomeIcon icon={faCopy} />}
-              >
-                {address}
-              </Badge>
+              <Pill right={server.allocation && <FontAwesomeIcon icon={faCopy} />}>{address}</Pill>
             </CopyOnClick>
           </Group>
+          {children && (
+            <div className='grid grid-cols-2 gap-2 mt-2 max-sm:*:w-full! max-sm:*:justify-start! sm:flex sm:flex-wrap'>
+              {children}
+            </div>
+          )}
         </div>
 
         <PowerButtons />

@@ -83,11 +83,6 @@ html {
   display: none;
 }
 
-#console-infobar {
-  background-color: color-mix(in srgb, var(--mantine-color-body) 82%, transparent);
-  backdrop-filter: blur(12px);
-}
-
 /* core's stat charts sit three across, on the Home page they stack in the side column */
 .nebula-stats > .grid {
   grid-template-columns: minmax(0, 1fr);

@@ -13,9 +13,9 @@ backend/src/routes.rs      GET /nebula/theme (public) and PUT /api/admin/.../the
 frontend/src/index.ts      entry point: hooks, route interceptors, Mantine theme
 frontend/src/lib/theme.ts  the theme model, normalizeTheme() and buildCss()
 frontend/src/lib/apply.ts  applies CSS, caches it, live preview bridge, useNebulaTheme()
-frontend/src/pages/        ServerHome, ServerList (dashboard), ThemeEditor
+frontend/src/pages/        ServerHome, ServerConsole, ServerList (dashboard), ThemeEditor
 frontend/src/elements/     home/, dashboard/, editor/, sidebar/ pieces
-frontend/src/app.css       static CSS: @font-face, flush sidebar, active link, frosted console bar
+frontend/src/app.css       static CSS: @font-face, flush sidebar, active link, sidebar sections
 frontend/src/translations.ts  every user facing string
 ```
 
@@ -48,12 +48,12 @@ and break silently when core moves a file. Everything here is runtime:
 - `Sidebar.addPropsInterceptor` wraps the menu in `GroupedNav`, which turns the panel's own **labelled
   dividers** into collapsible sections. Labels come from the egg's route order, so operators name them
   in the panel. Unlabelled dividers stay plain rules.
-- `routes.addServerRouteInterceptor` puts Home at `/` and moves the console to `/console`.
+- `routes.addServerRouteInterceptor` puts Home at `/` and moves the console to `/console`, swapping its
+  element for `ServerConsole`: the Home banner with live stat pills, then core's terminal and charts.
 - `routes.addAdminRoute` adds the editor; it is also the extension's `cardConfigurationPage`.
 - `pages.dashboard.home.enterContainerAll(...).addPropsInterceptor` replaces the servers list. The
   list route is hardcoded in the panel's router, so this props interceptor (it can replace `children`
   and `title`) is the only runtime way in.
-- `pages.server.console.powerButtonComponents` / `.container` add the status pill and egg label.
 
 Core components are reused wherever possible: the console terminal, power controls, charts, bulk
 action bar, stats hooks and the drag and drop kit. Import them from the **flat** paths
