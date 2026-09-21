@@ -6,13 +6,15 @@ Dark theme for Calagopus Panel with a built-in theme editor.
 
 ## Preview
 
-| Server list | Server home |
+| Server list | Grid view |
 | --- | --- |
-| ![Server list](docs/dashboard.png) | ![Server home](docs/server-home.png) |
+| ![Server list](docs/dashboard.png) | ![Grid view](docs/dashboard-grid.png) |
 
-| Grid view | Theme editor |
+| Server home | Console |
 | --- | --- |
-| ![Grid view](docs/dashboard-grid.png) | ![Theme editor](docs/theme-editor.png) |
+| ![Server home](docs/server-home.png) | ![Console](docs/console.png) |
+
+![Theme editor](docs/theme-editor.png)
 
 ## Install
 
