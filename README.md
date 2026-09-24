@@ -1,12 +1,12 @@
 <div align="center">
 
-# Fox Theme for Calagopus
+# Mint Theme for Calagopus
 
 A dark theme for [Calagopus Panel](https://calagopus.com) with a live, built-in theme editor.
 
 [![Calagopus 1.2.0+](https://img.shields.io/badge/Calagopus-1.2.0%2B-3b6cde)](https://calagopus.com)
-[![Latest release](https://img.shields.io/github/v/release/wrrfsub/Fox-Theme-For-Calagopus?label=release)](https://github.com/wrrfsub/Fox-Theme-For-Calagopus/releases/latest)
-[![License: MIT](https://img.shields.io/github/license/wrrfsub/Fox-Theme-For-Calagopus)](LICENSE)
+[![Latest release](https://img.shields.io/github/v/release/wrrfsub/mint-Theme-For-Calagopus?label=release)](https://github.com/wrrfsub/mint-Theme-For-Calagopus/releases/latest)
+[![License: MIT](https://img.shields.io/github/license/wrrfsub/mint-Theme-For-Calagopus)](LICENSE)
 [![Built with Claude Code](https://img.shields.io/badge/built%20with-Claude%20Code-D97757?logo=claude&logoColor=white)](https://claude.com/claude-code)
 
 <img src="docs/server-home.png" alt="Server home page" width="100%">
@@ -42,7 +42,7 @@ A dark theme for [Calagopus Panel](https://calagopus.com) with a live, built-in 
 > [!NOTE]
 > Requires Calagopus Panel **1.2.0** or newer.
 
-1. Download `dev_s4way_nebula.c7s.zip` from the [latest release](https://github.com/wrrfsub/Fox-Theme-For-Calagopus/releases/latest).
+1. Download `dev_s4way_nebula.c7s.zip` from the [latest release](https://github.com/wrrfsub/mint-Theme-For-Calagopus/releases/latest).
 2. In the panel, open **Admin → Extensions** and install the file.
 3. Restart the panel.
 
