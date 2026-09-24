@@ -2,7 +2,7 @@
 name = "dev_s4way_nebula"
 description = "A navy and ocean-blue theme for Calagopus Panel with a built-in theme editor."
 authors = ["s4way"]
-version = "1.0.0"
+version = "1.1.0"
 edition = { workspace = true }
 
 [dependencies]
