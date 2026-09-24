@@ -71,6 +71,12 @@ html {
   color: var(--mantine-color-text);
 }
 
+/* overlay scrollbars paint over the content, so the scroller reaches into the card's padding and the bar sits there */
+#sidebar-content > .overflow-y-auto {
+  margin-right: calc(var(--mantine-spacing-sm) * -1);
+  padding-right: var(--mantine-spacing-sm);
+}
+
 #sidebar-content .mantine-Divider-label {
   padding-inline: var(--mantine-spacing-xs);
   font-weight: 600;
