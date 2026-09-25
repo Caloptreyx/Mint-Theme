@@ -1,62 +1,86 @@
-import {
-  faClock,
-  faCloudArrowDown,
-  faCloudArrowUp,
-  faHardDrive,
-  faMemory,
-  faMicrochip,
-} from '@fortawesome/free-solid-svg-icons';
-import { useEffect, useRef, useState } from 'react';
-import { useShallow } from 'zustand/react/shallow';
+import type { ReactNode } from 'react';
 import ServerContentContainer from '@/elements/containers/ServerContentContainer.tsx';
-import ExtensionSlot from '@/elements/ExtensionSlot.tsx';
-import { bytesToString, mbToBytes } from '@/lib/size.ts';
-import { formatMilliseconds } from '@/lib/time.ts';
-import ServerStats from '@/pages/server/console/stats/ServerStats.tsx';
 import Console from '@/pages/server/console/terminal/Console.tsx';
 import { useVisualViewportBottomInset } from '@/plugins/useVisualViewport.ts';
 import { useTranslations } from '@/providers/TranslationProvider.tsx';
-import { useServerStore } from '@/stores/server.ts';
-import HeroCard, { Pill } from '../elements/home/HeroCard.tsx';
+import {
+  BannerWidget,
+  ChartsWidget,
+  type ChartWidget,
+  ExtensionCardsWidget,
+  InfoWidget,
+  isChartWidget,
+  type Placement,
+  StatsWidget,
+} from '../elements/console/ConsoleWidgets.tsx';
 import { useNebulaTheme } from '../lib/apply.ts';
+import { CONSOLE_SLOTS, type ConsoleWidget } from '../lib/theme.ts';
 
-const NONE = '--';
+/** A slot's widgets with consecutive charts merged into one run, which shares a grid like core's charts. */
+type Block = { key: string; widget: Exclude<ConsoleWidget, ChartWidget> } | { key: string; charts: ChartWidget[] };
+
+function toBlocks(widgets: ConsoleWidget[]): Block[] {
+  const blocks: Block[] = [];
+  for (const widget of widgets) {
+    const last = blocks.at(-1);
+    if (!isChartWidget(widget)) blocks.push({ key: widget, widget });
+    else if (last && 'charts' in last) last.charts.push(widget);
+    else blocks.push({ key: widget, charts: [widget] });
+  }
+  return blocks;
+}
 
 /**
- * Core's terminal and charts under the Home banner, which carries the live stats as pills.
- * Laid out like Midnight: banner, full width terminal, then the charts.
+ * Core's terminal with the theme's widgets around it (`consoleLayout`): rows above and below, optional
+ * columns beside it that stack under the terminal on narrow pages. The default is the Home banner, the
+ * terminal, other extensions' stat cards, then the charts.
  */
 export default function ServerConsole() {
   const { t } = useTranslations();
-  const theme = useNebulaTheme();
-  const { server, stats, state } = useServerStore(
-    useShallow((s) => ({ server: s.server, stats: s.stats, state: s.state })),
-  );
+  const { consoleLayout } = useNebulaTheme();
   const keyboardInset = useVisualViewportBottomInset();
 
-  // network throughput from successive samples, the socket only reports running totals
-  const sample = useRef<{ rx: number; tx: number; at: number } | null>(null);
-  const [rate, setRate] = useState({ rx: 0, tx: 0 });
-  useEffect(() => {
-    if (!stats) return;
-    const now = Date.now();
-    const prev = sample.current;
-    if (prev && now - prev.at < 500) return;
+  const slots = {
+    top: toBlocks(consoleLayout.top),
+    left: toBlocks(consoleLayout.left),
+    right: toBlocks(consoleLayout.right),
+    bottom: toBlocks(consoleLayout.bottom),
+  };
+  // core's stat block slot sits with its charts: the last chart run on the page, else the extension cards
+  const blocksHost =
+    CONSOLE_SLOTS.flatMap((slot) => slots[slot]).findLast((block) => 'charts' in block)?.key ?? 'extensionCards';
 
-    sample.current = { rx: stats.network.rxBytes, tx: stats.network.txBytes, at: now };
-    if (prev) {
-      const seconds = (now - prev.at) / 1000;
-      setRate({
-        rx: Math.max(0, (stats.network.rxBytes - prev.rx) / seconds),
-        tx: Math.max(0, (stats.network.txBytes - prev.tx) / seconds),
-      });
+  const render = (block: Block, placement: Placement, className?: string): ReactNode => {
+    const withBlocks = block.key === blocksHost;
+    if ('charts' in block) {
+      return (
+        <ChartsWidget
+          key={block.key}
+          charts={block.charts}
+          withBlocks={withBlocks}
+          placement={placement}
+          className={className}
+        />
+      );
     }
-  }, [stats]);
 
-  const eggImages = theme.eggs[server.egg.uuid];
-  const offline = state === 'offline' && server.status !== 'installing';
-  const unlimited = t('common.unlimited', {});
-  const live = (value: string) => (offline ? NONE : value);
+    switch (block.widget) {
+      case 'banner':
+        return <BannerWidget key={block.key} placement={placement} className={className} />;
+      case 'stats':
+        return <StatsWidget key={block.key} placement={placement} className={className} />;
+      case 'info':
+        return <InfoWidget key={block.key} placement={placement} className={className} />;
+      case 'extensionCards':
+        return (
+          <ExtensionCardsWidget key={block.key} placement={placement} className={className} withBlocks={withBlocks} />
+        );
+    }
+  };
+
+  const hasBottom = slots.bottom.length > 0;
+  // with both columns the terminal would get too narrow at lg, so then they only go beside it from xl
+  const both = slots.left.length > 0 && slots.right.length > 0;
 
   return (
     <ServerContentContainer
@@ -64,50 +88,38 @@ export default function ServerConsole() {
       hideTitleComponent
       registry={window.extensionContext.extensionRegistry.pages.server.console.container}
     >
-      <div className='mb-4'>
-        <HeroCard banner={eggImages?.banner || theme.homeBanner} icon={eggImages?.icon}>
-          <Pill icon={faClock} label={t('common.stat.uptime', {})}>
-            {live(formatMilliseconds(stats?.uptime || 0))}
-          </Pill>
-          <Pill icon={faMicrochip} label={t('common.stat.cpuLoad', {})}>
-            {live(`${(stats?.cpuAbsolute || 0).toFixed(2)}%`)} /{' '}
-            {server.limits.cpu ? `${server.limits.cpu}%` : unlimited}
-          </Pill>
-          <Pill icon={faMemory} label={t('common.stat.memoryLoad', {})}>
-            {live(bytesToString(stats?.memoryBytes || 0))} /{' '}
-            {server.limits.memory ? bytesToString(mbToBytes(server.limits.memory)) : unlimited}
-          </Pill>
-          <Pill icon={faHardDrive} label={t('common.stat.diskUsage', {})}>
-            {bytesToString(stats?.diskBytes || 0)} /{' '}
-            {server.limits.disk ? bytesToString(mbToBytes(server.limits.disk)) : unlimited}
-          </Pill>
-          <Pill icon={faCloudArrowDown} label={t('pages.server.console.details.networkIn', {})}>
-            {live(`${bytesToString(Math.round(rate.rx))}/s`)}
-          </Pill>
-          <Pill icon={faCloudArrowUp} label={t('pages.server.console.details.networkOut', {})}>
-            {live(`${bytesToString(Math.round(rate.tx))}/s`)}
-          </Pill>
-        </HeroCard>
+      {slots.top.map((block) => render(block, 'row', 'mb-4'))}
+
+      {/*
+        The terminal comes first so it stays mounted when columns come and go, and so the columns stack under
+        it on narrow pages; the left column is ordered in front of it once they sit side by side. xterm refits
+        on any size change of its box (core's ResizeObserver), so the columns do not break it.
+      */}
+      <div className={`flex flex-col gap-4 ${both ? 'xl:flex-row' : 'lg:flex-row'} ${hasBottom ? 'mb-4' : ''}`}>
+        <div
+          className={`flex flex-col h-[62vh] min-h-72 min-w-0 ${both ? 'xl:flex-1' : 'lg:flex-1'}`}
+          style={
+            keyboardInset > 0 ? { height: `max(8rem, min(62vh, calc(100dvh - ${keyboardInset}px - 7rem)))` } : undefined
+          }
+        >
+          <Console />
+        </div>
+        {(['left', 'right'] as const).map(
+          (side) =>
+            slots[side].length > 0 && (
+              <div
+                key={side}
+                className={`flex flex-col gap-4 min-w-0 shrink-0 ${both ? 'xl:w-80 2xl:w-96' : 'lg:w-80 2xl:w-96'} ${
+                  side === 'right' ? '' : both ? 'xl:order-first' : 'lg:order-first'
+                }`}
+              >
+                {slots[side].map((block) => render(block, 'side'))}
+              </div>
+            ),
+        )}
       </div>
 
-      <div
-        className='flex flex-col h-[62vh] min-h-72 mb-4'
-        style={
-          keyboardInset > 0 ? { height: `max(8rem, min(62vh, calc(100dvh - ${keyboardInset}px - 7rem)))` } : undefined
-        }
-      >
-        <Console />
-      </div>
-
-      {/* other extensions' stat cards, core shows them beside the terminal */}
-      <div className='grid sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-4 empty:hidden'>
-        <ExtensionSlot
-          components={window.extensionContext.extensionRegistry.pages.server.console.statCards}
-          name='console-stat-card'
-        />
-      </div>
-
-      <ServerStats />
+      {slots.bottom.map((block, index) => render(block, 'row', index < slots.bottom.length - 1 ? 'mb-4' : undefined))}
     </ServerContentContainer>
   );
 }
