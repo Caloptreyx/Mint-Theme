@@ -1,9 +1,9 @@
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Children, Fragment, isValidElement, type ReactNode, useState } from 'react';
-import Sidebar from '@/elements/Sidebar.tsx';
+import { type ReactNode, useState } from 'react';
 import UnstyledButton from '@/elements/UnstyledButton.tsx';
 import { useNebulaTheme } from '../../lib/apply.ts';
+import { flatten, groupNav } from './nav.ts';
 
 const CLOSED_KEY = 'nebula:sidebar-closed';
 
@@ -15,16 +15,12 @@ function readClosed(): string[] {
   }
 }
 
-/** The router wraps the menu in fragments, which Children.toArray keeps as single nodes. */
-function flatten(children: ReactNode): ReactNode[] {
-  return Children.toArray(children).flatMap((child) =>
-    isValidElement(child) && child.type === Fragment
-      ? flatten((child.props as { children?: ReactNode }).children)
-      : [child],
-  );
-}
-
-function Section({ label, children }: { label: string; children: ReactNode }) {
+/**
+ * The slim rail has no room for a toggle, so there the section is a rule over all of its links. The same nodes
+ * render in the drawer too, which keeps the toggle: `buildCss` shows the rule and every link inside the rail
+ * only, app.css hides a closed section's links everywhere else.
+ */
+function Section({ label, rail, children }: { label: string; rail: boolean; children: ReactNode }) {
   const [closed, setClosed] = useState(() => readClosed());
   const open = !closed.includes(label);
 
@@ -40,59 +36,33 @@ function Section({ label, children }: { label: string; children: ReactNode }) {
 
   return (
     <div className='nebula-sb-section' data-open={open || undefined}>
+      {rail && <hr className='nebula-sb-rule' />}
       <UnstyledButton className='nebula-sb-toggle' onClick={toggle} aria-expanded={open}>
         <span className='truncate'>{label}</span>
         <FontAwesomeIcon icon={faChevronDown} className='nebula-sb-chevron' />
       </UnstyledButton>
-      {open && <div className='nebula-sb-items'>{children}</div>}
+      {(open || rail) && <div className='nebula-sb-items'>{children}</div>}
     </div>
   );
 }
 
-/**
- * Turns the flat menu into collapsible sections, following the panel's own dividers:
- * a labelled divider opens a section that collects the links after it, an unlabelled
- * one closes it and stays a plain rule. Labels come from the egg's route order, so
- * operators name the sections in the panel itself.
- */
+/** Turns the flat menu into collapsible sections at the panel's labelled dividers (see `groupNav`). */
 export default function GroupedNav({ children }: { children: ReactNode }) {
-  const { sidebarGroups } = useNebulaTheme();
+  const { sidebarGroups, sidebarLayout } = useNebulaTheme();
 
   if (!sidebarGroups) return <>{children}</>;
 
-  const out: ReactNode[] = [];
-  let section: { label: string; items: ReactNode[] } | null = null;
-
-  const flush = () => {
-    if (!section) return;
-    out.push(
-      <Section key={`section-${section.label}`} label={section.label}>
-        {section.items}
-      </Section>,
-    );
-    section = null;
-  };
-
-  for (const node of flatten(children)) {
-    if (isValidElement(node) && node.type === Sidebar.Divider) {
-      const label = (node.props as { label?: string }).label;
-      flush();
-
-      if (label) {
-        section = { label, items: [] };
-      } else {
-        out.push(node);
-      }
-      continue;
-    }
-
-    if (section) {
-      section.items.push(node);
-    } else {
-      out.push(node);
-    }
-  }
-  flush();
-
-  return <>{out}</>;
+  return (
+    <>
+      {groupNav(flatten(children)).map((entry) =>
+        entry.kind === 'node' ? (
+          entry.node
+        ) : (
+          <Section key={`section-${entry.label}`} label={entry.label} rail={sidebarLayout === 'slim'}>
+            {entry.items}
+          </Section>
+        ),
+      )}
+    </>
+  );
 }
