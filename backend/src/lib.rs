@@ -1,6 +1,6 @@
 use shared::{
     State,
-    extensions::{Extension, ExtensionRouteBuilder},
+    extensions::{Extension, ExtensionRouteBuilder, ExtensionUpdateInfo},
 };
 use std::sync::Arc;
 
@@ -8,6 +8,7 @@ mod banner;
 mod cta;
 mod routes;
 pub mod settings;
+mod updates;
 
 #[derive(Default)]
 pub struct ExtensionStruct;
@@ -52,5 +53,14 @@ impl Extension for ExtensionStruct {
         _state: State,
     ) -> shared::extensions::settings::ExtensionSettingsDeserializer {
         Arc::new(settings::ExtensionSettingsDataDeserializer)
+    }
+
+    /// Offers the newest GitHub release on Admin → Updates, with every newer release's notes.
+    async fn check_for_updates(
+        &self,
+        state: State,
+        current_version: &semver::Version,
+    ) -> Result<Option<ExtensionUpdateInfo>, anyhow::Error> {
+        updates::check(&state, current_version).await
     }
 }
