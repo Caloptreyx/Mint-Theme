@@ -70,7 +70,7 @@ A dark theme for [Calagopus Panel](https://calagopus.com) with a live, built-in 
 3. Restart the panel.
 
 The extension is listed as **Mint Theme** (`dev.s4way.nebula`). The ID keeps the project's original name
-so existing installs update in place.
+so existing installs update in place. New releases show up under **Admin → Updates** with their changelog.
 
 ## Usage
 

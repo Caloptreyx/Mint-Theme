@@ -15,6 +15,7 @@ backend/src/settings.rs    two opaque settings: `theme` (the editor's JSON) and 
 backend/src/routes.rs      GET /nebula/theme (public) and PUT /api/admin/.../theme (settings.update)
 backend/src/banner.rs      per user account banner upload/remove (client API)
 backend/src/cta.rs         announcement call to action buttons: GET (client API) and PUT (admin API)
+backend/src/updates.rs     check_for_updates: GitHub releases of Caloptreyx/Mint-Theme, cached an hour
 frontend/src/index.ts      entry point: hooks, route interceptors, Mantine theme
 frontend/src/lib/theme.ts  the theme model, normalizeTheme() and buildCss()
 frontend/src/lib/apply.ts  applies CSS, caches it, live preview bridge, useNebulaTheme()
@@ -225,6 +226,11 @@ Pushing a `v*` tag runs `.github/workflows/release.yml`: the tests, a check that
 `v` + `version` in `backend/Cargo.toml` (it fails otherwise, so bump that first), the packaging
 script, then it creates the GitHub release `Mint Theme <version>` with generated notes if missing
 and uploads the zip (`gh release upload --clobber`).
+
+Installed panels see a release through `check_for_updates` (`backend/src/updates.rs`) once it is
+published, not a draft or prerelease, and has the zip attached. Its changelog on **Admin → Updates** is the
+`- ` bullet lines of every newer release's notes, so write the notes as bullets (the generated notes are
+replaced by hand today).
 
 ## Gotchas found the hard way
 
