@@ -13,21 +13,66 @@ import {
   type Article,
   BUTTON_STYLES,
   type ButtonStyle,
+  CLICK_EFFECTS,
   derivedColors,
   type Font,
   MAX_ARTICLES,
+  type MonoFont,
   type NebulaTheme,
   PRESETS,
 } from '../../lib/theme.ts';
 import { useExtTranslations } from '../../translations.ts';
+import AuthLayoutFields, { SupportLinksFields } from './AuthLayoutFields.tsx';
+import BoxFields from './BoxFields.tsx';
+import ChoiceCards from './ChoiceCards.tsx';
+import ConsoleLayoutField from './ConsoleLayoutField.tsx';
 import EggImagesField from './EggImagesField.tsx';
+import InterfaceField from './InterfaceField.tsx';
 import LayoutField from './LayoutField.tsx';
+import NavStyleFields from './NavStyleFields.tsx';
+import ServerCardFields from './ServerCardFields.tsx';
+import SidebarLayoutFields from './SidebarLayoutFields.tsx';
+import { BlockMock, ClickMock, GlassMock, InputMock } from './StyleMocks.tsx';
 
-export type Section = 'presets' | 'colours' | 'style' | 'background' | 'home' | 'articles' | 'layout';
+export type Section =
+  | 'presets'
+  | 'colours'
+  | 'style'
+  | 'interface'
+  | 'navigation'
+  | 'components'
+  | 'console'
+  | 'background'
+  | 'home'
+  | 'articles'
+  | 'layout'
+  | 'login';
 
-type ColorKey = {
-  [K in keyof NebulaTheme]: NebulaTheme[K] extends string ? K : never;
-}[keyof NebulaTheme];
+type ColorKey = keyof Pick<
+  NebulaTheme,
+  | 'accent'
+  | 'highlight'
+  | 'background'
+  | 'surface'
+  | 'text'
+  | 'surfaceRaised'
+  | 'surfaceOverlay'
+  | 'textMuted'
+  | 'textFaint'
+  | 'textOnAccent'
+  | 'line'
+  | 'buttonColor'
+  | 'buttonText'
+  | 'success'
+  | 'warning'
+  | 'danger'
+  | 'offline'
+  | 'chartOne'
+  | 'chartTwo'
+  | 'lightBackground'
+  | 'lightSurface'
+  | 'lightText'
+>;
 
 /** Groups shown in the Colours section; the optional ones fall back to a derived value when cleared. */
 type ColorGroup =
@@ -39,7 +84,8 @@ type ColorGroup =
   | 'lines'
   | 'buttons'
   | 'status'
-  | 'charts';
+  | 'charts'
+  | 'light';
 
 const COLOR_GROUPS: { group: ColorGroup; keys: ColorKey[]; optional?: boolean }[] = [
   { group: 'accents', keys: ['accent', 'highlight'] },
@@ -51,6 +97,7 @@ const COLOR_GROUPS: { group: ColorGroup; keys: ColorKey[]; optional?: boolean }[
   { group: 'buttons', keys: ['buttonColor', 'buttonText'], optional: true },
   { group: 'status', keys: ['success', 'warning', 'danger', 'offline'], optional: true },
   { group: 'charts', keys: ['chartOne', 'chartTwo'], optional: true },
+  { group: 'light', keys: ['lightBackground', 'lightSurface', 'lightText'], optional: true },
 ];
 
 interface Props {
@@ -149,10 +196,24 @@ export default function Sections({ section, theme, set }: Props) {
             data={[
               { value: 'exo', label: t('editor.fontExo', {}) },
               { value: 'montserrat', label: t('editor.fontMontserrat', {}) },
+              { value: 'outfit', label: t('editor.fontOutfit', {}) },
+              { value: 'jakarta', label: t('editor.fontJakarta', {}) },
+              { value: 'space', label: t('editor.fontSpace', {}) },
               { value: 'panel', label: t('editor.fontPanel', {}) },
             ]}
             value={theme.font}
             onChange={(value) => value && set({ font: value as Font })}
+          />
+          <Select
+            label={t('editor.monoFont', {})}
+            description={t('editor.monoFontDescription', {})}
+            data={[
+              { value: 'jetbrains', label: t('editor.monoFontJetbrains', {}) },
+              { value: 'fira', label: t('editor.monoFontFira', {}) },
+              { value: 'panel', label: t('editor.fontPanel', {}) },
+            ]}
+            value={theme.monoFont}
+            onChange={(value) => value && set({ monoFont: value as MonoFont })}
           />
           <Select
             label={t('editor.buttonStyle', {})}
@@ -160,12 +221,83 @@ export default function Sections({ section, theme, set }: Props) {
             value={theme.buttonStyle}
             onChange={(value) => value && set({ buttonStyle: value as ButtonStyle })}
           />
-          <Labelled label={t('editor.radius', {})} value={`${theme.radius}px`}>
-            <Slider min={0} max={24} value={theme.radius} onChange={(radius) => set({ radius })} />
-          </Labelled>
-          <Labelled label={t('editor.elementRadius', {})} value={`${theme.elementRadius}px`}>
-            <Slider min={0} max={20} value={theme.elementRadius} onChange={(elementRadius) => set({ elementRadius })} />
-          </Labelled>
+          <Stack gap='md'>
+            <Text size='xs' fw={600} tt='uppercase' c='dimmed' className='tracking-wider'>
+              {t('editor.blocks.title', {})}
+            </Text>
+            <Labelled label={t('editor.radius', {})} value={`${theme.radius}px`}>
+              <Slider min={0} max={24} value={theme.radius} onChange={(radius) => set({ radius })} />
+            </Labelled>
+            <div>
+              <Labelled label={t('editor.blocks.opacity', {})} value={`${theme.blockOpacity}%`}>
+                <Slider
+                  min={0}
+                  max={100}
+                  value={theme.blockOpacity}
+                  onChange={(blockOpacity) => set({ blockOpacity })}
+                />
+              </Labelled>
+              <Text size='xs' c='dimmed' mt={6}>
+                {t('editor.blocks.opacityDescription', {})}
+              </Text>
+            </div>
+            <ChoiceCards
+              label={t('editor.blocks.glass', {})}
+              description={t('editor.blocks.glassHint', {})}
+              value={theme.glass ? 'on' : 'off'}
+              choices={[
+                { value: 'off', label: t('editor.blocks.glassOff', {}), preview: <GlassMock glass={false} /> },
+                { value: 'on', label: t('editor.blocks.glassOn', {}), preview: <GlassMock glass /> },
+              ]}
+              onChange={(value) => set({ glass: value === 'on' })}
+            />
+            <ChoiceCards
+              label={t('editor.blocks.border', {})}
+              value={theme.blockBorder ? 'on' : 'off'}
+              choices={[
+                { value: 'on', label: t('editor.blocks.withBorder', {}), preview: <BlockMock border /> },
+                { value: 'off', label: t('editor.blocks.withoutBorder', {}), preview: <BlockMock border={false} /> },
+              ]}
+              onChange={(value) => set({ blockBorder: value === 'on' })}
+            />
+          </Stack>
+          <Stack gap='md'>
+            <Text size='xs' fw={600} tt='uppercase' c='dimmed' className='tracking-wider'>
+              {t('editor.elements.title', {})}
+            </Text>
+            <Labelled label={t('editor.elementRadius', {})} value={`${theme.elementRadius}px`}>
+              <Slider
+                min={0}
+                max={20}
+                value={theme.elementRadius}
+                onChange={(elementRadius) => set({ elementRadius })}
+              />
+            </Labelled>
+            <ChoiceCards
+              label={t('editor.elements.inputBorder', {})}
+              value={theme.inputBorder ? 'on' : 'off'}
+              choices={[
+                { value: 'on', label: t('editor.elements.withBorder', {}), preview: <InputMock border /> },
+                {
+                  value: 'off',
+                  label: t('editor.elements.withoutBorder', {}),
+                  preview: <InputMock border={false} />,
+                },
+              ]}
+              onChange={(value) => set({ inputBorder: value === 'on' })}
+            />
+            <ChoiceCards
+              label={t('editor.elements.clickEffect', {})}
+              description={t('editor.elements.clickEffectDescription', {})}
+              value={theme.clickEffect}
+              choices={CLICK_EFFECTS.map((effect) => ({
+                value: effect,
+                label: t(`editor.elements.click.${effect}`, {}),
+                preview: <ClickMock effect={effect} label={t('editor.elements.create', {})} />,
+              }))}
+              onChange={(clickEffect) => set({ clickEffect })}
+            />
+          </Stack>
         </Stack>
       );
     case 'background':
@@ -187,6 +319,44 @@ export default function Sections({ section, theme, set }: Props) {
               onChange={(backgroundDim) => set({ backgroundDim })}
             />
           </Labelled>
+        </Stack>
+      );
+    case 'login':
+      return (
+        <Stack gap='xl'>
+          <AuthLayoutFields theme={theme} set={set} />
+          <Stack gap='md'>
+            <Text size='xs' fw={600} tt='uppercase' c='dimmed' className='tracking-wider'>
+              {t('editor.authLayout.appearanceTitle', {})}
+            </Text>
+            <TextInput
+              label={t('editor.login.background', {})}
+              description={t('editor.login.backgroundDescription', {})}
+              placeholder='https://'
+              value={theme.loginBackground}
+              onChange={(e) => set({ loginBackground: e.target.value.trim() })}
+            />
+            <Labelled label={t('editor.login.dim', {})} value={`${theme.loginDim}%`}>
+              <Slider
+                min={0}
+                max={100}
+                disabled={!theme.loginBackground}
+                value={theme.loginDim}
+                onChange={(loginDim) => set({ loginDim })}
+              />
+            </Labelled>
+            <TextInput
+              label={t('editor.login.logo', {})}
+              description={t('editor.login.logoDescription', {})}
+              placeholder='https://'
+              value={theme.loginLogo}
+              onChange={(e) => set({ loginLogo: e.target.value.trim() })}
+            />
+          </Stack>
+          <SupportLinksFields theme={theme} set={set} />
+          <Text size='xs' c='dimmed'>
+            {t('editor.login.preview', {})}
+          </Text>
         </Stack>
       );
     case 'articles':
@@ -249,6 +419,24 @@ export default function Sections({ section, theme, set }: Props) {
       );
     case 'layout':
       return <LayoutField theme={theme} set={set} />;
+    case 'interface':
+      return <InterfaceField theme={theme} set={set} />;
+    case 'navigation':
+      return (
+        <Stack gap='xl'>
+          <SidebarLayoutFields theme={theme} set={set} />
+          <NavStyleFields theme={theme} set={set} />
+        </Stack>
+      );
+    case 'components':
+      return (
+        <Stack gap='xl'>
+          <ServerCardFields theme={theme} set={set} />
+          <BoxFields theme={theme} set={set} />
+        </Stack>
+      );
+    case 'console':
+      return <ConsoleLayoutField theme={theme} set={set} />;
     case 'home':
       return (
         <Stack gap='lg'>

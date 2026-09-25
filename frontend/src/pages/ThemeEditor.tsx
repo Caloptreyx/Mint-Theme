@@ -3,20 +3,26 @@ import {
   faArrowRotateLeft,
   faArrowRotateRight,
   faArrowUpRightFromSquare,
+  faBars,
   faBookOpen,
+  faCubes,
   faDownload,
   faDroplet,
   faFont,
   faHouse,
   faImage,
+  faRightToBracket,
   faRotateRight,
   faSwatchbook,
   faTableColumns,
+  faTerminal,
   faTrashArrowUp,
   faUpload,
+  faWandMagicSparkles,
   type IconDefinition,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useComputedColorScheme } from '@mantine/core';
 import { useEffect, useMemo, useReducer, useRef, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { httpErrorToHuman } from '@/api/axios.ts';
@@ -32,8 +38,9 @@ import Title from '@/elements/Title.tsx';
 import Tooltip from '@/elements/Tooltip.tsx';
 import { useToast } from '@/providers/ToastProvider.tsx';
 import updateTheme from '../api/updateTheme.ts';
+import { LOGIN_PREVIEW_PATH } from '../elements/auth/AuthScope.tsx';
 import Sections, { type Section } from '../elements/editor/Sections.tsx';
-import { loadTheme, READY_MSG, rememberTheme, savedTheme, sendPreview } from '../lib/apply.ts';
+import { loadTheme, type PreviewScheme, READY_MSG, rememberTheme, savedTheme, sendPreview } from '../lib/apply.ts';
 import { DEFAULT_THEME, type NebulaTheme, normalizeTheme } from '../lib/theme.ts';
 import { useExtTranslations } from '../translations.ts';
 
@@ -41,10 +48,15 @@ const SECTIONS: { id: Section; icon: IconDefinition }[] = [
   { id: 'presets', icon: faSwatchbook },
   { id: 'colours', icon: faDroplet },
   { id: 'style', icon: faFont },
+  { id: 'interface', icon: faWandMagicSparkles },
+  { id: 'navigation', icon: faBars },
+  { id: 'components', icon: faCubes },
+  { id: 'console', icon: faTerminal },
   { id: 'background', icon: faImage },
   { id: 'home', icon: faHouse },
   { id: 'articles', icon: faBookOpen },
   { id: 'layout', icon: faTableColumns },
+  { id: 'login', icon: faRightToBracket },
 ];
 
 type Device = 'desktop' | 'tablet' | 'mobile';
@@ -101,6 +113,9 @@ export default function ThemeEditor() {
   const [saved, setSaved] = useState<NebulaTheme>(savedTheme);
   const [section, setSection] = useState<Section>('presets');
   const [device, setDevice] = useState<Device>('desktop');
+  // the preview starts in the admin's own scheme; the toggle only ever touches the frame
+  const adminScheme = useComputedColorScheme('dark', { getInitialValueInEffect: false });
+  const [scheme, setScheme] = useState<PreviewScheme>(adminScheme);
   const [page, setPage] = useState('/');
   const [serverId, setServerId] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
@@ -145,18 +160,20 @@ export default function ThemeEditor() {
 
   useEffect(() => {
     shown.current = normalizeTheme(draft, shown.current);
-    const id = setTimeout(() => sendPreview(frame.current, shown.current), 60);
+    const id = setTimeout(() => sendPreview(frame.current, shown.current, scheme), 60);
     return () => clearTimeout(id);
-  }, [draft]);
+  }, [draft, scheme]);
 
   useEffect(() => {
     const onMessage = (event: MessageEvent) => {
       if (event.origin !== window.location.origin || event.source !== frame.current?.contentWindow) return;
-      if ((event.data as { type?: string } | null)?.type === READY_MSG) sendPreview(frame.current, shown.current);
+      if ((event.data as { type?: string } | null)?.type === READY_MSG) {
+        sendPreview(frame.current, shown.current, scheme);
+      }
     };
     window.addEventListener('message', onMessage);
     return () => window.removeEventListener('message', onMessage);
-  }, []);
+  }, [scheme]);
 
   const pages = useMemo(
     () => [
@@ -169,6 +186,7 @@ export default function ThemeEditor() {
       { value: '/', label: t('editor.pages.servers', {}) },
       { value: '/account', label: t('editor.pages.account', {}) },
       { value: '/admin', label: t('editor.pages.admin', {}) },
+      { value: LOGIN_PREVIEW_PATH, label: t('editor.pages.login', {}) },
     ],
     [serverId, t],
   );
@@ -192,7 +210,7 @@ export default function ThemeEditor() {
     link.href = URL.createObjectURL(
       new Blob([JSON.stringify(normalizeTheme(draft, saved), null, 2)], { type: 'application/json' }),
     );
-    link.download = 'nebula-theme.json';
+    link.download = 'mint-theme.json';
     link.click();
     URL.revokeObjectURL(link.href);
   };
@@ -230,7 +248,12 @@ export default function ThemeEditor() {
               variant={section === id ? 'light' : 'subtle'}
               color={section === id ? 'blue' : 'gray'}
               aria-label={t(`editor.section.${id}`, {})}
-              onClick={() => setSection(id)}
+              onClick={() => {
+                setSection(id);
+                // the real auth pages redirect signed in admins, so the login section jumps to its preview route
+                if (id === 'login') setPage(LOGIN_PREVIEW_PATH);
+                if (id === 'console' && serverId) setPage(`/server/${serverId}/console`);
+              }}
             >
               <FontAwesomeIcon icon={icon} />
             </ActionIcon>
@@ -315,6 +338,14 @@ export default function ThemeEditor() {
             }))}
             value={device}
             onChange={(value) => setDevice(value as Device)}
+          />
+          <SegmentedControl
+            data={(['dark', 'light'] as PreviewScheme[]).map((s) => ({
+              value: s,
+              label: t(`editor.scheme.${s}`, {}),
+            }))}
+            value={scheme}
+            onChange={(value) => setScheme(value as PreviewScheme)}
           />
           <Select data={pages} value={page} onChange={(value) => value && setPage(value)} w={200} />
           {iconButton(t('editor.refresh', {}), faRotateRight, () => frame.current?.contentWindow?.location.reload())}

@@ -1,13 +1,14 @@
 import { faList, faTableCellsLarge } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Pagination } from '@mantine/core';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import type { z } from 'zod';
 import getServers from '@/api/server/getServers.ts';
 import { AdminCan } from '@/elements/Can.tsx';
 import Card from '@/elements/Card.tsx';
 import Group from '@/elements/Group.tsx';
+import Checkbox from '@/elements/input/Checkbox.tsx';
 import Select from '@/elements/input/Select.tsx';
 import Switch from '@/elements/input/Switch.tsx';
 import TextInput from '@/elements/input/TextInput.tsx';
@@ -23,8 +24,8 @@ import { useBulkPowerActions } from '@/plugins/server/useBulkPowerActions.ts';
 import { useServerListShowOthers } from '@/plugins/server/useServerListShowOthers.ts';
 import { useStartOnGroupedServers } from '@/plugins/server/useStartOnGroupedServers.ts';
 import { useTranslations } from '@/providers/TranslationProvider.tsx';
-import ServerCard from '../elements/dashboard/ServerCard.tsx';
-import ServerRow, { ROW_GRID, type RowStatus } from '../elements/dashboard/ServerRow.tsx';
+import ServerCard, { GRID_CLASS } from '../elements/dashboard/ServerCard.tsx';
+import ServerRow, { COLUMN_CLASS, COLUMNS, ROW_GRID, type RowStatus } from '../elements/dashboard/ServerRow.tsx';
 import { useNebulaTheme } from '../lib/apply.ts';
 import { useExtTranslations } from '../translations.ts';
 
@@ -32,7 +33,6 @@ type View = 'list' | 'grid';
 type Filter = 'all' | RowStatus;
 const VIEW_KEY = 'nebula:server-view';
 const FILTERS: Filter[] = ['all', 'running', 'offline', 'suspended'];
-const COLUMNS = ['id', 'game', 'name', 'status', 'location', 'cpu', 'ram', 'uptime'] as const;
 
 function storedView(): View {
   try {
@@ -92,14 +92,66 @@ export default function ServerList() {
   const visible = rows.filter((server) => matches(server.uuid));
   const pages = Math.ceil((servers?.total ?? 0) / (servers?.perPage || 1));
 
+  // Only what is on screen can be selected. A server hidden by the filter, the search or a page change is
+  // dropped for good (it does not come back ticked), and the bar never counts it, even for the one render
+  // before the effect prunes the state.
+  const visibleIds = visible.map((server) => server.uuid);
+  const visibleKey = visibleIds.join(',');
+  const chosen = selected.filter((uuid) => visibleIds.includes(uuid));
+  const allChosen = visible.length > 0 && chosen.length === visible.length;
+
+  useEffect(() => {
+    const keep = new Set(visibleKey.split(','));
+    setSelected((prev) => (prev.every((uuid) => keep.has(uuid)) ? prev : prev.filter((uuid) => keep.has(uuid))));
+  }, [visibleKey]);
+
+  const onSelect = (uuid: string) => (checked: boolean) =>
+    setSelected((prev) =>
+      checked ? (prev.includes(uuid) ? prev : [...prev, uuid]) : prev.filter((other) => other !== uuid),
+    );
+
   const onBulkAction = async (action: z.infer<typeof serverPowerAction>) => {
-    await handleBulkPowerAction(selected, action);
+    await handleBulkPowerAction(chosen, action);
     setSelected([]);
   };
 
+  const cards = theme.tableStyle === 'cards';
+  // the header's transparent border lines its columns up with the rows' when each row is a bordered card
+  const listHeader = (
+    <div
+      className={`${ROW_GRID} ${cards ? 'py-2 border border-transparent' : 'py-3 border-b border-(--mantine-color-default-border)'} text-xs font-semibold tracking-wider uppercase text-(--mantine-color-dimmed)`}
+    >
+      <div>
+        <Checkbox
+          checked={allChosen}
+          indeterminate={chosen.length > 0 && !allChosen}
+          onChange={() => setSelected(allChosen ? [] : visibleIds)}
+          aria-label={tExt('servers.selectAll', {})}
+        />
+      </div>
+      {COLUMNS.map((column) => (
+        <span key={column} className={`${COLUMN_CLASS[column]} ${column === 'game' ? 'max-md:invisible' : ''}`}>
+          {tExt(`servers.column.${column}`, {})}
+        </span>
+      ))}
+    </div>
+  );
+  const listRows = visible.map((server) => (
+    <ServerRow
+      key={server.uuid}
+      server={server}
+      art={theme.eggs[server.egg.uuid]?.banner || theme.homeBanner}
+      icon={theme.eggs[server.egg.uuid]?.icon}
+      card={cards}
+      selected={chosen.includes(server.uuid)}
+      onSelect={onSelect(server.uuid)}
+      onStatus={onStatus}
+    />
+  ));
+
   return (
     <>
-      <Group justify='space-between' align='flex-start' mb='md' wrap='nowrap'>
+      <Group justify='space-between' align='flex-start' mb='md' wrap='nowrap' className='max-sm:flex-wrap!'>
         <div className='min-w-0'>
           <Title order={2}>{tExt('servers.title', {})}</Title>
           <Text size='sm' c='dimmed'>
@@ -158,40 +210,30 @@ export default function ServerList() {
       ) : rows.length === 0 ? (
         <Text c='dimmed'>{t('pages.account.home.noServers', {})}</Text>
       ) : view === 'grid' ? (
-        <div className='gap-4 grid md:grid-cols-2'>
+        <div className={GRID_CLASS[theme.serverCardStyle]}>
           {visible.map((server) => (
             <ServerCard
               key={server.uuid}
               server={server}
               art={theme.eggs[server.egg.uuid]?.banner || theme.homeBanner}
+              variant={theme.serverCardStyle}
               icon={theme.eggs[server.egg.uuid]?.icon}
+              selected={chosen.includes(server.uuid)}
+              onSelect={onSelect(server.uuid)}
               onStatus={onStatus}
             />
           ))}
         </div>
+      ) : cards ? (
+        // the 'cards' table style: every row is a card of its own under a plain header, like core's tables
+        <div className='flex flex-col gap-1.5'>
+          {listHeader}
+          {listRows}
+        </div>
       ) : (
         <Card p={0} className='overflow-hidden'>
-          <div
-            className={`${ROW_GRID} hidden! lg:grid! py-3 border-b border-(--mantine-color-default-border) text-xs font-semibold tracking-wider uppercase text-(--mantine-color-dimmed)`}
-          >
-            <span />
-            {COLUMNS.map((column) => (
-              <span key={column}>{tExt(`servers.column.${column}`, {})}</span>
-            ))}
-          </div>
-          {visible.map((server) => (
-            <ServerRow
-              key={server.uuid}
-              server={server}
-              art={theme.eggs[server.egg.uuid]?.banner || theme.homeBanner}
-              icon={theme.eggs[server.egg.uuid]?.icon}
-              selected={selected.includes(server.uuid)}
-              onSelect={(checked) =>
-                setSelected((prev) => (checked ? [...prev, server.uuid] : prev.filter((uuid) => uuid !== server.uuid)))
-              }
-              onStatus={onStatus}
-            />
-          ))}
+          {listHeader}
+          {listRows}
         </Card>
       )}
 
@@ -205,7 +247,7 @@ export default function ServerList() {
       )}
 
       <BulkActionBar
-        selectedCount={selected.length}
+        selectedCount={chosen.length}
         onClear={() => setSelected([])}
         onAction={onBulkAction}
         loading={bulkActionLoading}
