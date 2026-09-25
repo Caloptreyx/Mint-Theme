@@ -1,0 +1,51 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Test normalizeTheme
+        run: node --test "tests/*.test.ts"
+
+      - name: Check the tag matches backend/Cargo.toml
+        id: version
+        run: |
+          version=$(python3 -c 'import tomllib; print(tomllib.load(open("backend/Cargo.toml", "rb"))["package"]["version"])')
+          tag="${GITHUB_REF_NAME}"
+          if [ "${tag}" != "v${version}" ]; then
+            echo "::error::tag ${tag} does not match version ${version} in backend/Cargo.toml (expected v${version})"
+            exit 1
+          fi
+          echo "version=${version}" >> "$GITHUB_OUTPUT"
+
+      - name: Package
+        run: python3 scripts/package.py
+
+      - name: Publish
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ github.ref_name }}
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          if ! gh release view "${TAG}" > /dev/null 2>&1; then
+            gh release create "${TAG}" --verify-tag --title "Mint Theme ${VERSION}" --generate-notes
+          fi
+          gh release upload "${TAG}" dist/dev_s4way_nebula.c7s.zip --clobber
