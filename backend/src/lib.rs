@@ -5,6 +5,7 @@ use shared::{
 use std::sync::Arc;
 
 mod banner;
+mod cta;
 mod routes;
 pub mod settings;
 
@@ -26,13 +27,23 @@ impl Extension for ExtensionStruct {
             // public on purpose: the login page is themed too
             .add_global_router(|routes| routes.nest("/nebula", routes::public(&state)))
             .add_admin_api_router(|routes| {
-                routes.nest("/extensions/dev.s4way.nebula", routes::admin(&state))
+                routes
+                    .nest("/extensions/dev.s4way.nebula", routes::admin(&state))
+                    .nest(
+                        "/extensions/dev.s4way.nebula/announcement-ctas",
+                        cta::admin(&state),
+                    )
             })
             .add_client_api_router(|routes| {
-                routes.nest(
-                    "/extensions/dev.s4way.nebula/banner",
-                    banner::router(&state),
-                )
+                routes
+                    .nest(
+                        "/extensions/dev.s4way.nebula/banner",
+                        banner::router(&state),
+                    )
+                    .nest(
+                        "/extensions/dev.s4way.nebula/announcement-ctas",
+                        cta::client(&state),
+                    )
             })
     }
 
