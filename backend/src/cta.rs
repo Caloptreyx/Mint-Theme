@@ -236,7 +236,7 @@ mod put {
 
         activity_logger
             .log(
-                "nebula:announcement-cta.update",
+                "mint:announcement-cta.update",
                 serde_json::json!({
                     "announcement": data.announcement,
                     "cta": &cta,

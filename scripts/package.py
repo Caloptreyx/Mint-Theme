@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Build the release zip, dist/dev_s4way_nebula.c7s.zip, from the repository.
+"""Build the release zip, dist/dev_caloptreyx_mint.c7s.zip, from the repository.
 
 Directory entries come first, then files, both in sorted walk order. Check the result with
-`panel-rs extensions inspect dist/dev_s4way_nebula.c7s.zip`.
+`panel-rs extensions inspect dist/dev_caloptreyx_mint.c7s.zip`.
 """
 
 import os
@@ -10,7 +10,7 @@ import sys
 import zipfile
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-OUT = os.path.join(ROOT, "dist", "dev_s4way_nebula.c7s.zip")
+OUT = os.path.join(ROOT, "dist", "dev_caloptreyx_mint.c7s.zip")
 
 # skipped wherever they appear
 SKIP_ANYWHERE = {".git", "node_modules", "target", "dist", "__pycache__"}

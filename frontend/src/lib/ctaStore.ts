@@ -2,7 +2,7 @@ import { useEffect, useSyncExternalStore } from 'react';
 import { axiosInstance } from '@/api/axios.ts';
 import { type AnnouncementCta, type CtaMap, normalizeCtas } from './cta.ts';
 
-const CTA_API = '/api/client/extensions/dev.s4way.nebula/announcement-ctas';
+const CTA_API = '/api/client/extensions/dev.caloptreyx.mint/announcement-ctas';
 const CACHE_KEY = 'nebula:announcement-ctas';
 
 function readCache(): CtaMap {

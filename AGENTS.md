@@ -1,9 +1,12 @@
 # Working on this theme
 
-Mint (formerly Nebula) is a Calagopus Panel extension (`dev.s4way.nebula`). It needs panel **1.2.0 or newer**.
-The ID, the `nebula` names in code (`NebulaTheme`, `--nebula-*`, `nebula:` storage keys, `/nebula/theme`)
-and the zip name keep the old name on purpose: changing them would orphan saved themes and banners.
-Pages people see use the new name: the editor is `/admin/mint`, its login preview `/mint/login-preview`.
+Mint is a Calagopus Panel extension (`dev.caloptreyx.mint`). It needs panel **1.2.0 or newer**.
+Up to 1.2.1 it was `dev.s4way.nebula`; the migration in `migrations/` copies that ID's saved theme and
+announcement buttons to the new one. Names nobody sees keep the old name on purpose: `NebulaTheme`,
+`--nebula-*`, `nebula:` browser storage keys, the `nebula::account_banner` user setting and the
+`publicdata/nebula/banners` path (renaming the last two would lose every user's banner).
+Everything visible uses the new name: the editor is `/admin/mint`, its login preview `/mint/login-preview`,
+the public theme route `/mint/theme`, activity events `mint:*`.
 An extension is a Rust crate plus a TypeScript frontend that the panel compiles into itself.
 
 ## Layout
@@ -12,7 +15,7 @@ An extension is a Rust crate plus a TypeScript frontend that the panel compiles 
 Metadata.toml              package name, display name, panel version range
 backend/src/lib.rs         Extension impl: mounts the routers, hands over the settings deserializer
 backend/src/settings.rs    two opaque settings: `theme` (the editor's JSON) and `announcement_ctas`
-backend/src/routes.rs      GET /nebula/theme (public) and PUT /api/admin/.../theme (settings.update)
+backend/src/routes.rs      GET /mint/theme (public) and PUT /api/admin/.../theme (settings.update)
 backend/src/banner.rs      per user account banner upload/remove (client API)
 backend/src/cta.rs         announcement call to action buttons: GET (client API) and PUT (admin API)
 backend/src/updates.rs     check_for_updates: GitHub releases of Caloptreyx/Mint-Theme, cached an hour
@@ -108,7 +111,7 @@ and break silently when core moves a file. Everything here is runtime:
   `ChartBlock`/`StreamChart`/`useStreamChart` and feeds them the same way; core's `statBlocks` slot follows
   the last chart run, or the extension cards when no chart is placed. The default is the page from before.
 - `pages.dashboard.account.container` hides the account title and prepends `ProfileCard`. The banner is
-  uploaded to `PUT/DELETE /api/client/extensions/dev.s4way.nebula/banner` (`backend/src/banner.rs`, the
+  uploaded to `PUT/DELETE /api/client/extensions/dev.caloptreyx.mint/banner` (`backend/src/banner.rs`, the
   avatar route's checks, re-encoded to a 1500x500 JPEG at `publicdata/nebula/banners/<user>.jpg`, the
   storage prefix core serves for extensions). Its URL sits in core's synced user settings
   (`nebula::account_banner`) and is still checked with `SAFE_URL` before use. The avatar opens core's
@@ -136,8 +139,8 @@ and break silently when core moves a file. Everything here is runtime:
   above the form come from `AuthWrapper.addPropsInterceptor(withFormLinks)`, first in the page's children.
 - Announcement call to action buttons. Core's `announcements` table has no room for them, so
   `backend/src/cta.rs` keeps a map `announcement uuid -> { title, url }` in the `announcement_ctas`
-  setting: `GET /api/client/extensions/dev.s4way.nebula/announcement-ctas` (any signed in user, since
-  announcements only show in the signed in layout) and `PUT /api/admin/extensions/dev.s4way.nebula/announcement-ctas`
+  setting: `GET /api/client/extensions/dev.caloptreyx.mint/announcement-ctas` (any signed in user, since
+  announcements only show in the signed in layout) and `PUT /api/admin/extensions/dev.caloptreyx.mint/announcement-ctas`
   (`announcements.update`, same checks as `SAFE_URL`, prunes buttons of deleted announcements). The admin
   side is a tab added with `pages.admin.announcements.view.subNavigation.addItemInterceptor`
   (`elements/announcements/AnnouncementCtaTab.tsx`). Users see announcements through core's
@@ -202,11 +205,11 @@ Everything else needs the panel: stage the extension into a panel checkout and r
 toolchain; there is no standalone build.
 
 ```
-cp -r frontend/.  <panel>/frontend/extensions/dev_s4way_nebula/
-cp -r backend/.   <panel>/backend-extensions/dev_s4way_nebula/
-cp Metadata.toml  <panel>/backend-extensions/dev_s4way_nebula/
-cd <panel>/frontend && pnpm typecheck && pnpm exec biome check --write extensions/dev_s4way_nebula && pnpm build
-cd <panel> && SQLX_OFFLINE=true cargo test -p dev_s4way_nebula
+cp -r frontend/.  <panel>/frontend/extensions/dev_caloptreyx_mint/
+cp -r backend/.   <panel>/backend-extensions/dev_caloptreyx_mint/
+cp Metadata.toml  <panel>/backend-extensions/dev_caloptreyx_mint/
+cd <panel>/frontend && pnpm typecheck && pnpm exec biome check --write extensions/dev_caloptreyx_mint && pnpm build
+cd <panel> && SQLX_OFFLINE=true cargo test -p dev_caloptreyx_mint
 ```
 
 Sync any biome fixes back, then clean the panel checkout (remove the staged folders,
@@ -217,7 +220,7 @@ To run it: the backend extension must be registered with `panel-rs extensions re
 restart. The frontend is embedded into the binary at compile time, so a `pnpm build` alone changes
 nothing.
 
-Package for release with `python3 scripts/package.py`. It writes `dist/dev_s4way_nebula.c7s.zip`:
+Package for release with `python3 scripts/package.py`. It writes `dist/dev_caloptreyx_mint.c7s.zip`:
 directory entries first, then files, in sorted walk order, skipping `.git`, `node_modules`, `target`
 and `dist` anywhere and `docs`, `tests`, `scripts`, `.github`, `README.md`, `.gitignore` at the root
 (`AGENTS.md`, `LICENSE` and `migrations/` ship). Check it with `panel-rs extensions inspect`.

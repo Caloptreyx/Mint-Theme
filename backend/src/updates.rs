@@ -5,8 +5,8 @@ use shared::{State, extensions::ExtensionUpdateInfo};
 
 const RELEASES_URL: &str = "https://api.github.com/repos/Caloptreyx/Mint-Theme/releases?per_page=30";
 /// The asset every release must carry; a tag whose zip is not uploaded yet is not offered.
-const ASSET: &str = "dev_s4way_nebula.c7s.zip";
-const CACHE_KEY: &str = "dev.s4way.nebula::releases";
+const ASSET: &str = "dev_caloptreyx_mint.c7s.zip";
+const CACHE_KEY: &str = "dev.caloptreyx.mint::releases";
 /// GitHub allows 60 unauthenticated requests an hour per IP; the panel only asks every 12 hours.
 const CACHE_TTL_SECONDS: u64 = 60 * 60;
 const MAX_CHANGES: usize = 60;

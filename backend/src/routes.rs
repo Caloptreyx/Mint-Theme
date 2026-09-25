@@ -89,7 +89,7 @@ mod put {
         settings.save().await?;
 
         activity_logger
-            .log("nebula:theme.update", serde_json::json!({}))
+            .log("mint:theme.update", serde_json::json!({}))
             .await;
 
         ApiResponse::new_serialized(Response {}).ok()

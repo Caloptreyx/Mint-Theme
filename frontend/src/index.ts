@@ -33,7 +33,7 @@ import { getExtTranslations } from './translations.ts';
 // the preview route is the only place that loads it outside core's own lazy auth router
 const Login = lazy(() => import('@/pages/auth/Login.tsx'));
 
-class DevS4wayNebulaExtension extends Extension {
+class DevCaloptreyxMintExtension extends Extension {
   public cardIcon = createElement(FontAwesomeIcon, { icon: faPalette });
   public cardConfigurationPage: React.FC | null = ThemeEditor;
   public cardComponent: React.FC | null = null;
@@ -157,4 +157,4 @@ class DevS4wayNebulaExtension extends Extension {
   }
 }
 
-export default new DevS4wayNebulaExtension();
+export default new DevCaloptreyxMintExtension();

@@ -16,7 +16,7 @@ pub struct ExtensionStruct;
 #[async_trait::async_trait]
 impl Extension for ExtensionStruct {
     async fn initialize(&mut self, _state: State) {
-        tracing::info!("nebula theme loaded");
+        tracing::info!("mint theme loaded");
     }
 
     async fn initialize_router(
@@ -26,23 +26,23 @@ impl Extension for ExtensionStruct {
     ) -> ExtensionRouteBuilder {
         builder
             // public on purpose: the login page is themed too
-            .add_global_router(|routes| routes.nest("/nebula", routes::public(&state)))
+            .add_global_router(|routes| routes.nest("/mint", routes::public(&state)))
             .add_admin_api_router(|routes| {
                 routes
-                    .nest("/extensions/dev.s4way.nebula", routes::admin(&state))
+                    .nest("/extensions/dev.caloptreyx.mint", routes::admin(&state))
                     .nest(
-                        "/extensions/dev.s4way.nebula/announcement-ctas",
+                        "/extensions/dev.caloptreyx.mint/announcement-ctas",
                         cta::admin(&state),
                     )
             })
             .add_client_api_router(|routes| {
                 routes
                     .nest(
-                        "/extensions/dev.s4way.nebula/banner",
+                        "/extensions/dev.caloptreyx.mint/banner",
                         banner::router(&state),
                     )
                     .nest(
-                        "/extensions/dev.s4way.nebula/announcement-ctas",
+                        "/extensions/dev.caloptreyx.mint/announcement-ctas",
                         cta::client(&state),
                     )
             })

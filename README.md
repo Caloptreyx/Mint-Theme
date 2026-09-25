@@ -70,12 +70,17 @@ This demo resets at every hour, and saving is turned off there.
 > [!NOTE]
 > Requires Calagopus Panel **1.2.0** or newer.
 
-1. Download `dev_s4way_nebula.c7s.zip` from the [latest release](https://github.com/Caloptreyx/Mint-Theme/releases/latest).
+1. Download `dev_caloptreyx_mint.c7s.zip` from the [latest release](https://github.com/Caloptreyx/Mint-Theme/releases/latest).
 2. In the panel, open **Admin → Extensions** and install the file.
 3. Restart the panel.
 
-The extension is listed as **Mint Theme** (`dev.s4way.nebula`). The ID keeps the project's original name
-so existing installs update in place. New releases show up under **Admin → Updates** with their changelog.
+The extension is listed as **Mint Theme** (`dev.caloptreyx.mint`). New releases show up under
+**Admin → Updates** with their changelog.
+
+> [!IMPORTANT]
+> **Upgrading from 1.2.1 or older?** Those versions used the ID `dev.s4way.nebula`, so the panel sees 2.0
+> as a different extension. Under **Admin → Extensions**, remove the old Mint Theme and install the new zip,
+> then rebuild once. Your saved theme and announcement buttons carry over.
 
 ## Usage
 

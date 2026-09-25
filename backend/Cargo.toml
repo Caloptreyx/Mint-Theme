@@ -1,8 +1,8 @@
 [package]
-name = "dev_s4way_nebula"
+name = "dev_caloptreyx_mint"
 description = "A dark theme for Calagopus Panel with a live, built-in theme editor."
 authors = ["s4way"]
-version = "1.2.1"
+version = "2.0.0"
 edition = { workspace = true }
 
 [dependencies]

@@ -61,7 +61,7 @@ export function applyCachedTheme() {
 
 export async function loadTheme(): Promise<NebulaTheme | null> {
   try {
-    const res = await fetch('/nebula/theme', { credentials: 'same-origin' });
+    const res = await fetch('/mint/theme', { credentials: 'same-origin' });
     if (!res.ok) return null;
     const data = (await res.json()) as { theme?: unknown };
     const theme = normalizeTheme(data.theme);

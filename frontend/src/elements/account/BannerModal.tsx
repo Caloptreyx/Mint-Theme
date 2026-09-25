@@ -10,7 +10,7 @@ import { useToast } from '@/providers/ToastProvider.tsx';
 import { useTranslations } from '@/providers/TranslationProvider.tsx';
 import { useExtTranslations } from '../../translations.ts';
 
-export const BANNER_API = '/api/client/extensions/dev.s4way.nebula/banner';
+export const BANNER_API = '/api/client/extensions/dev.caloptreyx.mint/banner';
 
 // the backend crops to the same size, doing it here keeps the upload small and lets the user pick the spot
 const WIDTH = 1500;
