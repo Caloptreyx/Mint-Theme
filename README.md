@@ -60,6 +60,11 @@ A dark theme for [Calagopus Panel](https://calagopus.com) with a live, built-in 
 | --- | --- |
 | ![Console](docs/console.png) | ![Theme editor](docs/theme-editor.png) |
 
+## Demo
+
+A demo is available here: https://mintdemo.caloptreyx.com.
+This demo resets at every hour, and saving is turned off there.
+
 ## Installation
 
 > [!NOTE]
