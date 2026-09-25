@@ -35,7 +35,7 @@ export function Pill({
       tt='none'
       size='lg'
       radius='sm'
-      className='tabular-nums bg-(--nebula-card)/70! backdrop-blur-sm'
+      className='max-w-full tabular-nums bg-(--nebula-card)/70! backdrop-blur-sm'
       leftSection={icon ? <FontAwesomeIcon icon={icon} title={label} className='text-(--nebula-highlight)' /> : left}
       rightSection={right}
     >
@@ -60,11 +60,13 @@ export default function HeroCard({ banner, icon, children }: { banner: string; i
   return (
     <Card p={0}>
       <div
-        className='flex flex-wrap items-start justify-between gap-4 p-6 min-h-44 bg-cover bg-center'
+        className='flex flex-wrap items-start justify-between gap-4 p-4 sm:p-6 min-h-44 bg-cover bg-center'
         style={{ backgroundImage }}
       >
         <div className='min-w-0'>
-          <Title order={1}>{server.name}</Title>
+          <Title order={1} className='wrap-break-word'>
+            {server.name}
+          </Title>
           <Group gap='xs' mt='sm'>
             <ServerState />
             <Pill
@@ -78,15 +80,11 @@ export default function HeroCard({ banner, icon, children }: { banner: string; i
             >
               {server.egg.name}
             </Pill>
-            <CopyOnClick content={address} enabled={!!server.allocation}>
+            <CopyOnClick content={address} enabled={!!server.allocation} className='max-w-full'>
               <Pill right={server.allocation && <FontAwesomeIcon icon={faCopy} />}>{address}</Pill>
             </CopyOnClick>
           </Group>
-          {children && (
-            <div className='grid grid-cols-2 gap-2 mt-2 max-sm:*:w-full! max-sm:*:justify-start! sm:flex sm:flex-wrap'>
-              {children}
-            </div>
-          )}
+          {children && <div className='flex flex-wrap gap-2 mt-2'>{children}</div>}
         </div>
 
         <PowerButtons />

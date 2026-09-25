@@ -27,7 +27,7 @@ export default function PowerButtons() {
   const stopping = state === 'stopping';
 
   return (
-    <Group gap='xs'>
+    <Group gap='xs' className='max-sm:w-full max-sm:*:grow'>
       <ServerCan action='control.start'>
         <Button
           color='green'

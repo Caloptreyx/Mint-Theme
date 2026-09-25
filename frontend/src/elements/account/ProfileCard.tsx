@@ -57,7 +57,7 @@ export default function ProfileCard() {
 
   return (
     <Card p={0} className='nebula-profile overflow-hidden mb-4'>
-      <div className='relative h-40 bg-cover bg-center' style={{ backgroundImage }}>
+      <div className='relative h-32 sm:h-40 bg-cover bg-center' style={{ backgroundImage }}>
         <Group gap='xs' className='absolute top-3 right-3'>
           <Button
             size='xs'
@@ -75,7 +75,7 @@ export default function ProfileCard() {
         </Group>
       </div>
 
-      <div className='flex items-start gap-4 px-6 pb-5'>
+      <div className='flex items-start gap-3 sm:gap-4 px-4 sm:px-6 pb-5'>
         <UnstyledButton
           className='group relative -mt-11 shrink-0 rounded-full'
           aria-label={tExt('account.changeAvatar', {})}

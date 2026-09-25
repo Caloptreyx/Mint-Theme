@@ -33,10 +33,11 @@ const NONE = '--';
 function Row({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div className='flex items-center justify-between gap-4 py-2.5 border-b border-(--mantine-color-default-border) last:border-0'>
-      <Text size='sm' c='dimmed'>
+      <Text size='sm' c='dimmed' className='shrink-0'>
         {label}
       </Text>
-      <div className='min-w-0 text-right text-sm'>{children}</div>
+      {/* a long host name breaks onto a second line on phones instead of pushing the card wider */}
+      <div className='min-w-0 text-right text-sm wrap-anywhere'>{children}</div>
     </div>
   );
 }
