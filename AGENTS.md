@@ -217,8 +217,9 @@ and break silently when core moves a file. Everything here is runtime:
   top edge, the logo, the form in a `Card`, the copyright). `AuthWrapper.addRenderInterceptor` wraps it in
   `AuthLayout` (`elements/auth/AuthLayout.tsx`), which returns it untouched for the defaults and otherwise
   puts it in a column: `[&>div]:h-full!` sizes core's scroller to that column so a top bar fits above it,
-  the form's `Card` is flattened by class, and the banner (`loginBackground`, else `backgroundImage`, else
-  an accent gradient) sits beside it from `lg` up. With `authLogoPosition: 'header'` the top bar renders
+  the form's `Card` is flattened by class, and the banner (`loginBackground`, else `backgroundImage`, each
+  under its own dim via `dimmedImage()`, else an accent gradient) sits beside it from `lg` up; the banner
+  layouts cover the page, so there the dim only reaches the image through the banner. With `authLogoPosition: 'header'` the top bar renders
   its own `AppIcon` inside the `HeaderLogo` context and `AuthLogo` hides core's copy. Support links placed
   above the form come from `AuthWrapper.addPropsInterceptor(withFormLinks)`, first in the page's children.
 - Announcement call to action buttons. Core's `announcements` table has no room for them, so

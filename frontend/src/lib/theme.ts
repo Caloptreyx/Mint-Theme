@@ -880,6 +880,15 @@ function layoutCss(t: NebulaTheme): string[] {
   return css;
 }
 
+/**
+ * A background image under a veil of the page colour of whichever scheme is showing, `dim` percent opaque.
+ * `image` must have passed SAFE_URL in normalizeTheme, so it cannot close the url("...").
+ */
+export function dimmedImage(image: string, dim: number): string {
+  const veil = `color-mix(in srgb,var(--mantine-color-body) ${dim}%,transparent)`;
+  return `linear-gradient(${veil},${veil}),url("${image}")`;
+}
+
 export function buildCss(t: NebulaTheme): string {
   const blue = accentShades(t.accent);
   const dark = surfaceShades(t);
@@ -1090,16 +1099,11 @@ export function buildCss(t: NebulaTheme): string {
   }
 
   // painted in both schemes; the dim is the page colour of whichever one is showing
-  if (t.backgroundImage) {
-    const dim = `color-mix(in srgb,var(--mantine-color-body) ${t.backgroundDim}%,transparent)`;
-    css.push(`html:root{background-image:linear-gradient(${dim},${dim}),url("${t.backgroundImage}");}`);
-  }
+  if (t.backgroundImage) css.push(`html:root{background-image:${dimmedImage(t.backgroundImage, t.backgroundDim)};}`);
 
-  // `nebula-auth` sits on html only while an auth page is mounted (elements/auth/AuthScope.tsx);
-  // the dim follows the page colour of whichever scheme is showing
+  // `nebula-auth` sits on html only while an auth page is mounted (elements/auth/AuthScope.tsx)
   if (t.loginBackground) {
-    const dim = `color-mix(in srgb,var(--mantine-color-body) ${t.loginDim}%,transparent)`;
-    css.push(`html:root.nebula-auth{background-image:linear-gradient(${dim},${dim}),url("${t.loginBackground}");}`);
+    css.push(`html:root.nebula-auth{background-image:${dimmedImage(t.loginBackground, t.loginDim)};}`);
   }
 
   // blocks are Mantine cards (the sidebar is one) and bordered papers; overlays (modals, menus, popovers,

@@ -6,7 +6,7 @@ import AppIcon from '@/elements/AppIcon.tsx';
 import Card from '@/elements/Card.tsx';
 import type { Props as AuthWrapperProps } from '@/pages/auth/AuthWrapper.tsx';
 import { useNebulaTheme } from '../../lib/apply.ts';
-import type { SupportLink, SupportLinkIcon } from '../../lib/theme.ts';
+import { dimmedImage, type SupportLink, type SupportLinkIcon } from '../../lib/theme.ts';
 import { useExtTranslations } from '../../translations.ts';
 import { HeaderLogo } from './AuthScope.tsx';
 
@@ -87,17 +87,23 @@ function AuthHeader({ logo, links }: { logo: boolean; links: SupportLink[] }) {
   );
 }
 
-/** The login background, else the panel background, else an accent gradient. Decorative, and gone on phones. */
+/**
+ * The login background, else the panel background, each under its own dim, else an accent gradient.
+ * The layouts with a banner cover the page, so the dimmed page image in buildCss never shows. Decorative, and
+ * gone on phones.
+ */
 function AuthBanner({ className }: { className: string }) {
-  const { loginBackground, backgroundImage } = useNebulaTheme();
-  // both passed SAFE_URL in normalizeTheme, so neither can close the url("...")
-  const image = loginBackground || backgroundImage;
+  const { loginBackground, loginDim, backgroundImage, backgroundDim } = useNebulaTheme();
+  // both passed SAFE_URL in normalizeTheme
+  const image = loginBackground
+    ? dimmedImage(loginBackground, loginDim)
+    : backgroundImage && dimmedImage(backgroundImage, backgroundDim);
 
   return (
     <div
       aria-hidden
       className={`bg-cover bg-center ${image ? '' : 'bg-linear-to-br from-(--mantine-color-blue-filled) to-(--nebula-highlight)'} ${className}`}
-      style={image ? { backgroundImage: `url("${image}")` } : undefined}
+      style={image ? { backgroundImage: image } : undefined}
     />
   );
 }
