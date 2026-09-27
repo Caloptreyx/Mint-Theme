@@ -171,6 +171,7 @@ const translations = defineTranslations({
         preview: 'Tab preview',
       },
       close: 'Close editor',
+      support: 'Support and feature requests on Discord',
       undo: 'Undo',
       redo: 'Redo',
       reset: 'Reset to default',

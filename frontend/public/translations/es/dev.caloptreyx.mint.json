@@ -166,6 +166,7 @@
         "preview": "Vista previa de la pestaña"
       },
       "close": "Cerrar editor",
+      "support": "Soporte y solicitudes de funciones en Discord",
       "undo": "Deshacer",
       "redo": "Rehacer",
       "reset": "Restablecer valores predeterminados",

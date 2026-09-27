@@ -1,3 +1,4 @@
+import { faDiscord } from '@fortawesome/free-brands-svg-icons';
 import {
   faArrowLeft,
   faArrowRotateLeft,
@@ -23,7 +24,7 @@ import {
   type IconDefinition,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useComputedColorScheme } from '@mantine/core';
+import { ActionIcon as MantineActionIcon, useComputedColorScheme } from '@mantine/core';
 import { useEffect, useMemo, useReducer, useRef, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { httpErrorToHuman } from '@/api/axios.ts';
@@ -53,6 +54,8 @@ import {
 } from '../lib/apply.ts';
 import { DEFAULT_THEME, type NebulaTheme, normalizeTheme } from '../lib/theme.ts';
 import { useExtTranslations } from '../translations.ts';
+
+const SUPPORT_URL = 'https://discord.gg/4qjMWU7S8x';
 
 const SECTIONS: { id: Section; icon: IconDefinition }[] = [
   { id: 'presets', icon: faSwatchbook },
@@ -274,6 +277,20 @@ export default function ThemeEditor() {
           </Tooltip>
         ))}
         <div className='flex-1' />
+        <Tooltip label={t('editor.support', {})} position='right'>
+          <MantineActionIcon
+            component='a'
+            href={SUPPORT_URL}
+            target='_blank'
+            rel='noopener noreferrer'
+            size='lg'
+            variant='subtle'
+            color='gray'
+            aria-label={t('editor.support', {})}
+          >
+            <FontAwesomeIcon icon={faDiscord} />
+          </MantineActionIcon>
+        </Tooltip>
         <Tooltip label={t('editor.close', {})} position='right'>
           <ActionIcon
             size='lg'

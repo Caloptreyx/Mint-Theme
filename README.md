@@ -116,6 +116,11 @@ brings back the stock panel.
 [AGENTS.md](AGENTS.md) explains how the theme is built, how it hooks into the panel and how to test a
 change. It is written for people and AI assistants alike.
 
+## Support
+
+Need help or want to request a feature? Join the [Caloptreyx Discord](https://discord.gg/4qjMWU7S8x). The
+editor's rail has the same link, above the close button.
+
 ## Notes
 
 Built with Claude Code. Provided as is, with no promise of updates.
