@@ -1,6 +1,11 @@
 <div align="center">
 
-# Mint Theme for Calagopus
+<h1>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/logo-dark.svg">
+    <img src="docs/logo-light.svg" alt="Mint Theme" width="420">
+  </picture>
+</h1>
 
 A dark theme for [Calagopus Panel](https://calagopus.com) with a live, built-in theme editor.
 
@@ -9,7 +14,7 @@ A dark theme for [Calagopus Panel](https://calagopus.com) with a live, built-in 
 [![License: MIT](https://img.shields.io/github/license/Caloptreyx/Mint-Theme)](LICENSE)
 [![Built with Claude Code](https://img.shields.io/badge/built%20with-Claude%20Code-D97757?logo=claude&logoColor=white)](https://claude.com/claude-code)
 
-<img src="docs/server-home.png" alt="Server home page" width="100%">
+<img src="docs/cover.png" alt="Mint Theme for Calagopus Panel" width="100%">
 
 </div>
 
@@ -69,6 +74,8 @@ A dark theme for [Calagopus Panel](https://calagopus.com) with a live, built-in 
   Turkish and Vietnamese.
 
 ## Screenshots
+
+![Server home](docs/server-home.png)
 
 | Server list | Grid view |
 | --- | --- |
