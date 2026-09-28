@@ -71,7 +71,7 @@ editor can repaint the panel live without a reload.
   `.mantine-active:active` 1px nudge.
 - `boxStyle` restyles the title row of titled cards: core's `TitleCard` (`#title-card-header`, which the Home
   cards use too; its divider is an inline style, hence `!important`) and `ChartBlock` (a `border-b` header
-  holding an h3). Admin Settings (1.2.0 and 1.2.2) has no titled cards, only flat FormEngine grids, so there it
+  holding an h3). Admin Settings (1.2.0 to 1.2.3) has no titled cards, only flat FormEngine grids, so there it
   styles the section structure instead, scoped by `:has()` to the content after core's tab list with the
   `/admin/settings/webauthn` tab: each tab's heading row, an open `CollapsibleSection` header (User; open when
   the collapse after the button has `aria-hidden="false"`), the Mail templates panes' header bands (a
@@ -145,7 +145,7 @@ and break silently when core moves a file. Everything here is runtime:
   Back, Overview, Servers, Users; the dashboard Servers, Account, Admin. Core keeps the drawer's open state inside the
   Sidebar, so Menu clicks core's own floating menu button: the bar renders a hidden
   `[data-nebula-bottom-nav-marker]` just before core's element, whose first node is that button's card, and app.css
-  hides the card after it. The bar uses core's `lg:` variant (a container query in 1.2.2), measures itself into
+  hides the card after it. The bar uses core's `lg:` variant (a container query since 1.2.2), measures itself into
   `--nebula-bottom-nav-h` on html and sets `data-nebula-bottom-nav` while displayed, which app.css turns into bottom
   padding for the content column and a lift for core's `ActionBar`, bottom toasts and the uploads card. 'drawer' returns
   core's element untouched.
