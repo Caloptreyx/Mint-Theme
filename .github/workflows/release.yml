@@ -13,17 +13,14 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  check:
+    uses: Caloptreyx/.github/.github/workflows/extension-check.yml@main
+
   release:
+    needs: check
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 24
-
-      - name: Test normalizeTheme
-        run: node --test "tests/*.test.ts"
 
       - name: Check the tag matches backend/Cargo.toml
         id: version

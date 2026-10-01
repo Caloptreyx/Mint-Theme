@@ -32,6 +32,7 @@ frontend/src/translations.ts  every user facing string
 tests/theme.test.ts        node:test cases for normalizeTheme() and buildCss() (not shipped)
 tests/library.test.ts      node:test cases for lib/library.ts and the per user fields (not shipped)
 scripts/package.py         builds the release zip; .github/workflows/release.yml runs it on v* tags
+.github/workflows/check.yml  CI on every push: the org's shared extension check (see "Verifying a change")
 ```
 
 ## How the theming works
@@ -297,7 +298,10 @@ case there whenever a theme field or a validation helper changes; a new theme fi
 from a picked preset also goes into `USER_THEME_FIELDS`.
 
 Everything else needs the panel: stage the extension into a panel checkout and run the real
-toolchain; there is no standalone build.
+toolchain; there is no standalone build. CI does this on every push (`.github/workflows/check.yml` calls
+`Caloptreyx/.github/.github/workflows/extension-check.yml`, shared by every extension repo): on a
+Blacksmith runner it stages the extension into the newest `release-*` tag of `calagopus/panel` and runs the
+node tests, `pnpm typecheck`, `biome check`, `pnpm build` and `cargo test -p dev_caloptreyx_mint`. By hand:
 
 ```
 cp -r frontend/.  <panel>/frontend/extensions/dev_caloptreyx_mint/
@@ -320,10 +324,10 @@ directory entries first, then files, in sorted walk order, skipping `.git`, `nod
 and `dist` anywhere and `docs`, `tests`, `scripts`, `.github`, `README.md`, `.gitignore` at the root
 (`AGENTS.md`, `LICENSE` and `migrations/` ship). Check it with `panel-rs extensions inspect`.
 
-Pushing a `v*` tag runs `.github/workflows/release.yml`: the tests, a check that the tag is
-`v` + `version` in `backend/Cargo.toml` (it fails otherwise, so bump that first), the packaging
-script, then it creates the GitHub release `Mint Theme <version>` with generated notes if missing
-and uploads the zip (`gh release upload --clobber`).
+Pushing a `v*` tag runs `.github/workflows/release.yml`: the shared extension check (the same job as CI),
+then a check that the tag is `v` + `version` in `backend/Cargo.toml` (it fails otherwise, so bump that
+first), the packaging script, then it creates the GitHub release `Mint Theme <version>` with generated
+notes if missing and uploads the zip (`gh release upload --clobber`).
 
 Installed panels see a release through `check_for_updates` (`backend/src/updates.rs`) once it is
 published, not a draft or prerelease, and has the zip attached. Its changelog on **Admin → Updates** is the
