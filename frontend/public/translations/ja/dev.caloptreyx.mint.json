@@ -177,6 +177,11 @@
       "saved": "テーマを保存しました。",
       "refresh": "プレビューを再読み込み",
       "openTab": "新しいタブで開く",
+      "search": {
+        "placeholder": "設定を検索",
+        "clear": "検索をクリア",
+        "empty": "「{query}」に一致する設定はありません。"
+      },
       "device": {
         "desktop": "デスクトップ",
         "tablet": "タブレット",

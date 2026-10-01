@@ -177,6 +177,11 @@
       "saved": "Tema a fost salvată.",
       "refresh": "Reîncarcă previzualizarea",
       "openTab": "Deschide într-o filă nouă",
+      "search": {
+        "placeholder": "Caută setări",
+        "clear": "Șterge căutarea",
+        "empty": "Nicio setare nu se potrivește cu „{query}”."
+      },
       "device": {
         "desktop": "Desktop",
         "tablet": "Tabletă",

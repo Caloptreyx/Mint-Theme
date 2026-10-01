@@ -177,6 +177,11 @@
       "saved": "Tema salvato.",
       "refresh": "Ricarica anteprima",
       "openTab": "Apri in una nuova scheda",
+      "search": {
+        "placeholder": "Cerca impostazioni",
+        "clear": "Cancella ricerca",
+        "empty": "Nessuna impostazione corrisponde a \"{query}\"."
+      },
       "device": {
         "desktop": "Desktop",
         "tablet": "Tablet",

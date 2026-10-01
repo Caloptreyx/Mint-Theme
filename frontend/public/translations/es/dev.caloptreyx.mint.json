@@ -177,6 +177,11 @@
       "saved": "Tema guardado.",
       "refresh": "Recargar vista previa",
       "openTab": "Abrir en una pestaña nueva",
+      "search": {
+        "placeholder": "Buscar ajustes",
+        "clear": "Borrar búsqueda",
+        "empty": "Ningún ajuste coincide con \"{query}\"."
+      },
       "device": {
         "desktop": "Escritorio",
         "tablet": "Tableta",

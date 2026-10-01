@@ -63,7 +63,8 @@ A dark theme for [Calagopus Panel](https://calagopus.com) with a live, built-in 
   server card and table styles, background
   image, a browser tab icon, a login page background
   and logo, per game artwork, getting started links and
-  the home layout. Undo, redo, import and export. Colour pairs that are hard to read get a contrast warning
+  the home layout. A search finds any setting by its name, description or options and jumps to it. Undo,
+  redo, import and export. Colour pairs that are hard to read get a contrast warning
   with their ratio.
 - **Presets, user themes and history**: save the editor's look as a preset of your own (up to 20, rename or
   delete them any time), let users pick any built-in or saved preset as their own theme on the account page

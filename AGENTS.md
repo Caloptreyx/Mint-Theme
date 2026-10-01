@@ -25,12 +25,14 @@ frontend/src/index.ts      entry point: hooks, route interceptors, Mantine theme
 frontend/src/lib/theme.ts  the theme model, normalizeTheme() and buildCss()
 frontend/src/lib/apply.ts  applies CSS (the site theme or the user's pick), caches it, preview bridge, useNebulaTheme()
 frontend/src/lib/library.ts  presets, users' theme choices and history: ids, normalizers, resolveUserTheme()
+frontend/src/lib/editorSearch.ts  the editor's settings index (SETTINGS, COLOR_GROUPS) and searchSettings()
 frontend/src/pages/        ServerHome, ServerConsole, ServerList (dashboard), ThemeEditor
 frontend/src/elements/     account/, home/, dashboard/, editor/, files/ (phone editor keys), library/ (presets, history, theme choice), sidebar/, page/ pieces
 frontend/src/app.css       static CSS: @font-face, flush sidebar, active link, sidebar sections, keyframes
 frontend/src/translations.ts  every user facing string
 tests/theme.test.ts        node:test cases for normalizeTheme() and buildCss() (not shipped)
 tests/library.test.ts      node:test cases for lib/library.ts and the per user fields (not shipped)
+tests/editorSearch.test.ts node:test cases for the editor search's matching and ranking (not shipped)
 scripts/package.py         builds the release zip; .github/workflows/release.yml runs it on v* tags
 .github/workflows/check.yml  CI on every push: the org's shared extension check (see "Verifying a change")
 ```
@@ -188,6 +190,12 @@ and break silently when core moves a file. Everything here is runtime:
   one into `theme_history` with who saved it and when (last 10); the editor's clock icon lists them
   (`GET .../history`, `settings.read`) and loads one into the draft.
 - `routes.addAdminRoute` adds the editor; it is also the extension's `cardConfigurationPage`.
+- The editor's search (`elements/editor/SettingsSearch.tsx`, `lib/editorSearch.ts`) runs over `SETTINGS`, a
+  hand kept index: each setting's section, its label key and the keys of its descriptions, headings and options
+  (a key ending in `.` takes every key under it), searched in the current language and in English. A result
+  opens the section and `revealLabel()` scrolls to the innermost element whose text is exactly the label and
+  flashes it (`data-nebula-search-hit`, app.css), so the label must render as is; it retries for 2s for
+  sections that fetch first. A new editor field goes into `SETTINGS` too.
 - `pages.dashboard.home.enterContainerAll(...).addPropsInterceptor` replaces the servers list. The
   list route is hardcoded in the panel's router, so this props interceptor (it can replace `children`
   and `title`) is the only runtime way in. Its sort and grouping (`elements/dashboard/serverOrder.ts`,
@@ -291,7 +299,8 @@ exist in older ones. Page level imports (`@/pages/server/console/...`) are why t
 ## Verifying a change
 
 `normalizeTheme()` and `buildCss()` have tests in `tests/theme.test.ts`, the announcement button checks
-in `tests/cta.test.ts`, presets, user choices and history in `tests/library.test.ts` (plain `node:test`, no
+in `tests/cta.test.ts`, presets, user choices and history in `tests/library.test.ts`, the editor search in
+`tests/editorSearch.test.ts` (plain `node:test`, no
 dependencies, kept outside `frontend/src` so the panel never compiles them). Run them with
 `node --test "tests/*.test.ts"` (Node 24 strips the types; a bare `tests/` is not accepted as a path). Add a
 case there whenever a theme field or a validation helper changes; a new theme field that users should get

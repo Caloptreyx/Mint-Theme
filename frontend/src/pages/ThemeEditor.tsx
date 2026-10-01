@@ -42,6 +42,13 @@ import { useToast } from '@/providers/ToastProvider.tsx';
 import updateTheme from '../api/updateTheme.ts';
 import { LOGIN_PREVIEW_PATH } from '../elements/auth/AuthScope.tsx';
 import Sections, { type Section } from '../elements/editor/Sections.tsx';
+import {
+  revealLabel,
+  type SettingHit,
+  SettingResults,
+  SettingSearchInput,
+  useSettingSearch,
+} from '../elements/editor/SettingsSearch.tsx';
 import HistoryModal from '../elements/library/HistoryModal.tsx';
 import {
   holdSiteTheme,
@@ -71,6 +78,7 @@ const SECTIONS: { id: Section; icon: IconDefinition }[] = [
   { id: 'layout', icon: faTableColumns },
   { id: 'login', icon: faRightToBracket },
 ];
+const SECTION_ICONS = Object.fromEntries(SECTIONS.map(({ id, icon }) => [id, icon])) as Record<Section, IconDefinition>;
 
 type Device = 'desktop' | 'tablet' | 'mobile';
 const DEVICE_WIDTH: Record<Device, number | null> = { desktop: null, tablet: 834, mobile: 390 };
@@ -125,6 +133,9 @@ export default function ThemeEditor() {
   const [draft, setDraft] = useState<NebulaTheme>(savedTheme);
   const [saved, setSaved] = useState<NebulaTheme>(savedTheme);
   const [section, setSection] = useState<Section>('presets');
+  const [query, setQuery] = useState('');
+  // the label a search result jumps to, revealed once its section has rendered
+  const [reveal, setReveal] = useState<string | null>(null);
   const [device, setDevice] = useState<Device>('desktop');
   // the preview starts in the admin's own scheme; the toggle only ever touches the frame
   const adminScheme = useComputedColorScheme('dark', { getInitialValueInEffect: false });
@@ -137,10 +148,12 @@ export default function ThemeEditor() {
 
   const frame = useRef<HTMLIFrameElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
   const importRef = useRef<HTMLInputElement>(null);
   // the draft can hold half-typed values, the preview keeps the last valid one for those
   const shown = useRef(draft);
   const history = useHistory(draft, setDraft);
+  const hits = useSettingSearch(query);
 
   const set = (patch: Partial<NebulaTheme>) => setDraft((d) => ({ ...d, ...patch }));
   const dirty = JSON.stringify(normalizeTheme(draft, saved)) !== JSON.stringify(saved);
@@ -192,6 +205,11 @@ export default function ThemeEditor() {
     return () => window.removeEventListener('message', onMessage);
   }, [scheme]);
 
+  useEffect(() => {
+    if (!reveal || !contentRef.current) return;
+    return revealLabel(contentRef.current, reveal, () => setReveal(null));
+  }, [reveal]);
+
   const pages = useMemo(
     () => [
       ...(serverId
@@ -220,6 +238,19 @@ export default function ThemeEditor() {
       })
       .catch((err) => addToast(httpErrorToHuman(err), 'error'))
       .finally(() => setSaving(false));
+  };
+
+  const openSection = (id: Section) => {
+    setSection(id);
+    // the real auth pages redirect signed in admins, so the login section jumps to its preview route
+    if (id === 'login') setPage(LOGIN_PREVIEW_PATH);
+    if (id === 'console' && serverId) setPage(`/server/${serverId}/console`);
+  };
+
+  const pick = (hit: SettingHit) => {
+    openSection(hit.doc.setting.section);
+    setQuery('');
+    setReveal(hit.doc.label);
   };
 
   const doExport = () => {
@@ -266,10 +297,8 @@ export default function ThemeEditor() {
               color={section === id ? 'blue' : 'gray'}
               aria-label={t(`editor.section.${id}`, {})}
               onClick={() => {
-                setSection(id);
-                // the real auth pages redirect signed in admins, so the login section jumps to its preview route
-                if (id === 'login') setPage(LOGIN_PREVIEW_PATH);
-                if (id === 'console' && serverId) setPage(`/server/${serverId}/console`);
+                setQuery('');
+                openSection(id);
               }}
             >
               <FontAwesomeIcon icon={icon} />
@@ -305,28 +334,30 @@ export default function ThemeEditor() {
       </nav>
 
       <aside className='flex flex-col w-88 shrink-0 bg-(--nebula-card) border-r border-(--mantine-color-default-border)'>
-        <Group
-          justify='space-between'
-          align='flex-start'
-          wrap='nowrap'
-          className='p-4 border-b border-(--mantine-color-default-border)'
-        >
-          <div className='min-w-0'>
-            <Title order={4}>{t(`editor.section.${section}`, {})}</Title>
-            <Text size='xs' c='dimmed'>
-              {t(`editor.section.${section}Description`, {})}
-            </Text>
-          </div>
-          <Group gap={2} wrap='nowrap'>
-            {iconButton(t('editor.undo', {}), faArrowRotateLeft, history.undo, !history.canUndo)}
-            {iconButton(t('editor.redo', {}), faArrowRotateRight, history.redo, !history.canRedo)}
-            {iconButton(t('library.history', {}), faClockRotateLeft, () => setHistoryOpen(true))}
+        <div className='p-4 border-b border-(--mantine-color-default-border)'>
+          <Group justify='space-between' align='flex-start' wrap='nowrap'>
+            <div className='min-w-0'>
+              <Title order={4}>{t(`editor.section.${section}`, {})}</Title>
+              <Text size='xs' c='dimmed'>
+                {t(`editor.section.${section}Description`, {})}
+              </Text>
+            </div>
+            <Group gap={2} wrap='nowrap'>
+              {iconButton(t('editor.undo', {}), faArrowRotateLeft, history.undo, !history.canUndo)}
+              {iconButton(t('editor.redo', {}), faArrowRotateRight, history.redo, !history.canRedo)}
+              {iconButton(t('library.history', {}), faClockRotateLeft, () => setHistoryOpen(true))}
+            </Group>
           </Group>
-        </Group>
+          <SettingSearchInput query={query} onQuery={setQuery} onSubmit={() => hits[0] && pick(hits[0])} />
+        </div>
 
-        <div className='flex-1 min-h-0 overflow-y-auto p-4'>
+        <div ref={contentRef} className='flex-1 min-h-0 overflow-y-auto p-4'>
           <Stack>
-            <Sections section={section} theme={draft} set={set} />
+            {query.trim() ? (
+              <SettingResults query={query} hits={hits} icons={SECTION_ICONS} onPick={pick} />
+            ) : (
+              <Sections section={section} theme={draft} set={set} />
+            )}
           </Stack>
         </div>
 

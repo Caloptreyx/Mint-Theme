@@ -177,6 +177,11 @@
       "saved": "Motīvs saglabāts.",
       "refresh": "Pārlādēt priekšskatījumu",
       "openTab": "Atvērt jaunā cilnē",
+      "search": {
+        "placeholder": "Meklēt iestatījumos",
+        "clear": "Notīrīt meklēšanu",
+        "empty": "Neviens iestatījums neatbilst “{query}”."
+      },
       "device": {
         "desktop": "Dators",
         "tablet": "Planšete",

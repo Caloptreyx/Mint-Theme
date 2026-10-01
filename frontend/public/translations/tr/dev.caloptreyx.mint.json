@@ -177,6 +177,11 @@
       "saved": "Tema kaydedildi.",
       "refresh": "Önizlemeyi yenile",
       "openTab": "Yeni sekmede aç",
+      "search": {
+        "placeholder": "Ayarlarda ara",
+        "clear": "Aramayı temizle",
+        "empty": "\"{query}\" ile eşleşen ayar yok."
+      },
       "device": {
         "desktop": "Masaüstü",
         "tablet": "Tablet",

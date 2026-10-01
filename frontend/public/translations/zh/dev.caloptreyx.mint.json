@@ -177,6 +177,11 @@
       "saved": "主題已儲存。",
       "refresh": "重新載入預覽",
       "openTab": "在新分頁開啟",
+      "search": {
+        "placeholder": "搜尋設定",
+        "clear": "清除搜尋",
+        "empty": "沒有符合「{query}」的設定。"
+      },
       "device": {
         "desktop": "桌面",
         "tablet": "平板",
