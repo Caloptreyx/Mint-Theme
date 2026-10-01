@@ -9,6 +9,7 @@ import Select from '@/elements/input/Select.tsx';
 import TextInput from '@/elements/input/TextInput.tsx';
 import Stack from '@/elements/Stack.tsx';
 import Text from '@/elements/Text.tsx';
+import { COLOR_GROUPS } from '../../lib/editorSearch.ts';
 import {
   type Article,
   BUTTON_STYLES,
@@ -50,58 +51,6 @@ export type Section =
   | 'articles'
   | 'layout'
   | 'login';
-
-type ColorKey = keyof Pick<
-  NebulaTheme,
-  | 'accent'
-  | 'highlight'
-  | 'background'
-  | 'surface'
-  | 'text'
-  | 'surfaceRaised'
-  | 'surfaceOverlay'
-  | 'textMuted'
-  | 'textFaint'
-  | 'textOnAccent'
-  | 'line'
-  | 'buttonColor'
-  | 'buttonText'
-  | 'success'
-  | 'warning'
-  | 'danger'
-  | 'offline'
-  | 'chartOne'
-  | 'chartTwo'
-  | 'lightBackground'
-  | 'lightSurface'
-  | 'lightText'
->;
-
-/** Groups shown in the Colours section; the optional ones fall back to a derived value when cleared. */
-type ColorGroup =
-  | 'accents'
-  | 'surfaces'
-  | 'surfacesExtra'
-  | 'text'
-  | 'textExtra'
-  | 'lines'
-  | 'buttons'
-  | 'status'
-  | 'charts'
-  | 'light';
-
-const COLOR_GROUPS: { group: ColorGroup; keys: ColorKey[]; optional?: boolean }[] = [
-  { group: 'accents', keys: ['accent', 'highlight'] },
-  { group: 'surfaces', keys: ['background', 'surface'] },
-  { group: 'surfacesExtra', keys: ['surfaceRaised', 'surfaceOverlay'], optional: true },
-  { group: 'text', keys: ['text'] },
-  { group: 'textExtra', keys: ['textMuted', 'textFaint', 'textOnAccent'], optional: true },
-  { group: 'lines', keys: ['line'], optional: true },
-  { group: 'buttons', keys: ['buttonColor', 'buttonText'], optional: true },
-  { group: 'status', keys: ['success', 'warning', 'danger', 'offline'], optional: true },
-  { group: 'charts', keys: ['chartOne', 'chartTwo'], optional: true },
-  { group: 'light', keys: ['lightBackground', 'lightSurface', 'lightText'], optional: true },
-];
 
 interface Props {
   section: Section;

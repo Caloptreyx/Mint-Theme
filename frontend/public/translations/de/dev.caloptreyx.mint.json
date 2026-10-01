@@ -177,6 +177,11 @@
       "saved": "Design gespeichert.",
       "refresh": "Vorschau neu laden",
       "openTab": "In neuem Tab öffnen",
+      "search": {
+        "placeholder": "Einstellungen durchsuchen",
+        "clear": "Suche leeren",
+        "empty": "Keine Einstellung passt zu „{query}“."
+      },
       "device": {
         "desktop": "Desktop",
         "tablet": "Tablet",

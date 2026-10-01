@@ -177,6 +177,11 @@
       "saved": "Zapisano motyw.",
       "refresh": "Odśwież podgląd",
       "openTab": "Otwórz w nowej karcie",
+      "search": {
+        "placeholder": "Szukaj ustawień",
+        "clear": "Wyczyść wyszukiwanie",
+        "empty": "Żadne ustawienie nie pasuje do „{query}”."
+      },
       "device": {
         "desktop": "Komputer",
         "tablet": "Tablet",

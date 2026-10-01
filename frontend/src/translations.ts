@@ -1,4 +1,4 @@
-import { defineTranslations } from 'shared';
+import { type DefinedTranslations, defineTranslations } from 'shared';
 
 const translations = defineTranslations({
   items: {},
@@ -182,6 +182,11 @@ const translations = defineTranslations({
       saved: 'Theme saved.',
       refresh: 'Reload preview',
       openTab: 'Open in new tab',
+      search: {
+        placeholder: 'Search settings',
+        clear: 'Clear search',
+        empty: 'No setting matches "{query}".',
+      },
       device: {
         desktop: 'Desktop',
         tablet: 'Tablet',
@@ -602,6 +607,10 @@ const translations = defineTranslations({
     },
   },
 });
+
+/** Every key `t()` takes. */
+export type ExtTranslationKey =
+  typeof translations extends DefinedTranslations<infer _I, infer _O, infer P> ? P : never;
 
 export const useExtTranslations = translations.useTranslations.bind(translations);
 export const getExtTranslations = translations.getTranslations.bind(translations);

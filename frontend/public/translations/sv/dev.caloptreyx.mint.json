@@ -177,6 +177,11 @@
       "saved": "Temat har sparats.",
       "refresh": "Ladda om förhandsvisning",
       "openTab": "Öppna i ny flik",
+      "search": {
+        "placeholder": "Sök inställningar",
+        "clear": "Rensa sökning",
+        "empty": "Ingen inställning matchar ”{query}”."
+      },
       "device": {
         "desktop": "Dator",
         "tablet": "Surfplatta",

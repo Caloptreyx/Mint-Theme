@@ -177,6 +177,11 @@
       "saved": "Téma bola uložená.",
       "refresh": "Znova načítať ukážku",
       "openTab": "Otvoriť na novej karte",
+      "search": {
+        "placeholder": "Hľadať nastavenia",
+        "clear": "Vymazať hľadanie",
+        "empty": "Žiadne nastavenie nezodpovedá „{query}“."
+      },
       "device": {
         "desktop": "Počítač",
         "tablet": "Tablet",

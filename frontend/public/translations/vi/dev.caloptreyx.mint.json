@@ -177,6 +177,11 @@
       "saved": "Đã lưu giao diện.",
       "refresh": "Tải lại bản xem trước",
       "openTab": "Mở trong tab mới",
+      "search": {
+        "placeholder": "Tìm cài đặt",
+        "clear": "Xóa tìm kiếm",
+        "empty": "Không có cài đặt nào khớp với \"{query}\"."
+      },
       "device": {
         "desktop": "Máy tính",
         "tablet": "Máy tính bảng",

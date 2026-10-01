@@ -177,6 +177,11 @@
       "saved": "Tema gemt.",
       "refresh": "Genindlæs forhåndsvisning",
       "openTab": "Åbn i ny fane",
+      "search": {
+        "placeholder": "Søg i indstillinger",
+        "clear": "Ryd søgning",
+        "empty": "Ingen indstilling matcher \"{query}\"."
+      },
       "device": {
         "desktop": "Computer",
         "tablet": "Tablet",

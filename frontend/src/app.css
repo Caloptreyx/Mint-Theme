@@ -529,3 +529,17 @@ html[data-nebula-bottom-nav] [data-nebula-editor-keys] {
     transform: scaleX(0);
   }
 }
+
+/* the theme editor's search flashes the setting it jumped to (elements/editor/SettingsSearch.tsx revealLabel) */
+[data-nebula-search-hit] {
+  border-radius: 4px;
+  animation: nebula-search-hit 1.6s ease-out;
+}
+
+@keyframes nebula-search-hit {
+  0%,
+  40% {
+    background-color: color-mix(in srgb, var(--mantine-color-blue-filled) 30%, transparent);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--mantine-color-blue-filled) 30%, transparent);
+  }
+}

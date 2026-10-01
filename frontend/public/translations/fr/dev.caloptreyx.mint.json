@@ -177,6 +177,11 @@
       "saved": "Thème enregistré.",
       "refresh": "Recharger l'aperçu",
       "openTab": "Ouvrir dans un nouvel onglet",
+      "search": {
+        "placeholder": "Rechercher un réglage",
+        "clear": "Effacer la recherche",
+        "empty": "Aucun réglage ne correspond à « {query} »."
+      },
       "device": {
         "desktop": "Ordinateur",
         "tablet": "Tablette",
