@@ -16,6 +16,7 @@ import { withAnnouncementCta, withServerAnnouncements } from './elements/announc
 import AnnouncementCtaTab from './elements/announcements/AnnouncementCtaTab.tsx';
 import { AuthLayout, withFormLinks } from './elements/auth/AuthLayout.tsx';
 import { AuthLogo, AuthScope, LOGIN_PREVIEW_PATH } from './elements/auth/AuthScope.tsx';
+import ConsoleRouteOrder from './elements/console/ConsoleRouteOrder.tsx';
 import EditorKeys from './elements/files/EditorKeys.tsx';
 import ThemeChoiceCard from './elements/library/ThemeChoiceCard.tsx';
 import { hidePageTitle } from './elements/page/PageTitles.tsx';
@@ -156,6 +157,9 @@ class DevCaloptreyxMintExtension extends Extension {
         permission: null,
       });
     });
+
+    // an egg configuration's route order saved without Mint lists the console as `/`, which is Home here
+    ctx.extensionRegistry.pages.global.prependComponent(ConsoleRouteOrder);
 
     ctx.extensionRegistry.routes.addAdminRoute({
       name: () => getExtTranslations().t('nav.editor', {}),

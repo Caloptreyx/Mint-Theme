@@ -157,6 +157,12 @@ and break silently when core moves a file. Everything here is runtime:
   from that context. The provider wraps the whole page, above the slots, so a chart moved to another slot (a
   remount) keeps its history. Core's `statBlocks` slot follows the last chart run, or the extension cards when no
   chart is placed. The default is the page from before.
+  Paths are also the keys of an egg configuration's `routeOrder`, and core hides (sidebar and router) every named
+  route the order leaves out, so an order saved without Mint (console at `/`, no `/console`) would show Home in the
+  console's place and lose the console. `ConsoleRouteOrder` (`pages.global.prependComponent`, inside core's server
+  store provider) subscribes to the server store and, inside `setServer`, gives such an order `/console` right after
+  its `/` (`lib/routeOrder.ts`, `tests/routeOrder.test.ts`). The catch: with Mint, an order keeping Home but leaving
+  out the console looks the same, so the console can't be hidden through the route order.
 - `pages.dashboard.account.container` hides the account title and prepends `ProfileCard`. The banner is
   uploaded to `PUT/DELETE /api/client/extensions/dev.caloptreyx.mint/banner` (`backend/src/banner.rs`, the
   avatar route's checks, re-encoded to a 1500x500 JPEG at `publicdata/nebula/banners/<user>.jpg`, the
