@@ -2,7 +2,7 @@
 name = "dev_caloptreyx_mint"
 description = "A dark theme for Calagopus Panel with a live, built-in theme editor."
 authors = ["Caloptreyx"]
-version = "2.0.1"
+version = "2.0.2"
 edition = { workspace = true }
 
 [dependencies]
