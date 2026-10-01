@@ -301,7 +301,9 @@ Everything else needs the panel: stage the extension into a panel checkout and r
 toolchain; there is no standalone build. CI does this on every push (`.github/workflows/check.yml` calls
 `Caloptreyx/.github/.github/workflows/extension-check.yml`, shared by every extension repo): on a
 Blacksmith runner it stages the extension into the newest `release-*` tag of `calagopus/panel` and runs the
-node tests, `pnpm typecheck`, `biome check`, `pnpm build` and `cargo test -p dev_caloptreyx_mint`. By hand:
+node tests, `pnpm typecheck`, `biome check`, `pnpm build` and `cargo test -p dev_caloptreyx_mint`. Push and
+read that run to verify a change; build by hand only when CI can't answer (a running panel, CI down), since
+builds are kept off the development VM:
 
 ```
 cp -r frontend/.  <panel>/frontend/extensions/dev_caloptreyx_mint/
