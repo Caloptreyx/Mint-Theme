@@ -8,6 +8,7 @@ import {
   faBookOpen,
   faClockRotateLeft,
   faCubes,
+  faDisplay,
   faDownload,
   faDroplet,
   faFont,
@@ -41,6 +42,8 @@ import {
 } from '../elements/editor/SettingsSearch.tsx';
 import HistoryModal from '../elements/library/HistoryModal.tsx';
 import {
+  applyLocalTheme,
+  clearLocalTheme,
   holdSiteTheme,
   loadTheme,
   type PreviewScheme,
@@ -48,6 +51,7 @@ import {
   rememberTheme,
   savedTheme,
   sendPreview,
+  useLocalTheme,
 } from '../lib/apply.ts';
 import {
   ActionIcon,
@@ -65,11 +69,13 @@ import {
   Text,
   Title,
   Tooltip,
+  useAdminCan,
   useBlocker,
   useKeyboardShortcuts,
   useToast,
 } from '../lib/core.ts';
 import { invalidUrls, isThemeFile } from '../lib/editorDraft.ts';
+import { useCanSaveTheme } from '../lib/permissions.ts';
 import { DEFAULT_THEME, type NebulaTheme, normalizeTheme } from '../lib/theme.ts';
 import { useExtTranslations } from '../translations.ts';
 
@@ -188,7 +194,12 @@ export default function ThemeEditor() {
   const set = (patch: Partial<NebulaTheme>) => setDraft((d) => ({ ...d, ...patch }));
   const dirty = JSON.stringify(normalizeTheme(draft, saved)) !== JSON.stringify(saved);
   const badUrls = invalidUrls(draft).length > 0;
-  const canSave = dirty && load === 'ok' && !badUrls;
+  // without settings.update or mint-theme.update the draft can only be tried out with 'Apply in this browser'
+  const canSaveTheme = useCanSaveTheme();
+  const canSave = dirty && load === 'ok' && !badUrls && canSaveTheme;
+  const local = useLocalTheme();
+  // a role with only the Mint permission reaches the admin area, not necessarily its extensions page
+  const closeTo = useAdminCan('extensions.*') ? '/admin/extensions' : '/admin';
 
   const blocker = useBlocker(dirty);
   useBeforeUnload((e) => {
@@ -327,6 +338,17 @@ export default function ThemeEditor() {
     setReveal(hit.doc.label);
   };
 
+  /** 'Apply in this browser': the draft becomes the site theme here only, auth pages included, until 'Stop'. */
+  const doApplyLocal = () => {
+    applyLocalTheme(normalizeTheme(draft, saved));
+    addToast(t('localTheme.applied', {}), 'success');
+  };
+
+  const doStopLocal = () => {
+    clearLocalTheme();
+    addToast(t('localTheme.stopped', {}), 'success');
+  };
+
   const doExport = () => {
     const link = document.createElement('a');
     link.href = URL.createObjectURL(
@@ -361,8 +383,9 @@ export default function ThemeEditor() {
     </Tooltip>
   );
 
-  const saveBlocked =
-    load === 'pending'
+  const saveBlocked = !canSaveTheme
+    ? t('editor.noPermission', {})
+    : load === 'pending'
       ? t('editor.loading', {})
       : load === 'failed'
         ? t('editor.loadFailed', {})
@@ -411,7 +434,7 @@ export default function ThemeEditor() {
             variant='subtle'
             color='gray'
             aria-label={t('editor.close', {})}
-            onClick={() => navigate('/admin/extensions')}
+            onClick={() => navigate(closeTo)}
           >
             <FontAwesomeIcon icon={faArrowLeft} />
           </ActionIcon>
@@ -467,7 +490,42 @@ export default function ThemeEditor() {
           </Stack>
         </div>
 
-        <Group gap={4} wrap='nowrap' className='p-3 border-t border-(--mantine-color-default-border)'>
+        <div className='px-3 pt-3 border-t border-(--mantine-color-default-border)'>
+          <Stack gap='xs'>
+            {!canSaveTheme && (
+              <Text size='xs' c='dimmed'>
+                {t('editor.noPermission', {})}
+              </Text>
+            )}
+            {local && (
+              <Group gap='xs' wrap='nowrap' role='status'>
+                <Text size='xs' className='flex-1'>
+                  {t('localTheme.editorActive', {})}
+                </Text>
+                <Button size='xs' variant='default' onClick={doStopLocal}>
+                  {t('localTheme.stop', {})}
+                </Button>
+              </Group>
+            )}
+            <Tooltip
+              label={badUrls ? t('editor.fixUrls', {}) : t('localTheme.applyDescription', {})}
+              multiline
+              w={280}
+              innerClassName='w-full'
+            >
+              <Button
+                fullWidth
+                variant={canSaveTheme ? 'default' : 'filled'}
+                leftSection={<FontAwesomeIcon icon={faDisplay} />}
+                disabled={badUrls}
+                onClick={doApplyLocal}
+              >
+                {t('localTheme.apply', {})}
+              </Button>
+            </Tooltip>
+          </Stack>
+        </div>
+        <Group gap={4} wrap='nowrap' className='p-3'>
           <Tooltip label={t('editor.reset', {})}>
             <ActionIcon
               variant='subtle'
@@ -493,7 +551,7 @@ export default function ThemeEditor() {
               if (file) doImport(file);
             }}
           />
-          <Tooltip label={saveBlocked} disabled={!saveBlocked || !dirty}>
+          <Tooltip label={saveBlocked} disabled={!saveBlocked || (canSaveTheme && !dirty)}>
             <div className='ml-auto'>
               <Button disabled={!canSave} loading={saving} onClick={doSave}>
                 {t('editor.save', {})}
@@ -584,6 +642,7 @@ export default function ThemeEditor() {
           <Button
             color='red'
             loading={saving}
+            disabled={!canSaveTheme}
             onClick={() => {
               if (conflict) store(conflict, draft);
             }}

@@ -190,6 +190,7 @@
       "loadFailedDescription": "Gem er slået fra, indtil det er indlæst, så det gemte tema aldrig erstattes af et forældet.",
       "retry": "Prøv igen",
       "fixUrls": "Ret de markerede URL'er først.",
+      "noPermission": "Gemning kræver administratortilladelsen settings.update eller mint-theme.update. Anvend i denne browser viser dit udkast kun for dig.",
       "urlInvalid": "Skal starte med https:// eller /, uden mellemrum, anførselstegn eller parenteser.",
       "colorInvalid": "Ikke en farve; brug #rrggbb.",
       "leaveTitle": "Ikke-gemte ændringer",
@@ -618,6 +619,16 @@
         "description": "Sådan ser panelet ud for dig. Kun du kan se det, på alle enheder, du logger ind på.",
         "default": "Panelets standard"
       }
+    },
+    "localTheme": {
+      "apply": "Anvend i denne browser",
+      "applyDescription": "Viser udkastet som panelets tema kun i denne browser, loginsider inklusive. Intet gemmes, og ingen andre ser det.",
+      "applied": "Anvendt i denne browser. Kun du ser det.",
+      "editorActive": "Denne browser viser et tema, du har anvendt her, i stedet for det gemte.",
+      "notice": "Denne browser viser et tema, som kun du kan se.",
+      "stop": "Stop",
+      "stopDescription": "Stop med at vise dette tema i denne browser",
+      "stopped": "Denne browser viser det gemte tema igen."
     }
   }
 }

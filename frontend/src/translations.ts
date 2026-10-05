@@ -197,6 +197,8 @@ const translations = defineTranslations({
         'Saving stays off until it loads, so the stored theme is never replaced by an outdated one.',
       retry: 'Try again',
       fixUrls: 'Fix the highlighted URLs first.',
+      noPermission:
+        'Saving needs the settings.update or mint-theme.update admin permission. Apply in this browser shows your draft to you alone.',
       urlInvalid: 'Must start with https:// or /, with no spaces, quotes or brackets.',
       colorInvalid: 'Not a colour; use #rrggbb.',
       leaveTitle: 'Unsaved changes',
@@ -640,6 +642,17 @@ const translations = defineTranslations({
         description: 'How the panel looks for you. Only you see it, on every device you sign in on.',
         default: 'Panel default',
       },
+    },
+    localTheme: {
+      apply: 'Apply in this browser',
+      applyDescription:
+        'Shows the draft as the panel theme in this browser only, login pages included. Nothing is saved and nobody else sees it.',
+      applied: 'Applied in this browser. Only you see it.',
+      editorActive: 'This browser shows a theme you applied here instead of the saved one.',
+      notice: 'This browser shows a theme that only you can see.',
+      stop: 'Stop',
+      stopDescription: 'Stop showing this theme in this browser',
+      stopped: 'This browser shows the saved theme again.',
     },
   },
 });

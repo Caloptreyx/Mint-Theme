@@ -319,7 +319,7 @@ mod get {
 
     #[utoipa::path(get, path = "/", responses((status = OK, body = super::Library)))]
     pub async fn route(state: GetState, permissions: GetPermissionManager) -> ApiResponseResult {
-        permissions.has_admin_permission("settings.read")?;
+        crate::permissions::can_read(&permissions)?;
 
         let settings = state.settings.get().await?;
         let library = settings
@@ -361,7 +361,7 @@ mod post {
         activity_logger: GetAdminActivityLogger,
         shared::Payload(data): shared::Payload<Payload>,
     ) -> ApiResponseResult {
-        permissions.has_admin_permission("settings.update")?;
+        crate::permissions::can_update(&permissions)?;
 
         super::change(
             &state,
@@ -410,7 +410,7 @@ mod patch {
         Path(preset): Path<String>,
         shared::Payload(data): shared::Payload<Payload>,
     ) -> ApiResponseResult {
-        permissions.has_admin_permission("settings.update")?;
+        crate::permissions::can_update(&permissions)?;
 
         super::change(
             &state,
@@ -447,7 +447,7 @@ mod delete {
         activity_logger: GetAdminActivityLogger,
         Path(preset): Path<String>,
     ) -> ApiResponseResult {
-        permissions.has_admin_permission("settings.update")?;
+        crate::permissions::can_update(&permissions)?;
 
         super::change(
             &state,
@@ -493,7 +493,8 @@ pub fn client(state: &State) -> OpenApiRouter<State> {
         .with_state(state.clone())
 }
 
-/// `GET` (`settings.read`) and `POST` on the library, `PATCH` and `DELETE` (`settings.update`) on one preset.
+/// `GET` (`settings.read` or `mint-theme.update`) and `POST` on the library, `PATCH` and `DELETE` on one preset
+/// (writes: `settings.update` or `mint-theme.update`).
 pub fn admin(state: &State) -> OpenApiRouter<State> {
     OpenApiRouter::new()
         .routes(routes!(get::route, post::route))

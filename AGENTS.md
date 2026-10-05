@@ -15,7 +15,8 @@ An extension is a Rust crate plus a TypeScript frontend that the panel compiles 
 Metadata.toml              package name, display name, panel version range
 backend/src/lib.rs         Extension impl: mounts the routers, hands over the settings deserializer
 backend/src/settings.rs    four opaque settings: `theme` (the editor's JSON), `announcement_ctas`, `presets`, `theme_history`
-backend/src/routes.rs      GET /mint/theme (public, `{ theme, version }` with an ETag) and PUT /api/admin/.../theme (settings.update)
+backend/src/routes.rs      GET /mint/theme (public, `{ theme, version }` with an ETag) and PUT /api/admin/.../theme (settings.update or mint-theme.update)
+backend/src/permissions.rs the `mint-theme.update` admin permission and the checks every theme, preset and history route uses
 backend/src/banner.rs      per user account banner GET/upload/remove (client API), removal on user deletion
 backend/src/cta.rs         announcement call to action buttons: GET (client API) and PUT (admin API)
 backend/src/presets.rs     custom presets and user selectable presets: GET/POST/PATCH/DELETE (admin API), theme-choices GET (client API)
@@ -24,7 +25,9 @@ backend/src/updates.rs     check_for_updates: GitHub releases of Caloptreyx/Mint
 frontend/src/index.ts      entry point: hooks, route interceptors, Mantine theme
 frontend/src/lib/core.ts   the one module that re-exports every core import (see the end of "How it hooks into the panel")
 frontend/src/lib/theme.ts  the theme model, normalizeTheme() and buildCss()
-frontend/src/lib/apply.ts  applies CSS (the site theme or the user's pick), caches it, preview bridge, useNebulaTheme()
+frontend/src/lib/apply.ts  applies CSS (the site theme or the user's pick), caches it, preview bridge, useNebulaTheme(), the local theme
+frontend/src/lib/localTheme.ts  'Apply in this browser': parseLocalTheme() and paintedTheme() (local ?? saved, then the user's pick)
+frontend/src/lib/permissions.ts  useCanSaveTheme(): settings.update or mint-theme.update
 frontend/src/lib/library.ts  presets, users' theme choices and history: ids, normalizers, resolveUserTheme()
 frontend/src/lib/editorSearch.ts  the editor's settings index (SETTINGS, COLOR_GROUPS) and searchSettings()
 frontend/src/lib/editorDraft.ts   checks on the editor's raw draft: urlValid, invalidUrls, isThemeFile, toHexColor
@@ -37,6 +40,7 @@ tests/theme.test.ts        node:test cases for normalizeTheme() and buildCss() (
 tests/library.test.ts      node:test cases for lib/library.ts and the per user fields (not shipped)
 tests/editorSearch.test.ts node:test cases for the editor search's matching and ranking (not shipped)
 tests/editorDraft.test.ts  node:test cases for lib/editorDraft.ts (not shipped)
+tests/localTheme.test.ts   node:test cases for lib/localTheme.ts (not shipped)
 tests/cta.test.ts, serverOrder.test.ts, routeOrder.test.ts  node:test cases for lib/cta.ts, the servers list ordering and lib/routeOrder.ts (not shipped)
 scripts/package.py         builds the release zip; .github/workflows/release.yml runs it on v* tags
 .github/workflows/check.yml  CI on every push: the org's shared extension check (see "Verifying a change")
@@ -236,8 +240,8 @@ and break silently when core moves a file. Everything here is runtime:
   `elements/library/`). Custom presets are full normalized themes in the `presets` setting
   (`{ custom: [{ id, name, theme, users }], builtin: [id] }`, at most 20, each theme under the theme PUT's
   64 KiB and all four times that; built-in ones are only ids, `builtinId()` slugs of `PRESETS` names).
-  Admin API under `/api/admin/extensions/dev.caloptreyx.mint/presets`: GET (`settings.read`), POST, and
-  PATCH/DELETE `/{id}` (`settings.update`, activity `mint:preset.create|update|delete`); a built-in id can
+  Admin API under `/api/admin/extensions/dev.caloptreyx.mint/presets`: GET (`settings.read` or `mint-theme.update`), POST,
+  and PATCH/DELETE `/{id}` (`settings.update` or `mint-theme.update`, activity `mint:preset.create|update|delete`); a built-in id can
   only toggle `users` (a `theme` gets 400). PATCH on a custom preset may also replace its `theme` (checked like
   POST, id kept so users' picks follow it); the editor's custom preset cards offer 'Save draft into this preset'
   with a confirmation, sending `{ theme: normalizeTheme(draft) }`. Applying a preset in the editor lays its
@@ -255,7 +259,7 @@ and break silently when core moves a file. Everything here is runtime:
   sign out), and `holdSiteTheme()` forces the site theme on auth pages (`AuthScope`), in the editor and in
   its preview frame (which then shows the draft). Every theme PUT that changes the theme moves the replaced
   one into `theme_history` with who saved it and when (the last 10, and at most 4 × 64 KiB in total, oldest
-  dropped first); the editor's clock icon lists them (`GET .../history`, `settings.read`) and loads one into the draft.
+  dropped first); the editor's clock icon lists them (`GET .../history`, `settings.read` or `mint-theme.update`) and loads one into the draft.
 - Theme version and conflicts. `GET /mint/theme` returns `{ theme, version }` (`version` = sha256 hex of the stored
   string, `""` for none), built once per stored string, with `ETag`, `Cache-Control: no-cache` and 304 on a matching
   `If-None-Match`; `loadTheme()` resolves to `{ theme, version }` (or null) and relies on the browser's revalidation.
@@ -274,7 +278,29 @@ and break silently when core moves a file. Everything here is runtime:
   the like to `#rrggbb` on blur (not on change, which would break typing) and flag what is still not hex; an import
   needs at least one theme field. Derived colours and contrast warnings use the last valid normalized draft
   (`Sections`' `valid` prop), not the half-typed one.
-- `routes.addAdminRoute` adds the editor; it is also the extension's `cardConfigurationPage`.
+- `routes.addAdminRoute` adds the editor (`permission: ['settings.read', 'mint-theme.update']`, any of them; core's
+  `AdminGuard` lets every role with an admin permission into `/admin`); it is also the extension's
+  `cardConfigurationPage`, which core's extensions page gates with `extensions.*`. The close button goes back to
+  `/admin/extensions`, or `/admin` without `extensions.*`.
+- Permissions (`backend/src/permissions.rs`, `lib/permissions.ts`). `initialize_permissions` adds the admin group
+  `mint-theme` with `update` (core's `add_admin_permission_group`, since 1.2.0; core's role editor shows it as MINT
+  THEME with the palette icon from `enterPermissionIcons`). `can_update()` (theme PUT, preset POST/PATCH/DELETE)
+  takes `settings.update` or `mint-theme.update`, `can_read()` (presets and history GET) `settings.read` or
+  `mint-theme.update`; both refuse with the first one's core error (`... this action: settings.update`), so a role
+  can save the theme without being able to change panel settings. The editor asks `useCanSaveTheme()` (core's
+  `useAdminCan`, true for admins): without it Save (Mod+S too), the conflict's Overwrite and every preset change
+  ('Save as preset', save into, rename, delete, the users toggles) are off with `editor.noPermission` as their
+  tooltip and as a line in the Presets section and the footer; drafts, presets applied to the draft, history loads,
+  import and export still work.
+- 'Apply in this browser' (`localTheme.*`). The editor's footer button stores `normalizeTheme(draft, saved)` in
+  `nebula:local-theme`; `apply.ts` paints `paintedTheme(saved, local, choices, pick)`: the local theme stands in for
+  the site theme in this browser only (auth pages included, `holdSiteTheme()` holds it too), users' picks still go
+  over it. It is read with `parseLocalTheme()` (normalizeTheme, the security boundary) at startup, where it also
+  skips the first visit guard, and from other tabs' `storage` events (removal included). The preview frame keeps
+  painting drafts. `LocalThemeNotice` (`global.appendComponent`) shows a card in the bottom right corner while one
+  is active, with Stop (`clearLocalTheme()`); z-80 keeps it under core's ActionBar and toasts, app.css lifts it over
+  the bottom bar, and it never renders in the preview frame. The editor shows the same state with its own Stop.
+  `siteTheme()` (local ?? saved) is what the account page's theme choice shows as the panel default.
 - The editor's search (`elements/editor/SettingsSearch.tsx`, `lib/editorSearch.ts`) runs over `SETTINGS`, a
   hand kept index: each setting's section, its label key and the keys of its descriptions, headings and options
   (a key ending in `.` takes every key under it), searched in the current language and in English. A result
@@ -407,7 +433,8 @@ checkout. Page level imports (`@/pages/server/console/...`) are why the floor is
 
 `normalizeTheme()` and `buildCss()` have tests in `tests/theme.test.ts`, the announcement button checks
 in `tests/cta.test.ts`, presets, user choices and history in `tests/library.test.ts`, the editor search in
-`tests/editorSearch.test.ts`, the editor's draft checks in `tests/editorDraft.test.ts`, the servers list
+`tests/editorSearch.test.ts`, the editor's draft checks in `tests/editorDraft.test.ts`, the local theme in
+`tests/localTheme.test.ts`, the servers list
 ordering in `tests/serverOrder.test.ts` and the route order fix in `tests/routeOrder.test.ts` (plain `node:test`, no
 dependencies, kept outside `frontend/src` so the panel never compiles them). Run them with
 `node --test "tests/*.test.ts"` (Node 24 strips the types; a bare `tests/` is not accepted as a path). Add a

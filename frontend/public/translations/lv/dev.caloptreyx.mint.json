@@ -190,6 +190,7 @@
       "loadFailedDescription": "Saglabāšana ir izslēgta, līdz tas ielādējas, lai saglabātais motīvs nekad netiktu aizstāts ar novecojušu.",
       "retry": "Mēģināt vēlreiz",
       "fixUrls": "Vispirms izlabojiet iezīmētos URL.",
+      "noPermission": "Saglabāšanai vajadzīga administratora atļauja settings.update vai mint-theme.update. “Lietot šajā pārlūkā” parāda melnrakstu tikai jums.",
       "urlInvalid": "Jāsākas ar https:// vai /, bez atstarpēm, pēdiņām vai iekavām.",
       "colorInvalid": "Nav krāsa; izmantojiet #rrggbb.",
       "leaveTitle": "Nesaglabātas izmaiņas",
@@ -618,6 +619,16 @@
         "description": "Kā panelis izskatās jums. To redzat tikai jūs, katrā ierīcē, kurā piesakāties.",
         "default": "Paneļa noklusējums"
       }
+    },
+    "localTheme": {
+      "apply": "Lietot šajā pārlūkā",
+      "applyDescription": "Parāda melnrakstu kā paneļa motīvu tikai šajā pārlūkā, ieskaitot pieteikšanās lapas. Nekas netiek saglabāts, un neviens cits to neredz.",
+      "applied": "Lietots šajā pārlūkā. To redzat tikai jūs.",
+      "editorActive": "Šis pārlūks rāda šeit lietotu motīvu saglabātā vietā.",
+      "notice": "Šis pārlūks rāda motīvu, ko redzat tikai jūs.",
+      "stop": "Apturēt",
+      "stopDescription": "Apturēt šī motīva rādīšanu šajā pārlūkā",
+      "stopped": "Šis pārlūks atkal rāda saglabāto motīvu."
     }
   }
 }

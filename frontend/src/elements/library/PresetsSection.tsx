@@ -1,4 +1,4 @@
-import { faFileArrowUp, faFloppyDisk, faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faFileArrowUp, faFloppyDisk, faPen, faTrash, type IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 import { createPreset, deletePreset, getPresets, updatePreset } from '../../api/library.ts';
@@ -28,6 +28,7 @@ import {
   type PresetLibrary,
   presetNameProblem,
 } from '../../lib/library.ts';
+import { useCanSaveTheme } from '../../lib/permissions.ts';
 import { type NebulaTheme, normalizeTheme, PRESETS, pickUserTheme } from '../../lib/theme.ts';
 import { useExtTranslations } from '../../translations.ts';
 import Swatches from './Swatches.tsx';
@@ -90,11 +91,36 @@ function NameModal({
   );
 }
 
+/** A preset card's icon action; `blocked` (why the user may not use it) disables it and becomes its tooltip. */
+function PresetAction({
+  label,
+  icon,
+  color = 'gray',
+  blocked,
+  onClick,
+}: {
+  label: string;
+  icon: IconDefinition;
+  color?: string;
+  blocked: string | null;
+  onClick: () => void;
+}) {
+  return (
+    // core's Tooltip wraps its child in a span, which keeps the tooltip on a disabled button
+    <Tooltip label={blocked ?? label}>
+      <ActionIcon variant='subtle' color={color} size='sm' aria-label={label} disabled={!!blocked} onClick={onClick}>
+        <FontAwesomeIcon icon={icon} />
+      </ActionIcon>
+    </Tooltip>
+  );
+}
+
 function PresetCard({
   name,
   theme,
   users,
   disabled,
+  blocked,
   onApply,
   onUsers,
   children,
@@ -103,6 +129,8 @@ function PresetCard({
   theme: Partial<NebulaTheme>;
   users: boolean;
   disabled: boolean;
+  /** Why the user may not change presets, or null. */
+  blocked: string | null;
   onApply: () => void;
   onUsers: (users: boolean) => void;
   children?: React.ReactNode;
@@ -122,13 +150,15 @@ function PresetCard({
         <Swatches theme={theme} />
       </UnstyledButton>
       <Group justify='space-between' wrap='nowrap' mt='xs' gap='xs'>
-        <Switch
-          size='xs'
-          label={t('library.users', {})}
-          checked={users}
-          disabled={disabled}
-          onChange={(e) => onUsers(e.currentTarget.checked)}
-        />
+        <Tooltip label={blocked} disabled={!blocked}>
+          <Switch
+            size='xs'
+            label={t('library.users', {})}
+            checked={users}
+            disabled={disabled || !!blocked}
+            onChange={(e) => onUsers(e.currentTarget.checked)}
+          />
+        </Tooltip>
         {children && (
           <Group gap={2} wrap='nowrap'>
             {children}
@@ -158,6 +188,8 @@ export default function PresetsSection({
   const [renaming, setRenaming] = useState<CustomPreset | null>(null);
   const [deleting, setDeleting] = useState<CustomPreset | null>(null);
   const [overwriting, setOverwriting] = useState<CustomPreset | null>(null);
+  // without settings.update or mint-theme.update presets are browse and apply only
+  const blocked = useCanSaveTheme() ? null : t('editor.noPermission', {});
 
   useEffect(() => {
     getPresets()
@@ -185,14 +217,22 @@ export default function PresetsSection({
 
   return (
     <Stack gap='md'>
-      <Button
-        variant='light'
-        leftSection={<FontAwesomeIcon icon={faFloppyDisk} />}
-        disabled={!library || full}
-        onClick={() => setCreating(true)}
-      >
-        {t('library.saveAsPreset', {})}
-      </Button>
+      {blocked && (
+        <Text size='xs' c='dimmed'>
+          {blocked}
+        </Text>
+      )}
+      <Tooltip label={blocked} disabled={!blocked} innerClassName='w-full'>
+        <Button
+          variant='light'
+          fullWidth
+          leftSection={<FontAwesomeIcon icon={faFloppyDisk} />}
+          disabled={!library || full || !!blocked}
+          onClick={() => setCreating(true)}
+        >
+          {t('library.saveAsPreset', {})}
+        </Button>
+      </Tooltip>
       {full && (
         <Text size='xs' c='dimmed'>
           {t('library.limit', { max: MAX_CUSTOM_PRESETS })}
@@ -216,6 +256,7 @@ export default function PresetsSection({
               theme={preset.theme}
               users={preset.users}
               disabled={busy}
+              blocked={blocked}
               onApply={() => set(pickUserTheme(preset.theme))}
               onUsers={(users) =>
                 run(updatePreset(preset.id, { users })).catch(() => {
@@ -223,39 +264,25 @@ export default function PresetsSection({
                 })
               }
             >
-              <Tooltip label={t('library.rename', {})}>
-                <ActionIcon
-                  variant='subtle'
-                  color='gray'
-                  size='sm'
-                  aria-label={t('library.rename', {})}
-                  onClick={() => setRenaming(preset)}
-                >
-                  <FontAwesomeIcon icon={faPen} />
-                </ActionIcon>
-              </Tooltip>
-              <Tooltip label={t('library.overwrite', {})}>
-                <ActionIcon
-                  variant='subtle'
-                  color='gray'
-                  size='sm'
-                  aria-label={t('library.overwrite', {})}
-                  onClick={() => setOverwriting(preset)}
-                >
-                  <FontAwesomeIcon icon={faFileArrowUp} />
-                </ActionIcon>
-              </Tooltip>
-              <Tooltip label={t('library.delete', {})}>
-                <ActionIcon
-                  variant='subtle'
-                  color='red'
-                  size='sm'
-                  aria-label={t('library.delete', {})}
-                  onClick={() => setDeleting(preset)}
-                >
-                  <FontAwesomeIcon icon={faTrash} />
-                </ActionIcon>
-              </Tooltip>
+              <PresetAction
+                label={t('library.rename', {})}
+                icon={faPen}
+                blocked={blocked}
+                onClick={() => setRenaming(preset)}
+              />
+              <PresetAction
+                label={t('library.overwrite', {})}
+                icon={faFileArrowUp}
+                blocked={blocked}
+                onClick={() => setOverwriting(preset)}
+              />
+              <PresetAction
+                label={t('library.delete', {})}
+                icon={faTrash}
+                color='red'
+                blocked={blocked}
+                onClick={() => setDeleting(preset)}
+              />
             </PresetCard>
           ))}
         </Stack>
@@ -274,6 +301,7 @@ export default function PresetsSection({
               theme={preset.theme}
               users={library?.builtin.includes(id) ?? false}
               disabled={!library || busy}
+              blocked={blocked}
               onApply={() => set(preset.theme)}
               onUsers={(users) =>
                 run(updatePreset(id, { users })).catch(() => {

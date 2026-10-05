@@ -235,7 +235,7 @@ mod put {
         activity_logger: GetAdminActivityLogger,
         shared::Payload(data): shared::Payload<Payload>,
     ) -> ApiResponseResult {
-        permissions.has_admin_permission("settings.update")?;
+        crate::permissions::can_update(&permissions)?;
 
         let Some(theme) = data.theme else {
             return ApiResponse::error(

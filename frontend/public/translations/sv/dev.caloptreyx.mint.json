@@ -190,6 +190,7 @@
       "loadFailedDescription": "Spara är avstängt tills det har lästs in, så att det lagrade temat aldrig ersätts av ett inaktuellt.",
       "retry": "Försök igen",
       "fixUrls": "Rätta de markerade URL:erna först.",
+      "noPermission": "Att spara kräver administratörsbehörigheten settings.update eller mint-theme.update. Använd i den här webbläsaren visar utkastet bara för dig.",
       "urlInvalid": "Måste börja med https:// eller /, utan mellanslag, citattecken eller hakparenteser.",
       "colorInvalid": "Inte en färg; använd #rrggbb.",
       "leaveTitle": "Osparade ändringar",
@@ -618,6 +619,16 @@
         "description": "Hur panelen ser ut för dig. Bara du ser det, på alla enheter du loggar in på.",
         "default": "Panelens standard"
       }
+    },
+    "localTheme": {
+      "apply": "Använd i den här webbläsaren",
+      "applyDescription": "Visar utkastet som panelens tema bara i den här webbläsaren, inloggningssidor inräknade. Inget sparas och ingen annan ser det.",
+      "applied": "Används i den här webbläsaren. Bara du ser det.",
+      "editorActive": "Den här webbläsaren visar ett tema du använt här i stället för det sparade.",
+      "notice": "Den här webbläsaren visar ett tema som bara du kan se.",
+      "stop": "Stoppa",
+      "stopDescription": "Stoppa visningen av det här temat i den här webbläsaren",
+      "stopped": "Den här webbläsaren visar det sparade temat igen."
     }
   }
 }

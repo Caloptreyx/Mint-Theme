@@ -190,6 +190,7 @@
       "loadFailedDescription": "Ukladanie zostane vypnuté, kým sa nenačíta, aby sa uložená téma nikdy nenahradila zastaranou.",
       "retry": "Skúsiť znova",
       "fixUrls": "Najprv opravte zvýraznené URL adresy.",
+      "noPermission": "Na uloženie je potrebné oprávnenie správcu settings.update alebo mint-theme.update. „Použiť v tomto prehliadači“ ukáže koncept iba vám.",
       "urlInvalid": "Musí začínať https:// alebo /, bez medzier, úvodzoviek či zátvoriek.",
       "colorInvalid": "Nie je to farba; použite #rrggbb.",
       "leaveTitle": "Neuložené zmeny",
@@ -618,6 +619,16 @@
         "description": "Ako panel vyzerá pre vás. Vidíte ju iba vy, na každom zariadení, na ktorom sa prihlásite.",
         "default": "Predvolená téma panela"
       }
+    },
+    "localTheme": {
+      "apply": "Použiť v tomto prehliadači",
+      "applyDescription": "Zobrazí koncept ako tému panela iba v tomto prehliadači vrátane prihlasovacích stránok. Nič sa neuloží a nikto iný ho neuvidí.",
+      "applied": "Použité v tomto prehliadači. Vidíte to iba vy.",
+      "editorActive": "Tento prehliadač zobrazuje tému použitú tu namiesto uloženej.",
+      "notice": "Tento prehliadač zobrazuje tému, ktorú vidíte iba vy.",
+      "stop": "Zastaviť",
+      "stopDescription": "Zastaviť zobrazovanie tejto témy v tomto prehliadači",
+      "stopped": "Tento prehliadač opäť zobrazuje uloženú tému."
     }
   }
 }

@@ -190,6 +190,7 @@
       "loadFailedDescription": "Zapisywanie pozostaje wyłączone do czasu wczytania, aby zapisany motyw nigdy nie został zastąpiony nieaktualnym.",
       "retry": "Spróbuj ponownie",
       "fixUrls": "Najpierw popraw wyróżnione adresy URL.",
+      "noPermission": "Zapisywanie wymaga uprawnienia administratora settings.update lub mint-theme.update. „Zastosuj w tej przeglądarce” pokazuje szkic tylko Tobie.",
       "urlInvalid": "Musi zaczynać się od https:// lub /, bez spacji, cudzysłowów i nawiasów.",
       "colorInvalid": "To nie jest kolor; użyj #rrggbb.",
       "leaveTitle": "Niezapisane zmiany",
@@ -618,6 +619,16 @@
         "description": "Jak wygląda panel dla Ciebie. Widzisz go tylko Ty, na każdym urządzeniu, na którym się logujesz.",
         "default": "Domyślny panelu"
       }
+    },
+    "localTheme": {
+      "apply": "Zastosuj w tej przeglądarce",
+      "applyDescription": "Pokazuje szkic jako motyw panelu tylko w tej przeglądarce, także na stronach logowania. Nic nie jest zapisywane i nikt inny go nie widzi.",
+      "applied": "Zastosowano w tej przeglądarce. Widzisz go tylko Ty.",
+      "editorActive": "Ta przeglądarka pokazuje motyw zastosowany tutaj zamiast zapisanego.",
+      "notice": "Ta przeglądarka pokazuje motyw, który widzisz tylko Ty.",
+      "stop": "Zatrzymaj",
+      "stopDescription": "Zatrzymaj ten motyw w tej przeglądarce",
+      "stopped": "Ta przeglądarka znów pokazuje zapisany motyw."
     }
   }
 }

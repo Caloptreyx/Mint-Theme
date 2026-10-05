@@ -72,6 +72,10 @@ A dark theme for [Calagopus Panel](https://calagopus.com) with a live, built-in 
   update with the current draft or delete them any time), let users pick any built-in or saved preset as their own theme on the account page
   (colours and style only; content and the login pages stay yours), and bring back any of the last 10 saved
   themes from the editor's history.
+- **Try before saving, and who may save**: 'Apply in this browser' shows the editor's draft as the panel's
+  theme in your browser only, login pages included, with a small notice to stop it; nothing is saved and
+  nobody else sees it. Saving needs the panel's Settings update permission or Mint's own **Mint theme → Update**
+  admin permission, so a role can be allowed to change the theme without touching the other panel settings.
 - **Languages**: every string comes in all the panel's languages: English, Arabic, Chinese, Danish, French,
   German, Italian, Japanese, Latvian, Polish, Portuguese, Romanian, Russian, Slovak, Spanish, Swedish,
   Turkish and Vietnamese.

@@ -1,7 +1,7 @@
 import { faPalette } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { z } from 'zod';
-import { savedTheme, useThemeChoices } from '../../lib/apply.ts';
+import { siteTheme, useThemeChoices } from '../../lib/apply.ts';
 import { TitleCard, useUserSetting } from '../../lib/core.ts';
 import { THEME_CHOICE_KEY } from '../../lib/library.ts';
 import { useExtTranslations } from '../../translations.ts';
@@ -22,7 +22,7 @@ export default function ThemeChoiceCard({ requireTwoFactorActivation }: { requir
 
   // a pick that is no longer offered shows (and paints) the panel default
   const value = choices.some((choice) => choice.id === picked) ? picked : '';
-  const site = savedTheme();
+  const site = siteTheme();
 
   return (
     <TitleCard

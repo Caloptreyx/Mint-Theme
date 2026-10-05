@@ -1,13 +1,8 @@
 import { useSyncExternalStore } from 'react';
 import { z } from 'zod';
 import { axiosInstance, getUserSetting, useUserSettingsStore } from './core.ts';
-import {
-  normalizeChoices,
-  type PresetLibrary,
-  resolveUserTheme,
-  THEME_CHOICE_KEY,
-  type ThemeChoice,
-} from './library.ts';
+import { normalizeChoices, type PresetLibrary, THEME_CHOICE_KEY, type ThemeChoice } from './library.ts';
+import { LOCAL_THEME_KEY, paintedTheme, parseLocalTheme } from './localTheme.ts';
 import { buildCss, DEFAULT_THEME, type NebulaTheme, normalizeTheme } from './theme.ts';
 
 const STYLE_ID = 'nebula-theme';
@@ -18,6 +13,8 @@ const PREVIEW_MSG = 'nebula:preview';
 export const READY_MSG = 'nebula:ready';
 
 let saved: NebulaTheme = DEFAULT_THEME;
+/** 'Apply in this browser': stands in for `saved` in this browser only (lib/localTheme.ts). */
+let local: NebulaTheme | null = null;
 let current: NebulaTheme = DEFAULT_THEME;
 let previewing = false;
 const listeners = new Set<() => void>();
@@ -36,6 +33,12 @@ const PENDING_MS = 1500;
 let pendingTimer: number | undefined;
 
 export const savedTheme = () => saved;
+
+/** The site theme as this browser shows it: the applied local theme, else the saved one. */
+export const siteTheme = () => local ?? saved;
+
+/** The theme applied in this browser only, or null; re-renders when it changes. */
+export const useLocalTheme = () => useSyncExternalStore(subscribeTheme, () => local);
 
 /** The theme on screen right now, a draft included while the editor previews one. */
 export const currentTheme = () => current;
@@ -64,11 +67,40 @@ function userKey() {
   return getUserSetting(THEME_CHOICE_KEY, CHOICE_SCHEMA, '');
 }
 
-/** The site theme, or the preset the user picked while it is still offered. */
+/** The site theme (or this browser's local one), or the preset the user picked while it is still offered. */
 function repaint() {
   shownKey = userKey();
   if (previewing || pendingTimer !== undefined) return;
-  applyTheme(resolveUserTheme(saved, choices, shownKey) ?? saved);
+  applyTheme(paintedTheme(saved, local, choices, shownKey));
+}
+
+/** Swaps this browser's local theme and repaints; listeners hear of it even when the look stays the same. */
+function setLocal(theme: NebulaTheme | null) {
+  if (theme === local) return;
+  local = theme;
+  repaint();
+  notify();
+}
+
+/** 'Apply in this browser': paints `theme` as the site theme here (and in this browser's other tabs) only. */
+export function applyLocalTheme(theme: NebulaTheme) {
+  const normalized = normalizeTheme(theme);
+  try {
+    localStorage.setItem(LOCAL_THEME_KEY, JSON.stringify(normalized));
+  } catch {
+    // private mode or full storage: this tab still shows it until it reloads
+  }
+  setLocal(normalized);
+}
+
+/** Back to the saved site theme in this browser. */
+export function clearLocalTheme() {
+  try {
+    localStorage.removeItem(LOCAL_THEME_KEY);
+  } catch {
+    // storage blocked: nothing was kept
+  }
+  setLocal(null);
 }
 
 /** Ends the first visit guard with whatever is known by then; applyTheme() shows the page. */
@@ -121,7 +153,13 @@ export function watchUserTheme() {
 
   // localStorage only fires this in the other tabs, and only when the value changed
   window.addEventListener('storage', (event) => {
-    if (event.storageArea !== localStorage || event.newValue === null) return;
+    if (event.storageArea !== localStorage) return;
+    if (event.key === LOCAL_THEME_KEY) {
+      // null: removed ('Stop' in another tab)
+      setLocal(parseLocalTheme(event.newValue));
+      return;
+    }
+    if (event.newValue === null) return;
     if (event.key === CACHE_KEY) {
       const theme = readTheme(event.newValue);
       if (!theme) return;
@@ -253,12 +291,13 @@ export function applyCachedTheme() {
   try {
     cachedTheme = localStorage.getItem(CACHE_KEY);
     choices = readChoices(localStorage.getItem(CHOICES_CACHE_KEY) ?? '[]');
+    local = parseLocalTheme(localStorage.getItem(LOCAL_THEME_KEY));
   } catch {
     // storage blocked: nothing cached
   }
   saved = (cachedTheme !== null && readTheme(cachedTheme)) || DEFAULT_THEME;
-  // painting the default would only swap to the real look a moment later
-  if (cachedTheme === null) {
+  // painting the default would only swap to the real look a moment later; a local theme is the look here already
+  if (cachedTheme === null && !local) {
     document.documentElement.dataset.nebulaPending = '';
     pendingTimer = window.setTimeout(reveal, PENDING_MS);
   }

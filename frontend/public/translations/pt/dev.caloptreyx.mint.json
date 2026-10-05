@@ -190,6 +190,7 @@
       "loadFailedDescription": "Salvar fica desativado até o carregamento, para que o tema armazenado nunca seja substituído por um desatualizado.",
       "retry": "Tentar novamente",
       "fixUrls": "Corrija primeiro as URLs destacadas.",
+      "noPermission": "Salvar requer a permissão de administração settings.update ou mint-theme.update. Aplicar neste navegador mostra o rascunho só para você.",
       "urlInvalid": "Deve começar com https:// ou /, sem espaços, aspas ou colchetes.",
       "colorInvalid": "Não é uma cor; use #rrggbb.",
       "leaveTitle": "Alterações não salvas",
@@ -618,6 +619,16 @@
         "description": "Como o painel aparece para você. Só você vê, em todos os dispositivos em que fizer login.",
         "default": "Padrão do painel"
       }
+    },
+    "localTheme": {
+      "apply": "Aplicar neste navegador",
+      "applyDescription": "Mostra o rascunho como tema do painel apenas neste navegador, incluindo as páginas de login. Nada é salvo e ninguém mais o vê.",
+      "applied": "Aplicado neste navegador. Só você o vê.",
+      "editorActive": "Este navegador mostra um tema aplicado aqui em vez do salvo.",
+      "notice": "Este navegador mostra um tema que só você pode ver.",
+      "stop": "Parar",
+      "stopDescription": "Parar de mostrar este tema neste navegador",
+      "stopped": "Este navegador mostra o tema salvo novamente."
     }
   }
 }

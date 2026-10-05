@@ -1,12 +1,15 @@
 use shared::{
     State,
-    extensions::{Extension, ExtensionRouteBuilder, ExtensionUpdateInfo},
+    extensions::{
+        Extension, ExtensionPermissionsBuilder, ExtensionRouteBuilder, ExtensionUpdateInfo,
+    },
 };
 use std::sync::Arc;
 
 mod banner;
 mod cta;
 mod history;
+mod permissions;
 mod presets;
 mod routes;
 pub mod settings;
@@ -78,6 +81,15 @@ impl Extension for ExtensionStruct {
                     cta::server(&state),
                 )
             })
+    }
+
+    /// `mint-theme.update`: saving the theme without the panel wide `settings.update`.
+    async fn initialize_permissions(
+        &mut self,
+        _state: State,
+        builder: ExtensionPermissionsBuilder,
+    ) -> ExtensionPermissionsBuilder {
+        permissions::register(builder)
     }
 
     async fn settings_deserializer(

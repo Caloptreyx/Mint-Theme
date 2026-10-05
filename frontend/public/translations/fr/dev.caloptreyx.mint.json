@@ -190,6 +190,7 @@
       "loadFailedDescription": "L'enregistrement reste désactivé jusqu'au chargement, afin que le thème stocké ne soit jamais remplacé par une version obsolète.",
       "retry": "Réessayer",
       "fixUrls": "Corrigez d'abord les URL en surbrillance.",
+      "noPermission": "L’enregistrement nécessite la permission d’administration settings.update ou mint-theme.update. Appliquer dans ce navigateur affiche votre brouillon pour vous seul.",
       "urlInvalid": "Doit commencer par https:// ou /, sans espaces, guillemets ni crochets.",
       "colorInvalid": "Ce n'est pas une couleur ; utilisez #rrggbb.",
       "leaveTitle": "Modifications non enregistrées",
@@ -618,6 +619,16 @@
         "description": "L'apparence du panel pour vous. Vous seul la voyez, sur chaque appareil où vous vous connectez.",
         "default": "Par défaut du panel"
       }
+    },
+    "localTheme": {
+      "apply": "Appliquer dans ce navigateur",
+      "applyDescription": "Affiche le brouillon comme thème du panel dans ce navigateur uniquement, pages de connexion comprises. Rien n’est enregistré et personne d’autre ne le voit.",
+      "applied": "Appliqué dans ce navigateur. Vous seul le voyez.",
+      "editorActive": "Ce navigateur affiche un thème appliqué ici au lieu du thème enregistré.",
+      "notice": "Ce navigateur affiche un thème que vous seul pouvez voir.",
+      "stop": "Arrêter",
+      "stopDescription": "Arrêter d’afficher ce thème dans ce navigateur",
+      "stopped": "Ce navigateur affiche de nouveau le thème enregistré."
     }
   }
 }

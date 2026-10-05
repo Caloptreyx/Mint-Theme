@@ -1,4 +1,4 @@
-import { cloneElement, type ReactElement, useLayoutEffect } from 'react';
+import { cloneElement, type ReactElement, type ReactNode, useLayoutEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import type { z } from 'zod';
 import {
@@ -53,6 +53,21 @@ function ConsoleLink({ link }: { link: ReactElement<SidebarLinkProps> }) {
  */
 export function withConsoleFallback(element: ReactElement<SidebarLinkProps>, props: SidebarLinkProps) {
   return CONSOLE_PATH.test(props.to) ? <ConsoleLink link={element} /> : element;
+}
+
+function ConsoleTarget({ to, render }: { to: string; render: (root: string | null) => ReactNode }) {
+  const server = useServerStore((s) => s.server);
+  const { user } = useAuth();
+
+  return render(consoleBlocked(server, user) ? rootOf(to, server) : null);
+}
+
+/**
+ * For links Mint draws itself from the menu (the phone bottom bar): `render` gets the server root to use instead
+ * of `to` while the console is blocked, else null. As above, only console links read the server store.
+ */
+export function withConsoleRoot(to: string, render: (root: string | null) => ReactNode): ReactNode {
+  return CONSOLE_PATH.test(to) ? <ConsoleTarget to={to} render={render} /> : render(null);
 }
 
 /**

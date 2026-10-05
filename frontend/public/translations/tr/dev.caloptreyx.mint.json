@@ -190,6 +190,7 @@
       "loadFailedDescription": "Kayıtlı temanın eski bir sürümle değiştirilmemesi için, yüklenene kadar kaydetme kapalı kalır.",
       "retry": "Tekrar dene",
       "fixUrls": "Önce vurgulanan URL'leri düzeltin.",
+      "noPermission": "Kaydetmek için settings.update veya mint-theme.update yönetici izni gerekir. Bu tarayıcıda uygula, taslağı yalnızca size gösterir.",
       "urlInvalid": "https:// veya / ile başlamalı; boşluk, tırnak veya parantez içermemelidir.",
       "colorInvalid": "Geçerli bir renk değil; #rrggbb kullanın.",
       "leaveTitle": "Kaydedilmemiş değişiklikler",
@@ -618,6 +619,16 @@
         "description": "Panelin size nasıl göründüğü. Yalnızca siz görürsünüz, oturum açtığınız her cihazda.",
         "default": "Panel varsayılanı"
       }
+    },
+    "localTheme": {
+      "apply": "Bu tarayıcıda uygula",
+      "applyDescription": "Taslağı yalnızca bu tarayıcıda, giriş sayfaları dahil, panel teması olarak gösterir. Hiçbir şey kaydedilmez ve başka kimse görmez.",
+      "applied": "Bu tarayıcıda uygulandı. Yalnızca siz görüyorsunuz.",
+      "editorActive": "Bu tarayıcı, kayıtlı tema yerine burada uyguladığınız bir temayı gösteriyor.",
+      "notice": "Bu tarayıcı yalnızca sizin görebildiğiniz bir tema gösteriyor.",
+      "stop": "Durdur",
+      "stopDescription": "Bu temayı bu tarayıcıda göstermeyi durdur",
+      "stopped": "Bu tarayıcı yeniden kayıtlı temayı gösteriyor."
     }
   }
 }

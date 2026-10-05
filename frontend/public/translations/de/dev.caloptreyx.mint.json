@@ -190,6 +190,7 @@
       "loadFailedDescription": "Speichern bleibt deaktiviert, bis es geladen ist, damit das gespeicherte Design nie durch ein veraltetes ersetzt wird.",
       "retry": "Erneut versuchen",
       "fixUrls": "Korrigiere zuerst die markierten URLs.",
+      "noPermission": "Zum Speichern ist die Admin-Berechtigung settings.update oder mint-theme.update nötig. „In diesem Browser anwenden“ zeigt deinen Entwurf nur dir.",
       "urlInvalid": "Muss mit https:// oder / beginnen, ohne Leerzeichen, Anführungszeichen oder Klammern.",
       "colorInvalid": "Keine Farbe; verwende #rrggbb.",
       "leaveTitle": "Ungespeicherte Änderungen",
@@ -618,6 +619,16 @@
         "description": "So sieht das Panel für dich aus. Nur du siehst es, auf jedem Gerät, auf dem du dich anmeldest.",
         "default": "Panel-Standard"
       }
+    },
+    "localTheme": {
+      "apply": "In diesem Browser anwenden",
+      "applyDescription": "Zeigt den Entwurf nur in diesem Browser als Panel-Design, Anmeldeseiten eingeschlossen. Nichts wird gespeichert und niemand sonst sieht es.",
+      "applied": "In diesem Browser angewendet. Nur du siehst es.",
+      "editorActive": "Dieser Browser zeigt ein hier angewendetes Design statt des gespeicherten.",
+      "notice": "Dieser Browser zeigt ein Design, das nur du sehen kannst.",
+      "stop": "Beenden",
+      "stopDescription": "Beenden, dieses Design in diesem Browser zu zeigen",
+      "stopped": "Dieser Browser zeigt wieder das gespeicherte Design."
     }
   }
 }

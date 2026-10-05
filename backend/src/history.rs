@@ -111,7 +111,7 @@ mod get {
 
     #[utoipa::path(get, path = "/", responses((status = OK, body = super::History)))]
     pub async fn route(state: GetState, permissions: GetPermissionManager) -> ApiResponseResult {
-        permissions.has_admin_permission("settings.read")?;
+        crate::permissions::can_read(&permissions)?;
 
         let settings = state.settings.get().await?;
         let history = settings
@@ -124,7 +124,7 @@ mod get {
     }
 }
 
-/// `GET`, gated by `settings.read` like the editor; entries are written by the theme PUT.
+/// `GET` (`settings.read` or `mint-theme.update`, like the presets); entries are written by the theme PUT.
 pub fn admin(state: &State) -> OpenApiRouter<State> {
     OpenApiRouter::new()
         .routes(routes!(get::route))

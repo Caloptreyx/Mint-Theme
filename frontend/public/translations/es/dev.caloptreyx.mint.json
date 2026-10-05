@@ -190,6 +190,7 @@
       "loadFailedDescription": "Guardar permanece desactivado hasta que se cargue, para que el tema almacenado nunca se reemplace por uno desactualizado.",
       "retry": "Reintentar",
       "fixUrls": "Corrige primero las URL resaltadas.",
+      "noPermission": "Para guardar se necesita el permiso de administración settings.update o mint-theme.update. Aplicar en este navegador te muestra el borrador solo a ti.",
       "urlInvalid": "Debe empezar por https:// o /, sin espacios, comillas ni corchetes.",
       "colorInvalid": "No es un color; usa #rrggbb.",
       "leaveTitle": "Cambios sin guardar",
@@ -618,6 +619,16 @@
         "description": "Cómo se ve el panel para ti. Solo tú lo ves, en todos los dispositivos donde inicies sesión.",
         "default": "Predeterminado del panel"
       }
+    },
+    "localTheme": {
+      "apply": "Aplicar en este navegador",
+      "applyDescription": "Muestra el borrador como tema del panel solo en este navegador, incluidas las páginas de inicio de sesión. No se guarda nada y nadie más lo ve.",
+      "applied": "Aplicado en este navegador. Solo tú lo ves.",
+      "editorActive": "Este navegador muestra un tema que aplicaste aquí en lugar del guardado.",
+      "notice": "Este navegador muestra un tema que solo tú puedes ver.",
+      "stop": "Detener",
+      "stopDescription": "Detener este tema en este navegador",
+      "stopped": "Este navegador vuelve a mostrar el tema guardado."
     }
   }
 }

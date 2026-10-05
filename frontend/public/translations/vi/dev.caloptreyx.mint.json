@@ -190,6 +190,7 @@
       "loadFailedDescription": "Nút Lưu bị tắt cho đến khi tải xong, để giao diện đã lưu không bao giờ bị thay bằng phiên bản cũ.",
       "retry": "Thử lại",
       "fixUrls": "Hãy sửa các URL được đánh dấu trước.",
+      "noPermission": "Để lưu cần quyền quản trị settings.update hoặc mint-theme.update. Áp dụng trong trình duyệt này chỉ hiển thị bản nháp cho riêng bạn.",
       "urlInvalid": "Phải bắt đầu bằng https:// hoặc /, không có khoảng trắng, dấu ngoặc kép hay dấu ngoặc.",
       "colorInvalid": "Không phải màu; hãy dùng #rrggbb.",
       "leaveTitle": "Thay đổi chưa lưu",
@@ -618,6 +619,16 @@
         "description": "Bảng điều khiển trông như thế nào đối với bạn. Chỉ bạn nhìn thấy, trên mọi thiết bị bạn đăng nhập.",
         "default": "Mặc định của bảng điều khiển"
       }
+    },
+    "localTheme": {
+      "apply": "Áp dụng trong trình duyệt này",
+      "applyDescription": "Hiển thị bản nháp làm giao diện của bảng điều khiển chỉ trong trình duyệt này, kể cả trang đăng nhập. Không có gì được lưu và không ai khác thấy.",
+      "applied": "Đã áp dụng trong trình duyệt này. Chỉ bạn thấy.",
+      "editorActive": "Trình duyệt này đang hiển thị giao diện bạn áp dụng tại đây thay cho giao diện đã lưu.",
+      "notice": "Trình duyệt này đang hiển thị giao diện chỉ bạn mới thấy.",
+      "stop": "Dừng",
+      "stopDescription": "Dừng hiển thị giao diện này trong trình duyệt này",
+      "stopped": "Trình duyệt này lại hiển thị giao diện đã lưu."
     }
   }
 }

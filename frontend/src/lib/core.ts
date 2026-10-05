@@ -101,6 +101,7 @@ export { useServerListShowOthers } from '@/plugins/server/useServerListShowOther
 export { useServerStats } from '@/plugins/server/useServerStats.ts';
 export { useStartOnGroupedServers } from '@/plugins/server/useStartOnGroupedServers.ts';
 export { useBlocker } from '@/plugins/useBlocker.ts';
+export { useAdminCan } from '@/plugins/usePermissions.ts';
 export { useVisualViewportBottomInset } from '@/plugins/viewport/useVisualViewport.ts';
 export { SocketRequest } from '@/plugins/websocket/useWebsocketEvent.ts';
 

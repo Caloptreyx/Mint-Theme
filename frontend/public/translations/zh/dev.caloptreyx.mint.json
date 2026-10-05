@@ -190,6 +190,7 @@
       "loadFailedDescription": "載入完成前將停用儲存，以免已儲存的主題被過時的版本取代。",
       "retry": "重試",
       "fixUrls": "請先修正標示的網址。",
+      "noPermission": "保存需要 settings.update 或 mint-theme.update 管理权限。“在此浏览器中应用”可只让你自己看到草稿。",
       "urlInvalid": "必須以 https:// 或 / 開頭，且不含空格、引號或括號。",
       "colorInvalid": "不是有效的顏色；請使用 #rrggbb。",
       "leaveTitle": "未儲存的變更",
@@ -618,6 +619,16 @@
         "description": "面板在你眼中的外觀。僅你自己看得到，並套用於你登入的每部裝置。",
         "default": "面板預設"
       }
+    },
+    "localTheme": {
+      "apply": "在此浏览器中应用",
+      "applyDescription": "仅在此浏览器中将草稿显示为面板主题，包括登录页面。不会保存任何内容，其他人也看不到。",
+      "applied": "已在此浏览器中应用。只有你能看到。",
+      "editorActive": "此浏览器显示的是你在这里应用的主题，而不是已保存的主题。",
+      "notice": "此浏览器显示的是只有你能看到的主题。",
+      "stop": "停止",
+      "stopDescription": "停止在此浏览器中显示此主题",
+      "stopped": "此浏览器已重新显示已保存的主题。"
     }
   }
 }

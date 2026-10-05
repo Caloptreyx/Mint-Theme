@@ -14,6 +14,7 @@ import { Link, useLocation } from 'react-router';
 import { useNebulaTheme } from '../../lib/apply.ts';
 import { Card, Sidebar } from '../../lib/core.ts';
 import { useExtTranslations } from '../../translations.ts';
+import { withConsoleRoot } from '../console/ConsoleFallback.tsx';
 import GroupedNav from './GroupedNav.tsx';
 import { findLink, flatten, isNavActive, type SidebarLinkProps, type SidebarProps } from './nav.ts';
 
@@ -93,20 +94,25 @@ function swapLink(node: ReactNode, render: (link: SidebarLinkProps) => ReactNode
 }
 
 function BarLink({ link, active }: { link: SidebarLinkProps; active: boolean }) {
+  const { pathname } = useLocation();
   const to = link.to.endsWith('/*') ? link.to.slice(0, -2) : link.to;
 
-  return (
-    <Link
-      to={to}
-      aria-current={active ? 'page' : undefined}
-      className={`${ITEM_CLASS} ${active ? 'text-(--mantine-color-blue-light-color)' : 'text-(--mantine-color-dimmed)'}`}
-    >
-      <span className={`${ICON_CLASS} ${active ? 'bg-(--mantine-color-blue-light)' : ''}`}>
-        <FontAwesomeIcon icon={link.icon ?? faLink} />
-      </span>
-      <span className='w-full truncate text-center'>{link.name ?? link.title}</span>
-    </Link>
-  );
+  // the console's link leads to Home (the server root) while core blocks the console; it lights up there only
+  return withConsoleRoot(to, (root) => {
+    const current = root ? pathname.replace(/\/$/, '') === root : active;
+    return (
+      <Link
+        to={root ?? to}
+        aria-current={current ? 'page' : undefined}
+        className={`${ITEM_CLASS} ${current ? 'text-(--mantine-color-blue-light-color)' : 'text-(--mantine-color-dimmed)'}`}
+      >
+        <span className={`${ICON_CLASS} ${current ? 'bg-(--mantine-color-blue-light)' : ''}`}>
+          <FontAwesomeIcon icon={link.icon ?? faLink} />
+        </span>
+        <span className='w-full truncate text-center'>{link.name ?? link.title}</span>
+      </Link>
+    );
+  });
 }
 
 /**

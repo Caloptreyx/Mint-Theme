@@ -190,6 +190,7 @@
       "loadFailedDescription": "Salvarea rămâne dezactivată până la încărcare, ca tema stocată să nu fie niciodată înlocuită cu una învechită.",
       "retry": "Încearcă din nou",
       "fixUrls": "Corectează mai întâi URL-urile evidențiate.",
+      "noPermission": "Salvarea necesită permisiunea de administrare settings.update sau mint-theme.update. Aplică în acest browser îți arată schița doar ție.",
       "urlInvalid": "Trebuie să înceapă cu https:// sau /, fără spații, ghilimele sau paranteze.",
       "colorInvalid": "Nu este o culoare; folosește #rrggbb.",
       "leaveTitle": "Modificări nesalvate",
@@ -618,6 +619,16 @@
         "description": "Cum arată panoul pentru tine. Doar tu o vezi, pe fiecare dispozitiv pe care te autentifici.",
         "default": "Implicitul panoului"
       }
+    },
+    "localTheme": {
+      "apply": "Aplică în acest browser",
+      "applyDescription": "Afișează schița ca temă a panoului doar în acest browser, inclusiv paginile de autentificare. Nu se salvează nimic și nimeni altcineva nu o vede.",
+      "applied": "Aplicată în acest browser. Doar tu o vezi.",
+      "editorActive": "Acest browser afișează o temă aplicată aici în locul celei salvate.",
+      "notice": "Acest browser afișează o temă pe care doar tu o poți vedea.",
+      "stop": "Oprește",
+      "stopDescription": "Oprește afișarea acestei teme în acest browser",
+      "stopped": "Acest browser afișează din nou tema salvată."
     }
   }
 }

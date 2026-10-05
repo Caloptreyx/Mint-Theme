@@ -12,6 +12,7 @@ import ConsoleRedirect, { withConsoleFallback } from './elements/console/Console
 import ConsoleRouteOrder from './elements/console/ConsoleRouteOrder.tsx';
 import EditorKeys from './elements/files/EditorKeys.tsx';
 import ThemeChoiceCard from './elements/library/ThemeChoiceCard.tsx';
+import LocalThemeNotice from './elements/page/LocalThemeNotice.tsx';
 import { hidePageTitle } from './elements/page/PageTitles.tsx';
 import PageTransition from './elements/page/PageTransition.tsx';
 import BottomNav from './elements/sidebar/BottomNav.tsx';
@@ -30,6 +31,7 @@ import {
   Sidebar,
 } from './lib/core.ts';
 import { mountMobileEditor } from './lib/mobileEditor.ts';
+import { THEME_UPDATE_PERMISSION } from './lib/permissions.ts';
 import { attachTerminalFont, detachTerminalFont, initTerminalFont } from './lib/terminal.ts';
 import ServerConsole from './pages/ServerConsole.tsx';
 import ServerHome from './pages/ServerHome.tsx';
@@ -119,6 +121,8 @@ class DevCaloptreyxMintExtension extends Extension {
 
     // route changes animate the content column; the theme's CSS picks the animation, 'none' has no rule
     ctx.extensionRegistry.global.prependComponent(PageTransition);
+    // 'Apply in this browser' (the editor) is on: a corner card says only this browser shows that theme, with Stop
+    ctx.extensionRegistry.global.appendComponent(LocalThemeNotice);
 
     // the glassy toast style (lib/theme.ts) picks its icon from the toast's colour, exposed as `data-nebula-tone`
     Notification.addPropsInterceptor((props) =>
@@ -167,12 +171,17 @@ class DevCaloptreyxMintExtension extends Extension {
     // Home; pages.server renders beside core's ServerStateGuard, not under it, so this runs while the guard blocks it
     ctx.extensionRegistry.pages.server.prependComponent(ConsoleRedirect);
 
+    // the backend's `mint-theme` admin permission group (backend/src/permissions.rs) in core's role editor
+    ctx.extensionRegistry.enterPermissionIcons((icons) =>
+      icons.addAdminPermissionIcon('mint-theme', createElement(FontAwesomeIcon, { icon: faPalette })),
+    );
     ctx.extensionRegistry.routes.addAdminRoute({
       name: () => getExtTranslations().t('nav.editor', {}),
       icon: faPalette,
       path: '/mint',
       category: 'system',
-      permission: 'settings.read',
+      // core shows it to roles holding either; saving needs settings.update or mint-theme.update (lib/permissions.ts)
+      permission: ['settings.read', THEME_UPDATE_PERMISSION],
       element: ThemeEditor,
       exact: true,
     });

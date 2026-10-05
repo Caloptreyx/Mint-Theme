@@ -503,6 +503,11 @@ html[data-nebula-bottom-nav] [data-nebula-editor-keys] {
   padding-bottom: 0;
 }
 
+/* the 'Apply in this browser' notice (LocalThemeNotice) sits in the bottom right corner, above the bar */
+html[data-nebula-bottom-nav] [data-nebula-local-notice] {
+  bottom: calc(0.75rem + var(--nebula-bottom-nav-h));
+}
+
 /* page transitions and the glassy toast's countdown; lib/theme.ts picks one (PAGE_ANIMATIONS), the editor's tiles play them all */
 @keyframes nebula-page-fade {
   from {
