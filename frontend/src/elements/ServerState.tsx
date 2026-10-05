@@ -1,8 +1,5 @@
 import { useShallow } from 'zustand/react/shallow';
-import Badge from '@/elements/Badge.tsx';
-import { serverStatusInfo } from '@/lib/server.ts';
-import { useTranslations } from '@/providers/TranslationProvider.tsx';
-import { useServerStore } from '@/stores/server.ts';
+import { Badge, serverStatusInfo, useServerStore, useTranslations } from '../lib/core.ts';
 
 /** The open server's state as a pill, shared by the Home banner and the console bar. */
 export default function ServerState() {

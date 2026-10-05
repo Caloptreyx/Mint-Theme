@@ -154,6 +154,17 @@ describe('library', () => {
     assert.deepEqual(library.builtin, ['mint', 'ember']);
   });
 
+  test('names are cut by code points, as the backend counts them', () => {
+    // 26 code points, 46 UTF-16 units: kept whole, where a unit cut left 23 and could split an emoji
+    const night = `Night ${'🌙'.repeat(20)}`;
+    assert.equal(presetNameProblem(night), null);
+    const named = (name: string) => normalizeLibrary({ custom: [{ id: ID_A, name, theme: {} }] }).custom[0].name;
+    assert.equal(named(night), night);
+    const long = named(`a${'🌙'.repeat(PRESET_NAME_MAX)}`);
+    assert.equal([...long].length, PRESET_NAME_MAX);
+    assert.equal(long, `a${'🌙'.repeat(PRESET_NAME_MAX - 1)}`);
+  });
+
   test('is capped', () => {
     const custom = Array.from({ length: MAX_CUSTOM_PRESETS + 5 }, (_, i) => ({
       id: `00000000-0000-4000-8000-${String(i).padStart(12, '0')}`,

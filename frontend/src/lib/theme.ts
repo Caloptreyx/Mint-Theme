@@ -257,30 +257,76 @@ export const DEFAULT_THEME: NebulaTheme = {
   mobileEditor: true,
 };
 
+/**
+ * Each sets its text on accent: core's white is too faint on Mint's bright accent for badges, checkboxes and
+ * switches, and '' on the others resets a value left by the site or a preset applied before.
+ */
 export const PRESETS: { name: string; theme: Partial<NebulaTheme> }[] = [
   {
     name: 'Mint',
-    theme: { accent: '#2fbf8f', highlight: '#b4f2dc', background: '#101a1b', surface: '#0b1314', text: '#e5f3ee' },
+    theme: {
+      accent: '#2fbf8f',
+      highlight: '#b4f2dc',
+      background: '#101a1b',
+      surface: '#0b1314',
+      text: '#e5f3ee',
+      textOnAccent: '#0b1314',
+    },
   },
   {
     name: 'Midnight',
-    theme: { accent: '#1e88c7', highlight: '#8fe3c8', background: '#16122a', surface: '#110b21', text: '#e6e4f0' },
+    theme: {
+      accent: '#1e88c7',
+      highlight: '#8fe3c8',
+      background: '#16122a',
+      surface: '#110b21',
+      text: '#e6e4f0',
+      textOnAccent: '',
+    },
   },
   {
     name: 'Stellar',
-    theme: { accent: '#3b6cde', highlight: '#8fb4ff', background: '#1b1c30', surface: '#222339', text: '#e2e4ee' },
+    theme: {
+      accent: '#3b6cde',
+      highlight: '#8fb4ff',
+      background: '#1b1c30',
+      surface: '#222339',
+      text: '#e2e4ee',
+      textOnAccent: '',
+    },
   },
   {
     name: 'Emerald',
-    theme: { accent: '#1f9d74', highlight: '#9be7c4', background: '#0f1a16', surface: '#0b1411', text: '#e3efe9' },
+    theme: {
+      accent: '#1f9d74',
+      highlight: '#9be7c4',
+      background: '#0f1a16',
+      surface: '#0b1411',
+      text: '#e3efe9',
+      textOnAccent: '',
+    },
   },
   {
     name: 'Ember',
-    theme: { accent: '#d9622b', highlight: '#ffc59b', background: '#1a1210', surface: '#130c0a', text: '#f1e7e2' },
+    theme: {
+      accent: '#d9622b',
+      highlight: '#ffc59b',
+      background: '#1a1210',
+      surface: '#130c0a',
+      text: '#f1e7e2',
+      textOnAccent: '',
+    },
   },
   {
     name: 'Graphite',
-    theme: { accent: '#6c7cff', highlight: '#b9c0ff', background: '#16171b', surface: '#101114', text: '#e7e8ec' },
+    theme: {
+      accent: '#6c7cff',
+      highlight: '#b9c0ff',
+      background: '#16171b',
+      surface: '#101114',
+      text: '#e7e8ec',
+      textOnAccent: '',
+    },
   },
 ];
 
@@ -338,7 +384,7 @@ export const USER_THEME_FIELDS: readonly (keyof NebulaTheme)[] = [
   'dockPosition',
 ];
 
-/** Only the `USER_THEME_FIELDS` a preset sets; a built-in preset sets just its five colours. */
+/** Only the `USER_THEME_FIELDS` a preset sets; a built-in preset sets just its colours. */
 export function pickUserTheme(preset: unknown): Partial<NebulaTheme> {
   const r = (preset && typeof preset === 'object' ? preset : {}) as Record<string, unknown>;
   const out: Record<string, unknown> = {};
@@ -382,7 +428,8 @@ function supportLinks(v: unknown, fallback: SupportLink[]): SupportLink[] {
   const out: SupportLink[] = [];
   for (const raw of v.slice(0, MAX_SUPPORT_LINKS)) {
     const r = (raw && typeof raw === 'object' ? raw : {}) as Record<string, unknown>;
-    const label = typeof r.label === 'string' ? r.label.trim().slice(0, MAX_SUPPORT_LINK_LABEL) : '';
+    // by code points, so a cut never splits an emoji into a lone surrogate
+    const label = typeof r.label === 'string' ? [...r.label.trim()].slice(0, MAX_SUPPORT_LINK_LABEL).join('') : '';
     const href = url(r.url, '');
     if (!label || !href) continue;
     const icon = SUPPORT_LINK_ICONS.find((name) => name === r.icon);
@@ -645,8 +692,11 @@ export type ContrastField =
 export interface ContrastIssue {
   fg: ContrastField;
   bg: ContrastField;
-  /** Set when the colour painted is derived from `fg` rather than `fg` itself: the link shade, light mode's dimmed text. */
-  role?: 'links' | 'dimmed';
+  /**
+   * Set when the colour painted is derived from `fg` rather than `fg` itself (the link shade, light mode's dimmed
+   * text), or the pair is one of several uses of `fg` (text on accent's badges, checkboxes and switches).
+   */
+  role?: 'links' | 'dimmed' | 'accentFills';
   ratio: number;
   min: number;
 }
@@ -668,9 +718,17 @@ export function contrastIssues(t: NebulaTheme): ContrastIssue[] {
     ['lightText', 'lightSurface', mix(light.text, light.surface, 0.62), light.surface, 'dimmed'],
     ['accent', 'lightSurface', readable(t.accent, light.text, light.surface), light.surface, 'links'],
   ];
-  // the other button styles tint the label toward the page's ink; only solid buttons put it on the colour
+  // `buttonText` sets the label's colour in every style; solid buttons put it on the button colour, the others on
+  // a tint of it over the card (outline: the card itself)
   if (t.buttonStyle === 'filled') {
     pairs.push(['buttonText', 'buttonColor', t.buttonText || t.textOnAccent || '#ffffff', t.buttonColor || t.accent]);
+  } else if (t.buttonText) {
+    const tint = { tinted: 0.22, glass: 0.28, outline: 0 }[t.buttonStyle];
+    const fill = t.buttonColor || t.accent;
+    pairs.push(
+      ['buttonText', 'surface', t.buttonText, mix(fill, t.surface, tint)],
+      ['buttonText', 'lightSurface', t.buttonText, mix(fill, light.surface, tint)],
+    );
   }
   const issues: ContrastIssue[] = pairs.map(([fg, bg, a, b, role]) => ({
     fg,
@@ -679,16 +737,19 @@ export function contrastIssues(t: NebulaTheme): ContrastIssue[] {
     ratio: contrastRatio(a, b),
     min: MIN_TEXT_CONTRAST,
   }));
-  // text on accent also paints accent filled buttons (the pair above) and badges; it is checked where the solid
-  // menu styles paint it: the current link's label, or just its icon for 'iconPill'
-  if (t.navHover === 'filled' || t.navHover === 'pill' || t.navHover === 'iconPill') {
-    const onAccent = t.textOnAccent || '#ffffff';
-    issues.push({
-      fg: 'textOnAccent',
-      bg: 'accent',
-      ratio: contrastRatio(onAccent, t.accent),
-      min: t.navHover === 'iconPill' ? MIN_UI_CONTRAST : MIN_TEXT_CONTRAST,
-    });
+  // text on accent (core's white while empty) is painted on the accent wherever no style changes it: badges with no
+  // colour or variant, checked checkboxes and switches, filled action icons; bold small labels and marks, so 3:1
+  const onAccent = t.textOnAccent || '#ffffff';
+  issues.push({
+    fg: 'textOnAccent',
+    bg: 'accent',
+    role: 'accentFills',
+    ratio: contrastRatio(onAccent, t.accent),
+    min: MIN_UI_CONTRAST,
+  });
+  // the solid menu styles paint the current link's label on it ('iconPill' only its icon, covered above)
+  if (t.navHover === 'filled' || t.navHover === 'pill') {
+    issues.push({ fg: 'textOnAccent', bg: 'accent', ratio: contrastRatio(onAccent, t.accent), min: MIN_TEXT_CONTRAST });
   }
   return issues.filter((issue) => issue.ratio < issue.min);
 }
@@ -981,7 +1042,33 @@ export function buildCss(t: NebulaTheme): string {
     lightScheme.push(['--mantine-primary-color-contrast', t.textOnAccent]);
   }
 
-  // status colours repaint the whole Mantine palette they belong to, plus the server state dots
+  // status colours repaint the whole Mantine palette they belong to, plus the server state dots. The 0-9 scales
+  // beat Mantine's `:root` from plain html:root; the variants go in the scheme blocks, because core and Mantine pin
+  // them on `:root[data-mantine-color-scheme]`, which plain html:root loses to
+  const darkVariants = (name: string, value: string, shades: string[]): [string, string][] => [
+    [`--mantine-color-${name}-filled`, shades[6]],
+    [`--mantine-color-${name}-filled-hover`, shades[5]],
+    [`--mantine-color-${name}-light`, alpha(value, 0.2)],
+    [`--mantine-color-${name}-light-hover`, alpha(value, 0.28)],
+    [`--mantine-color-${name}-light-color`, shades[3]],
+    [`--mantine-color-${name}-outline`, shades[4]],
+    [`--mantine-color-${name}-outline-hover`, alpha(shades[4], 0.08)],
+    [`--mantine-color-${name}-text`, shades[4]],
+  ];
+  // light mode's tint text is pulled toward the ink until it reads on the surface
+  const lightVariants = (name: string, value: string, shades: string[], tint: [number, number]): [string, string][] => {
+    const ink = readable(value, light.text, light.surface);
+    return [
+      [`--mantine-color-${name}-filled`, shades[6]],
+      [`--mantine-color-${name}-filled-hover`, shades[7]],
+      [`--mantine-color-${name}-light`, alpha(value, tint[0])],
+      [`--mantine-color-${name}-light-hover`, alpha(value, tint[1])],
+      [`--mantine-color-${name}-light-color`, ink],
+      [`--mantine-color-${name}-outline`, shades[6]],
+      [`--mantine-color-${name}-outline-hover`, alpha(value, 0.05)],
+      [`--mantine-color-${name}-text`, ink],
+    ];
+  };
   const status: [string, string, string][] = [
     [t.success, 'green', 'running'],
     [t.warning, 'yellow', 'starting'],
@@ -990,16 +1077,9 @@ export function buildCss(t: NebulaTheme): string {
   for (const [value, name] of status) {
     if (!value) continue;
     const shades = accentShades(value);
-    shared.push(
-      ...scale(name, shades),
-      [`--mantine-color-${name}-filled`, shades[6]],
-      [`--mantine-color-${name}-filled-hover`, shades[5]],
-      [`--mantine-color-${name}-light`, alpha(value, 0.2)],
-      [`--mantine-color-${name}-light-hover`, alpha(value, 0.28)],
-      [`--mantine-color-${name}-light-color`, shades[3]],
-      [`--mantine-color-${name}-outline`, shades[4]],
-      [`--mantine-color-${name}-text`, shades[4]],
-    );
+    shared.push(...scale(name, shades));
+    darkScheme.push(...darkVariants(name, value, shades));
+    lightScheme.push(...lightVariants(name, value, shades, [0.1, 0.14]));
   }
   if (t.success) shared.push(['--color-server-status-running', t.success]);
   if (t.warning)
@@ -1007,27 +1087,19 @@ export function buildCss(t: NebulaTheme): string {
   if (t.danger) shared.push(['--color-server-status-offline', t.danger]);
   if (t.offline) {
     const shades = accentShades(t.offline);
-    shared.push(
-      ...scale('gray', shades),
-      ['--mantine-color-gray-filled', shades[6]],
-      ['--mantine-color-gray-light', alpha(t.offline, 0.2)],
-      ['--mantine-color-gray-light-color', shades[3]],
-      ['--mantine-color-gray-text', shades[4]],
-    );
+    shared.push(...scale('gray', shades));
+    darkScheme.push(...darkVariants('gray', t.offline, shades));
     // light mode keeps its neutral gray scale, so gray badges and buttons take the colour directly
-    lightScheme.push(
-      ['--mantine-color-gray-filled', shades[6]],
-      ['--mantine-color-gray-filled-hover', shades[7]],
-      ['--mantine-color-gray-light', alpha(t.offline, 0.12)],
-      ['--mantine-color-gray-light-hover', alpha(t.offline, 0.18)],
-      ['--mantine-color-gray-light-color', readable(t.offline, light.text, light.surface)],
-      ['--mantine-color-gray-outline', shades[6]],
-      ['--mantine-color-gray-text', readable(t.offline, light.text, light.surface)],
-    );
+    lightScheme.push(...lightVariants('gray', t.offline, shades, [0.12, 0.18]));
   }
-  if (t.chartTwo) shared.push(['--chart-series-2', t.chartTwo]);
+  // core pins the chart series per scheme too
+  if (t.chartTwo) {
+    darkScheme.push(['--chart-series-2', t.chartTwo]);
+    lightScheme.push(['--chart-series-2', t.chartTwo]);
+  }
 
-  // html:root outranks both Mantine's :root rules and the panel's pinned scheme overrides
+  // html:root outranks Mantine's :root rules; the scheme blocks also outrank the `:root[data-mantine-color-scheme]`
+  // ones of core's app.css and Mantine
   const css = [
     `html:root{${vars(shared)}}`,
     `html:root[data-mantine-color-scheme="dark"]{${vars(darkScheme)}}`,

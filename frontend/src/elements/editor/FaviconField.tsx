@@ -1,9 +1,7 @@
-import TextInput from '@/elements/input/TextInput.tsx';
-import Stack from '@/elements/Stack.tsx';
-import Text from '@/elements/Text.tsx';
-import { useGlobalStore } from '@/stores/global.ts';
+import { Stack, Text, useGlobalStore } from '../../lib/core.ts';
 import { type NebulaTheme, SAFE_URL } from '../../lib/theme.ts';
 import { useExtTranslations } from '../../translations.ts';
+import UrlInput from './UrlInput.tsx';
 
 interface Props {
   theme: NebulaTheme;
@@ -18,12 +16,11 @@ export default function FaviconField({ theme, set }: Props) {
 
   return (
     <Stack gap='xs'>
-      <TextInput
+      <UrlInput
         label={t('editor.favicon.label', {})}
         description={t('editor.favicon.description', {})}
-        placeholder='https://'
         value={theme.favicon}
-        onChange={(e) => set({ favicon: e.target.value.trim() })}
+        onChange={(favicon) => set({ favicon })}
       />
       <div aria-label={t('editor.favicon.preview', {})} className='flex items-end gap-3'>
         <div className='flex max-w-56 min-w-0 items-center gap-2 rounded-t-md border border-b-0 border-(--mantine-color-default-border) bg-(--mantine-color-default) px-3 py-1.5'>

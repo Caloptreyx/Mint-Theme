@@ -49,6 +49,17 @@ describe('ctaUrlProblem', () => {
     assert.equal(ctaUrlProblem(longest), null);
     assert.equal(ctaUrlProblem(`${longest}a`), 'urlLong');
   });
+
+  test('counts the length in UTF-16 units, as the backend does', () => {
+    // 'é' is one unit, '😀' two: both sides must agree where the limit falls
+    const accented = `/${'é'.repeat(CTA_MAX_URL - 1)}`;
+    assert.equal(ctaUrlProblem(accented), null);
+    assert.equal(ctaUrlProblem(`${accented}é`), 'urlLong');
+    const emoji = `/${'😀'.repeat((CTA_MAX_URL - 2) / 2)}a`;
+    assert.equal(emoji.length, CTA_MAX_URL);
+    assert.equal(ctaUrlProblem(emoji), null);
+    assert.equal(ctaUrlProblem(`${emoji.slice(0, -1)}😀`), 'urlLong');
+  });
 });
 
 describe('ctaTitleProblem', () => {

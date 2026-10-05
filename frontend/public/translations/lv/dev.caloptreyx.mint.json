@@ -35,6 +35,9 @@
       "cpu": "CPU",
       "disk": "Disks",
       "showing": "Rāda: {count}",
+      "showingOf": "Rāda: {count} no {total}",
+      "pageOnly": "Kārtošana, grupēšana un statusa filtrs attiecas tikai uz serveriem šajā lapā.",
+      "noMatch": "Neviens serveris neatbilst šim filtram.",
       "select": "Atlasīt {name}",
       "selectAll": "Atlasīt visus redzamos serverus",
       "column": {
@@ -112,7 +115,9 @@
       "linkInvalid": "Izmantojiet paneļa ceļu, kas sākas ar vienu /, vai pilnu http:// vai https:// adresi bez atstarpēm, pēdiņām, leņķiekavām, iekavām, figūriekavām, semikoliem vai atpakaļvērstām slīpsvītrām.",
       "linkTooLong": "Saitē drīkst būt ne vairāk kā {max} rakstzīmes.",
       "saved": "Aicinājums rīkoties saglabāts.",
-      "removed": "Aicinājums rīkoties noņemts."
+      "removed": "Aicinājums rīkoties noņemts.",
+      "loadFailed": "Pašreizējo pogu neizdevās ielādēt, tāpēc forma ir bloķēta, lai to nepārrakstītu.",
+      "retry": "Mēģināt vēlreiz"
     },
     "auth": {
       "supportLinks": "Atbalsta saites"
@@ -157,7 +162,8 @@
         "named": "{name} ({role})",
         "roles": {
           "links": "saites",
-          "dimmed": "blāvs teksts"
+          "dimmed": "blāvs teksts",
+          "accentFills": "žetoni, izvēles rūtiņas un slēdži"
         }
       },
       "favicon": {
@@ -170,13 +176,35 @@
       "undo": "Atsaukt",
       "redo": "Atcelt atsaukšanu",
       "reset": "Atiestatīt uz noklusējumu",
+      "resetTitle": "Atiestatīt uz noklusējumu",
+      "resetConfirm": "Aizstāt visu melnrakstu ar noklusējuma motīvu? Tiks notīrīti arī raksti, atbalsta saites, izkārtojumi, egg attēli, favicon un pieteikšanās logotips. Nekas netiek saglabāts, kamēr nenospiežat Saglabāt.",
+      "discard": "Atmest izmaiņas",
       "import": "Importēt motīvu",
       "export": "Eksportēt motīvu",
       "importFailed": "Šis fails nav Mint motīvs.",
+      "imported": "Motīvs importēts; nospiediet Saglabāt, lai to izmantotu.",
       "save": "Saglabāt",
       "saved": "Motīvs saglabāts.",
+      "loading": "Ielādē saglabāto motīvu…",
+      "loadFailed": "Saglabāto motīvu neizdevās ielādēt",
+      "loadFailedDescription": "Saglabāšana ir izslēgta, līdz tas ielādējas, lai saglabātais motīvs nekad netiktu aizstāts ar novecojušu.",
+      "retry": "Mēģināt vēlreiz",
+      "fixUrls": "Vispirms izlabojiet iezīmētos URL.",
+      "urlInvalid": "Jāsākas ar https:// vai /, bez atstarpēm, pēdiņām vai iekavām.",
+      "colorInvalid": "Nav krāsa; izmantojiet #rrggbb.",
+      "leaveTitle": "Nesaglabātas izmaiņas",
+      "leaveConfirm": "Pamest redaktoru? Jūsu nesaglabātās izmaiņas tiks zaudētas.",
+      "leave": "Pamest",
+      "conflictTitle": "Motīvs pa to laiku ir mainīts",
+      "conflictDescription": "Kāds saglabāja motīvu pēc tam, kad atvērāt redaktoru. Pārlādējiet to (jūsu izmaiņas tiks zaudētas) vai pārrakstiet to ar savu melnrakstu.",
+      "conflictReload": "Pārlādēt saglabāto motīvu",
+      "conflictOverwrite": "Pārrakstīt",
       "refresh": "Pārlādēt priekšskatījumu",
       "openTab": "Atvērt jaunā cilnē",
+      "previewFrame": "Motīva priekšskatījums",
+      "previewPage": "Priekšskatījuma lapa",
+      "previewDevice": "Priekšskatījuma platums",
+      "previewScheme": "Priekšskatījuma krāsu shēma",
       "search": {
         "placeholder": "Meklēt iestatījumos",
         "clear": "Notīrīt meklēšanu",
@@ -279,7 +307,6 @@
       "sidebarGroups": "Grupēt servera izvēlni",
       "sidebarGroupsDescription": "Sakļaujamas sadaļas Pārvaldība, Konfigurācija un Piekļuve.",
       "buttonStyle": "Pogu stils",
-      "buttonAccent": "Pogas izmanto akcenta krāsu",
       "buttonColor": "Pogu krāsa",
       "buttons": {
         "filled": "Pilns",
@@ -336,6 +363,7 @@
       "layoutDescription": "Velciet, lai mainītu secību, pārvietotu kartīti uz otru kolonnu vai paslēptu to.",
       "columnEmpty": "Šeit vēl nav kartīšu.",
       "moveColumn": "Pārvietot uz otru kolonnu",
+      "reorderCard": "Pārkārtot {name}",
       "hideCard": "Paslēpt kartīti",
       "showCard": "Rādīt kartīti",
       "column": {
@@ -565,6 +593,11 @@
       "deleteTitle": "Dzēst sagatavi",
       "deleteConfirm": "Dzēst {name}? Lietotāji, kas to izvēlējās, atgriezīsies pie paneļa noklusējuma.",
       "users": "Lietotāji var šo izvēlēties",
+      "apply": "Lietot {name}",
+      "overwrite": "Saglabāt melnrakstu šajā sagatavē",
+      "overwriteTitle": "Saglabāt melnrakstu sagatavē",
+      "overwriteConfirm": "Aizstāt {name} izskatu ar pašreizējo melnrakstu? Lietotāji, kas to izvēlējās, redzēs jauno izskatu.",
+      "overwritten": "Sagatave atjaunināta.",
       "nameProblem": {
         "empty": "Ievadiet nosaukumu.",
         "long": "Ne vairāk kā {max} rakstzīmes.",

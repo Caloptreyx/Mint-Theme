@@ -65,7 +65,8 @@ function customPresets(v: unknown): CustomPreset[] {
   for (const raw of v.slice(0, MAX_CUSTOM_PRESETS)) {
     const r = record(raw);
     if (!r || typeof r.id !== 'string' || !UUID.test(r.id) || out.some((p) => p.id === r.id)) continue;
-    const label = typeof r.name === 'string' ? r.name.trim().slice(0, PRESET_NAME_MAX) : '';
+    // code points, as the backend and presetNameProblem count them; a UTF-16 cut could split an emoji
+    const label = typeof r.name === 'string' ? [...r.name.trim()].slice(0, PRESET_NAME_MAX).join('') : '';
     if (!label || !record(r.theme)) continue;
     out.push({ id: r.id, name: label, theme: normalizeTheme(r.theme), users: r.users === true });
   }
@@ -83,7 +84,7 @@ export function normalizeLibrary(raw: unknown): PresetLibrary {
   return { custom: customPresets(r.custom), builtin: builtinIds(r.builtin) };
 }
 
-/** The public `choices` of `GET /mint/theme`, built-in ones first in their usual order. */
+/** The `choices` of `GET /api/client/.../theme-choices`, built-in ones first in their usual order. */
 export function normalizeChoices(raw: unknown): ThemeChoice[] {
   const r = record(raw) ?? {};
   const builtin = builtinIds(r.builtin).map((id) => {

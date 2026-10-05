@@ -1,20 +1,25 @@
-import { faFloppyDisk, faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faFileArrowUp, faFloppyDisk, faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
-import { httpErrorToHuman } from '@/api/axios.ts';
-import ActionIcon from '@/elements/ActionIcon.tsx';
-import Button from '@/elements/Button.tsx';
-import Card from '@/elements/Card.tsx';
-import Group from '@/elements/Group.tsx';
-import Switch from '@/elements/input/Switch.tsx';
-import TextInput from '@/elements/input/TextInput.tsx';
-import ConfirmationModal from '@/elements/modals/ConfirmationModal.tsx';
-import { Modal, ModalFooter } from '@/elements/modals/Modal.tsx';
-import Stack from '@/elements/Stack.tsx';
-import Text from '@/elements/Text.tsx';
-import Tooltip from '@/elements/Tooltip.tsx';
-import { useToast } from '@/providers/ToastProvider.tsx';
 import { createPreset, deletePreset, getPresets, updatePreset } from '../../api/library.ts';
+import { setChoicesFromLibrary } from '../../lib/apply.ts';
+import {
+  ActionIcon,
+  Button,
+  Card,
+  ConfirmationModal,
+  Group,
+  httpErrorToHuman,
+  Modal,
+  ModalFooter,
+  Stack,
+  Switch,
+  Text,
+  TextInput,
+  Tooltip,
+  UnstyledButton,
+  useToast,
+} from '../../lib/core.ts';
 import {
   builtinId,
   type CustomPreset,
@@ -26,9 +31,6 @@ import {
 import { type NebulaTheme, normalizeTheme, PRESETS, pickUserTheme } from '../../lib/theme.ts';
 import { useExtTranslations } from '../../translations.ts';
 import Swatches from './Swatches.tsx';
-
-// the toggle and buttons sit inside the clickable card; clicks on them must not apply the preset
-const CONTROL = 'data-preset-control';
 
 function NameModal({
   opened,
@@ -108,20 +110,18 @@ function PresetCard({
   const { t } = useExtTranslations();
 
   return (
-    <Card
-      hoverable
-      p='sm'
-      onClick={(e) => {
-        if (!(e.target as HTMLElement).closest(`[${CONTROL}]`)) onApply();
-      }}
-    >
-      <Group justify='space-between' wrap='nowrap'>
+    <Card hoverable p='sm'>
+      <UnstyledButton
+        aria-label={t('library.apply', { name })}
+        onClick={onApply}
+        className='flex items-center justify-between gap-2 w-full text-left'
+      >
         <Text fw={600} truncate>
           {name}
         </Text>
         <Swatches theme={theme} />
-      </Group>
-      <Group justify='space-between' wrap='nowrap' mt='xs' gap='xs' {...{ [CONTROL]: true }}>
+      </UnstyledButton>
+      <Group justify='space-between' wrap='nowrap' mt='xs' gap='xs'>
         <Switch
           size='xs'
           label={t('library.users', {})}
@@ -157,6 +157,7 @@ export default function PresetsSection({
   const [creating, setCreating] = useState(false);
   const [renaming, setRenaming] = useState<CustomPreset | null>(null);
   const [deleting, setDeleting] = useState<CustomPreset | null>(null);
+  const [overwriting, setOverwriting] = useState<CustomPreset | null>(null);
 
   useEffect(() => {
     getPresets()
@@ -168,7 +169,11 @@ export default function PresetsSection({
   const run = (request: Promise<PresetLibrary>) => {
     setBusy(true);
     return request
-      .then(setLibrary)
+      .then((lib) => {
+        setLibrary(lib);
+        // users' theme choices follow the library at once, not on the next page load
+        setChoicesFromLibrary(lib);
+      })
       .catch((err) => {
         addToast(httpErrorToHuman(err), 'error');
         throw err;
@@ -227,6 +232,17 @@ export default function PresetsSection({
                   onClick={() => setRenaming(preset)}
                 >
                   <FontAwesomeIcon icon={faPen} />
+                </ActionIcon>
+              </Tooltip>
+              <Tooltip label={t('library.overwrite', {})}>
+                <ActionIcon
+                  variant='subtle'
+                  color='gray'
+                  size='sm'
+                  aria-label={t('library.overwrite', {})}
+                  onClick={() => setOverwriting(preset)}
+                >
+                  <FontAwesomeIcon icon={faFileArrowUp} />
                 </ActionIcon>
               </Tooltip>
               <Tooltip label={t('library.delete', {})}>
@@ -304,6 +320,25 @@ export default function PresetsSection({
         }}
       >
         {t('library.deleteConfirm', { name: deleting?.name ?? '' })}
+      </ConfirmationModal>
+      <ConfirmationModal
+        opened={!!overwriting}
+        onClose={() => setOverwriting(null)}
+        title={t('library.overwriteTitle', {})}
+        confirm={t('library.overwrite', {})}
+        onConfirmed={() => {
+          if (!overwriting) return;
+          run(updatePreset(overwriting.id, { theme: normalizeTheme(theme) }))
+            .then(() => {
+              setOverwriting(null);
+              addToast(t('library.overwritten', {}), 'success');
+            })
+            .catch(() => {
+              // run() already showed the error; the modal stays open
+            });
+        }}
+      >
+        {t('library.overwriteConfirm', { name: overwriting?.name ?? '' })}
       </ConfirmationModal>
     </Stack>
   );

@@ -1,9 +1,8 @@
 import { faPalette } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { z } from 'zod';
-import TitleCard from '@/elements/TitleCard.tsx';
-import { useUserSetting } from '@/lib/userSettings.ts';
 import { savedTheme, useThemeChoices } from '../../lib/apply.ts';
+import { TitleCard, useUserSetting } from '../../lib/core.ts';
 import { THEME_CHOICE_KEY } from '../../lib/library.ts';
 import { useExtTranslations } from '../../translations.ts';
 import ChoiceCards from '../editor/ChoiceCards.tsx';

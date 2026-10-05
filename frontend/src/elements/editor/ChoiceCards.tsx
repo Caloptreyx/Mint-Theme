@@ -1,5 +1,4 @@
-import Text from '@/elements/Text.tsx';
-import UnstyledButton from '@/elements/UnstyledButton.tsx';
+import { Text, UnstyledButton } from '../../lib/core.ts';
 
 export interface Choice<T extends string> {
   value: T;
@@ -26,8 +25,34 @@ export default function ChoiceCards<T extends string>({
   onChange,
   columns = 2,
 }: Props<T>) {
+  const current = choices.findIndex((choice) => choice.value === value);
+
+  // WAI-ARIA radio group: one tab stop, arrows move the selection and the focus with it
+  const onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    const last = choices.length - 1;
+    const from = Math.max(0, current);
+    const next =
+      e.key === 'ArrowRight' || e.key === 'ArrowDown'
+        ? from >= last
+          ? 0
+          : from + 1
+        : e.key === 'ArrowLeft' || e.key === 'ArrowUp'
+          ? from <= 0
+            ? last
+            : from - 1
+          : e.key === 'Home'
+            ? 0
+            : e.key === 'End'
+              ? last
+              : null;
+    if (next === null || !choices[next]) return;
+    e.preventDefault();
+    onChange(choices[next].value);
+    e.currentTarget.querySelectorAll<HTMLElement>('[role="radio"]')[next]?.focus();
+  };
+
   return (
-    <div role='radiogroup' aria-label={label}>
+    <div role='radiogroup' aria-label={label} onKeyDown={onKeyDown}>
       <Text size='sm' fw={500}>
         {label}
       </Text>
@@ -37,13 +62,14 @@ export default function ChoiceCards<T extends string>({
         </Text>
       )}
       <div className={`grid gap-2 mt-1.5 ${columns === 3 ? 'grid-cols-3' : 'grid-cols-2'}`}>
-        {choices.map((choice) => {
+        {choices.map((choice, index) => {
           const selected = choice.value === value;
           return (
             <UnstyledButton
               key={choice.value}
               role='radio'
               aria-checked={selected}
+              tabIndex={selected || (current < 0 && index === 0) ? 0 : -1}
               onClick={() => onChange(choice.value)}
               className='flex flex-col gap-1 text-left'
             >

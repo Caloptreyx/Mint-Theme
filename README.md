@@ -29,7 +29,8 @@ A dark theme for [Calagopus Panel](https://calagopus.com) with a live, built-in 
   a table style turns every row of the panel's tables (files, backups, databases, admin lists, this list)
   into a card of its own.
 - **Server home**: a new landing page with a banner header, power controls, server info, image switcher,
-  console preview, usage and network. Admins choose which cards show and in what order.
+  console preview, usage and network. Admins choose which cards show and in what order. Addresses follow the
+  panel's "Hide server addresses" setting, on Home, the console and the server cards.
 - **Console**: by default the banner with live stats on top, a full width terminal, then the charts. Admins
   arrange the banner, stat tiles, server info, each chart and other extensions' cards above, beside or below
   the terminal; a chart moved elsewhere keeps the history it already drew.
@@ -65,9 +66,10 @@ A dark theme for [Calagopus Panel](https://calagopus.com) with a live, built-in 
   and logo, per game artwork, getting started links and
   the home layout. A search finds any setting by its name, description or options and jumps to it. Undo,
   redo, import and export. Colour pairs that are hard to read get a contrast warning
-  with their ratio.
-- **Presets, user themes and history**: save the editor's look as a preset of your own (up to 20, rename or
-  delete them any time), let users pick any built-in or saved preset as their own theme on the account page
+  with their ratio. Invalid links and colours are flagged before saving, leaving with unsaved changes asks
+  first, and saving over a theme someone else changed meanwhile lets you reload it or overwrite it.
+- **Presets, user themes and history**: save the editor's look as a preset of your own (up to 20, rename,
+  update with the current draft or delete them any time), let users pick any built-in or saved preset as their own theme on the account page
   (colours and style only; content and the login pages stay yours), and bring back any of the last 10 saved
   themes from the editor's history.
 - **Languages**: every string comes in all the panel's languages: English, Arabic, Chinese, Danish, French,

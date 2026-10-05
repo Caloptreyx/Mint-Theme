@@ -35,6 +35,9 @@
       "cpu": "CPU",
       "disk": "Disco",
       "showing": "Mostrando {count}",
+      "showingOf": "Mostrando {count} de {total}",
+      "pageOnly": "La ordenación, la agrupación y el filtro de estado solo abarcan los servidores de esta página.",
+      "noMatch": "Ningún servidor coincide con este filtro.",
       "select": "Seleccionar {name}",
       "selectAll": "Seleccionar todos los servidores visibles",
       "column": {
@@ -112,7 +115,9 @@
       "linkInvalid": "Usa una ruta del panel que empiece por una sola / o una dirección http:// o https:// completa, sin espacios, comillas, signos de menor/mayor, paréntesis, llaves, puntos y coma ni barras invertidas.",
       "linkTooLong": "El enlace no puede superar los {max} caracteres.",
       "saved": "Llamada a la acción guardada.",
-      "removed": "Llamada a la acción eliminada."
+      "removed": "Llamada a la acción eliminada.",
+      "loadFailed": "No se pudo cargar el botón actual, así que el formulario está bloqueado para evitar sobrescribirlo.",
+      "retry": "Reintentar"
     },
     "auth": {
       "supportLinks": "Enlaces de soporte"
@@ -157,7 +162,8 @@
         "named": "{name} ({role})",
         "roles": {
           "links": "enlaces",
-          "dimmed": "texto atenuado"
+          "dimmed": "texto atenuado",
+          "accentFills": "insignias, casillas e interruptores"
         }
       },
       "favicon": {
@@ -170,13 +176,35 @@
       "undo": "Deshacer",
       "redo": "Rehacer",
       "reset": "Restablecer valores predeterminados",
+      "resetTitle": "Restablecer valores predeterminados",
+      "resetConfirm": "¿Reemplazar todo el borrador por el tema predeterminado? También se borrarán los artículos, los enlaces de soporte, los diseños, las imágenes de eggs, el favicon y el logo de inicio de sesión. No se guarda nada hasta que pulses Guardar.",
+      "discard": "Descartar cambios",
       "import": "Importar tema",
       "export": "Exportar tema",
       "importFailed": "Ese archivo no es un tema de Mint.",
+      "imported": "Tema importado; pulsa Guardar para usarlo.",
       "save": "Guardar",
       "saved": "Tema guardado.",
+      "loading": "Cargando el tema guardado…",
+      "loadFailed": "No se pudo cargar el tema guardado",
+      "loadFailedDescription": "Guardar permanece desactivado hasta que se cargue, para que el tema almacenado nunca se reemplace por uno desactualizado.",
+      "retry": "Reintentar",
+      "fixUrls": "Corrige primero las URL resaltadas.",
+      "urlInvalid": "Debe empezar por https:// o /, sin espacios, comillas ni corchetes.",
+      "colorInvalid": "No es un color; usa #rrggbb.",
+      "leaveTitle": "Cambios sin guardar",
+      "leaveConfirm": "¿Salir del editor? Se perderán los cambios sin guardar.",
+      "leave": "Salir",
+      "conflictTitle": "El tema ha cambiado mientras tanto",
+      "conflictDescription": "Alguien guardó el tema después de que abrieras el editor. Recárgalo (perderás tus cambios) o sobrescríbelo con tu borrador.",
+      "conflictReload": "Recargar tema guardado",
+      "conflictOverwrite": "Sobrescribir",
       "refresh": "Recargar vista previa",
       "openTab": "Abrir en una pestaña nueva",
+      "previewFrame": "Vista previa del tema",
+      "previewPage": "Página de vista previa",
+      "previewDevice": "Ancho de vista previa",
+      "previewScheme": "Esquema de color de la vista previa",
       "search": {
         "placeholder": "Buscar ajustes",
         "clear": "Borrar búsqueda",
@@ -279,7 +307,6 @@
       "sidebarGroups": "Agrupar el menú del servidor",
       "sidebarGroupsDescription": "Secciones plegables de Gestión, Configuración y Acceso.",
       "buttonStyle": "Estilo de botón",
-      "buttonAccent": "Los botones usan el color de acento",
       "buttonColor": "Color de botón",
       "buttons": {
         "filled": "Sólido",
@@ -336,6 +363,7 @@
       "layoutDescription": "Arrastra para reordenar, mueve una tarjeta a la otra columna u ocúltala.",
       "columnEmpty": "Aún no hay tarjetas aquí.",
       "moveColumn": "Mover a la otra columna",
+      "reorderCard": "Reordenar {name}",
       "hideCard": "Ocultar tarjeta",
       "showCard": "Mostrar tarjeta",
       "column": {
@@ -565,6 +593,11 @@
       "deleteTitle": "Eliminar preajuste",
       "deleteConfirm": "¿Eliminar {name}? Los usuarios que lo eligieron volverán al predeterminado del panel.",
       "users": "Los usuarios pueden elegirlo",
+      "apply": "Aplicar {name}",
+      "overwrite": "Guardar borrador en este preajuste",
+      "overwriteTitle": "Guardar borrador en preajuste",
+      "overwriteConfirm": "¿Reemplazar el aspecto de {name} por el borrador actual? Los usuarios que lo eligieron verán el nuevo aspecto.",
+      "overwritten": "Preajuste actualizado.",
       "nameProblem": {
         "empty": "Introduce un nombre.",
         "long": "Máximo {max} caracteres.",

@@ -1,5 +1,4 @@
-import Stack from '@/elements/Stack.tsx';
-import Text from '@/elements/Text.tsx';
+import { Stack, Text } from '../../lib/core.ts';
 import {
   DOCK_POSITIONS,
   type DockPosition,

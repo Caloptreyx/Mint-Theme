@@ -1,17 +1,20 @@
 import { useEffect, useState } from 'react';
 import type { z } from 'zod';
-import { httpErrorToHuman } from '@/api/axios.ts';
-import Button from '@/elements/Button.tsx';
-import { AdminCan } from '@/elements/Can.tsx';
-import AdminContentContainer from '@/elements/containers/AdminContentContainer.tsx';
-import Group from '@/elements/Group.tsx';
-import Switch from '@/elements/input/Switch.tsx';
-import TextInput from '@/elements/input/TextInput.tsx';
-import Stack from '@/elements/Stack.tsx';
-import type { adminAnnouncementSchema } from '@/lib/schemas/admin/announcements.ts';
-import { useToast } from '@/providers/ToastProvider.tsx';
-import { useTranslations } from '@/providers/TranslationProvider.tsx';
 import updateAnnouncementCta from '../../api/updateAnnouncementCta.ts';
+import {
+  AdminCan,
+  AdminContentContainer,
+  type adminAnnouncementSchema,
+  Button,
+  Group,
+  httpErrorToHuman,
+  Stack,
+  Switch,
+  Text,
+  TextInput,
+  useToast,
+  useTranslations,
+} from '../../lib/core.ts';
 import { CTA_MAX_TITLE, CTA_MAX_URL, type CtaProblem, ctaTitleProblem, ctaUrlProblem } from '../../lib/cta.ts';
 import { loadCtas, rememberCta } from '../../lib/ctaStore.ts';
 import { useExtTranslations } from '../../translations.ts';
@@ -30,10 +33,14 @@ export default function AnnouncementCtaTab({
   const [title, setTitle] = useState('');
   const [url, setUrl] = useState('');
   const [loading, setLoading] = useState(true);
+  // without the stored button the form would save over it unseen (an empty form removes it), so it stays locked
+  const [loadFailed, setLoadFailed] = useState(false);
+  const [attempt, setAttempt] = useState(0);
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
     setLoading(true);
+    setLoadFailed(false);
     // asks again, another admin may have changed it since this page loaded
     loadCtas(true)
       .then((ctas) => {
@@ -42,9 +49,13 @@ export default function AnnouncementCtaTab({
         setTitle(cta?.title ?? '');
         setUrl(cta?.url ?? '');
       })
-      .catch((err) => addToast(httpErrorToHuman(err), 'error'))
+      .catch((err) => {
+        setLoadFailed(true);
+        addToast(httpErrorToHuman(err), 'error');
+      })
       .finally(() => setLoading(false));
-  }, [announcement.uuid, addToast]);
+  }, [announcement.uuid, addToast, attempt]);
+  const locked = loading || loadFailed;
 
   const problemText = (problem: CtaProblem | null) => {
     switch (problem) {
@@ -90,12 +101,22 @@ export default function AnnouncementCtaTab({
       fullscreen
     >
       <Stack>
+        {loadFailed && (
+          <Group>
+            <Text size='sm' c='red'>
+              {tExt('announcementCta.loadFailed', {})}
+            </Text>
+            <Button variant='default' size='xs' onClick={() => setAttempt((count) => count + 1)}>
+              {tExt('announcementCta.retry', {})}
+            </Button>
+          </Group>
+        )}
         <Switch
           label={tExt('announcementCta.enable', {})}
           description={tExt('announcementCta.enableDescription', {})}
           checked={enabled}
           onChange={(event) => setEnabled(event.currentTarget.checked)}
-          disabled={loading}
+          disabled={locked}
         />
         <TextInput
           label={tExt('announcementCta.buttonTitle', {})}
@@ -103,7 +124,7 @@ export default function AnnouncementCtaTab({
           placeholder={tExt('announcementCta.buttonTitlePlaceholder', {})}
           value={title}
           onChange={(event) => setTitle(event.currentTarget.value)}
-          disabled={loading || !enabled}
+          disabled={locked || !enabled}
           withAsterisk={enabled}
           error={title ? problemText(titleProblem) : null}
         />
@@ -113,13 +134,13 @@ export default function AnnouncementCtaTab({
           placeholder={tExt('announcementCta.buttonLinkPlaceholder', {})}
           value={url}
           onChange={(event) => setUrl(event.currentTarget.value)}
-          disabled={loading || !enabled}
+          disabled={locked || !enabled}
           withAsterisk={enabled}
           error={url ? problemText(urlProblem) : null}
         />
         <Group>
           <AdminCan action='announcements.update' cantSave>
-            <Button onClick={save} loading={saving} disabled={loading || !!titleProblem || !!urlProblem}>
+            <Button onClick={save} loading={saving} disabled={locked || !!titleProblem || !!urlProblem}>
               {t('common.button.save', {})}
             </Button>
           </AdminCan>

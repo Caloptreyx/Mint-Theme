@@ -1,14 +1,8 @@
 import { faPlus, faRotateLeft, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ColorInput, Slider } from '@mantine/core';
-import ActionIcon from '@/elements/ActionIcon.tsx';
-import Button from '@/elements/Button.tsx';
-import Card from '@/elements/Card.tsx';
-import Group from '@/elements/Group.tsx';
-import Select from '@/elements/input/Select.tsx';
-import TextInput from '@/elements/input/TextInput.tsx';
-import Stack from '@/elements/Stack.tsx';
-import Text from '@/elements/Text.tsx';
+import { ActionIcon, Button, Card, Group, Select, Stack, Text, TextInput } from '../../lib/core.ts';
+import { toHexColor } from '../../lib/editorDraft.ts';
 import { COLOR_GROUPS } from '../../lib/editorSearch.ts';
 import {
   type Article,
@@ -37,6 +31,9 @@ import NavStyleFields from './NavStyleFields.tsx';
 import ServerCardFields from './ServerCardFields.tsx';
 import SidebarLayoutFields from './SidebarLayoutFields.tsx';
 import { BlockMock, ClickMock, GlassMock, InputMock } from './StyleMocks.tsx';
+import UrlInput from './UrlInput.tsx';
+
+const HEX = /^#[0-9a-f]{6}$/i;
 
 export type Section =
   | 'presets'
@@ -55,6 +52,8 @@ export type Section =
 interface Props {
   section: Section;
   theme: NebulaTheme;
+  /** The last valid version of the draft: half-typed colours would turn derived values and ratios into NaN. */
+  valid: NebulaTheme;
   set: (patch: Partial<NebulaTheme>) => void;
 }
 
@@ -76,9 +75,9 @@ function Labelled({ label, value, children }: { label: string; value?: string; c
   );
 }
 
-export default function Sections({ section, theme, set }: Props) {
+export default function Sections({ section, theme, valid, set }: Props) {
   const { t } = useExtTranslations();
-  const derived = derivedColors(theme) as Record<string, string>;
+  const derived = derivedColors(valid) as Record<string, string>;
 
   const setArticle = (index: number, patch: Partial<Article>) =>
     set({ articles: theme.articles.map((a, i) => (i === index ? { ...a, ...patch } : a)) });
@@ -87,7 +86,7 @@ export default function Sections({ section, theme, set }: Props) {
     case 'presets':
       return <PresetsSection theme={theme} set={set} />;
     case 'colours': {
-      const issues = contrastIssues(theme);
+      const issues = contrastIssues(valid);
       return (
         <Stack gap='lg'>
           <ContrastSummary issues={issues} />
@@ -100,9 +99,24 @@ export default function Sections({ section, theme, set }: Props) {
                 <div key={key}>
                   <ColorInput
                     label={t(`editor.${key}`, {})}
-                    description={optional && !theme[key] ? t('editor.derived', {}) : undefined}
+                    description={
+                      optional
+                        ? !theme[key]
+                          ? t('editor.derived', {})
+                          : undefined
+                        : t(
+                            `editor.${key as 'accent' | 'highlight' | 'background' | 'surface' | 'text'}Description`,
+                            {},
+                          )
+                    }
                     value={theme[key] || derived[key] || ''}
+                    error={theme[key] && !HEX.test(theme[key]) ? t('editor.colorInvalid', {}) : undefined}
                     onChange={(value) => set({ [key]: value })}
+                    // Mantine also takes #fff, rgb() and hsl(); the theme only stores #rrggbb
+                    onBlur={() => {
+                      const hex = toHexColor(theme[key]);
+                      if (hex && hex !== theme[key]) set({ [key]: hex });
+                    }}
                     rightSection={
                       optional && theme[key] ? (
                         <ActionIcon
@@ -162,13 +176,20 @@ export default function Sections({ section, theme, set }: Props) {
               {t('editor.blocks.title', {})}
             </Text>
             <Labelled label={t('editor.radius', {})} value={`${theme.radius}px`}>
-              <Slider min={0} max={24} value={theme.radius} onChange={(radius) => set({ radius })} />
+              <Slider
+                min={0}
+                max={24}
+                thumbLabel={t('editor.radius', {})}
+                value={theme.radius}
+                onChange={(radius) => set({ radius })}
+              />
             </Labelled>
             <div>
               <Labelled label={t('editor.blocks.opacity', {})} value={`${theme.blockOpacity}%`}>
                 <Slider
                   min={0}
                   max={100}
+                  thumbLabel={t('editor.blocks.opacity', {})}
                   value={theme.blockOpacity}
                   onChange={(blockOpacity) => set({ blockOpacity })}
                 />
@@ -205,6 +226,7 @@ export default function Sections({ section, theme, set }: Props) {
               <Slider
                 min={0}
                 max={20}
+                thumbLabel={t('editor.elementRadius', {})}
                 value={theme.elementRadius}
                 onChange={(elementRadius) => set({ elementRadius })}
               />
@@ -239,17 +261,17 @@ export default function Sections({ section, theme, set }: Props) {
     case 'background':
       return (
         <Stack gap='lg'>
-          <TextInput
+          <UrlInput
             label={t('editor.backgroundImage', {})}
             description={t('editor.backgroundImageDescription', {})}
-            placeholder='https://'
             value={theme.backgroundImage}
-            onChange={(e) => set({ backgroundImage: e.target.value.trim() })}
+            onChange={(backgroundImage) => set({ backgroundImage })}
           />
           <Labelled label={t('editor.backgroundDim', {})} value={`${theme.backgroundDim}%`}>
             <Slider
               min={0}
               max={100}
+              thumbLabel={t('editor.backgroundDim', {})}
               disabled={!theme.backgroundImage}
               value={theme.backgroundDim}
               onChange={(backgroundDim) => set({ backgroundDim })}
@@ -266,28 +288,27 @@ export default function Sections({ section, theme, set }: Props) {
             <Text size='xs' fw={600} tt='uppercase' c='dimmed' className='tracking-wider'>
               {t('editor.authLayout.appearanceTitle', {})}
             </Text>
-            <TextInput
+            <UrlInput
               label={t('editor.login.background', {})}
               description={t('editor.login.backgroundDescription', {})}
-              placeholder='https://'
               value={theme.loginBackground}
-              onChange={(e) => set({ loginBackground: e.target.value.trim() })}
+              onChange={(loginBackground) => set({ loginBackground })}
             />
             <Labelled label={t('editor.login.dim', {})} value={`${theme.loginDim}%`}>
               <Slider
                 min={0}
                 max={100}
+                thumbLabel={t('editor.login.dim', {})}
                 disabled={!theme.loginBackground}
                 value={theme.loginDim}
                 onChange={(loginDim) => set({ loginDim })}
               />
             </Labelled>
-            <TextInput
+            <UrlInput
               label={t('editor.login.logo', {})}
               description={t('editor.login.logoDescription', {})}
-              placeholder='https://'
               value={theme.loginLogo}
-              onChange={(e) => set({ loginLogo: e.target.value.trim() })}
+              onChange={(loginLogo) => set({ loginLogo })}
             />
           </Stack>
           <SupportLinksFields theme={theme} set={set} />
@@ -333,11 +354,10 @@ export default function Sections({ section, theme, set }: Props) {
                     value={article.description}
                     onChange={(e) => setArticle(index, { description: e.target.value })}
                   />
-                  <TextInput
+                  <UrlInput
                     label={t('editor.articleUrl', {})}
-                    placeholder='https://'
                     value={article.url}
-                    onChange={(e) => setArticle(index, { url: e.target.value.trim() })}
+                    onChange={(url) => setArticle(index, { url })}
                   />
                 </Stack>
               </Card>
@@ -377,12 +397,11 @@ export default function Sections({ section, theme, set }: Props) {
     case 'home':
       return (
         <Stack gap='lg'>
-          <TextInput
+          <UrlInput
             label={t('editor.homeBanner', {})}
             description={t('editor.homeBannerDescription', {})}
-            placeholder='https://'
             value={theme.homeBanner}
-            onChange={(e) => set({ homeBanner: e.target.value.trim() })}
+            onChange={(homeBanner) => set({ homeBanner })}
           />
 
           <EggImagesField theme={theme} set={set} />

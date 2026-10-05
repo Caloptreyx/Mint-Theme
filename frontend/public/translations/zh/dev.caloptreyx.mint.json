@@ -35,6 +35,9 @@
       "cpu": "CPU",
       "disk": "磁碟",
       "showing": "顯示 {count}",
+      "showingOf": "顯示 {count} / {total}",
+      "pageOnly": "排序、分組和狀態篩選僅適用於本頁的伺服器。",
+      "noMatch": "沒有符合此篩選條件的伺服器。",
       "select": "選取 {name}",
       "selectAll": "選取所有顯示中的伺服器",
       "column": {
@@ -112,7 +115,9 @@
       "linkInvalid": "請使用以單一 / 開頭的面板路徑，或完整的 http:// 或 https:// 位址，且不得包含空格、引號、角括號、圓括號、大括號、分號或反斜線。",
       "linkTooLong": "連結不可超過 {max} 個字元。",
       "saved": "行動呼籲已儲存。",
-      "removed": "行動呼籲已移除。"
+      "removed": "行動呼籲已移除。",
+      "loadFailed": "無法載入目前的按鈕，因此表單已鎖定以免將其覆寫。",
+      "retry": "重試"
     },
     "auth": {
       "supportLinks": "支援連結"
@@ -157,7 +162,8 @@
         "named": "{name}（{role}）",
         "roles": {
           "links": "連結",
-          "dimmed": "淡化文字"
+          "dimmed": "淡化文字",
+          "accentFills": "徽章、核取方塊和開關"
         }
       },
       "favicon": {
@@ -170,13 +176,35 @@
       "undo": "還原",
       "redo": "重做",
       "reset": "重設為預設值",
+      "resetTitle": "重設為預設值",
+      "resetConfirm": "要將整份草稿替換為預設主題嗎？這也會清除文章、支援連結、版面配置、Egg 圖片、網站圖示和登入標誌。在按下儲存之前不會儲存任何內容。",
+      "discard": "捨棄變更",
       "import": "匯入主題",
       "export": "匯出主題",
       "importFailed": "該檔案不是 Mint 主題。",
+      "imported": "主題已匯入；按下儲存即可套用。",
       "save": "儲存",
       "saved": "主題已儲存。",
+      "loading": "正在載入已儲存的主題…",
+      "loadFailed": "無法載入已儲存的主題",
+      "loadFailedDescription": "載入完成前將停用儲存，以免已儲存的主題被過時的版本取代。",
+      "retry": "重試",
+      "fixUrls": "請先修正標示的網址。",
+      "urlInvalid": "必須以 https:// 或 / 開頭，且不含空格、引號或括號。",
+      "colorInvalid": "不是有效的顏色；請使用 #rrggbb。",
+      "leaveTitle": "未儲存的變更",
+      "leaveConfirm": "要離開編輯器嗎？未儲存的變更將會遺失。",
+      "leave": "離開",
+      "conflictTitle": "主題已在此期間變更",
+      "conflictDescription": "有人在你開啟編輯器後儲存了主題。重新載入（你的變更將遺失），或以你的草稿覆寫。",
+      "conflictReload": "重新載入已儲存的主題",
+      "conflictOverwrite": "覆寫",
       "refresh": "重新載入預覽",
       "openTab": "在新分頁開啟",
+      "previewFrame": "主題預覽",
+      "previewPage": "預覽頁面",
+      "previewDevice": "預覽寬度",
+      "previewScheme": "預覽配色",
       "search": {
         "placeholder": "搜尋設定",
         "clear": "清除搜尋",
@@ -279,7 +307,6 @@
       "sidebarGroups": "將伺服器選單分組",
       "sidebarGroupsDescription": "可摺疊的「管理」、「設定」與「存取」區段。",
       "buttonStyle": "按鈕樣式",
-      "buttonAccent": "按鈕使用強調色",
       "buttonColor": "按鈕顏色",
       "buttons": {
         "filled": "實心",
@@ -336,6 +363,7 @@
       "layoutDescription": "拖曳以重新排序、將卡片移到另一欄，或將其隱藏。",
       "columnEmpty": "這裡還沒有卡片。",
       "moveColumn": "移到另一欄",
+      "reorderCard": "重新排序 {name}",
       "hideCard": "隱藏卡片",
       "showCard": "顯示卡片",
       "column": {
@@ -565,6 +593,11 @@
       "deleteTitle": "刪除預設集",
       "deleteConfirm": "要刪除 {name} 嗎？已選擇它的使用者將恢復為面板預設。",
       "users": "使用者可選擇此項",
+      "apply": "套用 {name}",
+      "overwrite": "將草稿儲存到此預設集",
+      "overwriteTitle": "將草稿儲存到預設集",
+      "overwriteConfirm": "要以目前的草稿取代 {name} 的外觀嗎？已選擇它的使用者將看到新外觀。",
+      "overwritten": "預設集已更新。",
       "nameProblem": {
         "empty": "請輸入名稱。",
         "long": "最多 {max} 個字元。",

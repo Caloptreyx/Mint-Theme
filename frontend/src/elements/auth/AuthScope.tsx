@@ -1,6 +1,6 @@
 import { createContext, type ReactElement, useContext, useLayoutEffect, useSyncExternalStore } from 'react';
-import { useGlobalStore } from '@/stores/global.ts';
 import { holdSiteTheme, useNebulaTheme } from '../../lib/apply.ts';
+import { useGlobalStore } from '../../lib/core.ts';
 
 const AUTH_CLASS = 'nebula-auth';
 /** A global route rendering core's login page, so signed in admins can preview it (auth routes redirect them). */

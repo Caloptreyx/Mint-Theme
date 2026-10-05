@@ -18,6 +18,18 @@ pub struct ExtensionStruct;
 #[async_trait::async_trait]
 impl Extension for ExtensionStruct {
     async fn initialize(&mut self, _state: State) {
+        use shared::models::{DeletableModel, ListenerPriority, user::User};
+
+        // a deleted user's banners go with the account; spawned and only logged on failure, so
+        // storage being slow or down never holds up or blocks the delete
+        User::register_after_delete_handler(
+            ListenerPriority::Normal,
+            |user, _options, state, _transaction| {
+                tokio::spawn(banner::remove_all(state.clone(), user.uuid));
+                Box::pin(async { Ok::<(), anyhow::Error>(()) })
+            },
+        );
+
         tracing::info!("mint theme loaded");
     }
 
@@ -54,6 +66,10 @@ impl Extension for ExtensionStruct {
                     .nest(
                         "/extensions/dev.caloptreyx.mint/announcement-ctas",
                         cta::client(&state),
+                    )
+                    .nest(
+                        "/extensions/dev.caloptreyx.mint/theme-choices",
+                        presets::client(&state),
                     )
             })
     }

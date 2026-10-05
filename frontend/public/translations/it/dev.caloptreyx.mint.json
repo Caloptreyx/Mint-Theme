@@ -35,6 +35,9 @@
       "cpu": "CPU",
       "disk": "Disco",
       "showing": "{count} visualizzati",
+      "showingOf": "{count} di {total} visualizzati",
+      "pageOnly": "Ordinamento, raggruppamento e filtro di stato riguardano solo i server di questa pagina.",
+      "noMatch": "Nessun server corrisponde a questo filtro.",
       "select": "Seleziona {name}",
       "selectAll": "Seleziona tutti i server visibili",
       "column": {
@@ -112,7 +115,9 @@
       "linkInvalid": "Usa un percorso del pannello che inizia con una sola / oppure un indirizzo http:// o https:// completo, senza spazi, virgolette, parentesi angolari, tonde o graffe, punti e virgola o barre rovesciate.",
       "linkTooLong": "Limita il link a {max} caratteri.",
       "saved": "Invito all'azione salvato.",
-      "removed": "Invito all'azione rimosso."
+      "removed": "Invito all'azione rimosso.",
+      "loadFailed": "Non è stato possibile caricare il pulsante attuale, quindi il modulo è bloccato per evitare di sovrascriverlo.",
+      "retry": "Riprova"
     },
     "auth": {
       "supportLinks": "Link di supporto"
@@ -157,7 +162,8 @@
         "named": "{name} ({role})",
         "roles": {
           "links": "link",
-          "dimmed": "testo attenuato"
+          "dimmed": "testo attenuato",
+          "accentFills": "badge, caselle di controllo e interruttori"
         }
       },
       "favicon": {
@@ -170,13 +176,35 @@
       "undo": "Annulla",
       "redo": "Ripeti",
       "reset": "Ripristina predefinito",
+      "resetTitle": "Ripristina predefinito",
+      "resetConfirm": "Sostituire l'intera bozza con il tema predefinito? Verranno rimossi anche articoli, link di supporto, layout, immagini degli egg, favicon e logo di accesso. Non viene salvato nulla finché non premi Salva.",
+      "discard": "Annulla modifiche",
       "import": "Importa tema",
       "export": "Esporta tema",
       "importFailed": "Questo file non è un tema Mint.",
+      "imported": "Tema importato; premi Salva per usarlo.",
       "save": "Salva",
       "saved": "Tema salvato.",
+      "loading": "Caricamento del tema salvato…",
+      "loadFailed": "Impossibile caricare il tema salvato",
+      "loadFailedDescription": "Il salvataggio resta disattivato finché non viene caricato, così il tema memorizzato non viene mai sostituito da uno obsoleto.",
+      "retry": "Riprova",
+      "fixUrls": "Correggi prima gli URL evidenziati.",
+      "urlInvalid": "Deve iniziare con https:// o /, senza spazi, virgolette o parentesi.",
+      "colorInvalid": "Non è un colore; usa #rrggbb.",
+      "leaveTitle": "Modifiche non salvate",
+      "leaveConfirm": "Uscire dall'editor? Le modifiche non salvate andranno perse.",
+      "leave": "Esci",
+      "conflictTitle": "Il tema è stato modificato nel frattempo",
+      "conflictDescription": "Qualcuno ha salvato il tema dopo che hai aperto l'editor. Ricaricalo (le tue modifiche andranno perse) oppure sovrascrivilo con la tua bozza.",
+      "conflictReload": "Ricarica tema salvato",
+      "conflictOverwrite": "Sovrascrivi",
       "refresh": "Ricarica anteprima",
       "openTab": "Apri in una nuova scheda",
+      "previewFrame": "Anteprima del tema",
+      "previewPage": "Pagina di anteprima",
+      "previewDevice": "Larghezza anteprima",
+      "previewScheme": "Schema colori dell'anteprima",
       "search": {
         "placeholder": "Cerca impostazioni",
         "clear": "Cancella ricerca",
@@ -279,7 +307,6 @@
       "sidebarGroups": "Raggruppa il menu del server",
       "sidebarGroupsDescription": "Sezioni Gestione, Configurazione e Accesso comprimibili.",
       "buttonStyle": "Stile dei pulsanti",
-      "buttonAccent": "I pulsanti usano il colore d'accento",
       "buttonColor": "Colore dei pulsanti",
       "buttons": {
         "filled": "Pieno",
@@ -336,6 +363,7 @@
       "layoutDescription": "Trascina per riordinare, sposta una scheda nell'altra colonna o nascondila.",
       "columnEmpty": "Ancora nessuna scheda qui.",
       "moveColumn": "Sposta nell'altra colonna",
+      "reorderCard": "Riordina {name}",
       "hideCard": "Nascondi scheda",
       "showCard": "Mostra scheda",
       "column": {
@@ -565,6 +593,11 @@
       "deleteTitle": "Elimina preset",
       "deleteConfirm": "Eliminare {name}? Gli utenti che l'hanno scelto torneranno al predefinito del pannello.",
       "users": "Gli utenti possono sceglierlo",
+      "apply": "Applica {name}",
+      "overwrite": "Salva la bozza in questo preset",
+      "overwriteTitle": "Salva bozza nel preset",
+      "overwriteConfirm": "Sostituire l'aspetto di {name} con la bozza attuale? Gli utenti che l'hanno scelto vedranno il nuovo aspetto.",
+      "overwritten": "Preset aggiornato.",
       "nameProblem": {
         "empty": "Inserisci un nome.",
         "long": "Al massimo {max} caratteri.",

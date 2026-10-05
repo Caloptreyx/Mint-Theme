@@ -1,23 +1,27 @@
 //! Update checks against this repo's GitHub releases, shown on the panel's Admin → Updates page.
 
-use serde::{Deserialize, Serialize};
+use serde::Deserialize;
 use shared::{State, extensions::ExtensionUpdateInfo};
+use std::{
+    sync::{Arc, Mutex, PoisonError},
+    time::{Duration, Instant},
+};
 
 const RELEASES_URL: &str = "https://api.github.com/repos/Caloptreyx/Mint-Theme/releases?per_page=30";
 /// The asset every release must carry; a tag whose zip is not uploaded yet is not offered.
 const ASSET: &str = "dev_caloptreyx_mint.c7s.zip";
-const CACHE_KEY: &str = "dev.caloptreyx.mint::releases";
-/// GitHub allows 60 unauthenticated requests an hour per IP; the panel only asks every 12 hours.
-const CACHE_TTL_SECONDS: u64 = 60 * 60;
+/// Short enough that an admin's recheck soon after a release finds it. GitHub allows 60
+/// unauthenticated requests an hour per IP, and an unchanged list answers 304, which it does not count.
+const CACHE_TTL: Duration = Duration::from_secs(10 * 60);
 const MAX_CHANGES: usize = 60;
 const MAX_CHANGE_CHARS: usize = 300;
 
-#[derive(Serialize, Deserialize)]
+#[derive(Deserialize)]
 struct Asset {
     name: String,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Deserialize)]
 struct Release {
     tag_name: String,
     #[serde(default)]
@@ -30,51 +34,107 @@ struct Release {
     assets: Vec<Asset>,
 }
 
+/// A release that can be offered, with its changelog lines.
+struct Published {
+    version: semver::Version,
+    changes: Vec<String>,
+}
+
+struct Cached {
+    fetched: Instant,
+    /// GitHub's ETag for the list, sent back so an unchanged list costs nothing.
+    etag: Option<String>,
+    /// Newest first.
+    releases: Arc<Vec<Published>>,
+}
+
+static CACHE: Mutex<Option<Cached>> = Mutex::new(None);
+
 pub async fn check(
     state: &State,
     current: &semver::Version,
 ) -> Result<Option<ExtensionUpdateInfo>, anyhow::Error> {
-    let releases: Vec<Release> = state
-        .cache
-        .cached(CACHE_KEY, CACHE_TTL_SECONDS, || async {
-            state
-                .client
-                .get(RELEASES_URL)
-                .header("Accept", "application/vnd.github+json")
-                .send()
-                .await?
-                .error_for_status()?
-                .json::<Vec<Release>>()
-                .await
-        })
-        .await?;
+    let etag = {
+        let cache = CACHE.lock().unwrap_or_else(PoisonError::into_inner);
+        match cache.as_ref() {
+            Some(cached) if cached.fetched.elapsed() < CACHE_TTL => {
+                return Ok(update_info(&cached.releases, current));
+            }
+            Some(cached) => cached.etag.clone(),
+            None => None,
+        }
+    };
+
+    let mut request = state
+        .client
+        .get(RELEASES_URL)
+        .header("Accept", "application/vnd.github+json");
+    if let Some(etag) = &etag {
+        request = request.header("If-None-Match", etag.as_str());
+    }
+    let response = request.send().await?;
+
+    if response.status().as_u16() == 304 {
+        let mut cache = CACHE.lock().unwrap_or_else(PoisonError::into_inner);
+        if let Some(cached) = cache.as_mut() {
+            cached.fetched = Instant::now();
+            return Ok(update_info(&cached.releases, current));
+        }
+        anyhow::bail!("GitHub answered 304 without a cached release list");
+    }
+
+    let response = response.error_for_status()?;
+    let etag = response
+        .headers()
+        .get("etag")
+        .and_then(|value| value.to_str().ok())
+        .map(str::to_owned);
+    let releases = Arc::new(published(&response.json::<Vec<Release>>().await?));
+
+    *CACHE.lock().unwrap_or_else(PoisonError::into_inner) = Some(Cached {
+        fetched: Instant::now(),
+        etag,
+        releases: releases.clone(),
+    });
 
     Ok(update_info(&releases, current))
 }
 
-/// The newest published release above `current`, with the changelog of every release in between.
-fn update_info(releases: &[Release], current: &semver::Version) -> Option<ExtensionUpdateInfo> {
-    let mut newer: Vec<(semver::Version, &Release)> = releases
+/// The releases that can be offered (published, zip attached, a plain version tag), newest first.
+fn published(releases: &[Release]) -> Vec<Published> {
+    let mut published: Vec<Published> = releases
         .iter()
         .filter(|r| !r.draft && !r.prerelease && r.assets.iter().any(|a| a.name == ASSET))
         .filter_map(|r| {
             let version = semver::Version::parse(r.tag_name.trim_start_matches('v')).ok()?;
-            (version > *current && version.pre.is_empty()).then_some((version, r))
+            version.pre.is_empty().then(|| Published {
+                version,
+                changes: r
+                    .body
+                    .as_deref()
+                    .unwrap_or_default()
+                    .lines()
+                    .filter_map(change_line)
+                    .take(MAX_CHANGES)
+                    .collect(),
+            })
         })
         .collect();
-    newer.sort_by(|a, b| b.0.cmp(&a.0));
+    published.sort_by(|a, b| b.version.cmp(&a.version));
+    published
+}
 
-    let latest = newer.first()?.0.clone();
-    let changes = newer
-        .iter()
-        .flat_map(|(version, release)| {
+/// The newest published release above `current`, with the changelog of every release in between.
+fn update_info(published: &[Published], current: &semver::Version) -> Option<ExtensionUpdateInfo> {
+    let newer = move || published.iter().filter(move |p| p.version > *current);
+
+    let latest = newer().next()?.version.clone();
+    let changes = newer()
+        .flat_map(|release| {
             release
-                .body
-                .as_deref()
-                .unwrap_or_default()
-                .lines()
-                .filter_map(change_line)
-                .map(move |line| compact_str::format_compact!("{version}: {line}"))
+                .changes
+                .iter()
+                .map(|line| compact_str::format_compact!("{}: {line}", release.version))
         })
         .take(MAX_CHANGES)
         .collect();
@@ -119,8 +179,8 @@ mod tests {
     #[test]
     fn up_to_date_returns_none() {
         let releases = [release("v1.2.0", "- a"), release("v1.1.0", "- b")];
-        assert!(update_info(&releases, &v("1.2.0")).is_none());
-        assert!(update_info(&releases, &v("1.3.0")).is_none());
+        assert!(update_info(&published(&releases), &v("1.2.0")).is_none());
+        assert!(update_info(&published(&releases), &v("1.3.0")).is_none());
     }
 
     #[test]
@@ -131,7 +191,7 @@ mod tests {
             release("v1.2.0", "* one\n- two"),
             release("v1.0.0", "- old"),
         ];
-        let info = update_info(&releases, &v("1.1.0")).unwrap();
+        let info = update_info(&published(&releases), &v("1.1.0")).unwrap();
         assert_eq!(info.version, v("1.3.0"));
         assert_eq!(info.changes, ["1.3.0: /admin/mint editor", "1.2.0: one", "1.2.0: two"]);
     }
@@ -152,7 +212,7 @@ mod tests {
             release("latest", "- not a version"),
             release("v1.5.0", "- real"),
         ];
-        let info = update_info(&releases, &v("1.2.0")).unwrap();
+        let info = update_info(&published(&releases), &v("1.2.0")).unwrap();
         assert_eq!(info.version, v("1.5.0"));
         assert_eq!(info.changes, ["1.5.0: real"]);
     }
@@ -160,7 +220,7 @@ mod tests {
     #[test]
     fn changelog_is_bounded() {
         let body = (0..100).map(|i| format!("- {}", "x".repeat(i + 400))).collect::<Vec<_>>().join("\n");
-        let info = update_info(&[release("v9.0.0", &body)], &v("1.0.0")).unwrap();
+        let info = update_info(&published(&[release("v9.0.0", &body)]), &v("1.0.0")).unwrap();
         assert_eq!(info.changes.len(), MAX_CHANGES);
         assert!(info.changes.iter().all(|c| c.chars().count() <= "9.0.0: ".len() + MAX_CHANGE_CHARS));
     }
@@ -169,7 +229,7 @@ mod tests {
     fn a_release_without_notes_still_counts() {
         let mut empty = release("v1.3.0", "");
         empty.body = None;
-        let info = update_info(&[empty], &v("1.2.0")).unwrap();
+        let info = update_info(&published(&[empty]), &v("1.2.0")).unwrap();
         assert_eq!(info.version, v("1.3.0"));
         assert!(info.changes.is_empty());
     }

@@ -15,17 +15,20 @@ An extension is a Rust crate plus a TypeScript frontend that the panel compiles 
 Metadata.toml              package name, display name, panel version range
 backend/src/lib.rs         Extension impl: mounts the routers, hands over the settings deserializer
 backend/src/settings.rs    four opaque settings: `theme` (the editor's JSON), `announcement_ctas`, `presets`, `theme_history`
-backend/src/routes.rs      GET /mint/theme (public) and PUT /api/admin/.../theme (settings.update)
-backend/src/banner.rs      per user account banner upload/remove (client API)
+backend/src/routes.rs      GET /mint/theme (public, `{ theme, version }` with an ETag) and PUT /api/admin/.../theme (settings.update)
+backend/src/banner.rs      per user account banner GET/upload/remove (client API), removal on user deletion
 backend/src/cta.rs         announcement call to action buttons: GET (client API) and PUT (admin API)
-backend/src/presets.rs     custom presets and user selectable presets: GET/POST/PATCH/DELETE (admin API)
+backend/src/presets.rs     custom presets and user selectable presets: GET/POST/PATCH/DELETE (admin API), theme-choices GET (client API)
 backend/src/history.rs     the last 10 replaced themes (written by the theme PUT), GET (admin API)
-backend/src/updates.rs     check_for_updates: GitHub releases of Caloptreyx/Mint-Theme, cached an hour
+backend/src/updates.rs     check_for_updates: GitHub releases of Caloptreyx/Mint-Theme, cached 10 min in memory, ETag revalidated
 frontend/src/index.ts      entry point: hooks, route interceptors, Mantine theme
+frontend/src/lib/core.ts   the one module that re-exports every core import (see the end of "How it hooks into the panel")
 frontend/src/lib/theme.ts  the theme model, normalizeTheme() and buildCss()
 frontend/src/lib/apply.ts  applies CSS (the site theme or the user's pick), caches it, preview bridge, useNebulaTheme()
 frontend/src/lib/library.ts  presets, users' theme choices and history: ids, normalizers, resolveUserTheme()
 frontend/src/lib/editorSearch.ts  the editor's settings index (SETTINGS, COLOR_GROUPS) and searchSettings()
+frontend/src/lib/editorDraft.ts   checks on the editor's raw draft: urlValid, invalidUrls, isThemeFile, toHexColor
+frontend/src/lib/redact.ts  core's 'Hide server addresses' setting: useRedactAddresses(), shownAddress(), maskAddress()
 frontend/src/pages/        ServerHome, ServerConsole, ServerList (dashboard), ThemeEditor
 frontend/src/elements/     account/, home/, dashboard/, editor/, files/ (phone editor keys), library/ (presets, history, theme choice), sidebar/, page/ pieces
 frontend/src/app.css       static CSS: @font-face, flush sidebar, active link, sidebar sections, keyframes
@@ -33,6 +36,8 @@ frontend/src/translations.ts  every user facing string
 tests/theme.test.ts        node:test cases for normalizeTheme() and buildCss() (not shipped)
 tests/library.test.ts      node:test cases for lib/library.ts and the per user fields (not shipped)
 tests/editorSearch.test.ts node:test cases for the editor search's matching and ranking (not shipped)
+tests/editorDraft.test.ts  node:test cases for lib/editorDraft.ts (not shipped)
+tests/cta.test.ts, serverOrder.test.ts, routeOrder.test.ts  node:test cases for lib/cta.ts, the servers list ordering and lib/routeOrder.ts (not shipped)
 scripts/package.py         builds the release zip; .github/workflows/release.yml runs it on v* tags
 .github/workflows/check.yml  CI on every push: the org's shared extension check (see "Verifying a change")
 ```
@@ -49,10 +54,19 @@ editor can repaint the panel live without a reload.
   else is optional and falls back to a derived value; `derivedColors()` returns those fallbacks so the
   editor can show the colour actually in use.
 - `contrastIssues()` checks the pairs actually painted (derived values included, links in their anchor shade,
-  light mode's own text, surface and dimmed text, button text only for solid buttons (text on accent when only
-  that is set), text on accent for the solid menu styles, 3:1 for iconPill's icon) and returns those below
-  WCAG AA. The Colours section lists them on top and under each input (`ContrastWarnings.tsx`); they never
-  block saving. Keep the pairs in step with `buildCss` when a colour moves.
+  light mode's own text, surface and dimmed text) and returns those below WCAG AA. Text on accent is always
+  checked at 3:1 (role `accentFills`: badges, checkboxes, switches, filled action icons) and at 4.5:1 under the
+  'filled' and 'pill' menu styles. Button text is checked on solid buttons (text on accent when only that is
+  set); a set `buttonText` with a tinted, glass or outline style is checked against that fill
+  (`mix(buttonColor || accent, surface, …)`) over both the dark surface and `lightSurface` (the two `bg` values
+  keep the warnings' keys unique). The Colours section lists them on top and under each input
+  (`ContrastWarnings.tsx`); they never block saving. Keep the pairs in step with `buildCss` when a colour moves.
+- Status, offline and chart colours: the 0-9 scales go in plain `html:root` (the server-status variables too,
+  since core defines them in Tailwind's `@theme`), while the `-filled`, `-filled-hover`, `-light`,
+  `-light-hover`, `-light-color`, `-outline`, `-outline-hover` and `-text` variants of green, yellow, red (and
+  gray when `offline` is set) and `--chart-series-1/2` go in both scheme blocks, because core and Mantine pin
+  them on `:root[data-mantine-color-scheme]`. Light mode's `-light-color` and `-text` are made readable on the
+  light surface. Unset colours emit nothing.
 - `favicon` is not CSS: `applyTheme()` parks core's icon links (`.app-icon`, whose href core's App sets from
   `settings.app.icon`) under another rel and adds its own `icon` and `apple-touch-icon` links, so core can keep
   updating its links and clearing the option restores them. The public theme route covers logged out pages.
@@ -65,7 +79,8 @@ editor can repaint the panel live without a reload.
   buttons, action icons and badges white text through inline `--button-color`/`--ai-color`/`--badge-color`, so
   those are replaced (`!important`) where the inline fill is `var(--mantine-color-blue-filled)`; a badge with no
   colour or variant has no inline style and is the accent. Only the variable changes, so tinted, outline and
-  glass buttons and `buttonText` (they set `color`) still win. Empty emits nothing: core's white.
+  glass buttons and `buttonText` (they set `color`) still win. Empty emits nothing: core's white. Built-in
+  presets always set `textOnAccent` (Mint `#0b1314`, the others `''`), so applying one over another resets it.
 - "Blocks" are Mantine cards (the sidebar is one) and bordered papers. `blockOpacity` turns
   `--nebula-card` into an rgba colour and paints cards with it, so treat `--nebula-card` as possibly
   translucent; overlays (modals, menus, popovers, dialogs, the fixed bulk action bar) are never matched and
@@ -101,7 +116,11 @@ editor can repaint the panel live without a reload.
   `data-nebula-pending` on html, which `app.css` turns into a hidden body, until `loadTheme()` settles (the
   fetched theme, or the default if it failed) or 1.5s pass; `repaint()` does nothing meanwhile. The trade off is
   a blank page in core's background for one small request instead of the default look switching to the real
-  one. A cached theme never waits.
+  one. A cached theme never waits. The guard covers only the site theme: a user's pick needs the choices, which
+  arrive after sign-in.
+- `applyTheme()` rewrites the style text and the html attributes only when they change, and keeps `current`
+  (no listeners fired) for a JSON-equal theme. `watchUserTheme()` follows other tabs' `nebula:theme` and
+  `nebula:theme-choices` writes through `storage` events (not while previewing).
 - The editor's light/dark toggle only affects the preview frame. `listenForPreview()` sets the
   attribute and fires a synthetic `storage` event so Mantine's React state follows (terminal colours,
   logos), and blocks the frame's writes of `mantine-color-scheme-value`: the frame shares localStorage
@@ -119,7 +138,9 @@ and break silently when core moves a file. Everything here is runtime:
 
 - `Sidebar.addPropsInterceptor` wraps the menu in `GroupedNav`, which turns the panel's own **labelled
   dividers** into collapsible sections. Labels come from the egg's route order, so operators name them
-  in the panel. Unlabelled dividers stay plain rules.
+  in the panel. Unlabelled dividers stay plain rules. Closed sections (`nebula:sidebar-closed`) are one
+  page-wide store read through `useSyncExternalStore`, shared by the drawer and desktop copies and other tabs
+  (`storage`); navigating to a page inside a closed section opens and saves it.
 - A second `Sidebar.addPropsInterceptor` (`withNavSearch`, `elements/sidebar/NavSearch.tsx`) walks the routers'
   header and footer fragments and swaps core's `QuickActionsTrigger` and footer `ServerSwitcher` in place (by
   identity) for `NavSearch` and `NavSearchFooter`, which read `searchComponent` live. 'palette' renders core's
@@ -127,6 +148,10 @@ and break silently when core moves a file. Everything here is runtime:
   servers (in the admin area every server and user the admin may read) whose last row opens core's palette
   with the query (`useQuickActionsStore` `setQuery`/`setOpen`). The palette registers its own shortcut, so it
   works in every mode. In the slim rail both fold to an icon that opens the palette (`#` is its server search).
+  The search box is a `role=combobox` with `aria-expanded`; its three result lists use `useQuery` with a 150 ms
+  debounce, and the first row (announced through `aria-activedescendant`) is auto-selected only once the
+  results belong to the current term and none is loading or placeholder data, so Enter never opens a stale
+  result. Escape on a closed list clears the query.
 - `sidebarLayout` and `dockPosition` (`elements/sidebar/SidebarShell.tsx`). `Sidebar.addRenderInterceptor` runs
   after every props interceptor, so the shell sees the final header, footer and menu. With the defaults it
   returns core's element untouched. Otherwise core still renders its drawer and desktop card from the same
@@ -143,34 +168,58 @@ and break silently when core moves a file. Everything here is runtime:
   `applyTheme()` mirrors both options onto html as `data-nebula-layout` and `data-nebula-dock` for static CSS.
 - `mobileNav: 'bottomBar'` (`elements/sidebar/BottomNav.tsx`), a second `Sidebar.addRenderInterceptor` registered after
   the shell: below `lg` a fixed bottom bar (safe area aware) with up to four links taken from the menu the Sidebar
-  received, wrappers kept, so a `ServerCan` without access renders nothing and the next link fills in (the nav hides
-  children past the fifth, Menu included). Server pages prefer Home, Console, Files, Backups, Settings; the admin area
-  Back, Overview, Servers, Users; the dashboard Servers, Account, Admin. Core keeps the drawer's open state inside the
-  Sidebar, so Menu clicks core's own floating menu button: the bar renders a hidden
-  `[data-nebula-bottom-nav-marker]` just before core's element, whose first node is that button's card, and app.css
-  hides the card after it. The bar uses core's `lg:` variant (a container query since 1.2.2), measures itself into
+  received, wrappers kept, so a `ServerCan` without access renders nothing and the next link fills in. Links come
+  first and Menu last in the DOM; links past the fourth are hidden (`[&>a:nth-of-type(n+5)]:hidden`). Both get a
+  focus-visible outline, with `!` because core's `button:focus` reset is unlayered. Server pages prefer Home, Console,
+  Files, Backups, Settings; the admin area Back, Overview, Servers, Users; the dashboard Servers, Account, Admin. Core
+  keeps the drawer's open state inside the Sidebar, so Menu clicks core's own floating menu button: the bar renders a
+  hidden `[data-nebula-bottom-nav-marker]` just before core's element, Menu looks for
+  `.mantine-Card-root > .mantine-ActionIcon-root` among the nodes between the marker and the bar (one console warning
+  if none), and app.css hides that card. The bar uses core's `lg:` variant (a container query since 1.2.2), measures itself into
   `--nebula-bottom-nav-h` on html and sets `data-nebula-bottom-nav` while displayed, which app.css turns into bottom
   padding for the content column and a lift for core's `ActionBar`, bottom toasts and the uploads card. 'drawer' returns
   core's element untouched.
-- `routes.addServerRouteInterceptor` puts Home at `/` and moves the console to `/console`, swapping its
-  element for `ServerConsole`: core's terminal with the `consoleLayout` widgets (`elements/console/`) in rows
+- `routes.addServerRouteInterceptor` puts Home at `/` and replaces the console route with a copy
+  (`{ ...route, path: '/console', element: ServerConsole }`), never changing it in place: core runs server route
+  interceptors on its shared route objects in ServerRouter, the quick actions palette and the egg configuration
+  editor. `ServerConsole` is core's terminal with the `consoleLayout` widgets (`elements/console/`) in rows
   above and below it and in columns beside it, which stack under it below `lg` (`xl` when both are used).
   Core's `ServerStats` only exports all three charts together, so `ConsoleChartsProvider` runs core's
   `useStreamChart` for each and feeds them the same way, and `ChartsWidget` renders core's `ChartBlock`/`StreamChart`
   from that context. The provider wraps the whole page, above the slots, so a chart moved to another slot (a
   remount) keeps its history. Core's `statBlocks` slot follows the last chart run, or the extension cards when no
-  chart is placed. The default is the page from before.
+  chart is placed. The default is the page from before. `PowerButtons` (in `HeroCard`, so on Home and the
+  console's banner widget) renders core's `pages.server.console.powerButtonComponents` prepended and appended
+  slots as core's `ServerPowerControls` does, and closes the kill confirmation when the server goes offline.
   Paths are also the keys of an egg configuration's `routeOrder`, and core hides (sidebar and router) every named
-  route the order leaves out, so an order saved without Mint (console at `/`, no `/console`) would show Home in the
-  console's place and lose the console. `ConsoleRouteOrder` (`pages.global.prependComponent`, inside core's server
-  store provider) subscribes to the server store and, inside `setServer`, gives such an order `/console` right after
-  its `/` (`lib/routeOrder.ts`, `tests/routeOrder.test.ts`). The catch: with Mint, an order keeping Home but leaving
-  out the console looks the same, so the console can't be hidden through the route order.
-- `pages.dashboard.account.container` hides the account title and prepends `ProfileCard`. The banner is
-  uploaded to `PUT/DELETE /api/client/extensions/dev.caloptreyx.mint/banner` (`backend/src/banner.rs`, the
-  avatar route's checks, re-encoded to a 1500x500 JPEG at `publicdata/nebula/banners/<user>.jpg`, the
-  storage prefix core serves for extensions). Its URL sits in core's synced user settings
-  (`nebula::account_banner`) and is still checked with `SAFE_URL` before use. The avatar opens core's
+  route the order leaves out. `ConsoleRouteOrder` (`pages.global.prependComponent`, inside core's server store
+  provider) subscribes to the server store and, inside `setServer`, fixes such orders both ways
+  (`withConsoleRoute` in `lib/routeOrder.ts`, `tests/routeOrder.test.ts`): an order with `/` but no `/console`
+  (saved without Mint) gets `/console` right after `/`, and one with `/console` but no `/` gets `/` right before
+  `/console`, because Home is the server root that core's links and its `ServerStateGuard` send users to. Orders
+  with both or neither come back unchanged (same reference). So Home and the console can only be hidden together
+  through the route order.
+  While a server installs, restores or transfers (`server.status !== null || server.isTransferring`), core's
+  `ServerStateGuard` blocks every page except the server root, so Home always shows its console card then
+  (whatever the Home layout says; `normalizeTheme` keeps every card in the layout) and hides the 'Full log' link
+  (a Mantine `Anchor component={Link}`). The Console sidebar link still hits core's block screen then.
+  Home's Information and Network cards, `HeroCard`'s allocation pill, the console's `InfoWidget` and
+  `ServerCard` mask allocation and SFTP addresses with `shownAddress(value, useRedactAddresses())`
+  (`lib/redact.ts`), following core's 'Hide server addresses' user setting (`app::redact_addresses`, read directly
+  because core's own helper only exists from 1.2.3; never set on older panels). `CopyOnClick` still copies the
+  raw value.
+- `pages.dashboard.account.container` hides the account title and prepends `ProfileCard`. The banner
+  (`backend/src/banner.rs`) is `GET/PUT/DELETE /api/client/extensions/dev.caloptreyx.mint/banner` (GET needs
+  `settings.read`; PUT and DELETE the avatar route's checks, `account.avatar`; activity `mint:banner.update|delete`).
+  Each upload is re-encoded to a 1500x500 JPEG (cropped to 3:1 around the centre, transparency laid over grey 128)
+  at a new `publicdata/nebula/banners/<user>/<random>.jpg` (the storage prefix core serves for extensions), and the
+  previous file is removed. The backend writes that storage path into core's user setting `nebula::account_banner`
+  itself (under core's settings lock; a failed save removes the new file), and GET builds the URL from it. Older
+  values (absolute URLs of `<user>.jpg`) still resolve. Only the user's own files are ever deleted (`owned()`),
+  since users can write their own settings through core's API. A User after-delete handler removes the user's
+  banners in a background task (failures only logged). `ProfileCard` fetches GET whenever the setting changes, shows
+  no default banner while it loads, still checks the URL with `SAFE_URL`, and after an upload sets the returned URL
+  and `setSaved(path)` to keep core's synced store in step. The avatar opens core's
   `AvatarContainer` in a modal; `app.css` hides the grid copy (`.order-60`).
 - Presets, users' own themes and the theme history (`backend/src/presets.rs`, `history.rs`, `lib/library.ts`,
   `elements/library/`). Custom presets are full normalized themes in the `presets` setting
@@ -178,30 +227,63 @@ and break silently when core moves a file. Everything here is runtime:
   64 KiB and all four times that; built-in ones are only ids, `builtinId()` slugs of `PRESETS` names).
   Admin API under `/api/admin/extensions/dev.caloptreyx.mint/presets`: GET (`settings.read`), POST, and
   PATCH/DELETE `/{id}` (`settings.update`, activity `mint:preset.create|update|delete`); a built-in id can
-  only toggle `users`. Applying a preset in the editor lays its **look** over the draft (`pickUserTheme()`).
-  The public `GET /mint/theme` also returns `choices` (the user selectable ones, custom ones with their
-  theme); users pick one in `ThemeChoiceCard`, appended to core's account grid through
+  only toggle `users` (a `theme` gets 400). PATCH on a custom preset may also replace its `theme` (checked like
+  POST, id kept so users' picks follow it); the editor's custom preset cards offer 'Save draft into this preset'
+  with a confirmation, sending `{ theme: normalizeTheme(draft) }`. Applying a preset in the editor lays its
+  **look** over the draft (`pickUserTheme()`); the card's name and swatches are one 'Apply {name}' button.
+  The user selectable ones (custom ones with their theme) come from
+  `GET /api/client/extensions/dev.caloptreyx.mint/theme-choices` (any signed in user, so visitors never get preset
+  themes): `watchUserTheme()` fetches them through axiosInstance at startup when a user is signed in and on each
+  sign-in or user switch, drops answers that arrive after sign-out or a switch, and caches them in
+  `nebula:theme-choices` (kept when the fetch fails or nobody is signed in). `setChoicesFromLibrary()` refreshes
+  them after every preset change in the editor. Users pick one in `ThemeChoiceCard`, appended to core's account grid through
   `pages.dashboard.account.accountContainers`, stored in core's synced user setting `nebula::theme_choice`.
   `apply.ts` paints `withUserTheme(site, pick)`: the site theme with only `USER_THEME_FIELDS` (theme.ts)
   taken from the pick, so content, layouts, auth pages and every field not listed stay site wide; a pick no
   longer offered is the site theme. `watchUserTheme()` follows core's user settings store (live, other tabs,
   sign out), and `holdSiteTheme()` forces the site theme on auth pages (`AuthScope`), in the editor and in
   its preview frame (which then shows the draft). Every theme PUT that changes the theme moves the replaced
-  one into `theme_history` with who saved it and when (last 10); the editor's clock icon lists them
-  (`GET .../history`, `settings.read`) and loads one into the draft.
+  one into `theme_history` with who saved it and when (the last 10, and at most 4 × 64 KiB in total, oldest
+  dropped first); the editor's clock icon lists them (`GET .../history`, `settings.read`) and loads one into the draft.
+- Theme version and conflicts. `GET /mint/theme` returns `{ theme, version }` (`version` = sha256 hex of the stored
+  string, `""` for none), built once per stored string, with `ETag`, `Cache-Control: no-cache` and 304 on a matching
+  `If-None-Match`; `loadTheme()` resolves to `{ theme, version }` (or null) and relies on the browser's revalidation.
+  The theme PUT body is `{ theme, base? }`: `theme` is required (null resets, missing is 400); a `base` that is not
+  the current version gives 409 and saves nothing; success returns `{ version }`. The logic is `routes::store_theme`,
+  tested with cargo. `updateTheme(theme | null, base?)` returns that version.
+- The editor (`pages/ThemeEditor.tsx`) only saves once `loadTheme()` has returned the stored theme; until then it
+  shows a loader, or an error with Retry. It keeps the loaded version and sends it as `base`; a 409 opens a modal to
+  reload the stored theme or overwrite it (resent without `base`). A load only replaces the draft if the draft has not
+  changed since the request started, and a save only if the draft is the one sent. Unsaved drafts are guarded by
+  core's `useBlocker` (in-app navigation, with a confirmation) and react-router's `useBeforeUnload`. Shortcuts
+  (core's `useKeyboardShortcuts`): Mod+S saves, also inside inputs; Mod+Z and Mod+Shift+Z undo and redo outside
+  text fields, and flush the pending draft first. 'Discard changes' returns to the saved theme; 'Reset to default'
+  asks first. `lib/editorDraft.ts` checks the raw draft: URL fields use `elements/editor/UrlInput.tsx`, which flags
+  values `SAFE_URL` refuses, and Save is off while any are left; colour inputs convert `#fff`, `rgb()`, `hsl()` and
+  the like to `#rrggbb` on blur (not on change, which would break typing) and flag what is still not hex; an import
+  needs at least one theme field. Derived colours and contrast warnings use the last valid normalized draft
+  (`Sections`' `valid` prop), not the half-typed one.
 - `routes.addAdminRoute` adds the editor; it is also the extension's `cardConfigurationPage`.
 - The editor's search (`elements/editor/SettingsSearch.tsx`, `lib/editorSearch.ts`) runs over `SETTINGS`, a
   hand kept index: each setting's section, its label key and the keys of its descriptions, headings and options
   (a key ending in `.` takes every key under it), searched in the current language and in English. A result
   opens the section and `revealLabel()` scrolls to the innermost element whose text is exactly the label and
   flashes it (`data-nebula-search-hit`, app.css), so the label must render as is; it retries for 2s for
-  sections that fetch first. A new editor field goes into `SETTINGS` too.
+  sections that fetch first; it then focuses the matching control (with `preventScroll`; the scroll is instant
+  under reduced motion). A new editor field goes into `SETTINGS` too.
 - `pages.dashboard.home.enterContainerAll(...).addPropsInterceptor` replaces the servers list. The
   list route is hardcoded in the panel's router, so this props interceptor (it can replace `children`
-  and `title`) is the only runtime way in. Its sort and grouping (`elements/dashboard/serverOrder.ts`,
-  tested in `tests/serverOrder.test.ts`) order the loaded page only: core's servers API has no sort
-  parameter. CPU, RAM and uptime come from core's user store (`serverResourceUsage`, filled by each row's
-  `useServerStats`), read only while sorting by one of them; status comes from the rows' `onStatus`.
+  and `title`) is the only runtime way in. Its sort, grouping and status filter (`elements/dashboard/serverOrder.ts`,
+  tested in `tests/serverOrder.test.ts`) take each server's status from `rowStatus(server, usage)`: suspended
+  first, then the panel's `server.status`, then the node's live state from core's `serverResourceUsage` (null
+  until reported). The list reads that usage only when `needsUsage(sort, group, filter)` and passes it in as an
+  argument (React Compiler), and while it needs it subscribes the loaded servers' nodes itself (`subscribeToNode`).
+  Core's servers API has no sort parameter, so while an ordering is active and the list has 2 to 10 API pages
+  (`FETCH_ALL_MAX_PAGES`) every page is fetched in parallel and paged in the browser (changing an ordering goes back
+  to page 1); above that, or if the fetch fails, only the loaded page is ordered and `servers.pageOnly` says so.
+  Row and card badges come from `StatusBadge.tsx`. `ServerRow` is a real `NavLink` on the name with an
+  `after:absolute after:inset-0` overlay (as `ServerCard`), with the checkbox above it. `ServerCard`'s power menu
+  copies core `ServerItem`'s permission (`control.*`) and state checks, including Kill (confirmed) while stopping.
   Group headings are siblings of the rows (grid: `col-span-full`), so a row changing group moves, not
   remounts. Sort, group and view persist as `nebula:server-sort`, `nebula:server-group`, `nebula:server-view`.
 - `pages.server.console.xterm` init, after open and unmount handlers (`lib/terminal.ts`) hand the
@@ -241,7 +323,10 @@ and break silently when core moves a file. Everything here is runtime:
   `backend/src/cta.rs` keeps a map `announcement uuid -> { title, url }` in the `announcement_ctas`
   setting: `GET /api/client/extensions/dev.caloptreyx.mint/announcement-ctas` (any signed in user, since
   announcements only show in the signed in layout) and `PUT /api/admin/extensions/dev.caloptreyx.mint/announcement-ctas`
-  (`announcements.update`, same checks as `SAFE_URL`, prunes buttons of deleted announcements). The admin
+  (`announcements.update`, same checks as `SAFE_URL`, URL up to 500 UTF-16 units on both sides). The client GET
+  returns only buttons of announcements that are enabled and inside their start/end window (not filtered by
+  location, node or egg); the PUT prunes buttons of deleted announcements by looking up only the stored uuids on
+  the write pool. The admin
   side is a tab added with `pages.admin.announcements.view.subNavigation.addItemInterceptor`
   (`elements/announcements/AnnouncementCtaTab.tsx`). Users see announcements through core's
   `DismissibleAnnouncementAlert`, which is not hookable, but the `Alert` it renders is: `Alert.addPropsInterceptor`
@@ -249,7 +334,9 @@ and break silently when core moves a file. Everything here is runtime:
   alert back to its announcement (`lib/cta.ts` `matchAnnouncement()`: title, content and colour in the current
   language; two identical announcements get no button). Server scoped announcements live in the server store,
   which throws outside the server router, so a `ServerContentContainer` render interceptor provides them
-  through a context. `lib/ctaStore.ts` fetches the map once per page load and caches it in localStorage.
+  through a context. `lib/ctaStore.ts` fetches the map once per page load (a failed fetch is forgotten, so the
+  next caller retries), caches it in localStorage and follows other tabs' `nebula:announcement-ctas` writes.
+  The admin tab is locked after a failed load (switch, inputs and Save disabled) until 'Try again' succeeds.
 - Toasts, page transitions and page titles. Core's toast stack (`providers/ToastProvider.tsx`, the one
   `.fixed.z-999` element) has no hook, but the `Notification` it renders does: `Notification.addPropsInterceptor`
   exposes the Mantine colour as `data-nebula-tone` (green success, red error, yellow warning, teal info), and
@@ -281,9 +368,11 @@ and break silently when core moves a file. Everything here is runtime:
   `ServerRow` as a core `Card` instead, so it follows block opacity, glass and borders.
 
 Core components are reused wherever possible: the console terminal, power controls, charts, bulk
-action bar, stats hooks and the drag and drop kit. Import them from the **flat** paths
-(`@/elements/Card.tsx`, `@/lib/server.ts`), which exist across releases; the nested paths do not
-exist in older ones. Page level imports (`@/pages/server/console/...`) are why the floor is 1.2.0.
+action bar, stats hooks and the drag and drop kit. Every core import goes through `frontend/src/lib/core.ts`,
+a single re-export module, so the paths Mint depends on are in one place and a core move is one edit. It uses
+the nested paths where they exist in 1.2.0; the flat deprecated shim paths remain only where the nested path
+does not exist in 1.2.0. Check a path against the floor with `git show release-1.2.0:<path>` in a panel
+checkout. Page level imports (`@/pages/server/console/...`) are why the floor is 1.2.0.
 
 ## Constraints
 
@@ -300,7 +389,8 @@ exist in older ones. Page level imports (`@/pages/server/console/...`) are why t
 
 `normalizeTheme()` and `buildCss()` have tests in `tests/theme.test.ts`, the announcement button checks
 in `tests/cta.test.ts`, presets, user choices and history in `tests/library.test.ts`, the editor search in
-`tests/editorSearch.test.ts` (plain `node:test`, no
+`tests/editorSearch.test.ts`, the editor's draft checks in `tests/editorDraft.test.ts`, the servers list
+ordering in `tests/serverOrder.test.ts` and the route order fix in `tests/routeOrder.test.ts` (plain `node:test`, no
 dependencies, kept outside `frontend/src` so the panel never compiles them). Run them with
 `node --test "tests/*.test.ts"` (Node 24 strips the types; a bare `tests/` is not accepted as a path). Add a
 case there whenever a theme field or a validation helper changes; a new theme field that users should get

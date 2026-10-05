@@ -982,6 +982,9 @@ describe('auth pages', () => {
   test('labels are trimmed and cut to 30 characters; links without a label are dropped', () => {
     const [long] = normalizeTheme({ supportLinks: [link({ label: `  ${'x'.repeat(40)}  ` })] }).supportLinks;
     assert.equal(long.label, 'x'.repeat(30));
+    // characters are code points: an emoji counts once and is never cut in half
+    const [emoji] = normalizeTheme({ supportLinks: [link({ label: `a${'🚀'.repeat(40)}` })] }).supportLinks;
+    assert.equal(emoji.label, `a${'🚀'.repeat(29)}`);
     assert.equal(normalizeTheme({ supportLinks: [link({ label: ' Docs ' })] }).supportLinks[0].label, 'Docs');
     for (const label of ['', '   ', 42, null, undefined, ['Docs']]) {
       assert.deepEqual(normalizeTheme({ supportLinks: [link({ label })] }).supportLinks, [], String(label));
@@ -1415,28 +1418,116 @@ describe('contrast warnings', () => {
     assert.deepEqual(pairs({ lightText: '#595959', lightSurface: '#ffffff' }), ['lightText/lightSurface/dimmed/4.5']);
   });
 
-  test('button text is only checked on solid buttons, against the button colour when one is set', () => {
-    assert.deepEqual(pairs({ buttonText: '#ffffff', buttonColor: '#ffff00' }), []);
+  test('button text is checked on solid buttons against the button colour, on the others against their fill', () => {
     assert.deepEqual(pairs({ buttonStyle: 'filled', buttonText: '#ffffff', buttonColor: '#ffff00' }), [
       'buttonText/buttonColor//4.5',
     ]);
     assert.deepEqual(pairs({ buttonStyle: 'filled', buttonText: '#000000', buttonColor: '#ffff00' }), []);
-    // derived: white on the accent
-    assert.deepEqual(pairs({ buttonStyle: 'filled', accent: '#2fbf8f' }), ['buttonText/buttonColor//4.5']);
+    // derived: the text on accent, white while empty
+    assert.deepEqual(pairs({ buttonStyle: 'filled', accent: '#1e88c7' }), ['buttonText/buttonColor//4.5']);
+    // `buttonText` overrides the tinted label too: dark grey on a 22% tint of the accent over a dark card
+    assert.deepEqual(pairs({ buttonText: '#2a2a2a' }), ['buttonText/surface//4.5']);
+    // white on a 22% tint of yellow reads on the dark card, not on light mode's near white one
+    assert.deepEqual(pairs({ buttonText: '#ffffff', buttonColor: '#ffff00' }), ['buttonText/lightSurface//4.5']);
+    // outline buttons have no fill: the card itself
+    assert.deepEqual(pairs({ buttonStyle: 'outline', buttonText: '#000000' }), ['buttonText/surface//4.5']);
+    assert.deepEqual(pairs({ buttonStyle: 'glass', buttonText: '#2a2a2a' }), ['buttonText/surface//4.5']);
+    // without `buttonText` the other styles tint the label toward the page's ink
+    assert.deepEqual(pairs({ buttonStyle: 'outline', buttonColor: '#ffff00' }), []);
   });
 
-  test('text on accent is only checked where a solid menu style paints it, icons only needing 3:1', () => {
+  test('text on accent is always checked at 3:1 for the accent fills, at 4.5:1 too under a solid menu style', () => {
     // #2fbf8f derives white text on accent, 2.34:1
-    assert.deepEqual(pairs({ accent: '#2fbf8f' }), []);
-    assert.deepEqual(pairs({ accent: '#2fbf8f', navHover: 'filledSecondary' }), []);
+    assert.deepEqual(pairs({ accent: '#2fbf8f' }), [`textOnAccent/accent/accentFills/${MIN_UI_CONTRAST}`]);
+    assert.deepEqual(pairs({ accent: '#2fbf8f', navHover: 'filledSecondary' }), [
+      `textOnAccent/accent/accentFills/${MIN_UI_CONTRAST}`,
+    ]);
     for (const navHover of ['filled', 'pill'] as const) {
-      assert.deepEqual(pairs({ accent: '#2fbf8f', navHover }), [`textOnAccent/accent//${MIN_TEXT_CONTRAST}`]);
+      assert.deepEqual(pairs({ accent: '#2fbf8f', navHover }), [
+        `textOnAccent/accent/accentFills/${MIN_UI_CONTRAST}`,
+        `textOnAccent/accent//${MIN_TEXT_CONTRAST}`,
+      ]);
     }
-    assert.deepEqual(pairs({ accent: '#2fbf8f', navHover: 'iconPill' }), [`textOnAccent/accent//${MIN_UI_CONTRAST}`]);
-    // 3.89:1 fails for text but is enough for an icon
+    // 'iconPill' paints only an icon on it, which the 3:1 check covers
+    assert.deepEqual(pairs({ accent: '#2fbf8f', navHover: 'iconPill' }), [
+      `textOnAccent/accent/accentFills/${MIN_UI_CONTRAST}`,
+    ]);
+    // 3.89:1 is enough for badges and icons but not for a menu label
+    assert.deepEqual(pairs({}), []);
     assert.deepEqual(pairs({ navHover: 'pill' }), [`textOnAccent/accent//${MIN_TEXT_CONTRAST}`]);
     assert.deepEqual(pairs({ navHover: 'iconPill' }), []);
     assert.deepEqual(pairs({ accent: '#2fbf8f', textOnAccent: '#000000', navHover: 'pill' }), []);
+  });
+
+  test('a preset applied over another resets its text on accent', () => {
+    const mint = PRESETS.find((preset) => preset.name === 'Mint');
+    const ember = PRESETS.find((preset) => preset.name === 'Ember');
+    assert.ok(mint?.theme.textOnAccent);
+    assert.equal(withUserTheme(withUserTheme(DEFAULT_THEME, mint.theme), ember?.theme).textOnAccent, '');
+  });
+});
+
+describe('status and chart colours', () => {
+  /** The declarations of the plain html:root block, or of a scheme's. */
+  const block = (css: string, scheme?: 'dark' | 'light') => {
+    const head = scheme ? `html:root[data-mantine-color-scheme="${scheme}"]{` : 'html:root{';
+    const start = css.indexOf(head);
+    assert.ok(start >= 0, head);
+    const body = css.slice(start + head.length, css.indexOf('}', start));
+    return new Map(body.split(';').filter(Boolean).map((decl) => decl.split(/:(.*)/s).slice(0, 2) as [string, string]));
+  };
+  const VARIANTS = ['filled', 'filled-hover', 'light', 'light-hover', 'light-color', 'outline', 'outline-hover', 'text'];
+  const theme = normalizeTheme({
+    success: '#2ecc71',
+    warning: '#f1c40f',
+    danger: '#9b59b6',
+    offline: '#7f8c8d',
+    chartOne: '#00ffff',
+    chartTwo: '#ff00ff',
+  });
+  const css = buildCss(theme);
+
+  test("the variants go in both scheme blocks, which outrank core's and Mantine's pinned ones", () => {
+    const shared = block(css);
+    for (const name of ['green', 'yellow', 'red', 'gray']) {
+      for (const variant of VARIANTS) {
+        const key = `--mantine-color-${name}-${variant}`;
+        assert.ok(block(css, 'dark').has(key), `dark ${key}`);
+        assert.ok(block(css, 'light').has(key), `light ${key}`);
+        assert.equal(shared.has(key), false, key);
+      }
+    }
+    // the picked colour itself is the filled shade in both schemes, not core's darker `-8`
+    assert.equal(block(css, 'dark').get('--mantine-color-red-filled'), '#9b59b6');
+    assert.equal(block(css, 'light').get('--mantine-color-red-filled'), '#9b59b6');
+    assert.equal(block(css, 'dark').get('--mantine-color-red-light'), 'rgba(155, 89, 182, 0.2)');
+    // the 0-9 scales only need to beat Mantine's plain :root
+    assert.equal(shared.get('--mantine-color-red-6'), '#9b59b6');
+    assert.equal(shared.get('--color-server-status-offline'), '#9b59b6');
+  });
+
+  test('both chart series are set per scheme', () => {
+    for (const scheme of ['dark', 'light'] as const) {
+      assert.equal(block(css, scheme).get('--chart-series-1'), '#00ffff');
+      assert.equal(block(css, scheme).get('--chart-series-2'), '#ff00ff');
+    }
+    assert.equal(block(css).has('--chart-series-2'), false);
+  });
+
+  test("light mode's tint text reads on its surface, even for a bright yellow", () => {
+    const surface = derivedColors(theme).lightSurface;
+    for (const name of ['green', 'yellow', 'red', 'gray']) {
+      for (const variant of ['light-color', 'text']) {
+        const ink = block(css, 'light').get(`--mantine-color-${name}-${variant}`) as string;
+        assert.ok(contrastRatio(ink, surface) >= MIN_TEXT_CONTRAST, `${name}-${variant} ${ink}`);
+      }
+    }
+  });
+
+  test('unset colours emit nothing, leaving core and Mantine theirs', () => {
+    const plain = buildCss(DEFAULT_THEME);
+    assert.equal(/--mantine-color-(green|yellow|red)-|--chart-series-2|--color-server-status-/.test(plain), false);
+    assert.equal(/--mantine-color-gray-(filled|light|outline|text)/.test(plain), false);
   });
 });
 

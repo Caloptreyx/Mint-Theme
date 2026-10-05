@@ -1,8 +1,7 @@
 import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Alert } from '@mantine/core';
-import Stack from '@/elements/Stack.tsx';
-import Text from '@/elements/Text.tsx';
+import { Stack, Text } from '../../lib/core.ts';
 import type { ContrastIssue } from '../../lib/theme.ts';
 import { useExtTranslations } from '../../translations.ts';
 

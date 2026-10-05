@@ -35,6 +35,9 @@
       "cpu": "CPU",
       "disk": "Dysk",
       "showing": "Wyświetlono: {count}",
+      "showingOf": "Wyświetlono: {count} z {total}",
+      "pageOnly": "Sortowanie, grupowanie i filtr stanu obejmują tylko serwery na tej stronie.",
+      "noMatch": "Żaden serwer nie pasuje do tego filtra.",
       "select": "Zaznacz {name}",
       "selectAll": "Zaznacz wszystkie widoczne serwery",
       "column": {
@@ -112,7 +115,9 @@
       "linkInvalid": "Użyj ścieżki panelu zaczynającej się od pojedynczego / albo pełnego adresu http:// lub https://, bez spacji, cudzysłowów, nawiasów ostrych, okrągłych i klamrowych, średników ani ukośników wstecznych.",
       "linkTooLong": "Link może mieć maksymalnie {max} znaków.",
       "saved": "Zapisano wezwanie do działania.",
-      "removed": "Usunięto wezwanie do działania."
+      "removed": "Usunięto wezwanie do działania.",
+      "loadFailed": "Nie udało się wczytać bieżącego przycisku, więc formularz jest zablokowany, aby go nie nadpisać.",
+      "retry": "Spróbuj ponownie"
     },
     "auth": {
       "supportLinks": "Linki pomocy"
@@ -157,7 +162,8 @@
         "named": "{name} ({role})",
         "roles": {
           "links": "linki",
-          "dimmed": "przygaszony tekst"
+          "dimmed": "przygaszony tekst",
+          "accentFills": "plakietki, pola wyboru i przełączniki"
         }
       },
       "favicon": {
@@ -170,13 +176,35 @@
       "undo": "Cofnij",
       "redo": "Ponów",
       "reset": "Przywróć domyślne",
+      "resetTitle": "Przywróć domyślne",
+      "resetConfirm": "Zastąpić cały szkic domyślnym motywem? Usunie to również artykuły, linki pomocy, układy, obrazy eggów, favicon i logo logowania. Nic nie zostanie zapisane, dopóki nie klikniesz Zapisz.",
+      "discard": "Odrzuć zmiany",
       "import": "Importuj motyw",
       "export": "Eksportuj motyw",
       "importFailed": "Ten plik nie jest motywem Mint.",
+      "imported": "Zaimportowano motyw; kliknij Zapisz, aby go użyć.",
       "save": "Zapisz",
       "saved": "Zapisano motyw.",
+      "loading": "Wczytywanie zapisanego motywu…",
+      "loadFailed": "Nie udało się wczytać zapisanego motywu",
+      "loadFailedDescription": "Zapisywanie pozostaje wyłączone do czasu wczytania, aby zapisany motyw nigdy nie został zastąpiony nieaktualnym.",
+      "retry": "Spróbuj ponownie",
+      "fixUrls": "Najpierw popraw wyróżnione adresy URL.",
+      "urlInvalid": "Musi zaczynać się od https:// lub /, bez spacji, cudzysłowów i nawiasów.",
+      "colorInvalid": "To nie jest kolor; użyj #rrggbb.",
+      "leaveTitle": "Niezapisane zmiany",
+      "leaveConfirm": "Opuścić edytor? Niezapisane zmiany zostaną utracone.",
+      "leave": "Opuść",
+      "conflictTitle": "Motyw został w międzyczasie zmieniony",
+      "conflictDescription": "Ktoś zapisał motyw po otwarciu przez Ciebie edytora. Wczytaj go ponownie (Twoje zmiany zostaną utracone) lub nadpisz go swoim szkicem.",
+      "conflictReload": "Wczytaj ponownie zapisany motyw",
+      "conflictOverwrite": "Nadpisz",
       "refresh": "Odśwież podgląd",
       "openTab": "Otwórz w nowej karcie",
+      "previewFrame": "Podgląd motywu",
+      "previewPage": "Strona podglądu",
+      "previewDevice": "Szerokość podglądu",
+      "previewScheme": "Schemat kolorów podglądu",
       "search": {
         "placeholder": "Szukaj ustawień",
         "clear": "Wyczyść wyszukiwanie",
@@ -279,7 +307,6 @@
       "sidebarGroups": "Grupuj menu serwera",
       "sidebarGroupsDescription": "Zwijane sekcje Zarządzanie, Konfiguracja i Dostęp.",
       "buttonStyle": "Styl przycisków",
-      "buttonAccent": "Przyciski w kolorze akcentu",
       "buttonColor": "Kolor przycisków",
       "buttons": {
         "filled": "Pełny",
@@ -336,6 +363,7 @@
       "layoutDescription": "Przeciągnij, aby zmienić kolejność, przenieś kartę do drugiej kolumny lub ją ukryj.",
       "columnEmpty": "Brak kart.",
       "moveColumn": "Przenieś do drugiej kolumny",
+      "reorderCard": "Zmień kolejność: {name}",
       "hideCard": "Ukryj kartę",
       "showCard": "Pokaż kartę",
       "column": {
@@ -565,6 +593,11 @@
       "deleteTitle": "Usuń preset",
       "deleteConfirm": "Usunąć {name}? Użytkownicy, którzy go wybrali, wrócą do domyślnego wyglądu panelu.",
       "users": "Użytkownicy mogą go wybrać",
+      "apply": "Zastosuj {name}",
+      "overwrite": "Zapisz szkic w tym presecie",
+      "overwriteTitle": "Zapisz szkic w presecie",
+      "overwriteConfirm": "Zastąpić wygląd {name} bieżącym szkicem? Użytkownicy, którzy go wybrali, zobaczą nowy wygląd.",
+      "overwritten": "Zaktualizowano preset.",
       "nameProblem": {
         "empty": "Wpisz nazwę.",
         "long": "Maksymalnie {max} znaków.",

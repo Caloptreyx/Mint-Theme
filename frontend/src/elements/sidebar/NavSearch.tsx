@@ -1,6 +1,8 @@
 import { faMagnifyingGlass, faServer, faUser, type IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Combobox, TextInput, useCombobox } from '@mantine/core';
+import { useDebouncedValue } from '@mantine/hooks';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import {
   Children,
   cloneElement,
@@ -15,34 +17,40 @@ import {
 } from 'react';
 import { useNavigate } from 'react-router';
 import type { z } from 'zod';
-import getAdminServers from '@/api/admin/servers/getServers.ts';
-import getAdminUsers from '@/api/admin/users/getUsers.ts';
-import getServers from '@/api/server/getServers.ts';
-import ActionIcon from '@/elements/ActionIcon.tsx';
-import Kbd from '@/elements/Kbd.tsx';
-import QuickActionsTrigger from '@/elements/quickActions/QuickActionsTrigger.tsx';
-import ServerSwitcher from '@/elements/ServerSwitcher.tsx';
-import Spinner from '@/elements/Spinner.tsx';
-import Text from '@/elements/Text.tsx';
-import Tooltip from '@/elements/Tooltip.tsx';
-import { isAdmin } from '@/lib/permissions.ts';
-import { useServerQuickActionTarget } from '@/lib/quickActions/coreQuickActions.tsx';
-import { getShortcutDefinition } from '@/lib/quickActions/coreShortcuts.tsx';
-import { useShortcutOverrides } from '@/lib/quickActions/shortcutOverrides.ts';
-import { effectiveBinding, type ModifierKey } from '@/lib/quickActions/shortcuts.ts';
-import type { adminServerSchema } from '@/lib/schemas/admin/servers.ts';
-import type { adminFullUserSchema } from '@/lib/schemas/admin/users.ts';
-import type { serverSchema } from '@/lib/schemas/server/server.ts';
-import { useQuickActionLocation } from '@/plugins/useQuickActions.ts';
-import { useSearchableResource } from '@/plugins/useSearchableResource.ts';
-import { useAuth } from '@/providers/AuthProvider.tsx';
-import { useQuickActionsStore } from '@/stores/quickActions.ts';
 import { useNebulaTheme } from '../../lib/apply.ts';
+import {
+  ActionIcon,
+  type adminFullUserSchema,
+  type adminServerSchema,
+  effectiveBinding,
+  getAdminServers,
+  getAdminUsers,
+  getServers,
+  getShortcutDefinition,
+  httpErrorToHuman,
+  isAdmin,
+  Kbd,
+  type ModifierKey,
+  QuickActionsTrigger,
+  ServerSwitcher,
+  Spinner,
+  type serverSchema,
+  Text,
+  Tooltip,
+  useAuth,
+  useQuickActionLocation,
+  useQuickActionsStore,
+  useServerQuickActionTarget,
+  useShortcutOverrides,
+  useToast,
+} from '../../lib/core.ts';
 import type { SearchComponent } from '../../lib/theme.ts';
 import { useExtTranslations } from '../../translations.ts';
 
 const MAX_RESULTS = 6;
 const QUICK_ACTIONS_OPTION = 'nebula:quick-actions';
+const DEBOUNCE_MS = 150;
+const NO_ITEMS: never[] = [];
 
 // core's QuickActionsTrigger labels the shortcut like this; its formatter is not exported
 const MODIFIER_LABELS: [ModifierKey, string, string][] = [
@@ -76,6 +84,35 @@ function useOpenQuickActions() {
   return (query: string) => {
     setQuery(query);
     setOpen(true);
+  };
+}
+
+/**
+ * One of the search's lists for the debounced `term`. `settled` says the items are the answer for that term, not
+ * the previous term's kept on screen while it loads, so Enter never opens a result of an older query.
+ */
+function useResults<T>(
+  key: string,
+  term: string,
+  enabled: boolean,
+  fetcher: (search: string) => Promise<Pagination<T>>,
+): { items: T[]; loading: boolean; settled: boolean } {
+  const { addToast } = useToast();
+  const { data, isFetching, isPlaceholderData, error } = useQuery({
+    queryKey: ['nebula', 'nav-search', key, { search: term }],
+    queryFn: () => fetcher(term),
+    enabled,
+    placeholderData: keepPreviousData,
+  });
+
+  useEffect(() => {
+    if (error) addToast(httpErrorToHuman(error), 'error');
+  }, [error, addToast]);
+
+  return {
+    items: enabled ? (data?.data ?? NO_ITEMS) : NO_ITEMS,
+    loading: enabled && isFetching,
+    settled: !enabled || (!isFetching && !isPlaceholderData),
   };
 }
 
@@ -133,21 +170,19 @@ function SearchBar() {
   const adminServers = scope === 'admin' && !!isAdmin(user, 'servers.read');
   const adminUsers = scope === 'admin' && !!isAdmin(user, 'users.read');
 
-  const servers = useSearchableResource<z.infer<typeof serverSchema>>({
-    queryKey: ['nebula', 'nav-search', 'servers'],
-    fetcher: (search) => getServers(1, search),
-    canRequest: opened && !adminServers,
-  });
-  const allServers = useSearchableResource<z.infer<typeof adminServerSchema>>({
-    queryKey: ['nebula', 'nav-search', 'admin-servers'],
-    fetcher: (search) => getAdminServers(1, search),
-    canRequest: opened && adminServers,
-  });
-  const users = useSearchableResource<z.infer<typeof adminFullUserSchema>>({
-    queryKey: ['nebula', 'nav-search', 'admin-users'],
-    fetcher: (search) => getAdminUsers(1, search),
-    canRequest: opened && adminUsers,
-  });
+  const [term] = useDebouncedValue(query, DEBOUNCE_MS);
+  const servers = useResults<z.infer<typeof serverSchema>>('servers', term, opened && !adminServers, (search) =>
+    getServers(1, search),
+  );
+  const allServers = useResults<z.infer<typeof adminServerSchema>>(
+    'admin-servers',
+    term,
+    opened && adminServers,
+    (search) => getAdminServers(1, search),
+  );
+  const users = useResults<z.infer<typeof adminFullUserSchema>>('admin-users', term, opened && adminUsers, (search) =>
+    getAdminUsers(1, search),
+  );
 
   const serverResults: Result[] = adminServers
     ? allServers.items.slice(0, MAX_RESULTS).map((server) => ({
@@ -171,26 +206,28 @@ function SearchBar() {
       }))
     : [];
   const results = [...serverResults, ...userResults];
-  const loading = opened && ((adminServers ? allServers.loading : servers.loading) || (adminUsers && users.loading));
+  const loading = servers.loading || allServers.loading || users.loading;
+  // the rows on screen answer what is typed: no keystroke still waiting out the debounce, no request in flight
+  const settled = term === query && servers.settled && allServers.settled && users.settled;
   const resultsKey = results.map((result) => result.key).join('|');
 
-  // Enter takes the top row once something is typed, as in core's palette
+  // Enter takes the top row once something is typed, as in core's palette, but only once the rows are the
+  // answer to it. Mantine only announces rows picked with the arrow keys, so this one goes to the target below.
+  const [autoOption, setAutoOption] = useState<string | null>(null);
   useEffect(() => {
-    if (opened && query) combobox.selectFirstOption();
-  }, [opened, query, resultsKey]);
-
-  const search = (value: string) => {
-    setQuery(value);
-    servers.setSearch(value);
-    allServers.setSearch(value);
-    users.setSearch(value);
-  };
+    if (opened && query && settled) {
+      setAutoOption(combobox.selectFirstOption());
+    } else {
+      combobox.resetSelectedOption();
+      setAutoOption(null);
+    }
+  }, [opened, query, settled, resultsKey]);
 
   const submit = (value: string) => {
     const result = results.find((entry) => entry.key === value);
     combobox.closeDropdown();
     input.current?.blur();
-    search('');
+    setQuery('');
 
     if (result) navigate(result.path);
     else openQuickActions(query);
@@ -200,12 +237,12 @@ function SearchBar() {
 
   return (
     <Combobox store={combobox} onOptionSubmit={submit} withinPortal={portal}>
-      <Combobox.Target>
+      <Combobox.Target withExpandedAttribute {...(opened && autoOption ? { 'aria-activedescendant': autoOption } : {})}>
         <TextInput
           ref={input}
           value={query}
           onChange={(event) => {
-            search(event.currentTarget.value);
+            setQuery(event.currentTarget.value);
             combobox.openDropdown();
           }}
           onFocus={() => {
@@ -218,7 +255,10 @@ function SearchBar() {
             combobox.closeDropdown();
           }}
           onKeyDown={(event) => {
-            if (event.key === 'Escape') input.current?.blur();
+            // the arrow keys hand the announced row back to Mantine
+            if (event.key === 'ArrowDown' || event.key === 'ArrowUp') setAutoOption(null);
+            // Mantine closes an open list itself; on a closed one Escape clears the field and keeps focus
+            if (event.key === 'Escape' && !combobox.dropdownOpened && query) setQuery('');
           }}
           placeholder={t('navSearch.placeholder', {})}
           aria-label={t('navSearch.placeholder', {})}

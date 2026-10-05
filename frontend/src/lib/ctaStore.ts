@@ -1,5 +1,5 @@
 import { useEffect, useSyncExternalStore } from 'react';
-import { axiosInstance } from '@/api/axios.ts';
+import { axiosInstance } from './core.ts';
 import { type AnnouncementCta, type CtaMap, normalizeCtas } from './cta.ts';
 
 const CTA_API = '/api/client/extensions/dev.caloptreyx.mint/announcement-ctas';
@@ -30,13 +30,20 @@ function publish(next: CtaMap) {
 
 const currentCtas = () => ctas;
 
-/** Fetches the map once per page load and shares the answer; `force` asks again (the admin form). */
+/**
+ * Fetches the map once per page load and shares the answer; `force` asks again (the admin form). A failed
+ * request is forgotten, so the next caller tries again instead of getting the same rejection for good.
+ */
 export function loadCtas(force = false): Promise<CtaMap> {
   if (force || !request) {
-    request = axiosInstance.get<{ ctas?: unknown }>(CTA_API).then(({ data }) => {
+    const attempt = axiosInstance.get<{ ctas?: unknown }>(CTA_API).then(({ data }) => {
       publish(normalizeCtas(data.ctas));
       return ctas;
     });
+    attempt.catch(() => {
+      if (request === attempt) request = null;
+    });
+    request = attempt;
   }
   return request;
 }
@@ -49,9 +56,20 @@ export function rememberCta(uuid: string, cta: AnnouncementCta | null) {
   publish(next);
 }
 
+// another tab's fetch or save lands in the cache, so this one follows it without asking the server
+const onStorage = (event: StorageEvent) => {
+  if (event.key !== CACHE_KEY) return;
+  ctas = readCache();
+  for (const listener of listeners) listener();
+};
+
 const subscribe = (listener: () => void) => {
+  if (listeners.size === 0) window.addEventListener('storage', onStorage);
   listeners.add(listener);
-  return () => listeners.delete(listener);
+  return () => {
+    listeners.delete(listener);
+    if (listeners.size === 0) window.removeEventListener('storage', onStorage);
+  };
 };
 
 /** The map, fetched the first time a caller with `enabled` mounts. */

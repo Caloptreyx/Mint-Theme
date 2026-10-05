@@ -3,8 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useReducedMotion } from '@mantine/hooks';
 import { type ReactNode, useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
-import Button from '@/elements/Button.tsx';
-import Menu from '@/elements/Menu.tsx';
+import { Button, Menu } from '../../lib/core.ts';
 import { useExtTranslations } from '../../translations.ts';
 import { groupNav, isNavActive, isNavDivider, type NavEntry } from './nav.ts';
 

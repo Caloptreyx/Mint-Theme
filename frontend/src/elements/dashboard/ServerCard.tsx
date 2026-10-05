@@ -6,29 +6,36 @@ import {
   faMicrochip,
   faPlay,
   faRotateRight,
+  faSkull,
   faStop,
   type IconDefinition,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router';
-import ActionIcon from '@/elements/ActionIcon.tsx';
-import Badge from '@/elements/Badge.tsx';
-import Card from '@/elements/Card.tsx';
-import CopyOnClick from '@/elements/CopyOnClick.tsx';
-import Group from '@/elements/Group.tsx';
-import Checkbox from '@/elements/input/Checkbox.tsx';
-import Menu from '@/elements/Menu.tsx';
-import Text from '@/elements/Text.tsx';
-import Title from '@/elements/Title.tsx';
-import { formatAllocation, serverStatusInfo } from '@/lib/server.ts';
-import { bytesToString, mbToBytes } from '@/lib/size.ts';
-import { useBulkPowerActions } from '@/plugins/server/useBulkPowerActions.ts';
-import { useServerStats } from '@/plugins/server/useServerStats.ts';
-import { useTranslations } from '@/providers/TranslationProvider.tsx';
+import {
+  ActionIcon,
+  bytesToString,
+  Card,
+  Checkbox,
+  ConfirmationModal,
+  CopyOnClick,
+  formatAllocation,
+  Group,
+  Menu,
+  mbToBytes,
+  Text,
+  Title,
+  useAuth,
+  useBulkPowerActions,
+  useServerStats,
+  useTranslations,
+} from '../../lib/core.ts';
+import { shownAddress, useRedactAddresses } from '../../lib/redact.ts';
 import type { ServerCardStyle } from '../../lib/theme.ts';
 import { useExtTranslations } from '../../translations.ts';
-import type { RowStatus, Server } from './ServerRow.tsx';
+import type { Server } from './ServerRow.tsx';
+import StatusBadge from './StatusBadge.tsx';
 
 const SHADE = 'var(--nebula-card)';
 
@@ -66,41 +73,28 @@ interface Props {
   variant: ServerCardStyle;
   selected: boolean;
   onSelect: (selected: boolean) => void;
-  onStatus: (uuid: string, status: RowStatus) => void;
 }
 
-export default function ServerCard({ server, art, icon, variant, selected, onSelect, onStatus }: Props) {
+export default function ServerCard({ server, art, icon, variant, selected, onSelect }: Props) {
   const { t } = useTranslations();
   const { t: tExt } = useExtTranslations();
+  const { user } = useAuth();
   const stats = useServerStats(server);
+  const redact = useRedactAddresses();
   const { handleBulkPowerAction, bulkActionLoading } = useBulkPowerActions();
+  const [confirmKill, setConfirmKill] = useState(false);
 
   const state = stats?.state;
-  let status: RowStatus = 'other';
-  let label = t('common.enum.serverState.unknown', {});
-  let color = 'gray';
-
-  if (server.isSuspended) {
-    status = 'suspended';
-    label = t('common.server.state.suspended', {});
-    color = 'red';
-  } else if (server.status) {
-    label = serverStatusInfo[server.status].label();
-    color = serverStatusInfo[server.status].badgeColor;
-  } else if (state) {
-    status = state === 'running' ? 'running' : state === 'offline' ? 'offline' : 'other';
-    label = t(`common.enum.serverState.${state}`, {});
-    color = state === 'running' ? 'green' : state === 'offline' ? 'red' : 'yellow';
-  }
-
-  useEffect(() => onStatus(server.uuid, status), [server.uuid, status, onStatus]);
-
+  // a server that stopped on its own needs no kill, so the confirmation closes instead of sending one
+  useEffect(() => {
+    if (state !== 'stopping') setConfirmKill(false);
+  }, [state]);
   const running = state === 'running';
   const memoryLimit = server.limits.memory ? bytesToString(mbToBytes(server.limits.memory)) : t('common.unlimited', {});
   const diskLimit = server.limits.disk ? bytesToString(mbToBytes(server.limits.disk)) : t('common.unlimited', {});
-  const address = server.allocation
-    ? formatAllocation(server.allocation, server.egg.separatePort)
-    : t('common.server.noAllocation', {});
+  const allocation = server.allocation ? formatAllocation(server.allocation, server.egg.separatePort) : null;
+  // core's "Hide server addresses" masks what is shown; the copy button still copies the real address
+  const address = allocation ? shownAddress(allocation, redact) : t('common.server.noAllocation', {});
 
   const statList: [string, string, IconDefinition][] = [
     [
@@ -149,43 +143,83 @@ export default function ServerCard({ server, art, icon, variant, selected, onSel
     />
   );
 
-  const badge = (size: 'xs' | 'sm') => (
-    <Badge variant='light' color={color} size={size}>
-      {label}
-    </Badge>
-  );
+  const badge = (size: 'xs' | 'sm') => <StatusBadge server={server} state={state} size={size} />;
 
-  const powerMenu = (
-    <Menu>
-      <Menu.Target>
-        <ActionIcon variant='subtle' color='gray' aria-label={tExt('servers.actions', {})}>
-          <FontAwesomeIcon icon={faEllipsisVertical} />
-        </ActionIcon>
-      </Menu.Target>
-      <Menu.Dropdown>
-        <Menu.Item
-          leftSection={<FontAwesomeIcon icon={faPlay} />}
-          disabled={!!bulkActionLoading || server.isSuspended}
-          onClick={() => handleBulkPowerAction([server.uuid], 'start')}
-        >
-          {t('common.enum.serverPowerAction.start', {})}
-        </Menu.Item>
-        <Menu.Item
-          leftSection={<FontAwesomeIcon icon={faRotateRight} />}
-          disabled={!!bulkActionLoading || server.isSuspended}
-          onClick={() => handleBulkPowerAction([server.uuid], 'restart')}
-        >
-          {t('common.enum.serverPowerAction.restart', {})}
-        </Menu.Item>
-        <Menu.Item
-          leftSection={<FontAwesomeIcon icon={faStop} />}
-          disabled={!!bulkActionLoading || server.isSuspended}
-          onClick={() => handleBulkPowerAction([server.uuid], 'stop')}
-        >
-          {t('common.enum.serverPowerAction.stop', {})}
-        </Menu.Item>
-      </Menu.Dropdown>
-    </Menu>
+  // the same checks as core's server list (ServerItem): the user's or their role's control permissions, no power
+  // while the panel or the node is busy with the server, and each action only where it makes sense
+  const permissions = [...server.permissions, ...(user?.role?.serverPermissions ?? [])];
+  const can = (permission: string) => permissions.includes('*') || permissions.includes(permission);
+  const blocked =
+    !!server.status ||
+    server.isSuspended ||
+    server.isTransferring ||
+    server.nodeMaintenanceEnabled ||
+    bulkActionLoading !== null;
+  const canStart = can('control.start');
+  const canRestart = can('control.restart');
+  const canStop = can('control.stop');
+
+  const powerMenu = (canStart || canRestart || canStop) && (
+    <>
+      <Menu>
+        <Menu.Target>
+          <ActionIcon variant='subtle' color='gray' aria-label={tExt('servers.actions', {})}>
+            <FontAwesomeIcon icon={faEllipsisVertical} />
+          </ActionIcon>
+        </Menu.Target>
+        <Menu.Dropdown>
+          {canStart && (
+            <Menu.Item
+              leftSection={<FontAwesomeIcon icon={faPlay} />}
+              disabled={blocked || state !== 'offline'}
+              onClick={() => handleBulkPowerAction([server.uuid], 'start')}
+            >
+              {t('common.enum.serverPowerAction.start', {})}
+            </Menu.Item>
+          )}
+          {canRestart && (
+            <Menu.Item
+              leftSection={<FontAwesomeIcon icon={faRotateRight} />}
+              disabled={blocked || !state}
+              onClick={() => handleBulkPowerAction([server.uuid], 'restart')}
+            >
+              {t('common.enum.serverPowerAction.restart', {})}
+            </Menu.Item>
+          )}
+          {canStop && (
+            <Menu.Item
+              leftSection={<FontAwesomeIcon icon={faStop} />}
+              disabled={blocked || !state || state === 'offline'}
+              onClick={() => handleBulkPowerAction([server.uuid], 'stop')}
+            >
+              {t('common.enum.serverPowerAction.stop', {})}
+            </Menu.Item>
+          )}
+          {canStop && state === 'stopping' && (
+            <Menu.Item
+              color='red'
+              leftSection={<FontAwesomeIcon icon={faSkull} />}
+              disabled={blocked}
+              onClick={() => setConfirmKill(true)}
+            >
+              {t('common.enum.serverPowerAction.kill', {})}
+            </Menu.Item>
+          )}
+        </Menu.Dropdown>
+      </Menu>
+      <ConfirmationModal
+        opened={confirmKill}
+        onClose={() => setConfirmKill(false)}
+        title={t('pages.server.console.power.modal.forceStop.title', {})}
+        confirm={t('common.button.continue', {})}
+        onConfirmed={() => {
+          setConfirmKill(false);
+          return handleBulkPowerAction([server.uuid], 'kill');
+        }}
+      >
+        {t('pages.server.console.power.modal.forceStop.content', {}).md()}
+      </ConfirmationModal>
+    </>
   );
 
   const actions = (
@@ -196,7 +230,7 @@ export default function ServerCard({ server, art, icon, variant, selected, onSel
   );
 
   const copyAddress = (
-    <CopyOnClick content={address} enabled={!!server.allocation} className='relative z-1 max-w-full text-left!'>
+    <CopyOnClick content={allocation ?? ''} enabled={!!allocation} className='relative z-1 max-w-full text-left!'>
       <Text size='sm' c='dimmed' truncate>
         {address}
       </Text>
@@ -400,7 +434,7 @@ export default function ServerCard({ server, art, icon, variant, selected, onSel
       </div>
 
       <div className='px-4 pb-3'>
-        <CopyOnClick content={address} enabled={!!server.allocation} className='relative z-1'>
+        <CopyOnClick content={allocation ?? ''} enabled={!!allocation} className='relative z-1'>
           <Text size='sm' c='dimmed' truncate>
             {address}
           </Text>

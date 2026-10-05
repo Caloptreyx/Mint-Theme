@@ -1,5 +1,6 @@
-// Sorting and grouping for the servers list. No runtime imports, so tests/serverOrder.test.ts can load it.
-import type { RowStatus, Server } from './ServerRow.tsx';
+// Sorting, grouping, the status filter and client side pages for the servers list. No runtime imports, so
+// tests/serverOrder.test.ts can load it.
+import type { Server } from './ServerRow.tsx';
 
 export const SORT_KEYS = ['name', 'status', 'game', 'location', 'cpu', 'ram', 'uptime', 'id'] as const;
 export type SortKey = (typeof SORT_KEYS)[number];
@@ -18,10 +19,15 @@ export const GROUP_STORAGE_KEY = 'nebula:server-group';
 /** The keys whose values only exist while the row's node streams its stats. */
 export const LIVE_SORT_KEYS: readonly SortKey[] = ['cpu', 'ram', 'uptime'];
 
+/** What the status filter, the status sort and the status groups go by. */
+export type RowStatus = 'running' | 'offline' | 'suspended' | 'other';
+export type StatusFilter = 'all' | RowStatus;
+export const STATUS_FILTERS: readonly StatusFilter[] = ['all', 'running', 'offline', 'suspended'];
+
 /** The status filter's order: the servers that are up first, the ones in some other state last. */
 export const STATUS_ORDER: readonly RowStatus[] = ['running', 'offline', 'suspended', 'other'];
 
-/** The part of core's live resource usage the list sorts by. */
+/** The part of core's live resource usage (`serverResourceUsage`) the list orders by. */
 export interface Usage {
   state: string;
   cpuAbsolute: number;
@@ -30,9 +36,46 @@ export interface Usage {
 }
 
 export interface OrderContext {
-  /** What the row's status column shows, once the row has reported it. */
-  status: (uuid: string) => RowStatus | undefined;
   usage: (uuid: string) => Usage | undefined;
+}
+
+/**
+ * The server's status from what the list already has: suspension and the panel's own status (installing,
+ * restoring a backup) win over the node's power state. Null while the node has not reported the server yet.
+ */
+export function rowStatus(
+  server: Pick<Server, 'isSuspended' | 'status'>,
+  usage: Pick<Usage, 'state'> | undefined,
+): RowStatus | null {
+  if (server.isSuspended) return 'suspended';
+  if (server.status) return 'other';
+  if (!usage) return null;
+  return usage.state === 'running' ? 'running' : usage.state === 'offline' ? 'offline' : 'other';
+}
+
+/** Whether sorting, grouping or filtering needs core's live usage for every loaded server. */
+export function needsUsage(sort: Sort | null, group: GroupKey, filter: StatusFilter): boolean {
+  return (
+    filter !== 'all' ||
+    group === 'status' ||
+    (sort !== null && (sort.key === 'status' || LIVE_SORT_KEYS.includes(sort.key)))
+  );
+}
+
+/** Whether the list shows anything but the API's order. */
+export const isOrdered = (sort: Sort | null, group: GroupKey, filter: StatusFilter): boolean =>
+  sort !== null || group !== 'none' || filter !== 'all';
+
+/** Above this many API pages the list orders only the loaded page instead of fetching them all. */
+export const FETCH_ALL_MAX_PAGES = 10;
+
+/**
+ * How many API pages to fetch so an ordering covers every server: all of them while one is active and there are
+ * between 2 and FETCH_ALL_MAX_PAGES, otherwise 0 (the loaded page is all there is, or too many to fetch).
+ */
+export function pagesToFetch(total: number, perPage: number, ordered: boolean): number {
+  const pages = perPage > 0 ? Math.ceil(total / perPage) : 0;
+  return ordered && pages > 1 && pages <= FETCH_ALL_MAX_PAGES ? pages : 0;
 }
 
 export interface ServerGroup {
@@ -77,7 +120,7 @@ function sortValue(server: Server, key: SortKey, ctx: OrderContext): string | nu
     case 'id':
       return server.uuidShort;
     case 'status': {
-      const status = ctx.status(server.uuid);
+      const status = rowStatus(server, ctx.usage(server.uuid));
       return status ? STATUS_ORDER.indexOf(status) : null;
     }
   }
@@ -101,6 +144,27 @@ export function sortServers(servers: Server[], sort: Sort | null, ctx: OrderCont
   return [...servers].sort((a, b) => compareValues(values.get(a.uuid) ?? null, values.get(b.uuid) ?? null, sort.dir));
 }
 
+/** The servers in the filter's status; one the node has not reported yet only shows under 'all'. */
+export function filterServers(servers: Server[], filter: StatusFilter, ctx: OrderContext): Server[] {
+  if (filter === 'all') return servers;
+  return servers.filter((server) => rowStatus(server, ctx.usage(server.uuid)) === filter);
+}
+
+/** One page of an ordered list, cut across its groups; a group split by a page break shows on both pages. */
+export function pageOfGroups(groups: ServerGroup[], page: number, perPage: number): ServerGroup[] {
+  const start = (page - 1) * perPage;
+  const end = start + perPage;
+  const out: ServerGroup[] = [];
+  let offset = 0;
+  for (const group of groups) {
+    const from = Math.max(start - offset, 0);
+    const to = Math.min(end - offset, group.servers.length);
+    if (from < to) out.push({ ...group, servers: group.servers.slice(from, to) });
+    offset += group.servers.length;
+  }
+  return out;
+}
+
 /**
  * Splits an already sorted list into groups, each keeping that order. Groups go by name (statuses in
  * STATUS_ORDER), following the sort's direction when the list is sorted by the same field.
@@ -110,7 +174,7 @@ export function groupServers(servers: Server[], group: GroupKey, sort: Sort | nu
 
   const groups = new Map<string, ServerGroup>();
   for (const server of servers) {
-    const status = group === 'status' ? (ctx.status(server.uuid) ?? 'other') : '';
+    const status = group === 'status' ? (rowStatus(server, ctx.usage(server.uuid)) ?? 'other') : '';
     const [key, label] =
       group === 'location'
         ? [server.locationUuid, server.locationName]

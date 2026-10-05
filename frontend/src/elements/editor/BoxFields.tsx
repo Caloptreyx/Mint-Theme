@@ -1,7 +1,6 @@
 import { faMicrochip } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Stack from '@/elements/Stack.tsx';
-import Text from '@/elements/Text.tsx';
+import { Stack, Text } from '../../lib/core.ts';
 import { BOX_STYLES, type BoxStyle, type NebulaTheme, STAT_STYLES, type StatStyle } from '../../lib/theme.ts';
 import { useExtTranslations } from '../../translations.ts';
 import ChoiceCards from './ChoiceCards.tsx';

@@ -1,7 +1,7 @@
 import { Tooltip, useComputedColorScheme } from '@mantine/core';
 import { type ReactElement, useLayoutEffect, useRef, useState } from 'react';
-import { useGlobalStore } from '@/stores/global.ts';
 import { useNebulaTheme } from '../../lib/apply.ts';
+import { useGlobalStore } from '../../lib/core.ts';
 import type { SidebarLinkProps } from './nav.ts';
 
 /**

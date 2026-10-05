@@ -11,9 +11,8 @@ import {
   useRef,
 } from 'react';
 import { Link, useLocation } from 'react-router';
-import Card from '@/elements/Card.tsx';
-import Sidebar from '@/elements/Sidebar.tsx';
 import { useNebulaTheme } from '../../lib/apply.ts';
+import { Card, Sidebar } from '../../lib/core.ts';
 import { useExtTranslations } from '../../translations.ts';
 import GroupedNav from './GroupedNav.tsx';
 import { findLink, flatten, isNavActive, type SidebarLinkProps, type SidebarProps } from './nav.ts';
@@ -25,9 +24,28 @@ const ADMIN_ORDER = ['/', '/admin', '/admin/servers', '/admin/users'];
 const DASHBOARD_ORDER = ['/', '/account', '/admin'];
 
 const ITEM_CLASS =
-  'flex min-w-0 flex-1 flex-col items-center gap-1 px-1 pt-2 pb-1.5 text-[11px] font-medium leading-none';
+  'flex min-w-0 flex-1 flex-col items-center gap-1 px-1 pt-2 pb-1.5 text-[11px] font-medium leading-none rounded-md focus-visible:outline-solid! focus-visible:outline-2! focus-visible:-outline-offset-2! focus-visible:outline-(--mantine-color-blue-filled)!';
 const ICON_CLASS =
   'flex h-7 w-12 items-center justify-center rounded-full text-base motion-safe:transition-colors motion-safe:duration-150';
+
+// core's floating menu button: an ActionIcon right inside the Card core renders first, before its drawer
+const MENU_BUTTON = '.mantine-Card-root > .mantine-ActionIcon-root';
+let warnedMissingButton = false;
+
+/** Clicks core's menu button, looking through the Sidebar's own nodes between the marker and the bar. */
+function openDrawer(marker: HTMLElement | null, bar: HTMLElement | null) {
+  for (let node = marker?.nextElementSibling; node && node !== bar; node = node.nextElementSibling) {
+    const button = node.matches(MENU_BUTTON) ? node : node.querySelector(MENU_BUTTON);
+    if (button instanceof HTMLElement) {
+      button.click();
+      return;
+    }
+  }
+  if (!warnedMissingButton) {
+    warnedMissingButton = true;
+    console.warn("[Mint] the bottom bar's Menu button found no sidebar menu button to open the drawer with");
+  }
+}
 
 const linkPath = (node: ReactNode) => {
   const to = findLink(node)?.to ?? '';
@@ -149,19 +167,9 @@ export default function BottomNav({ element, ...sidebar }: SidebarProps & { elem
         p={0}
         className='fixed! inset-x-0 bottom-0 z-100 rounded-none! border-x-0! border-b-0! pb-[env(safe-area-inset-bottom)]! backdrop-blur-md lg:hidden!'
       >
-        {/* Menu comes first so links the user may not open (they render nothing) don't count: past the fourth
-            link, one only shows when an earlier one is missing */}
-        <nav aria-label={t('bottomNav.label', {})} className='flex w-full [&>:nth-child(n+6)]:hidden'>
-          <button
-            type='button'
-            onClick={() => marker.current?.nextElementSibling?.querySelector('button')?.click()}
-            className={`${ITEM_CLASS} text-[11px]! leading-none! order-last text-(--mantine-color-dimmed)`}
-          >
-            <span className={ICON_CLASS}>
-              <FontAwesomeIcon icon={faBars} />
-            </span>
-            <span className='w-full truncate text-center'>{t('bottomNav.menu', {})}</span>
-          </button>
+        {/* links first, as they show: one the user may not open renders nothing, so past the fourth link one
+            only shows when an earlier one is missing; Menu always comes last */}
+        <nav aria-label={t('bottomNav.label', {})} className='flex w-full [&>a:nth-of-type(n+5)]:hidden'>
           {links.map((node) => (
             <Fragment key={(node as ReactElement).key}>
               {swapLink(node, (link) => (
@@ -169,6 +177,16 @@ export default function BottomNav({ element, ...sidebar }: SidebarProps & { elem
               ))}
             </Fragment>
           ))}
+          <button
+            type='button'
+            onClick={() => openDrawer(marker.current, bar.current)}
+            className={`${ITEM_CLASS} text-[11px]! leading-none! text-(--mantine-color-dimmed)`}
+          >
+            <span className={ICON_CLASS}>
+              <FontAwesomeIcon icon={faBars} />
+            </span>
+            <span className='w-full truncate text-center'>{t('bottomNav.menu', {})}</span>
+          </button>
         </nav>
       </Card>
     </>

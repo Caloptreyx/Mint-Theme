@@ -1,8 +1,4 @@
 import type { ReactNode } from 'react';
-import ServerContentContainer from '@/elements/containers/ServerContentContainer.tsx';
-import Console from '@/pages/server/console/terminal/Console.tsx';
-import { useVisualViewportBottomInset } from '@/plugins/useVisualViewport.ts';
-import { useTranslations } from '@/providers/TranslationProvider.tsx';
 import {
   BannerWidget,
   ChartsWidget,
@@ -15,6 +11,7 @@ import {
   StatsWidget,
 } from '../elements/console/ConsoleWidgets.tsx';
 import { useNebulaTheme } from '../lib/apply.ts';
+import { Console, ServerContentContainer, useTranslations, useVisualViewportBottomInset } from '../lib/core.ts';
 import { CONSOLE_SLOTS, type ConsoleWidget } from '../lib/theme.ts';
 
 /** A slot's widgets with consecutive charts merged into one run, which shares a grid like core's charts. */

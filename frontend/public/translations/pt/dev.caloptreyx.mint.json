@@ -35,6 +35,9 @@
       "cpu": "CPU",
       "disk": "Disco",
       "showing": "Mostrando {count}",
+      "showingOf": "Mostrando {count} de {total}",
+      "pageOnly": "A ordenação, o agrupamento e o filtro de status abrangem apenas os servidores desta página.",
+      "noMatch": "Nenhum servidor corresponde a este filtro.",
       "select": "Selecionar {name}",
       "selectAll": "Selecionar todos os servidores visíveis",
       "column": {
@@ -112,7 +115,9 @@
       "linkInvalid": "Use um caminho do painel começando com uma única / ou um endereço http:// ou https:// completo, sem espaços, aspas, sinais de menor/maior, parênteses, chaves, ponto e vírgula ou barras invertidas.",
       "linkTooLong": "Use no máximo {max} caracteres no link.",
       "saved": "Chamada para ação salva.",
-      "removed": "Chamada para ação removida."
+      "removed": "Chamada para ação removida.",
+      "loadFailed": "Não foi possível carregar o botão atual, então o formulário está bloqueado para evitar que ele seja sobrescrito.",
+      "retry": "Tentar novamente"
     },
     "auth": {
       "supportLinks": "Links de suporte"
@@ -157,7 +162,8 @@
         "named": "{name} ({role})",
         "roles": {
           "links": "links",
-          "dimmed": "texto esmaecido"
+          "dimmed": "texto esmaecido",
+          "accentFills": "selos, caixas de seleção e interruptores"
         }
       },
       "favicon": {
@@ -170,13 +176,35 @@
       "undo": "Desfazer",
       "redo": "Refazer",
       "reset": "Restaurar padrão",
+      "resetTitle": "Restaurar padrão",
+      "resetConfirm": "Substituir todo o rascunho pelo tema padrão? Isso também remove artigos, links de suporte, layouts, imagens de eggs, o favicon e o logo de login. Nada é salvo até você clicar em Salvar.",
+      "discard": "Descartar alterações",
       "import": "Importar tema",
       "export": "Exportar tema",
       "importFailed": "Esse arquivo não é um tema do Mint.",
+      "imported": "Tema importado; clique em Salvar para usá-lo.",
       "save": "Salvar",
       "saved": "Tema salvo.",
+      "loading": "Carregando o tema salvo…",
+      "loadFailed": "Não foi possível carregar o tema salvo",
+      "loadFailedDescription": "Salvar fica desativado até o carregamento, para que o tema armazenado nunca seja substituído por um desatualizado.",
+      "retry": "Tentar novamente",
+      "fixUrls": "Corrija primeiro as URLs destacadas.",
+      "urlInvalid": "Deve começar com https:// ou /, sem espaços, aspas ou colchetes.",
+      "colorInvalid": "Não é uma cor; use #rrggbb.",
+      "leaveTitle": "Alterações não salvas",
+      "leaveConfirm": "Sair do editor? Suas alterações não salvas serão perdidas.",
+      "leave": "Sair",
+      "conflictTitle": "O tema foi alterado nesse meio-tempo",
+      "conflictDescription": "Alguém salvou o tema depois que você abriu o editor. Recarregue-o (suas alterações serão perdidas) ou sobrescreva-o com seu rascunho.",
+      "conflictReload": "Recarregar tema salvo",
+      "conflictOverwrite": "Sobrescrever",
       "refresh": "Recarregar prévia",
       "openTab": "Abrir em nova aba",
+      "previewFrame": "Prévia do tema",
+      "previewPage": "Página da prévia",
+      "previewDevice": "Largura da prévia",
+      "previewScheme": "Esquema de cores da prévia",
       "search": {
         "placeholder": "Pesquisar configurações",
         "clear": "Limpar pesquisa",
@@ -279,7 +307,6 @@
       "sidebarGroups": "Agrupar o menu do servidor",
       "sidebarGroupsDescription": "Seções recolhíveis de Gerenciamento, Configuração e Acesso.",
       "buttonStyle": "Estilo dos botões",
-      "buttonAccent": "Botões usam a cor de destaque",
       "buttonColor": "Cor dos botões",
       "buttons": {
         "filled": "Sólido",
@@ -336,6 +363,7 @@
       "layoutDescription": "Arraste para reordenar, mover um card para a outra coluna ou ocultá-lo.",
       "columnEmpty": "Nenhum card aqui ainda.",
       "moveColumn": "Mover para a outra coluna",
+      "reorderCard": "Reordenar {name}",
       "hideCard": "Ocultar card",
       "showCard": "Mostrar card",
       "column": {
@@ -565,6 +593,11 @@
       "deleteTitle": "Excluir predefinição",
       "deleteConfirm": "Excluir {name}? Os usuários que a escolheram voltam ao padrão do painel.",
       "users": "Usuários podem escolher esta",
+      "apply": "Aplicar {name}",
+      "overwrite": "Salvar rascunho nesta predefinição",
+      "overwriteTitle": "Salvar rascunho na predefinição",
+      "overwriteConfirm": "Substituir a aparência de {name} pelo rascunho atual? Os usuários que a escolheram verão a nova aparência.",
+      "overwritten": "Predefinição atualizada.",
       "nameProblem": {
         "empty": "Digite um nome.",
         "long": "No máximo {max} caracteres.",

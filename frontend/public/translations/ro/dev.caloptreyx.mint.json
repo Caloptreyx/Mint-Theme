@@ -35,6 +35,9 @@
       "cpu": "CPU",
       "disk": "Disc",
       "showing": "Se afișează {count}",
+      "showingOf": "Se afișează {count} din {total}",
+      "pageOnly": "Sortarea, gruparea și filtrul de stare se aplică doar serverelor de pe această pagină.",
+      "noMatch": "Niciun server nu corespunde acestui filtru.",
       "select": "Selectează {name}",
       "selectAll": "Selectează toate serverele vizibile",
       "column": {
@@ -112,7 +115,9 @@
       "linkInvalid": "Folosește o cale din panou care începe cu un singur / sau o adresă http:// ori https:// completă, fără spații, ghilimele, paranteze unghiulare, paranteze rotunde, acolade, punct și virgulă sau bare oblice inverse.",
       "linkTooLong": "Linkul poate avea cel mult {max} caractere.",
       "saved": "Îndemnul la acțiune a fost salvat.",
-      "removed": "Îndemnul la acțiune a fost eliminat."
+      "removed": "Îndemnul la acțiune a fost eliminat.",
+      "loadFailed": "Butonul actual nu a putut fi încărcat, așa că formularul este blocat pentru a nu-l suprascrie.",
+      "retry": "Încearcă din nou"
     },
     "auth": {
       "supportLinks": "Linkuri de asistență"
@@ -157,7 +162,8 @@
         "named": "{name} ({role})",
         "roles": {
           "links": "linkuri",
-          "dimmed": "text estompat"
+          "dimmed": "text estompat",
+          "accentFills": "insigne, casete de bifat și comutatoare"
         }
       },
       "favicon": {
@@ -170,13 +176,35 @@
       "undo": "Anulează",
       "redo": "Refă",
       "reset": "Resetează la implicit",
+      "resetTitle": "Resetează la implicit",
+      "resetConfirm": "Înlocuiești întreaga ciornă cu tema implicită? Se vor șterge și articolele, linkurile de asistență, aspectele, imaginile egg-urilor, faviconul și logoul de autentificare. Nimic nu se salvează până nu apeși Salvează.",
+      "discard": "Renunță la modificări",
       "import": "Importă tema",
       "export": "Exportă tema",
       "importFailed": "Fișierul nu este o temă Mint.",
+      "imported": "Tema a fost importată; apasă Salvează pentru a o folosi.",
       "save": "Salvează",
       "saved": "Tema a fost salvată.",
+      "loading": "Se încarcă tema salvată…",
+      "loadFailed": "Tema salvată nu a putut fi încărcată",
+      "loadFailedDescription": "Salvarea rămâne dezactivată până la încărcare, ca tema stocată să nu fie niciodată înlocuită cu una învechită.",
+      "retry": "Încearcă din nou",
+      "fixUrls": "Corectează mai întâi URL-urile evidențiate.",
+      "urlInvalid": "Trebuie să înceapă cu https:// sau /, fără spații, ghilimele sau paranteze.",
+      "colorInvalid": "Nu este o culoare; folosește #rrggbb.",
+      "leaveTitle": "Modificări nesalvate",
+      "leaveConfirm": "Părăsești editorul? Modificările nesalvate se vor pierde.",
+      "leave": "Părăsește",
+      "conflictTitle": "Tema s-a schimbat între timp",
+      "conflictDescription": "Cineva a salvat tema după ce ai deschis editorul. Reîncarc-o (modificările tale se pierd) sau suprascrie-o cu ciorna ta.",
+      "conflictReload": "Reîncarcă tema salvată",
+      "conflictOverwrite": "Suprascrie",
       "refresh": "Reîncarcă previzualizarea",
       "openTab": "Deschide într-o filă nouă",
+      "previewFrame": "Previzualizarea temei",
+      "previewPage": "Pagina de previzualizare",
+      "previewDevice": "Lățimea previzualizării",
+      "previewScheme": "Schema de culori a previzualizării",
       "search": {
         "placeholder": "Caută setări",
         "clear": "Șterge căutarea",
@@ -279,7 +307,6 @@
       "sidebarGroups": "Grupează meniul serverului",
       "sidebarGroupsDescription": "Secțiuni pliabile Gestionare, Configurare și Acces.",
       "buttonStyle": "Stil butoane",
-      "buttonAccent": "Butoanele folosesc culoarea de accent",
       "buttonColor": "Culoare butoane",
       "buttons": {
         "filled": "Plin",
@@ -336,6 +363,7 @@
       "layoutDescription": "Trage pentru a reordona, mută un card în cealaltă coloană sau ascunde-l.",
       "columnEmpty": "Încă nu există carduri aici.",
       "moveColumn": "Mută în cealaltă coloană",
+      "reorderCard": "Reordonează {name}",
       "hideCard": "Ascunde cardul",
       "showCard": "Afișează cardul",
       "column": {
@@ -565,6 +593,11 @@
       "deleteTitle": "Șterge presetarea",
       "deleteConfirm": "Ștergi {name}? Utilizatorii care au ales-o revin la tema implicită a panoului.",
       "users": "Utilizatorii o pot alege",
+      "apply": "Aplică {name}",
+      "overwrite": "Salvează ciorna în această presetare",
+      "overwriteTitle": "Salvează ciorna în presetare",
+      "overwriteConfirm": "Înlocuiești aspectul {name} cu ciorna actuală? Utilizatorii care au ales-o vor vedea noul aspect.",
+      "overwritten": "Presetarea a fost actualizată.",
       "nameProblem": {
         "empty": "Introdu un nume.",
         "long": "Cel mult {max} caractere.",

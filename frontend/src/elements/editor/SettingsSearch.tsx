@@ -1,10 +1,6 @@
 import { faMagnifyingGlass, faXmark, type IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import ActionIcon from '@/elements/ActionIcon.tsx';
-import TextInput from '@/elements/input/TextInput.tsx';
-import Stack from '@/elements/Stack.tsx';
-import Text from '@/elements/Text.tsx';
-import UnstyledButton from '@/elements/UnstyledButton.tsx';
+import { ActionIcon, Stack, Text, TextInput, UnstyledButton } from '../../lib/core.ts';
 import { expandTerms, SETTINGS, type SearchHit, type Setting, searchSettings } from '../../lib/editorSearch.ts';
 import translations, { useExtTranslations } from '../../translations.ts';
 import type { Section } from './Sections.tsx';
@@ -151,9 +147,14 @@ export function revealLabel(container: HTMLElement, text: string, done: () => vo
 
     if (target) {
       const offset = target.getBoundingClientRect().top - container.getBoundingClientRect().top;
-      container.scrollTo({ top: container.scrollTop + offset - container.clientHeight / 3, behavior: 'smooth' });
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      container.scrollTo({
+        top: container.scrollTop + offset - container.clientHeight / 3,
+        behavior: reduce ? 'auto' : 'smooth',
+      });
       target.setAttribute('data-nebula-search-hit', '');
       target.addEventListener('animationend', () => target.removeAttribute('data-nebula-search-hit'), { once: true });
+      controlFor(container, target)?.focus({ preventScroll: true });
     } else {
       container.scrollTo({ top: 0 });
     }
@@ -162,4 +163,24 @@ export function revealLabel(container: HTMLElement, text: string, done: () => vo
 
   attempt();
   return () => window.clearTimeout(timer);
+}
+
+const FOCUSABLE =
+  'input:not([type="hidden"]):not(:disabled), textarea:not(:disabled), select:not(:disabled), button:not(:disabled), [tabindex="0"], a[href]';
+
+/** The control a label belongs to: its `for` target, else the nearest focusable thing in its wrapper. */
+function controlFor(container: HTMLElement, label: HTMLElement): HTMLElement | null {
+  const owner = label.closest('label');
+  if (owner?.control) return owner.control as HTMLElement;
+  const id = owner?.htmlFor || label.getAttribute('for');
+  if (id) {
+    const byId = document.getElementById(id);
+    if (byId) return byId;
+  }
+  // the label's own wrapper (a radio group, the slider's row) holds the control, so widen step by step
+  for (let el = label.parentElement; el && el !== container; el = el.parentElement) {
+    const found = el.querySelector<HTMLElement>(FOCUSABLE);
+    if (found) return found;
+  }
+  return null;
 }

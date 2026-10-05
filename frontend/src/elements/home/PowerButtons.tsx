@@ -1,14 +1,17 @@
 import { faPlay, faRotateRight, faSkull, faStop } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useShallow } from 'zustand/react/shallow';
-import Button from '@/elements/Button.tsx';
-import { ServerCan } from '@/elements/Can.tsx';
-import Group from '@/elements/Group.tsx';
-import ConfirmationModal from '@/elements/modals/ConfirmationModal.tsx';
-import { SocketRequest } from '@/plugins/useWebsocketEvent.ts';
-import { useTranslations } from '@/providers/TranslationProvider.tsx';
-import { useServerStore } from '@/stores/server.ts';
+import {
+  Button,
+  ConfirmationModal,
+  ExtensionSlot,
+  Group,
+  ServerCan,
+  SocketRequest,
+  useServerStore,
+  useTranslations,
+} from '../../lib/core.ts';
 
 export default function PowerButtons() {
   const { t } = useTranslations();
@@ -26,8 +29,20 @@ export default function PowerButtons() {
   const send = (action: 'start' | 'stop' | 'restart' | 'kill') => socketInstance?.send(SocketRequest.SET_STATE, action);
   const stopping = state === 'stopping';
 
+  // as core's ServerPowerControls: a server that stopped on its own needs no kill
+  useEffect(() => {
+    if (state === 'offline') setConfirmKill(false);
+  }, [state]);
+
   return (
     <Group gap='xs' className='max-sm:w-full max-sm:*:grow'>
+      {/* other extensions' power buttons, in the slots core's ServerPowerControls renders them in */}
+      <ExtensionSlot
+        components={
+          window.extensionContext.extensionRegistry.pages.server.console.powerButtonComponents.prependedComponents
+        }
+        name='console-powerbutton-prepended'
+      />
       <ServerCan action='control.start'>
         <Button
           color='green'
@@ -59,6 +74,13 @@ export default function PowerButtons() {
           {stopping ? t('common.enum.serverPowerAction.kill', {}) : t('common.enum.serverPowerAction.stop', {})}
         </Button>
       </ServerCan>
+
+      <ExtensionSlot
+        components={
+          window.extensionContext.extensionRegistry.pages.server.console.powerButtonComponents.appendedComponents
+        }
+        name='console-powerButton-appended'
+      />
 
       <ConfirmationModal
         opened={confirmKill}

@@ -1,13 +1,16 @@
 import { useRef, useState } from 'react';
 import AvatarEditor, { type AvatarEditorRef } from 'react-avatar-editor';
-import { axiosInstance, httpErrorToHuman } from '@/api/axios.ts';
-import Button from '@/elements/Button.tsx';
-import Group from '@/elements/Group.tsx';
-import FileInput from '@/elements/input/FileInput.tsx';
-import { Modal } from '@/elements/modals/Modal.tsx';
-import Stack from '@/elements/Stack.tsx';
-import { useToast } from '@/providers/ToastProvider.tsx';
-import { useTranslations } from '@/providers/TranslationProvider.tsx';
+import {
+  axiosInstance,
+  Button,
+  FileInput,
+  Group,
+  httpErrorToHuman,
+  Modal,
+  Stack,
+  useToast,
+  useTranslations,
+} from '../../lib/core.ts';
 import { useExtTranslations } from '../../translations.ts';
 
 export const BANNER_API = '/api/client/extensions/dev.caloptreyx.mint/banner';
@@ -21,7 +24,13 @@ interface Props {
   onClose: () => void;
   /** CSS background of the banner shown now, previewed until a file is picked. */
   preview: string;
-  onSaved: (url: string) => void;
+  /** The new banner's URL and the storage path the backend saved in the user setting. */
+  onSaved: (saved: SavedBanner) => void;
+}
+
+export interface SavedBanner {
+  banner: string;
+  path: string;
 }
 
 /** Upload and position a banner, the same way core's avatar card works. */
@@ -44,9 +53,9 @@ export default function BannerModal({ opened, onClose, preview, onSaved }: Props
         if (!blob) return;
         setSaving(true);
         axiosInstance
-          .put<{ banner: string }>(BANNER_API, blob, { headers: { 'Content-Type': blob.type } })
+          .put<SavedBanner>(BANNER_API, blob, { headers: { 'Content-Type': blob.type } })
           .then(({ data }) => {
-            onSaved(data.banner);
+            onSaved(data);
             close();
           })
           .catch((err) => addToast(httpErrorToHuman(err), 'error'))

@@ -9,6 +9,9 @@ use utoipa_axum::{router::OpenApiRouter, routes};
 
 const MAX_ENTRIES: usize = 10;
 const MAX_USER_CHARS: usize = 255;
+/// Every Mint setting is rewritten with any core settings save and reloaded by every process, so
+/// the history as a whole gets the presets' cap: the oldest entries go until it fits.
+const MAX_TOTAL_BYTES: usize = 4 * crate::routes::MAX_THEME_BYTES;
 
 #[derive(ToSchema, Serialize, Deserialize, Clone, Debug, PartialEq)]
 pub struct Entry {
@@ -59,7 +62,7 @@ fn parse(raw: &str) -> History {
     }
 }
 
-fn now() -> i64 {
+pub(crate) fn now() -> i64 {
     std::time::SystemTime::now()
         .duration_since(std::time::UNIX_EPOCH)
         .map_or(0, |d| d.as_millis() as i64)
@@ -82,12 +85,20 @@ fn record(history: &mut History, previous: &str, at: i64, user: &str) {
         at,
         user: user.chars().take(MAX_USER_CHARS).collect(),
     });
+    while !history.entries.is_empty() && crate::routes::json_len(&*history) > MAX_TOTAL_BYTES {
+        history.entries.pop();
+    }
 }
 
 /// Called by the theme PUT with the settings still locked: `previous` is what is stored now.
-pub fn push(raw_history: &str, previous: &str, user: &str) -> Result<String, serde_json::Error> {
+pub fn push(
+    raw_history: &str,
+    previous: &str,
+    at: i64,
+    user: &str,
+) -> Result<String, serde_json::Error> {
     let mut history = parse(raw_history);
-    record(&mut history, previous, now(), user);
+    record(&mut history, previous, at, user);
     serde_json::to_string(&history)
 }
 
@@ -122,7 +133,8 @@ pub fn admin(state: &State) -> OpenApiRouter<State> {
 
 #[cfg(test)]
 mod tests {
-    use super::{MAX_ENTRIES, parse, record};
+    use super::{MAX_ENTRIES, MAX_TOTAL_BYTES, parse, record};
+    use crate::routes::MAX_THEME_BYTES;
     use serde_json::json;
 
     #[test]
@@ -184,9 +196,33 @@ mod tests {
     }
 
     #[test]
+    fn record_caps_the_total_size() {
+        let mut history = super::History::default();
+        // themes just under the theme PUT's cap: only a few fit together
+        for i in 0..MAX_ENTRIES {
+            let banner = format!("{i}{}", "a".repeat(MAX_THEME_BYTES - 40));
+            let theme = serde_json::json!({ "homeBanner": banner });
+            record(&mut history, &theme.to_string(), i as i64, "admin");
+            assert!(crate::routes::json_len(&history) <= MAX_TOTAL_BYTES);
+        }
+        assert!(history.entries.len() < MAX_ENTRIES);
+        assert!(history.entries.len() >= 3);
+        // the newest stays, the oldest went
+        let newest = history.entries[0].theme["homeBanner"].as_str().unwrap();
+        assert!(newest.starts_with(&(MAX_ENTRIES - 1).to_string()));
+
+        // small entries are not affected
+        let mut small = super::History::default();
+        for i in 0..MAX_ENTRIES {
+            record(&mut small, &format!(r#"{{"radius":{i}}}"#), i as i64, "admin");
+        }
+        assert_eq!(small.entries.len(), MAX_ENTRIES);
+    }
+
+    #[test]
     fn push_round_trips() {
-        let raw = super::push("", r##"{"accent":"#111111"}"##, "alice").unwrap();
-        let raw = super::push(&raw, r##"{"accent":"#222222"}"##, "bob").unwrap();
+        let raw = super::push("", r##"{"accent":"#111111"}"##, 1, "alice").unwrap();
+        let raw = super::push(&raw, r##"{"accent":"#222222"}"##, 2, "bob").unwrap();
         let history = parse(&raw);
         assert_eq!(history.entries.len(), 2);
         assert_eq!(history.entries[0].user.as_deref(), Some("alice"));

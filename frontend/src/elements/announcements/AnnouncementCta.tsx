@@ -2,12 +2,14 @@ import type { AlertProps } from '@mantine/core';
 import { createContext, isValidElement, type ReactElement, type ReactNode, useContext } from 'react';
 import { Link } from 'react-router';
 import type { z } from 'zod';
-import Button from '@/elements/Button.tsx';
-import { announcementTypeColorMapping } from '@/lib/enums.ts';
-import type { announcementSchema } from '@/lib/schemas/announcements.ts';
-import { useTranslations } from '@/providers/TranslationProvider.tsx';
-import { useGlobalStore } from '@/stores/global.ts';
-import { useServerStore } from '@/stores/server.ts';
+import {
+  type announcementSchema,
+  announcementTypeColorMapping,
+  Button,
+  useGlobalStore,
+  useServerStore,
+  useTranslations,
+} from '../../lib/core.ts';
 import { ctaUrlProblem, matchAnnouncement } from '../../lib/cta.ts';
 import { useCtas } from '../../lib/ctaStore.ts';
 

@@ -1,14 +1,17 @@
 import { faCopy, faGamepad, type IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import type { ReactNode } from 'react';
-import Badge from '@/elements/Badge.tsx';
-import Card from '@/elements/Card.tsx';
-import CopyOnClick from '@/elements/CopyOnClick.tsx';
-import Group from '@/elements/Group.tsx';
-import Title from '@/elements/Title.tsx';
-import { formatAllocation } from '@/lib/server.ts';
-import { useTranslations } from '@/providers/TranslationProvider.tsx';
-import { useServerStore } from '@/stores/server.ts';
+import {
+  Badge,
+  Card,
+  CopyOnClick,
+  formatAllocation,
+  Group,
+  Title,
+  useServerStore,
+  useTranslations,
+} from '../../lib/core.ts';
+import { shownAddress, useRedactAddresses } from '../../lib/redact.ts';
 import ServerState from '../ServerState.tsx';
 import PowerButtons from './PowerButtons.tsx';
 
@@ -47,6 +50,7 @@ export function Pill({
 export default function HeroCard({ banner, icon, children }: { banner: string; icon?: string; children?: ReactNode }) {
   const { t } = useTranslations();
   const server = useServerStore((s) => s.server);
+  const redact = useRedactAddresses();
 
   const address = server.allocation
     ? formatAllocation(server.allocation, server.egg.separatePort)
@@ -81,7 +85,9 @@ export default function HeroCard({ banner, icon, children }: { banner: string; i
               {server.egg.name}
             </Pill>
             <CopyOnClick content={address} enabled={!!server.allocation} className='max-w-full'>
-              <Pill right={server.allocation && <FontAwesomeIcon icon={faCopy} />}>{address}</Pill>
+              <Pill right={server.allocation && <FontAwesomeIcon icon={faCopy} />}>
+                {server.allocation ? shownAddress(address, redact) : address}
+              </Pill>
             </CopyOnClick>
           </Group>
           {children && <div className='flex flex-wrap gap-2 mt-2'>{children}</div>}

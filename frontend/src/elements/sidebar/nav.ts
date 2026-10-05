@@ -8,7 +8,7 @@ import {
   type ReactNode,
 } from 'react';
 import { matchPath } from 'react-router';
-import Sidebar from '@/elements/Sidebar.tsx';
+import { Sidebar } from '../../lib/core.ts';
 
 export type SidebarProps = ComponentProps<typeof Sidebar>;
 export type SidebarLinkProps = ComponentProps<typeof Sidebar.Link>;

@@ -9,58 +9,66 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Pagination } from '@mantine/core';
-import { useCallback, useEffect, useState } from 'react';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
+import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import type { z } from 'zod';
-import getServers from '@/api/server/getServers.ts';
-import ActionIcon from '@/elements/ActionIcon.tsx';
-import Badge from '@/elements/Badge.tsx';
-import { AdminCan } from '@/elements/Can.tsx';
-import Card from '@/elements/Card.tsx';
-import Group from '@/elements/Group.tsx';
-import Checkbox from '@/elements/input/Checkbox.tsx';
-import Select from '@/elements/input/Select.tsx';
-import Switch from '@/elements/input/Switch.tsx';
-import TextInput from '@/elements/input/TextInput.tsx';
-import SegmentedControl from '@/elements/SegmentedControl.tsx';
-import Spinner from '@/elements/Spinner.tsx';
-import Text from '@/elements/Text.tsx';
-import Title from '@/elements/Title.tsx';
-import { queryKeys } from '@/lib/queryKeys.ts';
-import type { serverPowerAction } from '@/lib/schemas/server/server.ts';
-import BulkActionBar from '@/pages/dashboard/home/BulkActionBar.tsx';
-import { useSearchablePaginatedTable } from '@/plugins/resource/useSearchablePaginatedTable.ts';
-import { useBulkPowerActions } from '@/plugins/server/useBulkPowerActions.ts';
-import { useServerListShowOthers } from '@/plugins/server/useServerListShowOthers.ts';
-import { useStartOnGroupedServers } from '@/plugins/server/useStartOnGroupedServers.ts';
-import { useTranslations } from '@/providers/TranslationProvider.tsx';
-import { useUserStore } from '@/stores/user.ts';
 import ServerCard, { GRID_CLASS } from '../elements/dashboard/ServerCard.tsx';
-import ServerRow, { COLUMN_CLASS, COLUMNS, ROW_GRID, type RowStatus } from '../elements/dashboard/ServerRow.tsx';
+import ServerRow, { COLUMN_CLASS, COLUMNS, ROW_GRID, type Server } from '../elements/dashboard/ServerRow.tsx';
 import {
+  filterServers,
   GROUP_KEYS,
   GROUP_STORAGE_KEY,
   type GroupKey,
   groupServers,
-  LIVE_SORT_KEYS,
+  isOrdered,
+  needsUsage,
   nextSort,
   type OrderContext,
+  pageOfGroups,
+  pagesToFetch,
   parseGroup,
   parseSort,
+  type RowStatus,
   type ServerGroup,
   SORT_KEYS,
   SORT_STORAGE_KEY,
   type Sort,
+  STATUS_FILTERS,
+  type StatusFilter,
   serializeSort,
   sortServers,
 } from '../elements/dashboard/serverOrder.ts';
 import { useNebulaTheme } from '../lib/apply.ts';
+import {
+  ActionIcon,
+  AdminCan,
+  Badge,
+  BulkActionBar,
+  Card,
+  Checkbox,
+  Group,
+  getServers,
+  queryKeys,
+  SegmentedControl,
+  Select,
+  Spinner,
+  Switch,
+  type serverPowerAction,
+  Text,
+  TextInput,
+  Title,
+  useBulkPowerActions,
+  useSearchablePaginatedTable,
+  useServerListShowOthers,
+  useStartOnGroupedServers,
+  useTranslations,
+  useUserStore,
+} from '../lib/core.ts';
 import { useExtTranslations } from '../translations.ts';
 
 type View = 'list' | 'grid';
-type Filter = 'all' | RowStatus;
 const VIEW_KEY = 'nebula:server-view';
-const FILTERS: Filter[] = ['all', 'running', 'offline', 'suspended'];
 
 function stored(key: string): string | null {
   try {
@@ -80,6 +88,13 @@ function store(key: string, value: string | null) {
   }
 }
 
+/** Every page of the list, for an ordering that has to see all of them. A server that moved to another page
+ * between the requests would come twice, so each one keeps a single row. */
+async function fetchEveryServer(pages: number, search: string, other: boolean): Promise<Server[]> {
+  const results = await Promise.all(Array.from({ length: pages }, (_, index) => getServers(index + 1, search, other)));
+  return [...new Map(results.flatMap((result) => result.data).map((server) => [server.uuid, server])).values()];
+}
+
 export default function ServerList() {
   const { t, tItem } = useTranslations();
   const { t: tExt } = useExtTranslations();
@@ -91,21 +106,23 @@ export default function ServerList() {
   const [view, setView] = useState<View>(() => (stored(VIEW_KEY) === 'grid' ? 'grid' : 'list'));
   const [sort, setSort] = useState<Sort | null>(() => parseSort(stored(SORT_STORAGE_KEY)));
   const [group, setGroup] = useState<GroupKey>(() => parseGroup(stored(GROUP_STORAGE_KEY)));
-  const [filter, setFilter] = useState<Filter>('all');
-  const [statuses, setStatuses] = useState<Record<string, RowStatus>>({});
+  const [filter, setFilter] = useState<StatusFilter>('all');
   const [selected, setSelected] = useState<string[]>([]);
   const { handleBulkPowerAction, bulkActionLoading } = useBulkPowerActions();
 
-  // Each row subscribes to its node through core's useServerStats, which fills this store. The list reads
-  // the same store, and only while it sorts by a live value, so it does not re-render on every stats tick.
-  const liveSort = sort !== null && LIVE_SORT_KEYS.includes(sort.key);
-  const usage = useUserStore((state) => (liveSort ? state.serverResourceUsage : null));
+  // Status and the live values come from core's resource usage store, which core's useServerStats fills per node.
+  // The list reads it only while an ordering needs it, so it does not re-render on every stats tick otherwise.
+  const wantsUsage = needsUsage(sort, group, filter);
+  const usage = useUserStore((state) => (wantsUsage ? state.serverResourceUsage : null));
+  const subscribeToNode = useUserStore((state) => state.subscribeToNode);
 
   const {
     data: servers,
     loading,
     search,
+    debouncedSearch,
     setSearch,
+    page,
     setPage,
   } = useSearchablePaginatedTable({
     queryKey: queryKeys.user.servers.all(),
@@ -113,40 +130,72 @@ export default function ServerList() {
     deps: [showOthers],
   });
 
-  const onStatus = useCallback(
-    (uuid: string, status: RowStatus) =>
-      setStatuses((prev) => (prev[uuid] === status ? prev : { ...prev, [uuid]: status })),
-    [],
-  );
+  // The servers API has no sort parameter. While an ordering is active and the list spans a few pages, every
+  // page is fetched and paged here; with more, the ordering covers only the loaded page and says so.
+  const total = servers?.total ?? 0;
+  const perPage = servers?.perPage || 1;
+  const serverPages = Math.ceil(total / perPage);
+  const ordered = isOrdered(sort, group, filter);
+  const allPages = pagesToFetch(total, perPage, ordered);
+  const everything = useQuery({
+    queryKey: [...queryKeys.user.servers.all(), showOthers, { allPages, search: debouncedSearch }],
+    queryFn: () => fetchEveryServer(allPages, debouncedSearch, showOthers),
+    enabled: allPages > 0,
+    placeholderData: keepPreviousData,
+  });
+  // a failed fetch falls back to ordering the loaded page
+  const clientPaged = allPages > 0 && everything.data !== undefined;
+  const rows = (clientPaged ? everything.data : servers?.data) ?? [];
+  const fetchingAll = allPages > 0 && everything.data === undefined && everything.isFetching;
+
+  // servers that never rendered (another page, filtered out) still need their status, so the list subscribes
+  // their nodes itself; core counts subscribers per node, so the rows' own subscriptions share the polling
+  const nodeKey = wantsUsage ? [...new Set(rows.map((server) => server.nodeUuid))].sort().join(',') : '';
+  useEffect(() => {
+    if (!nodeKey) return;
+    const unsubscribe = nodeKey.split(',').map((node) => subscribeToNode(node));
+    return () => {
+      for (const stop of unsubscribe) stop();
+    };
+  }, [nodeKey, subscribeToNode]);
 
   const changeView = (next: View) => {
     setView(next);
     store(VIEW_KEY, next);
   };
+  // a new ordering of every server starts on its first page
+  const restart = (nextSort: Sort | null, nextGroup: GroupKey, nextFilter: StatusFilter) => {
+    if (pagesToFetch(total, perPage, isOrdered(nextSort, nextGroup, nextFilter)) > 0) setPage(1);
+  };
   const changeSort = (next: Sort | null) => {
     setSort(next);
     store(SORT_STORAGE_KEY, serializeSort(next));
+    restart(next, group, filter);
   };
   const changeGroup = (next: GroupKey) => {
     setGroup(next);
     store(GROUP_STORAGE_KEY, next);
+    restart(sort, next, filter);
+  };
+  const changeFilter = (next: StatusFilter) => {
+    setFilter(next);
+    restart(sort, group, next);
   };
 
   // core keeps the grouped list on '/' when the user starts there, so the tabs follow that setting
   const allPath = startOnGrouped ? '/all' : '/';
   const groupedPath = startOnGrouped ? '/' : '/grouped';
 
-  const rows = servers?.data ?? [];
-  const matches = (uuid: string) => filter === 'all' || statuses[uuid] === filter;
-  // the servers API has no sort parameter, so sorting and grouping order the page that is loaded
-  const order: OrderContext = { status: (uuid) => statuses[uuid], usage: (uuid) => usage?.[uuid] };
-  const visible = sortServers(
-    rows.filter((server) => matches(server.uuid)),
-    sort,
-    order,
-  );
-  const groups = groupServers(visible, group, sort, order);
-  const pages = Math.ceil((servers?.total ?? 0) / (servers?.perPage || 1));
+  const order: OrderContext = { usage: (uuid) => usage?.[uuid] };
+  const matched = sortServers(filterServers(rows, filter, order), sort, order);
+  const allGroups = groupServers(matched, group, sort, order);
+  const pages = clientPaged ? Math.ceil(matched.length / perPage) : serverPages;
+  const currentPage = clientPaged ? Math.min(page, Math.max(pages, 1)) : (servers?.page ?? 1);
+  const groups = clientPaged ? pageOfGroups(allGroups, currentPage, perPage) : allGroups;
+  const visible = groups.flatMap((entry) => entry.servers);
+  const pageOnly = !clientPaged && serverPages > 1 && ordered;
+  // every server the list could show: those matching the filter when all pages are here, else the API's count
+  const shownTotal = clientPaged ? matched.length : total;
 
   // Only what is on screen can be selected. A server hidden by the filter, the search or a page change is
   // dropped for good (it does not come back ticked), and the bar never counts it, even for the one render
@@ -264,7 +313,6 @@ export default function ServerList() {
         card={cards}
         selected={chosen.includes(server.uuid)}
         onSelect={onSelect(server.uuid)}
-        onStatus={onStatus}
       />
     )),
   ]);
@@ -296,9 +344,9 @@ export default function ServerList() {
           className='w-full md:w-62.5'
         />
         <Select
-          data={FILTERS.map((value) => ({ value, label: tExt(`servers.filter.${value}`, {}) }))}
+          data={STATUS_FILTERS.map((value) => ({ value, label: tExt(`servers.filter.${value}`, {}) }))}
           value={filter}
-          onChange={(value) => setFilter((value as Filter) ?? 'all')}
+          onChange={(value) => changeFilter(STATUS_FILTERS.find((option) => option === value) ?? 'all')}
           w={150}
         />
         <Select
@@ -357,10 +405,12 @@ export default function ServerList() {
         </AdminCan>
       </Group>
 
-      {loading ? (
+      {loading || fetchingAll ? (
         <Spinner.Centered />
-      ) : rows.length === 0 ? (
-        <Text c='dimmed'>{t('pages.account.home.noServers', {})}</Text>
+      ) : visible.length === 0 ? (
+        <Text c='dimmed'>
+          {rows.length === 0 ? t('pages.account.home.noServers', {}) : tExt('servers.noMatch', {})}
+        </Text>
       ) : view === 'grid' ? (
         // headings span the whole row whatever the card style's column count, and the cards stay siblings
         <div className={GRID_CLASS[theme.serverCardStyle]}>
@@ -375,7 +425,6 @@ export default function ServerList() {
                 icon={theme.eggs[server.egg.uuid]?.icon}
                 selected={chosen.includes(server.uuid)}
                 onSelect={onSelect(server.uuid)}
-                onStatus={onStatus}
               />
             )),
           ])}
@@ -395,10 +444,19 @@ export default function ServerList() {
 
       {rows.length > 0 && (
         <Group justify='space-between' mt='md'>
-          <Text size='sm' c='dimmed'>
-            {tExt('servers.showing', { count: tItem('server', visible.length) })}
-          </Text>
-          {pages > 1 && <Pagination total={pages} value={servers?.page ?? 1} onChange={setPage} boundaries={1} />}
+          <div>
+            <Text size='sm' c='dimmed'>
+              {visible.length === shownTotal
+                ? tExt('servers.showing', { count: tItem('server', visible.length) })
+                : tExt('servers.showingOf', { count: visible.length, total: tItem('server', shownTotal) })}
+            </Text>
+            {pageOnly && (
+              <Text size='xs' c='dimmed'>
+                {tExt('servers.pageOnly', {})}
+              </Text>
+            )}
+          </div>
+          {pages > 1 && <Pagination total={pages} value={currentPage} onChange={setPage} boundaries={1} />}
         </Group>
       )}
 

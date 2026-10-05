@@ -12,14 +12,10 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { type ReactNode, type SyntheticEvent, useLayoutEffect, useRef, useState, useSyncExternalStore } from 'react';
-import ActionIcon from '@/elements/ActionIcon.tsx';
-import Card from '@/elements/Card.tsx';
-import { useVisualViewportBottomInset } from '@/plugins/useVisualViewport.ts';
-import { useFileManager } from '@/providers/FileManagerProvider.tsx';
 import { useNebulaTheme } from '../../lib/apply.ts';
+import { ActionIcon, Card, useFileManager, useVisualViewportBottomInset } from '../../lib/core.ts';
 import {
   activeEditorIn,
-  type CodeEditor,
   coarsePointer,
   editorsVersion,
   isReadOnly,

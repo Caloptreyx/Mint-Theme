@@ -35,6 +35,9 @@
       "cpu": "CPU",
       "disk": "Speicherplatz",
       "showing": "{count} angezeigt",
+      "showingOf": "{count} von {total} angezeigt",
+      "pageOnly": "Sortierung, Gruppierung und Statusfilter gelten nur für die Server auf dieser Seite.",
+      "noMatch": "Keine Server entsprechen diesem Filter.",
       "select": "{name} auswählen",
       "selectAll": "Alle sichtbaren Server auswählen",
       "column": {
@@ -112,7 +115,9 @@
       "linkInvalid": "Verwende einen Panel-Pfad, der mit einem einzelnen / beginnt, oder eine vollständige http://- oder https://-Adresse, ohne Leerzeichen, Anführungszeichen, spitze Klammern, runde Klammern, geschweifte Klammern, Semikolons oder Backslashes.",
       "linkTooLong": "Der Link darf höchstens {max} Zeichen lang sein.",
       "saved": "Call-to-Action gespeichert.",
-      "removed": "Call-to-Action entfernt."
+      "removed": "Call-to-Action entfernt.",
+      "loadFailed": "Der aktuelle Button konnte nicht geladen werden, daher ist das Formular gesperrt, damit er nicht überschrieben wird.",
+      "retry": "Erneut versuchen"
     },
     "auth": {
       "supportLinks": "Support-Links"
@@ -157,7 +162,8 @@
         "named": "{name} ({role})",
         "roles": {
           "links": "Links",
-          "dimmed": "gedimmter Text"
+          "dimmed": "gedimmter Text",
+          "accentFills": "Badges, Checkboxen und Schalter"
         }
       },
       "favicon": {
@@ -170,13 +176,35 @@
       "undo": "Rückgängig",
       "redo": "Wiederholen",
       "reset": "Auf Standard zurücksetzen",
+      "resetTitle": "Auf Standard zurücksetzen",
+      "resetConfirm": "Den gesamten Entwurf durch das Standard-Design ersetzen? Dabei werden auch Artikel, Support-Links, Layouts, Egg-Bilder, das Favicon und das Login-Logo entfernt. Gespeichert wird erst, wenn du auf Speichern klickst.",
+      "discard": "Änderungen verwerfen",
       "import": "Design importieren",
       "export": "Design exportieren",
       "importFailed": "Diese Datei ist kein Mint-Design.",
+      "imported": "Design importiert; klicke auf Speichern, um es zu verwenden.",
       "save": "Speichern",
       "saved": "Design gespeichert.",
+      "loading": "Gespeichertes Design wird geladen…",
+      "loadFailed": "Das gespeicherte Design konnte nicht geladen werden",
+      "loadFailedDescription": "Speichern bleibt deaktiviert, bis es geladen ist, damit das gespeicherte Design nie durch ein veraltetes ersetzt wird.",
+      "retry": "Erneut versuchen",
+      "fixUrls": "Korrigiere zuerst die markierten URLs.",
+      "urlInvalid": "Muss mit https:// oder / beginnen, ohne Leerzeichen, Anführungszeichen oder Klammern.",
+      "colorInvalid": "Keine Farbe; verwende #rrggbb.",
+      "leaveTitle": "Ungespeicherte Änderungen",
+      "leaveConfirm": "Editor verlassen? Deine ungespeicherten Änderungen gehen verloren.",
+      "leave": "Verlassen",
+      "conflictTitle": "Das Design wurde inzwischen geändert",
+      "conflictDescription": "Jemand hat das Design gespeichert, nachdem du den Editor geöffnet hast. Lade es neu (deine Änderungen gehen verloren) oder überschreibe es mit deinem Entwurf.",
+      "conflictReload": "Gespeichertes Design neu laden",
+      "conflictOverwrite": "Überschreiben",
       "refresh": "Vorschau neu laden",
       "openTab": "In neuem Tab öffnen",
+      "previewFrame": "Design-Vorschau",
+      "previewPage": "Vorschauseite",
+      "previewDevice": "Vorschaubreite",
+      "previewScheme": "Farbschema der Vorschau",
       "search": {
         "placeholder": "Einstellungen durchsuchen",
         "clear": "Suche leeren",
@@ -279,7 +307,6 @@
       "sidebarGroups": "Servermenü gruppieren",
       "sidebarGroupsDescription": "Einklappbare Bereiche für Verwaltung, Konfiguration und Zugriff.",
       "buttonStyle": "Button-Stil",
-      "buttonAccent": "Buttons verwenden die Akzentfarbe",
       "buttonColor": "Button-Farbe",
       "buttons": {
         "filled": "Gefüllt",
@@ -336,6 +363,7 @@
       "layoutDescription": "Ziehen zum Neuanordnen, eine Karte in die andere Spalte verschieben oder ausblenden.",
       "columnEmpty": "Hier sind noch keine Karten.",
       "moveColumn": "In die andere Spalte verschieben",
+      "reorderCard": "{name} neu anordnen",
       "hideCard": "Karte ausblenden",
       "showCard": "Karte einblenden",
       "column": {
@@ -565,6 +593,11 @@
       "deleteTitle": "Vorlage löschen",
       "deleteConfirm": "{name} löschen? Benutzer, die sie gewählt haben, erhalten wieder den Panel-Standard.",
       "users": "Benutzer können diese wählen",
+      "apply": "{name} anwenden",
+      "overwrite": "Entwurf in diese Vorlage speichern",
+      "overwriteTitle": "Entwurf in Vorlage speichern",
+      "overwriteConfirm": "Das Aussehen von {name} durch den aktuellen Entwurf ersetzen? Benutzer, die sie gewählt haben, sehen das neue Aussehen.",
+      "overwritten": "Vorlage aktualisiert.",
       "nameProblem": {
         "empty": "Gib einen Namen ein.",
         "long": "Höchstens {max} Zeichen.",

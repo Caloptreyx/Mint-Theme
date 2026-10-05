@@ -1,10 +1,7 @@
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import type { Props } from '@/elements/containers/ServerContentContainer.tsx';
-import Group from '@/elements/Group.tsx';
-import TextInput from '@/elements/input/TextInput.tsx';
-import { useTranslations } from '@/providers/TranslationProvider.tsx';
 import { currentTheme } from '../../lib/apply.ts';
+import { Group, type ServerContentContainerProps as Props, TextInput, useTranslations } from '../../lib/core.ts';
 
 /** Core's title row without the title: the search box and the page's own buttons, on the right. */
 function HeaderActions({ search, setSearch, contentRight }: Pick<Props, 'search' | 'setSearch' | 'contentRight'>) {

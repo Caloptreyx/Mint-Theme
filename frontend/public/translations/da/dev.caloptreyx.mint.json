@@ -35,6 +35,9 @@
       "cpu": "CPU",
       "disk": "Disk",
       "showing": "Viser {count}",
+      "showingOf": "Viser {count} af {total}",
+      "pageOnly": "Sortering, gruppering og statusfilteret gælder kun serverne på denne side.",
+      "noMatch": "Ingen servere matcher dette filter.",
       "select": "Vælg {name}",
       "selectAll": "Vælg alle synlige servere",
       "column": {
@@ -112,7 +115,9 @@
       "linkInvalid": "Brug en panelsti, der starter med en enkelt /, eller en fuld http://- eller https://-adresse uden mellemrum, anførselstegn, vinkelparenteser, parenteser, krøllede parenteser, semikolonner eller omvendte skråstreger.",
       "linkTooLong": "Linket må højst være på {max} tegn.",
       "saved": "Call to action gemt.",
-      "removed": "Call to action fjernet."
+      "removed": "Call to action fjernet.",
+      "loadFailed": "Den nuværende knap kunne ikke indlæses, så formularen er låst, så den ikke bliver overskrevet.",
+      "retry": "Prøv igen"
     },
     "auth": {
       "supportLinks": "Supportlinks"
@@ -157,7 +162,8 @@
         "named": "{name} ({role})",
         "roles": {
           "links": "links",
-          "dimmed": "nedtonet tekst"
+          "dimmed": "nedtonet tekst",
+          "accentFills": "badges, afkrydsningsfelter og kontakter"
         }
       },
       "favicon": {
@@ -170,13 +176,35 @@
       "undo": "Fortryd",
       "redo": "Gentag",
       "reset": "Nulstil til standard",
+      "resetTitle": "Nulstil til standard",
+      "resetConfirm": "Erstat hele kladden med standardtemaet? Det rydder også artikler, supportlinks, layouts, egg-billeder, favicon og login-logoet. Intet gemmes, før du trykker på Gem.",
+      "discard": "Kassér ændringer",
       "import": "Importér tema",
       "export": "Eksportér tema",
       "importFailed": "Den fil er ikke et Mint-tema.",
+      "imported": "Tema importeret; tryk på Gem for at bruge det.",
       "save": "Gem",
       "saved": "Tema gemt.",
+      "loading": "Indlæser det gemte tema…",
+      "loadFailed": "Det gemte tema kunne ikke indlæses",
+      "loadFailedDescription": "Gem er slået fra, indtil det er indlæst, så det gemte tema aldrig erstattes af et forældet.",
+      "retry": "Prøv igen",
+      "fixUrls": "Ret de markerede URL'er først.",
+      "urlInvalid": "Skal starte med https:// eller /, uden mellemrum, anførselstegn eller parenteser.",
+      "colorInvalid": "Ikke en farve; brug #rrggbb.",
+      "leaveTitle": "Ikke-gemte ændringer",
+      "leaveConfirm": "Forlad editoren? Dine ikke-gemte ændringer går tabt.",
+      "leave": "Forlad",
+      "conflictTitle": "Temaet er blevet ændret imens",
+      "conflictDescription": "Nogen gemte temaet, efter du åbnede editoren. Genindlæs det (dine ændringer går tabt), eller overskriv det med din kladde.",
+      "conflictReload": "Genindlæs gemt tema",
+      "conflictOverwrite": "Overskriv",
       "refresh": "Genindlæs forhåndsvisning",
       "openTab": "Åbn i ny fane",
+      "previewFrame": "Forhåndsvisning af tema",
+      "previewPage": "Side til forhåndsvisning",
+      "previewDevice": "Bredde på forhåndsvisning",
+      "previewScheme": "Farveskema for forhåndsvisning",
       "search": {
         "placeholder": "Søg i indstillinger",
         "clear": "Ryd søgning",
@@ -279,7 +307,6 @@
       "sidebarGroups": "Gruppér servermenuen",
       "sidebarGroupsDescription": "Sammenklappelige sektioner for Administration, Konfiguration og Adgang.",
       "buttonStyle": "Knapstil",
-      "buttonAccent": "Knapper bruger accentfarven",
       "buttonColor": "Knapfarve",
       "buttons": {
         "filled": "Udfyldt",
@@ -336,6 +363,7 @@
       "layoutDescription": "Træk for at ændre rækkefølgen, flyt et kort til den anden kolonne, eller skjul det.",
       "columnEmpty": "Ingen kort her endnu.",
       "moveColumn": "Flyt til den anden kolonne",
+      "reorderCard": "Omarranger {name}",
       "hideCard": "Skjul kort",
       "showCard": "Vis kort",
       "column": {
@@ -565,6 +593,11 @@
       "deleteTitle": "Slet forudindstilling",
       "deleteConfirm": "Slet {name}? Brugere, der har valgt den, går tilbage til panelets standard.",
       "users": "Brugere kan vælge denne",
+      "apply": "Anvend {name}",
+      "overwrite": "Gem kladden i denne forudindstilling",
+      "overwriteTitle": "Gem kladde i forudindstilling",
+      "overwriteConfirm": "Erstat udseendet af {name} med den nuværende kladde? Brugere, der har valgt den, ser det nye udseende.",
+      "overwritten": "Forudindstilling opdateret.",
       "nameProblem": {
         "empty": "Indtast et navn.",
         "long": "Højst {max} tegn.",

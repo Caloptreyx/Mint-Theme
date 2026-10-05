@@ -69,11 +69,21 @@ export interface Setting {
 
 export const SETTINGS: Setting[] = [
   { section: 'presets', label: 'library.saveAsPreset', also: ['library.saveAsPresetDescription'] },
-  { section: 'presets', label: 'library.custom', also: ['library.rename', 'library.delete'] },
+  {
+    section: 'presets',
+    label: 'library.custom',
+    also: ['library.rename', 'library.delete', 'library.overwrite'],
+  },
   { section: 'presets', label: 'library.builtin', also: ['library.users'] },
 
-  ...COLOR_GROUPS.flatMap(({ group, keys }) =>
-    keys.map((key): Setting => ({ section: 'colours', label: `editor.${key}`, also: [`editor.group.${group}`] })),
+  ...COLOR_GROUPS.flatMap(({ group, keys, optional }) =>
+    keys.map(
+      (key): Setting => ({
+        section: 'colours',
+        label: `editor.${key}`,
+        also: optional ? [`editor.group.${group}`] : [`editor.group.${group}`, `editor.${key}Description` as Key],
+      }),
+    ),
   ),
 
   {

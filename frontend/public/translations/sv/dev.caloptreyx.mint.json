@@ -35,6 +35,9 @@
       "cpu": "CPU",
       "disk": "Disk",
       "showing": "Visar {count}",
+      "showingOf": "Visar {count} av {total}",
+      "pageOnly": "Sortering, gruppering och statusfiltret gäller bara servrarna på den här sidan.",
+      "noMatch": "Inga servrar matchar det här filtret.",
       "select": "Välj {name}",
       "selectAll": "Välj alla synliga servrar",
       "column": {
@@ -112,7 +115,9 @@
       "linkInvalid": "Använd en panelsökväg som börjar med ett enda / eller en fullständig http://- eller https://-adress, utan mellanslag, citattecken, vinkelparenteser, parenteser, klammerparenteser, semikolon eller omvända snedstreck.",
       "linkTooLong": "Håll länken till högst {max} tecken.",
       "saved": "Uppmaningen till handling har sparats.",
-      "removed": "Uppmaningen till handling har tagits bort."
+      "removed": "Uppmaningen till handling har tagits bort.",
+      "loadFailed": "Den nuvarande knappen kunde inte läsas in, så formuläret är låst för att den inte ska skrivas över.",
+      "retry": "Försök igen"
     },
     "auth": {
       "supportLinks": "Supportlänkar"
@@ -157,7 +162,8 @@
         "named": "{name} ({role})",
         "roles": {
           "links": "länkar",
-          "dimmed": "nedtonad text"
+          "dimmed": "nedtonad text",
+          "accentFills": "märken, kryssrutor och reglage"
         }
       },
       "favicon": {
@@ -170,13 +176,35 @@
       "undo": "Ångra",
       "redo": "Gör om",
       "reset": "Återställ till standard",
+      "resetTitle": "Återställ till standard",
+      "resetConfirm": "Ersätta hela utkastet med standardtemat? Detta rensar även artiklar, supportlänkar, layouter, egg-bilder, favicon och inloggningslogotypen. Inget sparas förrän du trycker på Spara.",
+      "discard": "Ignorera ändringar",
       "import": "Importera tema",
       "export": "Exportera tema",
       "importFailed": "Filen är inte ett Mint-tema.",
+      "imported": "Temat har importerats; tryck på Spara för att använda det.",
       "save": "Spara",
       "saved": "Temat har sparats.",
+      "loading": "Läser in det sparade temat…",
+      "loadFailed": "Det sparade temat kunde inte läsas in",
+      "loadFailedDescription": "Spara är avstängt tills det har lästs in, så att det lagrade temat aldrig ersätts av ett inaktuellt.",
+      "retry": "Försök igen",
+      "fixUrls": "Rätta de markerade URL:erna först.",
+      "urlInvalid": "Måste börja med https:// eller /, utan mellanslag, citattecken eller hakparenteser.",
+      "colorInvalid": "Inte en färg; använd #rrggbb.",
+      "leaveTitle": "Osparade ändringar",
+      "leaveConfirm": "Lämna redigeraren? Dina osparade ändringar går förlorade.",
+      "leave": "Lämna",
+      "conflictTitle": "Temat har ändrats under tiden",
+      "conflictDescription": "Någon sparade temat efter att du öppnade redigeraren. Läs in det igen (dina ändringar går förlorade) eller skriv över det med ditt utkast.",
+      "conflictReload": "Läs in sparat tema igen",
+      "conflictOverwrite": "Skriv över",
       "refresh": "Ladda om förhandsvisning",
       "openTab": "Öppna i ny flik",
+      "previewFrame": "Förhandsvisning av tema",
+      "previewPage": "Sida att förhandsvisa",
+      "previewDevice": "Bredd på förhandsvisning",
+      "previewScheme": "Färgschema för förhandsvisning",
       "search": {
         "placeholder": "Sök inställningar",
         "clear": "Rensa sökning",
@@ -279,7 +307,6 @@
       "sidebarGroups": "Gruppera servermenyn",
       "sidebarGroupsDescription": "Hopfällbara sektioner för Hantering, Konfiguration och Åtkomst.",
       "buttonStyle": "Knappstil",
-      "buttonAccent": "Knappar använder accentfärgen",
       "buttonColor": "Knappfärg",
       "buttons": {
         "filled": "Fylld",
@@ -336,6 +363,7 @@
       "layoutDescription": "Dra för att ändra ordning, flytta ett kort till den andra kolumnen eller dölj det.",
       "columnEmpty": "Inga kort här än.",
       "moveColumn": "Flytta till den andra kolumnen",
+      "reorderCard": "Ändra ordning på {name}",
       "hideCard": "Dölj kort",
       "showCard": "Visa kort",
       "column": {
@@ -565,6 +593,11 @@
       "deleteTitle": "Ta bort förinställning",
       "deleteConfirm": "Ta bort {name}? Användare som valt den återgår till panelens standard.",
       "users": "Användare kan välja denna",
+      "apply": "Använd {name}",
+      "overwrite": "Spara utkastet i den här förinställningen",
+      "overwriteTitle": "Spara utkast i förinställning",
+      "overwriteConfirm": "Ersätta utseendet för {name} med det nuvarande utkastet? Användare som valt den ser det nya utseendet.",
+      "overwritten": "Förinställningen har uppdaterats.",
       "nameProblem": {
         "empty": "Ange ett namn.",
         "long": "Högst {max} tecken.",

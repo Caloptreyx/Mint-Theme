@@ -1,8 +1,7 @@
 import { faFolder, faTerminal } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Radio } from '@mantine/core';
-import Stack from '@/elements/Stack.tsx';
-import Text from '@/elements/Text.tsx';
+import { Stack, Text } from '../../lib/core.ts';
 import { NAV_HOVERS, type NavHover, type NebulaTheme, SEARCH_COMPONENTS } from '../../lib/theme.ts';
 import { useExtTranslations } from '../../translations.ts';
 import ChoiceCards from './ChoiceCards.tsx';

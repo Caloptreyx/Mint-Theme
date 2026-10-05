@@ -1,28 +1,32 @@
 import { faCamera, faImage, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { z } from 'zod';
-import { axiosInstance, httpErrorToHuman } from '@/api/axios.ts';
-import ActionIcon from '@/elements/ActionIcon.tsx';
-import Avatar from '@/elements/Avatar.tsx';
-import Badge from '@/elements/Badge.tsx';
-import Button from '@/elements/Button.tsx';
-import Card from '@/elements/Card.tsx';
-import Group from '@/elements/Group.tsx';
-import { Modal } from '@/elements/modals/Modal.tsx';
-import Text from '@/elements/Text.tsx';
-import Title from '@/elements/Title.tsx';
-import UnstyledButton from '@/elements/UnstyledButton.tsx';
-import { useUserSetting } from '@/lib/userSettings.ts';
-import AvatarContainer from '@/pages/dashboard/account/AvatarContainer.tsx';
-import { useAuth } from '@/providers/AuthProvider.tsx';
-import { useToast } from '@/providers/ToastProvider.tsx';
 import { useNebulaTheme } from '../../lib/apply.ts';
+import {
+  ActionIcon,
+  Avatar,
+  AvatarContainer,
+  axiosInstance,
+  Badge,
+  Button,
+  Card,
+  Group,
+  httpErrorToHuman,
+  Modal,
+  Text,
+  Title,
+  UnstyledButton,
+  useAuth,
+  useToast,
+  useUserSetting,
+} from '../../lib/core.ts';
 import { SAFE_URL } from '../../lib/theme.ts';
 import { useExtTranslations } from '../../translations.ts';
 import BannerModal, { BANNER_API } from './BannerModal.tsx';
 
-// the uploaded banner's URL; the panel syncs user settings across devices
+// the uploaded banner's storage path (an absolute URL if saved before 2.1), written by the backend;
+// the panel syncs user settings across devices
 const BANNER_KEY = 'nebula::account_banner';
 const SHADE = 'var(--nebula-card)';
 
@@ -33,14 +37,31 @@ export default function ProfileCard() {
   const { user } = useAuth();
   const theme = useNebulaTheme();
   const [saved, setSaved] = useUserSetting(BANNER_KEY, z.string(), '');
+  // the backend builds the URL from the saved path, so a new panel URL or storage driver keeps it working
+  const [resolved, setResolved] = useState<{ value: string; url: string | null } | null>(null);
   const [editing, setEditing] = useState(false);
   const [avatarOpen, setAvatarOpen] = useState(false);
 
+  useEffect(() => {
+    if (!saved) return;
+    let current = true;
+    axiosInstance
+      .get<{ banner: string | null }>(BANNER_API)
+      .then(({ data }) => current && setResolved({ value: saved, url: data.banner }))
+      .catch(() => current && setResolved({ value: saved, url: null }));
+    return () => {
+      current = false;
+    };
+  }, [saved]);
+
   if (!user) return null;
 
-  // a user setting, so user controlled, and it lands in a CSS url(): same check as the theme's images
-  const own = SAFE_URL.test(saved) ? saved : '';
-  const banner = own || theme.homeBanner;
+  const loading = saved !== '' && resolved?.value !== saved;
+  const url = !loading && saved ? (resolved?.url ?? '') : '';
+  // it lands in a CSS url(): same check as the theme's images
+  const own = SAFE_URL.test(url) ? url : '';
+  // while the own banner loads, the default one would only flash
+  const banner = own || (loading ? '' : theme.homeBanner);
   const backgroundImage = banner
     ? `linear-gradient(0deg, color-mix(in srgb, ${SHADE} 40%, transparent), transparent 60%), url("${banner}")`
     : `linear-gradient(120deg, color-mix(in srgb, var(--mantine-color-blue-filled) 30%, ${SHADE}), ${SHADE} 75%)`;
@@ -67,7 +88,7 @@ export default function ProfileCard() {
           >
             {tExt('account.changeBanner', {})}
           </Button>
-          {own && (
+          {saved && (
             <ActionIcon variant='default' aria-label={tExt('account.removeBanner', {})} onClick={removeBanner}>
               <FontAwesomeIcon icon={faXmark} />
             </ActionIcon>
@@ -125,7 +146,16 @@ export default function ProfileCard() {
         <AvatarContainer />
       </Modal>
 
-      <BannerModal opened={editing} onClose={() => setEditing(false)} preview={backgroundImage} onSaved={setSaved} />
+      <BannerModal
+        opened={editing}
+        onClose={() => setEditing(false)}
+        preview={backgroundImage}
+        onSaved={({ banner: uploaded, path }) => {
+          setResolved({ value: path, url: uploaded });
+          // the backend saved it already; this keeps the synced store in step
+          setSaved(path);
+        }}
+      />
     </Card>
   );
 }

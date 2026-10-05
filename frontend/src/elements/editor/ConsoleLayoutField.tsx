@@ -10,13 +10,17 @@ import { arrayMove } from '@dnd-kit/sortable';
 import { faGripVertical, faPlus, faRotateLeft, faTerminal, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { type ComponentProps, type ReactNode, useState } from 'react';
-import ActionIcon from '@/elements/ActionIcon.tsx';
-import Button from '@/elements/Button.tsx';
-import { DndBoard, DndSortableList, SortableItem } from '@/elements/dnd/DragAndDrop.tsx';
-import Menu from '@/elements/Menu.tsx';
-import Stack from '@/elements/Stack.tsx';
-import Text from '@/elements/Text.tsx';
-import Tooltip from '@/elements/Tooltip.tsx';
+import {
+  ActionIcon,
+  Button,
+  DndBoard,
+  DndSortableList,
+  Menu,
+  SortableItem,
+  Stack,
+  Text,
+  Tooltip,
+} from '../../lib/core.ts';
 import {
   CONSOLE_SLOTS,
   CONSOLE_WIDGETS,

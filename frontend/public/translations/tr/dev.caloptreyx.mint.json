@@ -35,6 +35,9 @@
       "cpu": "CPU",
       "disk": "Depolama",
       "showing": "{count} gösteriliyor",
+      "showingOf": "{total} sunucudan {count} tanesi gösteriliyor",
+      "pageOnly": "Sıralama, gruplama ve durum filtresi yalnızca bu sayfadaki sunucuları kapsar.",
+      "noMatch": "Bu filtreyle eşleşen sunucu yok.",
       "select": "{name} öğesini seç",
       "selectAll": "Görünen tüm sunucuları seç",
       "column": {
@@ -112,7 +115,9 @@
       "linkInvalid": "Tek bir / ile başlayan bir panel yolu veya boşluk, tırnak, açılı ayraç, parantez, süslü parantez, noktalı virgül ya da ters eğik çizgi içermeyen tam bir http:// veya https:// adresi kullanın.",
       "linkTooLong": "Bağlantı en fazla {max} karakter olmalıdır.",
       "saved": "Eylem çağrısı kaydedildi.",
-      "removed": "Eylem çağrısı kaldırıldı."
+      "removed": "Eylem çağrısı kaldırıldı.",
+      "loadFailed": "Mevcut buton yüklenemedi, bu yüzden üzerine yazılmasını önlemek için form kilitlendi.",
+      "retry": "Tekrar dene"
     },
     "auth": {
       "supportLinks": "Destek bağlantıları"
@@ -157,7 +162,8 @@
         "named": "{name} ({role})",
         "roles": {
           "links": "bağlantılar",
-          "dimmed": "soluk metin"
+          "dimmed": "soluk metin",
+          "accentFills": "rozetler, onay kutuları ve anahtarlar"
         }
       },
       "favicon": {
@@ -170,13 +176,35 @@
       "undo": "Geri al",
       "redo": "Yinele",
       "reset": "Varsayılana sıfırla",
+      "resetTitle": "Varsayılana sıfırla",
+      "resetConfirm": "Tüm taslak varsayılan temayla değiştirilsin mi? Bu işlem makaleleri, destek bağlantılarını, düzenleri, egg görsellerini, favicon'u ve giriş logosunu da temizler. Kaydet'e basana kadar hiçbir şey kaydedilmez.",
+      "discard": "Değişiklikleri at",
       "import": "Temayı içe aktar",
       "export": "Temayı dışa aktar",
       "importFailed": "Bu dosya bir Mint teması değil.",
+      "imported": "Tema içe aktarıldı; kullanmak için Kaydet'e basın.",
       "save": "Kaydet",
       "saved": "Tema kaydedildi.",
+      "loading": "Kayıtlı tema yükleniyor…",
+      "loadFailed": "Kayıtlı tema yüklenemedi",
+      "loadFailedDescription": "Kayıtlı temanın eski bir sürümle değiştirilmemesi için, yüklenene kadar kaydetme kapalı kalır.",
+      "retry": "Tekrar dene",
+      "fixUrls": "Önce vurgulanan URL'leri düzeltin.",
+      "urlInvalid": "https:// veya / ile başlamalı; boşluk, tırnak veya parantez içermemelidir.",
+      "colorInvalid": "Geçerli bir renk değil; #rrggbb kullanın.",
+      "leaveTitle": "Kaydedilmemiş değişiklikler",
+      "leaveConfirm": "Düzenleyiciden çıkılsın mı? Kaydedilmemiş değişiklikleriniz kaybolacak.",
+      "leave": "Çık",
+      "conflictTitle": "Tema bu arada değişti",
+      "conflictDescription": "Siz düzenleyiciyi açtıktan sonra biri temayı kaydetti. Yeniden yükleyin (değişiklikleriniz kaybolur) veya taslağınızla üzerine yazın.",
+      "conflictReload": "Kayıtlı temayı yeniden yükle",
+      "conflictOverwrite": "Üzerine yaz",
       "refresh": "Önizlemeyi yenile",
       "openTab": "Yeni sekmede aç",
+      "previewFrame": "Tema önizlemesi",
+      "previewPage": "Önizleme sayfası",
+      "previewDevice": "Önizleme genişliği",
+      "previewScheme": "Önizleme renk şeması",
       "search": {
         "placeholder": "Ayarlarda ara",
         "clear": "Aramayı temizle",
@@ -279,7 +307,6 @@
       "sidebarGroups": "Sunucu menüsünü grupla",
       "sidebarGroupsDescription": "Daraltılabilir Yönetim, Yapılandırma ve Erişim bölümleri.",
       "buttonStyle": "Buton stili",
-      "buttonAccent": "Butonlar vurgu rengini kullanır",
       "buttonColor": "Buton rengi",
       "buttons": {
         "filled": "Dolgulu",
@@ -336,6 +363,7 @@
       "layoutDescription": "Yeniden sıralamak için sürükleyin, bir kartı diğer sütuna taşıyın veya gizleyin.",
       "columnEmpty": "Burada henüz kart yok.",
       "moveColumn": "Diğer sütuna taşı",
+      "reorderCard": "{name} öğesini yeniden sırala",
       "hideCard": "Kartı gizle",
       "showCard": "Kartı göster",
       "column": {
@@ -565,6 +593,11 @@
       "deleteTitle": "Hazır ayarı sil",
       "deleteConfirm": "{name} silinsin mi? Bunu seçen kullanıcılar panel varsayılanına döner.",
       "users": "Kullanıcılar bunu seçebilir",
+      "apply": "{name} uygula",
+      "overwrite": "Taslağı bu hazır ayara kaydet",
+      "overwriteTitle": "Taslağı hazır ayara kaydet",
+      "overwriteConfirm": "{name} görünümü mevcut taslakla değiştirilsin mi? Bunu seçen kullanıcılar yeni görünümü görür.",
+      "overwritten": "Hazır ayar güncellendi.",
       "nameProblem": {
         "empty": "Bir isim girin.",
         "long": "En fazla {max} karakter.",

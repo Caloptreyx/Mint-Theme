@@ -35,6 +35,9 @@
       "cpu": "CPU",
       "disk": "Đĩa",
       "showing": "Đang hiển thị {count}",
+      "showingOf": "Đang hiển thị {count} trên {total}",
+      "pageOnly": "Sắp xếp, nhóm và bộ lọc trạng thái chỉ áp dụng cho các máy chủ trên trang này.",
+      "noMatch": "Không có máy chủ nào khớp với bộ lọc này.",
       "select": "Chọn {name}",
       "selectAll": "Chọn tất cả máy chủ đang hiển thị",
       "column": {
@@ -112,7 +115,9 @@
       "linkInvalid": "Dùng đường dẫn bảng điều khiển bắt đầu bằng một dấu / hoặc một địa chỉ http:// hay https:// đầy đủ, không có khoảng trắng, dấu nháy, dấu ngoặc nhọn, ngoặc đơn, ngoặc móc, dấu chấm phẩy hay dấu gạch chéo ngược.",
       "linkTooLong": "Liên kết tối đa {max} ký tự.",
       "saved": "Đã lưu kêu gọi hành động.",
-      "removed": "Đã xóa kêu gọi hành động."
+      "removed": "Đã xóa kêu gọi hành động.",
+      "loadFailed": "Không thể tải nút hiện tại, nên biểu mẫu bị khóa để tránh ghi đè lên nó.",
+      "retry": "Thử lại"
     },
     "auth": {
       "supportLinks": "Liên kết hỗ trợ"
@@ -157,7 +162,8 @@
         "named": "{name} ({role})",
         "roles": {
           "links": "liên kết",
-          "dimmed": "văn bản mờ"
+          "dimmed": "văn bản mờ",
+          "accentFills": "huy hiệu, ô đánh dấu và công tắc"
         }
       },
       "favicon": {
@@ -170,13 +176,35 @@
       "undo": "Hoàn tác",
       "redo": "Làm lại",
       "reset": "Đặt lại mặc định",
+      "resetTitle": "Đặt lại mặc định",
+      "resetConfirm": "Thay toàn bộ bản nháp bằng giao diện mặc định? Thao tác này cũng xóa bài viết, liên kết hỗ trợ, bố cục, hình ảnh egg, favicon và logo đăng nhập. Không có gì được lưu cho đến khi bạn nhấn Lưu.",
+      "discard": "Hủy thay đổi",
       "import": "Nhập giao diện",
       "export": "Xuất giao diện",
       "importFailed": "Tệp này không phải giao diện Mint.",
+      "imported": "Đã nhập giao diện; nhấn Lưu để sử dụng.",
       "save": "Lưu",
       "saved": "Đã lưu giao diện.",
+      "loading": "Đang tải giao diện đã lưu…",
+      "loadFailed": "Không thể tải giao diện đã lưu",
+      "loadFailedDescription": "Nút Lưu bị tắt cho đến khi tải xong, để giao diện đã lưu không bao giờ bị thay bằng phiên bản cũ.",
+      "retry": "Thử lại",
+      "fixUrls": "Hãy sửa các URL được đánh dấu trước.",
+      "urlInvalid": "Phải bắt đầu bằng https:// hoặc /, không có khoảng trắng, dấu ngoặc kép hay dấu ngoặc.",
+      "colorInvalid": "Không phải màu; hãy dùng #rrggbb.",
+      "leaveTitle": "Thay đổi chưa lưu",
+      "leaveConfirm": "Rời trình chỉnh sửa? Các thay đổi chưa lưu sẽ bị mất.",
+      "leave": "Rời đi",
+      "conflictTitle": "Giao diện đã bị thay đổi trong lúc đó",
+      "conflictDescription": "Có người đã lưu giao diện sau khi bạn mở trình chỉnh sửa. Tải lại (thay đổi của bạn sẽ mất) hoặc ghi đè bằng bản nháp của bạn.",
+      "conflictReload": "Tải lại giao diện đã lưu",
+      "conflictOverwrite": "Ghi đè",
       "refresh": "Tải lại bản xem trước",
       "openTab": "Mở trong tab mới",
+      "previewFrame": "Xem trước giao diện",
+      "previewPage": "Trang xem trước",
+      "previewDevice": "Chiều rộng xem trước",
+      "previewScheme": "Bảng màu xem trước",
       "search": {
         "placeholder": "Tìm cài đặt",
         "clear": "Xóa tìm kiếm",
@@ -279,7 +307,6 @@
       "sidebarGroups": "Nhóm menu máy chủ",
       "sidebarGroupsDescription": "Các mục Quản lý, Cấu hình và Truy cập có thể thu gọn.",
       "buttonStyle": "Kiểu nút",
-      "buttonAccent": "Nút dùng màu nhấn",
       "buttonColor": "Màu nút",
       "buttons": {
         "filled": "Đặc",
@@ -336,6 +363,7 @@
       "layoutDescription": "Kéo để sắp xếp lại, chuyển thẻ sang cột kia hoặc ẩn thẻ.",
       "columnEmpty": "Chưa có thẻ nào ở đây.",
       "moveColumn": "Chuyển sang cột kia",
+      "reorderCard": "Sắp xếp lại {name}",
       "hideCard": "Ẩn thẻ",
       "showCard": "Hiện thẻ",
       "column": {
@@ -565,6 +593,11 @@
       "deleteTitle": "Xóa mẫu",
       "deleteConfirm": "Xóa {name}? Người dùng đã chọn mẫu này sẽ quay về mặc định của bảng điều khiển.",
       "users": "Người dùng có thể chọn mẫu này",
+      "apply": "Áp dụng {name}",
+      "overwrite": "Lưu bản nháp vào mẫu này",
+      "overwriteTitle": "Lưu bản nháp vào mẫu",
+      "overwriteConfirm": "Thay diện mạo của {name} bằng bản nháp hiện tại? Người dùng đã chọn mẫu này sẽ thấy diện mạo mới.",
+      "overwritten": "Đã cập nhật mẫu.",
       "nameProblem": {
         "empty": "Nhập tên.",
         "long": "Tối đa {max} ký tự.",

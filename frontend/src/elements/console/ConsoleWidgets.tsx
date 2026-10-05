@@ -11,28 +11,31 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { createContext, type ReactNode, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { useShallow } from 'zustand/react/shallow';
-import CopyOnClick from '@/elements/CopyOnClick.tsx';
-import ChartBlock from '@/elements/charts/ChartBlock.tsx';
-import ChartLegend from '@/elements/charts/ChartLegend.tsx';
-import StreamChart from '@/elements/charts/StreamChart.tsx';
-import ExtensionSlot from '@/elements/ExtensionSlot.tsx';
-import Group from '@/elements/Group.tsx';
-import StatCard from '@/elements/StatCard.tsx';
-import TitleCard from '@/elements/TitleCard.tsx';
+import { useNebulaTheme } from '../../lib/apply.ts';
 import {
+  bytesToString,
+  ChartBlock,
+  ChartLegend,
   type ChartLegendProps,
+  CopyOnClick,
+  ExtensionSlot,
+  formatAllocation,
   formatBytes,
   formatBytesRate,
+  formatMilliseconds,
   formatPercent,
+  Group,
+  mbToBytes,
+  StatCard,
+  StreamChart,
   type StreamChartProps,
+  serverStatusInfo,
+  TitleCard,
+  useServerStore,
   useStreamChart,
-} from '@/lib/chart.ts';
-import { formatAllocation, serverStatusInfo } from '@/lib/server.ts';
-import { bytesToString, mbToBytes } from '@/lib/size.ts';
-import { formatMilliseconds } from '@/lib/time.ts';
-import { useTranslations } from '@/providers/TranslationProvider.tsx';
-import { useServerStore } from '@/stores/server.ts';
-import { useNebulaTheme } from '../../lib/apply.ts';
+  useTranslations,
+} from '../../lib/core.ts';
+import { shownAddress, useRedactAddresses } from '../../lib/redact.ts';
 import type { ConsoleWidget } from '../../lib/theme.ts';
 import { useExtTranslations } from '../../translations.ts';
 import HeroCard, { Pill } from '../home/HeroCard.tsx';
@@ -197,6 +200,7 @@ export function InfoWidget({ className }: WidgetProps) {
   const { server, stats, state } = useServerStore(
     useShallow((s) => ({ server: s.server, stats: s.stats, state: s.state })),
   );
+  const redact = useRedactAddresses();
 
   const address = server.allocation
     ? formatAllocation(server.allocation, server.egg.separatePort)
@@ -214,7 +218,7 @@ export function InfoWidget({ className }: WidgetProps) {
         <Row label={t('home.serverName', {})}>{server.name}</Row>
         <Row label={t('home.address', {})}>
           <CopyOnClick content={address} enabled={!!server.allocation}>
-            <span>{address}</span>
+            <span>{server.allocation ? shownAddress(address, redact) : address}</span>
           </CopyOnClick>
         </Row>
         <Row label={t('home.status', {})}>{statusLabel}</Row>
@@ -230,7 +234,7 @@ export function InfoWidget({ className }: WidgetProps) {
         <Row label={t('home.node', {})}>{server.nodeName}</Row>
         <Row label={t('home.sftp', {})}>
           <CopyOnClick content={sftp}>
-            <span>{sftp}</span>
+            <span>{shownAddress(sftp, redact)}</span>
           </CopyOnClick>
         </Row>
       </TitleCard>

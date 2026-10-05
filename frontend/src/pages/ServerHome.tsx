@@ -1,30 +1,35 @@
 import { faArrowUpRightFromSquare, faBookOpen, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Anchor } from '@mantine/core';
 import { Fragment, useState } from 'react';
-import { useParams } from 'react-router';
+import { Link, useParams } from 'react-router';
 import { useShallow } from 'zustand/react/shallow';
-import { httpErrorToHuman } from '@/api/axios.ts';
-import updateDockerImage from '@/api/server/startup/updateDockerImage.ts';
-import ActionIcon from '@/elements/ActionIcon.tsx';
-import Anchor from '@/elements/Anchor.tsx';
-import { ServerCan } from '@/elements/Can.tsx';
-import CopyOnClick from '@/elements/CopyOnClick.tsx';
-import ServerContentContainer from '@/elements/containers/ServerContentContainer.tsx';
-import Group from '@/elements/Group.tsx';
-import Select from '@/elements/input/Select.tsx';
-import Progress from '@/elements/Progress.tsx';
-import Text from '@/elements/Text.tsx';
-import TitleCard from '@/elements/TitleCard.tsx';
-import { formatAllocation, serverStatusInfo } from '@/lib/server.ts';
-import { bytesToString, mbToBytes } from '@/lib/size.ts';
-import { formatMilliseconds } from '@/lib/time.ts';
-import Console from '@/pages/server/console/terminal/Console.tsx';
-import { useToast } from '@/providers/ToastProvider.tsx';
-import { useTranslations } from '@/providers/TranslationProvider.tsx';
-import { useServerStore } from '@/stores/server.ts';
 import HeroCard from '../elements/home/HeroCard.tsx';
 import RenameModal from '../elements/home/RenameModal.tsx';
 import { useNebulaTheme } from '../lib/apply.ts';
+import {
+  ActionIcon,
+  bytesToString,
+  Console,
+  CopyOnClick,
+  formatAllocation,
+  formatMilliseconds,
+  Group,
+  httpErrorToHuman,
+  mbToBytes,
+  Progress,
+  Select,
+  ServerCan,
+  ServerContentContainer,
+  serverStatusInfo,
+  Text,
+  TitleCard,
+  updateDockerImage,
+  useServerStore,
+  useToast,
+  useTranslations,
+} from '../lib/core.ts';
+import { shownAddress, useRedactAddresses } from '../lib/redact.ts';
 import type { HomeCardId, HomeColumn } from '../lib/theme.ts';
 import { useExtTranslations } from '../translations.ts';
 
@@ -64,6 +69,7 @@ export default function ServerHome() {
   const { id } = useParams<'id'>();
   const [renaming, setRenaming] = useState(false);
   const [savingImage, setSavingImage] = useState(false);
+  const redact = useRedactAddresses();
 
   const { server, stats, state, updateServer } = useServerStore(
     useShallow((s) => ({ server: s.server, stats: s.stats, state: s.state, updateServer: s.updateServer })),
@@ -73,10 +79,15 @@ export default function ServerHome() {
   const banner = eggImages?.banner || theme.homeBanner;
   const offline = state === 'offline';
   const articles = theme.articles.filter((a) => a.title);
+  // core's ServerStateGuard only lets the server root through while a server installs, restores or transfers, so
+  // the console page is blocked then and Home is the one place to follow the output
+  const busy = server.status !== null || server.isTransferring;
 
   const address = server.allocation
     ? formatAllocation(server.allocation, server.egg.separatePort)
     : core('common.server.noAllocation', {});
+  const shownAllocation = server.allocation ? shownAddress(address, redact) : address;
+  const sftp = `${server.sftpHost}:${server.sftpPort}`;
   const statusLabel = server.isSuspended
     ? core('common.server.state.suspended', {})
     : server.status
@@ -126,7 +137,7 @@ export default function ServerHome() {
         </Row>
         <Row label={t('home.address', {})}>
           <CopyOnClick content={address} enabled={!!server.allocation}>
-            <span>{address}</span>
+            <span>{shownAllocation}</span>
           </CopyOnClick>
         </Row>
         <Row label={t('home.status', {})}>{statusLabel}</Row>
@@ -211,9 +222,11 @@ export default function ServerHome() {
       <TitleCard
         title={t('home.console', {})}
         rightSection={
-          <Anchor href={`/server/${id}/console`} size='sm'>
-            {t('home.fullLog', {})}
-          </Anchor>
+          !busy && (
+            <Anchor component={Link} to={`/server/${id}/console`} size='sm'>
+              {t('home.fullLog', {})}
+            </Anchor>
+          )
         }
       >
         <div className='flex flex-col h-80'>
@@ -246,15 +259,15 @@ export default function ServerHome() {
       <TitleCard title={t('home.network', {})}>
         <Row label={t('home.address', {})}>
           <CopyOnClick content={address} enabled={!!server.allocation}>
-            <span>{address}</span>
+            <span>{shownAllocation}</span>
           </CopyOnClick>
         </Row>
         <Row label={t('home.node', {})}>{server.nodeName}</Row>
         <Row label={t('home.inbound', {})}>{offline ? NONE : bytesToString(stats?.network.rxBytes ?? 0)}</Row>
         <Row label={t('home.outbound', {})}>{offline ? NONE : bytesToString(stats?.network.txBytes ?? 0)}</Row>
         <Row label={t('home.sftp', {})}>
-          <CopyOnClick content={`${server.sftpHost}:${server.sftpPort}`}>
-            <span>{`${server.sftpHost}:${server.sftpPort}`}</span>
+          <CopyOnClick content={sftp}>
+            <span>{shownAddress(sftp, redact)}</span>
           </CopyOnClick>
         </Row>
       </TitleCard>
@@ -263,7 +276,7 @@ export default function ServerHome() {
 
   const column = (side: HomeColumn) =>
     theme.layout
-      .filter((card) => card.enabled && card.column === side)
+      .filter((card) => (card.enabled || (busy && card.id === 'console')) && card.column === side)
       .map((card) => <Fragment key={card.id}>{cards[card.id]}</Fragment>);
 
   return (

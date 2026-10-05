@@ -1,13 +1,19 @@
 import { useSyncExternalStore } from 'react';
 import { z } from 'zod';
-import { getUserSetting } from '@/lib/userSettings.ts';
-import { useUserSettingsStore } from '@/stores/userSettings.ts';
-import { normalizeChoices, resolveUserTheme, THEME_CHOICE_KEY, type ThemeChoice } from './library.ts';
+import { axiosInstance, getUserSetting, useUserSettingsStore } from './core.ts';
+import {
+  normalizeChoices,
+  type PresetLibrary,
+  resolveUserTheme,
+  THEME_CHOICE_KEY,
+  type ThemeChoice,
+} from './library.ts';
 import { buildCss, DEFAULT_THEME, type NebulaTheme, normalizeTheme } from './theme.ts';
 
 const STYLE_ID = 'nebula-theme';
 const CACHE_KEY = 'nebula:theme';
 const CHOICES_CACHE_KEY = 'nebula:theme-choices';
+const CHOICES_API = '/api/client/extensions/dev.caloptreyx.mint/theme-choices';
 const PREVIEW_MSG = 'nebula:preview';
 export const READY_MSG = 'nebula:ready';
 
@@ -15,7 +21,7 @@ let saved: NebulaTheme = DEFAULT_THEME;
 let current: NebulaTheme = DEFAULT_THEME;
 let previewing = false;
 const listeners = new Set<() => void>();
-/** The presets users may pick, from the public theme route. */
+/** The presets users may pick, fetched while signed in and cached for the next load. */
 let choices: ThemeChoice[] = [];
 /** Set when core unloads the user's settings (sign out); the replica core hydrates at startup counts until then. */
 let signedOut = false;
@@ -38,6 +44,10 @@ export const subscribeTheme = (listener: () => void) => {
   listeners.add(listener);
   return () => listeners.delete(listener);
 };
+
+function notify() {
+  for (const listener of listeners) listener();
+}
 
 /** So pages like Home re-render when the editor previews a draft. */
 export const useNebulaTheme = () => useSyncExternalStore(subscribeTheme, currentTheme);
@@ -82,12 +92,45 @@ export function holdSiteTheme(): () => void {
   };
 }
 
-/** Follows the user's pick live (the account page, other tabs through core's replica) and sign in and out. */
+/** The presets a signed in user may pick; a failed request keeps the cached list. */
+function loadChoices(user: string) {
+  axiosInstance
+    .get<{ choices?: unknown }>(CHOICES_API)
+    .then(({ data }) => {
+      // signed out or switched user meanwhile: the answer was for someone else
+      if (useUserSettingsStore.getState().userUuid !== user) return;
+      rememberChoices(normalizeChoices(data.choices));
+      repaint();
+    })
+    .catch(() => undefined);
+}
+
+/**
+ * Follows the user's pick live (the account page, other tabs through core's replica), sign in and out (the choices
+ * are fetched on every sign in), and the site theme and choices other tabs fetched or saved.
+ */
 export function watchUserTheme() {
   useUserSettingsStore.subscribe((state, prev) => {
     if (state.userUuid) signedOut = false;
     else if (prev.userUuid) signedOut = true;
+    if (state.userUuid && state.userUuid !== prev.userUuid) loadChoices(state.userUuid);
     if (userKey() !== shownKey) repaint();
+  });
+  const user = useUserSettingsStore.getState().userUuid;
+  if (user) loadChoices(user);
+
+  // localStorage only fires this in the other tabs, and only when the value changed
+  window.addEventListener('storage', (event) => {
+    if (event.storageArea !== localStorage || event.newValue === null) return;
+    if (event.key === CACHE_KEY) {
+      const theme = readTheme(event.newValue);
+      if (!theme) return;
+      saved = theme;
+      repaint();
+    } else if (event.key === CHOICES_CACHE_KEY) {
+      setChoices(readChoices(event.newValue));
+      repaint();
+    }
   });
 }
 
@@ -124,6 +167,11 @@ function applyFavicon(href: string) {
   }
 }
 
+/**
+ * Writes only what changed: a new stylesheet makes the browser restyle the whole page, and a new `current` re-renders
+ * every useNebulaTheme() reader, while most repaints (the fetch after the cached paint, holdSiteTheme() with no pick)
+ * bring the same theme again.
+ */
 function applyTheme(theme: NebulaTheme) {
   let el = document.getElementById(STYLE_ID);
   if (!el) {
@@ -131,14 +179,18 @@ function applyTheme(theme: NebulaTheme) {
     el.id = STYLE_ID;
     document.head.appendChild(el);
   }
-  el.textContent = buildCss(theme);
+  const css = buildCss(theme);
+  if (el.textContent !== css) el.textContent = css;
   // the layout names for static CSS to key off (the menu styles' rail tweaks); buildCss scopes its own rules
-  document.documentElement.dataset.nebulaLayout = theme.sidebarLayout;
-  document.documentElement.dataset.nebulaDock = theme.dockPosition;
+  const data = document.documentElement.dataset;
+  if (data.nebulaLayout !== theme.sidebarLayout) data.nebulaLayout = theme.sidebarLayout;
+  if (data.nebulaDock !== theme.dockPosition) data.nebulaDock = theme.dockPosition;
   applyFavicon(theme.favicon);
+  if ('nebulaPending' in data) delete data.nebulaPending;
+  // normalizeTheme() builds a fresh object every time, so compare what it holds
+  if (theme === current || JSON.stringify(theme) === JSON.stringify(current)) return;
   current = theme;
-  delete document.documentElement.dataset.nebulaPending;
-  for (const listener of listeners) listener();
+  notify();
 }
 
 export function rememberTheme(theme: NebulaTheme) {
@@ -151,15 +203,48 @@ export function rememberTheme(theme: NebulaTheme) {
   repaint();
 }
 
-function rememberChoices(list: ThemeChoice[]) {
+/** A cached site theme, or null when it can't be read. */
+function readTheme(json: string): NebulaTheme | null {
+  try {
+    return normalizeTheme(JSON.parse(json));
+  } catch {
+    return null;
+  }
+}
+
+/** The cached choices, stored as normalizeChoices() returned them, which only keeps what it can read back. */
+function readChoices(json: string): ThemeChoice[] {
+  try {
+    const cached = JSON.parse(json) as ThemeChoice[];
+    return Array.isArray(cached)
+      ? cached.filter((c) => c && typeof c.id === 'string' && typeof c.name === 'string')
+      : [];
+  } catch {
+    return [];
+  }
+}
+
+/** Swaps the list (the account page re-renders) unless it holds the same choices. */
+function setChoices(list: ThemeChoice[]) {
+  if (JSON.stringify(list) === JSON.stringify(choices)) return;
   choices = list;
+  // also while previewing, which paints drafts only: the frame's account page still lists the choices
+  notify();
+}
+
+function rememberChoices(list: ThemeChoice[]) {
+  setChoices(list);
   try {
     localStorage.setItem(CHOICES_CACHE_KEY, JSON.stringify(list));
   } catch {
     // as above
   }
-  // the preview frame paints drafts only, but its account page still lists the choices
-  if (previewing) for (const listener of listeners) listener();
+}
+
+/** After the editor changed the presets library: the choices it offers users now, and the admin's own pick. */
+export function setChoicesFromLibrary(lib: PresetLibrary) {
+  rememberChoices(normalizeChoices({ builtin: lib.builtin, custom: lib.custom.filter((preset) => preset.users) }));
+  repaint();
 }
 
 /** Paints the last known theme (or the user's pick) right away so a custom look doesn't flash in after the fetch. */
@@ -167,19 +252,11 @@ export function applyCachedTheme() {
   let cachedTheme: string | null = null;
   try {
     cachedTheme = localStorage.getItem(CACHE_KEY);
-    saved = normalizeTheme(JSON.parse(cachedTheme ?? 'null'));
+    choices = readChoices(localStorage.getItem(CHOICES_CACHE_KEY) ?? '[]');
   } catch {
-    saved = DEFAULT_THEME;
+    // storage blocked: nothing cached
   }
-  try {
-    // cached as normalizeChoices() returned it, which only keeps what it can read back
-    const cached = JSON.parse(localStorage.getItem(CHOICES_CACHE_KEY) ?? '[]') as ThemeChoice[];
-    choices = Array.isArray(cached)
-      ? cached.filter((c) => c && typeof c.id === 'string' && typeof c.name === 'string')
-      : [];
-  } catch {
-    choices = [];
-  }
+  saved = (cachedTheme !== null && readTheme(cachedTheme)) || DEFAULT_THEME;
   // painting the default would only swap to the real look a moment later
   if (cachedTheme === null) {
     document.documentElement.dataset.nebulaPending = '';
@@ -188,16 +265,18 @@ export function applyCachedTheme() {
   repaint();
 }
 
-/** Fetches the site theme and the presets users may pick; resolves to the site theme, never a user's pick. */
-export async function loadTheme(): Promise<NebulaTheme | null> {
+/**
+ * Fetches the site theme, never a user's pick, and the version of it the server holds (the editor's save sends it
+ * back so a save over someone else's is refused). The route answers 304 to the browser's revalidation.
+ */
+export async function loadTheme(): Promise<{ theme: NebulaTheme; version: string } | null> {
   try {
     const res = await fetch('/mint/theme', { credentials: 'same-origin' });
     if (!res.ok) return null;
-    const data = (await res.json()) as { theme?: unknown; choices?: unknown };
+    const data = (await res.json()) as { theme?: unknown; version?: unknown };
     const theme = normalizeTheme(data.theme);
-    rememberChoices(normalizeChoices(data.choices));
     rememberTheme(theme);
-    return theme;
+    return { theme, version: typeof data.version === 'string' ? data.version : '' };
   } catch {
     return null;
   } finally {

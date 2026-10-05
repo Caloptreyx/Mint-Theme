@@ -1,8 +1,7 @@
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import type { CSSProperties } from 'react';
-import Switch from '@/elements/input/Switch.tsx';
-import Stack from '@/elements/Stack.tsx';
+import { Stack, Switch } from '../../lib/core.ts';
 import {
   type NebulaTheme,
   PAGE_ANIMATIONS,

@@ -3,14 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import type { MantineThemeOverride } from '@mantine/core';
 import { createElement, lazy } from 'react';
 import { Extension, type ExtensionContext, type HookableComponent } from 'shared';
-import Alert from '@/elements/Alert.tsx';
-import AppIcon from '@/elements/AppIcon.tsx';
-import ServerContentContainer, {
-  type Props as ServerContentContainerProps,
-} from '@/elements/containers/ServerContentContainer.tsx';
-import Notification from '@/elements/Notification.tsx';
-import Sidebar from '@/elements/Sidebar.tsx';
-import AuthWrapper from '@/pages/auth/AuthWrapper.tsx';
 import ProfileCard from './elements/account/ProfileCard.tsx';
 import { withAnnouncementCta, withServerAnnouncements } from './elements/announcements/AnnouncementCta.tsx';
 import AnnouncementCtaTab from './elements/announcements/AnnouncementCtaTab.tsx';
@@ -27,6 +19,15 @@ import { withNavSearch } from './elements/sidebar/NavSearch.tsx';
 import { RailLogo, RailTip } from './elements/sidebar/Rail.tsx';
 import SidebarShell from './elements/sidebar/SidebarShell.tsx';
 import { applyCachedTheme, listenForPreview, loadTheme, watchUserTheme } from './lib/apply.ts';
+import {
+  Alert,
+  AppIcon,
+  AuthWrapper,
+  Notification,
+  ServerContentContainer,
+  type ServerContentContainerProps,
+  Sidebar,
+} from './lib/core.ts';
 import { mountMobileEditor } from './lib/mobileEditor.ts';
 import { attachTerminalFont, detachTerminalFont, initTerminalFont } from './lib/terminal.ts';
 import ServerConsole from './pages/ServerConsole.tsx';
@@ -140,13 +141,11 @@ class DevCaloptreyxMintExtension extends Extension {
       });
     });
 
-    // Home becomes the server landing page, the console keeps its name, icon and permission at /console with Nebula's layout
+    // Home becomes the server landing page, the console keeps its name, icon and permission at /console with Mint's
+    // layout; the route is a copy, core's route objects are shared with the rest of the panel (server selector)
     ctx.extensionRegistry.routes.addServerRouteInterceptor((routes) => {
-      const console = routes.find((route) => route.path === '/');
-      if (console) {
-        console.path = '/console';
-        console.element = ServerConsole;
-      }
+      const console = routes.findIndex((route) => route.path === '/');
+      if (console !== -1) routes[console] = { ...routes[console], path: '/console', element: ServerConsole };
 
       routes.unshift({
         name: () => getExtTranslations().t('home.title', {}),

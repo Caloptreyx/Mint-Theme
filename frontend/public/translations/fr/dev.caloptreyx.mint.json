@@ -35,6 +35,9 @@
       "cpu": "CPU",
       "disk": "Disque",
       "showing": "{count} affichés",
+      "showingOf": "{count} sur {total} affichés",
+      "pageOnly": "Le tri, le regroupement et le filtre de statut ne portent que sur les serveurs de cette page.",
+      "noMatch": "Aucun serveur ne correspond à ce filtre.",
       "select": "Sélectionner {name}",
       "selectAll": "Sélectionner tous les serveurs visibles",
       "column": {
@@ -112,7 +115,9 @@
       "linkInvalid": "Utilisez un chemin du panel commençant par un seul / ou une adresse http:// ou https:// complète, sans espaces, guillemets, chevrons, parenthèses, accolades, points-virgules ni barres obliques inverses.",
       "linkTooLong": "Limitez le lien à {max} caractères.",
       "saved": "Appel à l'action enregistré.",
-      "removed": "Appel à l'action supprimé."
+      "removed": "Appel à l'action supprimé.",
+      "loadFailed": "Le bouton actuel n'a pas pu être chargé ; le formulaire est donc verrouillé pour éviter de l'écraser.",
+      "retry": "Réessayer"
     },
     "auth": {
       "supportLinks": "Liens d'assistance"
@@ -157,7 +162,8 @@
         "named": "{name} ({role})",
         "roles": {
           "links": "liens",
-          "dimmed": "texte atténué"
+          "dimmed": "texte atténué",
+          "accentFills": "badges, cases à cocher et interrupteurs"
         }
       },
       "favicon": {
@@ -170,13 +176,35 @@
       "undo": "Annuler",
       "redo": "Rétablir",
       "reset": "Rétablir les valeurs par défaut",
+      "resetTitle": "Rétablir les valeurs par défaut",
+      "resetConfirm": "Remplacer tout le brouillon par le thème par défaut ? Cela efface aussi les articles, les liens d'assistance, les dispositions, les images d'eggs, le favicon et le logo de connexion. Rien n'est enregistré tant que vous n'appuyez pas sur Enregistrer.",
+      "discard": "Annuler les modifications",
       "import": "Importer un thème",
       "export": "Exporter le thème",
       "importFailed": "Ce fichier n'est pas un thème Mint.",
+      "imported": "Thème importé ; appuyez sur Enregistrer pour l'utiliser.",
       "save": "Enregistrer",
       "saved": "Thème enregistré.",
+      "loading": "Chargement du thème enregistré…",
+      "loadFailed": "Le thème enregistré n'a pas pu être chargé",
+      "loadFailedDescription": "L'enregistrement reste désactivé jusqu'au chargement, afin que le thème stocké ne soit jamais remplacé par une version obsolète.",
+      "retry": "Réessayer",
+      "fixUrls": "Corrigez d'abord les URL en surbrillance.",
+      "urlInvalid": "Doit commencer par https:// ou /, sans espaces, guillemets ni crochets.",
+      "colorInvalid": "Ce n'est pas une couleur ; utilisez #rrggbb.",
+      "leaveTitle": "Modifications non enregistrées",
+      "leaveConfirm": "Quitter l'éditeur ? Vos modifications non enregistrées seront perdues.",
+      "leave": "Quitter",
+      "conflictTitle": "Le thème a changé entre-temps",
+      "conflictDescription": "Quelqu'un a enregistré le thème après l'ouverture de l'éditeur. Rechargez-le (vos modifications seront perdues) ou écrasez-le avec votre brouillon.",
+      "conflictReload": "Recharger le thème enregistré",
+      "conflictOverwrite": "Écraser",
       "refresh": "Recharger l'aperçu",
       "openTab": "Ouvrir dans un nouvel onglet",
+      "previewFrame": "Aperçu du thème",
+      "previewPage": "Page d'aperçu",
+      "previewDevice": "Largeur de l'aperçu",
+      "previewScheme": "Palette de couleurs de l'aperçu",
       "search": {
         "placeholder": "Rechercher un réglage",
         "clear": "Effacer la recherche",
@@ -279,7 +307,6 @@
       "sidebarGroups": "Grouper le menu du serveur",
       "sidebarGroupsDescription": "Sections repliables Gestion, Configuration et Accès.",
       "buttonStyle": "Style des boutons",
-      "buttonAccent": "Les boutons utilisent la couleur d'accent",
       "buttonColor": "Couleur des boutons",
       "buttons": {
         "filled": "Plein",
@@ -336,6 +363,7 @@
       "layoutDescription": "Faites glisser pour réorganiser, déplacez une carte vers l'autre colonne ou masquez-la.",
       "columnEmpty": "Aucune carte ici pour l'instant.",
       "moveColumn": "Déplacer vers l'autre colonne",
+      "reorderCard": "Réorganiser {name}",
       "hideCard": "Masquer la carte",
       "showCard": "Afficher la carte",
       "column": {
@@ -565,6 +593,11 @@
       "deleteTitle": "Supprimer le préréglage",
       "deleteConfirm": "Supprimer {name} ? Les utilisateurs qui l'ont choisi reviendront au thème par défaut du panel.",
       "users": "Les utilisateurs peuvent le choisir",
+      "apply": "Appliquer {name}",
+      "overwrite": "Enregistrer le brouillon dans ce préréglage",
+      "overwriteTitle": "Enregistrer le brouillon dans le préréglage",
+      "overwriteConfirm": "Remplacer l'apparence de {name} par le brouillon actuel ? Les utilisateurs qui l'ont choisi verront la nouvelle apparence.",
+      "overwritten": "Préréglage mis à jour.",
       "nameProblem": {
         "empty": "Saisissez un nom.",
         "long": "{max} caractères au maximum.",

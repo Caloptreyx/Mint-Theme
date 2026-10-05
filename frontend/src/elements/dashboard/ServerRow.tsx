@@ -1,25 +1,23 @@
 import { faGamepad } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router';
+import { NavLink } from 'react-router';
 import type { z } from 'zod';
-import Badge from '@/elements/Badge.tsx';
-import Card from '@/elements/Card.tsx';
-import Code from '@/elements/Code.tsx';
-import Checkbox from '@/elements/input/Checkbox.tsx';
-import Progress from '@/elements/Progress.tsx';
-import Text from '@/elements/Text.tsx';
-import type { serverSchema } from '@/lib/schemas/server/server.ts';
-import { serverStatusInfo } from '@/lib/server.ts';
-import { bytesToString, mbToBytes } from '@/lib/size.ts';
-import { formatMilliseconds } from '@/lib/time.ts';
-import { useServerStats } from '@/plugins/server/useServerStats.ts';
-import { useTranslations } from '@/providers/TranslationProvider.tsx';
+import {
+  bytesToString,
+  Card,
+  Checkbox,
+  Code,
+  formatMilliseconds,
+  mbToBytes,
+  Progress,
+  type serverSchema,
+  Text,
+  useServerStats,
+} from '../../lib/core.ts';
 import { useExtTranslations } from '../../translations.ts';
+import StatusBadge from './StatusBadge.tsx';
 
 export type Server = z.infer<typeof serverSchema>;
-/** What the status column ended up showing, so the page can filter on it. */
-export type RowStatus = 'running' | 'offline' | 'suspended' | 'other';
 
 /**
  * Shared by the header strip and every row so the columns line up. The panel's breakpoints are container
@@ -54,36 +52,13 @@ interface Props {
   card: boolean;
   selected: boolean;
   onSelect: (selected: boolean) => void;
-  onStatus: (uuid: string, status: RowStatus) => void;
 }
 
-export default function ServerRow({ server, art, icon, card, selected, onSelect, onStatus }: Props) {
-  const { t } = useTranslations();
+export default function ServerRow({ server, art, icon, card, selected, onSelect }: Props) {
   const { t: tExt } = useExtTranslations();
-  const navigate = useNavigate();
   const stats = useServerStats(server);
 
-  const state = stats?.state;
-  let status: RowStatus = 'other';
-  let label = t('common.enum.serverState.unknown', {});
-  let color = 'gray';
-
-  if (server.isSuspended) {
-    status = 'suspended';
-    label = t('common.server.state.suspended', {});
-    color = 'red';
-  } else if (server.status) {
-    label = serverStatusInfo[server.status].label();
-    color = serverStatusInfo[server.status].badgeColor;
-  } else if (state) {
-    status = state === 'running' ? 'running' : state === 'offline' ? 'offline' : 'other';
-    label = t(`common.enum.serverState.${state}`, {});
-    color = state === 'running' ? 'green' : state === 'offline' ? 'red' : 'yellow';
-  }
-
-  useEffect(() => onStatus(server.uuid, status), [server.uuid, status, onStatus]);
-
-  const running = state === 'running';
+  const running = stats?.state === 'running';
   const memoryLimit = mbToBytes(server.limits.memory);
   const percent = (used: number, limit: number) => (limit === 0 ? 0 : Math.min(100, (used / limit) * 100));
 
@@ -101,27 +76,10 @@ export default function ServerRow({ server, art, icon, card, selected, onSelect,
     ? `linear-gradient(90deg, var(--nebula-card) 62%, color-mix(in srgb, var(--nebula-card) 90%, transparent) 82%, color-mix(in srgb, var(--nebula-card) 80%, transparent)), url("${art}")`
     : undefined;
 
-  const rowProps = {
-    role: 'link',
-    tabIndex: 0,
-    'aria-label': server.name,
-    style: { backgroundImage },
-    onClick: (e: React.MouseEvent<HTMLDivElement>) => {
-      // stopping propagation on the checkbox would also swallow React's change event
-      if ((e.target as HTMLElement).closest('[data-row-select]')) return;
-      navigate(`/server/${server.uuidShort}`);
-    },
-    onKeyDown: (e: React.KeyboardEvent<HTMLDivElement>) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        navigate(`/server/${server.uuidShort}`);
-      }
-    },
-  };
-
   const cells = (
     <>
-      <div data-row-select>
+      {/* above the name link's ::after, so ticking it never opens the server */}
+      <div className='relative z-1'>
         <Checkbox
           checked={selected}
           onChange={(e) => onSelect(e.currentTarget.checked)}
@@ -142,13 +100,17 @@ export default function ServerRow({ server, art, icon, card, selected, onSelect,
         </Text>
       </div>
 
-      <Text fw={600} truncate>
-        {server.name}
-      </Text>
+      {/* a real link whose ::after covers the row: middle click and the keyboard work like any link */}
+      <NavLink
+        to={`/server/${server.uuidShort}`}
+        className='min-w-0 rounded-sm after:absolute after:inset-0 focus-visible:outline-2 focus-visible:outline-(--mantine-color-blue-filled)'
+      >
+        <Text fw={600} truncate>
+          {server.name}
+        </Text>
+      </NavLink>
 
-      <Badge variant='light' color={color} size='sm' className='max-w-full'>
-        {label}
-      </Badge>
+      <StatusBadge server={server} state={stats?.state} size='sm' className='max-w-full' />
 
       <Text size='sm' c='dimmed' truncate className={COLUMN_CLASS.location}>
         {server.locationName}
@@ -174,13 +136,19 @@ export default function ServerRow({ server, art, icon, card, selected, onSelect,
 
   // a Card keeps the row in step with the theme's blocks (opacity, glass, border); Mantine makes it a flex box
   return card ? (
-    <Card px='md' py='sm' hoverable {...rowProps} className={`${ROW_GRID} grid! bg-cover bg-right`}>
+    <Card
+      px='md'
+      py='sm'
+      hoverable
+      style={{ backgroundImage }}
+      className={`${ROW_GRID} grid! relative bg-cover bg-right`}
+    >
       {cells}
     </Card>
   ) : (
     <div
-      {...rowProps}
-      className={`${ROW_GRID} py-3 bg-cover bg-right border-b border-(--mantine-color-default-border) last:border-b-0 cursor-pointer transition-colors hover:bg-white/2 light:hover:bg-black/2`}
+      style={{ backgroundImage }}
+      className={`${ROW_GRID} relative py-3 bg-cover bg-right border-b border-(--mantine-color-default-border) last:border-b-0 transition-colors hover:bg-white/2 light:hover:bg-black/2`}
     >
       {cells}
     </div>

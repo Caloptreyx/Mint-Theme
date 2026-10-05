@@ -9,10 +9,9 @@ use utoipa::ToSchema;
 use utoipa_axum::{router::OpenApiRouter, routes};
 
 const MAX_TITLE_CHARS: usize = 60;
-const MAX_URL_BYTES: usize = 500;
+/// Counted in UTF-16 units, like the frontend's `ctaUrlProblem` (`string.length`).
+const MAX_URL_UNITS: usize = 500;
 const MAX_ENTRIES: usize = 100;
-/// Pruning lists every announcement 100 at a time; past this many pages it is skipped.
-const MAX_PRUNE_PAGES: i64 = 20;
 
 #[derive(ToSchema, Serialize, Deserialize, Clone, Debug, PartialEq)]
 pub struct Cta {
@@ -33,8 +32,12 @@ fn strip_prefix_ignore_case<'a>(s: &'a str, prefix: &str) -> Option<&'a str> {
 /// The frontend's `SAFE_URL`: http(s) or root relative (`/x`, never `//host`), and none of the
 /// characters that could leave an attribute or a CSS `url()`. A backslash is refused too, browsers
 /// read `/\host` as another origin.
+fn url_units(url: &str) -> usize {
+    url.encode_utf16().count()
+}
+
 fn valid_url(url: &str) -> bool {
-    if url.len() > MAX_URL_BYTES {
+    if url_units(url) > MAX_URL_UNITS {
         return false;
     }
 
@@ -77,8 +80,8 @@ fn validate(title: &str, url: &str) -> Result<Cta, String> {
     }
 
     let url = url.trim();
-    if url.len() > MAX_URL_BYTES {
-        return Err(format!("url: must be at most {MAX_URL_BYTES} characters"));
+    if url_units(url) > MAX_URL_UNITS {
+        return Err(format!("url: must be at most {MAX_URL_UNITS} characters"));
     }
     if !valid_url(url) {
         return Err("url: must start with https://, http:// or a single / and must not contain spaces, quotes, angle brackets, parentheses, braces, semicolons or backslashes".into());
@@ -99,21 +102,52 @@ fn parse(raw: &str) -> CtaMap {
         .collect()
 }
 
-/// Every announcement's uuid, or None when there are too many to list cheaply.
-async fn known_announcements(state: &State) -> Result<Option<HashSet<uuid::Uuid>>, anyhow::Error> {
-    use shared::models::announcement::Announcement;
-
-    let mut known = HashSet::new();
-    for page in 1..=MAX_PRUNE_PAGES {
-        let batch = Announcement::all_with_pagination(&state.database, page, 100, None).await?;
-        let len = batch.data.len();
-        known.extend(batch.data.into_iter().map(|announcement| announcement.uuid));
-        if len < 100 || known.len() as i64 >= batch.total {
-            return Ok(Some(known));
-        }
+/// Which of `uuids` still exist. Asked on the write pool, so an announcement created a moment ago
+/// is never mistaken for a deleted one by a lagging replica.
+async fn existing(
+    state: &State,
+    uuids: &[uuid::Uuid],
+) -> Result<HashSet<uuid::Uuid>, sqlx::Error> {
+    if uuids.is_empty() {
+        return Ok(HashSet::new());
     }
 
-    Ok(None)
+    let rows: Vec<uuid::Uuid> = sqlx::query_scalar(
+        r#"
+        SELECT announcements.uuid
+        FROM announcements
+        WHERE announcements.uuid = ANY($1)
+        "#,
+    )
+    .bind(uuids)
+    .fetch_all(state.database.write())
+    .await?;
+
+    Ok(rows.into_iter().collect())
+}
+
+/// Which of `uuids` are shown right now: enabled and inside their time window, the same check as
+/// core's `Announcement::all_by_active`.
+async fn active(state: &State, uuids: &[uuid::Uuid]) -> Result<HashSet<uuid::Uuid>, sqlx::Error> {
+    if uuids.is_empty() {
+        return Ok(HashSet::new());
+    }
+
+    let rows: Vec<uuid::Uuid> = sqlx::query_scalar(
+        r#"
+        SELECT announcements.uuid
+        FROM announcements
+        WHERE announcements.uuid = ANY($1)
+            AND announcements.enabled = true
+            AND (announcements.enabled_start IS NULL OR announcements.enabled_start <= NOW())
+            AND (announcements.enabled_end IS NULL OR announcements.enabled_end >= NOW())
+        "#,
+    )
+    .bind(uuids)
+    .fetch_all(state.database.read())
+    .await?;
+
+    Ok(rows.into_iter().collect())
 }
 
 mod get {
@@ -131,14 +165,19 @@ mod get {
         ctas: super::CtaMap,
     }
 
+    /// Only buttons of announcements shown now: a scheduled or disabled one's link stays private.
     #[utoipa::path(get, path = "/", responses((status = OK, body = inline(Response))))]
     pub async fn route(state: GetState) -> ApiResponseResult {
         let settings = state.settings.get().await?;
-        let ctas = settings
+        let mut ctas = settings
             .find_extension_settings::<crate::settings::ExtensionSettingsData>()
             .map(|s| super::parse(&s.announcement_ctas))
             .unwrap_or_default();
         drop(settings);
+
+        let uuids: Vec<uuid::Uuid> = ctas.keys().copied().collect();
+        let active = super::active(&state, &uuids).await?;
+        ctas.retain(|uuid, _| active.contains(uuid));
 
         ApiResponse::new_serialized(Response { ctas }).ok()
     }
@@ -208,17 +247,15 @@ mod put {
                 .ok();
         }
 
-        // listed before taking the settings lock, buttons of deleted announcements are dropped below
-        let known = super::known_announcements(&state).await?;
-
         let mut settings = state.settings.get_mut().await?;
         let stored =
             settings.find_mut_extension_settings::<crate::settings::ExtensionSettingsData>()?;
 
+        // buttons of deleted announcements go; only the stored uuids are looked up
         let mut ctas = super::parse(&stored.announcement_ctas);
-        if let Some(known) = &known {
-            ctas.retain(|uuid, _| known.contains(uuid));
-        }
+        let uuids: Vec<uuid::Uuid> = ctas.keys().copied().collect();
+        let existing = super::existing(&state, &uuids).await?;
+        ctas.retain(|uuid, _| existing.contains(uuid));
         match &cta {
             Some(cta) => {
                 if !ctas.contains_key(&data.announcement) && ctas.len() >= super::MAX_ENTRIES {
@@ -264,7 +301,7 @@ pub fn admin(state: &State) -> OpenApiRouter<State> {
 
 #[cfg(test)]
 mod tests {
-    use super::{MAX_TITLE_CHARS, MAX_URL_BYTES, parse, valid_url, validate};
+    use super::{MAX_TITLE_CHARS, MAX_URL_UNITS, parse, valid_url, validate};
 
     #[test]
     fn url_accepts_http_and_root_relative() {
@@ -301,10 +338,24 @@ mod tests {
 
     #[test]
     fn url_length_is_capped() {
-        let ok = format!("/{}", "a".repeat(MAX_URL_BYTES - 1));
+        let ok = format!("/{}", "a".repeat(MAX_URL_UNITS - 1));
         assert!(valid_url(&ok));
         assert!(!valid_url(&format!("{ok}a")));
         assert!(validate("Go", &format!("{ok}a")).is_err());
+    }
+
+    #[test]
+    fn url_length_counts_utf16_units_like_the_frontend() {
+        // 301 UTF-16 units but 601 bytes: the frontend accepts it, so must the backend
+        let accented = format!("/{}", "ü".repeat(300));
+        assert!(valid_url(&accented));
+        assert!(validate("Go", &accented).is_ok());
+
+        let ok = format!("/{}", "ü".repeat(MAX_URL_UNITS - 1));
+        assert!(valid_url(&ok));
+        assert!(!valid_url(&format!("{ok}ü")));
+        // an astral character is two units, as in JavaScript
+        assert!(!valid_url(&format!("/{}😀", "a".repeat(MAX_URL_UNITS - 2))));
     }
 
     #[test]

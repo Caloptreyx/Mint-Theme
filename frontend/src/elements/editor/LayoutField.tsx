@@ -1,14 +1,17 @@
 import { faEye, faEyeSlash, faGripVertical, faLeftRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import ActionIcon from '@/elements/ActionIcon.tsx';
-import Card from '@/elements/Card.tsx';
-import { DndContainer, SortableItem } from '@/elements/dnd/DragAndDrop.tsx';
-import Group from '@/elements/Group.tsx';
-import Switch from '@/elements/input/Switch.tsx';
-import Stack from '@/elements/Stack.tsx';
-import Text from '@/elements/Text.tsx';
-import Tooltip from '@/elements/Tooltip.tsx';
-import { restrictToVerticalAxis } from '@/lib/dragAndDrop.ts';
+import {
+  ActionIcon,
+  Card,
+  DndContainer,
+  Group,
+  restrictToVerticalAxis,
+  SortableItem,
+  Stack,
+  Switch,
+  Text,
+  Tooltip,
+} from '../../lib/core.ts';
 import type { HomeCard, HomeColumn, NebulaTheme } from '../../lib/theme.ts';
 import { useExtTranslations } from '../../translations.ts';
 
@@ -49,6 +52,7 @@ export default function LayoutField({ theme, set }: Props) {
             id={side}
             items={cards.map((card) => ({ id: card.id }))}
             modifiers={[restrictToVerticalAxis]}
+            getItemLabel={(item) => t(`editor.card.${item.id as HomeCard['id']}`, {})}
             callbacks={{
               onDragEnd: (items) =>
                 replaceColumn(
@@ -70,7 +74,11 @@ export default function LayoutField({ theme, set }: Props) {
                       renderItem={({ dragHandleProps }) => (
                         <Card p='xs'>
                           <Group gap='xs' wrap='nowrap'>
-                            <div {...dragHandleProps} className='text-(--mantine-color-dimmed)'>
+                            <div
+                              {...dragHandleProps}
+                              aria-label={t('editor.reorderCard', { name: t(`editor.card.${card.id}`, {}) })}
+                              className='text-(--mantine-color-dimmed)'
+                            >
                               <FontAwesomeIcon icon={faGripVertical} />
                             </div>
                             <Text size='sm' className='flex-1' c={card.enabled ? undefined : 'dimmed'} truncate>

@@ -35,6 +35,9 @@
       "cpu": "CPU",
       "disk": "Disk",
       "showing": "Zobrazené: {count}",
+      "showingOf": "Zobrazené: {count} z {total}",
+      "pageOnly": "Triedenie, zoskupovanie a filter stavu sa vzťahujú len na servery na tejto stránke.",
+      "noMatch": "Tomuto filtru nezodpovedá žiadny server.",
       "select": "Vybrať {name}",
       "selectAll": "Vybrať všetky zobrazené servery",
       "column": {
@@ -112,7 +115,9 @@
       "linkInvalid": "Použite cestu v paneli začínajúcu jedným znakom / alebo úplnú adresu http:// či https:// bez medzier, úvodzoviek, lomených, okrúhlych a zložených zátvoriek, bodkočiarok a spätných lomiek.",
       "linkTooLong": "Odkaz môže mať najviac {max} znakov.",
       "saved": "Výzva na akciu bola uložená.",
-      "removed": "Výzva na akciu bola odstránená."
+      "removed": "Výzva na akciu bola odstránená.",
+      "loadFailed": "Aktuálne tlačidlo sa nepodarilo načítať, preto je formulár uzamknutý, aby sa neprepísalo.",
+      "retry": "Skúsiť znova"
     },
     "auth": {
       "supportLinks": "Odkazy na podporu"
@@ -157,7 +162,8 @@
         "named": "{name} ({role})",
         "roles": {
           "links": "odkazy",
-          "dimmed": "stlmený text"
+          "dimmed": "stlmený text",
+          "accentFills": "odznaky, začiarkavacie políčka a prepínače"
         }
       },
       "favicon": {
@@ -170,13 +176,35 @@
       "undo": "Späť",
       "redo": "Znova",
       "reset": "Obnoviť predvolené",
+      "resetTitle": "Obnoviť predvolené",
+      "resetConfirm": "Nahradiť celý koncept predvolenou témou? Vymažú sa aj články, odkazy na podporu, rozloženia, obrázky eggov, favicon a logo prihlásenia. Nič sa neuloží, kým nestlačíte Uložiť.",
+      "discard": "Zahodiť zmeny",
       "import": "Importovať tému",
       "export": "Exportovať tému",
       "importFailed": "Tento súbor nie je téma Mint.",
+      "imported": "Téma bola importovaná; stlačte Uložiť, aby ste ju použili.",
       "save": "Uložiť",
       "saved": "Téma bola uložená.",
+      "loading": "Načítava sa uložená téma…",
+      "loadFailed": "Uloženú tému sa nepodarilo načítať",
+      "loadFailedDescription": "Ukladanie zostane vypnuté, kým sa nenačíta, aby sa uložená téma nikdy nenahradila zastaranou.",
+      "retry": "Skúsiť znova",
+      "fixUrls": "Najprv opravte zvýraznené URL adresy.",
+      "urlInvalid": "Musí začínať https:// alebo /, bez medzier, úvodzoviek či zátvoriek.",
+      "colorInvalid": "Nie je to farba; použite #rrggbb.",
+      "leaveTitle": "Neuložené zmeny",
+      "leaveConfirm": "Opustiť editor? Neuložené zmeny sa stratia.",
+      "leave": "Opustiť",
+      "conflictTitle": "Téma sa medzitým zmenila",
+      "conflictDescription": "Niekto uložil tému po tom, čo ste otvorili editor. Znova ju načítajte (vaše zmeny sa stratia) alebo ju prepíšte svojím konceptom.",
+      "conflictReload": "Znova načítať uloženú tému",
+      "conflictOverwrite": "Prepísať",
       "refresh": "Znova načítať ukážku",
       "openTab": "Otvoriť na novej karte",
+      "previewFrame": "Ukážka témy",
+      "previewPage": "Stránka ukážky",
+      "previewDevice": "Šírka ukážky",
+      "previewScheme": "Farebná schéma ukážky",
       "search": {
         "placeholder": "Hľadať nastavenia",
         "clear": "Vymazať hľadanie",
@@ -279,7 +307,6 @@
       "sidebarGroups": "Zoskupiť ponuku servera",
       "sidebarGroupsDescription": "Zbaliteľné sekcie Správa, Konfigurácia a Prístup.",
       "buttonStyle": "Štýl tlačidiel",
-      "buttonAccent": "Tlačidlá používajú farbu akcentu",
       "buttonColor": "Farba tlačidiel",
       "buttons": {
         "filled": "Plné",
@@ -336,6 +363,7 @@
       "layoutDescription": "Potiahnutím zmeníte poradie, kartu môžete presunúť do druhého stĺpca alebo ju skryť.",
       "columnEmpty": "Zatiaľ tu nie sú žiadne karty.",
       "moveColumn": "Presunúť do druhého stĺpca",
+      "reorderCard": "Zmeniť poradie: {name}",
       "hideCard": "Skryť kartu",
       "showCard": "Zobraziť kartu",
       "column": {
@@ -565,6 +593,11 @@
       "deleteTitle": "Odstrániť predvoľbu",
       "deleteConfirm": "Odstrániť {name}? Používatelia, ktorí si ju vybrali, sa vrátia k predvolenej téme panela.",
       "users": "Používatelia si ju môžu vybrať",
+      "apply": "Použiť {name}",
+      "overwrite": "Uložiť koncept do tejto predvoľby",
+      "overwriteTitle": "Uložiť koncept do predvoľby",
+      "overwriteConfirm": "Nahradiť vzhľad {name} aktuálnym konceptom? Používatelia, ktorí si ju vybrali, uvidia nový vzhľad.",
+      "overwritten": "Predvoľba bola aktualizovaná.",
       "nameProblem": {
         "empty": "Zadajte názov.",
         "long": "Najviac {max} znakov.",

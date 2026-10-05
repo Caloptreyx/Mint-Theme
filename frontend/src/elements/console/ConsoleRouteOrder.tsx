@@ -1,5 +1,5 @@
 import { useLayoutEffect } from 'react';
-import { type ServerStore, useServerStoreApi } from '@/stores/server.ts';
+import { type ServerStore, useServerStoreApi } from '../../lib/core.ts';
 import { withConsoleRoute } from '../../lib/routeOrder.ts';
 
 /**

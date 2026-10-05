@@ -1,4 +1,4 @@
-import { axiosInstance } from '@/api/axios.ts';
+import { axiosInstance } from '../lib/core.ts';
 import type { AnnouncementCta } from '../lib/cta.ts';
 
 /** Sets or, with null, removes one announcement's button; resolves to what was stored (trimmed). */

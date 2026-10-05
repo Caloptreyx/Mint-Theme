@@ -36,7 +36,7 @@ pub struct Library {
     builtin: Vec<String>,
 }
 
-/// What any visitor gets with the public theme: only the presets users may pick.
+/// What signed in users get: only the presets they may pick.
 #[derive(ToSchema, Serialize, Clone, Debug, Default, PartialEq)]
 pub struct Choices {
     builtin: Vec<String>,
@@ -71,7 +71,7 @@ fn validate_theme(theme: serde_json::Value) -> Result<serde_json::Value, String>
     if !theme.is_object() {
         return Err("theme must be an object".into());
     }
-    if theme.to_string().len() > crate::routes::MAX_THEME_BYTES {
+    if crate::routes::json_len(&theme) > crate::routes::MAX_THEME_BYTES {
         return Err("theme is too large".into());
     }
     Ok(theme)
@@ -88,7 +88,7 @@ fn valid_builtin_id(id: &str) -> bool {
 }
 
 fn fits(library: &Library) -> bool {
-    serde_json::to_string(library).is_ok_and(|s| s.len() <= MAX_TOTAL_BYTES)
+    crate::routes::json_len(library) <= MAX_TOTAL_BYTES
 }
 
 #[derive(Deserialize, Default)]
@@ -130,7 +130,7 @@ fn parse(raw: &str) -> Library {
     Library { custom, builtin }
 }
 
-/// The presets users may pick, for the public theme route.
+/// The presets users may pick, for the client theme choices route.
 pub fn choices(raw: &str) -> Choices {
     let library = parse(raw);
     Choices {
@@ -159,6 +159,7 @@ enum Change {
     Update {
         id: String,
         name: Option<String>,
+        theme: Option<serde_json::Value>,
         users: Option<bool>,
     },
     Delete {
@@ -206,13 +207,22 @@ fn edit(library: &mut Library, change: Change) -> Result<(String, String), Chang
             });
             (id.to_string(), name)
         }
-        Change::Update { id, name, users } => {
+        Change::Update {
+            id,
+            name,
+            theme,
+            users,
+        } => {
             let custom = uuid::Uuid::parse_str(&id)
                 .ok()
                 .and_then(|uuid| library.custom.iter_mut().find(|p| p.id == uuid));
             if let Some(preset) = custom {
                 if let Some(name) = name {
                     preset.name = validate_name(&name).map_err(ChangeError::Bad)?;
+                }
+                // the id stays, so users who picked this preset keep it with its new look
+                if let Some(theme) = theme {
+                    preset.theme = validate_theme(theme).map_err(ChangeError::Bad)?;
                 }
                 if let Some(users) = users {
                     preset.users = users;
@@ -221,6 +231,9 @@ fn edit(library: &mut Library, change: Change) -> Result<(String, String), Chang
             } else if valid_builtin_id(&id) {
                 if name.is_some() {
                     return bad("built in presets cannot be renamed");
+                }
+                if theme.is_some() {
+                    return bad("built in presets cannot be changed");
                 }
                 match users {
                     Some(true) if !library.builtin.contains(&id) => {
@@ -378,6 +391,8 @@ mod patch {
     pub struct Payload {
         /// Custom presets only.
         name: Option<String>,
+        /// Custom presets only: replaces the preset's look (a full editor config), keeping its id.
+        theme: Option<serde_json::Value>,
         users: Option<bool>,
     }
 
@@ -404,6 +419,7 @@ mod patch {
             super::Change::Update {
                 id: preset,
                 name: data.name,
+                theme: data.theme,
                 users: data.users,
             },
         )
@@ -441,6 +457,40 @@ mod delete {
         )
         .await
     }
+}
+
+mod choices_get {
+    use serde::Serialize;
+    use shared::{
+        GetState,
+        response::{ApiResponse, ApiResponseResult},
+    };
+    use utoipa::ToSchema;
+
+    #[derive(ToSchema, Serialize)]
+    struct Response {
+        choices: super::Choices,
+    }
+
+    #[utoipa::path(get, path = "/", responses((status = OK, body = inline(Response))))]
+    pub async fn route(state: GetState) -> ApiResponseResult {
+        let settings = state.settings.get().await?;
+        let choices = settings
+            .find_extension_settings::<crate::settings::ExtensionSettingsData>()
+            .map(|s| super::choices(&s.presets))
+            .unwrap_or_default();
+        drop(settings);
+
+        ApiResponse::new_serialized(Response { choices }).ok()
+    }
+}
+
+/// `GET` the presets users may pick, for any signed in user: a pick only applies signed in, so
+/// visitors of the public theme route never get the presets' themes.
+pub fn client(state: &State) -> OpenApiRouter<State> {
+    OpenApiRouter::new()
+        .routes(routes!(choices_get::route))
+        .with_state(state.clone())
 }
 
 /// `GET` (`settings.read`) and `POST` on the library, `PATCH` and `DELETE` (`settings.update`) on one preset.
@@ -568,6 +618,7 @@ mod tests {
         let rename = Change::Update {
             id: id.clone(),
             name: Some(" Deep ".into()),
+            theme: None,
             users: Some(true),
         };
         assert_eq!(apply(&mut library, rename).unwrap().1, "Deep");
@@ -575,8 +626,9 @@ mod tests {
         assert!(library.custom[0].users);
 
         let empty = Change::Update {
-            id,
+            id: id.clone(),
             name: Some(" ".into()),
+            theme: None,
             users: None,
         };
         assert!(matches!(
@@ -588,6 +640,7 @@ mod tests {
         let missing = Change::Update {
             id: uuid::Uuid::nil().to_string(),
             name: None,
+            theme: None,
             users: Some(true),
         };
         // a uuid is no valid built in id either
@@ -598,11 +651,69 @@ mod tests {
     }
 
     #[test]
+    fn update_replaces_a_custom_theme_and_keeps_the_id() {
+        let mut library = Library::default();
+        let (id, _) = create(&mut library, "Ocean").unwrap();
+        let retheme = |theme| Change::Update {
+            id: id.clone(),
+            name: None,
+            theme: Some(theme),
+            users: None,
+        };
+
+        apply(&mut library, retheme(json!({ "accent": "#123456" }))).unwrap();
+        assert_eq!(library.custom[0].id.to_string(), id);
+        assert_eq!(library.custom[0].name, "Ocean");
+        assert_eq!(library.custom[0].theme, json!({ "accent": "#123456" }));
+
+        for bad in [
+            json!([1]),
+            json!({ "homeBanner": "a".repeat(MAX_THEME_BYTES) }),
+        ] {
+            assert!(matches!(
+                apply(&mut library, retheme(bad)),
+                Err(ChangeError::Bad(_))
+            ));
+        }
+        assert_eq!(library.custom[0].theme, json!({ "accent": "#123456" }));
+    }
+
+    #[test]
+    fn update_keeps_the_total_size_cap() {
+        let mut library = Library::default();
+        let big = json!({ "homeBanner": "a".repeat(MAX_THEME_BYTES - 20) });
+        for _ in 0..3 {
+            apply(
+                &mut library,
+                Change::Create {
+                    name: "big".into(),
+                    theme: big.clone(),
+                    users: false,
+                },
+            )
+            .unwrap();
+        }
+        let (id, _) = create(&mut library, "small").unwrap();
+        let grow = Change::Update {
+            id,
+            name: None,
+            theme: Some(big),
+            users: None,
+        };
+        assert!(matches!(
+            apply(&mut library, grow),
+            Err(ChangeError::Bad(_))
+        ));
+        assert_eq!(library.custom[3].theme, json!({ "accent": "#2fbf8f" }));
+    }
+
+    #[test]
     fn builtin_presets_toggle_once() {
         let mut library = Library::default();
         let toggle = |users| Change::Update {
             id: "mint".into(),
             name: None,
+            theme: None,
             users: Some(users),
         };
         apply(&mut library, toggle(true)).unwrap();
@@ -614,15 +725,29 @@ mod tests {
         let rename = Change::Update {
             id: "mint".into(),
             name: Some("Mine".into()),
+            theme: None,
             users: None,
         };
         assert!(matches!(
             apply(&mut library, rename),
             Err(ChangeError::Bad(_))
         ));
+        let retheme = Change::Update {
+            id: "mint".into(),
+            name: None,
+            theme: Some(json!({ "accent": "#123456" })),
+            users: Some(true),
+        };
+        assert!(matches!(
+            apply(&mut library, retheme),
+            Err(ChangeError::Bad(_))
+        ));
+        assert!(library.builtin.is_empty(), "a refused change toggles nothing");
+
         let bad_id = Change::Update {
             id: "Not A Slug".into(),
             name: None,
+            theme: None,
             users: Some(true),
         };
         assert_eq!(
@@ -683,6 +808,7 @@ mod tests {
             Change::Update {
                 id: "ember".into(),
                 name: None,
+                theme: None,
                 users: Some(true),
             },
         )
@@ -700,6 +826,7 @@ mod tests {
             Change::Update {
                 id,
                 name: None,
+                theme: None,
                 users: Some(true),
             },
         )

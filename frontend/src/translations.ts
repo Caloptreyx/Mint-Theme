@@ -37,6 +37,9 @@ const translations = defineTranslations({
       cpu: 'CPU',
       disk: 'Disk',
       showing: 'Showing {count}',
+      showingOf: 'Showing {count} of {total}',
+      pageOnly: 'Sorting, grouping and the status filter only cover the servers on this page.',
+      noMatch: 'No servers match this filter.',
       select: 'Select {name}',
       selectAll: 'Select all visible servers',
       column: {
@@ -117,6 +120,8 @@ const translations = defineTranslations({
       linkTooLong: 'Keep the link to {max} characters.',
       saved: 'Call to action saved.',
       removed: 'Call to action removed.',
+      loadFailed: "The current button couldn't be loaded, so the form is locked to keep it from being overwritten.",
+      retry: 'Try again',
     },
     auth: {
       supportLinks: 'Support links',
@@ -162,6 +167,7 @@ const translations = defineTranslations({
         roles: {
           links: 'links',
           dimmed: 'dimmed text',
+          accentFills: 'badges, checkboxes and switches',
         },
       },
       favicon: {
@@ -175,13 +181,38 @@ const translations = defineTranslations({
       undo: 'Undo',
       redo: 'Redo',
       reset: 'Reset to default',
+      resetTitle: 'Reset to default',
+      resetConfirm:
+        'Replace the whole draft with the default theme? This also clears articles, support links, layouts, egg images, the favicon and the login logo. Nothing is saved until you press Save.',
+      discard: 'Discard changes',
       import: 'Import theme',
       export: 'Export theme',
       importFailed: 'That file is not a Mint theme.',
+      imported: 'Theme imported; press Save to use it.',
       save: 'Save',
       saved: 'Theme saved.',
+      loading: 'Loading the saved theme…',
+      loadFailed: 'The saved theme could not be loaded',
+      loadFailedDescription:
+        'Saving stays off until it loads, so the stored theme is never replaced by an outdated one.',
+      retry: 'Try again',
+      fixUrls: 'Fix the highlighted URLs first.',
+      urlInvalid: 'Must start with https:// or /, with no spaces, quotes or brackets.',
+      colorInvalid: 'Not a colour; use #rrggbb.',
+      leaveTitle: 'Unsaved changes',
+      leaveConfirm: 'Leave the editor? Your unsaved changes will be lost.',
+      leave: 'Leave',
+      conflictTitle: 'The theme changed meanwhile',
+      conflictDescription:
+        'Someone saved the theme after you opened the editor. Reload it (your changes are lost) or overwrite it with your draft.',
+      conflictReload: 'Reload saved theme',
+      conflictOverwrite: 'Overwrite',
       refresh: 'Reload preview',
       openTab: 'Open in new tab',
+      previewFrame: 'Theme preview',
+      previewPage: 'Preview page',
+      previewDevice: 'Preview width',
+      previewScheme: 'Preview colour scheme',
       search: {
         placeholder: 'Search settings',
         clear: 'Clear search',
@@ -285,7 +316,6 @@ const translations = defineTranslations({
       sidebarGroups: 'Group the server menu',
       sidebarGroupsDescription: 'Collapsible Management, Configuration and Access sections.',
       buttonStyle: 'Button style',
-      buttonAccent: 'Buttons use the accent colour',
       buttonColor: 'Button colour',
       buttons: {
         filled: 'Solid',
@@ -342,6 +372,7 @@ const translations = defineTranslations({
       layoutDescription: 'Drag to reorder, move a card to the other column or hide it.',
       columnEmpty: 'No cards here yet.',
       moveColumn: 'Move to the other column',
+      reorderCard: 'Reorder {name}',
       hideCard: 'Hide card',
       showCard: 'Show card',
       column: {
@@ -583,6 +614,11 @@ const translations = defineTranslations({
       deleteTitle: 'Delete preset',
       deleteConfirm: 'Delete {name}? Users who picked it go back to the panel default.',
       users: 'Users can choose this',
+      apply: 'Apply {name}',
+      overwrite: 'Save draft into this preset',
+      overwriteTitle: 'Save draft into preset',
+      overwriteConfirm: "Replace {name}'s look with the current draft? Users who picked it see the new look.",
+      overwritten: 'Preset updated.',
       nameProblem: {
         empty: 'Enter a name.',
         long: 'At most {max} characters.',

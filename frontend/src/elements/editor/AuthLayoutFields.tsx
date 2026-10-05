@@ -1,13 +1,6 @@
 import { faImage, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import ActionIcon from '@/elements/ActionIcon.tsx';
-import Button from '@/elements/Button.tsx';
-import Card from '@/elements/Card.tsx';
-import Group from '@/elements/Group.tsx';
-import Select from '@/elements/input/Select.tsx';
-import TextInput from '@/elements/input/TextInput.tsx';
-import Stack from '@/elements/Stack.tsx';
-import Text from '@/elements/Text.tsx';
+import { ActionIcon, Button, Card, Group, Select, Stack, Text, TextInput } from '../../lib/core.ts';
 import {
   AUTH_LAYOUTS,
   AUTH_POSITIONS,
@@ -22,6 +15,7 @@ import {
 import { useExtTranslations } from '../../translations.ts';
 import { SUPPORT_ICONS } from '../auth/AuthLayout.tsx';
 import ChoiceCards from './ChoiceCards.tsx';
+import UrlInput from './UrlInput.tsx';
 
 interface Props {
   theme: NebulaTheme;
@@ -233,11 +227,10 @@ export function SupportLinksFields({ theme, set }: Props) {
                 <FontAwesomeIcon icon={faTrash} />
               </ActionIcon>
             </Group>
-            <TextInput
+            <UrlInput
               label={t('editor.authLayout.linkUrl', {})}
-              placeholder='https://'
               value={link.url}
-              onChange={(e) => setLink(index, { url: e.target.value.trim() })}
+              onChange={(url) => setLink(index, { url })}
             />
             <Select
               label={t('editor.authLayout.linkIcon', {})}

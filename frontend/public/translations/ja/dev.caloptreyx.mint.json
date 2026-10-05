@@ -35,6 +35,9 @@
       "cpu": "CPU",
       "disk": "ディスク",
       "showing": "{count} 件を表示中",
+      "showingOf": "{total} 件中 {count} 件を表示中",
+      "pageOnly": "並べ替え、グループ化、ステータスフィルターはこのページのサーバーにのみ適用されます。",
+      "noMatch": "このフィルターに一致するサーバーはありません。",
       "select": "{name} を選択",
       "selectAll": "表示中のサーバーをすべて選択",
       "column": {
@@ -112,7 +115,9 @@
       "linkInvalid": "1 つの / で始まるパネル内のパス、または http:// か https:// で始まる完全なアドレスを使用してください。スペース、引用符、山括弧、丸括弧、波括弧、セミコロン、バックスラッシュは使用できません。",
       "linkTooLong": "リンクは {max} 文字以内にしてください。",
       "saved": "アクションボタンを保存しました。",
-      "removed": "アクションボタンを削除しました。"
+      "removed": "アクションボタンを削除しました。",
+      "loadFailed": "現在のボタンを読み込めなかったため、上書きを防ぐためにフォームをロックしています。",
+      "retry": "再試行"
     },
     "auth": {
       "supportLinks": "サポートリンク"
@@ -157,7 +162,8 @@
         "named": "{name}（{role}）",
         "roles": {
           "links": "リンク",
-          "dimmed": "薄いテキスト"
+          "dimmed": "薄いテキスト",
+          "accentFills": "バッジ、チェックボックス、スイッチ"
         }
       },
       "favicon": {
@@ -170,13 +176,35 @@
       "undo": "元に戻す",
       "redo": "やり直す",
       "reset": "デフォルトにリセット",
+      "resetTitle": "デフォルトにリセット",
+      "resetConfirm": "下書き全体をデフォルトのテーマに置き換えますか？ 記事、サポートリンク、レイアウト、Egg 画像、ファビコン、ログインロゴも消去されます。保存を押すまで何も保存されません。",
+      "discard": "変更を破棄",
       "import": "テーマをインポート",
       "export": "テーマをエクスポート",
       "importFailed": "このファイルは Mint のテーマではありません。",
+      "imported": "テーマをインポートしました。使用するには保存を押してください。",
       "save": "保存",
       "saved": "テーマを保存しました。",
+      "loading": "保存済みのテーマを読み込み中…",
+      "loadFailed": "保存済みのテーマを読み込めませんでした",
+      "loadFailedDescription": "保存済みのテーマが古い内容で置き換えられないよう、読み込みが完了するまで保存は無効です。",
+      "retry": "再試行",
+      "fixUrls": "先に強調表示された URL を修正してください。",
+      "urlInvalid": "https:// または / で始まり、空白、引用符、括弧を含まない必要があります。",
+      "colorInvalid": "色ではありません。#rrggbb を使用してください。",
+      "leaveTitle": "未保存の変更",
+      "leaveConfirm": "エディターを離れますか？ 未保存の変更は失われます。",
+      "leave": "離れる",
+      "conflictTitle": "テーマが別の場所で変更されました",
+      "conflictDescription": "エディターを開いた後に誰かがテーマを保存しました。再読み込みする（変更は失われます）か、下書きで上書きしてください。",
+      "conflictReload": "保存済みのテーマを再読み込み",
+      "conflictOverwrite": "上書き",
       "refresh": "プレビューを再読み込み",
       "openTab": "新しいタブで開く",
+      "previewFrame": "テーマのプレビュー",
+      "previewPage": "プレビューするページ",
+      "previewDevice": "プレビューの幅",
+      "previewScheme": "プレビューの配色",
       "search": {
         "placeholder": "設定を検索",
         "clear": "検索をクリア",
@@ -279,7 +307,6 @@
       "sidebarGroups": "サーバーメニューをグループ化",
       "sidebarGroupsDescription": "管理、設定、アクセスの各セクションを折りたたみ可能にします。",
       "buttonStyle": "ボタンのスタイル",
-      "buttonAccent": "ボタンにアクセントカラーを使用",
       "buttonColor": "ボタンの色",
       "buttons": {
         "filled": "塗りつぶし",
@@ -336,6 +363,7 @@
       "layoutDescription": "ドラッグで並べ替えたり、カードをもう一方の列に移動したり、非表示にしたりできます。",
       "columnEmpty": "まだカードがありません。",
       "moveColumn": "もう一方の列に移動",
+      "reorderCard": "{name} を並べ替え",
       "hideCard": "カードを非表示",
       "showCard": "カードを表示",
       "column": {
@@ -565,6 +593,11 @@
       "deleteTitle": "プリセットを削除",
       "deleteConfirm": "{name} を削除しますか？ これを選んでいたユーザーはパネルのデフォルトに戻ります。",
       "users": "ユーザーが選択可能",
+      "apply": "{name} を適用",
+      "overwrite": "下書きをこのプリセットに保存",
+      "overwriteTitle": "下書きをプリセットに保存",
+      "overwriteConfirm": "{name} の外観を現在の下書きで置き換えますか？ これを選んでいたユーザーには新しい外観が表示されます。",
+      "overwritten": "プリセットを更新しました。",
       "nameProblem": {
         "empty": "名前を入力してください。",
         "long": "最大 {max} 文字です。",

@@ -1,15 +1,17 @@
 import { useEffect, useState } from 'react';
-import { httpErrorToHuman } from '@/api/axios.ts';
-import Button from '@/elements/Button.tsx';
-import Card from '@/elements/Card.tsx';
-import Group from '@/elements/Group.tsx';
-import { Modal } from '@/elements/modals/Modal.tsx';
-import Spinner from '@/elements/Spinner.tsx';
-import Stack from '@/elements/Stack.tsx';
-import Text from '@/elements/Text.tsx';
-import { formatDateTime } from '@/lib/time.ts';
-import { useToast } from '@/providers/ToastProvider.tsx';
 import { getThemeHistory } from '../../api/library.ts';
+import {
+  Button,
+  Card,
+  formatDateTime,
+  Group,
+  httpErrorToHuman,
+  Modal,
+  Spinner,
+  Stack,
+  Text,
+  useToast,
+} from '../../lib/core.ts';
 import type { ThemeHistory } from '../../lib/library.ts';
 import type { NebulaTheme } from '../../lib/theme.ts';
 import { useExtTranslations } from '../../translations.ts';
