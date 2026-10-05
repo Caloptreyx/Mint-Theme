@@ -24,13 +24,13 @@ interface Props {
   onClose: () => void;
   /** CSS background of the banner shown now, previewed until a file is picked. */
   preview: string;
-  /** The new banner's URL and the storage path the backend saved in the user setting. */
+  /** The new banner's URL and the value the backend saved in the user setting. */
   onSaved: (saved: SavedBanner) => void;
 }
 
 export interface SavedBanner {
   banner: string;
-  path: string;
+  value: string;
 }
 
 /** Upload and position a banner, the same way core's avatar card works. */

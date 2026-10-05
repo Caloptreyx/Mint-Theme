@@ -16,7 +16,7 @@ import {
   useTranslations,
 } from '../../lib/core.ts';
 import { CTA_MAX_TITLE, CTA_MAX_URL, type CtaProblem, ctaTitleProblem, ctaUrlProblem } from '../../lib/cta.ts';
-import { loadCtas, rememberCta } from '../../lib/ctaStore.ts';
+import { loadAdminCta, refreshCtas } from '../../lib/ctaStore.ts';
 import { useExtTranslations } from '../../translations.ts';
 
 /** The "Call to Action" tab on an announcement's admin page. */
@@ -41,10 +41,10 @@ export default function AnnouncementCtaTab({
   useEffect(() => {
     setLoading(true);
     setLoadFailed(false);
-    // asks again, another admin may have changed it since this page loaded
-    loadCtas(true)
-      .then((ctas) => {
-        const cta = ctas[announcement.uuid];
+    // asks again, another admin may have changed it since this page loaded; the admin route has every button, also
+    // those of announcements that are disabled, scheduled or scoped
+    loadAdminCta(announcement.uuid)
+      .then((cta) => {
         setEnabled(!!cta);
         setTitle(cta?.title ?? '');
         setUrl(cta?.url ?? '');
@@ -82,7 +82,7 @@ export default function AnnouncementCtaTab({
     setSaving(true);
     updateAnnouncementCta(announcement.uuid, enabled ? { title, url } : null)
       .then((cta) => {
-        rememberCta(announcement.uuid, cta);
+        refreshCtas();
         if (cta) {
           setTitle(cta.title);
           setUrl(cta.url);

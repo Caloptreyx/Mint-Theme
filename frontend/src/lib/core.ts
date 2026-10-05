@@ -66,7 +66,7 @@ export { default as Title } from '@/elements/typography/Title.tsx';
 export { isAdmin } from '@/lib/auth/permissions.ts';
 export type { ChartLegendProps, StreamChartProps } from '@/lib/chart.ts';
 export { formatBytes, formatBytesRate, formatPercent, useStreamChart } from '@/lib/chart.ts';
-export { formatAllocation, serverStatusInfo } from '@/lib/domain/server.ts';
+export { formatAllocation, isConflictingState, serverStatusInfo } from '@/lib/domain/server.ts';
 export { restrictToVerticalAxis } from '@/lib/dragAndDrop.ts';
 export { announcementTypeColorMapping } from '@/lib/enums.ts';
 export { bytesToString, mbToBytes } from '@/lib/format/size.ts';
@@ -83,6 +83,7 @@ export type { adminFullUserSchema } from '@/lib/schemas/admin/users.ts';
 export type { announcementSchema } from '@/lib/schemas/announcements.ts';
 export type { serverPowerAction, serverPowerState, serverSchema } from '@/lib/schemas/server/server.ts';
 export { serverSettingsRenameSchema } from '@/lib/schemas/server/settings.ts';
+export type { fullUserSchema } from '@/lib/schemas/user.ts';
 export { getUserSetting, useUserSetting } from '@/lib/userSettings.ts';
 export type { Props as AuthWrapperProps } from '@/pages/auth/AuthWrapper.tsx';
 // Page-level components

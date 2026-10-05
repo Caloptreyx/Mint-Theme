@@ -8,6 +8,7 @@ import { withAnnouncementCta, withServerAnnouncements } from './elements/announc
 import AnnouncementCtaTab from './elements/announcements/AnnouncementCtaTab.tsx';
 import { AuthLayout, withFormLinks } from './elements/auth/AuthLayout.tsx';
 import { AuthLogo, AuthScope, LOGIN_PREVIEW_PATH } from './elements/auth/AuthScope.tsx';
+import ConsoleRedirect, { withConsoleFallback } from './elements/console/ConsoleFallback.tsx';
 import ConsoleRouteOrder from './elements/console/ConsoleRouteOrder.tsx';
 import EditorKeys from './elements/files/EditorKeys.tsx';
 import ThemeChoiceCard from './elements/library/ThemeChoiceCard.tsx';
@@ -58,6 +59,9 @@ class DevCaloptreyxMintExtension extends Extension {
     // `mobileNav: 'bottomBar'`: below lg a bottom bar of menu links whose Menu button opens core's drawer; registered
     // after the shell so its first node stays core's floating menu button, which the bar clicks
     Sidebar.addRenderInterceptor((element, props) => createElement(BottomNav, { ...props, element }));
+    // while core's ServerStateGuard blocks every page but the server root (an install, restore or transfer), the
+    // Console link points to Home, which shows the live console then; before RailTip so it gets core's own element
+    Sidebar.Link.addRenderInterceptor(withConsoleFallback);
     Sidebar.Link.addRenderInterceptor((element, props) => createElement(RailTip, { ...props, link: element }));
     AppIcon.addRenderInterceptor((element, props) =>
       createElement(RailLogo, { fallback: element, className: props.className }),
@@ -159,6 +163,9 @@ class DevCaloptreyxMintExtension extends Extension {
 
     // an egg configuration's route order saved without Mint lists the console as `/`, which is Home here
     ctx.extensionRegistry.pages.global.prependComponent(ConsoleRouteOrder);
+    // while the guard blocks the console (see the Console link above), visits to it (bookmarks, other links) land on
+    // Home; pages.server renders beside core's ServerStateGuard, not under it, so this runs while the guard blocks it
+    ctx.extensionRegistry.pages.server.prependComponent(ConsoleRedirect);
 
     ctx.extensionRegistry.routes.addAdminRoute({
       name: () => getExtTranslations().t('nav.editor', {}),

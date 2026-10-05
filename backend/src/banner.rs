@@ -1,8 +1,10 @@
 //! Account page banners: an uploaded picture per user, stored like core stores avatars. Every upload
 //! gets a new random path under `publicdata/` (the storage prefix core serves for extensions, on disk
 //! and on S3) and the previous file is removed. The user's `nebula::account_banner` setting (core's
-//! synced user settings) holds the storage path, written here; the URL is built when it is read, so
-//! a new app URL or storage driver never breaks it.
+//! synced user settings) holds the file's absolute URL plus a `?v=` cache buster, the format Mint 2.0
+//! wrote and reads, so a rollback keeps every banner. Only the path suffix of that value counts: the
+//! URL is rebuilt from the current storage settings when it is read, so a new app URL or storage
+//! driver never breaks it.
 
 use shared::{State, models::user::User};
 use utoipa_axum::{router::OpenApiRouter, routes};
@@ -22,37 +24,60 @@ fn new_path(user: uuid::Uuid) -> String {
     format!("{PREFIX}/{user}/{}.jpg", uuid::Uuid::new_v4().simple())
 }
 
-/// Where uploads went up to 2.0: one file per user, its absolute URL saved in the setting.
+/// Where uploads went up to 2.0: one file per user.
 fn legacy_path(user: uuid::Uuid) -> String {
     format!("{PREFIX}/{user}.jpg")
 }
 
-/// The user's own banner file that a setting value points at, and the `?v=` cache buster a value
-/// saved up to 2.0 carries. Anything else (another user's file, a foreign URL, a path outside the
-/// banners) is None: core lets users write their settings, and this decides what gets deleted.
+/// Whether `path` is one of the user's banner files: a per-upload `<user>/<name>.jpg` or the legacy
+/// `<user>.jpg`.
+fn is_own_path(user: uuid::Uuid, path: &str) -> bool {
+    if path == legacy_path(user) {
+        return true;
+    }
+    let Some(stem) = path
+        .strip_prefix(&format!("{PREFIX}/{user}/"))
+        .and_then(|name| name.strip_suffix(".jpg"))
+    else {
+        return false;
+    };
+    !stem.is_empty() && stem.len() <= 64 && stem.bytes().all(|b| b.is_ascii_alphanumeric())
+}
+
+/// The user's own banner file that a setting value points at, and its `?v=` cache buster. The value
+/// is an absolute URL of any host and prefix (what 2.0 and this version save) or a bare storage path
+/// (2.1 pre-releases); only its path suffix counts. Anything else (another user's file, a foreign
+/// URL, a path outside the banners) is None: core lets users write their settings, and this decides
+/// what gets deleted.
 fn owned(user: uuid::Uuid, value: &str) -> Option<(String, Option<&str>)> {
-    if let Some(name) = value.strip_prefix(&format!("{PREFIX}/{user}/")) {
-        let stem = name.strip_suffix(".jpg")?;
-        let valid =
-            !stem.is_empty() && stem.len() <= 64 && stem.bytes().all(|b| b.is_ascii_alphanumeric());
-        return valid.then(|| (value.to_owned(), None));
+    if is_own_path(user, value) {
+        return Some((value.to_owned(), None));
     }
 
-    if !(value.starts_with("https://") || value.starts_with("http://")) {
-        return None;
-    }
-    let (url, query) = value.split_once('?').unwrap_or((value, ""));
-    let legacy = legacy_path(user);
-    if !url
-        .strip_suffix(legacy.as_str())
-        .is_some_and(|base| base.ends_with('/'))
-    {
+    let rest = value
+        .strip_prefix("https://")
+        .or_else(|| value.strip_prefix("http://"))?;
+    let (url, query) = rest.split_once('?').unwrap_or((rest, ""));
+    // the path starts after a slash, never inside the host
+    let (_, after_host) = url.split_once('/')?;
+    let start = format!("{PREFIX}/");
+    let path = if after_host.starts_with(&start) {
+        after_host
+    } else {
+        &after_host[after_host.find(&format!("/{start}"))? + 1..]
+    };
+    if !is_own_path(user, path) {
         return None;
     }
     let version = query
         .strip_prefix("v=")
         .filter(|v| !v.is_empty() && v.bytes().all(|b| b.is_ascii_digit()));
-    Some((legacy, version))
+    Some((path.to_owned(), version))
+}
+
+/// The setting value saved for a banner: its absolute URL with a cache buster, as Mint 2.0 saved it.
+fn setting_value(url: &str, version: u128) -> String {
+    format!("{url}?v={version}")
 }
 
 fn over_backdrop(channel: u8, alpha: u8) -> u8 {
@@ -144,19 +169,19 @@ fn transcode(bytes: &[u8]) -> Result<Vec<u8>, &'static str> {
     Ok(data)
 }
 
-/// Points the user's banner setting at `path` (None clears it) and returns the value it replaced.
+/// Points the user's banner setting at `value` (None clears it) and returns the value it replaced.
 /// Core's settings lock serializes this with other writers, so two uploads never both keep a file.
 async fn swap_setting(
     state: &State,
     user: &User,
-    path: Option<&str>,
+    value: Option<&str>,
 ) -> Result<Option<String>, anyhow::Error> {
     let mut settings = user.get_settings_mut(&state.database).await?;
-    let previous = match path {
-        Some(path) => settings.insert(SETTING.into(), serde_json::Value::String(path.into())),
+    let previous = match value {
+        Some(value) => settings.insert(SETTING.into(), serde_json::Value::String(value.into())),
         None => settings.remove(SETTING),
     };
-    if path.is_some() || previous.is_some() {
+    if value.is_some() || previous.is_some() {
         settings.save(&state.database).await?;
     }
 
@@ -264,8 +289,8 @@ mod put {
     struct Response {
         /// The new banner's URL.
         banner: String,
-        /// What the `nebula::account_banner` user setting now holds (a storage path).
-        path: String,
+        /// What the `nebula::account_banner` user setting now holds.
+        value: String,
     }
 
     #[utoipa::path(put, path = "/", responses(
@@ -299,6 +324,9 @@ mod put {
         };
 
         let path = super::new_path(user.uuid);
+        let version = std::time::SystemTime::now()
+            .duration_since(std::time::UNIX_EPOCH)
+            .map_or(0, |since| since.as_millis());
 
         // spawned like core's avatar route, so a dropped request cannot leave it half done
         tokio::spawn(async move {
@@ -307,7 +335,9 @@ mod put {
                 .store(&path, data.as_slice(), "image/jpeg")
                 .await?;
 
-            let previous = match super::swap_setting(&state, &user, Some(path.as_str())).await {
+            let url = state.storage.retrieve_urls().await?.get_url(&path);
+            let value = super::setting_value(&url, version);
+            let previous = match super::swap_setting(&state, &user, Some(value.as_str())).await {
                 Ok(previous) => previous,
                 Err(err) => {
                     // nothing points at the new file
@@ -327,8 +357,11 @@ mod put {
                 .log("mint:banner.update", serde_json::json!({}))
                 .await;
 
-            let banner = state.storage.retrieve_urls().await?.get_url(&path);
-            ApiResponse::new_serialized(Response { banner, path }).ok()
+            ApiResponse::new_serialized(Response {
+                banner: value.clone(),
+                value,
+            })
+            .ok()
         })
         .await?
     }
@@ -383,7 +416,9 @@ pub fn router(state: &State) -> OpenApiRouter<State> {
 
 #[cfg(test)]
 mod tests {
-    use super::{BACKDROP, HEIGHT, PREFIX, WIDTH, legacy_path, new_path, owned, transcode};
+    use super::{
+        BACKDROP, HEIGHT, PREFIX, WIDTH, legacy_path, new_path, owned, setting_value, transcode,
+    };
 
     const USER: uuid::Uuid = uuid::Uuid::from_u128(0x1234);
     const OTHER: uuid::Uuid = uuid::Uuid::from_u128(0x5678);
@@ -440,6 +475,12 @@ mod tests {
             format!("avatars/{USER}/a.webp"),
             format!("/{PREFIX}/{USER}/a.jpg"),
             "https://example.com/banner.jpg".to_owned(),
+            format!("https://example.com/{PREFIX}/{OTHER}/a.jpg"),
+            format!("https://example.com/x{PREFIX}/{USER}/a.jpg"),
+            format!("https://example.com/{PREFIX}/{USER}/../{OTHER}/a.jpg"),
+            format!("https://{PREFIX}/{USER}/a.jpg"),
+            format!("ftp://example.com/{PREFIX}/{USER}/a.jpg"),
+            format!("javascript://x/{PREFIX}/{USER}/a.jpg"),
             "javascript:alert(1)".to_owned(),
         ];
         for value in &refused {
@@ -474,6 +515,23 @@ mod tests {
             owned(OTHER, &format!("https://panel.example/{legacy}")),
             None
         );
+    }
+
+    #[test]
+    fn owned_reads_the_urls_this_version_saves_from_any_host() {
+        let path = new_path(USER);
+        let saved = setting_value(&format!("https://panel.example/{path}"), 1727000000000);
+        assert_eq!(saved, format!("https://panel.example/{path}?v=1727000000000"));
+        assert_eq!(owned(USER, &saved), Some((path.clone(), Some("1727000000000"))));
+        assert_eq!(
+            owned(USER, &format!("http://cdn.example:9000/bucket/a/{path}?v=5")),
+            Some((path.clone(), Some("5")))
+        );
+        assert_eq!(
+            owned(USER, &format!("https://new.example/{path}")),
+            Some((path.clone(), None))
+        );
+        assert_eq!(owned(OTHER, &saved), None);
     }
 
     #[test]

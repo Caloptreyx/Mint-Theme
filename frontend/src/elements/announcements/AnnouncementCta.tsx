@@ -11,16 +11,22 @@ import {
   useTranslations,
 } from '../../lib/core.ts';
 import { ctaUrlProblem, matchAnnouncement } from '../../lib/cta.ts';
-import { useCtas } from '../../lib/ctaStore.ts';
+import { useCtas, useServerCtas } from '../../lib/ctaStore.ts';
 
 type Announcement = z.infer<typeof announcementSchema>;
 
+interface ServerScope {
+  server: string;
+  announcements: Announcement[];
+}
+
 // the server store only exists below the server router, so its announcements are handed down through this instead
-const ServerAnnouncements = createContext<Announcement[]>([]);
+const ServerAnnouncements = createContext<ServerScope | null>(null);
 
 function ServerAnnouncementsScope({ children }: { children: ReactNode }) {
+  const server = useServerStore((state) => state.server.uuid);
   const announcements = useServerStore((state) => state.serverAnnouncements);
-  return <ServerAnnouncements.Provider value={announcements}>{children}</ServerAnnouncements.Provider>;
+  return <ServerAnnouncements.Provider value={{ server, announcements }}>{children}</ServerAnnouncements.Provider>;
 }
 
 /** Render interceptor for ServerContentContainer, which draws the server scoped announcements. */
@@ -37,17 +43,21 @@ interface Props {
 function AnnouncementCtaButton({ title, content, color }: Props) {
   const { language } = useTranslations();
   const global = useGlobalStore((state) => state.announcements);
-  const server = useContext(ServerAnnouncements);
+  const scope = useContext(ServerAnnouncements);
+  const scoped = scope?.announcements ?? [];
 
   const uuid = matchAnnouncement(
-    [...global, ...server],
+    [...global, ...scoped],
     { title, content, color },
     language,
     (type) => announcementTypeColorMapping[type as Announcement['type']],
   );
-  // only alerts that are announcements ever ask the backend
-  const ctas = useCtas(uuid !== null);
-  const cta = uuid === null ? undefined : ctas[uuid];
+  // only alerts that are announcements ever ask the backend; a server's scoped buttons come from that server's
+  // route (behind core's access check), never from the global map, which holds unscoped announcements' only
+  const fromServer = uuid !== null && scoped.some((announcement) => announcement.uuid === uuid);
+  const globalCtas = useCtas(uuid !== null && !fromServer);
+  const serverCtas = useServerCtas(fromServer && scope ? scope.server : null);
+  const cta = uuid === null ? undefined : (fromServer ? serverCtas : globalCtas)[uuid];
   if (!cta || ctaUrlProblem(cta.url)) return null;
 
   const button = (

@@ -72,6 +72,12 @@ impl Extension for ExtensionStruct {
                         presets::client(&state),
                     )
             })
+            .add_client_server_api_router(|routes| {
+                routes.nest(
+                    "/extensions/dev.caloptreyx.mint/announcement-ctas",
+                    cta::server(&state),
+                )
+            })
     }
 
     async fn settings_deserializer(

@@ -202,7 +202,15 @@ and break silently when core moves a file. Everything here is runtime:
   While a server installs, restores or transfers (`server.status !== null || server.isTransferring`), core's
   `ServerStateGuard` blocks every page except the server root, so Home always shows its console card then
   (whatever the Home layout says; `normalizeTheme` keeps every card in the layout) and hides the 'Full log' link
-  (a Mantine `Anchor component={Link}`). The Console sidebar link still hits core's block screen then.
+  (a Mantine `Anchor component={Link}`). `elements/console/ConsoleFallback.tsx` sends the console there meanwhile:
+  core's `isConflictingState` (which also covers a suspended server for non admins), minus node maintenance and
+  failed installs or restores, which block the root too. A `Sidebar.Link` render interceptor (registered before
+  `RailTip`, so it gets core's element; only links to a `/server/<id>/console` path read the server store) points
+  the open server's Console link to the server root with `end`, so it lights up with Home there only.
+  `ConsoleRedirect` (`pages.server.prependComponent`, which core's ServerRouter renders beside its `<Routes>`, whose
+  layout route is `ServerStateGuard`, not under it) replaces a visit to the open server's exact console path (uuid
+  or short id) with the root via `useNavigate` in a layout effect; core's `HistoryRouter` applies it in a transition,
+  so the block screen may show for a frame.
   Home's Information and Network cards, `HeroCard`'s allocation pill, the console's `InfoWidget` and
   `ServerCard` mask allocation and SFTP addresses with `shownAddress(value, useRedactAddresses())`
   (`lib/redact.ts`), following core's 'Hide server addresses' user setting (`app::redact_addresses`, read directly
@@ -213,13 +221,16 @@ and break silently when core moves a file. Everything here is runtime:
   `settings.read`; PUT and DELETE the avatar route's checks, `account.avatar`; activity `mint:banner.update|delete`).
   Each upload is re-encoded to a 1500x500 JPEG (cropped to 3:1 around the centre, transparency laid over grey 128)
   at a new `publicdata/nebula/banners/<user>/<random>.jpg` (the storage prefix core serves for extensions), and the
-  previous file is removed. The backend writes that storage path into core's user setting `nebula::account_banner`
-  itself (under core's settings lock; a failed save removes the new file), and GET builds the URL from it. Older
-  values (absolute URLs of `<user>.jpg`) still resolve. Only the user's own files are ever deleted (`owned()`),
+  previous file is removed. The backend writes the file's absolute URL plus `?v=<millis>` into core's user setting
+  `nebula::account_banner` itself (under core's settings lock; a failed save removes the new file): the format 2.0
+  wrote and reads, so rolling back keeps every banner. GET and the cleanup use only the value's path suffix
+  (`publicdata/nebula/banners/<user>/<name>.jpg` or legacy `<user>.jpg`, any host or prefix; a bare path from
+  2.1 pre-releases too), and GET rebuilds the URL from the current storage settings. Only the user's own files
+  are ever deleted (`owned()`),
   since users can write their own settings through core's API. A User after-delete handler removes the user's
   banners in a background task (failures only logged). `ProfileCard` fetches GET whenever the setting changes, shows
   no default banner while it loads, still checks the URL with `SAFE_URL`, and after an upload sets the returned URL
-  and `setSaved(path)` to keep core's synced store in step. The avatar opens core's
+  and `setSaved(value)` to keep core's synced store in step; nothing else reads the stored format. The avatar opens core's
   `AvatarContainer` in a modal; `app.css` hides the grid copy (`.order-60`).
 - Presets, users' own themes and the theme history (`backend/src/presets.rs`, `history.rs`, `lib/library.ts`,
   `elements/library/`). Custom presets are full normalized themes in the `presets` setting
@@ -321,22 +332,29 @@ and break silently when core moves a file. Everything here is runtime:
   above the form come from `AuthWrapper.addPropsInterceptor(withFormLinks)`, first in the page's children.
 - Announcement call to action buttons. Core's `announcements` table has no room for them, so
   `backend/src/cta.rs` keeps a map `announcement uuid -> { title, url }` in the `announcement_ctas`
-  setting: `GET /api/client/extensions/dev.caloptreyx.mint/announcement-ctas` (any signed in user, since
-  announcements only show in the signed in layout) and `PUT /api/admin/extensions/dev.caloptreyx.mint/announcement-ctas`
-  (`announcements.update`, same checks as `SAFE_URL`, URL up to 500 UTF-16 units on both sides). The client GET
-  returns only buttons of announcements that are enabled and inside their start/end window (not filtered by
-  location, node or egg); the PUT prunes buttons of deleted announcements by looking up only the stored uuids on
-  the write pool. The admin
+  setting. A user only ever receives buttons of announcements core shows them: the client GET
+  `/api/client/extensions/dev.caloptreyx.mint/announcement-ctas` (any signed in user, since announcements only show
+  in the signed in layout) returns those of `Announcement::all_by_active` (enabled, in their window, not scoped to a
+  location, node, backup configuration or egg), and `/api/client/servers/{server}/extensions/dev.caloptreyx.mint/announcement-ctas`
+  (`add_client_server_api_router`, so core's server access middleware runs, which is all core's server announcements
+  route asks for) those of `all_by_active_server`. Both use core's query under core's cache key (60 s), so they follow
+  exactly what core serves; `only_shown()` is the cargo tested filter. Admin side: `GET .../announcement-ctas/{announcement}`
+  (`announcements.read`, the stored button whatever its announcement's state) and `PUT .../announcement-ctas`
+  (`announcements.update`, same checks as `SAFE_URL`, URL up to 500 UTF-16 units on both sides); the PUT prunes
+  buttons of deleted announcements by looking up only the stored uuids on the write pool. The admin
   side is a tab added with `pages.admin.announcements.view.subNavigation.addItemInterceptor`
   (`elements/announcements/AnnouncementCtaTab.tsx`). Users see announcements through core's
   `DismissibleAnnouncementAlert`, which is not hookable, but the `Alert` it renders is: `Alert.addPropsInterceptor`
   appends `AnnouncementCtaButton` to alerts with a string title and a markdown body, and that matches the
   alert back to its announcement (`lib/cta.ts` `matchAnnouncement()`: title, content and colour in the current
   language; two identical announcements get no button). Server scoped announcements live in the server store,
-  which throws outside the server router, so a `ServerContentContainer` render interceptor provides them
-  through a context. `lib/ctaStore.ts` fetches the map once per page load (a failed fetch is forgotten, so the
-  next caller retries), caches it in localStorage and follows other tabs' `nebula:announcement-ctas` writes.
-  The admin tab is locked after a failed load (switch, inputs and Save disabled) until 'Try again' succeeds.
+  which throws outside the server router, so a `ServerContentContainer` render interceptor provides them and the
+  server's uuid through a context. An alert matching a global announcement takes its button from the global map, one
+  matching a server scoped announcement from that server's map. `lib/ctaStore.ts` fetches each once per page load (a
+  failed fetch is forgotten, so the next caller retries); only the global map is cached in localStorage and follows
+  other tabs' `nebula:announcement-ctas` writes, server maps stay in memory. A save in the admin tab refetches the
+  global map and drops the server maps instead of writing the button in. The admin tab is locked after a failed load
+  (switch, inputs and Save disabled) until 'Try again' succeeds.
 - Toasts, page transitions and page titles. Core's toast stack (`providers/ToastProvider.tsx`, the one
   `.fixed.z-999` element) has no hook, but the `Notification` it renders does: `Notification.addPropsInterceptor`
   exposes the Mantine colour as `data-nebula-tone` (green success, red error, yellow warning, teal info), and

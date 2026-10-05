@@ -25,8 +25,8 @@ import { SAFE_URL } from '../../lib/theme.ts';
 import { useExtTranslations } from '../../translations.ts';
 import BannerModal, { BANNER_API } from './BannerModal.tsx';
 
-// the uploaded banner's storage path (an absolute URL if saved before 2.1), written by the backend;
-// the panel syncs user settings across devices
+// the uploaded banner's absolute URL with a ?v= cache buster (the format Mint 2.0 reads, so a rollback
+// keeps it), written by the backend; the panel syncs user settings across devices
 const BANNER_KEY = 'nebula::account_banner';
 const SHADE = 'var(--nebula-card)';
 
@@ -37,7 +37,7 @@ export default function ProfileCard() {
   const { user } = useAuth();
   const theme = useNebulaTheme();
   const [saved, setSaved] = useUserSetting(BANNER_KEY, z.string(), '');
-  // the backend builds the URL from the saved path, so a new panel URL or storage driver keeps it working
+  // the backend rebuilds the URL from the saved value's path, so a new panel URL or storage driver keeps it working
   const [resolved, setResolved] = useState<{ value: string; url: string | null } | null>(null);
   const [editing, setEditing] = useState(false);
   const [avatarOpen, setAvatarOpen] = useState(false);
@@ -150,10 +150,10 @@ export default function ProfileCard() {
         opened={editing}
         onClose={() => setEditing(false)}
         preview={backgroundImage}
-        onSaved={({ banner: uploaded, path }) => {
-          setResolved({ value: path, url: uploaded });
+        onSaved={({ banner: uploaded, value }) => {
+          setResolved({ value, url: uploaded });
           // the backend saved it already; this keeps the synced store in step
-          setSaved(path);
+          setSaved(value);
         }}
       />
     </Card>
