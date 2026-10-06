@@ -73,6 +73,10 @@ editor can repaint the panel live without a reload.
   gray when `offline` is set) and `--chart-series-1/2` go in both scheme blocks, because core and Mantine pin
   them on `:root[data-mantine-color-scheme]`. Light mode's `-light-color` and `-text` are made readable on the
   light surface. Unset colours emit nothing.
+- `scrollbar`: app.css paints the page scrollbar in dark mode with `var(--nebula-scrollbar, var(--mantine-color-dark-4))`
+  (dark-4 is 14% text over the background, also the hairline's fallback); `buildCss` sets `--nebula-scrollbar` in the
+  dark block only when the colour is set. Like the other dark only overrides, light mode keeps `gray-4`. Core's own
+  scrollers (the file tree) use `--mantine-color-default-border`, so `line` reaches those.
 - `favicon` is not CSS: `applyTheme()` parks core's icon links (`.app-icon`, whose href core's App sets from
   `settings.app.icon`) under another rel and adds its own `icon` and `apple-touch-icon` links, so core can keep
   updating its links and clearing the option restores them. The public theme route covers logged out pages.

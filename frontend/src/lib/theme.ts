@@ -138,6 +138,8 @@ export interface NebulaTheme {
   textFaint: string;
   textOnAccent: string;
   line: string;
+  /** The page scrollbar's thumb in dark mode; '' keeps the derived `--mantine-color-dark-4`. */
+  scrollbar: string;
   success: string;
   warning: string;
   danger: string;
@@ -222,6 +224,7 @@ export const DEFAULT_THEME: NebulaTheme = {
   textFaint: '',
   textOnAccent: '',
   line: '',
+  scrollbar: '',
   success: '',
   warning: '',
   danger: '',
@@ -366,6 +369,7 @@ export const USER_THEME_FIELDS: readonly (keyof NebulaTheme)[] = [
   'textFaint',
   'textOnAccent',
   'line',
+  'scrollbar',
   'success',
   'warning',
   'danger',
@@ -528,6 +532,7 @@ export function normalizeTheme(raw: unknown, d: NebulaTheme = DEFAULT_THEME): Ne
     textFaint: optional(r.textFaint, d.textFaint),
     textOnAccent: optional(r.textOnAccent, d.textOnAccent),
     line: optional(r.line, d.line),
+    scrollbar: optional(r.scrollbar, d.scrollbar),
     success: optional(r.success, d.success),
     warning: optional(r.warning, d.warning),
     danger: optional(r.danger, d.danger),
@@ -678,6 +683,8 @@ export function derivedColors(t: NebulaTheme) {
     // core and Mantine pin it to `--mantine-color-white`, which light mode paints as its surface
     textOnAccent: '#ffffff',
     line: dark[4],
+    // app.css paints the page's dark scrollbar in dark-4, so the derived colour is the same as the hairline's
+    scrollbar: dark[4],
     buttonColor: t.accent,
     buttonText: t.textOnAccent || '#ffffff',
     success: '#40c057',
@@ -1020,6 +1027,8 @@ export function buildCss(t: NebulaTheme): string {
     ['--mantine-color-blue-text', blue[4]],
     ['--chart-series-1', t.chartOne || blue[4]],
   ];
+  // app.css falls back to `--mantine-color-dark-4`, so an unset colour emits nothing
+  if (t.scrollbar) darkScheme.push(['--nebula-scrollbar', t.scrollbar]);
 
   // light mode gets its own neutrals; the dark-only overrides above are picked against a dark page
   const light = lightBase(t);

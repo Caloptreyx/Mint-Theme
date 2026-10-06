@@ -36,6 +36,7 @@ import {
   SIDEBAR_LAYOUTS,
   STAT_STYLES,
   SUPPORT_LINK_ICONS,
+  surfaceShades,
   TABLE_STYLES,
   TOAST_STYLES,
   withUserTheme,
@@ -56,6 +57,7 @@ const OPTIONAL_COLORS = [
   'textFaint',
   'textOnAccent',
   'line',
+  'scrollbar',
   'success',
   'warning',
   'danger',
@@ -1469,6 +1471,26 @@ describe('contrast warnings', () => {
     const ember = PRESETS.find((preset) => preset.name === 'Ember');
     assert.ok(mint?.theme.textOnAccent);
     assert.equal(withUserTheme(withUserTheme(DEFAULT_THEME, mint.theme), ember?.theme).textOnAccent, '');
+  });
+});
+
+describe('scrollbar colour', () => {
+  test('unset emits nothing, so the derived dark-4 stays (and older themes build the same CSS)', () => {
+    assert.equal(buildCss(DEFAULT_THEME).includes('--nebula-scrollbar'), false);
+  });
+
+  test('a set colour goes in the dark scheme block only', () => {
+    const css = buildCss(normalizeTheme({ scrollbar: '#336699' }));
+    const dark = 'html:root[data-mantine-color-scheme="dark"]{';
+    const light = 'html:root[data-mantine-color-scheme="light"]{';
+    const blockOf = (head: string) => css.slice(css.indexOf(head), css.indexOf('}', css.indexOf(head)));
+    assert.ok(blockOf(dark).includes('--nebula-scrollbar:#336699;'));
+    assert.equal(blockOf(light).includes('--nebula-scrollbar'), false);
+    assert.equal(css.split('--nebula-scrollbar').length, 2, 'emitted once');
+  });
+
+  test('the editor shows the derived colour app.css paints', () => {
+    assert.equal(derivedColors(DEFAULT_THEME).scrollbar, surfaceShades(DEFAULT_THEME)[4]);
   });
 });
 

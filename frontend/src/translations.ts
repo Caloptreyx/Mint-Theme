@@ -310,6 +310,7 @@ const translations = defineTranslations({
       textFaint: 'Faint text',
       textOnAccent: 'Text on accent',
       line: 'Hairline',
+      scrollbar: 'Scrollbar',
       buttonText: 'Button text',
       success: 'Success',
       warning: 'Warning',

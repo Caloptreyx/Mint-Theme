@@ -298,6 +298,7 @@
       "textFaint": "薄いテキスト",
       "textOnAccent": "アクセント上のテキスト",
       "line": "細線",
+      "scrollbar": "スクロールバー",
       "buttonText": "ボタンのテキスト",
       "success": "成功",
       "warning": "警告",

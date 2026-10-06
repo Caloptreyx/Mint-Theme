@@ -18,6 +18,7 @@ export type ColorKey = keyof Pick<
   | 'textFaint'
   | 'textOnAccent'
   | 'line'
+  | 'scrollbar'
   | 'buttonColor'
   | 'buttonText'
   | 'success'
@@ -50,7 +51,7 @@ export const COLOR_GROUPS: { group: ColorGroup; keys: ColorKey[]; optional?: boo
   { group: 'surfacesExtra', keys: ['surfaceRaised', 'surfaceOverlay'], optional: true },
   { group: 'text', keys: ['text'] },
   { group: 'textExtra', keys: ['textMuted', 'textFaint', 'textOnAccent'], optional: true },
-  { group: 'lines', keys: ['line'], optional: true },
+  { group: 'lines', keys: ['line', 'scrollbar'], optional: true },
   { group: 'buttons', keys: ['buttonColor', 'buttonText'], optional: true },
   { group: 'status', keys: ['success', 'warning', 'danger', 'offline'], optional: true },
   { group: 'charts', keys: ['chartOne', 'chartTwo'], optional: true },

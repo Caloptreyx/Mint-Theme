@@ -160,8 +160,9 @@ html {
   background-attachment: fixed;
 }
 
+/* `--nebula-scrollbar` is the theme's Scrollbar colour (dark mode only, lib/theme.ts), set only when chosen */
 [data-mantine-color-scheme="dark"] {
-  scrollbar-color: var(--mantine-color-dark-4) transparent;
+  scrollbar-color: var(--nebula-scrollbar, var(--mantine-color-dark-4)) transparent;
 }
 
 [data-mantine-color-scheme="light"] {

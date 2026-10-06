@@ -62,7 +62,7 @@ A dark theme for [Calagopus Panel](https://calagopus.com) with a live, built-in 
   chart labels too. The text on accent colour applies to solid buttons, badges and the current menu link in
   both modes. A first visit waits for the theme (1.5s at most) instead of flashing the default look.
 - **Theme editor**: a full screen editor with a live preview of the real panel, in dark or light mode.
-  Presets, the full colour palette with its own light mode colours, fonts (plus a monospace font for
+  Presets, the full colour palette (down to the scrollbar) with its own light mode colours, fonts (plus a monospace font for
   code and the console), corner radius, button styles, block transparency with an optional glass blur,
   block and input borders, a click effect, a glassy toast style, page transitions, optional server page
   titles, card title styles (line, fill, pill, also on the admin Settings section headings), stat card styles,
