@@ -592,6 +592,13 @@
       },
       "navOrder": {
         "title": "Ordine del menu",
+        "userArrange": "Gli utenti possono ordinare",
+        "userArrangeDescription": "Quali menu hanno «Ordina menu», amministratori inclusi. Disattivato, il menu mostra a tutti l'ordine del pannello e gli ordini salvati dagli utenti vengono ignorati; tornano se lo riattivi.",
+        "menus": {
+          "server": "Menu server",
+          "dashboard": "Menu dashboard",
+          "admin": "Menu di amministrazione"
+        },
         "label": "Ordine del menu di amministrazione",
         "description": "Il menu dell'amministrazione per tutti: trascina link e intere categorie, e i link all'interno della loro categoria. Gli utenti possono comunque ordinare i propri menu sopra di esso. I menu server e dashboard seguono l'ordine delle rotte delle configurazioni egg e delle impostazioni utente.",
         "empty": "Il menu di amministrazione non è ancora caricato.",

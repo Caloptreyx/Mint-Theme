@@ -26,6 +26,22 @@ const MAX_ID_LENGTH = 300;
 
 export const isEmptyNavOrder = (order: NavOrder) => order.top.length === 0 && Object.keys(order.sections).length === 0;
 
+/** Per menu, whether users may arrange their own order there (the theme's `userArrange`). */
+export type NavArrange = Record<NavMenu, boolean>;
+
+export const ALL_ARRANGEABLE: NavArrange = { server: true, dashboard: true, admin: true };
+
+/** Booleans per menu; a missing or non boolean one keeps the fallback's. */
+export function normalizeNavArrange(raw: unknown, fallback: NavArrange): NavArrange {
+  if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return fallback;
+  const r = raw as Record<string, unknown>;
+  return {
+    server: typeof r.server === 'boolean' ? r.server : fallback.server,
+    dashboard: typeof r.dashboard === 'boolean' ? r.dashboard : fallback.dashboard,
+    admin: typeof r.admin === 'boolean' ? r.admin : fallback.admin,
+  };
+}
+
 /** Which of core's sidebars a page shows; null for the setup wizard, whose sidebar holds its steps. */
 export function navMenuOf(pathname: string): NavMenu | null {
   if (pathname === '/oobe' || pathname.startsWith('/oobe/')) return null;

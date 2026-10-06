@@ -169,18 +169,22 @@ export function saveOwnNavOrder(menu: NavMenu, order: NavOrder | null) {
 
 /**
  * The orders over the current page's menu: the theme's for the admin menu, then the user's own. `menu` is null in
- * the setup wizard, which is never arranged.
+ * the setup wizard, which is never arranged. Where the theme's `userArrange` turns a menu off, the user's saved order
+ * is ignored (not removed, so turning it back on restores it): the menu is drawn here, so a stored order can't get
+ * around the switch.
  */
-export function useNavOrders(): { menu: NavMenu | null; site: NavOrder; own: NavOrder } {
+export function useNavOrders(): { menu: NavMenu | null; arrangeable: boolean; site: NavOrder; own: NavOrder } {
   const { pathname } = useLocation();
-  const { adminNavOrder } = useNebulaTheme();
+  const { adminNavOrder, userArrange } = useNebulaTheme();
   const [stored] = useUserSetting(NAV_ORDER_KEY, OWN_ORDERS_SCHEMA, NO_ORDERS);
   const menu = navMenuOf(pathname);
+  const arrangeable = menu !== null && userArrange[menu];
 
   return {
     menu,
+    arrangeable,
     site: menu === 'admin' ? adminNavOrder : EMPTY_NAV_ORDER,
-    own: (menu && stored[menu]) || EMPTY_NAV_ORDER,
+    own: (arrangeable && stored[menu]) || EMPTY_NAV_ORDER,
   };
 }
 

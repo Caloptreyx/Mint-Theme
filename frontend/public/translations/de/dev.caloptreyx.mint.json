@@ -592,6 +592,13 @@
       },
       "navOrder": {
         "title": "Menüreihenfolge",
+        "userArrange": "Benutzer können anordnen",
+        "userArrangeDescription": "Welche Menüs „Menü anordnen“ bekommen, auch für Admins. Ausgeschaltet zeigt das Menü für alle die Reihenfolge des Panels, und gespeicherte Reihenfolgen der Benutzer werden ignoriert; sie kehren zurück, wenn du es wieder einschaltest.",
+        "menus": {
+          "server": "Servermenü",
+          "dashboard": "Dashboardmenü",
+          "admin": "Adminmenü"
+        },
         "label": "Reihenfolge des Adminmenüs",
         "description": "Das Menü des Adminbereichs für alle: Ziehe Links und ganze Kategorien sowie Links innerhalb ihrer Kategorie. Benutzer können ihre eigenen Menüs weiterhin darüber anordnen. Server- und Dashboardmenü folgen den Routenreihenfolgen der Egg-Konfigurationen und der Benutzereinstellungen.",
         "empty": "Das Adminmenü ist noch nicht geladen.",

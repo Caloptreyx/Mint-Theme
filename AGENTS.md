@@ -168,7 +168,11 @@ and break silently when core moves a file. Everything here is runtime:
   each link's wrappers with a marker in a hidden probe first and lists only links that left one; the list is read once
   per open. A save is merged into the previous order (`mergeNavOrder`), so ids not on screen (another egg's links)
   keep their place. The editor's Navigation section arranges `adminNavOrder` over the admin menu GroupedNav publishes
-  beside the editor (`publishAdminMenu`), as core renders it for the signed in admin.
+  beside the editor (`publishAdminMenu`), as core renders it for the signed in admin. Above it, `userArrange` (theme,
+  site wide, `{ server, dashboard, admin }` booleans, all true by default) turns users' arranging off per menu, admins
+  included: `useNavOrders()` reports `arrangeable`, ArrangeMenu renders nothing and the user's saved order is ignored,
+  not deleted, so turning it back on restores it. The menu is drawn in the browser, so writing `nebula::nav_order`
+  through core's settings API cannot get around it.
 - A second `Sidebar.addPropsInterceptor` (`withNavSearch`, `elements/sidebar/NavSearch.tsx`) walks the routers'
   header and footer fragments and swaps core's `QuickActionsTrigger` and footer `ServerSwitcher` in place (by
   identity) for `NavSearch` and `NavSearchFooter`, which read `searchComponent` live. 'palette' renders core's

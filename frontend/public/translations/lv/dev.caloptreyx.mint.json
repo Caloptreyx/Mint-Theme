@@ -592,6 +592,13 @@
       },
       "navOrder": {
         "title": "Izvēlnes secība",
+        "userArrange": "Lietotāji var kārtot",
+        "userArrangeDescription": "Kurām izvēlnēm ir “Kārtot izvēlni”, arī administratoriem. Izslēgts — izvēlne visiem rāda paneļa secību, un lietotāju saglabātās secības tiek ignorētas; tās atgriežas, ja to atkal ieslēdz.",
+        "menus": {
+          "server": "Servera izvēlne",
+          "dashboard": "Paneļa izvēlne",
+          "admin": "Administrācijas izvēlne"
+        },
         "label": "Administrācijas izvēlnes secība",
         "description": "Administrācijas izvēlne visiem: velc saites un veselas kategorijas, kā arī saites to kategorijā. Lietotāji joprojām var sakārtot savas izvēlnes virs tās. Servera un paneļa izvēlnes seko maršrutu secībām egg konfigurācijās un lietotāju iestatījumos.",
         "empty": "Administrācijas izvēlne vēl nav ielādēta.",

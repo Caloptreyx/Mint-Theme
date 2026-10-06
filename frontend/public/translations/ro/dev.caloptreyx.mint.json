@@ -592,6 +592,13 @@
       },
       "navOrder": {
         "title": "Ordinea meniului",
+        "userArrange": "Utilizatorii pot aranja",
+        "userArrangeDescription": "Ce meniuri au „Aranjează meniul”, inclusiv pentru administratori. Dezactivat, meniul arată tuturor ordinea panoului, iar ordinile salvate de utilizatori sunt ignorate; revin dacă îl activezi din nou.",
+        "menus": {
+          "server": "Meniul serverului",
+          "dashboard": "Meniul panoului",
+          "admin": "Meniul de administrare"
+        },
         "label": "Ordinea meniului de administrare",
         "description": "Meniul zonei de administrare pentru toată lumea: trage linkuri și categorii întregi, precum și linkuri în cadrul categoriei lor. Utilizatorii își pot aranja în continuare propriile meniuri peste el. Meniurile de server și de panou urmează ordinea rutelor din configurațiile egg și din setările utilizatorilor.",
         "empty": "Meniul de administrare nu s-a încărcat încă.",

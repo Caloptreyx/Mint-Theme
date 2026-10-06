@@ -157,6 +157,11 @@ export const SETTINGS: Setting[] = [
   },
   {
     section: 'navigation',
+    label: 'editor.navOrder.userArrange',
+    also: ['editor.navOrder.userArrangeDescription', 'editor.navOrder.menus.'],
+  },
+  {
+    section: 'navigation',
     label: 'editor.navOrder.label',
     also: ['editor.navOrder.title', 'editor.navOrder.description'],
   },

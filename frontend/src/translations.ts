@@ -615,6 +615,14 @@ const translations = defineTranslations({
       },
       navOrder: {
         title: 'Menu order',
+        userArrange: 'Users can arrange',
+        userArrangeDescription:
+          "Which menus get 'Arrange menu', admins included. Turned off, the menu shows the panel's order for everyone and the orders users saved are ignored; they come back if you turn it on again.",
+        menus: {
+          server: 'Server menu',
+          dashboard: 'Dashboard menu',
+          admin: 'Admin menu',
+        },
         label: 'Admin menu order',
         description:
           "The admin area's menu for everyone: drag links and whole categories, and links within their category. Users can still arrange their own menus over it. The server and dashboard menus follow the route orders of the egg configurations and the user settings.",

@@ -592,6 +592,13 @@
       },
       "navOrder": {
         "title": "Kolejność menu",
+        "userArrange": "Użytkownicy mogą porządkować",
+        "userArrangeDescription": "Które menu mają „Uporządkuj menu”, także dla administratorów. Po wyłączeniu menu pokazuje wszystkim kolejność panelu, a zapisane kolejności użytkowników są ignorowane; wracają po ponownym włączeniu.",
+        "menus": {
+          "server": "Menu serwera",
+          "dashboard": "Menu pulpitu",
+          "admin": "Menu administracyjne"
+        },
         "label": "Kolejność menu administracyjnego",
         "description": "Menu panelu administracyjnego dla wszystkich: przeciągaj linki i całe kategorie oraz linki w obrębie ich kategorii. Użytkownicy nadal mogą układać własne menu ponad nim. Menu serwera i pulpitu stosują kolejność tras z konfiguracji eggów i ustawień użytkownika.",
         "empty": "Menu administracyjne jeszcze się nie wczytało.",

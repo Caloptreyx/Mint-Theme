@@ -104,7 +104,7 @@ export default function ArrangeMenu({
   rail?: boolean;
 }) {
   const { t } = useExtTranslations();
-  const { menu, site, own } = useNavOrders();
+  const { menu, arrangeable, site, own } = useNavOrders();
   const [opened, setOpened] = useState(false);
   const wrap = useRef<HTMLDivElement>(null);
   const [inRail, setInRail] = useState(false);
@@ -113,7 +113,8 @@ export default function ArrangeMenu({
     setInRail(rail && !!wrap.current?.closest('#sidebar-desktop'));
   }, [rail]);
 
-  if (!menu) return null;
+  // the theme's `userArrange` can turn arranging off per menu
+  if (!menu || !arrangeable) return null;
 
   const label = t('arrangeMenu.open', {});
 

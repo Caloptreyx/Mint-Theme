@@ -1613,6 +1613,32 @@ describe('admin menu order', () => {
   });
 });
 
+describe('users arranging their menus', () => {
+  const ALL = { server: true, dashboard: true, admin: true };
+
+  test('every menu is open by default, also for themes saved before the option', () => {
+    assert.deepEqual(DEFAULT_THEME.userArrange, ALL);
+    assert.deepEqual(normalizeTheme({ accent: '#2fbf8f' }).userArrange, ALL);
+  });
+
+  test('takes booleans per menu; others keep the fallback', () => {
+    assert.deepEqual(normalizeTheme({ userArrange: { admin: false } }).userArrange, { ...ALL, admin: false });
+    const d = { ...DEFAULT_THEME, userArrange: { server: false, dashboard: true, admin: false } };
+    assert.deepEqual(
+      normalizeTheme({ userArrange: { server: 'false', dashboard: false, admin: 0, extra: true } }, d).userArrange,
+      { server: false, dashboard: false, admin: false },
+    );
+    for (const bad of ['x', 1, null, true, [false]]) {
+      assert.deepEqual(normalizeTheme({ userArrange: bad }, d).userArrange, d.userArrange, String(bad));
+    }
+  });
+
+  test('is site wide: a picked preset cannot unlock a menu', () => {
+    const site = { ...DEFAULT_THEME, userArrange: { ...ALL, server: false } };
+    assert.equal(withUserTheme(site, { userArrange: ALL }).userArrange.server, false);
+  });
+});
+
 describe('light mode leftovers and text on accent', () => {
   const LIGHT = 'html:root[data-mantine-color-scheme="light"]';
   /** Every rule whose selector contains `part`, as `selector{body}`, with at-rules unwrapped. */

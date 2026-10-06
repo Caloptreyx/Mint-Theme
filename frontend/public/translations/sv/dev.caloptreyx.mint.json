@@ -592,6 +592,13 @@
       },
       "navOrder": {
         "title": "Menyordning",
+        "userArrange": "Användare kan ordna",
+        "userArrangeDescription": "Vilka menyer som får ”Ordna menyn”, även för admins. Avstängt visar menyn panelens ordning för alla och användarnas sparade ordningar ignoreras; de kommer tillbaka om du slår på det igen.",
+        "menus": {
+          "server": "Servermeny",
+          "dashboard": "Instrumentpanelens meny",
+          "admin": "Adminmeny"
+        },
         "label": "Adminmenyns ordning",
         "description": "Adminområdets meny för alla: dra länkar och hela kategorier, och länkar inom sin kategori. Användare kan fortfarande ordna sina egna menyer ovanpå. Server- och instrumentpanelsmenyerna följer ruttordningarna i egg-konfigurationerna och användarinställningarna.",
         "empty": "Adminmenyn har inte laddats än.",

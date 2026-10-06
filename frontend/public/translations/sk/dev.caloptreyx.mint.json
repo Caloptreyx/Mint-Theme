@@ -592,6 +592,13 @@
       },
       "navOrder": {
         "title": "Poradie menu",
+        "userArrange": "Používatelia môžu usporiadať",
+        "userArrangeDescription": "Ktoré menu majú „Usporiadať menu“, aj pre administrátorov. Po vypnutí menu ukazuje všetkým poradie panela a uložené poradia používateľov sa ignorujú; vrátia sa, keď ho znova zapnete.",
+        "menus": {
+          "server": "Menu servera",
+          "dashboard": "Menu nástenky",
+          "admin": "Administrátorské menu"
+        },
         "label": "Poradie administrátorského menu",
         "description": "Menu administrácie pre všetkých: presúvajte odkazy a celé kategórie a odkazy v rámci ich kategórie. Používatelia si stále môžu nad ním usporiadať vlastné menu. Menu servera a nástenky sa riadia poradím trás v konfiguráciách eggov a v nastaveniach používateľov.",
         "empty": "Administrátorské menu sa ešte nenačítalo.",

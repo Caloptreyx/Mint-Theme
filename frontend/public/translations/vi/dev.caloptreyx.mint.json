@@ -592,6 +592,13 @@
       },
       "navOrder": {
         "title": "Thứ tự menu",
+        "userArrange": "Người dùng có thể sắp xếp",
+        "userArrangeDescription": "Những menu nào có “Sắp xếp menu”, kể cả quản trị viên. Khi tắt, menu hiển thị thứ tự của panel cho mọi người và thứ tự người dùng đã lưu bị bỏ qua; chúng sẽ quay lại nếu bạn bật lại.",
+        "menus": {
+          "server": "Menu máy chủ",
+          "dashboard": "Menu bảng điều khiển",
+          "admin": "Menu quản trị"
+        },
         "label": "Thứ tự menu quản trị",
         "description": "Menu khu vực quản trị cho mọi người: kéo các liên kết và cả danh mục, cũng như các liên kết trong danh mục của chúng. Người dùng vẫn có thể tự sắp xếp menu của mình đè lên. Menu máy chủ và bảng điều khiển theo thứ tự route của cấu hình egg và cài đặt người dùng.",
         "empty": "Menu quản trị chưa tải xong.",

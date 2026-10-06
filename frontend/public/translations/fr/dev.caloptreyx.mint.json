@@ -592,6 +592,13 @@
       },
       "navOrder": {
         "title": "Ordre du menu",
+        "userArrange": "Les utilisateurs peuvent organiser",
+        "userArrangeDescription": "Quels menus reçoivent « Organiser le menu », administrateurs compris. Désactivé, le menu suit l'ordre du panel pour tout le monde et les ordres enregistrés par les utilisateurs sont ignorés ; ils reviennent si vous le réactivez.",
+        "menus": {
+          "server": "Menu serveur",
+          "dashboard": "Menu tableau de bord",
+          "admin": "Menu d'administration"
+        },
         "label": "Ordre du menu d'administration",
         "description": "Le menu de l'administration pour tout le monde : faites glisser les liens et des catégories entières, et les liens au sein de leur catégorie. Les utilisateurs peuvent toujours organiser leurs propres menus par-dessus. Les menus serveur et tableau de bord suivent l'ordre des routes des configurations d'eggs et des paramètres utilisateur.",
         "empty": "Le menu d'administration n'est pas encore chargé.",

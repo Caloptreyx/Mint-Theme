@@ -592,6 +592,13 @@
       },
       "navOrder": {
         "title": "Orden del menú",
+        "userArrange": "Los usuarios pueden ordenar",
+        "userArrangeDescription": "Qué menús tienen «Ordenar menú», administradores incluidos. Desactivado, el menú muestra el orden del panel para todos y se ignoran los órdenes guardados por los usuarios; vuelven si lo activas de nuevo.",
+        "menus": {
+          "server": "Menú de servidor",
+          "dashboard": "Menú del panel",
+          "admin": "Menú de administración"
+        },
         "label": "Orden del menú de administración",
         "description": "El menú de la administración para todos: arrastra enlaces y categorías completas, y los enlaces dentro de su categoría. Los usuarios aún pueden ordenar sus propios menús encima. Los menús de servidor y del panel siguen el orden de rutas de las configuraciones de eggs y de los ajustes de usuario.",
         "empty": "El menú de administración aún no se ha cargado.",

@@ -592,6 +592,13 @@
       },
       "navOrder": {
         "title": "Menü sırası",
+        "userArrange": "Kullanıcılar düzenleyebilir",
+        "userArrangeDescription": "Hangi menülerde “Menüyü düzenle” olacağı, yöneticiler dahil. Kapalıyken menü herkese panelin sırasını gösterir ve kullanıcıların kaydettiği sıralar yok sayılır; tekrar açarsanız geri gelirler.",
+        "menus": {
+          "server": "Sunucu menüsü",
+          "dashboard": "Pano menüsü",
+          "admin": "Yönetim menüsü"
+        },
         "label": "Yönetim menüsü sırası",
         "description": "Herkes için yönetim alanının menüsü: bağlantıları ve kategorilerin tamamını, kategorileri içindeki bağlantıları sürükleyin. Kullanıcılar yine de kendi menülerini bunun üzerine düzenleyebilir. Sunucu ve pano menüleri egg yapılandırmalarının ve kullanıcı ayarlarının rota sıralarını izler.",
         "empty": "Yönetim menüsü henüz yüklenmedi.",

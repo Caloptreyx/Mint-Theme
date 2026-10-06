@@ -592,6 +592,13 @@
       },
       "navOrder": {
         "title": "Ordem do menu",
+        "userArrange": "Os usuários podem organizar",
+        "userArrangeDescription": "Quais menus têm «Organizar menu», incluindo administradores. Desativado, o menu mostra a ordem do painel para todos e as ordens salvas pelos usuários são ignoradas; elas voltam se você ativar de novo.",
+        "menus": {
+          "server": "Menu do servidor",
+          "dashboard": "Menu do painel",
+          "admin": "Menu de administração"
+        },
         "label": "Ordem do menu de administração",
         "description": "O menu da administração para todos: arraste links e categorias inteiras, e links dentro da sua categoria. Os usuários ainda podem organizar os próprios menus por cima. Os menus de servidor e do painel seguem a ordem de rotas das configurações de eggs e das configurações de usuário.",
         "empty": "O menu de administração ainda não carregou.",

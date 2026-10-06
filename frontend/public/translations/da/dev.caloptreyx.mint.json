@@ -592,6 +592,13 @@
       },
       "navOrder": {
         "title": "Menurækkefølge",
+        "userArrange": "Brugere kan arrangere",
+        "userArrangeDescription": "Hvilke menuer får »Arranger menu«, også for admins. Slået fra viser menuen panelets rækkefølge for alle, og brugernes gemte rækkefølger ignoreres; de kommer tilbage, hvis du slår det til igen.",
+        "menus": {
+          "server": "Servermenu",
+          "dashboard": "Dashboardmenu",
+          "admin": "Adminmenu"
+        },
         "label": "Adminmenuens rækkefølge",
         "description": "Adminområdets menu for alle: træk links og hele kategorier samt links inden for deres kategori. Brugere kan stadig arrangere deres egne menuer oven på den. Server- og dashboardmenuerne følger ruterækkefølgerne i egg-konfigurationerne og brugerindstillingerne.",
         "empty": "Adminmenuen er ikke indlæst endnu.",

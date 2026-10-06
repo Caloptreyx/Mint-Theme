@@ -1,4 +1,11 @@
-import { EMPTY_NAV_ORDER, type NavOrder, normalizeNavOrder } from './navOrder.ts';
+import {
+  ALL_ARRANGEABLE,
+  EMPTY_NAV_ORDER,
+  type NavArrange,
+  type NavOrder,
+  normalizeNavArrange,
+  normalizeNavOrder,
+} from './navOrder.ts';
 
 export const FONTS = ['exo', 'montserrat', 'outfit', 'jakarta', 'space', 'panel'] as const;
 export type Font = (typeof FONTS)[number];
@@ -195,6 +202,8 @@ export interface NebulaTheme {
   mobileEditor: boolean;
   /** The admin area's menu for everyone, over core's order; users can still arrange their own on top. */
   adminNavOrder: NavOrder;
+  /** Per menu, whether users get 'Arrange menu' and their own order there (admins included). */
+  userArrange: NavArrange;
 }
 
 export const DEFAULT_THEME: NebulaTheme = {
@@ -260,6 +269,7 @@ export const DEFAULT_THEME: NebulaTheme = {
   mobileNav: 'drawer',
   mobileEditor: true,
   adminNavOrder: EMPTY_NAV_ORDER,
+  userArrange: ALL_ARRANGEABLE,
 };
 
 /**
@@ -569,6 +579,7 @@ export function normalizeTheme(raw: unknown, d: NebulaTheme = DEFAULT_THEME): Ne
       r.adminNavOrder && typeof r.adminNavOrder === 'object' && !Array.isArray(r.adminNavOrder)
         ? normalizeNavOrder(r.adminNavOrder)
         : d.adminNavOrder,
+    userArrange: normalizeNavArrange(r.userArrange, d.userArrange),
   };
 }
 
