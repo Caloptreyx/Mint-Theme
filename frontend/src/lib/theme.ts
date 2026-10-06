@@ -1,3 +1,5 @@
+import { EMPTY_NAV_ORDER, type NavOrder, normalizeNavOrder } from './navOrder.ts';
+
 export const FONTS = ['exo', 'montserrat', 'outfit', 'jakarta', 'space', 'panel'] as const;
 export type Font = (typeof FONTS)[number];
 export const MONO_FONTS = ['panel', 'jetbrains', 'fira'] as const;
@@ -191,6 +193,8 @@ export interface NebulaTheme {
   mobileNav: MobileNav;
   /** Phones (touch, editor under 768px wide): Monaco gets phone settings and the file editor a key row. */
   mobileEditor: boolean;
+  /** The admin area's menu for everyone, over core's order; users can still arrange their own on top. */
+  adminNavOrder: NavOrder;
 }
 
 export const DEFAULT_THEME: NebulaTheme = {
@@ -255,6 +259,7 @@ export const DEFAULT_THEME: NebulaTheme = {
   favicon: '',
   mobileNav: 'drawer',
   mobileEditor: true,
+  adminNavOrder: EMPTY_NAV_ORDER,
 };
 
 /**
@@ -560,6 +565,10 @@ export function normalizeTheme(raw: unknown, d: NebulaTheme = DEFAULT_THEME): Ne
     favicon: url(r.favicon, d.favicon),
     mobileNav: MOBILE_NAVS.find((nav) => nav === r.mobileNav) ?? d.mobileNav,
     mobileEditor: typeof r.mobileEditor === 'boolean' ? r.mobileEditor : d.mobileEditor,
+    adminNavOrder:
+      r.adminNavOrder && typeof r.adminNavOrder === 'object' && !Array.isArray(r.adminNavOrder)
+        ? normalizeNavOrder(r.adminNavOrder)
+        : d.adminNavOrder,
   };
 }
 
@@ -867,7 +876,8 @@ const SIDEBAR_FOOTER = `${SIDEBAR} #sidebar-content > .shrink-0:last-child`;
 
 /** 'slim': a fixed 64px icon rail; RailTip names the links in tooltips, GroupedNav shows every section's links. */
 function railCss(): string[] {
-  const LINK = `${SIDEBAR} a > .mantine-Button-root`;
+  // core's links, and 'Arrange menu' (elements/sidebar/ArrangeMenu.tsx), which copies their button
+  const LINK = `${SIDEBAR} :is(a > .mantine-Button-root,.nebula-arrange)`;
   const SEARCH = `${SIDEBAR_HEADER} > .mantine-Button-root`;
   const SERVER = `${SIDEBAR_HEADER} > .mantine-Card-root`;
   const ACCOUNT = `${SIDEBAR} #sidebar-account-card`;

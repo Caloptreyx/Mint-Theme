@@ -1328,7 +1328,12 @@ describe('dashboard layout and dock position', () => {
 
   test('the rail keeps the link names for screen readers and shows every section as a rule over its links', () => {
     const css = laid('slim');
-    assert.ok(css.includes(`${SIDEBAR} a > .mantine-Button-root .mantine-Button-label{justify-content:center;font-size:0;}`));
+    // core's links and 'Arrange menu' shrink their names the same way
+    assert.ok(
+      css.includes(
+        `${SIDEBAR} :is(a > .mantine-Button-root,.nebula-arrange) .mantine-Button-label{justify-content:center;font-size:0;}`,
+      ),
+    );
     assert.ok(css.includes(`${SIDEBAR} .nebula-sb-toggle,${SIDEBAR} .mantine-Divider-label{display:none;}`));
     assert.ok(css.includes(`${SIDEBAR} .nebula-sb-rule{display:block;}`));
     assert.ok(css.includes(`${SIDEBAR} .nebula-sb-items{display:block;`));
@@ -1566,6 +1571,45 @@ describe('phone navigation', () => {
 
   test('mobileEditor is site wide, not part of a picked preset', () => {
     assert.equal(withUserTheme(DEFAULT_THEME, { mobileEditor: false }).mobileEditor, true);
+  });
+});
+
+describe('admin menu order', () => {
+  test('the default and themes saved before the option keep core order', () => {
+    assert.deepEqual(DEFAULT_THEME.adminNavOrder, { top: [], sections: {} });
+    assert.deepEqual(normalizeTheme({ accent: '#2fbf8f' }).adminNavOrder, { top: [], sections: {} });
+  });
+
+  test('keeps a valid order and cleans one with junk in it', () => {
+    const order = { top: ['section:system', '/admin/servers'], sections: { 'section:system': ['/admin/mint'] } };
+    assert.deepEqual(normalizeTheme({ adminNavOrder: order }).adminNavOrder, order);
+    assert.deepEqual(
+      normalizeTheme({ adminNavOrder: { top: ['/a', 3, '/a'], sections: { s: 'x', t: [null, '/b'] }, extra: 1 } })
+        .adminNavOrder,
+      { top: ['/a'], sections: { t: ['/b'] } },
+    );
+  });
+
+  test('anything but an object falls back to the given theme', () => {
+    const d = { ...DEFAULT_THEME, adminNavOrder: { top: ['/admin/users'], sections: {} } };
+    for (const bad of ['x', 1, null, true, ['/admin/users']]) {
+      assert.deepEqual(normalizeTheme({ adminNavOrder: bad }, d).adminNavOrder, d.adminNavOrder, String(bad));
+    }
+  });
+
+  test('is site wide, not part of a picked preset', () => {
+    const site = { ...DEFAULT_THEME, adminNavOrder: { top: ['/admin/users'], sections: {} } };
+    assert.deepEqual(withUserTheme(site, { adminNavOrder: { top: ['/admin/nodes'], sections: {} } }).adminNavOrder, {
+      top: ['/admin/users'],
+      sections: {},
+    });
+  });
+
+  test('adds no CSS', () => {
+    assert.equal(
+      buildCss({ ...DEFAULT_THEME, adminNavOrder: { top: ['/admin/users'], sections: {} } }),
+      buildCss(DEFAULT_THEME),
+    );
   });
 });
 

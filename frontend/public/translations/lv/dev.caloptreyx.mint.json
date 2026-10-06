@@ -139,6 +139,20 @@
       "label": "Tālruņa navigācija",
       "menu": "Izvēlne"
     },
+    "arrangeMenu": {
+      "open": "Kārtot izvēlni",
+      "title": "Kārtot izvēlni",
+      "description": {
+        "server": "Velc saites un veselas sadaļas savā secībā. Tā attiecas uz katra servera izvēlni, un to redzi tikai tu.",
+        "dashboard": "Velc saites un veselas sadaļas savā secībā. To redzi tikai tu.",
+        "admin": "Velc saites un veselas kategorijas savā secībā. To redzi tikai tu, virs administrācijai iestatītās secības."
+      },
+      "move": "Pārvietot {name}",
+      "moveSection": "Pārvietot sadaļu {name}",
+      "reset": "Atiestatīt",
+      "cancel": "Atcelt",
+      "save": "Saglabāt"
+    },
     "mobileEditor": {
       "toolbar": "Redaktora taustiņi",
       "undo": "Atsaukt",
@@ -575,6 +589,13 @@
           "drawer": "Izvelkamā izvēlne",
           "bottomBar": "Apakšējā josla"
         }
+      },
+      "navOrder": {
+        "title": "Izvēlnes secība",
+        "label": "Administrācijas izvēlnes secība",
+        "description": "Administrācijas izvēlne visiem: velc saites un veselas kategorijas, kā arī saites to kategorijā. Lietotāji joprojām var sakārtot savas izvēlnes virs tās. Servera un paneļa izvēlnes seko maršrutu secībām egg konfigurācijās un lietotāju iestatījumos.",
+        "empty": "Administrācijas izvēlne vēl nav ielādēta.",
+        "reset": "Atpakaļ uz paneļa secību"
       }
     },
     "library": {

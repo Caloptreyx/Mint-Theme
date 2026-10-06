@@ -139,6 +139,20 @@
       "label": "Telefon gezinmesi",
       "menu": "Menü"
     },
+    "arrangeMenu": {
+      "open": "Menüyü düzenle",
+      "title": "Menüyü düzenle",
+      "description": {
+        "server": "Bağlantıları ve bölümlerin tamamını kendi sıranıza sürükleyin. Her sunucunun menüsünde geçerlidir ve yalnızca siz görürsünüz.",
+        "dashboard": "Bağlantıları ve bölümlerin tamamını kendi sıranıza sürükleyin. Yalnızca siz görürsünüz.",
+        "admin": "Bağlantıları ve kategorilerin tamamını kendi sıranıza sürükleyin. Yalnızca siz görürsünüz; yönetim alanı için belirlenen sıranın üzerinde geçerlidir."
+      },
+      "move": "{name} öğesini taşı",
+      "moveSection": "{name} bölümünü taşı",
+      "reset": "Sıfırla",
+      "cancel": "İptal",
+      "save": "Kaydet"
+    },
     "mobileEditor": {
       "toolbar": "Düzenleyici tuşları",
       "undo": "Geri al",
@@ -575,6 +589,13 @@
           "drawer": "Çekmece",
           "bottomBar": "Alt çubuk"
         }
+      },
+      "navOrder": {
+        "title": "Menü sırası",
+        "label": "Yönetim menüsü sırası",
+        "description": "Herkes için yönetim alanının menüsü: bağlantıları ve kategorilerin tamamını, kategorileri içindeki bağlantıları sürükleyin. Kullanıcılar yine de kendi menülerini bunun üzerine düzenleyebilir. Sunucu ve pano menüleri egg yapılandırmalarının ve kullanıcı ayarlarının rota sıralarını izler.",
+        "empty": "Yönetim menüsü henüz yüklenmedi.",
+        "reset": "Panelin sırasına dön"
       }
     },
     "library": {

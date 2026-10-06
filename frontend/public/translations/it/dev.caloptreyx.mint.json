@@ -139,6 +139,20 @@
       "label": "Navigazione su telefono",
       "menu": "Menu"
     },
+    "arrangeMenu": {
+      "open": "Ordina menu",
+      "title": "Ordina menu",
+      "description": {
+        "server": "Trascina link e intere sezioni nel tuo ordine. Vale per il menu di ogni server e lo vedi solo tu.",
+        "dashboard": "Trascina link e intere sezioni nel tuo ordine. Lo vedi solo tu.",
+        "admin": "Trascina link e intere categorie nel tuo ordine. Lo vedi solo tu, sopra l'ordine impostato per l'amministrazione."
+      },
+      "move": "Sposta {name}",
+      "moveSection": "Sposta la sezione {name}",
+      "reset": "Ripristina",
+      "cancel": "Annulla",
+      "save": "Salva"
+    },
     "mobileEditor": {
       "toolbar": "Tasti dell'editor",
       "undo": "Annulla",
@@ -575,6 +589,13 @@
           "drawer": "Cassetto",
           "bottomBar": "Barra inferiore"
         }
+      },
+      "navOrder": {
+        "title": "Ordine del menu",
+        "label": "Ordine del menu di amministrazione",
+        "description": "Il menu dell'amministrazione per tutti: trascina link e intere categorie, e i link all'interno della loro categoria. Gli utenti possono comunque ordinare i propri menu sopra di esso. I menu server e dashboard seguono l'ordine delle rotte delle configurazioni egg e delle impostazioni utente.",
+        "empty": "Il menu di amministrazione non è ancora caricato.",
+        "reset": "Torna all'ordine del pannello"
       }
     },
     "library": {

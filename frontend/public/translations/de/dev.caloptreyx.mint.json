@@ -139,6 +139,20 @@
       "label": "Smartphone-Navigation",
       "menu": "Menü"
     },
+    "arrangeMenu": {
+      "open": "Menü anordnen",
+      "title": "Menü anordnen",
+      "description": {
+        "server": "Ziehe Links und ganze Abschnitte in deine eigene Reihenfolge. Sie gilt für das Menü jedes Servers und nur du siehst sie.",
+        "dashboard": "Ziehe Links und ganze Abschnitte in deine eigene Reihenfolge. Nur du siehst sie.",
+        "admin": "Ziehe Links und ganze Kategorien in deine eigene Reihenfolge. Nur du siehst sie, über der für den Adminbereich festgelegten Reihenfolge."
+      },
+      "move": "{name} verschieben",
+      "moveSection": "Abschnitt {name} verschieben",
+      "reset": "Zurücksetzen",
+      "cancel": "Abbrechen",
+      "save": "Speichern"
+    },
     "mobileEditor": {
       "toolbar": "Editortasten",
       "undo": "Rückgängig",
@@ -575,6 +589,13 @@
           "drawer": "Schublade",
           "bottomBar": "Untere Leiste"
         }
+      },
+      "navOrder": {
+        "title": "Menüreihenfolge",
+        "label": "Reihenfolge des Adminmenüs",
+        "description": "Das Menü des Adminbereichs für alle: Ziehe Links und ganze Kategorien sowie Links innerhalb ihrer Kategorie. Benutzer können ihre eigenen Menüs weiterhin darüber anordnen. Server- und Dashboardmenü folgen den Routenreihenfolgen der Egg-Konfigurationen und der Benutzereinstellungen.",
+        "empty": "Das Adminmenü ist noch nicht geladen.",
+        "reset": "Zurück zur Reihenfolge des Panels"
       }
     },
     "library": {

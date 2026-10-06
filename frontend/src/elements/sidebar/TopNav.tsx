@@ -51,8 +51,9 @@ function NavMenu({ label, items }: { label: string; items: ReactNode[] }) {
 /**
  * The horizontal layout's menu: core's Sidebar.Link elements in a row that scrolls sideways when it runs out of
  * room. With `sidebarGroups` on, each labelled divider's links go in a dropdown; other dividers are thin rules.
+ * `end` comes last in the row ('Arrange menu').
  */
-export default function TopNav({ items, groups }: { items: ReactNode[]; groups: boolean }) {
+export default function TopNav({ items, groups, end }: { items: ReactNode[]; groups: boolean; end: ReactNode }) {
   const { t } = useExtTranslations();
   const entries: NavEntry[] = groups ? groupNav(items) : items.map((node) => ({ kind: 'node', node }));
 
@@ -64,6 +65,7 @@ export default function TopNav({ items, groups }: { items: ReactNode[]; groups: 
         }
         return isNavDivider(entry.node) ? <span key={`rule-${index}`} className='nebula-topnav-rule' /> : entry.node;
       })}
+      {end}
     </nav>
   );
 }

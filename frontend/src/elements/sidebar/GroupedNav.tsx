@@ -4,7 +4,9 @@ import { type ReactNode, useEffect, useSyncExternalStore } from 'react';
 import { useLocation } from 'react-router';
 import { useNebulaTheme } from '../../lib/apply.ts';
 import { UnstyledButton } from '../../lib/core.ts';
-import { flatten, groupNav, isNavActive } from './nav.ts';
+import ArrangeMenu from './ArrangeMenu.tsx';
+import { publishAdminMenu } from './NavArranger.tsx';
+import { arrangeMenu, flatten, groupNav, isNavActive, useNavOrders } from './nav.ts';
 
 const CLOSED_KEY = 'nebula:sidebar-closed';
 
@@ -90,13 +92,19 @@ function Section({
   );
 }
 
-/** Turns the flat menu into collapsible sections at the panel's labelled dividers (see `groupNav`). */
+/**
+ * The menu in the site's and the user's order (see `arrangeMenu`), turned into collapsible sections at the panel's
+ * labelled dividers (see `groupNav`), with 'Arrange menu' last. The setup wizard's sidebar is left alone.
+ */
 export default function GroupedNav({ children }: { children: ReactNode }) {
   const { sidebarGroups, sidebarLayout } = useNebulaTheme();
   const { pathname } = useLocation();
+  const { menu, site, own } = useNavOrders();
   const closed = useSyncExternalStore(subscribe, () => closedSections);
 
-  const entries = sidebarGroups ? groupNav(flatten(children)) : [];
+  const raw = flatten(children);
+  const nodes = menu ? arrangeMenu(raw, [site, own]) : raw;
+  const entries = sidebarGroups ? groupNav(nodes) : [];
   // a closed section would hide the current page's link, so arriving on one of its pages opens it
   const activeSections = entries
     .flatMap((entry) =>
@@ -106,8 +114,22 @@ export default function GroupedNav({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (activeSections) openSections(activeSections.split('\n'));
   }, [pathname, activeSections]);
+  // the editor's admin menu order lists the menu as core renders it
+  useEffect(() => {
+    if (menu === 'admin') publishAdminMenu(raw);
+  });
 
-  if (!sidebarGroups) return <>{children}</>;
+  if (!menu) return <>{children}</>;
+
+  const arrange = <ArrangeMenu nodes={raw} rail={sidebarLayout === 'slim'} />;
+  if (!sidebarGroups) {
+    return (
+      <>
+        {nodes}
+        {arrange}
+      </>
+    );
+  }
 
   return (
     <>
@@ -125,6 +147,7 @@ export default function GroupedNav({ children }: { children: ReactNode }) {
           </Section>
         ),
       )}
+      {arrange}
     </>
   );
 }

@@ -139,6 +139,20 @@
       "label": "Mobilnavigering",
       "menu": "Meny"
     },
+    "arrangeMenu": {
+      "open": "Ordna menyn",
+      "title": "Ordna menyn",
+      "description": {
+        "server": "Dra länkar och hela avsnitt i din egen ordning. Den gäller menyn på alla servrar och bara du ser den.",
+        "dashboard": "Dra länkar och hela avsnitt i din egen ordning. Bara du ser den.",
+        "admin": "Dra länkar och hela kategorier i din egen ordning. Bara du ser den, ovanpå ordningen som satts för adminområdet."
+      },
+      "move": "Flytta {name}",
+      "moveSection": "Flytta avsnittet {name}",
+      "reset": "Återställ",
+      "cancel": "Avbryt",
+      "save": "Spara"
+    },
     "mobileEditor": {
       "toolbar": "Redigerartangenter",
       "undo": "Ångra",
@@ -575,6 +589,13 @@
           "drawer": "Utfällbar meny",
           "bottomBar": "Bottenfält"
         }
+      },
+      "navOrder": {
+        "title": "Menyordning",
+        "label": "Adminmenyns ordning",
+        "description": "Adminområdets meny för alla: dra länkar och hela kategorier, och länkar inom sin kategori. Användare kan fortfarande ordna sina egna menyer ovanpå. Server- och instrumentpanelsmenyerna följer ruttordningarna i egg-konfigurationerna och användarinställningarna.",
+        "empty": "Adminmenyn har inte laddats än.",
+        "reset": "Tillbaka till panelens ordning"
       }
     },
     "library": {

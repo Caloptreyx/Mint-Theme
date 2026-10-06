@@ -40,8 +40,13 @@ A dark theme for [Calagopus Panel](https://calagopus.com) with a live, built-in 
   sits flush, floats as a card or a rounded pill with a slim top bar, shrinks to an icon rail with
   tooltips, or turns into a top bar with the sections as dropdowns. The logo, search and server block
   (name, status, power buttons) can move out of it into a header or a floating bar above the pages.
+- **Menu order**: every user can drag the side menu into their own order ('Arrange menu' at the end of the
+  menu): links, and whole sections with the links inside them. It follows them to every device and applies to
+  every server's menu. Admins set the admin area's order for everyone in the editor; core's route orders still
+  shape the server and dashboard menus.
 - **Phone navigation**: phones keep core's slide out menu or get a bottom bar with the main pages (Home,
-  Console, Files and more on a server; Servers, Account, Admin on the dashboard) and a Menu button for the rest.
+  Console, Files and more on a server; Servers, Account, Admin on the dashboard), or the first links of an
+  arranged menu, and a Menu button for the rest.
 - **Phone file editor**: on phones the file editor (Monaco) wraps lines, drops the minimap and popups, uses a
   16px font and gets a row of keys above the keyboard: undo, redo, indent, find, the symbols phone keyboards
   hide and arrows. On by default; desktops are unchanged.

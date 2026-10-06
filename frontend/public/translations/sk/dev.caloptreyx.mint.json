@@ -139,6 +139,20 @@
       "label": "Navigácia na telefóne",
       "menu": "Ponuka"
     },
+    "arrangeMenu": {
+      "open": "Usporiadať menu",
+      "title": "Usporiadať menu",
+      "description": {
+        "server": "Presuňte odkazy a celé sekcie do vlastného poradia. Platí pre menu každého servera a vidíte ho len vy.",
+        "dashboard": "Presuňte odkazy a celé sekcie do vlastného poradia. Vidíte ho len vy.",
+        "admin": "Presuňte odkazy a celé kategórie do vlastného poradia. Vidíte ho len vy, nad poradím nastaveným pre administráciu."
+      },
+      "move": "Presunúť {name}",
+      "moveSection": "Presunúť sekciu {name}",
+      "reset": "Obnoviť",
+      "cancel": "Zrušiť",
+      "save": "Uložiť"
+    },
     "mobileEditor": {
       "toolbar": "Klávesy editora",
       "undo": "Späť",
@@ -575,6 +589,13 @@
           "drawer": "Vysúvací panel",
           "bottomBar": "Dolná lišta"
         }
+      },
+      "navOrder": {
+        "title": "Poradie menu",
+        "label": "Poradie administrátorského menu",
+        "description": "Menu administrácie pre všetkých: presúvajte odkazy a celé kategórie a odkazy v rámci ich kategórie. Používatelia si stále môžu nad ním usporiadať vlastné menu. Menu servera a nástenky sa riadia poradím trás v konfiguráciách eggov a v nastaveniach používateľov.",
+        "empty": "Administrátorské menu sa ešte nenačítalo.",
+        "reset": "Späť na poradie panela"
       }
     },
     "library": {

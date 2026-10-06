@@ -139,6 +139,20 @@
       "label": "Điều hướng trên điện thoại",
       "menu": "Menu"
     },
+    "arrangeMenu": {
+      "open": "Sắp xếp menu",
+      "title": "Sắp xếp menu",
+      "description": {
+        "server": "Kéo các liên kết và cả mục theo thứ tự của riêng bạn. Thứ tự này áp dụng cho menu của mọi máy chủ và chỉ bạn thấy.",
+        "dashboard": "Kéo các liên kết và cả mục theo thứ tự của riêng bạn. Chỉ bạn thấy.",
+        "admin": "Kéo các liên kết và cả danh mục theo thứ tự của riêng bạn. Chỉ bạn thấy, đè lên thứ tự đã đặt cho khu vực quản trị."
+      },
+      "move": "Di chuyển {name}",
+      "moveSection": "Di chuyển mục {name}",
+      "reset": "Đặt lại",
+      "cancel": "Hủy",
+      "save": "Lưu"
+    },
     "mobileEditor": {
       "toolbar": "Phím trình soạn thảo",
       "undo": "Hoàn tác",
@@ -575,6 +589,13 @@
           "drawer": "Ngăn kéo",
           "bottomBar": "Thanh dưới cùng"
         }
+      },
+      "navOrder": {
+        "title": "Thứ tự menu",
+        "label": "Thứ tự menu quản trị",
+        "description": "Menu khu vực quản trị cho mọi người: kéo các liên kết và cả danh mục, cũng như các liên kết trong danh mục của chúng. Người dùng vẫn có thể tự sắp xếp menu của mình đè lên. Menu máy chủ và bảng điều khiển theo thứ tự route của cấu hình egg và cài đặt người dùng.",
+        "empty": "Menu quản trị chưa tải xong.",
+        "reset": "Quay lại thứ tự của panel"
       }
     },
     "library": {

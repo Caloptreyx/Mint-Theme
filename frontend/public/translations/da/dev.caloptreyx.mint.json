@@ -139,6 +139,20 @@
       "label": "Mobilnavigation",
       "menu": "Menu"
     },
+    "arrangeMenu": {
+      "open": "Arranger menu",
+      "title": "Arranger menu",
+      "description": {
+        "server": "Træk links og hele sektioner i din egen rækkefølge. Den gælder for menuen på alle servere, og kun du ser den.",
+        "dashboard": "Træk links og hele sektioner i din egen rækkefølge. Kun du ser den.",
+        "admin": "Træk links og hele kategorier i din egen rækkefølge. Kun du ser den, oven på rækkefølgen sat for adminområdet."
+      },
+      "move": "Flyt {name}",
+      "moveSection": "Flyt sektionen {name}",
+      "reset": "Nulstil",
+      "cancel": "Annuller",
+      "save": "Gem"
+    },
     "mobileEditor": {
       "toolbar": "Editortaster",
       "undo": "Fortryd",
@@ -575,6 +589,13 @@
           "drawer": "Skuffe",
           "bottomBar": "Bundbjælke"
         }
+      },
+      "navOrder": {
+        "title": "Menurækkefølge",
+        "label": "Adminmenuens rækkefølge",
+        "description": "Adminområdets menu for alle: træk links og hele kategorier samt links inden for deres kategori. Brugere kan stadig arrangere deres egne menuer oven på den. Server- og dashboardmenuerne følger ruterækkefølgerne i egg-konfigurationerne og brugerindstillingerne.",
+        "empty": "Adminmenuen er ikke indlæst endnu.",
+        "reset": "Tilbage til panelets rækkefølge"
       }
     },
     "library": {

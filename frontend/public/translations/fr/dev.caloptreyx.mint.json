@@ -139,6 +139,20 @@
       "label": "Navigation mobile",
       "menu": "Menu"
     },
+    "arrangeMenu": {
+      "open": "Organiser le menu",
+      "title": "Organiser le menu",
+      "description": {
+        "server": "Faites glisser les liens et des sections entières dans votre propre ordre. Il s'applique au menu de chaque serveur et vous seul le voyez.",
+        "dashboard": "Faites glisser les liens et des sections entières dans votre propre ordre. Vous seul le voyez.",
+        "admin": "Faites glisser les liens et des catégories entières dans votre propre ordre. Vous seul le voyez, par-dessus l'ordre défini pour l'administration."
+      },
+      "move": "Déplacer {name}",
+      "moveSection": "Déplacer la section {name}",
+      "reset": "Réinitialiser",
+      "cancel": "Annuler",
+      "save": "Enregistrer"
+    },
     "mobileEditor": {
       "toolbar": "Touches de l'éditeur",
       "undo": "Annuler",
@@ -575,6 +589,13 @@
           "drawer": "Tiroir",
           "bottomBar": "Barre inférieure"
         }
+      },
+      "navOrder": {
+        "title": "Ordre du menu",
+        "label": "Ordre du menu d'administration",
+        "description": "Le menu de l'administration pour tout le monde : faites glisser les liens et des catégories entières, et les liens au sein de leur catégorie. Les utilisateurs peuvent toujours organiser leurs propres menus par-dessus. Les menus serveur et tableau de bord suivent l'ordre des routes des configurations d'eggs et des paramètres utilisateur.",
+        "empty": "Le menu d'administration n'est pas encore chargé.",
+        "reset": "Revenir à l'ordre du panel"
       }
     },
     "library": {

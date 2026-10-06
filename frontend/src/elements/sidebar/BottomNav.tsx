@@ -1,22 +1,23 @@
 import { faBars, faLink } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  Children,
-  cloneElement,
-  Fragment,
-  isValidElement,
-  type ReactElement,
-  type ReactNode,
-  useLayoutEffect,
-  useRef,
-} from 'react';
+import { Fragment, isValidElement, type ReactElement, type ReactNode, useLayoutEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router';
 import { useNebulaTheme } from '../../lib/apply.ts';
-import { Card, Sidebar } from '../../lib/core.ts';
+import { Card } from '../../lib/core.ts';
+import { isEmptyNavOrder, type NavOrder } from '../../lib/navOrder.ts';
 import { useExtTranslations } from '../../translations.ts';
 import { withConsoleRoot } from '../console/ConsoleFallback.tsx';
 import GroupedNav from './GroupedNav.tsx';
-import { findLink, flatten, isNavActive, type SidebarLinkProps, type SidebarProps } from './nav.ts';
+import {
+  arrangeMenu,
+  findLink,
+  flatten,
+  isNavActive,
+  type SidebarLinkProps,
+  type SidebarProps,
+  swapLink,
+  useNavOrders,
+} from './nav.ts';
 
 // Paths the bar prefers, in order. Server paths are relative to the server's own base (`/server/<id>`): Mint's
 // Home, the console, files, then backups or settings, whichever the user may open first.
@@ -64,33 +65,27 @@ function ranked(nodes: ReactNode[], order: string[], base = '', rest = true): Re
  * The menu entries worth a slot, from the menu the Sidebar received, so routes the user may not see or the egg
  * hides never show and extension routes can. On a server page its own links (the dashboard and admin links above
  * them stay in the drawer); in the admin area Back and the busiest pages; on the dashboard Servers, Account, Admin.
+ * A menu the site or the user arranged gives its first links instead, in that order.
  */
-function primaryLinks({ header, children }: SidebarProps, pathname: string): ReactNode[] {
+function primaryLinks({ header, children }: SidebarProps, pathname: string, orders: NavOrder[]): ReactNode[] {
   const menu =
     isValidElement<{ children?: ReactNode }>(children) && children.type === GroupedNav
       ? children.props.children
       : children;
+  const arranged = !orders.every(isEmptyNavOrder);
   // redirects can point off the panel
-  const nodes = [...flatten(header, 'header/'), ...flatten(menu, 'menu/')].filter((node) =>
+  const nodes = [...flatten(header, 'header/'), ...arrangeMenu(flatten(menu, 'menu/'), orders)].filter((node) =>
     linkPath(node).startsWith('/'),
   );
 
   const server = nodes.map((node) => /^\/server\/[^/]+/.exec(linkPath(node))?.[0]).find(Boolean);
   if (server) {
     const own = nodes.filter((node) => linkPath(node) === server || linkPath(node).startsWith(`${server}/`));
-    return ranked(own, SERVER_ORDER, server);
+    return arranged ? own : ranked(own, SERVER_ORDER, server);
   }
+  if (arranged) return nodes;
   if (pathname.startsWith('/admin')) return ranked(nodes, ADMIN_ORDER);
   return ranked(nodes, DASHBOARD_ORDER, '', false);
-}
-
-/** Replaces the Sidebar.Link inside a menu node, keeping its wrappers (`ServerCan` renders nothing without access). */
-function swapLink(node: ReactNode, render: (link: SidebarLinkProps) => ReactNode): ReactNode {
-  if (!isValidElement<{ children?: ReactNode }>(node)) return node;
-  if (node.type === Sidebar.Link) return render(node.props as SidebarLinkProps);
-  return cloneElement(node, {
-    children: Children.map(node.props.children, (child) => swapLink(child, render)),
-  });
 }
 
 function BarLink({ link, active }: { link: SidebarLinkProps; active: boolean }) {
@@ -127,6 +122,7 @@ export default function BottomNav({ element, ...sidebar }: SidebarProps & { elem
   const { mobileNav } = useNebulaTheme();
   const { pathname } = useLocation();
   const { t } = useExtTranslations();
+  const { site, own } = useNavOrders();
   const marker = useRef<HTMLSpanElement>(null);
   const bar = useRef<HTMLDivElement>(null);
   const shown = mobileNav === 'bottomBar' && !pathname.startsWith('/oobe');
@@ -162,7 +158,7 @@ export default function BottomNav({ element, ...sidebar }: SidebarProps & { elem
   // the setup wizard's sidebar holds its steps, so it keeps core's menu button
   if (!shown) return element;
 
-  const links = primaryLinks(sidebar, pathname);
+  const links = primaryLinks(sidebar, pathname, [site, own]);
 
   return (
     <>

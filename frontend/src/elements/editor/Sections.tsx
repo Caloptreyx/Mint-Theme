@@ -27,6 +27,7 @@ import EggImagesField from './EggImagesField.tsx';
 import FaviconField from './FaviconField.tsx';
 import InterfaceField from './InterfaceField.tsx';
 import LayoutField from './LayoutField.tsx';
+import NavOrderField from './NavOrderField.tsx';
 import NavStyleFields from './NavStyleFields.tsx';
 import ServerCardFields from './ServerCardFields.tsx';
 import SidebarLayoutFields from './SidebarLayoutFields.tsx';
@@ -383,6 +384,7 @@ export default function Sections({ section, theme, valid, set }: Props) {
         <Stack gap='xl'>
           <SidebarLayoutFields theme={theme} set={set} />
           <NavStyleFields theme={theme} set={set} />
+          <NavOrderField theme={theme} set={set} />
         </Stack>
       );
     case 'components':

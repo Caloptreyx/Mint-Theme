@@ -139,6 +139,20 @@
       "label": "Nawigacja na telefonie",
       "menu": "Menu"
     },
+    "arrangeMenu": {
+      "open": "Uporządkuj menu",
+      "title": "Uporządkuj menu",
+      "description": {
+        "server": "Przeciągnij linki i całe sekcje we własnej kolejności. Dotyczy menu każdego serwera i widzisz ją tylko ty.",
+        "dashboard": "Przeciągnij linki i całe sekcje we własnej kolejności. Widzisz ją tylko ty.",
+        "admin": "Przeciągnij linki i całe kategorie we własnej kolejności. Widzisz ją tylko ty, ponad kolejnością ustawioną dla panelu administracyjnego."
+      },
+      "move": "Przenieś {name}",
+      "moveSection": "Przenieś sekcję {name}",
+      "reset": "Resetuj",
+      "cancel": "Anuluj",
+      "save": "Zapisz"
+    },
     "mobileEditor": {
       "toolbar": "Klawisze edytora",
       "undo": "Cofnij",
@@ -575,6 +589,13 @@
           "drawer": "Szuflada",
           "bottomBar": "Dolny pasek"
         }
+      },
+      "navOrder": {
+        "title": "Kolejność menu",
+        "label": "Kolejność menu administracyjnego",
+        "description": "Menu panelu administracyjnego dla wszystkich: przeciągaj linki i całe kategorie oraz linki w obrębie ich kategorii. Użytkownicy nadal mogą układać własne menu ponad nim. Menu serwera i pulpitu stosują kolejność tras z konfiguracji eggów i ustawień użytkownika.",
+        "empty": "Menu administracyjne jeszcze się nie wczytało.",
+        "reset": "Wróć do kolejności panelu"
       }
     },
     "library": {

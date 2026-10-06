@@ -4,8 +4,9 @@ import { cloneElement, isValidElement, type ReactElement, type ReactNode, useLay
 import { useLocation } from 'react-router';
 import { useNebulaTheme } from '../../lib/apply.ts';
 import { Card, Sidebar, useRelativePageStore } from '../../lib/core.ts';
+import ArrangeMenu from './ArrangeMenu.tsx';
 import GroupedNav from './GroupedNav.tsx';
-import { flatten, type SidebarProps, splitHeader } from './nav.ts';
+import { arrangeMenu, flatten, type SidebarProps, splitHeader, useNavOrders } from './nav.ts';
 import TopNav from './TopNav.tsx';
 
 type Bar = 'header' | 'floating' | 'pill' | 'nav';
@@ -86,6 +87,7 @@ function PageTitle() {
 export default function SidebarShell({ element, ...sidebar }: SidebarProps & { element: ReactElement<SidebarProps> }) {
   const { sidebarLayout: layout, dockPosition, sidebarGroups } = useNebulaTheme();
   const { pathname } = useLocation();
+  const { site, own } = useNavOrders();
   const horizontal = layout === 'horizontal';
   const moveDock = !horizontal && dockPosition !== 'sidebar';
 
@@ -97,10 +99,12 @@ export default function SidebarShell({ element, ...sidebar }: SidebarProps & { e
 
   if (horizontal) {
     // the bar draws its own dropdowns for the sections, so it takes the links from inside GroupedNav
-    const menu =
+    const menu = flatten(
       isValidElement<{ children?: ReactNode }>(sidebar.children) && sidebar.children.type === GroupedNav
         ? sidebar.children.props.children
-        : sidebar.children;
+        : sidebar.children,
+      'menu/',
+    );
 
     return (
       <>
@@ -110,7 +114,11 @@ export default function SidebarShell({ element, ...sidebar }: SidebarProps & { e
             <div className='nebula-dock'>{dock}</div>
             <div className='nebula-bar-end'>{footer}</div>
           </div>
-          <TopNav items={[...nav, ...flatten(menu, 'menu/')]} groups={sidebarGroups} />
+          <TopNav
+            items={[...nav, ...arrangeMenu(menu, [site, own])]}
+            groups={sidebarGroups}
+            end={<ArrangeMenu nodes={menu} compact />}
+          />
         </ContentBar>
       </>
     );

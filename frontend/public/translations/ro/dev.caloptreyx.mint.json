@@ -139,6 +139,20 @@
       "label": "Navigare pe telefon",
       "menu": "Meniu"
     },
+    "arrangeMenu": {
+      "open": "Aranjează meniul",
+      "title": "Aranjează meniul",
+      "description": {
+        "server": "Trage linkurile și secțiuni întregi în propria ta ordine. Se aplică meniului fiecărui server și doar tu o vezi.",
+        "dashboard": "Trage linkurile și secțiuni întregi în propria ta ordine. Doar tu o vezi.",
+        "admin": "Trage linkurile și categorii întregi în propria ta ordine. Doar tu o vezi, peste ordinea stabilită pentru administrare."
+      },
+      "move": "Mută {name}",
+      "moveSection": "Mută secțiunea {name}",
+      "reset": "Resetează",
+      "cancel": "Anulează",
+      "save": "Salvează"
+    },
     "mobileEditor": {
       "toolbar": "Tastele editorului",
       "undo": "Anulează",
@@ -575,6 +589,13 @@
           "drawer": "Sertar",
           "bottomBar": "Bară de jos"
         }
+      },
+      "navOrder": {
+        "title": "Ordinea meniului",
+        "label": "Ordinea meniului de administrare",
+        "description": "Meniul zonei de administrare pentru toată lumea: trage linkuri și categorii întregi, precum și linkuri în cadrul categoriei lor. Utilizatorii își pot aranja în continuare propriile meniuri peste el. Meniurile de server și de panou urmează ordinea rutelor din configurațiile egg și din setările utilizatorilor.",
+        "empty": "Meniul de administrare nu s-a încărcat încă.",
+        "reset": "Înapoi la ordinea panoului"
       }
     },
     "library": {

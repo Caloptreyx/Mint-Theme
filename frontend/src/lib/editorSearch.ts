@@ -155,6 +155,11 @@ export const SETTINGS: Setting[] = [
     label: 'editor.navStyle.search',
     also: ['editor.navStyle.searchDescription', 'editor.navStyle.searches.', 'editor.navStyle.searchHints.'],
   },
+  {
+    section: 'navigation',
+    label: 'editor.navOrder.label',
+    also: ['editor.navOrder.title', 'editor.navOrder.description'],
+  },
 
   {
     section: 'components',

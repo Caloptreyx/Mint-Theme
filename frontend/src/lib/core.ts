@@ -84,7 +84,7 @@ export type { announcementSchema } from '@/lib/schemas/announcements.ts';
 export type { serverPowerAction, serverPowerState, serverSchema } from '@/lib/schemas/server/server.ts';
 export { serverSettingsRenameSchema } from '@/lib/schemas/server/settings.ts';
 export type { fullUserSchema } from '@/lib/schemas/user.ts';
-export { getUserSetting, useUserSetting } from '@/lib/userSettings.ts';
+export { getUserSetting, removeUserSetting, setUserSetting, useUserSetting } from '@/lib/userSettings.ts';
 export type { Props as AuthWrapperProps } from '@/pages/auth/AuthWrapper.tsx';
 // Page-level components
 export { default as AuthWrapper } from '@/pages/auth/AuthWrapper.tsx';

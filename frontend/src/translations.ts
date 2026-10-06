@@ -143,6 +143,22 @@ const translations = defineTranslations({
       label: 'Phone navigation',
       menu: 'Menu',
     },
+    arrangeMenu: {
+      open: 'Arrange menu',
+      title: 'Arrange menu',
+      description: {
+        server:
+          'Drag links and whole sections into your own order. It applies to the menu of every server, and only you see it.',
+        dashboard: 'Drag links and whole sections into your own order. Only you see it.',
+        admin:
+          'Drag links and whole categories into your own order. Only you see it, over the order set for the admin area.',
+      },
+      move: 'Move {name}',
+      moveSection: 'Move the {name} section',
+      reset: 'Reset',
+      cancel: 'Cancel',
+      save: 'Save',
+    },
     mobileEditor: {
       toolbar: 'Editor keys',
       undo: 'Undo',
@@ -596,6 +612,14 @@ const translations = defineTranslations({
           drawer: 'Drawer',
           bottomBar: 'Bottom bar',
         },
+      },
+      navOrder: {
+        title: 'Menu order',
+        label: 'Admin menu order',
+        description:
+          "The admin area's menu for everyone: drag links and whole categories, and links within their category. Users can still arrange their own menus over it. The server and dashboard menus follow the route orders of the egg configurations and the user settings.",
+        empty: 'The admin menu has not loaded yet.',
+        reset: "Back to the panel's order",
       },
     },
     library: {

@@ -139,6 +139,20 @@
       "label": "Navegação no celular",
       "menu": "Menu"
     },
+    "arrangeMenu": {
+      "open": "Organizar menu",
+      "title": "Organizar menu",
+      "description": {
+        "server": "Arraste links e seções inteiras para a sua própria ordem. Ela vale para o menu de todos os servidores e só você a vê.",
+        "dashboard": "Arraste links e seções inteiras para a sua própria ordem. Só você a vê.",
+        "admin": "Arraste links e categorias inteiras para a sua própria ordem. Só você a vê, por cima da ordem definida para a administração."
+      },
+      "move": "Mover {name}",
+      "moveSection": "Mover a seção {name}",
+      "reset": "Redefinir",
+      "cancel": "Cancelar",
+      "save": "Salvar"
+    },
     "mobileEditor": {
       "toolbar": "Teclas do editor",
       "undo": "Desfazer",
@@ -575,6 +589,13 @@
           "drawer": "Gaveta",
           "bottomBar": "Barra inferior"
         }
+      },
+      "navOrder": {
+        "title": "Ordem do menu",
+        "label": "Ordem do menu de administração",
+        "description": "O menu da administração para todos: arraste links e categorias inteiras, e links dentro da sua categoria. Os usuários ainda podem organizar os próprios menus por cima. Os menus de servidor e do painel seguem a ordem de rotas das configurações de eggs e das configurações de usuário.",
+        "empty": "O menu de administração ainda não carregou.",
+        "reset": "Voltar à ordem do painel"
       }
     },
     "library": {

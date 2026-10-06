@@ -27,6 +27,7 @@ frontend/src/lib/core.ts   the one module that re-exports every core import (see
 frontend/src/lib/theme.ts  the theme model, normalizeTheme() and buildCss()
 frontend/src/lib/apply.ts  applies CSS (the site theme or the user's pick), caches it, preview bridge, useNebulaTheme(), the local theme
 frontend/src/lib/localTheme.ts  'Apply in this browser': parseLocalTheme() and paintedTheme() (local ?? saved, then the user's pick)
+frontend/src/lib/navOrder.ts  side menu orders: NavOrder, normalizeNavOrder(), arrange(), mergeOrder(), link and section ids
 frontend/src/lib/permissions.ts  useCanSaveTheme(): settings.update or mint-theme.update
 frontend/src/lib/library.ts  presets, users' theme choices and history: ids, normalizers, resolveUserTheme()
 frontend/src/lib/editorSearch.ts  the editor's settings index (SETTINGS, COLOR_GROUPS) and searchSettings()
@@ -41,6 +42,7 @@ tests/library.test.ts      node:test cases for lib/library.ts and the per user f
 tests/editorSearch.test.ts node:test cases for the editor search's matching and ranking (not shipped)
 tests/editorDraft.test.ts  node:test cases for lib/editorDraft.ts (not shipped)
 tests/localTheme.test.ts   node:test cases for lib/localTheme.ts (not shipped)
+tests/navOrder.test.ts     node:test cases for lib/navOrder.ts (not shipped)
 tests/cta.test.ts, serverOrder.test.ts, routeOrder.test.ts  node:test cases for lib/cta.ts, the servers list ordering and lib/routeOrder.ts (not shipped)
 scripts/package.py         builds the release zip; .github/workflows/release.yml runs it on v* tags
 .github/workflows/check.yml  CI on every push: the org's shared extension check (see "Verifying a change")
@@ -145,6 +147,28 @@ and break silently when core moves a file. Everything here is runtime:
   in the panel. Unlabelled dividers stay plain rules. Closed sections (`nebula:sidebar-closed`) are one
   page-wide store read through `useSyncExternalStore`, shared by the drawer and desktop copies and other tabs
   (`storage`); navigating to a page inside a closed section opens and saves it.
+- Menu order (`lib/navOrder.ts`, `elements/sidebar/nav.ts`, `ArrangeMenu.tsx`, `NavArranger.tsx`,
+  `elements/editor/NavOrderField.tsx`, `tests/navOrder.test.ts`). Core already orders the server menu (each egg
+  configuration's route order) and the dashboard menu (Admin settings, User), not the admin menu and nothing per user.
+  Mint lays orders over what core renders: the theme's `adminNavOrder` on the admin menu (site wide, not in
+  `USER_THEME_FIELDS`), then the user's own order for the page's menu (`navMenuOf`: server, dashboard or admin; the
+  setup wizard never) in core's synced user setting `nebula::nav_order` (`{ server?, dashboard?, admin? }`, each a
+  `NavOrder`; an empty one is removed). A `NavOrder` is `{ top, sections }`: the top level's ids (links outside a
+  section and `section:` ids) and per section its links' ids. Link ids are the link's `to` without a server's id
+  (`/server/files`, `/admin/servers/:server`), so one order fits every server. Section ids are the admin category key
+  (read from the key the category's fragment gives the divider once flattened, since its label is translated) or the
+  divider's label elsewhere. `arrange()` puts known ids in the saved order, an unknown id after the entry core shows
+  before it, and leaves entries without an id (plain rules) in their slot, so routes added later or hidden by a role
+  never vanish. `arrangeMenu()` applies the orders to the flat nodes before GroupedNav groups them, and closes a
+  section with a plain rule when a loose link follows it (it would join the section once grouped again). GroupedNav,
+  the top bar (`SidebarShell`) and the bottom bar use it. 'Arrange menu' (a copy of core's link button at the end of
+  the menu, an icon in the top bar, a `RailTip` style tooltip in the slim rail) opens a modal with core's drag and
+  drop kit: links and whole sections at the top level, links inside their section (nested `DndContainer`s).
+  Core keeps links the user may not open in the menu inside `ServerCan`, which renders nothing, so the modal renders
+  each link's wrappers with a marker in a hidden probe first and lists only links that left one; the list is read once
+  per open. A save is merged into the previous order (`mergeNavOrder`), so ids not on screen (another egg's links)
+  keep their place. The editor's Navigation section arranges `adminNavOrder` over the admin menu GroupedNav publishes
+  beside the editor (`publishAdminMenu`), as core renders it for the signed in admin.
 - A second `Sidebar.addPropsInterceptor` (`withNavSearch`, `elements/sidebar/NavSearch.tsx`) walks the routers'
   header and footer fragments and swaps core's `QuickActionsTrigger` and footer `ServerSwitcher` in place (by
   identity) for `NavSearch` and `NavSearchFooter`, which read `searchComponent` live. 'palette' renders core's
@@ -175,7 +199,8 @@ and break silently when core moves a file. Everything here is runtime:
   received, wrappers kept, so a `ServerCan` without access renders nothing and the next link fills in. Links come
   first and Menu last in the DOM; links past the fourth are hidden (`[&>a:nth-of-type(n+5)]:hidden`). Both get a
   focus-visible outline, with `!` because core's `button:focus` reset is unlayered. Server pages prefer Home, Console,
-  Files, Backups, Settings; the admin area Back, Overview, Servers, Users; the dashboard Servers, Account, Admin. Core
+  Files, Backups, Settings; the admin area Back, Overview, Servers, Users; the dashboard Servers, Account, Admin. A menu
+  with an order (the site's or the user's, see Menu order) gives its own first links instead, after the header's. Core
   keeps the drawer's open state inside the Sidebar, so Menu clicks core's own floating menu button: the bar renders a
   hidden `[data-nebula-bottom-nav-marker]` just before core's element, Menu looks for
   `.mantine-Card-root > .mantine-ActionIcon-root` among the nodes between the marker and the bar (one console warning
@@ -434,7 +459,7 @@ checkout. Page level imports (`@/pages/server/console/...`) are why the floor is
 `normalizeTheme()` and `buildCss()` have tests in `tests/theme.test.ts`, the announcement button checks
 in `tests/cta.test.ts`, presets, user choices and history in `tests/library.test.ts`, the editor search in
 `tests/editorSearch.test.ts`, the editor's draft checks in `tests/editorDraft.test.ts`, the local theme in
-`tests/localTheme.test.ts`, the servers list
+`tests/localTheme.test.ts`, the side menu orders in `tests/navOrder.test.ts`, the servers list
 ordering in `tests/serverOrder.test.ts` and the route order fix in `tests/routeOrder.test.ts` (plain `node:test`, no
 dependencies, kept outside `frontend/src` so the panel never compiles them). Run them with
 `node --test "tests/*.test.ts"` (Node 24 strips the types; a bare `tests/` is not accepted as a path). Add a
