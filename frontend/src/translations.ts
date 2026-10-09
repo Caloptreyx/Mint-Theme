@@ -390,6 +390,9 @@ const translations = defineTranslations({
       backgroundImage: 'Image URL',
       backgroundImageDescription: 'Leave empty for a plain background.',
       backgroundDim: 'Dim',
+      serverHome: 'Server home page',
+      serverHomeDescription:
+        "A Home page at the server root with the cards, images and links below; the console gets its own page. Turned off, the console is the server's first page, as without Mint. Open server pages change when they are next loaded.",
       homeCards: 'Cards',
       homeImages: 'Images',
       homeBanner: 'Default banner image URL',

@@ -609,6 +609,8 @@
         "pages": "Strony",
         "interface": "Interfejs"
       },
+      "serverHome": "Strona główna serwera",
+      "serverHomeDescription": "Strona główna w katalogu głównym serwera z kartami, obrazami i linkami poniżej; konsola dostaje własną stronę. Po wyłączeniu konsola jest pierwszą stroną serwera, jak bez Mint. Otwarte strony serwera zmienią się przy następnym wczytaniu.",
       "homeCards": "Karty",
       "homeImages": "Obrazy",
       "status": {

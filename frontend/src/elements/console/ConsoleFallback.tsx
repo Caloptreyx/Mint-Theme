@@ -1,6 +1,7 @@
 import { cloneElement, type ReactElement, type ReactNode, useLayoutEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import type { z } from 'zod';
+import { useNebulaTheme } from '../../lib/apply.ts';
 import {
   type fullUserSchema,
   isConflictingState,
@@ -73,15 +74,17 @@ export function withConsoleRoot(to: string, render: (root: string | null) => Rea
 /**
  * Registered in `pages.server`, which core's ServerRouter renders beside its `<Routes>` (whose layout route is
  * ServerStateGuard), not under it, so this runs while the guard shows its block screen for `/console`. A visit to
- * the open server's console (bookmark, other links, a state change while on it) is replaced by the server root.
+ * the open server's console (bookmark, other links, a state change while on it) is replaced by the server root,
+ * and so is every visit while `serverHome` is off, since the console is the server root then.
  */
 export default function ConsoleRedirect() {
   const server = useServerStore((s) => s.server);
   const { user } = useAuth();
   const { pathname } = useLocation();
   const navigate = useNavigate();
+  const { serverHome } = useNebulaTheme();
 
-  const root = consoleBlocked(server, user) ? rootOf(pathname, server) : null;
+  const root = !serverHome || consoleBlocked(server, user) ? rootOf(pathname, server) : null;
 
   useLayoutEffect(() => {
     if (root) navigate(root, { replace: true });

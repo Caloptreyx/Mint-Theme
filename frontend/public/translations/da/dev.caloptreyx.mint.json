@@ -609,6 +609,8 @@
         "pages": "Sider",
         "interface": "Brugerflade"
       },
+      "serverHome": "Serverens startside",
+      "serverHomeDescription": "En startside i serverens rod med kortene, billederne og linkene nedenfor; konsollen får sin egen side. Slået fra er konsollen serverens første side, som uden Mint. Åbne serversider ændres, næste gang de indlæses.",
       "homeCards": "Kort",
       "homeImages": "Billeder",
       "status": {

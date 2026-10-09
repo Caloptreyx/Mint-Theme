@@ -20,7 +20,7 @@ import GroupedNav from './elements/sidebar/GroupedNav.tsx';
 import { withNavSearch } from './elements/sidebar/NavSearch.tsx';
 import { RailLogo, RailTip } from './elements/sidebar/Rail.tsx';
 import SidebarShell from './elements/sidebar/SidebarShell.tsx';
-import { applyCachedTheme, listenForPreview, loadTheme, watchUserTheme } from './lib/apply.ts';
+import { applyCachedTheme, currentTheme, listenForPreview, loadTheme, watchUserTheme } from './lib/apply.ts';
 import {
   Alert,
   AppIcon,
@@ -150,10 +150,16 @@ class DevCaloptreyxMintExtension extends Extension {
     });
 
     // Home becomes the server landing page, the console keeps its name, icon and permission at /console with Mint's
-    // layout; the route is a copy, core's route objects are shared with the rest of the panel (server selector)
+    // layout; the route is a copy, core's route objects are shared with the rest of the panel (server selector).
+    // With `serverHome` off the console stays at `/` (still Mint's layout) and there is no Home. Core runs this once
+    // per server router (and quick actions palette, egg configuration editor), so a change shows on their next mount.
     ctx.extensionRegistry.routes.addServerRouteInterceptor((routes) => {
+      const home = currentTheme().serverHome;
       const console = routes.findIndex((route) => route.path === '/');
-      if (console !== -1) routes[console] = { ...routes[console], path: '/console', element: ServerConsole };
+      if (console !== -1) {
+        routes[console] = { ...routes[console], path: home ? '/console' : '/', element: ServerConsole };
+      }
+      if (!home) return;
 
       routes.unshift({
         name: () => getExtTranslations().t('home.title', {}),

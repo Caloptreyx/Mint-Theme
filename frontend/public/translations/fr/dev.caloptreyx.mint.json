@@ -609,6 +609,8 @@
         "pages": "Pages",
         "interface": "Interface"
       },
+      "serverHome": "Page d'accueil du serveur",
+      "serverHomeDescription": "Une page d'accueil à la racine du serveur avec les cartes, images et liens ci-dessous ; la console a sa propre page. Désactivée, la console est la première page du serveur, comme sans Mint. Les pages de serveur ouvertes changent à leur prochain chargement.",
       "homeCards": "Cartes",
       "homeImages": "Images",
       "status": {

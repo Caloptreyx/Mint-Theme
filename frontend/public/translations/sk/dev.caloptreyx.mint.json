@@ -609,6 +609,8 @@
         "pages": "Stránky",
         "interface": "Rozhranie"
       },
+      "serverHome": "Domovská stránka servera",
+      "serverHomeDescription": "Domovská stránka v koreni servera s kartami, obrázkami a odkazmi nižšie; konzola dostane vlastnú stránku. Po vypnutí je konzola prvou stránkou servera, ako bez Mint. Otvorené stránky servera sa zmenia pri ďalšom načítaní.",
       "homeCards": "Karty",
       "homeImages": "Obrázky",
       "status": {

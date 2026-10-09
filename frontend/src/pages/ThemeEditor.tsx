@@ -253,21 +253,30 @@ export default function ThemeEditor() {
     return revealLabel(contentRef.current, reveal, () => setReveal(null));
   }, [reveal]);
 
+  const home = valid.serverHome;
+  const consolePage = home ? `/server/${serverId}/console` : `/server/${serverId}`;
   const pages = useMemo(
     () => [
-      ...(serverId
-        ? [
-            { value: `/server/${serverId}`, label: t('editor.pages.home', {}) },
-            { value: `/server/${serverId}/console`, label: t('editor.pages.console', {}) },
-          ]
-        : []),
+      ...(serverId && home ? [{ value: `/server/${serverId}`, label: t('editor.pages.home', {}) }] : []),
+      ...(serverId ? [{ value: consolePage, label: t('editor.pages.console', {}) }] : []),
       { value: '/', label: t('editor.pages.servers', {}) },
       { value: '/account', label: t('editor.pages.account', {}) },
       { value: '/admin', label: t('editor.pages.admin', {}) },
       { value: LOGIN_PREVIEW_PATH, label: t('editor.pages.login', {}) },
     ],
-    [serverId, t],
+    [serverId, home, consolePage, t],
   );
+
+  // core builds the server routes once per server router, so turning Home on or off reloads the preview; without
+  // Home the console's own path is gone, so the preview opens the console at the server root instead
+  const shownHome = useRef(home);
+  useEffect(() => {
+    if (shownHome.current === home) return;
+    shownHome.current = home;
+    if (!serverId || !page.startsWith(`/server/${serverId}`)) return;
+    if (!home && page === `/server/${serverId}/console`) setPage(consolePage);
+    else frame.current?.contentWindow?.location.reload();
+  }, [home]);
 
   /** Stores `theme` (made from the draft `sent`); without `base` it replaces whatever is stored. */
   const store = (theme: NebulaTheme, sent: NebulaTheme, base?: string) => {
@@ -308,7 +317,7 @@ export default function ThemeEditor() {
     if (id === 'login') setPage(LOGIN_PREVIEW_PATH);
     if (id === 'servers') setPage('/');
     if (id === 'home' && serverId) setPage(`/server/${serverId}`);
-    if (id === 'console' && serverId) setPage(`/server/${serverId}/console`);
+    if (id === 'console' && serverId) setPage(consolePage);
   };
 
   const pick = (hit: SettingHit) => {

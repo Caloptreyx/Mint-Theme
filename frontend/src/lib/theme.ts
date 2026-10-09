@@ -154,6 +154,11 @@ export interface NebulaTheme {
   homeBanner: string;
   articles: Article[];
   eggs: Record<string, EggImages>;
+  /**
+   * Mint's Home page at the server root, with the console moved to `/console`. Off, the console stays the server
+   * root as in core (still with `consoleLayout`) and the Home fields below go unused.
+   */
+  serverHome: boolean;
   layout: HomeCard[];
   /** Auth pages only; '' keeps the normal background and the panel's own logo. */
   loginBackground: string;
@@ -239,6 +244,7 @@ export const DEFAULT_THEME: NebulaTheme = {
   homeBanner: '',
   articles: [],
   eggs: {},
+  serverHome: true,
   layout: DEFAULT_LAYOUT,
   loginBackground: '',
   loginDim: 75,
@@ -547,6 +553,7 @@ export function normalizeTheme(raw: unknown, d: NebulaTheme = DEFAULT_THEME): Ne
     homeBanner: url(r.homeBanner, d.homeBanner),
     articles: articles(r.articles, d.articles),
     eggs: eggs(r.eggs, d.eggs),
+    serverHome: typeof r.serverHome === 'boolean' ? r.serverHome : d.serverHome,
     layout: layout(r.layout),
     loginBackground: url(r.loginBackground, d.loginBackground),
     loginDim: clamp(r.loginDim, 0, 100, d.loginDim),

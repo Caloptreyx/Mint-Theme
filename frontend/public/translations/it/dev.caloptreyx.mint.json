@@ -609,6 +609,8 @@
         "pages": "Pagine",
         "interface": "Interfaccia"
       },
+      "serverHome": "Pagina iniziale del server",
+      "serverHomeDescription": "Una pagina iniziale nella radice del server con le schede, le immagini e i link qui sotto; la console ha una pagina tutta sua. Disattivata, la console è la prima pagina del server, come senza Mint. Le pagine del server aperte cambiano al prossimo caricamento.",
       "homeCards": "Schede",
       "homeImages": "Immagini",
       "status": {

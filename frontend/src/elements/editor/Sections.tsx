@@ -1,7 +1,7 @@
 import { faPlus, faRotateLeft, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ColorInput, Slider } from '@mantine/core';
-import { ActionIcon, Button, Card, Group, Select, Stack, Text, TextInput } from '../../lib/core.ts';
+import { ActionIcon, Button, Card, Group, Select, Stack, Switch, Text, TextInput } from '../../lib/core.ts';
 import { toHexColor } from '../../lib/editorDraft.ts';
 import { COLOR_GROUPS } from '../../lib/editorSearch.ts';
 import {
@@ -322,70 +322,79 @@ export default function Sections({ section, theme, valid, set }: Props) {
     case 'home':
       return (
         <Stack gap='xl'>
-          <Stack gap='md'>
-            <Heading>{t('editor.homeCards', {})}</Heading>
-            <LayoutField theme={theme} set={set} />
-          </Stack>
-          <Stack gap='md'>
-            <Heading>{t('editor.homeImages', {})}</Heading>
-            <UrlInput
-              label={t('editor.homeBanner', {})}
-              description={t('editor.homeBannerDescription', {})}
-              value={theme.homeBanner}
-              onChange={(homeBanner) => set({ homeBanner })}
-            />
-            <EggImagesField theme={theme} set={set} />
-          </Stack>
-          <Stack gap='xs'>
-            <div>
-              <Heading>{t('editor.articles', {})}</Heading>
-              <Text size='xs' c='dimmed' mt={4}>
-                {t('editor.articlesDescription', { max: MAX_ARTICLES })}
-              </Text>
-            </div>
-            {theme.articles.map((article, index) => (
-              <Card key={index} p='sm'>
-                <Stack gap='xs'>
-                  <Group gap='xs' wrap='nowrap' align='flex-end'>
+          <Switch
+            label={t('editor.serverHome', {})}
+            description={t('editor.serverHomeDescription', {})}
+            checked={theme.serverHome}
+            onChange={(e) => set({ serverHome: e.currentTarget.checked })}
+          />
+          {/* without Home nothing below is shown anywhere, so it rests until Home is back */}
+          <div inert={!theme.serverHome} className={`flex flex-col gap-8 ${theme.serverHome ? '' : 'opacity-50'}`}>
+            <Stack gap='md'>
+              <Heading>{t('editor.homeCards', {})}</Heading>
+              <LayoutField theme={theme} set={set} />
+            </Stack>
+            <Stack gap='md'>
+              <Heading>{t('editor.homeImages', {})}</Heading>
+              <UrlInput
+                label={t('editor.homeBanner', {})}
+                description={t('editor.homeBannerDescription', {})}
+                value={theme.homeBanner}
+                onChange={(homeBanner) => set({ homeBanner })}
+              />
+              <EggImagesField theme={theme} set={set} />
+            </Stack>
+            <Stack gap='xs'>
+              <div>
+                <Heading>{t('editor.articles', {})}</Heading>
+                <Text size='xs' c='dimmed' mt={4}>
+                  {t('editor.articlesDescription', { max: MAX_ARTICLES })}
+                </Text>
+              </div>
+              {theme.articles.map((article, index) => (
+                <Card key={index} p='sm'>
+                  <Stack gap='xs'>
+                    <Group gap='xs' wrap='nowrap' align='flex-end'>
+                      <TextInput
+                        className='flex-1'
+                        label={t('editor.articleTitle', {})}
+                        value={article.title}
+                        onChange={(e) => setArticle(index, { title: e.target.value })}
+                      />
+                      <ActionIcon
+                        size='lg'
+                        color='red'
+                        variant='subtle'
+                        aria-label={t('editor.removeArticle', {})}
+                        onClick={() => set({ articles: theme.articles.filter((_, i) => i !== index) })}
+                      >
+                        <FontAwesomeIcon icon={faTrash} />
+                      </ActionIcon>
+                    </Group>
                     <TextInput
-                      className='flex-1'
-                      label={t('editor.articleTitle', {})}
-                      value={article.title}
-                      onChange={(e) => setArticle(index, { title: e.target.value })}
+                      label={t('editor.articleDescription', {})}
+                      value={article.description}
+                      onChange={(e) => setArticle(index, { description: e.target.value })}
                     />
-                    <ActionIcon
-                      size='lg'
-                      color='red'
-                      variant='subtle'
-                      aria-label={t('editor.removeArticle', {})}
-                      onClick={() => set({ articles: theme.articles.filter((_, i) => i !== index) })}
-                    >
-                      <FontAwesomeIcon icon={faTrash} />
-                    </ActionIcon>
-                  </Group>
-                  <TextInput
-                    label={t('editor.articleDescription', {})}
-                    value={article.description}
-                    onChange={(e) => setArticle(index, { description: e.target.value })}
-                  />
-                  <UrlInput
-                    label={t('editor.articleUrl', {})}
-                    value={article.url}
-                    onChange={(url) => setArticle(index, { url })}
-                  />
-                </Stack>
-              </Card>
-            ))}
-            {theme.articles.length < MAX_ARTICLES && (
-              <Button
-                variant='default'
-                leftSection={<FontAwesomeIcon icon={faPlus} />}
-                onClick={() => set({ articles: [...theme.articles, { title: '', description: '', url: '' }] })}
-              >
-                {t('editor.addArticle', {})}
-              </Button>
-            )}
-          </Stack>
+                    <UrlInput
+                      label={t('editor.articleUrl', {})}
+                      value={article.url}
+                      onChange={(url) => setArticle(index, { url })}
+                    />
+                  </Stack>
+                </Card>
+              ))}
+              {theme.articles.length < MAX_ARTICLES && (
+                <Button
+                  variant='default'
+                  leftSection={<FontAwesomeIcon icon={faPlus} />}
+                  onClick={() => set({ articles: [...theme.articles, { title: '', description: '', url: '' }] })}
+                >
+                  {t('editor.addArticle', {})}
+                </Button>
+              )}
+            </Stack>
+          </div>
         </Stack>
       );
     case 'sidebar':

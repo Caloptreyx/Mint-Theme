@@ -609,6 +609,8 @@
         "pages": "Sidor",
         "interface": "Gränssnitt"
       },
+      "serverHome": "Serverns startsida",
+      "serverHomeDescription": "En startsida i serverns rot med korten, bilderna och länkarna nedan; konsolen får en egen sida. Avstängd är konsolen serverns första sida, som utan Mint. Öppna serversidor ändras nästa gång de laddas.",
       "homeCards": "Kort",
       "homeImages": "Bilder",
       "status": {

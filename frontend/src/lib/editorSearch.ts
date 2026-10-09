@@ -153,6 +153,7 @@ export const SETTINGS: Setting[] = [
   },
   { section: 'menuOrder', label: 'editor.navOrder.label', also: ['editor.navOrder.description'] },
 
+  { section: 'home', label: 'editor.serverHome', also: ['editor.serverHomeDescription'] },
   {
     section: 'home',
     label: 'editor.column.left',

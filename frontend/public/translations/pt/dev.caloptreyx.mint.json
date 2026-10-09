@@ -609,6 +609,8 @@
         "pages": "Páginas",
         "interface": "Interface"
       },
+      "serverHome": "Página inicial do servidor",
+      "serverHomeDescription": "Uma página inicial na raiz do servidor com os cartões, imagens e links abaixo; a consola passa a ter a sua própria página. Desativada, a consola é a primeira página do servidor, como sem o Mint. As páginas de servidor abertas mudam no próximo carregamento.",
       "homeCards": "Cartões",
       "homeImages": "Imagens",
       "status": {

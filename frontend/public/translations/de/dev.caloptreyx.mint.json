@@ -609,6 +609,8 @@
         "pages": "Seiten",
         "interface": "Oberfläche"
       },
+      "serverHome": "Server-Startseite",
+      "serverHomeDescription": "Eine Startseite im Server-Stamm mit den Karten, Bildern und Links unten; die Konsole bekommt eine eigene Seite. Ausgeschaltet ist die Konsole die erste Seite des Servers, wie ohne Mint. Geöffnete Serverseiten ändern sich beim nächsten Laden.",
       "homeCards": "Karten",
       "homeImages": "Bilder",
       "status": {

@@ -20,7 +20,8 @@ import {
 } from './nav.ts';
 
 // Paths the bar prefers, in order. Server paths are relative to the server's own base (`/server/<id>`): Mint's
-// Home, the console, files, then backups or settings, whichever the user may open first.
+// Home (the console with `serverHome` off), the console, files, then backups or settings, whichever the user may
+// open first.
 const SERVER_ORDER = ['', '/console', '/files', '/backups', '/settings'];
 const ADMIN_ORDER = ['/', '/admin', '/admin/servers', '/admin/users'];
 const DASHBOARD_ORDER = ['/', '/account', '/admin'];

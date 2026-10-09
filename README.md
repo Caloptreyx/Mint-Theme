@@ -29,8 +29,9 @@ A dark theme for [Calagopus Panel](https://calagopus.com) with a live, built-in 
   a table style turns every row of the panel's tables (files, backups, databases, admin lists, this list)
   into a card of its own.
 - **Server home**: a new landing page with a banner header, power controls, server info, image switcher,
-  console preview, usage and network. Admins choose which cards show and in what order. Addresses follow the
-  panel's "Hide server addresses" setting, on Home, the console and the server cards.
+  console preview, usage and network. Admins choose which cards show and in what order, or turn Home off so
+  the console is the server's first page again. Addresses follow the panel's "Hide server addresses" setting,
+  on Home, the console and the server cards.
 - **Console**: by default the banner with live stats on top, a full width terminal, then the charts. Admins
   arrange the banner, stat tiles, server info, each chart and other extensions' cards above, beside or below
   the terminal; a chart moved elsewhere keeps the history it already drew.

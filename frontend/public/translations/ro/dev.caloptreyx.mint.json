@@ -609,6 +609,8 @@
         "pages": "Pagini",
         "interface": "Interfață"
       },
+      "serverHome": "Pagina de pornire a serverului",
+      "serverHomeDescription": "O pagină de pornire la rădăcina serverului cu cardurile, imaginile și linkurile de mai jos; consola primește propria pagină. Dezactivată, consola este prima pagină a serverului, ca fără Mint. Paginile de server deschise se schimbă la următoarea încărcare.",
       "homeCards": "Carduri",
       "homeImages": "Imagini",
       "status": {

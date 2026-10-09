@@ -609,6 +609,8 @@
         "pages": "Trang",
         "interface": "Giao diện"
       },
+      "serverHome": "Trang chủ máy chủ",
+      "serverHomeDescription": "Trang chủ ở gốc máy chủ với các thẻ, hình ảnh và liên kết bên dưới; bảng điều khiển có trang riêng. Khi tắt, bảng điều khiển là trang đầu tiên của máy chủ, như khi không có Mint. Các trang máy chủ đang mở sẽ thay đổi ở lần tải tiếp theo.",
       "homeCards": "Thẻ",
       "homeImages": "Hình ảnh",
       "status": {

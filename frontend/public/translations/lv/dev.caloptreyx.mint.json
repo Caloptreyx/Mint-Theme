@@ -609,6 +609,8 @@
         "pages": "Lapas",
         "interface": "Saskarne"
       },
+      "serverHome": "Servera sākumlapa",
+      "serverHomeDescription": "Sākumlapa servera saknē ar zemāk esošajām kartītēm, attēliem un saitēm; konsole iegūst savu lapu. Izslēgtā stāvoklī konsole ir servera pirmā lapa, kā bez Mint. Atvērtās servera lapas mainās nākamajā ielādē.",
       "homeCards": "Kartītes",
       "homeImages": "Attēli",
       "status": {

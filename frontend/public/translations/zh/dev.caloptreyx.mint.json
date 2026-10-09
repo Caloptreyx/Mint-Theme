@@ -609,6 +609,8 @@
         "pages": "頁面",
         "interface": "介面"
       },
+      "serverHome": "伺服器首頁",
+      "serverHomeDescription": "在伺服器根路徑放置首頁，顯示下方的卡片、圖片與連結；主控台移到自己的頁面。關閉時，主控台就是伺服器的第一頁，與沒有 Mint 時相同。已開啟的伺服器頁面會在下次載入時改變。",
       "homeCards": "卡片",
       "homeImages": "圖片",
       "status": {

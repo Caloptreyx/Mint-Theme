@@ -42,7 +42,7 @@ describe('user theme fields', () => {
   test('content, layouts and auth pages stay site wide', () => {
     const siteWide = Object.keys(DEFAULT_THEME).filter(
       (key) =>
-        ['homeBanner', 'articles', 'eggs', 'layout', 'consoleLayout', 'supportLinks', 'favicon'].includes(key) ||
+        ['homeBanner', 'articles', 'eggs', 'serverHome', 'layout', 'consoleLayout', 'supportLinks', 'favicon'].includes(key) ||
         key.startsWith('login') ||
         key.startsWith('auth') ||
         key.startsWith('supportLinks'),

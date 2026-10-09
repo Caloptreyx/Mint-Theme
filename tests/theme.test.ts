@@ -739,6 +739,16 @@ describe('toasts, page transitions and page titles', () => {
     }
   });
 
+  test('serverHome is on by default and only accepts booleans', () => {
+    assert.equal(DEFAULT_THEME.serverHome, true);
+    assert.equal(normalizeTheme({ accent: '#2fbf8f' }).serverHome, true);
+    assert.equal(normalizeTheme({ serverHome: false }).serverHome, false);
+    for (const bad of ['false', 0, null, {}]) {
+      assert.equal(normalizeTheme({ serverHome: bad }).serverHome, true, String(bad));
+      assert.equal(normalizeTheme({ serverHome: bad }, { ...DEFAULT_THEME, serverHome: false }).serverHome, false);
+    }
+  });
+
   test('invalid values fall back to the given theme, not the defaults', () => {
     const d = { ...DEFAULT_THEME, toastStyle: 'glassy', pageTransition: 'fadeScale', pageTitles: false } as const;
     const out = normalizeTheme({ toastStyle: 'frosted', pageTransition: 'zoom', pageTitles: 'yes' }, d);

@@ -236,6 +236,14 @@ and break silently when core moves a file. Everything here is runtime:
   `/console`, because Home is the server root that core's links and its `ServerStateGuard` send users to. Orders
   with both or neither come back unchanged (same reference). So Home and the console can only be hidden together
   through the route order.
+  `serverHome` (theme, site wide, default true) turns Home off: the interceptor then swaps only the console's
+  element for `ServerConsole` and leaves it at `/`, as in core, and adds no Home. It reads `currentTheme()` when core
+  runs it, which ServerRouter does once per mount (its `useMemo` has no deps), so open server pages change on their
+  next load and the editor reloads its preview when the option flips (a preview on `/console` moves to the root).
+  Without Home `withConsoleRoute(order, false)` renames a lone `/console` (an order saved while Home was on) to `/`
+  and leaves the rest alone; an order with both shows the console in the slot of `/`. `ConsoleRedirect` sends every
+  visit to the open server's `/console` to the root then. The editor's Server home section starts with the switch
+  and rests (`inert`, dimmed) the Home settings below it while it is off.
   While a server installs, restores or transfers (`server.status !== null || server.isTransferring`), core's
   `ServerStateGuard` blocks every page except the server root, so Home always shows its console card then
   (whatever the Home layout says; `normalizeTheme` keeps every card in the layout) and hides the 'Full log' link

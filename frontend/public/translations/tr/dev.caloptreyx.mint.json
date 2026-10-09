@@ -609,6 +609,8 @@
         "pages": "Sayfalar",
         "interface": "Arayüz"
       },
+      "serverHome": "Sunucu ana sayfası",
+      "serverHomeDescription": "Sunucu kökünde aşağıdaki kartlar, görseller ve bağlantılarla bir ana sayfa; konsol kendi sayfasına taşınır. Kapalıyken konsol, Mint olmadan olduğu gibi sunucunun ilk sayfasıdır. Açık sunucu sayfaları bir sonraki yüklemede değişir.",
       "homeCards": "Kartlar",
       "homeImages": "Görseller",
       "status": {
