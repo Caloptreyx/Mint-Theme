@@ -1,14 +1,7 @@
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import type { CSSProperties } from 'react';
 import { Stack, Switch } from '../../lib/core.ts';
-import {
-  type NebulaTheme,
-  PAGE_ANIMATIONS,
-  PAGE_TRANSITIONS,
-  type PageTransition,
-  TOAST_STYLES,
-} from '../../lib/theme.ts';
+import { type NebulaTheme, TOAST_STYLES } from '../../lib/theme.ts';
 import { useExtTranslations } from '../../translations.ts';
 import ChoiceCards from './ChoiceCards.tsx';
 
@@ -42,30 +35,7 @@ function ToastMock({ glassy }: { glassy: boolean }) {
   );
 }
 
-/** A page beside the sidebar; hovering plays the transition on the page, three times slower so it reads this small. */
-function TransitionMock({ transition }: { transition: PageTransition }) {
-  const animation = transition === 'none' ? null : PAGE_ANIMATIONS[transition];
-
-  return (
-    <div className='group/page flex size-full gap-1'>
-      <span className='w-4 shrink-0 rounded-sm bg-(--nebula-card)' />
-      <div
-        className={`flex flex-1 flex-col gap-1 ${animation ? 'motion-safe:group-hover/page:animate-(--nebula-mock)' : ''}`}
-        style={
-          animation
-            ? ({ '--nebula-mock': `${animation.keyframes} ${animation.ms * 3}ms ${animation.easing}` } as CSSProperties)
-            : undefined
-        }
-      >
-        <span className='h-1.5 w-1/2 rounded-full bg-(--mantine-color-text)' />
-        <span className='flex-1 rounded-sm bg-(--nebula-card)' />
-        <span className='flex-1 rounded-sm bg-(--nebula-card)' />
-      </div>
-    </div>
-  );
-}
-
-/** Toasts, page transitions, page titles and the phone file editor. */
+/** Toasts, page titles and the phone file editor. */
 export default function InterfaceField({ theme, set }: Props) {
   const { t } = useExtTranslations();
 
@@ -81,17 +51,6 @@ export default function InterfaceField({ theme, set }: Props) {
           preview: <ToastMock glassy={style === 'glassy'} />,
         }))}
         onChange={(toastStyle) => set({ toastStyle })}
-      />
-      <ChoiceCards
-        label={t('editor.interface.pageTransition', {})}
-        description={t('editor.interface.pageTransitionDescription', {})}
-        value={theme.pageTransition}
-        choices={PAGE_TRANSITIONS.map((transition) => ({
-          value: transition,
-          label: t(`editor.interface.transitions.${transition}`, {}),
-          preview: <TransitionMock transition={transition} />,
-        }))}
-        onChange={(pageTransition) => set({ pageTransition })}
       />
       <Switch
         label={t('editor.interface.pageTitles', {})}

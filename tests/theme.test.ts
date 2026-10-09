@@ -460,7 +460,10 @@ describe('console layout', () => {
     assert.deepEqual(all.left, [...CONSOLE_WIDGETS]);
 
     const huge = normalizeTheme({
-      consoleLayout: { ...empty, bottom: Array.from({ length: 10_000 }, (_, i) => CONSOLE_WIDGETS[i % 7]) },
+      consoleLayout: {
+        ...empty,
+        bottom: Array.from({ length: 10_000 }, (_, i) => CONSOLE_WIDGETS[i % CONSOLE_WIDGETS.length]),
+      },
     }).consoleLayout;
     assert.deepEqual(huge.bottom, [...CONSOLE_WIDGETS]);
   });
@@ -726,7 +729,7 @@ describe('toasts, page transitions and page titles', () => {
     for (const transition of PAGE_TRANSITIONS) {
       assert.equal(normalizeTheme({ pageTransition: transition }).pageTransition, transition);
     }
-    for (const bad of ['fade-up', 'Fade', 'slide', '', 'toString', 'fade;}', 0, null, false, { fade: 1 }]) {
+    for (const bad of ['fade-up', 'Fade', 'slideUp', '', 'toString', 'fade;}', 0, null, false, { fade: 1 }]) {
       assert.equal(normalizeTheme({ pageTransition: bad }).pageTransition, 'none', String(bad));
     }
   });
@@ -751,7 +754,7 @@ describe('toasts, page transitions and page titles', () => {
 
   test('invalid values fall back to the given theme, not the defaults', () => {
     const d = { ...DEFAULT_THEME, toastStyle: 'glassy', pageTransition: 'fadeScale', pageTitles: false } as const;
-    const out = normalizeTheme({ toastStyle: 'frosted', pageTransition: 'zoom', pageTitles: 'yes' }, d);
+    const out = normalizeTheme({ toastStyle: 'frosted', pageTransition: 'zoomIn', pageTitles: 'yes' }, d);
     assert.equal(out.toastStyle, 'glassy');
     assert.equal(out.pageTransition, 'fadeScale');
     assert.equal(out.pageTitles, false);

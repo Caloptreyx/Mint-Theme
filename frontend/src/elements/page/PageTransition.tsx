@@ -8,10 +8,12 @@ const ATTR = 'data-nebula-page-enter';
 
 /**
  * Registered in core's global slot, just before its routes. On a route change it marks the element holding the
- * page with `ATTR`, and `buildCss` animates that element's children. Not the column itself: a transform there
- * would pin fixed pages (the theme editor) to the column instead of the window while it runs. The mark goes once
- * no page animation is left running, so content that arrives late (a lazy page) still finishes its own. The theme
- * is read at navigation time, so an option changed in the editor applies to the preview's next navigation.
+ * page with `ATTR`, and `buildCss` animates that element's children (the page transition) and the cards and table
+ * rows inside it (the card entrance). Not the column itself: a transform there would pin fixed pages (the theme
+ * editor) to the column instead of the window while it runs. The mark goes once no page or card animation is
+ * left running (their keyframes all start with `nebula-page`, staggered ones included), so content that arrives
+ * late (a lazy page) still finishes its own. The theme is read at navigation time, so an option changed in the
+ * editor applies to the preview's next navigation.
  */
 export default function PageTransition() {
   const marker = useRef<HTMLSpanElement>(null);
@@ -22,7 +24,8 @@ export default function PageTransition() {
     // the first page load and search or hash changes (a folder in Files) are not route changes
     if (last.current === pathname) return;
     last.current = pathname;
-    if (currentTheme().pageTransition === 'none') return;
+    const theme = currentTheme();
+    if (theme.reduceMotion || (theme.pageTransition === 'none' && theme.cardEntrance === 'none')) return;
 
     let root: Element | null = null;
     for (let el = marker.current?.nextElementSibling; el && !root; el = el.nextElementSibling) {
@@ -48,7 +51,7 @@ export default function PageTransition() {
     };
     page.addEventListener('animationend', settle);
     page.addEventListener('animationcancel', settle);
-    // reduced motion plays nothing, so nothing ends; this clears it anyway
+    // reduced motion plays nothing, so nothing ends; this clears it anyway (a running animation keeps it until it ends)
     const timer = window.setTimeout(settle, 1000);
 
     return () => {

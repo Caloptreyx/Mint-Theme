@@ -166,6 +166,10 @@
       "down": "Flyt markøren ned",
       "type": "Skriv {key}"
     },
+    "console": {
+      "commands": "Hurtigkommandoer",
+      "connect": "Forbind"
+    },
     "editor": {
       "contrast": {
         "title": "Nogle farver er svære at læse",
@@ -220,6 +224,13 @@
       "previewPage": "Side til forhåndsvisning",
       "previewDevice": "Bredde på forhåndsvisning",
       "previewScheme": "Farveskema for forhåndsvisning",
+      "status": {
+        "unsaved": "Ikke-gemte ændringer",
+        "saved": "Alle ændringer er gemt"
+      },
+      "more": "Flere handlinger",
+      "resizePanel": "Tilpas størrelsen på indstillingspanelet",
+      "sections": "Indstillingssektioner",
       "search": {
         "placeholder": "Søg i indstillinger",
         "clear": "Ryd søgning",
@@ -242,33 +253,41 @@
         "admin": "Admin",
         "login": "Loginside"
       },
+      "groups": {
+        "look": "Udseende",
+        "navigation": "Navigation",
+        "pages": "Sider",
+        "interface": "Brugerflade"
+      },
       "section": {
         "presets": "Forudindstillinger",
         "presetsDescription": "Start fra et færdigt look, gem dine egne, og vælg hvilke brugerne kan vælge imellem.",
         "colours": "Farver",
         "coloursDescription": "Alt andet blandes ud fra disse fem.",
         "style": "Typografi & form",
-        "styleDescription": "Skrifttyper, knapper, hjørneafrunding, blokgennemsigtighed og kanter samt klikeffekten.",
+        "styleDescription": "Skrifttyper, knapper, hjørneafrunding, blokgennemsigtighed og kanter.",
         "background": "Baggrund & branding",
         "backgroundDescription": "Et billede bag hele panelet, nedtonet med sidens farve, samt ikonet i browserfanen.",
-        "home": "Serverforside",
-        "homeDescription": "Kortene på en servers forside, dens bannere og spilbilleder samt Kom godt i gang-links.",
-        "login": "Loginside",
-        "loginDescription": "Layout, baggrund, logo og supportlinks til login-, registrerings- og adgangskodesider.",
-        "interface": "Adfærd",
-        "interfaceDescription": "Toasts, sideovergange, sidetitler og fileditoren på telefon.",
-        "components": "Komponenter",
-        "componentsDescription": "Bokse, statistikkort og tabeller i hele panelet.",
-        "console": "Konsol",
-        "consoleDescription": "Hvad konsolsiden viser omkring terminalen, og hvor.",
         "sidebar": "Sidebjælke & dock",
         "sidebarDescription": "Hvor menuen sidder på computer, hvor logo og søgning placeres, og hvordan telefoner navigerer.",
         "menu": "Menustil & søgning",
         "menuDescription": "Hvordan menulinks ser ud ved hover og når de er åbne, og hvilken søgning menuen viser.",
         "menuOrder": "Menurækkefølge",
         "menuOrderDescription": "Sammenklappelige menusektioner, admin-menuens rækkefølge og hvilke menuer brugerne kan arrangere.",
+        "home": "Serverforside",
+        "homeDescription": "Kortene på en servers forside, dens bannere og spilbilleder samt Kom godt i gang-links.",
+        "console": "Konsol",
+        "consoleDescription": "Konsolsiden: en skabelon eller dit eget layout omkring terminalen, selve terminalen, banneret, diagrammerne og hurtigkommandoer.",
         "servers": "Serverliste",
-        "serversDescription": "Kortene i gittervisningen af serverlisten."
+        "serversDescription": "Kortene i gittervisningen af serverlisten.",
+        "login": "Loginside",
+        "loginDescription": "Layout, baggrund, logo og supportlinks til login-, registrerings- og adgangskodesider.",
+        "interface": "Adfærd",
+        "interfaceDescription": "Notifikationer, sidetitler og fileditoren på telefonen.",
+        "motion": "Animationer",
+        "motionDescription": "Sideovergange, kort der glider ind, hover- og klikeffekter, hvordan dialoger og menuer åbner, og hastigheden på det hele.",
+        "components": "Komponenter",
+        "componentsDescription": "Bokse, statistikkort og tabeller i hele panelet."
       },
       "accent": "Accent",
       "accentDescription": "Knapper, links og det aktive menupunkt",
@@ -364,6 +383,10 @@
       "backgroundImage": "Billede-URL",
       "backgroundImageDescription": "Lad feltet stå tomt for en ensfarvet baggrund.",
       "backgroundDim": "Nedtoning",
+      "serverHome": "Serverens startside",
+      "serverHomeDescription": "En startside i serverens rod med kortene, billederne og linkene nedenfor; konsollen får sin egen side. Slået fra er konsollen serverens første side, som uden Mint. Åbne serversider ændres, næste gang de indlæses.",
+      "homeCards": "Kort",
+      "homeImages": "Billeder",
       "homeBanner": "URL til standardbannerbillede",
       "homeBannerDescription": "Bruges til eggs uden deres eget banner. Lad feltet stå tomt for en accentgradient.",
       "articles": "Kom godt i gang-links",
@@ -453,12 +476,49 @@
           "none": "Ingen",
           "fade": "Tone ind",
           "fadeUp": "Tone op",
-          "fadeScale": "Tone og skaler"
+          "fadeScale": "Tone og skaler",
+          "slide": "Glid ind",
+          "slideDown": "Glid ned",
+          "zoom": "Zoom",
+          "blur": "Sløret ind"
         },
         "pageTitles": "Vis sidetitler",
         "pageTitlesDescription": "Overskriften på serversider som Filer og Databaser. Deres søgning og knapper bliver.",
         "mobileEditor": "Telefonvenlig fileditor",
         "mobileEditorDescription": "På telefoner ombryder kodeeditoren linjer, skjuler minikortet og pop op-vinduer, bruger en 16px skrift og får en række taster over tastaturet: fortryd, indryk, søg, symboler og pile. Computere forbliver som de er."
+      },
+      "motion": {
+        "cardEntrance": "Kortindgang",
+        "cardEntranceDescription": "Kort og tabelrækker kommer ind efter hinanden, når en side åbnes. Hold musen over et felt for at se det.",
+        "cardEntrances": {
+          "none": "Ingen",
+          "fade": "Tone ind",
+          "rise": "Stig op"
+        },
+        "hoverEffect": "Hover-effekt",
+        "hoverEffectDescription": "Klikbare kort, som serverlisten, og knapper under musemarkøren. Hold musen over et felt for at se det.",
+        "hovers": {
+          "none": "Ingen",
+          "lift": "Løft",
+          "glow": "Glød"
+        },
+        "overlayMotion": "Dialoger og menuer",
+        "overlayMotionDescription": "Hvordan dialoger, skuffer, menuer og rullelister åbner. De lukker som altid. Hold musen over et felt for at se det.",
+        "overlays": {
+          "default": "Standard",
+          "pop": "Pop",
+          "slideUp": "Glid op",
+          "none": "Ingen"
+        },
+        "animationSpeed": "Animationshastighed",
+        "animationSpeedDescription": "Gør alle animationerne ovenfor hurtigere eller langsommere. Glas-notifikationens nedtælling beholder sin rigtige tid.",
+        "speeds": {
+          "slow": "Langsom",
+          "normal": "Normal",
+          "fast": "Hurtig"
+        },
+        "reduceMotion": "Reducer bevægelse for alle",
+        "reduceMotionDescription": "Slår sideovergange, kortindgang, hover-bevægelse, krympningen ved klik, dialog- og menuanimationer og notifikationsnedtællingen fra for alle brugere, uanset hvad indstillingerne ovenfor siger. Enheder, der er sat til at reducere bevægelse, får dem aldrig alligevel."
       },
       "boxes": {
         "title": "Bokse",
@@ -493,6 +553,14 @@
         "remove": "Fjern {name}",
         "allPlaced": "Alle komponenter er allerede på siden.",
         "reset": "Gendan standardlayoutet",
+        "presets": "Layoutskabeloner",
+        "presetsDescription": "Lægger en færdig konsolside over kladden; tilpas den yderligere i pladserne nedenfor.",
+        "presetNames": {
+          "classic": "Klassisk",
+          "sidebar": "Sidebjælke",
+          "focus": "Fokus",
+          "dashboard": "Dashboard"
+        },
         "slot": {
           "top": "Over terminalen",
           "left": "Til venstre for terminalen",
@@ -506,7 +574,10 @@
           "cpuChart": "CPU-diagram",
           "memoryChart": "Hukommelsesdiagram",
           "networkChart": "Netværksdiagram",
-          "extensionCards": "Udvidelseskort"
+          "extensionCards": "Udvidelseskort",
+          "gauges": "Forbrugsringe",
+          "commands": "Hurtigkommandoer",
+          "connect": "Forbind"
         },
         "widgetDescription": {
           "banner": "Servernavn, adresse, live-statistik og strømknapperne.",
@@ -515,8 +586,71 @@
           "cpuChart": "Live-graf over CPU-belastning.",
           "memoryChart": "Live-graf over hukommelse.",
           "networkChart": "Live-graf over indgående og udgående trafik.",
-          "extensionCards": "Statistikkort, som andre udvidelser tilføjer til konsollen."
+          "extensionCards": "Statistikkort, som andre udvidelser tilføjer til konsollen.",
+          "gauges": "Ringmålere for CPU, hukommelse og disk i forhold til serverens grænser.",
+          "commands": "Knapperne angivet under Hurtigkommandoknapper nedenfor; kun for brugere med konsoladgang.",
+          "connect": "Adressen og SFTP-oplysningerne med kopiknapper samt et SFTP-link."
         }
+      },
+      "console": {
+        "terminalTitle": "Terminal",
+        "frame": "Terminalramme",
+        "frameDescription": "Kortet omkring terminalen, dets overskrift og dets inputfelt.",
+        "frames": {
+          "card": "Kort",
+          "flush": "Kant til kant",
+          "glass": "Glas"
+        },
+        "height": "Terminalhøjde",
+        "heightDescription": "Udfyld vinduet strækker terminalen til bunden af vinduet på brede skærme; smalle skærme beholder den normale højde.",
+        "heights": {
+          "auto": "Normal",
+          "fill": "Udfyld vinduet",
+          "tall": "Høj"
+        },
+        "cursor": "Markør",
+        "cursorDescription": "Panelet skjuler terminalmarkøren; vælg en form for at vise den.",
+        "cursors": {
+          "none": "Skjult",
+          "block": "Blok",
+          "bar": "Streg",
+          "underline": "Understregning"
+        },
+        "cursorBlink": "Blinkende markør",
+        "cursorBlinkDescription": "Blinker, mens terminalen har fokus, aldrig med reduceret bevægelse. Kræver en synlig markør.",
+        "lineHeight": "Linjehøjde",
+        "bannerTitle": "Banner",
+        "banner": "Bannerstil",
+        "bannerDescription": "Bannerkomponenten: Hjem-banneret med live-statistik, én række eller en smal statuslinje.",
+        "banners": {
+          "full": "Fuld",
+          "compact": "Kompakt",
+          "minimal": "Minimal"
+        },
+        "chartsTitle": "Diagrammer",
+        "chartStyle": "Diagramstil",
+        "chartStyles": {
+          "area": "Område",
+          "line": "Linje"
+        },
+        "chartHeight": "Diagramhøjde",
+        "chartHeights": {
+          "small": "Lille",
+          "medium": "Mellem",
+          "large": "Stor"
+        },
+        "chartArrangement": "Diagramplacering",
+        "chartArrangementDescription": "Diagrammer placeret ved siden af hinanden deler en række, eller hvert fylder hele bredden.",
+        "chartArrangements": {
+          "row": "Side om side",
+          "stacked": "Stablet"
+        },
+        "commandsTitle": "Hurtigkommandoknapper",
+        "commandsDescription": "Op til {max} knapper til komponenten Hurtigkommandoer; hver sender sin kommando til serverkonsollen. Brugere uden konsoladgang ser dem ikke.",
+        "commandLabel": "Etiket",
+        "command": "Kommando",
+        "addCommand": "Tilføj kommando",
+        "removeCommand": "Fjern kommando"
       },
       "navStyle": {
         "hover": "Hover-effekt",
@@ -602,24 +736,7 @@
         "description": "Adminområdets menu for alle: træk links og hele kategorier samt links inden for deres kategori. Brugere kan stadig arrangere deres egne menuer oven på den. Server- og dashboardmenuerne følger ruterækkefølgerne i egg-konfigurationerne og brugerindstillingerne.",
         "empty": "Adminmenuen er ikke indlæst endnu.",
         "reset": "Tilbage til panelets rækkefølge"
-      },
-      "groups": {
-        "look": "Udseende",
-        "navigation": "Navigation",
-        "pages": "Sider",
-        "interface": "Brugerflade"
-      },
-      "serverHome": "Serverens startside",
-      "serverHomeDescription": "En startside i serverens rod med kortene, billederne og linkene nedenfor; konsollen får sin egen side. Slået fra er konsollen serverens første side, som uden Mint. Åbne serversider ændres, næste gang de indlæses.",
-      "homeCards": "Kort",
-      "homeImages": "Billeder",
-      "status": {
-        "unsaved": "Ikke-gemte ændringer",
-        "saved": "Alle ændringer er gemt"
-      },
-      "more": "Flere handlinger",
-      "resizePanel": "Tilpas størrelsen på indstillingspanelet",
-      "sections": "Indstillingssektioner"
+      }
     },
     "library": {
       "saveAsPreset": "Gem som forudindstilling",

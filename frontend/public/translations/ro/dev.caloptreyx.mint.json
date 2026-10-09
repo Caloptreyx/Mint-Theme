@@ -166,6 +166,10 @@
       "down": "Mută cursorul în jos",
       "type": "Tastează {key}"
     },
+    "console": {
+      "commands": "Comenzi rapide",
+      "connect": "Conectare"
+    },
     "editor": {
       "contrast": {
         "title": "Unele culori sunt greu de citit",
@@ -220,6 +224,13 @@
       "previewPage": "Pagina de previzualizare",
       "previewDevice": "Lățimea previzualizării",
       "previewScheme": "Schema de culori a previzualizării",
+      "status": {
+        "unsaved": "Modificări nesalvate",
+        "saved": "Toate modificările au fost salvate"
+      },
+      "more": "Mai multe acțiuni",
+      "resizePanel": "Redimensionează panoul de setări",
+      "sections": "Secțiuni de setări",
       "search": {
         "placeholder": "Caută setări",
         "clear": "Șterge căutarea",
@@ -242,33 +253,41 @@
         "admin": "Admin",
         "login": "Pagina de autentificare"
       },
+      "groups": {
+        "look": "Aspect",
+        "navigation": "Navigare",
+        "pages": "Pagini",
+        "interface": "Interfață"
+      },
       "section": {
         "presets": "Presetări",
         "presetsDescription": "Pornește de la un aspect gata făcut, salvează-le pe ale tale și alege pe care le pot selecta utilizatorii.",
         "colours": "Culori",
         "coloursDescription": "Toate celelalte culori sunt amestecate din aceste cinci.",
         "style": "Tipografie și formă",
-        "styleDescription": "Fonturi, butoane, rotunjirea colțurilor, opacitatea și marginile blocurilor și efectul de clic.",
+        "styleDescription": "Fonturi, butoane, rotunjirea colțurilor, opacitatea și marginile blocurilor.",
         "background": "Fundal și branding",
         "backgroundDescription": "O imagine în spatele întregului panou, estompată cu culoarea paginii, și pictograma filei browserului.",
-        "home": "Pagina serverului",
-        "homeDescription": "Cardurile de pe pagina de start a unui server, bannerele și imaginile jocului și linkurile de început.",
-        "login": "Pagina de autentificare",
-        "loginDescription": "Aranjament, fundal, logo și linkuri de asistență pentru paginile de autentificare, înregistrare și parolă.",
-        "interface": "Comportament",
-        "interfaceDescription": "Notificări, tranziții de pagină, titluri de pagină și editorul de fișiere pe telefon.",
-        "components": "Componente",
-        "componentsDescription": "Casete, carduri de statistici și tabele din tot panoul.",
-        "console": "Consolă",
-        "consoleDescription": "Ce afișează pagina consolei în jurul terminalului și unde.",
         "sidebar": "Bară laterală și dock",
         "sidebarDescription": "Unde stă meniul pe desktop, unde sunt logo-ul și căutarea și cum se navighează pe telefoane.",
         "menu": "Stil meniu și căutare",
         "menuDescription": "Cum arată linkurile din meniu la trecerea cursorului și când sunt deschise și ce căutare afișează meniul.",
         "menuOrder": "Ordinea meniului",
         "menuOrderDescription": "Secțiuni de meniu pliabile, ordinea meniului de administrare și ce meniuri pot aranja utilizatorii.",
+        "home": "Pagina serverului",
+        "homeDescription": "Cardurile de pe pagina de start a unui server, bannerele și imaginile jocului și linkurile de început.",
+        "console": "Consolă",
+        "consoleDescription": "Pagina consolei: un preset sau propriul aspect în jurul terminalului, terminalul în sine, bannerul, graficele și comenzile rapide.",
         "servers": "Lista serverelor",
-        "serversDescription": "Cardurile din vizualizarea grilă a listei de servere."
+        "serversDescription": "Cardurile din vizualizarea grilă a listei de servere.",
+        "login": "Pagina de autentificare",
+        "loginDescription": "Aranjament, fundal, logo și linkuri de asistență pentru paginile de autentificare, înregistrare și parolă.",
+        "interface": "Comportament",
+        "interfaceDescription": "Notificări, titluri de pagină și editorul de fișiere pe telefon.",
+        "motion": "Animații",
+        "motionDescription": "Tranziții de pagină, apariția cardurilor, efecte la trecerea mouse-ului și la clic, modul în care se deschid dialogurile și meniurile, și viteza tuturor.",
+        "components": "Componente",
+        "componentsDescription": "Casete, carduri de statistici și tabele din tot panoul."
       },
       "accent": "Accent",
       "accentDescription": "Butoane, linkuri și elementul de meniu activ",
@@ -364,6 +383,10 @@
       "backgroundImage": "URL imagine",
       "backgroundImageDescription": "Lasă gol pentru un fundal simplu.",
       "backgroundDim": "Estompare",
+      "serverHome": "Pagina de pornire a serverului",
+      "serverHomeDescription": "O pagină de pornire la rădăcina serverului cu cardurile, imaginile și linkurile de mai jos; consola primește propria pagină. Dezactivată, consola este prima pagină a serverului, ca fără Mint. Paginile de server deschise se schimbă la următoarea încărcare.",
+      "homeCards": "Carduri",
+      "homeImages": "Imagini",
       "homeBanner": "URL imagine banner implicit",
       "homeBannerDescription": "Folosit pentru egg-urile fără banner propriu. Lasă gol pentru un gradient de accent.",
       "articles": "Linkuri Primii pași",
@@ -453,12 +476,49 @@
           "none": "Niciuna",
           "fade": "Apariție treptată",
           "fadeUp": "Apariție în sus",
-          "fadeScale": "Apariție cu scalare"
+          "fadeScale": "Apariție cu scalare",
+          "slide": "Glisare",
+          "slideDown": "Glisare în jos",
+          "zoom": "Zoom",
+          "blur": "Apariție estompată"
         },
         "pageTitles": "Afișează titlurile paginilor",
         "pageTitlesDescription": "Titlul de pe paginile serverului, precum Fișiere și Baze de date. Căutarea și butoanele lor rămân.",
         "mobileEditor": "Editor de fișiere potrivit pentru telefon",
         "mobileEditorDescription": "Pe telefoane, editorul de cod încadrează rândurile, ascunde minimap-ul și ferestrele pop-up, folosește un font de 16px și afișează un rând de taste deasupra tastaturii: anulare, indentare, căutare, simboluri și săgeți. Pe desktop nu se schimbă nimic."
+      },
+      "motion": {
+        "cardEntrance": "Apariția cardurilor",
+        "cardEntranceDescription": "Cardurile și rândurile de tabel apar unul după altul când se deschide o pagină. Treci cu mouse-ul peste o casetă ca să vezi.",
+        "cardEntrances": {
+          "none": "Niciuna",
+          "fade": "Apariție treptată",
+          "rise": "Ridicare"
+        },
+        "hoverEffect": "Efect la trecerea mouse-ului",
+        "hoverEffectDescription": "Cardurile pe care se poate da clic, cum ar fi lista de servere, și butoanele de sub cursorul mouse-ului. Treci cu mouse-ul peste o casetă ca să vezi.",
+        "hovers": {
+          "none": "Niciunul",
+          "lift": "Ridicare",
+          "glow": "Strălucire"
+        },
+        "overlayMotion": "Dialoguri și meniuri",
+        "overlayMotionDescription": "Cum se deschid dialogurile, panourile, meniurile și listele derulante. Se închid ca întotdeauna. Treci cu mouse-ul peste o casetă ca să vezi.",
+        "overlays": {
+          "default": "Implicit",
+          "pop": "Pop",
+          "slideUp": "Glisare în sus",
+          "none": "Niciuna"
+        },
+        "animationSpeed": "Viteza animațiilor",
+        "animationSpeedDescription": "Accelerează sau încetinește toate animațiile de mai sus. Numărătoarea inversă a notificării din sticlă își păstrează timpul real.",
+        "speeds": {
+          "slow": "Lentă",
+          "normal": "Normală",
+          "fast": "Rapidă"
+        },
+        "reduceMotion": "Reduce mișcarea pentru toți",
+        "reduceMotionDescription": "Dezactivează tranzițiile de pagină, apariția cardurilor, mișcarea la trecerea mouse-ului, micșorarea la clic, animațiile dialogurilor și meniurilor și numărătoarea inversă a notificărilor pentru toți utilizatorii, indiferent de opțiunile de mai sus. Dispozitivele setate să reducă mișcarea nu le primesc oricum niciodată."
       },
       "boxes": {
         "title": "Casete",
@@ -493,6 +553,14 @@
         "remove": "Elimină {name}",
         "allPlaced": "Toate componentele sunt deja pe pagină.",
         "reset": "Restaurează aranjamentul implicit",
+        "presets": "Aspecte predefinite",
+        "presetsDescription": "Aplică peste ciornă o pagină de consolă gata făcută; modific-o apoi în sloturile de mai jos.",
+        "presetNames": {
+          "classic": "Clasic",
+          "sidebar": "Bară laterală",
+          "focus": "Focus",
+          "dashboard": "Tablou de bord"
+        },
         "slot": {
           "top": "Deasupra terminalului",
           "left": "În stânga terminalului",
@@ -506,7 +574,10 @@
           "cpuChart": "Grafic CPU",
           "memoryChart": "Grafic memorie",
           "networkChart": "Grafic rețea",
-          "extensionCards": "Carduri de extensii"
+          "extensionCards": "Carduri de extensii",
+          "gauges": "Inele de utilizare",
+          "commands": "Comenzi rapide",
+          "connect": "Conectare"
         },
         "widgetDescription": {
           "banner": "Numele serverului, adresa, statistici live și butoanele de alimentare.",
@@ -515,8 +586,71 @@
           "cpuChart": "Grafic live al încărcării CPU.",
           "memoryChart": "Grafic live al memoriei.",
           "networkChart": "Grafic live al traficului de intrare și ieșire.",
-          "extensionCards": "Carduri de statistici adăugate în consolă de alte extensii."
+          "extensionCards": "Carduri de statistici adăugate în consolă de alte extensii.",
+          "gauges": "Indicatoare circulare pentru CPU, memorie și disc față de limitele serverului.",
+          "commands": "Butoanele setate la „Butoane de comenzi rapide” mai jos; doar pentru utilizatorii cu acces la consolă.",
+          "connect": "Adresa și detaliile SFTP cu butoane de copiere, plus un link SFTP."
         }
+      },
+      "console": {
+        "terminalTitle": "Terminal",
+        "frame": "Cadrul terminalului",
+        "frameDescription": "Cardul din jurul terminalului, antetul și câmpul său de introducere.",
+        "frames": {
+          "card": "Card",
+          "flush": "La nivel",
+          "glass": "Sticlă"
+        },
+        "height": "Înălțimea terminalului",
+        "heightDescription": "„Umple fereastra” extinde terminalul până la baza ferestrei pe ecranele late; ecranele înguste păstrează înălțimea normală.",
+        "heights": {
+          "auto": "Normală",
+          "fill": "Umple fereastra",
+          "tall": "Înaltă"
+        },
+        "cursor": "Cursor",
+        "cursorDescription": "Panoul ascunde cursorul terminalului; alege o formă pentru a-l afișa.",
+        "cursors": {
+          "none": "Ascuns",
+          "block": "Bloc",
+          "bar": "Bară",
+          "underline": "Subliniere"
+        },
+        "cursorBlink": "Cursor intermitent",
+        "cursorBlinkDescription": "Clipește cât timp terminalul are focus, niciodată cu mișcare redusă. Necesită un cursor afișat.",
+        "lineHeight": "Înălțimea rândului",
+        "bannerTitle": "Banner",
+        "banner": "Stilul bannerului",
+        "bannerDescription": "Componenta banner: bannerul de pe Acasă cu statistici live, un singur rând sau o linie de stare subțire.",
+        "banners": {
+          "full": "Complet",
+          "compact": "Compact",
+          "minimal": "Minimal"
+        },
+        "chartsTitle": "Grafice",
+        "chartStyle": "Stilul graficelor",
+        "chartStyles": {
+          "area": "Zonă",
+          "line": "Linie"
+        },
+        "chartHeight": "Înălțimea graficelor",
+        "chartHeights": {
+          "small": "Mică",
+          "medium": "Medie",
+          "large": "Mare"
+        },
+        "chartArrangement": "Aranjarea graficelor",
+        "chartArrangementDescription": "Graficele puse unul lângă altul împart un rând, sau fiecare ocupă toată lățimea.",
+        "chartArrangements": {
+          "row": "Unul lângă altul",
+          "stacked": "Suprapuse"
+        },
+        "commandsTitle": "Butoane de comenzi rapide",
+        "commandsDescription": "Până la {max} butoane pentru componenta Comenzi rapide; fiecare trimite comanda sa la consola serverului. Utilizatorii fără acces la consolă nu le văd.",
+        "commandLabel": "Etichetă",
+        "command": "Comandă",
+        "addCommand": "Adaugă comandă",
+        "removeCommand": "Elimină comanda"
       },
       "navStyle": {
         "hover": "Efect la trecerea cursorului",
@@ -602,24 +736,7 @@
         "description": "Meniul zonei de administrare pentru toată lumea: trage linkuri și categorii întregi, precum și linkuri în cadrul categoriei lor. Utilizatorii își pot aranja în continuare propriile meniuri peste el. Meniurile de server și de panou urmează ordinea rutelor din configurațiile egg și din setările utilizatorilor.",
         "empty": "Meniul de administrare nu s-a încărcat încă.",
         "reset": "Înapoi la ordinea panoului"
-      },
-      "groups": {
-        "look": "Aspect",
-        "navigation": "Navigare",
-        "pages": "Pagini",
-        "interface": "Interfață"
-      },
-      "serverHome": "Pagina de pornire a serverului",
-      "serverHomeDescription": "O pagină de pornire la rădăcina serverului cu cardurile, imaginile și linkurile de mai jos; consola primește propria pagină. Dezactivată, consola este prima pagină a serverului, ca fără Mint. Paginile de server deschise se schimbă la următoarea încărcare.",
-      "homeCards": "Carduri",
-      "homeImages": "Imagini",
-      "status": {
-        "unsaved": "Modificări nesalvate",
-        "saved": "Toate modificările au fost salvate"
-      },
-      "more": "Mai multe acțiuni",
-      "resizePanel": "Redimensionează panoul de setări",
-      "sections": "Secțiuni de setări"
+      }
     },
     "library": {
       "saveAsPreset": "Salvează ca presetare",

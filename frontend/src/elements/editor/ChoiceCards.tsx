@@ -10,7 +10,8 @@ export interface Choice<T extends string> {
 interface Props<T extends string> {
   label: string;
   description?: string;
-  value: T;
+  /** null selects no tile (a draft that matches none of them). */
+  value: T | null;
   choices: Choice<T>[];
   onChange: (value: T) => void;
   columns?: 2 | 3;

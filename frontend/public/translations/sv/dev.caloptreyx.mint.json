@@ -166,6 +166,10 @@
       "down": "Flytta markören nedåt",
       "type": "Skriv {key}"
     },
+    "console": {
+      "commands": "Snabbkommandon",
+      "connect": "Anslut"
+    },
     "editor": {
       "contrast": {
         "title": "Vissa färger är svåra att läsa",
@@ -220,6 +224,13 @@
       "previewPage": "Sida att förhandsvisa",
       "previewDevice": "Bredd på förhandsvisning",
       "previewScheme": "Färgschema för förhandsvisning",
+      "status": {
+        "unsaved": "Osparade ändringar",
+        "saved": "Alla ändringar sparade"
+      },
+      "more": "Fler åtgärder",
+      "resizePanel": "Ändra storlek på inställningspanelen",
+      "sections": "Inställningsavsnitt",
       "search": {
         "placeholder": "Sök inställningar",
         "clear": "Rensa sökning",
@@ -242,33 +253,41 @@
         "admin": "Admin",
         "login": "Inloggningssida"
       },
+      "groups": {
+        "look": "Utseende",
+        "navigation": "Navigering",
+        "pages": "Sidor",
+        "interface": "Gränssnitt"
+      },
       "section": {
         "presets": "Förinställningar",
         "presetsDescription": "Utgå från ett färdigt utseende, spara dina egna och välj vilka användarna kan välja mellan.",
         "colours": "Färger",
         "coloursDescription": "Allt annat blandas fram från dessa fem.",
         "style": "Typografi & form",
-        "styleDescription": "Typsnitt, knappar, hörnrundning, blockopacitet och kanter samt klickeffekten.",
+        "styleDescription": "Typsnitt, knappar, hörnrundning, blockopacitet och kanter.",
         "background": "Bakgrund & varumärke",
         "backgroundDescription": "En bild bakom hela panelen, nedtonad med sidans färg, samt ikonen för webbläsarfliken.",
-        "home": "Serverns startsida",
-        "homeDescription": "Korten på en servers startsida, dess banners och spelbilder samt Kom igång-länkarna.",
-        "login": "Inloggningssida",
-        "loginDescription": "Layout, bakgrund, logotyp och supportlänkar för inloggnings-, registrerings- och lösenordssidor.",
-        "interface": "Beteende",
-        "interfaceDescription": "Notiser, sidövergångar, sidtitlar och filredigeraren på mobil.",
-        "components": "Komponenter",
-        "componentsDescription": "Rutor, statistikkort och tabeller i hela panelen.",
-        "console": "Konsol",
-        "consoleDescription": "Vad konsolsidan visar runt terminalen, och var.",
         "sidebar": "Sidofält & docka",
         "sidebarDescription": "Var menyn sitter på datorn, var logotyp och sökning placeras och hur mobiler navigerar.",
         "menu": "Menystil & sökning",
         "menuDescription": "Hur menylänkar ser ut vid hovring och när de är öppna, och vilken sökning menyn visar.",
         "menuOrder": "Menyordning",
         "menuOrderDescription": "Hopfällbara menyavsnitt, adminmenyns ordning och vilka menyer användare kan ordna.",
+        "home": "Serverns startsida",
+        "homeDescription": "Korten på en servers startsida, dess banners och spelbilder samt Kom igång-länkarna.",
+        "console": "Konsol",
+        "consoleDescription": "Konsolsidan: en förinställning eller din egen layout runt terminalen, själva terminalen, bannern, diagrammen och snabbkommandon.",
         "servers": "Serverlista",
-        "serversDescription": "Korten i rutnätsvyn för serverlistan."
+        "serversDescription": "Korten i rutnätsvyn för serverlistan.",
+        "login": "Inloggningssida",
+        "loginDescription": "Layout, bakgrund, logotyp och supportlänkar för inloggnings-, registrerings- och lösenordssidor.",
+        "interface": "Beteende",
+        "interfaceDescription": "Notiser, sidrubriker och filredigeraren i mobilen.",
+        "motion": "Animationer",
+        "motionDescription": "Sidövergångar, kort som tonar in, hover- och klickeffekter, hur dialoger och menyer öppnas, och hastigheten på allt.",
+        "components": "Komponenter",
+        "componentsDescription": "Rutor, statistikkort och tabeller i hela panelen."
       },
       "accent": "Accent",
       "accentDescription": "Knappar, länkar och det aktiva menyalternativet",
@@ -364,6 +383,10 @@
       "backgroundImage": "Bild-URL",
       "backgroundImageDescription": "Lämna tomt för en enfärgad bakgrund.",
       "backgroundDim": "Nedtoning",
+      "serverHome": "Serverns startsida",
+      "serverHomeDescription": "En startsida i serverns rot med korten, bilderna och länkarna nedan; konsolen får en egen sida. Avstängd är konsolen serverns första sida, som utan Mint. Öppna serversidor ändras nästa gång de laddas.",
+      "homeCards": "Kort",
+      "homeImages": "Bilder",
       "homeBanner": "URL till standardbannerbild",
       "homeBannerDescription": "Används för ägg utan egen banner. Lämna tomt för en accentgradient.",
       "articles": "Kom igång-länkar",
@@ -453,12 +476,49 @@
           "none": "Ingen",
           "fade": "Tona in",
           "fadeUp": "Tona uppåt",
-          "fadeScale": "Tona och skala"
+          "fadeScale": "Tona och skala",
+          "slide": "Glid in",
+          "slideDown": "Glid nedåt",
+          "zoom": "Zoom",
+          "blur": "Oskarp in"
         },
         "pageTitles": "Visa sidrubriker",
         "pageTitlesDescription": "Rubriken på serversidor som Filer och Databaser. Deras sökning och knappar finns kvar.",
         "mobileEditor": "Mobilvänlig filredigerare",
         "mobileEditorDescription": "På telefoner radbryter kodredigeraren rader, döljer minikartan och popup-fönster, använder ett 16px-teckensnitt och får en rad tangenter ovanför tangentbordet: ångra, indrag, sök, symboler och pilar. Datorer förblir som de är."
+      },
+      "motion": {
+        "cardEntrance": "Kortintåg",
+        "cardEntranceDescription": "Kort och tabellrader kommer in efter varandra när en sida öppnas. Håll muspekaren över en ruta för att se det.",
+        "cardEntrances": {
+          "none": "Ingen",
+          "fade": "Tona in",
+          "rise": "Stig upp"
+        },
+        "hoverEffect": "Hovereffekt",
+        "hoverEffectDescription": "Klickbara kort, som serverlistan, och knappar under muspekaren. Håll muspekaren över en ruta för att se det.",
+        "hovers": {
+          "none": "Ingen",
+          "lift": "Lyft",
+          "glow": "Glöd"
+        },
+        "overlayMotion": "Dialoger och menyer",
+        "overlayMotionDescription": "Hur dialoger, lådor, menyer och rullgardinslistor öppnas. De stängs som vanligt. Håll muspekaren över en ruta för att se det.",
+        "overlays": {
+          "default": "Standard",
+          "pop": "Pop",
+          "slideUp": "Glid uppåt",
+          "none": "Ingen"
+        },
+        "animationSpeed": "Animationshastighet",
+        "animationSpeedDescription": "Snabbar upp eller saktar ner alla animationer ovan. Glasnotisens nedräkning behåller sin verkliga tid.",
+        "speeds": {
+          "slow": "Långsam",
+          "normal": "Normal",
+          "fast": "Snabb"
+        },
+        "reduceMotion": "Minska rörelse för alla",
+        "reduceMotionDescription": "Stänger av sidövergångar, kortintåg, hoverrörelse, krympningen vid klick, dialog- och menyanimationer och notisnedräkningen för alla användare, oavsett vad alternativen ovan säger. Enheter inställda på minskad rörelse får dem aldrig ändå."
       },
       "boxes": {
         "title": "Rutor",
@@ -493,6 +553,14 @@
         "remove": "Ta bort {name}",
         "allPlaced": "Alla komponenter finns redan på sidan.",
         "reset": "Återställ standardlayouten",
+        "presets": "Layoutförinställningar",
+        "presetsDescription": "Lägger en färdig konsolsida över utkastet; ändra den vidare i platserna nedan.",
+        "presetNames": {
+          "classic": "Klassisk",
+          "sidebar": "Sidofält",
+          "focus": "Fokus",
+          "dashboard": "Instrumentpanel"
+        },
         "slot": {
           "top": "Ovanför terminalen",
           "left": "Till vänster om terminalen",
@@ -506,7 +574,10 @@
           "cpuChart": "CPU-diagram",
           "memoryChart": "Minnesdiagram",
           "networkChart": "Nätverksdiagram",
-          "extensionCards": "Tilläggskort"
+          "extensionCards": "Tilläggskort",
+          "gauges": "Användningsringar",
+          "commands": "Snabbkommandon",
+          "connect": "Anslut"
         },
         "widgetDescription": {
           "banner": "Servernamn, adress, statistik i realtid och strömknapparna.",
@@ -515,8 +586,71 @@
           "cpuChart": "Graf över CPU-belastning i realtid.",
           "memoryChart": "Minnesgraf i realtid.",
           "networkChart": "Graf över inkommande och utgående trafik i realtid.",
-          "extensionCards": "Statistikkort som andra tillägg lägger till i konsolen."
+          "extensionCards": "Statistikkort som andra tillägg lägger till i konsolen.",
+          "gauges": "Ringmätare för CPU, minne och disk mot serverns gränser.",
+          "commands": "Knapparna som anges under Snabbkommandoknappar nedan; bara för användare med konsolåtkomst.",
+          "connect": "Adressen och SFTP-uppgifterna med kopieringsknappar, samt en SFTP-länk."
         }
+      },
+      "console": {
+        "terminalTitle": "Terminal",
+        "frame": "Terminalram",
+        "frameDescription": "Kortet runt terminalen, dess rubrik och dess inmatningsfält.",
+        "frames": {
+          "card": "Kort",
+          "flush": "Kant i kant",
+          "glass": "Glas"
+        },
+        "height": "Terminalhöjd",
+        "heightDescription": "Fyll fönstret drar terminalen till fönstrets nederkant på breda skärmar; smala skärmar behåller normal höjd.",
+        "heights": {
+          "auto": "Normal",
+          "fill": "Fyll fönstret",
+          "tall": "Hög"
+        },
+        "cursor": "Markör",
+        "cursorDescription": "Panelen döljer terminalmarkören; välj en form för att visa den.",
+        "cursors": {
+          "none": "Dold",
+          "block": "Block",
+          "bar": "Streck",
+          "underline": "Understrykning"
+        },
+        "cursorBlink": "Blinkande markör",
+        "cursorBlinkDescription": "Blinkar när terminalen har fokus, aldrig med minskad rörelse. Kräver en synlig markör.",
+        "lineHeight": "Radhöjd",
+        "bannerTitle": "Banner",
+        "banner": "Bannerstil",
+        "bannerDescription": "Bannerkomponenten: hemsidans banner med statistik i realtid, en rad eller en smal statusrad.",
+        "banners": {
+          "full": "Full",
+          "compact": "Kompakt",
+          "minimal": "Minimal"
+        },
+        "chartsTitle": "Diagram",
+        "chartStyle": "Diagramstil",
+        "chartStyles": {
+          "area": "Yta",
+          "line": "Linje"
+        },
+        "chartHeight": "Diagramhöjd",
+        "chartHeights": {
+          "small": "Liten",
+          "medium": "Mellan",
+          "large": "Stor"
+        },
+        "chartArrangement": "Diagramplacering",
+        "chartArrangementDescription": "Diagram placerade bredvid varandra delar en rad, eller så tar vart och ett hela bredden.",
+        "chartArrangements": {
+          "row": "Sida vid sida",
+          "stacked": "Staplade"
+        },
+        "commandsTitle": "Snabbkommandoknappar",
+        "commandsDescription": "Upp till {max} knappar för komponenten Snabbkommandon; var och en skickar sitt kommando till serverkonsolen. Användare utan konsolåtkomst ser dem inte.",
+        "commandLabel": "Etikett",
+        "command": "Kommando",
+        "addCommand": "Lägg till kommando",
+        "removeCommand": "Ta bort kommando"
       },
       "navStyle": {
         "hover": "Hovringseffekt",
@@ -602,24 +736,7 @@
         "description": "Adminområdets meny för alla: dra länkar och hela kategorier, och länkar inom sin kategori. Användare kan fortfarande ordna sina egna menyer ovanpå. Server- och instrumentpanelsmenyerna följer ruttordningarna i egg-konfigurationerna och användarinställningarna.",
         "empty": "Adminmenyn har inte laddats än.",
         "reset": "Tillbaka till panelens ordning"
-      },
-      "groups": {
-        "look": "Utseende",
-        "navigation": "Navigering",
-        "pages": "Sidor",
-        "interface": "Gränssnitt"
-      },
-      "serverHome": "Serverns startsida",
-      "serverHomeDescription": "En startsida i serverns rot med korten, bilderna och länkarna nedan; konsolen får en egen sida. Avstängd är konsolen serverns första sida, som utan Mint. Öppna serversidor ändras nästa gång de laddas.",
-      "homeCards": "Kort",
-      "homeImages": "Bilder",
-      "status": {
-        "unsaved": "Osparade ändringar",
-        "saved": "Alla ändringar sparade"
-      },
-      "more": "Fler åtgärder",
-      "resizePanel": "Ändra storlek på inställningspanelen",
-      "sections": "Inställningsavsnitt"
+      }
     },
     "library": {
       "saveAsPreset": "Spara som förinställning",

@@ -166,6 +166,10 @@
       "down": "Posunúť kurzor nadol",
       "type": "Napísať {key}"
     },
+    "console": {
+      "commands": "Rýchle príkazy",
+      "connect": "Pripojenie"
+    },
     "editor": {
       "contrast": {
         "title": "Niektoré farby sú zle čitateľné",
@@ -220,6 +224,13 @@
       "previewPage": "Stránka ukážky",
       "previewDevice": "Šírka ukážky",
       "previewScheme": "Farebná schéma ukážky",
+      "status": {
+        "unsaved": "Neuložené zmeny",
+        "saved": "Všetky zmeny uložené"
+      },
+      "more": "Ďalšie akcie",
+      "resizePanel": "Zmeniť veľkosť panela nastavení",
+      "sections": "Sekcie nastavení",
       "search": {
         "placeholder": "Hľadať nastavenia",
         "clear": "Vymazať hľadanie",
@@ -242,33 +253,41 @@
         "admin": "Administrácia",
         "login": "Prihlasovacia stránka"
       },
+      "groups": {
+        "look": "Vzhľad",
+        "navigation": "Navigácia",
+        "pages": "Stránky",
+        "interface": "Rozhranie"
+      },
       "section": {
         "presets": "Predvoľby",
         "presetsDescription": "Začnite od hotového vzhľadu, uložte si vlastný a vyberte, z ktorých si môžu vyberať používatelia.",
         "colours": "Farby",
         "coloursDescription": "Všetko ostatné sa mieša z týchto piatich.",
         "style": "Typografia a tvar",
-        "styleDescription": "Písma, tlačidlá, zaoblenie rohov, priehľadnosť a okraje blokov a efekt kliknutia.",
+        "styleDescription": "Písma, tlačidlá, zaoblenie rohov, priehľadnosť a okraje blokov.",
         "background": "Pozadie a branding",
         "backgroundDescription": "Obrázok za celým panelom stmavený farbou stránky a ikona karty prehliadača.",
-        "home": "Domov servera",
-        "homeDescription": "Karty na domovskej stránke servera, jeho bannery a obrázky hier a odkazy Začíname.",
-        "login": "Prihlasovacia stránka",
-        "loginDescription": "Rozloženie, pozadie, logo a odkazy na podporu pre stránky prihlásenia, registrácie a hesla.",
-        "interface": "Správanie",
-        "interfaceDescription": "Upozornenia, prechody stránok, názvy stránok a editor súborov na telefóne.",
-        "components": "Komponenty",
-        "componentsDescription": "Boxy, štatistické karty a tabuľky v celom paneli.",
-        "console": "Konzola",
-        "consoleDescription": "Čo sa na stránke konzoly zobrazuje okolo terminálu a kde.",
         "sidebar": "Bočný panel a dok",
         "sidebarDescription": "Kde je menu na počítači, kde sú jeho logo a vyhľadávanie a ako sa naviguje na telefónoch.",
         "menu": "Štýl menu a vyhľadávanie",
         "menuDescription": "Ako vyzerajú odkazy menu pri prejdení myšou a keď sú otvorené a aké vyhľadávanie menu zobrazuje.",
         "menuOrder": "Poradie menu",
         "menuOrderDescription": "Zbaliteľné sekcie menu, poradie administrátorského menu a ktoré menu môžu používatelia usporiadať.",
+        "home": "Domov servera",
+        "homeDescription": "Karty na domovskej stránke servera, jeho bannery a obrázky hier a odkazy Začíname.",
+        "console": "Konzola",
+        "consoleDescription": "Stránka konzoly: predvoľba alebo vlastné rozloženie okolo terminálu, samotný terminál, banner, grafy a rýchle príkazy.",
         "servers": "Zoznam serverov",
-        "serversDescription": "Karty v mriežkovom zobrazení zoznamu serverov."
+        "serversDescription": "Karty v mriežkovom zobrazení zoznamu serverov.",
+        "login": "Prihlasovacia stránka",
+        "loginDescription": "Rozloženie, pozadie, logo a odkazy na podporu pre stránky prihlásenia, registrácie a hesla.",
+        "interface": "Správanie",
+        "interfaceDescription": "Upozornenia, názvy stránok a editor súborov v telefóne.",
+        "motion": "Animácie",
+        "motionDescription": "Prechody stránok, nábeh kariet, efekty pri prejdení myšou a kliknutí, ako sa otvárajú dialógy a ponuky, a rýchlosť toho všetkého.",
+        "components": "Komponenty",
+        "componentsDescription": "Boxy, štatistické karty a tabuľky v celom paneli."
       },
       "accent": "Akcent",
       "accentDescription": "Tlačidlá, odkazy a aktívna položka ponuky",
@@ -364,6 +383,10 @@
       "backgroundImage": "URL obrázka",
       "backgroundImageDescription": "Pre jednofarebné pozadie nechajte prázdne.",
       "backgroundDim": "Stmavenie",
+      "serverHome": "Domovská stránka servera",
+      "serverHomeDescription": "Domovská stránka v koreni servera s kartami, obrázkami a odkazmi nižšie; konzola dostane vlastnú stránku. Po vypnutí je konzola prvou stránkou servera, ako bez Mint. Otvorené stránky servera sa zmenia pri ďalšom načítaní.",
+      "homeCards": "Karty",
+      "homeImages": "Obrázky",
       "homeBanner": "URL predvoleného obrázka banneru",
       "homeBannerDescription": "Použije sa pre eggy bez vlastného banneru. Pre prechod vo farbe akcentu nechajte prázdne.",
       "articles": "Odkazy Začíname",
@@ -453,12 +476,49 @@
           "none": "Žiadny",
           "fade": "Prelínanie",
           "fadeUp": "Prelínanie nahor",
-          "fadeScale": "Prelínanie so zväčšením"
+          "fadeScale": "Prelínanie so zväčšením",
+          "slide": "Vysunutie",
+          "slideDown": "Vysunutie nadol",
+          "zoom": "Priblíženie",
+          "blur": "Rozmazané prelínanie"
         },
         "pageTitles": "Zobraziť nadpisy stránok",
         "pageTitlesDescription": "Nadpis na stránkach servera, ako sú Súbory a Databázy. Ich vyhľadávanie a tlačidlá zostanú.",
         "mobileEditor": "Editor súborov vhodný pre mobil",
         "mobileEditorDescription": "Na telefónoch editor kódu zalamuje riadky, skryje minimapu a vyskakovacie okná, použije písmo 16px a nad klávesnicou zobrazí rad kláves: späť, odsadenie, hľadať, symboly a šípky. Na počítačoch zostáva všetko po starom."
+      },
+      "motion": {
+        "cardEntrance": "Nábeh kariet",
+        "cardEntranceDescription": "Karty a riadky tabuliek sa pri otvorení stránky objavujú jedna po druhej. Prejdite myšou na dlaždicu a uvidíte to.",
+        "cardEntrances": {
+          "none": "Žiadny",
+          "fade": "Prelínanie",
+          "rise": "Vystúpenie"
+        },
+        "hoverEffect": "Efekt pri prejdení myšou",
+        "hoverEffectDescription": "Klikateľné karty, napríklad zoznam serverov, a tlačidlá pod kurzorom myši. Prejdite myšou na dlaždicu a uvidíte to.",
+        "hovers": {
+          "none": "Žiadny",
+          "lift": "Nadvihnutie",
+          "glow": "Žiara"
+        },
+        "overlayMotion": "Dialógy a ponuky",
+        "overlayMotionDescription": "Ako sa otvárajú dialógy, zásuvky, ponuky a rozbaľovacie zoznamy. Zatvárajú sa ako vždy. Prejdite myšou na dlaždicu a uvidíte to.",
+        "overlays": {
+          "default": "Predvolené",
+          "pop": "Vyskočenie",
+          "slideUp": "Vysunutie nahor",
+          "none": "Žiadne"
+        },
+        "animationSpeed": "Rýchlosť animácií",
+        "animationSpeedDescription": "Zrýchli alebo spomalí všetky animácie vyššie. Odpočet skleneného upozornenia si zachová skutočný čas.",
+        "speeds": {
+          "slow": "Pomalá",
+          "normal": "Normálna",
+          "fast": "Rýchla"
+        },
+        "reduceMotion": "Obmedziť pohyb pre všetkých",
+        "reduceMotionDescription": "Vypne prechody stránok, nábeh kariet, pohyb pri prejdení myšou, zmenšenie pri kliknutí, animácie dialógov a ponúk a odpočet upozornení pre všetkých používateľov bez ohľadu na možnosti vyššie. Zariadenia nastavené na obmedzenie pohybu ich aj tak nikdy nedostanú."
       },
       "boxes": {
         "title": "Boxy",
@@ -493,6 +553,14 @@
         "remove": "Odstrániť {name}",
         "allPlaced": "Všetky komponenty už sú na stránke.",
         "reset": "Obnoviť predvolené rozloženie",
+        "presets": "Predvoľby rozloženia",
+        "presetsDescription": "Položí na koncept hotovú stránku konzoly; ďalej ju upravte v slotoch nižšie.",
+        "presetNames": {
+          "classic": "Klasické",
+          "sidebar": "Bočný panel",
+          "focus": "Sústredenie",
+          "dashboard": "Prehľad"
+        },
         "slot": {
           "top": "Nad terminálom",
           "left": "Vľavo od terminálu",
@@ -506,7 +574,10 @@
           "cpuChart": "Graf CPU",
           "memoryChart": "Graf pamäte",
           "networkChart": "Graf siete",
-          "extensionCards": "Karty rozšírení"
+          "extensionCards": "Karty rozšírení",
+          "gauges": "Kruhy využitia",
+          "commands": "Rýchle príkazy",
+          "connect": "Pripojenie"
         },
         "widgetDescription": {
           "banner": "Názov servera, adresa, živé štatistiky a tlačidlá napájania.",
@@ -515,8 +586,71 @@
           "cpuChart": "Živý graf zaťaženia CPU.",
           "memoryChart": "Živý graf pamäte.",
           "networkChart": "Živý graf prichádzajúcej a odchádzajúcej prevádzky.",
-          "extensionCards": "Štatistické karty, ktoré do konzoly pridávajú iné rozšírenia."
+          "extensionCards": "Štatistické karty, ktoré do konzoly pridávajú iné rozšírenia.",
+          "gauges": "Kruhové ukazovatele CPU, pamäte a disku voči limitom servera.",
+          "commands": "Tlačidlá nastavené v časti Tlačidlá rýchlych príkazov nižšie; len pre používateľov s prístupom ku konzole.",
+          "connect": "Adresa a údaje SFTP s tlačidlami na kopírovanie a odkaz SFTP."
         }
+      },
+      "console": {
+        "terminalTitle": "Terminál",
+        "frame": "Rámček terminálu",
+        "frameDescription": "Karta okolo terminálu, jej hlavička a vstupné pole.",
+        "frames": {
+          "card": "Karta",
+          "flush": "Zarovnané",
+          "glass": "Sklo"
+        },
+        "height": "Výška terminálu",
+        "heightDescription": "Vyplnenie okna roztiahne terminál na širokých obrazovkách až po spodok okna; úzke obrazovky si ponechajú normálnu výšku.",
+        "heights": {
+          "auto": "Normálna",
+          "fill": "Vyplniť okno",
+          "tall": "Vysoká"
+        },
+        "cursor": "Kurzor",
+        "cursorDescription": "Panel skrýva kurzor terminálu; vyberte tvar, aby sa zobrazil.",
+        "cursors": {
+          "none": "Skrytý",
+          "block": "Blok",
+          "bar": "Čiara",
+          "underline": "Podčiarknutie"
+        },
+        "cursorBlink": "Blikajúci kurzor",
+        "cursorBlinkDescription": "Bliká, kým má terminál fokus, nikdy pri obmedzenom pohybe. Vyžaduje zobrazený kurzor.",
+        "lineHeight": "Výška riadku",
+        "bannerTitle": "Banner",
+        "banner": "Štýl bannera",
+        "bannerDescription": "Komponent banner: banner z Domov so živými štatistikami, jeden riadok alebo úzky stavový riadok.",
+        "banners": {
+          "full": "Plný",
+          "compact": "Kompaktný",
+          "minimal": "Minimálny"
+        },
+        "chartsTitle": "Grafy",
+        "chartStyle": "Štýl grafov",
+        "chartStyles": {
+          "area": "Plocha",
+          "line": "Čiara"
+        },
+        "chartHeight": "Výška grafov",
+        "chartHeights": {
+          "small": "Malá",
+          "medium": "Stredná",
+          "large": "Veľká"
+        },
+        "chartArrangement": "Usporiadanie grafov",
+        "chartArrangementDescription": "Grafy umiestnené vedľa seba zdieľajú riadok, alebo každý zaberá celú šírku.",
+        "chartArrangements": {
+          "row": "Vedľa seba",
+          "stacked": "Pod sebou"
+        },
+        "commandsTitle": "Tlačidlá rýchlych príkazov",
+        "commandsDescription": "Až {max} tlačidiel pre komponent Rýchle príkazy; každé odošle svoj príkaz do konzoly servera. Používatelia bez prístupu ku konzole ich nevidia.",
+        "commandLabel": "Popis",
+        "command": "Príkaz",
+        "addCommand": "Pridať príkaz",
+        "removeCommand": "Odstrániť príkaz"
       },
       "navStyle": {
         "hover": "Efekt pri prejdení myšou",
@@ -602,24 +736,7 @@
         "description": "Menu administrácie pre všetkých: presúvajte odkazy a celé kategórie a odkazy v rámci ich kategórie. Používatelia si stále môžu nad ním usporiadať vlastné menu. Menu servera a nástenky sa riadia poradím trás v konfiguráciách eggov a v nastaveniach používateľov.",
         "empty": "Administrátorské menu sa ešte nenačítalo.",
         "reset": "Späť na poradie panela"
-      },
-      "groups": {
-        "look": "Vzhľad",
-        "navigation": "Navigácia",
-        "pages": "Stránky",
-        "interface": "Rozhranie"
-      },
-      "serverHome": "Domovská stránka servera",
-      "serverHomeDescription": "Domovská stránka v koreni servera s kartami, obrázkami a odkazmi nižšie; konzola dostane vlastnú stránku. Po vypnutí je konzola prvou stránkou servera, ako bez Mint. Otvorené stránky servera sa zmenia pri ďalšom načítaní.",
-      "homeCards": "Karty",
-      "homeImages": "Obrázky",
-      "status": {
-        "unsaved": "Neuložené zmeny",
-        "saved": "Všetky zmeny uložené"
-      },
-      "more": "Ďalšie akcie",
-      "resizePanel": "Zmeniť veľkosť panela nastavení",
-      "sections": "Sekcie nastavení"
+      }
     },
     "library": {
       "saveAsPreset": "Uložiť ako predvoľbu",

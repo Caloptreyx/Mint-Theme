@@ -13,7 +13,8 @@ import {
   useTranslations,
 } from '../../lib/core.ts';
 
-export default function PowerButtons() {
+/** `size` shrinks the buttons for the console's slim banners; Home and the full banner use Mantine's default. */
+export default function PowerButtons({ size }: { size?: 'xs' | 'compact-sm' }) {
   const { t } = useTranslations();
   const [confirmKill, setConfirmKill] = useState(false);
   const { server, state, socketInstance, socketConnected } = useServerStore(
@@ -45,6 +46,7 @@ export default function PowerButtons() {
       />
       <ServerCan action='control.start'>
         <Button
+          size={size}
           color='green'
           leftSection={<FontAwesomeIcon icon={faPlay} />}
           disabled={blocked || state !== 'offline'}
@@ -56,6 +58,7 @@ export default function PowerButtons() {
       </ServerCan>
       <ServerCan action='control.restart'>
         <Button
+          size={size}
           color='gray'
           leftSection={<FontAwesomeIcon icon={faRotateRight} />}
           disabled={blocked}
@@ -66,6 +69,7 @@ export default function PowerButtons() {
       </ServerCan>
       <ServerCan action='control.stop'>
         <Button
+          size={size}
           color='red'
           leftSection={<FontAwesomeIcon icon={stopping ? faSkull : faStop} />}
           disabled={blocked || state === 'offline'}

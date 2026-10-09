@@ -166,6 +166,10 @@
       "down": "Di chuyển con trỏ xuống",
       "type": "Gõ {key}"
     },
+    "console": {
+      "commands": "Lệnh nhanh",
+      "connect": "Kết nối"
+    },
     "editor": {
       "contrast": {
         "title": "Một số màu khó đọc",
@@ -220,6 +224,13 @@
       "previewPage": "Trang xem trước",
       "previewDevice": "Chiều rộng xem trước",
       "previewScheme": "Bảng màu xem trước",
+      "status": {
+        "unsaved": "Thay đổi chưa lưu",
+        "saved": "Đã lưu mọi thay đổi"
+      },
+      "more": "Thao tác khác",
+      "resizePanel": "Đổi kích thước bảng cài đặt",
+      "sections": "Các mục cài đặt",
       "search": {
         "placeholder": "Tìm cài đặt",
         "clear": "Xóa tìm kiếm",
@@ -242,33 +253,41 @@
         "admin": "Quản trị",
         "login": "Trang đăng nhập"
       },
+      "groups": {
+        "look": "Diện mạo",
+        "navigation": "Điều hướng",
+        "pages": "Trang",
+        "interface": "Giao diện"
+      },
       "section": {
         "presets": "Mẫu có sẵn",
         "presetsDescription": "Bắt đầu từ một giao diện có sẵn, lưu mẫu của riêng bạn và chọn những mẫu người dùng được phép chọn.",
         "colours": "Màu sắc",
         "coloursDescription": "Mọi màu khác đều được pha từ năm màu này.",
         "style": "Chữ & hình dạng",
-        "styleDescription": "Phông chữ, nút, bo góc, độ mờ và viền khối, và hiệu ứng nhấp.",
+        "styleDescription": "Phông chữ, nút, bo góc, độ mờ và viền khối.",
         "background": "Nền & thương hiệu",
         "backgroundDescription": "Hình ảnh phía sau toàn bộ bảng điều khiển, được làm mờ theo màu trang, cùng biểu tượng tab trình duyệt.",
-        "home": "Trang chủ máy chủ",
-        "homeDescription": "Các thẻ trên trang chủ của máy chủ, biểu ngữ và hình ảnh trò chơi, và các liên kết bắt đầu.",
-        "login": "Trang đăng nhập",
-        "loginDescription": "Bố cục, nền, logo và liên kết hỗ trợ cho các trang đăng nhập, đăng ký và mật khẩu.",
-        "interface": "Hành vi",
-        "interfaceDescription": "Thông báo, chuyển trang, tiêu đề trang và trình chỉnh sửa tệp trên điện thoại.",
-        "components": "Thành phần",
-        "componentsDescription": "Hộp, thẻ thống kê và bảng trên toàn bảng điều khiển.",
-        "console": "Console",
-        "consoleDescription": "Những gì trang console hiển thị quanh terminal, và ở đâu.",
         "sidebar": "Thanh bên & dock",
         "sidebarDescription": "Vị trí menu trên máy tính, nơi đặt logo và tìm kiếm, và cách điều hướng trên điện thoại.",
         "menu": "Kiểu menu & tìm kiếm",
         "menuDescription": "Giao diện liên kết menu khi di chuột và khi mở, và menu hiển thị tìm kiếm nào.",
         "menuOrder": "Thứ tự menu",
         "menuOrderDescription": "Các mục menu thu gọn được, thứ tự menu quản trị và những menu người dùng có thể sắp xếp.",
+        "home": "Trang chủ máy chủ",
+        "homeDescription": "Các thẻ trên trang chủ của máy chủ, biểu ngữ và hình ảnh trò chơi, và các liên kết bắt đầu.",
+        "console": "Console",
+        "consoleDescription": "Trang console: một mẫu có sẵn hoặc bố cục của riêng bạn quanh terminal, chính terminal, biểu ngữ, biểu đồ và lệnh nhanh.",
         "servers": "Danh sách máy chủ",
-        "serversDescription": "Các thẻ trong chế độ xem lưới của danh sách máy chủ."
+        "serversDescription": "Các thẻ trong chế độ xem lưới của danh sách máy chủ.",
+        "login": "Trang đăng nhập",
+        "loginDescription": "Bố cục, nền, logo và liên kết hỗ trợ cho các trang đăng nhập, đăng ký và mật khẩu.",
+        "interface": "Hành vi",
+        "interfaceDescription": "Thông báo, tiêu đề trang và trình sửa tệp trên điện thoại.",
+        "motion": "Hoạt ảnh",
+        "motionDescription": "Chuyển trang, thẻ xuất hiện, hiệu ứng di chuột và nhấp, cách hộp thoại và menu mở ra, và tốc độ của tất cả.",
+        "components": "Thành phần",
+        "componentsDescription": "Hộp, thẻ thống kê và bảng trên toàn bảng điều khiển."
       },
       "accent": "Màu nhấn",
       "accentDescription": "Nút, liên kết và mục menu đang chọn",
@@ -364,6 +383,10 @@
       "backgroundImage": "URL hình ảnh",
       "backgroundImageDescription": "Để trống để dùng nền trơn.",
       "backgroundDim": "Làm tối",
+      "serverHome": "Trang chủ máy chủ",
+      "serverHomeDescription": "Trang chủ ở gốc máy chủ với các thẻ, hình ảnh và liên kết bên dưới; bảng điều khiển có trang riêng. Khi tắt, bảng điều khiển là trang đầu tiên của máy chủ, như khi không có Mint. Các trang máy chủ đang mở sẽ thay đổi ở lần tải tiếp theo.",
+      "homeCards": "Thẻ",
+      "homeImages": "Hình ảnh",
       "homeBanner": "URL ảnh biểu ngữ mặc định",
       "homeBannerDescription": "Dùng cho các egg không có biểu ngữ riêng. Để trống để dùng dải màu nhấn.",
       "articles": "Liên kết bắt đầu",
@@ -453,12 +476,49 @@
           "none": "Không có",
           "fade": "Hiện dần",
           "fadeUp": "Hiện dần lên",
-          "fadeScale": "Hiện dần phóng to"
+          "fadeScale": "Hiện dần phóng to",
+          "slide": "Trượt vào",
+          "slideDown": "Trượt xuống",
+          "zoom": "Thu phóng",
+          "blur": "Hiện dần từ mờ"
         },
         "pageTitles": "Hiện tiêu đề trang",
         "pageTitlesDescription": "Tiêu đề trên các trang máy chủ như Tệp và Cơ sở dữ liệu. Ô tìm kiếm và các nút vẫn được giữ.",
         "mobileEditor": "Trình sửa tệp thân thiện với điện thoại",
         "mobileEditorDescription": "Trên điện thoại, trình soạn mã sẽ ngắt dòng, ẩn bản đồ thu nhỏ và cửa sổ bật lên, dùng phông chữ 16px và có một hàng phím phía trên bàn phím: hoàn tác, thụt lề, tìm, ký hiệu và mũi tên. Máy tính giữ nguyên."
+      },
+      "motion": {
+        "cardEntrance": "Thẻ xuất hiện",
+        "cardEntranceDescription": "Thẻ và hàng bảng lần lượt xuất hiện khi mở trang. Di chuột lên một ô để xem.",
+        "cardEntrances": {
+          "none": "Không có",
+          "fade": "Hiện dần",
+          "rise": "Nổi lên"
+        },
+        "hoverEffect": "Hiệu ứng di chuột",
+        "hoverEffectDescription": "Các thẻ có thể nhấp, như danh sách máy chủ, và các nút dưới con trỏ chuột. Di chuột lên một ô để xem.",
+        "hovers": {
+          "none": "Không có",
+          "lift": "Nâng lên",
+          "glow": "Phát sáng"
+        },
+        "overlayMotion": "Hộp thoại và menu",
+        "overlayMotionDescription": "Cách hộp thoại, ngăn kéo, menu và danh sách thả xuống mở ra. Chúng đóng lại như mọi khi. Di chuột lên một ô để xem.",
+        "overlays": {
+          "default": "Mặc định",
+          "pop": "Bật ra",
+          "slideUp": "Trượt lên",
+          "none": "Không có"
+        },
+        "animationSpeed": "Tốc độ hoạt ảnh",
+        "animationSpeedDescription": "Tăng hoặc giảm tốc độ mọi hoạt ảnh ở trên. Bộ đếm ngược của thông báo kính vẫn giữ thời gian thực.",
+        "speeds": {
+          "slow": "Chậm",
+          "normal": "Bình thường",
+          "fast": "Nhanh"
+        },
+        "reduceMotion": "Giảm chuyển động cho mọi người",
+        "reduceMotionDescription": "Tắt chuyển trang, thẻ xuất hiện, chuyển động khi di chuột, hiệu ứng thu nhỏ khi nhấp, hoạt ảnh hộp thoại và menu cùng bộ đếm ngược thông báo cho mọi người dùng, bất kể các tùy chọn ở trên. Thiết bị đặt giảm chuyển động vốn không bao giờ nhận chúng."
       },
       "boxes": {
         "title": "Hộp",
@@ -493,6 +553,14 @@
         "remove": "Xóa {name}",
         "allPlaced": "Mọi thành phần đều đã có trên trang.",
         "reset": "Khôi phục bố cục mặc định",
+        "presets": "Bố cục mẫu",
+        "presetsDescription": "Áp một trang console dựng sẵn lên bản nháp; tiếp tục chỉnh trong các vị trí bên dưới.",
+        "presetNames": {
+          "classic": "Cổ điển",
+          "sidebar": "Thanh bên",
+          "focus": "Tập trung",
+          "dashboard": "Bảng điều khiển"
+        },
         "slot": {
           "top": "Phía trên terminal",
           "left": "Bên trái terminal",
@@ -506,7 +574,10 @@
           "cpuChart": "Biểu đồ CPU",
           "memoryChart": "Biểu đồ bộ nhớ",
           "networkChart": "Biểu đồ mạng",
-          "extensionCards": "Thẻ tiện ích mở rộng"
+          "extensionCards": "Thẻ tiện ích mở rộng",
+          "gauges": "Vòng sử dụng",
+          "commands": "Lệnh nhanh",
+          "connect": "Kết nối"
         },
         "widgetDescription": {
           "banner": "Tên máy chủ, địa chỉ, thống kê trực tiếp và các nút nguồn.",
@@ -515,8 +586,71 @@
           "cpuChart": "Biểu đồ tải CPU trực tiếp.",
           "memoryChart": "Biểu đồ bộ nhớ trực tiếp.",
           "networkChart": "Biểu đồ lưu lượng vào và ra trực tiếp.",
-          "extensionCards": "Thẻ thống kê mà các tiện ích mở rộng khác thêm vào console."
+          "extensionCards": "Thẻ thống kê mà các tiện ích mở rộng khác thêm vào console.",
+          "gauges": "Đồng hồ dạng vòng cho CPU, bộ nhớ và ổ đĩa so với giới hạn máy chủ.",
+          "commands": "Các nút được đặt trong Nút lệnh nhanh bên dưới; chỉ dành cho người dùng có quyền truy cập console.",
+          "connect": "Địa chỉ và thông tin SFTP kèm nút sao chép, cùng một liên kết SFTP."
         }
+      },
+      "console": {
+        "terminalTitle": "Terminal",
+        "frame": "Khung terminal",
+        "frameDescription": "Thẻ bao quanh terminal, phần đầu và ô nhập của nó.",
+        "frames": {
+          "card": "Thẻ",
+          "flush": "Sát viền",
+          "glass": "Kính"
+        },
+        "height": "Chiều cao terminal",
+        "heightDescription": "Lấp đầy cửa sổ kéo terminal xuống đáy cửa sổ trên màn hình rộng; màn hình hẹp giữ chiều cao bình thường.",
+        "heights": {
+          "auto": "Bình thường",
+          "fill": "Lấp đầy cửa sổ",
+          "tall": "Cao"
+        },
+        "cursor": "Con trỏ",
+        "cursorDescription": "Panel ẩn con trỏ terminal; chọn một hình dạng để hiển thị nó.",
+        "cursors": {
+          "none": "Ẩn",
+          "block": "Khối",
+          "bar": "Thanh dọc",
+          "underline": "Gạch dưới"
+        },
+        "cursorBlink": "Con trỏ nhấp nháy",
+        "cursorBlinkDescription": "Nhấp nháy khi terminal đang được chọn, không bao giờ khi giảm chuyển động. Cần con trỏ đang hiển thị.",
+        "lineHeight": "Chiều cao dòng",
+        "bannerTitle": "Biểu ngữ",
+        "banner": "Kiểu biểu ngữ",
+        "bannerDescription": "Thành phần biểu ngữ: biểu ngữ Trang chủ với số liệu trực tiếp, một hàng hoặc một dòng trạng thái mảnh.",
+        "banners": {
+          "full": "Đầy đủ",
+          "compact": "Gọn",
+          "minimal": "Tối giản"
+        },
+        "chartsTitle": "Biểu đồ",
+        "chartStyle": "Kiểu biểu đồ",
+        "chartStyles": {
+          "area": "Vùng",
+          "line": "Đường"
+        },
+        "chartHeight": "Chiều cao biểu đồ",
+        "chartHeights": {
+          "small": "Nhỏ",
+          "medium": "Vừa",
+          "large": "Lớn"
+        },
+        "chartArrangement": "Sắp xếp biểu đồ",
+        "chartArrangementDescription": "Các biểu đồ đặt cạnh nhau dùng chung một hàng, hoặc mỗi biểu đồ chiếm toàn bộ chiều rộng.",
+        "chartArrangements": {
+          "row": "Cạnh nhau",
+          "stacked": "Xếp chồng"
+        },
+        "commandsTitle": "Nút lệnh nhanh",
+        "commandsDescription": "Tối đa {max} nút cho thành phần Lệnh nhanh; mỗi nút gửi lệnh của nó tới console máy chủ. Người dùng không có quyền truy cập console sẽ không thấy chúng.",
+        "commandLabel": "Nhãn",
+        "command": "Lệnh",
+        "addCommand": "Thêm lệnh",
+        "removeCommand": "Xóa lệnh"
       },
       "navStyle": {
         "hover": "Hiệu ứng di chuột",
@@ -602,24 +736,7 @@
         "description": "Menu khu vực quản trị cho mọi người: kéo các liên kết và cả danh mục, cũng như các liên kết trong danh mục của chúng. Người dùng vẫn có thể tự sắp xếp menu của mình đè lên. Menu máy chủ và bảng điều khiển theo thứ tự route của cấu hình egg và cài đặt người dùng.",
         "empty": "Menu quản trị chưa tải xong.",
         "reset": "Quay lại thứ tự của panel"
-      },
-      "groups": {
-        "look": "Diện mạo",
-        "navigation": "Điều hướng",
-        "pages": "Trang",
-        "interface": "Giao diện"
-      },
-      "serverHome": "Trang chủ máy chủ",
-      "serverHomeDescription": "Trang chủ ở gốc máy chủ với các thẻ, hình ảnh và liên kết bên dưới; bảng điều khiển có trang riêng. Khi tắt, bảng điều khiển là trang đầu tiên của máy chủ, như khi không có Mint. Các trang máy chủ đang mở sẽ thay đổi ở lần tải tiếp theo.",
-      "homeCards": "Thẻ",
-      "homeImages": "Hình ảnh",
-      "status": {
-        "unsaved": "Thay đổi chưa lưu",
-        "saved": "Đã lưu mọi thay đổi"
-      },
-      "more": "Thao tác khác",
-      "resizePanel": "Đổi kích thước bảng cài đặt",
-      "sections": "Các mục cài đặt"
+      }
     },
     "library": {
       "saveAsPreset": "Lưu thành mẫu",

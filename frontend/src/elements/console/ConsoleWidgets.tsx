@@ -3,6 +3,7 @@ import {
   faCloudArrowDown,
   faCloudArrowUp,
   faCloudDownload,
+  faCopy,
   faHardDrive,
   faMemory,
   faMicrochip,
@@ -14,6 +15,7 @@ import { useShallow } from 'zustand/react/shallow';
 import { useNebulaTheme } from '../../lib/apply.ts';
 import {
   bytesToString,
+  Card,
   ChartBlock,
   ChartLegend,
   type ChartLegendProps,
@@ -30,15 +32,18 @@ import {
   StreamChart,
   type StreamChartProps,
   serverStatusInfo,
+  Title,
   TitleCard,
   useServerStore,
   useStreamChart,
   useTranslations,
 } from '../../lib/core.ts';
 import { shownAddress, useRedactAddresses } from '../../lib/redact.ts';
-import type { ConsoleWidget } from '../../lib/theme.ts';
+import type { ChartHeight, ConsoleWidget } from '../../lib/theme.ts';
 import { useExtTranslations } from '../../translations.ts';
 import HeroCard, { Pill } from '../home/HeroCard.tsx';
+import PowerButtons from '../home/PowerButtons.tsx';
+import ServerState from '../ServerState.tsx';
 
 const NONE = '--';
 
@@ -52,7 +57,7 @@ export function isChartWidget(id: ConsoleWidget): id is ChartWidget {
 /** Where a widget sits: the full width rows above and below the terminal, or a side column beside it. */
 export type Placement = 'row' | 'side';
 
-interface WidgetProps {
+export interface WidgetProps {
   placement: Placement;
   className?: string;
 }
@@ -82,8 +87,16 @@ function useNetworkRate() {
   return rate;
 }
 
+/** The banner widget in the theme's `consoleBanner` shape. */
+export function BannerWidget(props: WidgetProps) {
+  const { consoleBanner } = useNebulaTheme();
+  if (consoleBanner === 'compact') return <CompactBanner {...props} />;
+  if (consoleBanner === 'minimal') return <MinimalBanner {...props} />;
+  return <FullBanner {...props} />;
+}
+
 /** The Home banner with the live stats as pills and the power buttons. */
-export function BannerWidget({ className }: WidgetProps) {
+function FullBanner({ className }: WidgetProps) {
   const { t } = useTranslations();
   const theme = useNebulaTheme();
   const { server, stats, state } = useServerStore(
@@ -121,6 +134,72 @@ export function BannerWidget({ className }: WidgetProps) {
         </Pill>
       </HeroCard>
     </div>
+  );
+}
+
+/** The allocation, masked like the other cards and copied raw. */
+function useAddress() {
+  const { t } = useTranslations();
+  const server = useServerStore((s) => s.server);
+  const redact = useRedactAddresses();
+  const address = server.allocation
+    ? formatAllocation(server.allocation, server.egg.separatePort)
+    : t('common.server.noAllocation', {});
+  return { address, shown: server.allocation ? shownAddress(address, redact) : address, copyable: !!server.allocation };
+}
+
+/** One row: the name, the state pill and the address, with smaller power buttons on the right. */
+function CompactBanner({ className }: WidgetProps) {
+  const server = useServerStore((s) => s.server);
+  const { address, shown, copyable } = useAddress();
+
+  return (
+    <Card className={className} p='md'>
+      <div className='flex flex-wrap items-center justify-between gap-3'>
+        <div className='flex flex-wrap items-center gap-2 min-w-0'>
+          <Title order={3} className='wrap-break-word min-w-0'>
+            {server.name}
+          </Title>
+          <ServerState />
+          <CopyOnClick content={address} enabled={copyable} className='max-w-full'>
+            <Pill right={copyable && <FontAwesomeIcon icon={faCopy} />}>{shown}</Pill>
+          </CopyOnClick>
+        </div>
+        <PowerButtons size='xs' />
+      </div>
+    </Card>
+  );
+}
+
+/** A slim status line: the state as a dot, the name and the address, then compact power buttons. */
+function MinimalBanner({ className }: WidgetProps) {
+  const { t } = useTranslations();
+  const { server, state } = useServerStore(useShallow((s) => ({ server: s.server, state: s.state })));
+  const { address, shown, copyable } = useAddress();
+  const status = server.isSuspended
+    ? t('common.server.state.suspended', {})
+    : server.status
+      ? serverStatusInfo[server.status].label()
+      : t(`common.enum.serverState.${state}`, {});
+
+  return (
+    <Card className={className} px='md' py='xs'>
+      <div className='flex flex-wrap items-center justify-between gap-x-4 gap-y-2'>
+        <div className='flex items-center gap-2.5 min-w-0 text-sm'>
+          <span
+            role='img'
+            aria-label={status}
+            title={status}
+            className={`size-2.5 shrink-0 rounded-full bg-server-status-${server.isSuspended ? 'offline' : state}`}
+          />
+          <span className='font-semibold truncate'>{server.name}</span>
+          <CopyOnClick content={address} enabled={copyable} className='min-w-0 text-left!'>
+            <span className='block truncate text-(--mantine-color-dimmed) tabular-nums'>{shown}</span>
+          </CopyOnClick>
+        </div>
+        <PowerButtons size='compact-sm' />
+      </div>
+    </Card>
   );
 }
 
@@ -184,7 +263,8 @@ export function StatsWidget({ placement, className }: WidgetProps) {
   );
 }
 
-function Row({ label, children }: { label: string; children: ReactNode }) {
+/** A label and value line of a titled card, as on the Home information card. */
+export function Row({ label, children }: { label: string; children: ReactNode }) {
   return (
     <div className='flex items-center justify-between gap-4 py-2.5 border-b border-(--mantine-color-default-border) last:border-0'>
       <span className='shrink-0 text-sm text-(--mantine-color-dimmed)'>{label}</span>
@@ -348,7 +428,16 @@ export function ConsoleChartsProvider({ children }: { children: ReactNode }) {
   );
 }
 
-/** A run of core's live charts; three in a row use core's own grid, so the default page is unchanged. */
+// ChartBlock's plot is its last div (`min-h-60`, 15rem); the arbitrary variant outranks it inside the layer
+const CHART_HEIGHT_CLASS: Record<ChartHeight, string | undefined> = {
+  small: '[&>div:last-child]:min-h-40',
+  medium: undefined,
+  large: '[&>div:last-child]:min-h-80',
+};
+/**
+ * A run of core's live charts; three in a row use core's own grid, so the default page is unchanged. `chartStyle`,
+ * `chartHeight` and `chartArrangement` are classes on these elements only, so core's charts elsewhere keep theirs.
+ */
 export function ChartsWidget({
   charts,
   withBlocks,
@@ -356,17 +445,20 @@ export function ChartsWidget({
   className,
 }: WidgetProps & { charts: ChartWidget[]; withBlocks: boolean }) {
   const { t } = useTranslations();
+  const { chartStyle, chartHeight, chartArrangement } = useNebulaTheme();
   const data = useContext(ConsoleChartsContext);
   if (!data) throw new Error('ChartsWidget renders inside ConsoleChartsProvider');
   const { cpu, memory, network, offline } = data;
 
   const overlayIcon = <FontAwesomeIcon icon={faPowerOff} className='text-2xl' />;
   const overlayLabel = offline ? t('pages.server.console.stats.offline', {}) : undefined;
+  const blockClass = CHART_HEIGHT_CLASS[chartHeight];
 
   const blocks: Record<ChartWidget, ReactNode> = {
     cpuChart: (
       <ChartBlock
         key='cpuChart'
+        className={blockClass}
         icon={<FontAwesomeIcon icon={faMicrochip} />}
         title={t('common.stat.cpuLoad', {})}
         value={cpu.value}
@@ -379,6 +471,7 @@ export function ChartsWidget({
     memoryChart: (
       <ChartBlock
         key='memoryChart'
+        className={blockClass}
         icon={<FontAwesomeIcon icon={faMemory} />}
         title={t('common.stat.memoryLoad', {})}
         value={memory.value}
@@ -391,6 +484,7 @@ export function ChartsWidget({
     networkChart: (
       <ChartBlock
         key='networkChart'
+        className={blockClass}
         icon={<FontAwesomeIcon icon={faCloudDownload} />}
         title={t('common.stat.network', {})}
         legend={<ChartLegend {...network.legend} />}
@@ -403,14 +497,16 @@ export function ChartsWidget({
   };
 
   const grid =
-    placement === 'side' || charts.length === 1
+    placement === 'side' || charts.length === 1 || chartArrangement === 'stacked'
       ? 'grid grid-cols-1 gap-4'
       : charts.length === 2
         ? 'grid grid-cols-1 md:grid-cols-2 gap-4'
         : 'grid grid-cols-1 md:grid-cols-3 gap-4';
+  // recharts draws the filled area as `.recharts-area-area` with a gradient fill attribute; 'line' leaves the stroke
+  const style = chartStyle === 'line' ? '[&_.recharts-area-area]:fill-none' : '';
 
   return (
-    <div className={className ? `${grid} ${className}` : grid}>
+    <div className={[grid, style, className].filter(Boolean).join(' ')}>
       {charts.map((chart) => blocks[chart])}
       {withBlocks && <StatBlocks />}
     </div>

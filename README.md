@@ -33,8 +33,13 @@ A dark theme for [Calagopus Panel](https://calagopus.com) with a live, built-in 
   the console is the server's first page again. Addresses follow the panel's "Hide server addresses" setting,
   on Home, the console and the server cards.
 - **Console**: by default the banner with live stats on top, a full width terminal, then the charts. Admins
-  arrange the banner, stat tiles, server info, each chart and other extensions' cards above, beside or below
-  the terminal; a chart moved elsewhere keeps the history it already drew.
+  start from a layout preset (classic, sidebar, focus, dashboard) or arrange the banner, stat tiles, server
+  info, usage rings, quick command buttons, a connect card (address and SFTP details with copy buttons and an
+  SFTP link), each chart and other extensions' cards above, beside or below the terminal; a chart moved
+  elsewhere keeps the history it already drew. The terminal can drop its card or turn to glass, fill the window
+  or grow taller, and show a block, bar or underline cursor (optionally blinking) with its own line height; the
+  banner comes full, compact or as a slim status line; the charts as areas or lines, in three heights, side by
+  side or stacked. Quick commands go to the server console only for users with console access.
 - **Account page**: a profile header with a banner each user uploads themselves. Click the avatar to
   change it.
 - **Sidebar**: optional collapsible sections, named from each egg's own menu dividers. On desktop the menu
@@ -62,11 +67,15 @@ A dark theme for [Calagopus Panel](https://calagopus.com) with a live, built-in 
 - **Light mode**: a light palette of its own that reaches the console, the panel's grey hint texts and the
   chart labels too. The text on accent colour applies to solid buttons, badges and the current menu link in
   both modes. A first visit waits for the theme (1.5s at most) instead of flashing the default look.
+- **Animations**: page transitions (fade, fade up, fade scale, slide in, slide down, zoom, blur in), cards and
+  table rows coming in one after another, a lift or glow on clickable cards and buttons under the pointer, click
+  effects, dialogs and menus that pop or slide up (or open at once), slow, normal or fast animation, and a switch
+  that turns motion off for everyone. Devices set to reduce motion never get Mint's animations.
 - **Theme editor**: a full screen editor with a live preview of the real panel, in dark or light mode, its
   settings sorted into Look, Navigation, Pages and Interface sections beside a resizable settings panel.
   Presets, the full colour palette (down to the scrollbar) with its own light mode colours, fonts (plus a monospace font for
   code and the console), corner radius, button styles, block transparency with an optional glass blur,
-  block and input borders, a click effect, a glassy toast style, page transitions, optional server page
+  block and input borders, a glassy toast style, optional server page
   titles, card title styles (line, fill, pill, also on the admin Settings section headings), stat card styles,
   server card and table styles, background
   image, a browser tab icon, a login page background

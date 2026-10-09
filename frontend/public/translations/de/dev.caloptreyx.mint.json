@@ -166,6 +166,10 @@
       "down": "Cursor nach unten",
       "type": "{key} eingeben"
     },
+    "console": {
+      "commands": "Schnellbefehle",
+      "connect": "Verbinden"
+    },
     "editor": {
       "contrast": {
         "title": "Einige Farben sind schwer lesbar",
@@ -220,6 +224,13 @@
       "previewPage": "Vorschauseite",
       "previewDevice": "Vorschaubreite",
       "previewScheme": "Farbschema der Vorschau",
+      "status": {
+        "unsaved": "Ungespeicherte Änderungen",
+        "saved": "Alle Änderungen gespeichert"
+      },
+      "more": "Weitere Aktionen",
+      "resizePanel": "Größe des Einstellungsbereichs ändern",
+      "sections": "Einstellungsbereiche",
       "search": {
         "placeholder": "Einstellungen durchsuchen",
         "clear": "Suche leeren",
@@ -242,33 +253,41 @@
         "admin": "Admin",
         "login": "Anmeldeseite"
       },
+      "groups": {
+        "look": "Aussehen",
+        "navigation": "Navigation",
+        "pages": "Seiten",
+        "interface": "Oberfläche"
+      },
       "section": {
         "presets": "Vorlagen",
         "presetsDescription": "Starte mit einem fertigen Look, speichere eigene Vorlagen und lege fest, welche Benutzer auswählen können.",
         "colours": "Farben",
         "coloursDescription": "Alles andere wird aus diesen fünf gemischt.",
         "style": "Schrift & Form",
-        "styleDescription": "Schriftarten, Buttons, Eckenrundung, Block-Deckkraft und Rahmen sowie der Klickeffekt.",
+        "styleDescription": "Schriftarten, Buttons, Eckenrundung, Deckkraft und Rahmen der Blöcke.",
         "background": "Hintergrund & Branding",
         "backgroundDescription": "Ein Bild hinter dem gesamten Panel, mit der Seitenfarbe abgedunkelt, sowie das Browser-Tab-Symbol.",
-        "home": "Server-Startseite",
-        "homeDescription": "Die Karten auf der Startseite eines Servers, seine Banner und Spielbilder sowie die Links unter Erste Schritte.",
-        "login": "Anmeldeseite",
-        "loginDescription": "Layout, Hintergrund, Logo und Support-Links für die Anmelde-, Registrierungs- und Passwortseiten.",
-        "interface": "Verhalten",
-        "interfaceDescription": "Toasts, Seitenübergänge, Seitentitel und der Datei-Editor auf dem Handy.",
-        "components": "Komponenten",
-        "componentsDescription": "Boxen, Statistikkarten und Tabellen im gesamten Panel.",
-        "console": "Konsole",
-        "consoleDescription": "Was die Konsolenseite rund um das Terminal anzeigt und wo.",
         "sidebar": "Seitenleiste & Dock",
         "sidebarDescription": "Wo das Menü auf dem Desktop sitzt, wo Logo und Suche platziert sind und wie auf Handys navigiert wird.",
         "menu": "Menüstil & Suche",
         "menuDescription": "Wie Menülinks beim Überfahren und im geöffneten Zustand aussehen und welche Suche das Menü anzeigt.",
         "menuOrder": "Menüreihenfolge",
         "menuOrderDescription": "Einklappbare Menübereiche, die Reihenfolge des Admin-Menüs und welche Menüs Benutzer anordnen können.",
+        "home": "Server-Startseite",
+        "homeDescription": "Die Karten auf der Startseite eines Servers, seine Banner und Spielbilder sowie die Links unter Erste Schritte.",
+        "console": "Konsole",
+        "consoleDescription": "Die Konsolenseite: eine Vorlage oder dein eigenes Layout rund um das Terminal, das Terminal selbst, das Banner, die Diagramme und Schnellbefehle.",
         "servers": "Serverliste",
-        "serversDescription": "Die Karten in der Rasteransicht der Serverliste."
+        "serversDescription": "Die Karten in der Rasteransicht der Serverliste.",
+        "login": "Anmeldeseite",
+        "loginDescription": "Layout, Hintergrund, Logo und Support-Links für die Anmelde-, Registrierungs- und Passwortseiten.",
+        "interface": "Verhalten",
+        "interfaceDescription": "Toasts, Seitentitel und der Dateieditor auf dem Handy.",
+        "motion": "Animationen",
+        "motionDescription": "Seitenübergänge, einblendende Karten, Hover- und Klickeffekte, wie sich Dialoge und Menüs öffnen, und das Tempo von allem.",
+        "components": "Komponenten",
+        "componentsDescription": "Boxen, Statistikkarten und Tabellen im gesamten Panel."
       },
       "accent": "Akzent",
       "accentDescription": "Buttons, Links und der aktive Menüpunkt",
@@ -364,6 +383,10 @@
       "backgroundImage": "Bild-URL",
       "backgroundImageDescription": "Leer lassen für einen einfarbigen Hintergrund.",
       "backgroundDim": "Abdunkeln",
+      "serverHome": "Server-Startseite",
+      "serverHomeDescription": "Eine Startseite im Server-Stamm mit den Karten, Bildern und Links unten; die Konsole bekommt eine eigene Seite. Ausgeschaltet ist die Konsole die erste Seite des Servers, wie ohne Mint. Geöffnete Serverseiten ändern sich beim nächsten Laden.",
+      "homeCards": "Karten",
+      "homeImages": "Bilder",
       "homeBanner": "URL des Standard-Bannerbilds",
       "homeBannerDescription": "Wird für Eggs ohne eigenes Banner verwendet. Leer lassen für einen Akzentverlauf.",
       "articles": "Links für die ersten Schritte",
@@ -453,12 +476,49 @@
           "none": "Keiner",
           "fade": "Einblenden",
           "fadeUp": "Von unten einblenden",
-          "fadeScale": "Einblenden und skalieren"
+          "fadeScale": "Einblenden und skalieren",
+          "slide": "Hereingleiten",
+          "slideDown": "Von oben gleiten",
+          "zoom": "Zoom",
+          "blur": "Unscharf einblenden"
         },
         "pageTitles": "Seitentitel anzeigen",
         "pageTitlesDescription": "Die Überschrift auf Serverseiten wie Dateien und Datenbanken. Suche und Buttons bleiben erhalten.",
         "mobileEditor": "Handyfreundlicher Dateieditor",
         "mobileEditorDescription": "Auf Handys bricht der Code-Editor Zeilen um, blendet Minimap und Popups aus, nutzt eine 16px-Schrift und bekommt eine Tastenleiste über der Tastatur: Rückgängig, Einrücken, Suchen, Symbole und Pfeile. Am Desktop bleibt alles, wie es ist."
+      },
+      "motion": {
+        "cardEntrance": "Karteneinblendung",
+        "cardEntranceDescription": "Karten und Tabellenzeilen erscheinen nacheinander, wenn eine Seite geöffnet wird. Fahre über eine Kachel, um es zu sehen.",
+        "cardEntrances": {
+          "none": "Keine",
+          "fade": "Einblenden",
+          "rise": "Aufsteigen"
+        },
+        "hoverEffect": "Hover-Effekt",
+        "hoverEffectDescription": "Anklickbare Karten, etwa die Serverliste, und Buttons unter dem Mauszeiger. Fahre über eine Kachel, um es zu sehen.",
+        "hovers": {
+          "none": "Keiner",
+          "lift": "Anheben",
+          "glow": "Leuchten"
+        },
+        "overlayMotion": "Dialoge und Menüs",
+        "overlayMotionDescription": "Wie sich Dialoge, Seitenleisten, Menüs und Dropdowns öffnen. Geschlossen werden sie wie immer. Fahre über eine Kachel, um es zu sehen.",
+        "overlays": {
+          "default": "Standard",
+          "pop": "Aufploppen",
+          "slideUp": "Nach oben gleiten",
+          "none": "Keine"
+        },
+        "animationSpeed": "Animationsgeschwindigkeit",
+        "animationSpeedDescription": "Beschleunigt oder verlangsamt alle Animationen oben. Der Countdown des gläsernen Toasts behält seine echte Zeit.",
+        "speeds": {
+          "slow": "Langsam",
+          "normal": "Normal",
+          "fast": "Schnell"
+        },
+        "reduceMotion": "Bewegung für alle reduzieren",
+        "reduceMotionDescription": "Schaltet Seitenübergänge, Karteneinblendung, Hover-Bewegung, das Schrumpfen beim Klick, Dialog- und Menüanimationen und den Toast-Countdown für alle Nutzer ab, egal was die Optionen oben sagen. Geräte mit reduzierter Bewegung bekommen sie ohnehin nie."
       },
       "boxes": {
         "title": "Boxen",
@@ -493,6 +553,14 @@
         "remove": "{name} entfernen",
         "allPlaced": "Alle Komponenten sind bereits auf der Seite.",
         "reset": "Standard-Layout wiederherstellen",
+        "presets": "Layout-Vorlagen",
+        "presetsDescription": "Legt eine fertige Konsolenseite über den Entwurf; passe sie in den Slots unten weiter an.",
+        "presetNames": {
+          "classic": "Klassisch",
+          "sidebar": "Seitenleiste",
+          "focus": "Fokus",
+          "dashboard": "Dashboard"
+        },
         "slot": {
           "top": "Über dem Terminal",
           "left": "Links vom Terminal",
@@ -506,7 +574,10 @@
           "cpuChart": "CPU-Diagramm",
           "memoryChart": "Arbeitsspeicher-Diagramm",
           "networkChart": "Netzwerk-Diagramm",
-          "extensionCards": "Erweiterungskarten"
+          "extensionCards": "Erweiterungskarten",
+          "gauges": "Auslastungsringe",
+          "commands": "Schnellbefehle",
+          "connect": "Verbinden"
         },
         "widgetDescription": {
           "banner": "Servername, Adresse, Live-Statistiken und die Power-Buttons.",
@@ -515,8 +586,71 @@
           "cpuChart": "Live-Diagramm der CPU-Last.",
           "memoryChart": "Live-Diagramm des Arbeitsspeichers.",
           "networkChart": "Live-Diagramm des ein- und ausgehenden Datenverkehrs.",
-          "extensionCards": "Statistikkarten, die andere Erweiterungen zur Konsole hinzufügen."
+          "extensionCards": "Statistikkarten, die andere Erweiterungen zur Konsole hinzufügen.",
+          "gauges": "Ringanzeigen für CPU, Arbeitsspeicher und Festplatte im Verhältnis zu den Serverlimits.",
+          "commands": "Die unter „Schnellbefehl-Buttons“ unten festgelegten Buttons; nur für Nutzer mit Konsolenzugriff.",
+          "connect": "Die Adresse und SFTP-Daten mit Kopier-Buttons sowie ein SFTP-Link."
         }
+      },
+      "console": {
+        "terminalTitle": "Terminal",
+        "frame": "Terminal-Rahmen",
+        "frameDescription": "Die Karte um das Terminal, ihre Kopfzeile und ihr Eingabefeld.",
+        "frames": {
+          "card": "Karte",
+          "flush": "Bündig",
+          "glass": "Glas"
+        },
+        "height": "Terminalhöhe",
+        "heightDescription": "„Fenster füllen“ zieht das Terminal auf breiten Bildschirmen bis zum unteren Fensterrand; schmale Bildschirme behalten die normale Höhe.",
+        "heights": {
+          "auto": "Normal",
+          "fill": "Fenster füllen",
+          "tall": "Hoch"
+        },
+        "cursor": "Cursor",
+        "cursorDescription": "Das Panel blendet den Terminal-Cursor aus; wähle eine Form, um ihn anzuzeigen.",
+        "cursors": {
+          "none": "Ausgeblendet",
+          "block": "Block",
+          "bar": "Balken",
+          "underline": "Unterstrich"
+        },
+        "cursorBlink": "Blinkender Cursor",
+        "cursorBlinkDescription": "Blinkt, solange das Terminal den Fokus hat, nie bei reduzierter Bewegung. Erfordert einen sichtbaren Cursor.",
+        "lineHeight": "Zeilenhöhe",
+        "bannerTitle": "Banner",
+        "banner": "Banner-Stil",
+        "bannerDescription": "Die Banner-Komponente: das Startseiten-Banner mit Live-Statistiken, eine Zeile oder eine schmale Statuszeile.",
+        "banners": {
+          "full": "Vollständig",
+          "compact": "Kompakt",
+          "minimal": "Minimal"
+        },
+        "chartsTitle": "Diagramme",
+        "chartStyle": "Diagrammstil",
+        "chartStyles": {
+          "area": "Fläche",
+          "line": "Linie"
+        },
+        "chartHeight": "Diagrammhöhe",
+        "chartHeights": {
+          "small": "Klein",
+          "medium": "Mittel",
+          "large": "Groß"
+        },
+        "chartArrangement": "Diagrammanordnung",
+        "chartArrangementDescription": "Nebeneinander platzierte Diagramme teilen sich eine Zeile, oder jedes nimmt die volle Breite ein.",
+        "chartArrangements": {
+          "row": "Nebeneinander",
+          "stacked": "Gestapelt"
+        },
+        "commandsTitle": "Schnellbefehl-Buttons",
+        "commandsDescription": "Bis zu {max} Buttons für die Schnellbefehle-Komponente; jeder sendet seinen Befehl an die Serverkonsole. Nutzer ohne Konsolenzugriff sehen sie nicht.",
+        "commandLabel": "Beschriftung",
+        "command": "Befehl",
+        "addCommand": "Befehl hinzufügen",
+        "removeCommand": "Befehl entfernen"
       },
       "navStyle": {
         "hover": "Hover-Effekt",
@@ -602,24 +736,7 @@
         "description": "Das Menü des Adminbereichs für alle: Ziehe Links und ganze Kategorien sowie Links innerhalb ihrer Kategorie. Benutzer können ihre eigenen Menüs weiterhin darüber anordnen. Server- und Dashboardmenü folgen den Routenreihenfolgen der Egg-Konfigurationen und der Benutzereinstellungen.",
         "empty": "Das Adminmenü ist noch nicht geladen.",
         "reset": "Zurück zur Reihenfolge des Panels"
-      },
-      "groups": {
-        "look": "Aussehen",
-        "navigation": "Navigation",
-        "pages": "Seiten",
-        "interface": "Oberfläche"
-      },
-      "serverHome": "Server-Startseite",
-      "serverHomeDescription": "Eine Startseite im Server-Stamm mit den Karten, Bildern und Links unten; die Konsole bekommt eine eigene Seite. Ausgeschaltet ist die Konsole die erste Seite des Servers, wie ohne Mint. Geöffnete Serverseiten ändern sich beim nächsten Laden.",
-      "homeCards": "Karten",
-      "homeImages": "Bilder",
-      "status": {
-        "unsaved": "Ungespeicherte Änderungen",
-        "saved": "Alle Änderungen gespeichert"
-      },
-      "more": "Weitere Aktionen",
-      "resizePanel": "Größe des Einstellungsbereichs ändern",
-      "sections": "Einstellungsbereiche"
+      }
     },
     "library": {
       "saveAsPreset": "Als Vorlage speichern",

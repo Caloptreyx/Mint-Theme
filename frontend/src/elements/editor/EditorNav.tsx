@@ -9,6 +9,7 @@ import {
   faListOl,
   faRightToBracket,
   faServer,
+  faSliders,
   faSwatchbook,
   faTableColumns,
   faTerminal,
@@ -54,7 +55,8 @@ const SECTION_GROUPS: { id: SectionGroup; sections: { id: Section; icon: IconDef
   {
     id: 'interface',
     sections: [
-      { id: 'interface', icon: faWandMagicSparkles },
+      { id: 'interface', icon: faSliders },
+      { id: 'motion', icon: faWandMagicSparkles },
       { id: 'components', icon: faCubes },
     ],
   },

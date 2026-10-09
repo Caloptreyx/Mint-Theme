@@ -32,7 +32,7 @@ import {
 } from './lib/core.ts';
 import { mountMobileEditor } from './lib/mobileEditor.ts';
 import { THEME_UPDATE_PERMISSION } from './lib/permissions.ts';
-import { attachTerminalFont, detachTerminalFont, initTerminalFont } from './lib/terminal.ts';
+import { attachTerminal, detachTerminal, initTerminal } from './lib/terminal.ts';
 import ServerConsole from './pages/ServerConsole.tsx';
 import ServerHome from './pages/ServerHome.tsx';
 import ServerList from './pages/ServerList.tsx';
@@ -108,11 +108,11 @@ class DevCaloptreyxMintExtension extends Extension {
       element: () => createElement(Login),
     });
 
-    // xterm takes its font from its options, not the CSS, so the theme's monospace font is handed to it directly
+    // xterm takes its font, cursor and line height from its options, not the CSS, so the theme hands them over
     ctx.extensionRegistry.pages.server.console.xterm
-      .addInitHandler(initTerminalFont)
-      .addAfterOpenHandler(attachTerminalFont)
-      .addOnUnmountHandler(detachTerminalFont);
+      .addInitHandler(initTerminal)
+      .addAfterOpenHandler(attachTerminal)
+      .addOnUnmountHandler(detachTerminal);
 
     // `mobileEditor`: every Monaco editor gets phone settings on a phone, and the file editor page a row of the
     // keys phone keyboards lack, above the on-screen keyboard

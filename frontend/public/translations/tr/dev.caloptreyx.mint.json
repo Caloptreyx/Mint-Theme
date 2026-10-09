@@ -166,6 +166,10 @@
       "down": "İmleci aşağı taşı",
       "type": "{key} yaz"
     },
+    "console": {
+      "commands": "Hızlı komutlar",
+      "connect": "Bağlan"
+    },
     "editor": {
       "contrast": {
         "title": "Bazı renklerin okunması zor",
@@ -220,6 +224,13 @@
       "previewPage": "Önizleme sayfası",
       "previewDevice": "Önizleme genişliği",
       "previewScheme": "Önizleme renk şeması",
+      "status": {
+        "unsaved": "Kaydedilmemiş değişiklikler",
+        "saved": "Tüm değişiklikler kaydedildi"
+      },
+      "more": "Diğer işlemler",
+      "resizePanel": "Ayarlar panelini yeniden boyutlandır",
+      "sections": "Ayar bölümleri",
       "search": {
         "placeholder": "Ayarlarda ara",
         "clear": "Aramayı temizle",
@@ -242,33 +253,41 @@
         "admin": "Yönetici",
         "login": "Giriş sayfası"
       },
+      "groups": {
+        "look": "Görünüm",
+        "navigation": "Gezinme",
+        "pages": "Sayfalar",
+        "interface": "Arayüz"
+      },
       "section": {
         "presets": "Hazır Ayarlar",
         "presetsDescription": "Hazır bir görünümle başlayın, kendinizinkini kaydedin ve kullanıcıların hangilerini seçebileceğini belirleyin.",
         "colours": "Renkler",
         "coloursDescription": "Diğer her şey bu beş renkten türetilir.",
         "style": "Tipografi ve şekil",
-        "styleDescription": "Yazı tipleri, düğmeler, köşe yuvarlaklığı, blok opaklığı ve kenarlıkları ile tıklama efekti.",
+        "styleDescription": "Yazı tipleri, düğmeler, köşe yuvarlaklığı, blok opaklığı ve kenarlıkları.",
         "background": "Arka plan ve marka",
         "backgroundDescription": "Tüm panelin arkasında, sayfa rengiyle karartılan bir görsel ve tarayıcı sekmesi simgesi.",
-        "home": "Sunucu ana sayfası",
-        "homeDescription": "Bir sunucunun ana sayfasındaki kartlar, afişleri ve oyun görselleri ile başlangıç bağlantıları.",
-        "login": "Giriş sayfası",
-        "loginDescription": "Giriş, kayıt ve şifre sayfaları için düzen, arka plan, logo ve destek bağlantıları.",
-        "interface": "Davranış",
-        "interfaceDescription": "Bildirimler, sayfa geçişleri, sayfa başlıkları ve telefondaki dosya düzenleyici.",
-        "components": "Bileşenler",
-        "componentsDescription": "Panel genelindeki kutular, istatistik kartları ve tablolar.",
-        "console": "Konsol",
-        "consoleDescription": "Konsol sayfasının terminalin çevresinde neyi, nerede gösterdiği.",
         "sidebar": "Kenar çubuğu ve dock",
         "sidebarDescription": "Menünün masaüstünde nerede durduğu, logosunun ve aramasının nereye gittiği ve telefonlarda nasıl gezinileceği.",
         "menu": "Menü stili ve arama",
         "menuDescription": "Menü bağlantılarının üzerine gelindiğinde ve açıkken nasıl göründüğü ve menünün hangi aramayı gösterdiği.",
         "menuOrder": "Menü sırası",
         "menuOrderDescription": "Daraltılabilir menü bölümleri, yönetici menüsünün sırası ve kullanıcıların hangi menüleri düzenleyebileceği.",
+        "home": "Sunucu ana sayfası",
+        "homeDescription": "Bir sunucunun ana sayfasındaki kartlar, afişleri ve oyun görselleri ile başlangıç bağlantıları.",
+        "console": "Konsol",
+        "consoleDescription": "Konsol sayfası: terminalin etrafında bir hazır düzen veya kendi düzeniniz, terminalin kendisi, banner, grafikler ve hızlı komutlar.",
         "servers": "Sunucu listesi",
-        "serversDescription": "Sunucu listesinin ızgara görünümündeki kartlar."
+        "serversDescription": "Sunucu listesinin ızgara görünümündeki kartlar.",
+        "login": "Giriş sayfası",
+        "loginDescription": "Giriş, kayıt ve şifre sayfaları için düzen, arka plan, logo ve destek bağlantıları.",
+        "interface": "Davranış",
+        "interfaceDescription": "Bildirimler, sayfa başlıkları ve telefondaki dosya düzenleyici.",
+        "motion": "Animasyonlar",
+        "motionDescription": "Sayfa geçişleri, kartların gelişi, üzerine gelme ve tıklama efektleri, diyalogların ve menülerin nasıl açıldığı ve tüm bunların hızı.",
+        "components": "Bileşenler",
+        "componentsDescription": "Panel genelindeki kutular, istatistik kartları ve tablolar."
       },
       "accent": "Vurgu",
       "accentDescription": "Butonlar, bağlantılar ve etkin menü öğesi",
@@ -364,6 +383,10 @@
       "backgroundImage": "Görsel URL'si",
       "backgroundImageDescription": "Düz bir arka plan için boş bırakın.",
       "backgroundDim": "Karartma",
+      "serverHome": "Sunucu ana sayfası",
+      "serverHomeDescription": "Sunucu kökünde aşağıdaki kartlar, görseller ve bağlantılarla bir ana sayfa; konsol kendi sayfasına taşınır. Kapalıyken konsol, Mint olmadan olduğu gibi sunucunun ilk sayfasıdır. Açık sunucu sayfaları bir sonraki yüklemede değişir.",
+      "homeCards": "Kartlar",
+      "homeImages": "Görseller",
       "homeBanner": "Varsayılan banner görseli URL'si",
       "homeBannerDescription": "Kendi banner'ı olmayan Egg'ler için kullanılır. Vurgu rengi geçişi için boş bırakın.",
       "articles": "Başlarken bağlantıları",
@@ -453,12 +476,49 @@
           "none": "Yok",
           "fade": "Belirme",
           "fadeUp": "Yukarı belirme",
-          "fadeScale": "Ölçekli belirme"
+          "fadeScale": "Ölçekli belirme",
+          "slide": "Kayarak gelme",
+          "slideDown": "Aşağı kayma",
+          "zoom": "Yakınlaştırma",
+          "blur": "Bulanık belirme"
         },
         "pageTitles": "Sayfa başlıklarını göster",
         "pageTitlesDescription": "Dosyalar ve Veritabanları gibi sunucu sayfalarındaki başlık. Arama ve butonları yerinde kalır.",
         "mobileEditor": "Telefon dostu dosya düzenleyici",
         "mobileEditorDescription": "Telefonlarda kod düzenleyici satırları kaydırır, mini haritayı ve açılır pencereleri gizler, 16px yazı tipi kullanır ve klavyenin üstünde bir tuş sırası gösterir: geri al, girinti, bul, semboller ve oklar. Masaüstü olduğu gibi kalır."
+      },
+      "motion": {
+        "cardEntrance": "Kart girişi",
+        "cardEntranceDescription": "Bir sayfa açıldığında kartlar ve tablo satırları birbiri ardına gelir. Görmek için bir kutucuğun üzerine gelin.",
+        "cardEntrances": {
+          "none": "Yok",
+          "fade": "Belirme",
+          "rise": "Yükselme"
+        },
+        "hoverEffect": "Üzerine gelme efekti",
+        "hoverEffectDescription": "Sunucu listesi gibi tıklanabilir kartlar ve fare işaretçisinin altındaki düğmeler. Görmek için bir kutucuğun üzerine gelin.",
+        "hovers": {
+          "none": "Yok",
+          "lift": "Kaldırma",
+          "glow": "Parıltı"
+        },
+        "overlayMotion": "Diyaloglar ve menüler",
+        "overlayMotionDescription": "Diyalogların, çekmecelerin, menülerin ve açılır listelerin nasıl açıldığı. Her zamanki gibi kapanırlar. Görmek için bir kutucuğun üzerine gelin.",
+        "overlays": {
+          "default": "Varsayılan",
+          "pop": "Fırlama",
+          "slideUp": "Yukarı kayma",
+          "none": "Yok"
+        },
+        "animationSpeed": "Animasyon hızı",
+        "animationSpeedDescription": "Yukarıdaki tüm animasyonları hızlandırır veya yavaşlatır. Cam bildirimin geri sayımı gerçek süresini korur.",
+        "speeds": {
+          "slow": "Yavaş",
+          "normal": "Normal",
+          "fast": "Hızlı"
+        },
+        "reduceMotion": "Herkes için hareketi azalt",
+        "reduceMotionDescription": "Yukarıdaki seçenekler ne derse desin, tüm kullanıcılar için sayfa geçişlerini, kart girişini, üzerine gelme hareketini, tıklamada küçülmeyi, diyalog ve menü animasyonlarını ve bildirim geri sayımını kapatır. Hareketi azaltacak şekilde ayarlanmış cihazlar bunları zaten hiç almaz."
       },
       "boxes": {
         "title": "Kutular",
@@ -493,6 +553,14 @@
         "remove": "{name} öğesini kaldır",
         "allPlaced": "Tüm bileşenler zaten sayfada.",
         "reset": "Varsayılan düzeni geri yükle",
+        "presets": "Hazır düzenler",
+        "presetsDescription": "Taslağın üzerine hazır bir konsol sayfası uygular; aşağıdaki yuvalarda daha da değiştirin.",
+        "presetNames": {
+          "classic": "Klasik",
+          "sidebar": "Kenar çubuğu",
+          "focus": "Odak",
+          "dashboard": "Gösterge paneli"
+        },
         "slot": {
           "top": "Terminalin üstünde",
           "left": "Terminalin solunda",
@@ -506,7 +574,10 @@
           "cpuChart": "CPU grafiği",
           "memoryChart": "Bellek grafiği",
           "networkChart": "Ağ grafiği",
-          "extensionCards": "Eklenti kartları"
+          "extensionCards": "Eklenti kartları",
+          "gauges": "Kullanım halkaları",
+          "commands": "Hızlı komutlar",
+          "connect": "Bağlan"
         },
         "widgetDescription": {
           "banner": "Sunucu adı, adres, canlı istatistikler ve güç butonları.",
@@ -515,8 +586,71 @@
           "cpuChart": "Canlı CPU yükü grafiği.",
           "memoryChart": "Canlı bellek grafiği.",
           "networkChart": "Canlı gelen ve giden trafik grafiği.",
-          "extensionCards": "Diğer eklentilerin konsola eklediği istatistik kartları."
+          "extensionCards": "Diğer eklentilerin konsola eklediği istatistik kartları.",
+          "gauges": "Sunucu limitlerine göre CPU, bellek ve disk için halka göstergeler.",
+          "commands": "Aşağıdaki Hızlı komut düğmeleri bölümünde ayarlanan düğmeler; yalnızca konsol erişimi olan kullanıcılar için.",
+          "connect": "Kopyalama düğmeleriyle adres ve SFTP bilgileri ile bir SFTP bağlantısı."
         }
+      },
+      "console": {
+        "terminalTitle": "Terminal",
+        "frame": "Terminal çerçevesi",
+        "frameDescription": "Terminalin etrafındaki kart, başlığı ve giriş alanı.",
+        "frames": {
+          "card": "Kart",
+          "flush": "Kenarsız",
+          "glass": "Cam"
+        },
+        "height": "Terminal yüksekliği",
+        "heightDescription": "Pencereyi doldur, geniş ekranlarda terminali pencerenin altına kadar uzatır; dar ekranlar normal yüksekliği korur.",
+        "heights": {
+          "auto": "Normal",
+          "fill": "Pencereyi doldur",
+          "tall": "Uzun"
+        },
+        "cursor": "İmleç",
+        "cursorDescription": "Panel terminal imlecini gizler; göstermek için bir şekil seçin.",
+        "cursors": {
+          "none": "Gizli",
+          "block": "Blok",
+          "bar": "Çubuk",
+          "underline": "Alt çizgi"
+        },
+        "cursorBlink": "Yanıp sönen imleç",
+        "cursorBlinkDescription": "Terminal odaktayken yanıp söner, azaltılmış harekette asla. Görünür bir imleç gerektirir.",
+        "lineHeight": "Satır yüksekliği",
+        "bannerTitle": "Banner",
+        "banner": "Banner stili",
+        "bannerDescription": "Banner bileşeni: canlı istatistikli Ana sayfa banner'ı, tek satır veya ince bir durum satırı.",
+        "banners": {
+          "full": "Tam",
+          "compact": "Kompakt",
+          "minimal": "Minimal"
+        },
+        "chartsTitle": "Grafikler",
+        "chartStyle": "Grafik stili",
+        "chartStyles": {
+          "area": "Alan",
+          "line": "Çizgi"
+        },
+        "chartHeight": "Grafik yüksekliği",
+        "chartHeights": {
+          "small": "Küçük",
+          "medium": "Orta",
+          "large": "Büyük"
+        },
+        "chartArrangement": "Grafik düzeni",
+        "chartArrangementDescription": "Yan yana yerleştirilen grafikler bir satırı paylaşır ya da her biri tam genişliği kaplar.",
+        "chartArrangements": {
+          "row": "Yan yana",
+          "stacked": "Üst üste"
+        },
+        "commandsTitle": "Hızlı komut düğmeleri",
+        "commandsDescription": "Hızlı komutlar bileşeni için en fazla {max} düğme; her biri kendi komutunu sunucu konsoluna gönderir. Konsol erişimi olmayan kullanıcılar bunları görmez.",
+        "commandLabel": "Etiket",
+        "command": "Komut",
+        "addCommand": "Komut ekle",
+        "removeCommand": "Komutu kaldır"
       },
       "navStyle": {
         "hover": "Üzerine gelme efekti",
@@ -602,24 +736,7 @@
         "description": "Herkes için yönetim alanının menüsü: bağlantıları ve kategorilerin tamamını, kategorileri içindeki bağlantıları sürükleyin. Kullanıcılar yine de kendi menülerini bunun üzerine düzenleyebilir. Sunucu ve pano menüleri egg yapılandırmalarının ve kullanıcı ayarlarının rota sıralarını izler.",
         "empty": "Yönetim menüsü henüz yüklenmedi.",
         "reset": "Panelin sırasına dön"
-      },
-      "groups": {
-        "look": "Görünüm",
-        "navigation": "Gezinme",
-        "pages": "Sayfalar",
-        "interface": "Arayüz"
-      },
-      "serverHome": "Sunucu ana sayfası",
-      "serverHomeDescription": "Sunucu kökünde aşağıdaki kartlar, görseller ve bağlantılarla bir ana sayfa; konsol kendi sayfasına taşınır. Kapalıyken konsol, Mint olmadan olduğu gibi sunucunun ilk sayfasıdır. Açık sunucu sayfaları bir sonraki yüklemede değişir.",
-      "homeCards": "Kartlar",
-      "homeImages": "Görseller",
-      "status": {
-        "unsaved": "Kaydedilmemiş değişiklikler",
-        "saved": "Tüm değişiklikler kaydedildi"
-      },
-      "more": "Diğer işlemler",
-      "resizePanel": "Ayarlar panelini yeniden boyutlandır",
-      "sections": "Ayar bölümleri"
+      }
     },
     "library": {
       "saveAsPreset": "Hazır ayar olarak kaydet",

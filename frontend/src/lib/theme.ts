@@ -17,8 +17,17 @@ export const CLICK_EFFECTS = ['none', 'drop', 'shrink', 'outline'] as const;
 export type ClickEffect = (typeof CLICK_EFFECTS)[number];
 export const TOAST_STYLES = ['default', 'glassy'] as const;
 export type ToastStyle = (typeof TOAST_STYLES)[number];
-export const PAGE_TRANSITIONS = ['none', 'fade', 'fadeUp', 'fadeScale'] as const;
+export const PAGE_TRANSITIONS = ['none', 'fade', 'fadeUp', 'fadeScale', 'slide', 'slideDown', 'zoom', 'blur'] as const;
 export type PageTransition = (typeof PAGE_TRANSITIONS)[number];
+export const CARD_ENTRANCES = ['none', 'fade', 'rise'] as const;
+export type CardEntrance = (typeof CARD_ENTRANCES)[number];
+export const HOVER_EFFECTS = ['none', 'lift', 'glow'] as const;
+export type HoverEffect = (typeof HOVER_EFFECTS)[number];
+/** 'default' is Mantine's own: modals fade down, drawers slide in, menus and popovers fade. */
+export const OVERLAY_MOTIONS = ['default', 'pop', 'slideUp', 'none'] as const;
+export type OverlayMotion = (typeof OVERLAY_MOTIONS)[number];
+export const ANIMATION_SPEEDS = ['slow', 'normal', 'fast'] as const;
+export type AnimationSpeed = (typeof ANIMATION_SPEEDS)[number];
 export const BOX_STYLES = ['default', 'line', 'fill', 'pill'] as const;
 export type BoxStyle = (typeof BOX_STYLES)[number];
 export const STAT_STYLES = ['default', 'reversed', 'minimal', 'minimalReversed'] as const;
@@ -99,6 +108,9 @@ export const CONSOLE_WIDGETS = [
   'memoryChart',
   'networkChart',
   'extensionCards',
+  'gauges',
+  'commands',
+  'connect',
 ] as const;
 export type ConsoleWidget = (typeof CONSOLE_WIDGETS)[number];
 export const CONSOLE_SLOTS = ['top', 'left', 'right', 'bottom'] as const;
@@ -112,6 +124,40 @@ export const DEFAULT_CONSOLE_LAYOUT: ConsoleLayout = {
   right: [],
   bottom: ['extensionCards', 'cpuChart', 'memoryChart', 'networkChart'],
 };
+
+/** Around core's terminal: 'card' is core's card, 'flush' drops its fill, border and padding, 'glass' blurs. */
+export const TERMINAL_FRAMES = ['card', 'flush', 'glass'] as const;
+export type TerminalFrame = (typeof TERMINAL_FRAMES)[number];
+/** 'auto' is the console's 62vh; 'fill' runs to the bottom of the window from lg up, 'tall' is a taller fixed height. */
+export const TERMINAL_HEIGHTS = ['auto', 'fill', 'tall'] as const;
+export type TerminalHeight = (typeof TERMINAL_HEIGHTS)[number];
+/** Core hides the terminal's cursor ('none'); the others show it in that shape. */
+export const TERMINAL_CURSORS = ['none', 'block', 'bar', 'underline'] as const;
+export type TerminalCursor = (typeof TERMINAL_CURSORS)[number];
+/** xterm's `lineHeight`; core's is 1.2. */
+export const TERMINAL_LINE_HEIGHT = { min: 1, max: 2, default: 1.2 } as const;
+/** The console's banner widget: 'full' is the Home banner, the others one slim row. */
+export const CONSOLE_BANNERS = ['full', 'compact', 'minimal'] as const;
+export type ConsoleBanner = (typeof CONSOLE_BANNERS)[number];
+/** The console's charts: core's filled areas or bare lines. */
+export const CHART_STYLES = ['area', 'line'] as const;
+export type ChartStyle = (typeof CHART_STYLES)[number];
+/** The plot's minimum height; 'medium' is core's 15rem. */
+export const CHART_HEIGHTS = ['small', 'medium', 'large'] as const;
+export type ChartHeight = (typeof CHART_HEIGHTS)[number];
+/** A run of charts side by side as in core ('row'), or each on its own full width row. */
+export const CHART_ARRANGEMENTS = ['row', 'stacked'] as const;
+export type ChartArrangement = (typeof CHART_ARRANGEMENTS)[number];
+
+/** A button of the console's quick command bar. */
+export interface ConsoleCommand {
+  label: string;
+  command: string;
+}
+
+export const MAX_CONSOLE_COMMANDS = 8;
+export const MAX_COMMAND_LABEL = 40;
+export const MAX_COMMAND_LENGTH = 200;
 
 export interface EggImages {
   banner: string;
@@ -182,6 +228,16 @@ export interface NebulaTheme {
   toastStyle: ToastStyle;
   /** Plays on the page content (never the sidebar) when the route changes. */
   pageTransition: PageTransition;
+  /** Cards and table rows of the page content fade or rise in, staggered, when the route changes. */
+  cardEntrance: CardEntrance;
+  /** Interactive cards (server cards, cards that are links) and buttons under the pointer. */
+  hoverEffect: HoverEffect;
+  /** How modals, drawers, menus and popovers open; they close the Mantine way. */
+  overlayMotion: OverlayMotion;
+  /** Scales every Mint animation's duration, except the glassy toast's countdown (core's real 7.5s). */
+  animationSpeed: AnimationSpeed;
+  /** Site wide: turns Mint's animations and Mantine's overlay transitions off for everyone. */
+  reduceMotion: boolean;
   /** The title row of core's server pages; its search box and buttons stay either way. */
   pageTitles: boolean;
   /** The title row of titled cards: 'default' is core's band with a divider line. */
@@ -190,6 +246,21 @@ export interface NebulaTheme {
   statStyle: StatStyle;
   /** Widgets around the console terminal, each used at most once. */
   consoleLayout: ConsoleLayout;
+  /** Core's card around the terminal, none, or glass. */
+  terminalFrame: TerminalFrame;
+  terminalHeight: TerminalHeight;
+  /** xterm options; core hides the cursor ('none'), blinking only applies to a shown one. */
+  terminalCursor: TerminalCursor;
+  terminalCursorBlink: boolean;
+  terminalLineHeight: number;
+  /** The banner widget: the Home banner, one row, or a slim status line. */
+  consoleBanner: ConsoleBanner;
+  /** The console's charts only, never core's charts elsewhere. */
+  chartStyle: ChartStyle;
+  chartHeight: ChartHeight;
+  chartArrangement: ChartArrangement;
+  /** The `commands` widget's buttons, each sending its command over the server's websocket. */
+  consoleCommands: ConsoleCommand[];
   /** Auth pages; the defaults are core's own: a card under the logo, no links. */
   authLayout: AuthLayout;
   authLogoPosition: AuthPosition;
@@ -260,10 +331,25 @@ export const DEFAULT_THEME: NebulaTheme = {
   clickEffect: 'drop',
   toastStyle: 'default',
   pageTransition: 'none',
+  cardEntrance: 'none',
+  hoverEffect: 'none',
+  overlayMotion: 'default',
+  animationSpeed: 'normal',
+  reduceMotion: false,
   pageTitles: true,
   boxStyle: 'default',
   statStyle: 'default',
   consoleLayout: DEFAULT_CONSOLE_LAYOUT,
+  terminalFrame: 'card',
+  terminalHeight: 'auto',
+  terminalCursor: 'none',
+  terminalCursorBlink: false,
+  terminalLineHeight: TERMINAL_LINE_HEIGHT.default,
+  consoleBanner: 'full',
+  chartStyle: 'area',
+  chartHeight: 'medium',
+  chartArrangement: 'row',
+  consoleCommands: [],
   authLayout: 'default',
   authLogoPosition: 'aboveForm',
   supportLinks: [],
@@ -398,6 +484,10 @@ export const USER_THEME_FIELDS: readonly (keyof NebulaTheme)[] = [
   'clickEffect',
   'toastStyle',
   'pageTransition',
+  'cardEntrance',
+  'hoverEffect',
+  'overlayMotion',
+  'animationSpeed',
   'pageTitles',
   'boxStyle',
   'statStyle',
@@ -519,6 +609,30 @@ function consoleLayout(v: unknown, fallback: ConsoleLayout): ConsoleLayout {
   return out;
 }
 
+/** xterm's line height, clamped and kept to two decimals. */
+function lineHeight(v: unknown, fallback: number): number {
+  if (typeof v !== 'number' || !Number.isFinite(v)) return fallback;
+  return Math.round(Math.min(TERMINAL_LINE_HEIGHT.max, Math.max(TERMINAL_LINE_HEIGHT.min, v)) * 100) / 100;
+}
+
+// a command is one console line: control characters (a newline would be a second command) are dropped
+// biome-ignore lint/suspicious/noControlCharactersInRegex: matching them is the point
+const CONTROL = /[\u0000-\u001f\u007f]/g;
+
+/** At most 8 buttons; both texts are cut to their limit and a button missing either is dropped. */
+function consoleCommands(v: unknown, fallback: ConsoleCommand[]): ConsoleCommand[] {
+  if (!Array.isArray(v)) return fallback;
+  const out: ConsoleCommand[] = [];
+  for (const raw of v.slice(0, MAX_CONSOLE_COMMANDS)) {
+    const r = (raw && typeof raw === 'object' ? raw : {}) as Record<string, unknown>;
+    if (typeof r.label !== 'string' || typeof r.command !== 'string') continue;
+    const label = r.label.replace(CONTROL, '').trim().slice(0, MAX_COMMAND_LABEL);
+    const command = r.command.replace(CONTROL, '').trim().slice(0, MAX_COMMAND_LENGTH);
+    if (label && command) out.push({ label, command });
+  }
+  return out;
+}
+
 export function normalizeTheme(raw: unknown, d: NebulaTheme = DEFAULT_THEME): NebulaTheme {
   const r = (raw && typeof raw === 'object' ? raw : {}) as Record<string, unknown>;
 
@@ -569,10 +683,25 @@ export function normalizeTheme(raw: unknown, d: NebulaTheme = DEFAULT_THEME): Ne
     clickEffect: CLICK_EFFECTS.find((effect) => effect === r.clickEffect) ?? d.clickEffect,
     toastStyle: TOAST_STYLES.find((style) => style === r.toastStyle) ?? d.toastStyle,
     pageTransition: PAGE_TRANSITIONS.find((transition) => transition === r.pageTransition) ?? d.pageTransition,
+    cardEntrance: CARD_ENTRANCES.find((entrance) => entrance === r.cardEntrance) ?? d.cardEntrance,
+    hoverEffect: HOVER_EFFECTS.find((effect) => effect === r.hoverEffect) ?? d.hoverEffect,
+    overlayMotion: OVERLAY_MOTIONS.find((motion) => motion === r.overlayMotion) ?? d.overlayMotion,
+    animationSpeed: ANIMATION_SPEEDS.find((speed) => speed === r.animationSpeed) ?? d.animationSpeed,
+    reduceMotion: typeof r.reduceMotion === 'boolean' ? r.reduceMotion : d.reduceMotion,
     pageTitles: typeof r.pageTitles === 'boolean' ? r.pageTitles : d.pageTitles,
     boxStyle: BOX_STYLES.find((style) => style === r.boxStyle) ?? d.boxStyle,
     statStyle: STAT_STYLES.find((style) => style === r.statStyle) ?? d.statStyle,
     consoleLayout: consoleLayout(r.consoleLayout, d.consoleLayout),
+    terminalFrame: TERMINAL_FRAMES.find((frame) => frame === r.terminalFrame) ?? d.terminalFrame,
+    terminalHeight: TERMINAL_HEIGHTS.find((height) => height === r.terminalHeight) ?? d.terminalHeight,
+    terminalCursor: TERMINAL_CURSORS.find((cursor) => cursor === r.terminalCursor) ?? d.terminalCursor,
+    terminalCursorBlink: typeof r.terminalCursorBlink === 'boolean' ? r.terminalCursorBlink : d.terminalCursorBlink,
+    terminalLineHeight: lineHeight(r.terminalLineHeight, d.terminalLineHeight),
+    consoleBanner: CONSOLE_BANNERS.find((banner) => banner === r.consoleBanner) ?? d.consoleBanner,
+    chartStyle: CHART_STYLES.find((style) => style === r.chartStyle) ?? d.chartStyle,
+    chartHeight: CHART_HEIGHTS.find((height) => height === r.chartHeight) ?? d.chartHeight,
+    chartArrangement: CHART_ARRANGEMENTS.find((value) => value === r.chartArrangement) ?? d.chartArrangement,
+    consoleCommands: consoleCommands(r.consoleCommands, d.consoleCommands),
     authLayout: AUTH_LAYOUTS.find((layout) => layout === r.authLayout) ?? d.authLayout,
     authLogoPosition: AUTH_POSITIONS.find((position) => position === r.authLogoPosition) ?? d.authLogoPosition,
     supportLinks: supportLinks(r.supportLinks, d.supportLinks),
@@ -802,7 +931,10 @@ export const MONO_FONT_STACKS: Partial<Record<MonoFont, string>> = {
   fira: "'Fira Code', ui-monospace, Menlo, Consolas, monospace",
 };
 
-/** Page transitions; the keyframes live in app.css, which the editor's option tiles play too (slowed down). */
+/**
+ * Page transitions; the keyframes live in app.css, which the editor's option tiles play too (slowed down). Every
+ * keyframes name starts with `nebula-page`: PageTransition keeps its mark while one of them runs.
+ */
 export const PAGE_ANIMATIONS: Record<
   Exclude<PageTransition, 'none'>,
   { keyframes: string; ms: number; easing: string }
@@ -810,7 +942,39 @@ export const PAGE_ANIMATIONS: Record<
   fade: { keyframes: 'nebula-page-fade', ms: 200, easing: 'ease-out' },
   fadeUp: { keyframes: 'nebula-page-fade-up', ms: 240, easing: 'cubic-bezier(0.2, 0.8, 0.3, 1)' },
   fadeScale: { keyframes: 'nebula-page-fade-scale', ms: 220, easing: 'cubic-bezier(0.2, 0.8, 0.3, 1)' },
+  slide: { keyframes: 'nebula-page-slide', ms: 250, easing: 'cubic-bezier(0.2, 0.8, 0.3, 1)' },
+  slideDown: { keyframes: 'nebula-page-slide-down', ms: 240, easing: 'cubic-bezier(0.2, 0.8, 0.3, 1)' },
+  zoom: { keyframes: 'nebula-page-zoom', ms: 240, easing: 'cubic-bezier(0.2, 0.8, 0.3, 1)' },
+  blur: { keyframes: 'nebula-page-blur', ms: 250, easing: 'ease-out' },
 };
+
+/** Card entrance: each card or table row plays this, the first `CARD_STAGGER_MAX` one `CARD_STAGGER_MS` apart. */
+export const CARD_ANIMATIONS: Record<
+  Exclude<CardEntrance, 'none'>,
+  { keyframes: string; ms: number; easing: string }
+> = {
+  fade: { keyframes: 'nebula-page-card-fade', ms: 260, easing: 'ease-out' },
+  rise: { keyframes: 'nebula-page-card-rise', ms: 320, easing: 'cubic-bezier(0.2, 0.8, 0.3, 1)' },
+};
+export const CARD_STAGGER_MS = 40;
+export const CARD_STAGGER_MAX = 8;
+
+/**
+ * How modals and drawers open (menus and popovers take `DROPDOWN_SHARE` of the time). 'default' is Mantine's own
+ * modal entrance, which buildCss leaves alone; its keyframes exist only for the editor's tile.
+ */
+export const OVERLAY_ANIMATIONS: Record<
+  Exclude<OverlayMotion, 'none'>,
+  { keyframes: string; ms: number; easing: string }
+> = {
+  default: { keyframes: 'nebula-overlay-fade-down', ms: 200, easing: 'ease' },
+  pop: { keyframes: 'nebula-overlay-pop', ms: 200, easing: 'cubic-bezier(0.2, 0.8, 0.3, 1)' },
+  slideUp: { keyframes: 'nebula-overlay-slide-up', ms: 240, easing: 'cubic-bezier(0.2, 0.8, 0.3, 1)' },
+};
+const DROPDOWN_SHARE = 0.75;
+
+/** What `animationSpeed` multiplies Mint's durations by; `reduceMotion` makes it 0. */
+export const ANIMATION_SPEED_FACTORS: Record<AnimationSpeed, number> = { slow: 1.5, normal: 1, fast: 0.6 };
 
 /** A 24px stroke icon as a data URI; `ink` is a bare hex so the `#` can be escaped. */
 const glyph = (ink: string, path: string) =>
@@ -844,13 +1008,35 @@ const NAV_STYLES: Record<
   },
 };
 
+/** Mint's durations and its two motion switches: the visitor's `prefers-reduced-motion` and the theme's `reduceMotion`. */
+interface Motion {
+  /** `animationSpeed`'s factor, 0 with `reduceMotion`. */
+  factor: number;
+  /** A duration scaled by `animationSpeed`. */
+  ms: (base: number) => number;
+  /** Rules that move: under `prefers-reduced-motion: no-preference`, nothing at all with `reduceMotion`. */
+  moving: (rules: string) => string;
+  /** Rules for reduced motion: under `prefers-reduced-motion: reduce`, unconditional with `reduceMotion`. */
+  still: (rules: string) => string;
+}
+
+function motionOf(t: NebulaTheme): Motion {
+  const factor = t.reduceMotion ? 0 : ANIMATION_SPEED_FACTORS[t.animationSpeed];
+  return {
+    factor,
+    ms: (base) => Math.round(base * factor),
+    moving: (rules) => (t.reduceMotion ? '' : `@media (prefers-reduced-motion:no-preference){${rules}}`),
+    still: (rules) => (t.reduceMotion ? rules : `@media (prefers-reduced-motion:reduce){${rules}}`),
+  };
+}
+
 /**
  * Core's menu links are a NavLink around a subtle Button that gets `active` while current, the same in every
  * sidebar layout; the horizontal layout repeats them in `.nebula-topnav` and its portaled section dropdowns
  * (`.nebula-topnav-menu`). The accent is read on the link, not the button, so `buttonColor` (which repaints the
  * blue variables on buttons) leaves the menu on the accent.
  */
-function navHoverCss(hover: Exclude<NavHover, 'default'>): string[] {
+function navHoverCss(hover: Exclude<NavHover, 'default'>, motion: Motion): string[] {
   const style = NAV_STYLES[hover];
   const on = (suffix: string) =>
     ['#sidebar-content', '.nebula-topnav', '.nebula-topnav-menu']
@@ -875,8 +1061,8 @@ function navHoverCss(hover: Exclude<NavHover, 'default'>): string[] {
   if (hover === 'iconPill') {
     const icon = on(`${BUTTON}${ICON}`);
     css.push(
-      `${icon}{padding:0.375em 0.3em;border-radius:var(--mantine-radius-sm);transition:background-color 120ms ease,color 120ms ease;}`,
-      `@media (prefers-reduced-motion:reduce){${icon}{transition:none;}}`,
+      `${icon}{padding:0.375em 0.3em;border-radius:var(--mantine-radius-sm);transition:background-color ${motion.ms(120)}ms ease,color ${motion.ms(120)}ms ease;}`,
+      motion.still(`${icon}{transition:none;}`),
     );
   }
   if (style.hoverIcon) {
@@ -972,6 +1158,37 @@ function layoutCss(t: NebulaTheme): string[] {
   // SidebarShell wraps the dock in the header as `.nebula-dock-origin` (the drawer keeps showing it)
   if (t.dockPosition !== 'sidebar' && t.sidebarLayout !== 'horizontal') {
     css.push(`${SIDEBAR} .nebula-dock-origin{display:none;}`);
+  }
+  return css;
+}
+
+// the shown cursor in each shape: its declarations, and what its blink turns off for half a second
+const CURSOR_PAINT: Record<Exclude<TerminalCursor, 'none'>, { on: string[]; off: string }> = {
+  block: {
+    on: ['background-color:var(--mantine-color-text)', 'color:var(--mantine-color-body)'],
+    off: 'background-color:transparent;color:inherit;',
+  },
+  bar: { on: ['box-shadow:2px 0 0 var(--mantine-color-text) inset'], off: 'box-shadow:none;' },
+  underline: { on: ['border-bottom-color:var(--mantine-color-text)'], off: 'border-bottom-color:transparent;' },
+};
+
+/**
+ * The console terminal's cursor once `terminalCursor` shows it (lib/terminal.ts marks core's terminals with
+ * `nebula-terminal`). Core's xterm theme paints the cursor transparent and is reset on every scheme change, so its
+ * colour is CSS: xterm 6 draws it as classes on a row span, its unblinking block with `!important`. Blinking needs
+ * keyframes of our own (xterm's animate the transparent colour) and stops under reduced motion.
+ */
+function terminalCursorCss(t: NebulaTheme): string[] {
+  if (t.terminalCursor === 'none') return [];
+  const CURSOR = `html:root .xterm.nebula-terminal .xterm-rows .xterm-cursor.xterm-cursor-${t.terminalCursor}`;
+  const { on, off } = CURSOR_PAINT[t.terminalCursor];
+  const css = [`${CURSOR}:not(.xterm-cursor-blink){${on.map((rule) => `${rule}!important;`).join('')}}`];
+  if (t.terminalCursorBlink && !t.reduceMotion) {
+    css.push(
+      `@keyframes nebula-cursor-blink{50%{${off}}}`,
+      `${CURSOR}.xterm-cursor-blink{${on.map((rule) => `${rule};`).join('')}animation:nebula-cursor-blink 1s step-end infinite;}`,
+      `@media (prefers-reduced-motion:reduce){${CURSOR}.xterm-cursor-blink{animation:none;}}`,
+    );
   }
   return css;
 }
@@ -1241,13 +1458,15 @@ export function buildCss(t: NebulaTheme): string {
     );
   }
 
+  const motion = motionOf(t);
+
   // Mantine puts `mantine-active` on enabled buttons and action icons and nudges them 1px down on press ('drop')
   const PRESSED = 'html:root .mantine-active:active:not(fieldset:disabled *)';
   if (t.clickEffect === 'none') css.push(`${PRESSED}{transform:none;}`);
   if (t.clickEffect === 'shrink') {
     css.push(
-      `html:root .mantine-active{transition:transform 120ms ease;}${PRESSED}{transform:scale(0.96);}`,
-      `@media (prefers-reduced-motion:reduce){html:root .mantine-active{transition:none;}${PRESSED}{transform:none;}}`,
+      `html:root .mantine-active{transition:transform ${motion.ms(120)}ms ease;}${PRESSED}{transform:scale(0.96);}`,
+      motion.still(`html:root .mantine-active{transition:none;}${PRESSED}{transform:none;}`),
     );
   }
   if (t.clickEffect === 'outline') {
@@ -1275,16 +1494,89 @@ export function buildCss(t: NebulaTheme): string {
       ),
       // counts down core's 7.5s `toastTimeout`; progress toasts stay until they finish, so they get none
       `${TOAST}:not(:has(.mantine-Progress-root))::after{content:'';position:absolute;inset-inline:0;bottom:0;height:3px;background:var(--notification-color);transform-origin:0 50%;animation:nebula-toast-countdown 7500ms linear forwards;}`,
-      `@media (prefers-reduced-motion:reduce){${TOAST}::after{display:none;}}`,
+      motion.still(`${TOAST}::after{display:none;}`),
     );
   }
 
+  // app.css's own transitions (the sidebar sections) multiply their durations by `--nebula-speed`
+  if (motion.factor !== 1) css.push(`html:root{--nebula-speed:${motion.factor};}`);
+
   // PageTransition (elements/page/PageTransition.tsx) marks the element holding the page after a route change
   // and drops the mark once the animation ends; no fill mode, so no transform outlives it (xterm, the editor)
-  if (t.pageTransition !== 'none') {
+  if (t.pageTransition !== 'none' && !t.reduceMotion) {
     const { keyframes, ms, easing } = PAGE_ANIMATIONS[t.pageTransition];
     css.push(
-      `@media (prefers-reduced-motion:no-preference){html:root [data-nebula-page-enter] > *{animation:${keyframes} ${ms}ms ${easing};}}`,
+      motion.moving(`html:root [data-nebula-page-enter] > *{animation:${keyframes} ${motion.ms(ms)}ms ${easing};}`),
+    );
+  }
+
+  // card entrance, on the same mark: the page's outermost cards and every table row, the first few staggered.
+  // `backwards` only holds the first frame through the delay; nothing is left once a card's animation ends
+  if (t.cardEntrance !== 'none' && !t.reduceMotion) {
+    const { keyframes, ms, easing } = CARD_ANIMATIONS[t.cardEntrance];
+    const ITEM =
+      'html:root [data-nebula-page-enter] :is(.mantine-Card-root:not([data-nebula-page-enter] .mantine-Card-root .mantine-Card-root),tbody > tr)';
+    const delays = Array.from({ length: CARD_STAGGER_MAX - 2 }, (_, i) => i + 2).map(
+      (n) => `${ITEM}:nth-child(${n}){animation-delay:${motion.ms(CARD_STAGGER_MS * (n - 1))}ms;}`,
+    );
+    css.push(
+      motion.moving(
+        `${ITEM}{animation:${keyframes} ${motion.ms(ms)}ms ${easing} backwards;}${delays.join('')}${ITEM}:nth-child(n+${CARD_STAGGER_MAX}){animation-delay:${motion.ms(CARD_STAGGER_MS * (CARD_STAGGER_MAX - 1))}ms;}`,
+      ),
+    );
+  }
+
+  // hover effect: core's hoverable cards (`cursor-pointer`: the servers list's cards and rows, core's server
+  // items) and cards that are links, not the small hoverable cards inside them, and buttons that are not
+  // subtle (the menu links) or disabled. Core's hoverable cards transition `all` (`transition-all!`, which nothing
+  // unlayered beats), so only the duration is ours there; a lift keeps Mantine's press nudge (`:not(:active)`)
+  if (t.hoverEffect !== 'none') {
+    const CARD =
+      'html:root :is(.mantine-Card-root.cursor-pointer,a.mantine-Card-root):not(.cursor-pointer .mantine-Card-root)';
+    const BUTTON =
+      'html:root .mantine-Button-root:not([data-variant="subtle"],[data-variant="transparent"],:disabled,[data-disabled],[data-loading])';
+    const ring = (colour: string, alpha: number, spread: string) =>
+      `0 0 0 1px color-mix(in srgb,${colour} ${alpha}%,transparent),${spread} color-mix(in srgb,${colour} ${alpha + 15}%,transparent)`;
+    const lift = t.hoverEffect === 'lift';
+    css.push(
+      lift
+        ? `@media (hover:hover){${CARD}:hover{box-shadow:0 14px 30px -16px rgb(0 0 0 / 0.55);}${BUTTON}:hover{box-shadow:0 8px 18px -10px rgb(0 0 0 / 0.6);}}`
+        : // a filled button glows in its own colour, the others in their text colour
+          `@media (hover:hover){${CARD}:hover{box-shadow:${ring('var(--mantine-color-blue-filled)', 50, '0 10px 32px -12px')};}${BUTTON}:hover{box-shadow:${ring('currentColor', 45, '0 0 18px -4px')};}${BUTTON}[data-variant="filled"]:hover{box-shadow:${ring('var(--button-bg)', 55, '0 0 18px -4px')};}}`,
+      motion.still(`${CARD}{transition-duration:0s;}${BUTTON}{transition:none;}`),
+    );
+    if (!t.reduceMotion) {
+      css.push(
+        motion.moving(
+          `@media (hover:hover){${CARD}{transition:transform ${motion.ms(190)}ms ease,box-shadow ${motion.ms(190)}ms ease;}${BUTTON}{transition:transform ${motion.ms(150)}ms ease,box-shadow ${motion.ms(150)}ms ease;}${
+            lift
+              ? `${CARD}:hover{transform:translateY(-3px);}${BUTTON}:hover:not(:active){transform:translateY(-1px);}`
+              : ''
+          }}`,
+        ),
+      );
+    }
+  }
+
+  // overlays: Mantine's Transition writes the open or closed state inline (`opacity: 0` while closed, in every
+  // Mantine transition) along with an inline `transition`. While open its transition is switched off, so the
+  // open state lands at once and the keyframes (which outrank inline styles while they run) do the entrance;
+  // closing goes back to the inline transition, so overlays close Mantine's way. 'none' and `reduceMotion` drop
+  // the transition both ways
+  const OVERLAY = ':is(.mantine-Modal-content,.mantine-Drawer-content)';
+  const DROPDOWN = ':is(.mantine-Popover-dropdown,.mantine-Menu-dropdown,.mantine-Combobox-dropdown)';
+  if (t.reduceMotion || t.overlayMotion === 'none') {
+    const tooltip = t.reduceMotion ? ',html:root .mantine-Tooltip-tooltip' : '';
+    css.push(
+      `html:root ${OVERLAY},html:root ${DROPDOWN},html:root :is(.mantine-Modal-overlay,.mantine-Drawer-overlay)${tooltip}{transition:none!important;}`,
+    );
+  } else if (t.overlayMotion !== 'default') {
+    const { keyframes, ms, easing } = OVERLAY_ANIMATIONS[t.overlayMotion];
+    const OPEN = ':not([style*="opacity: 0;"])';
+    css.push(
+      motion.moving(
+        `html:root ${OVERLAY}${OPEN},html:root ${DROPDOWN}${OPEN}{transition:none!important;}html:root ${OVERLAY}{animation:${keyframes} ${motion.ms(ms)}ms ${easing};}html:root ${DROPDOWN}{--nebula-overlay-shift:8px;transform-origin:top center;animation:${keyframes} ${motion.ms(ms * DROPDOWN_SHARE)}ms ${easing};}html:root ${DROPDOWN}[data-position^="top"]{transform-origin:bottom center;}`,
+      ),
     );
   }
 
@@ -1394,10 +1686,13 @@ export function buildCss(t: NebulaTheme): string {
   }
 
   // menu links (navHoverCss); 'default' is app.css's accent tint on the current link and core's own hover
-  if (t.navHover !== 'default') css.push(...navHoverCss(t.navHover));
+  if (t.navHover !== 'default') css.push(...navHoverCss(t.navHover, motion));
 
   // the sidebar layouts and dock position (layoutCss)
   css.push(...layoutCss(t));
+
+  // the console terminal's cursor (terminalCursorCss); the other console options are classes on the console page
+  css.push(...terminalCursorCss(t));
 
   return css.join('\n');
 }

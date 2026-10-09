@@ -166,6 +166,10 @@
       "down": "游標下移",
       "type": "輸入 {key}"
     },
+    "console": {
+      "commands": "快速指令",
+      "connect": "連線"
+    },
     "editor": {
       "contrast": {
         "title": "部分顏色難以閱讀",
@@ -220,6 +224,13 @@
       "previewPage": "預覽頁面",
       "previewDevice": "預覽寬度",
       "previewScheme": "預覽配色",
+      "status": {
+        "unsaved": "未儲存的變更",
+        "saved": "所有變更已儲存"
+      },
+      "more": "更多動作",
+      "resizePanel": "調整設定面板大小",
+      "sections": "設定區段",
       "search": {
         "placeholder": "搜尋設定",
         "clear": "清除搜尋",
@@ -242,33 +253,41 @@
         "admin": "管理",
         "login": "登入頁面"
       },
+      "groups": {
+        "look": "外觀",
+        "navigation": "導覽",
+        "pages": "頁面",
+        "interface": "介面"
+      },
       "section": {
         "presets": "預設集",
         "presetsDescription": "從現成的外觀開始、儲存你自己的外觀，並選擇使用者可以挑選哪些。",
         "colours": "顏色",
         "coloursDescription": "其他所有顏色都由這五種調配而成。",
         "style": "字體與形狀",
-        "styleDescription": "字體、按鈕、圓角、區塊不透明度與邊框，以及點擊效果。",
+        "styleDescription": "字體、按鈕、圓角、區塊不透明度與邊框。",
         "background": "背景與品牌",
         "backgroundDescription": "整個面板背後的圖片（以頁面顏色淡化），以及瀏覽器分頁圖示。",
-        "home": "伺服器首頁",
-        "homeDescription": "伺服器首頁上的卡片、橫幅與遊戲圖片，以及入門連結。",
-        "login": "登入頁面",
-        "loginDescription": "登入、註冊與密碼頁面的版面配置、背景、標誌與支援連結。",
-        "interface": "行為",
-        "interfaceDescription": "通知、頁面轉場、頁面標題與手機檔案編輯器。",
-        "components": "元件",
-        "componentsDescription": "整個面板中的方塊、統計卡片與表格。",
-        "console": "主控台",
-        "consoleDescription": "主控台頁面在終端機周圍顯示哪些內容，以及放在哪裡。",
         "sidebar": "側邊欄與 Dock",
         "sidebarDescription": "選單在桌面上的位置、標誌與搜尋的位置，以及手機上的導覽方式。",
         "menu": "選單樣式與搜尋",
         "menuDescription": "選單連結在懸停與展開時的外觀，以及選單顯示的搜尋。",
         "menuOrder": "選單順序",
         "menuOrderDescription": "可摺疊的選單區段、管理選單的順序，以及使用者可排列的選單。",
+        "home": "伺服器首頁",
+        "homeDescription": "伺服器首頁上的卡片、橫幅與遊戲圖片，以及入門連結。",
+        "console": "主控台",
+        "consoleDescription": "主控台頁面：圍繞終端機的預設或自訂版面、終端機本身、橫幅、圖表與快速指令。",
         "servers": "伺服器列表",
-        "serversDescription": "伺服器列表格狀檢視中的卡片。"
+        "serversDescription": "伺服器列表格狀檢視中的卡片。",
+        "login": "登入頁面",
+        "loginDescription": "登入、註冊與密碼頁面的版面配置、背景、標誌與支援連結。",
+        "interface": "行為",
+        "interfaceDescription": "通知、頁面標題與手機上的檔案編輯器。",
+        "motion": "動畫",
+        "motionDescription": "頁面轉場、卡片進場、懸停與點擊效果、對話框與選單的開啟方式，以及這一切的速度。",
+        "components": "元件",
+        "componentsDescription": "整個面板中的方塊、統計卡片與表格。"
       },
       "accent": "強調色",
       "accentDescription": "按鈕、連結與目前選取的選單項目",
@@ -364,6 +383,10 @@
       "backgroundImage": "圖片 URL",
       "backgroundImageDescription": "留空則使用純色背景。",
       "backgroundDim": "暗化",
+      "serverHome": "伺服器首頁",
+      "serverHomeDescription": "在伺服器根路徑放置首頁，顯示下方的卡片、圖片與連結；主控台移到自己的頁面。關閉時，主控台就是伺服器的第一頁，與沒有 Mint 時相同。已開啟的伺服器頁面會在下次載入時改變。",
+      "homeCards": "卡片",
+      "homeImages": "圖片",
       "homeBanner": "預設橫幅圖片 URL",
       "homeBannerDescription": "用於沒有自己橫幅的 Egg。留空則使用強調色漸層。",
       "articles": "快速入門連結",
@@ -453,12 +476,49 @@
           "none": "無",
           "fade": "淡入",
           "fadeUp": "向上淡入",
-          "fadeScale": "縮放淡入"
+          "fadeScale": "縮放淡入",
+          "slide": "滑入",
+          "slideDown": "向下滑入",
+          "zoom": "縮放",
+          "blur": "模糊淡入"
         },
         "pageTitles": "顯示頁面標題",
         "pageTitlesDescription": "「檔案」與「資料庫」等伺服器頁面上的標題。其搜尋與按鈕仍會保留。",
         "mobileEditor": "手機友善的檔案編輯器",
         "mobileEditorDescription": "在手機上，程式碼編輯器會自動換行、隱藏縮圖與彈出視窗、使用 16px 字型，並在鍵盤上方顯示一排按鍵：復原、縮排、尋找、符號與方向鍵。桌面裝置維持不變。"
+      },
+      "motion": {
+        "cardEntrance": "卡片進場",
+        "cardEntranceDescription": "開啟頁面時，卡片與表格列會依序出現。將游標移到方塊上即可預覽。",
+        "cardEntrances": {
+          "none": "無",
+          "fade": "淡入",
+          "rise": "上升"
+        },
+        "hoverEffect": "懸停效果",
+        "hoverEffectDescription": "可點擊的卡片（例如伺服器清單）以及滑鼠指標下的按鈕。將游標移到方塊上即可預覽。",
+        "hovers": {
+          "none": "無",
+          "lift": "浮起",
+          "glow": "光暈"
+        },
+        "overlayMotion": "對話框與選單",
+        "overlayMotionDescription": "對話框、抽屜、選單與下拉清單的開啟方式。關閉方式維持不變。將游標移到方塊上即可預覽。",
+        "overlays": {
+          "default": "預設",
+          "pop": "彈出",
+          "slideUp": "向上滑入",
+          "none": "無"
+        },
+        "animationSpeed": "動畫速度",
+        "animationSpeedDescription": "加快或放慢上方所有動畫。玻璃通知的倒數計時維持實際時間。",
+        "speeds": {
+          "slow": "慢",
+          "normal": "正常",
+          "fast": "快"
+        },
+        "reduceMotion": "為所有人減少動態效果",
+        "reduceMotionDescription": "無論上方選項如何設定，都會為所有使用者關閉頁面轉場、卡片進場、懸停移動、點擊縮小、對話框與選單動畫以及通知倒數計時。設定為減少動態效果的裝置本來就不會顯示這些效果。"
       },
       "boxes": {
         "title": "方框",
@@ -493,6 +553,14 @@
         "remove": "移除 {name}",
         "allPlaced": "所有元件都已在頁面上。",
         "reset": "還原預設版面配置",
+        "presets": "版面預設",
+        "presetsDescription": "將現成的主控台頁面套用到草稿上；再於下方的欄位中進一步調整。",
+        "presetNames": {
+          "classic": "經典",
+          "sidebar": "側邊欄",
+          "focus": "專注",
+          "dashboard": "儀表板"
+        },
         "slot": {
           "top": "終端機上方",
           "left": "終端機左側",
@@ -506,7 +574,10 @@
           "cpuChart": "CPU 圖表",
           "memoryChart": "記憶體圖表",
           "networkChart": "網路圖表",
-          "extensionCards": "擴充功能卡片"
+          "extensionCards": "擴充功能卡片",
+          "gauges": "使用率環",
+          "commands": "快速指令",
+          "connect": "連線"
         },
         "widgetDescription": {
           "banner": "伺服器名稱、位址、即時統計與電源按鈕。",
@@ -515,8 +586,71 @@
           "cpuChart": "即時 CPU 負載圖表。",
           "memoryChart": "即時記憶體圖表。",
           "networkChart": "即時傳入與傳出流量圖表。",
-          "extensionCards": "其他擴充功能新增至主控台的統計卡片。"
+          "extensionCards": "其他擴充功能新增至主控台的統計卡片。",
+          "gauges": "相對於伺服器限制的 CPU、記憶體與磁碟環形儀表。",
+          "commands": "在下方「快速指令按鈕」中設定的按鈕；僅限有主控台存取權的使用者。",
+          "connect": "附複製按鈕的位址與 SFTP 資訊，以及一個 SFTP 連結。"
         }
+      },
+      "console": {
+        "terminalTitle": "終端機",
+        "frame": "終端機外框",
+        "frameDescription": "圍繞終端機的卡片、其標頭與輸入欄。",
+        "frames": {
+          "card": "卡片",
+          "flush": "貼齊",
+          "glass": "玻璃"
+        },
+        "height": "終端機高度",
+        "heightDescription": "「填滿視窗」會在寬螢幕上將終端機延伸至視窗底部；窄螢幕維持一般高度。",
+        "heights": {
+          "auto": "一般",
+          "fill": "填滿視窗",
+          "tall": "高"
+        },
+        "cursor": "游標",
+        "cursorDescription": "面板會隱藏終端機游標；選擇一種形狀即可顯示。",
+        "cursors": {
+          "none": "隱藏",
+          "block": "方塊",
+          "bar": "直線",
+          "underline": "底線"
+        },
+        "cursorBlink": "游標閃爍",
+        "cursorBlinkDescription": "終端機取得焦點時閃爍，減少動態效果時一律不閃爍。需要顯示游標。",
+        "lineHeight": "行高",
+        "bannerTitle": "橫幅",
+        "banner": "橫幅樣式",
+        "bannerDescription": "橫幅元件：帶有即時統計的首頁橫幅、單列，或細長的狀態列。",
+        "banners": {
+          "full": "完整",
+          "compact": "精簡",
+          "minimal": "極簡"
+        },
+        "chartsTitle": "圖表",
+        "chartStyle": "圖表樣式",
+        "chartStyles": {
+          "area": "區域",
+          "line": "折線"
+        },
+        "chartHeight": "圖表高度",
+        "chartHeights": {
+          "small": "小",
+          "medium": "中",
+          "large": "大"
+        },
+        "chartArrangement": "圖表排列",
+        "chartArrangementDescription": "並排放置的圖表共用一列，或各自佔滿整個寬度。",
+        "chartArrangements": {
+          "row": "並排",
+          "stacked": "堆疊"
+        },
+        "commandsTitle": "快速指令按鈕",
+        "commandsDescription": "快速指令元件最多 {max} 個按鈕；每個按鈕都會將其指令傳送到伺服器主控台。沒有主控台存取權的使用者看不到這些按鈕。",
+        "commandLabel": "標籤",
+        "command": "指令",
+        "addCommand": "新增指令",
+        "removeCommand": "移除指令"
       },
       "navStyle": {
         "hover": "懸停效果",
@@ -602,24 +736,7 @@
         "description": "面向所有人的管理区域菜单：拖动链接和整个类别，以及类别内的链接。用户仍可在其上排列自己的菜单。服务器和仪表盘菜单遵循 Egg 配置和用户设置中的路由顺序。",
         "empty": "管理菜单尚未加载。",
         "reset": "恢复面板的顺序"
-      },
-      "groups": {
-        "look": "外觀",
-        "navigation": "導覽",
-        "pages": "頁面",
-        "interface": "介面"
-      },
-      "serverHome": "伺服器首頁",
-      "serverHomeDescription": "在伺服器根路徑放置首頁，顯示下方的卡片、圖片與連結；主控台移到自己的頁面。關閉時，主控台就是伺服器的第一頁，與沒有 Mint 時相同。已開啟的伺服器頁面會在下次載入時改變。",
-      "homeCards": "卡片",
-      "homeImages": "圖片",
-      "status": {
-        "unsaved": "未儲存的變更",
-        "saved": "所有變更已儲存"
-      },
-      "more": "更多動作",
-      "resizePanel": "調整設定面板大小",
-      "sections": "設定區段"
+      }
     },
     "library": {
       "saveAsPreset": "儲存為預設集",

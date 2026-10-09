@@ -236,7 +236,7 @@ html[data-nebula-pending] body {
   color: var(--mantine-color-text);
   font-size: 0.8125rem;
   font-weight: 600;
-  transition: background-color 120ms ease;
+  transition: background-color calc(120ms * var(--nebula-speed, 1)) ease;
 }
 
 .nebula-sb-toggle:hover {
@@ -247,7 +247,7 @@ html[data-nebula-pending] body {
   flex: none;
   font-size: 0.6875rem;
   color: var(--mantine-color-dimmed);
-  transition: transform 150ms ease;
+  transition: transform calc(150ms * var(--nebula-speed, 1)) ease;
 }
 
 .nebula-sb-section[data-open] .nebula-sb-chevron {
@@ -274,7 +274,7 @@ html[data-nebula-pending] body {
   bottom: 0.3125rem;
   width: 2px;
   background: transparent;
-  transition: background-color 120ms ease;
+  transition: background-color calc(120ms * var(--nebula-speed, 1)) ease;
 }
 
 .nebula-sb-items a:hover::before {
@@ -283,6 +283,15 @@ html[data-nebula-pending] body {
 
 .nebula-sb-items a.active::before {
   background: var(--mantine-color-blue-filled);
+}
+
+/* buildCss sets --nebula-speed from animationSpeed (0 with reduceMotion); reduced motion always stands still */
+@media (prefers-reduced-motion: reduce) {
+  .nebula-sb-toggle,
+  .nebula-sb-chevron,
+  .nebula-sb-items a::before {
+    transition: none;
+  }
 }
 
 /* the menu's search component (elements/sidebar/NavSearch.tsx) folds to an icon button in the slim rail */
@@ -509,7 +518,9 @@ html[data-nebula-bottom-nav] [data-nebula-local-notice] {
   bottom: calc(0.75rem + var(--nebula-bottom-nav-h));
 }
 
-/* page transitions and the glassy toast's countdown; lib/theme.ts picks one (PAGE_ANIMATIONS), the editor's tiles play them all */
+/* page transitions, card entrance, overlay motion and the glassy toast's countdown; lib/theme.ts picks them
+   (PAGE_ANIMATIONS, CARD_ANIMATIONS, OVERLAY_ANIMATIONS), the editor's tiles play them all. A page or card
+   keyframes name must start with nebula-page: PageTransition keeps its mark while one runs */
 @keyframes nebula-page-fade {
   from {
     opacity: 0;
@@ -527,6 +538,75 @@ html[data-nebula-bottom-nav] [data-nebula-local-notice] {
   from {
     opacity: 0;
     transform: scale(0.98);
+  }
+}
+
+/* in from the inline end: the right, or the left on a right to left page */
+[dir="rtl"] {
+  --nebula-slide-dir: -1;
+}
+
+@keyframes nebula-page-slide {
+  from {
+    opacity: 0;
+    transform: translateX(calc(var(--nebula-slide-dir, 1) * 24px));
+  }
+}
+
+@keyframes nebula-page-slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes nebula-page-zoom {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+}
+
+@keyframes nebula-page-blur {
+  from {
+    opacity: 0;
+    filter: blur(8px);
+  }
+}
+
+@keyframes nebula-page-card-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes nebula-page-card-rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+/* Mantine's own modal entrance ('fade-down'), only for the editor's 'Default' tile */
+@keyframes nebula-overlay-fade-down {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+}
+
+@keyframes nebula-overlay-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+}
+
+/* dropdowns set --nebula-overlay-shift to 8px */
+@keyframes nebula-overlay-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(var(--nebula-overlay-shift, 16px));
   }
 }
 

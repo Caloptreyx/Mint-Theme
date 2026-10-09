@@ -166,6 +166,10 @@
       "down": "カーソルを下へ",
       "type": "{key} を入力"
     },
+    "console": {
+      "commands": "クイックコマンド",
+      "connect": "接続"
+    },
     "editor": {
       "contrast": {
         "title": "読みにくい色があります",
@@ -220,6 +224,13 @@
       "previewPage": "プレビューするページ",
       "previewDevice": "プレビューの幅",
       "previewScheme": "プレビューの配色",
+      "status": {
+        "unsaved": "未保存の変更",
+        "saved": "すべての変更を保存済み"
+      },
+      "more": "その他の操作",
+      "resizePanel": "設定パネルのサイズを変更",
+      "sections": "設定セクション",
       "search": {
         "placeholder": "設定を検索",
         "clear": "検索をクリア",
@@ -242,33 +253,41 @@
         "admin": "管理",
         "login": "ログインページ"
       },
+      "groups": {
+        "look": "外観",
+        "navigation": "ナビゲーション",
+        "pages": "ページ",
+        "interface": "インターフェース"
+      },
       "section": {
         "presets": "プリセット",
         "presetsDescription": "既成のデザインから始めたり、独自のものを保存したり、ユーザーが選べるプリセットを決めたりできます。",
         "colours": "カラー",
         "coloursDescription": "その他の色はすべて、この 5 色から作られます。",
         "style": "タイポグラフィと形状",
-        "styleDescription": "フォント、ボタン、角の丸み、ブロックの不透明度と枠線、クリックエフェクト。",
+        "styleDescription": "フォント、ボタン、角の丸み、ブロックの不透明度と枠線。",
         "background": "背景とブランディング",
         "backgroundDescription": "パネル全体の背後に表示する画像（ページの色で暗くなります）と、ブラウザタブのアイコン。",
-        "home": "サーバーホーム",
-        "homeDescription": "サーバーのホームページのカード、バナーとゲーム画像、はじめにのリンク。",
-        "login": "ログインページ",
-        "loginDescription": "ログイン、登録、パスワードページのレイアウト、背景、ロゴ、サポートリンク。",
-        "interface": "動作",
-        "interfaceDescription": "トースト、ページ遷移、ページタイトル、スマートフォンのファイルエディター。",
-        "components": "コンポーネント",
-        "componentsDescription": "パネル全体のボックス、統計カード、テーブル。",
-        "console": "コンソール",
-        "consoleDescription": "コンソールページでターミナルの周りに表示するものとその配置。",
         "sidebar": "サイドバーとドック",
         "sidebarDescription": "デスクトップでのメニューの位置、ロゴと検索の配置、スマートフォンでのナビゲーション方法。",
         "menu": "メニュースタイルと検索",
         "menuDescription": "ホバー時と展開時のメニューリンクの見た目と、メニューに表示する検索。",
         "menuOrder": "メニューの順序",
         "menuOrderDescription": "折りたたみ可能なメニューセクション、管理メニューの順序、ユーザーが並べ替えられるメニュー。",
+        "home": "サーバーホーム",
+        "homeDescription": "サーバーのホームページのカード、バナーとゲーム画像、はじめにのリンク。",
+        "console": "コンソール",
+        "consoleDescription": "コンソールページ：ターミナルを囲むプリセットまたは独自のレイアウト、ターミナル本体、バナー、グラフ、クイックコマンド。",
         "servers": "サーバー一覧",
-        "serversDescription": "サーバー一覧のグリッド表示のカード。"
+        "serversDescription": "サーバー一覧のグリッド表示のカード。",
+        "login": "ログインページ",
+        "loginDescription": "ログイン、登録、パスワードページのレイアウト、背景、ロゴ、サポートリンク。",
+        "interface": "動作",
+        "interfaceDescription": "トースト、ページタイトル、スマートフォンのファイルエディター。",
+        "motion": "アニメーション",
+        "motionDescription": "ページ遷移、カードの登場、ホバーとクリックのエフェクト、ダイアログやメニューの開き方、そしてそれらすべての速度。",
+        "components": "コンポーネント",
+        "componentsDescription": "パネル全体のボックス、統計カード、テーブル。"
       },
       "accent": "アクセント",
       "accentDescription": "ボタン、リンク、選択中のメニュー項目",
@@ -364,6 +383,10 @@
       "backgroundImage": "画像 URL",
       "backgroundImageDescription": "空欄のままにすると無地の背景になります。",
       "backgroundDim": "暗さ",
+      "serverHome": "サーバーのホームページ",
+      "serverHomeDescription": "サーバーのルートに、下のカード・画像・リンクを表示するホームページを置き、コンソールは専用ページに移ります。オフにすると、Mint がない場合と同じくコンソールがサーバーの最初のページになります。開いているサーバーページは次に読み込んだときに変わります。",
+      "homeCards": "カード",
+      "homeImages": "画像",
       "homeBanner": "デフォルトのバナー画像 URL",
       "homeBannerDescription": "独自のバナーがない Egg に使用されます。空欄のままにするとアクセントカラーのグラデーションになります。",
       "articles": "「はじめに」のリンク",
@@ -453,12 +476,49 @@
           "none": "なし",
           "fade": "フェードイン",
           "fadeUp": "フェードアップ",
-          "fadeScale": "フェードスケール"
+          "fadeScale": "フェードスケール",
+          "slide": "スライドイン",
+          "slideDown": "スライドダウン",
+          "zoom": "ズーム",
+          "blur": "ぼかしイン"
         },
         "pageTitles": "ページタイトルを表示",
         "pageTitlesDescription": "ファイルやデータベースなどのサーバーページの見出し。検索とボタンは残ります。",
         "mobileEditor": "スマホ向けファイルエディター",
         "mobileEditorDescription": "スマートフォンではコードエディターが行を折り返し、ミニマップとポップアップを隠し、16px のフォントを使い、キーボードの上にキーの列（元に戻す、インデント、検索、記号、矢印）を表示します。デスクトップは変わりません。"
+      },
+      "motion": {
+        "cardEntrance": "カードの登場",
+        "cardEntranceDescription": "ページを開くと、カードや表の行が順番に現れます。タイルにカーソルを合わせると確認できます。",
+        "cardEntrances": {
+          "none": "なし",
+          "fade": "フェードイン",
+          "rise": "浮かび上がり"
+        },
+        "hoverEffect": "ホバーエフェクト",
+        "hoverEffectDescription": "サーバー一覧のようなクリックできるカードと、マウスポインター下のボタン。タイルにカーソルを合わせると確認できます。",
+        "hovers": {
+          "none": "なし",
+          "lift": "持ち上げ",
+          "glow": "グロー"
+        },
+        "overlayMotion": "ダイアログとメニュー",
+        "overlayMotionDescription": "ダイアログ、ドロワー、メニュー、ドロップダウンの開き方。閉じ方はいつもどおりです。タイルにカーソルを合わせると確認できます。",
+        "overlays": {
+          "default": "デフォルト",
+          "pop": "ポップ",
+          "slideUp": "スライドアップ",
+          "none": "なし"
+        },
+        "animationSpeed": "アニメーション速度",
+        "animationSpeedDescription": "上のすべてのアニメーションを速くまたは遅くします。ガラス風トーストのカウントダウンは実時間のままです。",
+        "speeds": {
+          "slow": "遅い",
+          "normal": "標準",
+          "fast": "速い"
+        },
+        "reduceMotion": "全員のモーションを減らす",
+        "reduceMotionDescription": "上のオプションにかかわらず、すべてのユーザーに対してページ遷移、カードの登場、ホバー時の動き、クリック時の縮小、ダイアログとメニューのアニメーション、トーストのカウントダウンをオフにします。モーションを減らす設定のデバイスには、もともと表示されません。"
       },
       "boxes": {
         "title": "ボックス",
@@ -493,6 +553,14 @@
         "remove": "{name} を削除",
         "allPlaced": "すべてのコンポーネントがすでにページに配置されています。",
         "reset": "デフォルトのレイアウトに戻す",
+        "presets": "レイアウトプリセット",
+        "presetsDescription": "既成のコンソールページを下書きに適用します。さらに下のスロットで変更できます。",
+        "presetNames": {
+          "classic": "クラシック",
+          "sidebar": "サイドバー",
+          "focus": "フォーカス",
+          "dashboard": "ダッシュボード"
+        },
         "slot": {
           "top": "ターミナルの上",
           "left": "ターミナルの左",
@@ -506,7 +574,10 @@
           "cpuChart": "CPU グラフ",
           "memoryChart": "メモリグラフ",
           "networkChart": "ネットワークグラフ",
-          "extensionCards": "拡張機能カード"
+          "extensionCards": "拡張機能カード",
+          "gauges": "使用率リング",
+          "commands": "クイックコマンド",
+          "connect": "接続"
         },
         "widgetDescription": {
           "banner": "サーバー名、アドレス、リアルタイム統計、電源ボタン。",
@@ -515,8 +586,71 @@
           "cpuChart": "CPU 負荷のリアルタイムグラフ。",
           "memoryChart": "メモリのリアルタイムグラフ。",
           "networkChart": "受信・送信トラフィックのリアルタイムグラフ。",
-          "extensionCards": "他の拡張機能がコンソールに追加する統計カード。"
+          "extensionCards": "他の拡張機能がコンソールに追加する統計カード。",
+          "gauges": "サーバーの上限に対する CPU、メモリ、ディスクのリングメーター。",
+          "commands": "下の「クイックコマンドボタン」で設定したボタン。コンソールにアクセスできるユーザーのみ。",
+          "connect": "コピーボタン付きのアドレスと SFTP 情報、および SFTP リンク。"
         }
+      },
+      "console": {
+        "terminalTitle": "ターミナル",
+        "frame": "ターミナルの枠",
+        "frameDescription": "ターミナルを囲むカード、そのヘッダーと入力欄。",
+        "frames": {
+          "card": "カード",
+          "flush": "フラット",
+          "glass": "ガラス"
+        },
+        "height": "ターミナルの高さ",
+        "heightDescription": "「ウィンドウいっぱい」は、ワイド画面でターミナルをウィンドウの下端まで伸ばします。狭い画面では通常の高さのままです。",
+        "heights": {
+          "auto": "標準",
+          "fill": "ウィンドウいっぱい",
+          "tall": "高め"
+        },
+        "cursor": "カーソル",
+        "cursorDescription": "パネルはターミナルのカーソルを非表示にします。表示するには形を選んでください。",
+        "cursors": {
+          "none": "非表示",
+          "block": "ブロック",
+          "bar": "バー",
+          "underline": "下線"
+        },
+        "cursorBlink": "カーソルの点滅",
+        "cursorBlinkDescription": "ターミナルにフォーカスがある間点滅します。モーションを減らす設定では点滅しません。カーソルの表示が必要です。",
+        "lineHeight": "行の高さ",
+        "bannerTitle": "バナー",
+        "banner": "バナーのスタイル",
+        "bannerDescription": "バナーコンポーネント：ライブ統計付きのホームのバナー、1 行、または細いステータスライン。",
+        "banners": {
+          "full": "フル",
+          "compact": "コンパクト",
+          "minimal": "ミニマル"
+        },
+        "chartsTitle": "グラフ",
+        "chartStyle": "グラフのスタイル",
+        "chartStyles": {
+          "area": "エリア",
+          "line": "ライン"
+        },
+        "chartHeight": "グラフの高さ",
+        "chartHeights": {
+          "small": "小",
+          "medium": "中",
+          "large": "大"
+        },
+        "chartArrangement": "グラフの配置",
+        "chartArrangementDescription": "横に並んだグラフは 1 行を共有するか、それぞれが全幅を使います。",
+        "chartArrangements": {
+          "row": "横並び",
+          "stacked": "縦積み"
+        },
+        "commandsTitle": "クイックコマンドボタン",
+        "commandsDescription": "クイックコマンドコンポーネント用のボタンを最大 {max} 個まで。各ボタンはそのコマンドをサーバーコンソールに送信します。コンソールにアクセスできないユーザーには表示されません。",
+        "commandLabel": "ラベル",
+        "command": "コマンド",
+        "addCommand": "コマンドを追加",
+        "removeCommand": "コマンドを削除"
       },
       "navStyle": {
         "hover": "ホバー効果",
@@ -602,24 +736,7 @@
         "description": "全員向けの管理エリアのメニュー：リンクやカテゴリ全体、カテゴリ内のリンクをドラッグします。ユーザーはその上で自分のメニューを並べ替えられます。サーバーとダッシュボードのメニューは、Egg 設定とユーザー設定のルート順に従います。",
         "empty": "管理メニューはまだ読み込まれていません。",
         "reset": "パネルの順序に戻す"
-      },
-      "groups": {
-        "look": "外観",
-        "navigation": "ナビゲーション",
-        "pages": "ページ",
-        "interface": "インターフェース"
-      },
-      "serverHome": "サーバーのホームページ",
-      "serverHomeDescription": "サーバーのルートに、下のカード・画像・リンクを表示するホームページを置き、コンソールは専用ページに移ります。オフにすると、Mint がない場合と同じくコンソールがサーバーの最初のページになります。開いているサーバーページは次に読み込んだときに変わります。",
-      "homeCards": "カード",
-      "homeImages": "画像",
-      "status": {
-        "unsaved": "未保存の変更",
-        "saved": "すべての変更を保存済み"
-      },
-      "more": "その他の操作",
-      "resizePanel": "設定パネルのサイズを変更",
-      "sections": "設定セクション"
+      }
     },
     "library": {
       "saveAsPreset": "プリセットとして保存",

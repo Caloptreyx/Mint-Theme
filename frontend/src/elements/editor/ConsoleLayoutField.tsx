@@ -31,6 +31,7 @@ import {
   type NebulaTheme,
 } from '../../lib/theme.ts';
 import { useExtTranslations } from '../../translations.ts';
+import ConsoleFields, { ConsolePresets } from './ConsoleFields.tsx';
 
 interface Props {
   theme: NebulaTheme;
@@ -99,9 +100,9 @@ function SlotBox({ slot, children }: { slot: ConsoleSlot; children: ReactNode })
 }
 
 /**
- * Console section: a schematic of the console page. The terminal is fixed in the middle; widgets are chips in
- * the four slots around it, dragged within and between slots, removed with their cross and added from a menu of
- * the ones not on the page yet.
+ * Console section: layout presets, then a schematic of the console page. The terminal is fixed in the middle;
+ * widgets are chips in the four slots around it, dragged within and between slots, removed with their cross and
+ * added from a menu of the ones not on the page yet. The terminal, banner, chart and command options follow.
  */
 export default function ConsoleLayoutField({ theme, set }: Props) {
   const { t } = useExtTranslations();
@@ -217,64 +218,70 @@ export default function ConsoleLayoutField({ theme, set }: Props) {
   };
 
   return (
-    <Stack gap='sm'>
-      <div>
-        <Text size='xs' fw={600} tt='uppercase' c='dimmed' className='tracking-wider'>
-          {t('editor.consoleLayout.title', {})}
-        </Text>
-        <Text size='xs' c='dimmed' mt={4}>
-          {t('editor.consoleLayout.description', {})}
-        </Text>
-      </div>
-
-      <DndBoard
-        collisionDetection={collision}
-        describeItem={(item) => {
-          const id = String(item.id);
-          const slot = id.startsWith(SLOT_PREFIX) ? slotOf(layout, id) : undefined;
-          return slot
-            ? t(`editor.consoleLayout.slot.${slot}`, {})
-            : CONSOLE_WIDGETS.includes(id as ConsoleWidget)
-              ? widgetLabel(id as ConsoleWidget)
-              : id;
-        }}
-        renderOverlay={(active) =>
-          active && CONSOLE_WIDGETS.includes(String(active.id) as ConsoleWidget) ? (
-            <Chip label={widgetLabel(String(active.id) as ConsoleWidget)} />
-          ) : null
-        }
-        onDragStart={() => setDragging(theme.consoleLayout)}
-        onDragOver={onDragOver}
-        onDragEnd={onDragEnd}
-        onDragCancel={() => setDragging(null)}
-      >
-        <div className='flex flex-col gap-2'>
-          {slotBox('top')}
-          <div className='grid grid-cols-[minmax(0,1fr)_4.5rem_minmax(0,1fr)] gap-2'>
-            {slotBox('left')}
-            <div className='flex flex-col items-center justify-center gap-1.5 min-h-28 rounded-md border border-(--mantine-color-blue-filled) bg-(--mantine-color-blue-light) text-(--mantine-color-blue-light-color)'>
-              <FontAwesomeIcon icon={faTerminal} size='lg' />
-              <span className='text-[10px] font-semibold uppercase tracking-wider'>
-                {t('editor.consoleLayout.terminal', {})}
-              </span>
-            </div>
-            {slotBox('right')}
-          </div>
-          {slotBox('bottom')}
+    <Stack gap='xl'>
+      <Stack gap='sm'>
+        <div>
+          <Text size='xs' fw={600} tt='uppercase' c='dimmed' className='tracking-wider'>
+            {t('editor.consoleLayout.title', {})}
+          </Text>
+          <Text size='xs' c='dimmed' mt={4}>
+            {t('editor.consoleLayout.description', {})}
+          </Text>
         </div>
-      </DndBoard>
 
-      <Button
-        variant='subtle'
-        color='gray'
-        size='compact-xs'
-        className='self-start'
-        disabled={isDefault}
-        leftSection={<FontAwesomeIcon icon={faRotateLeft} />}
-        onClick={() => set({ consoleLayout: DEFAULT_CONSOLE_LAYOUT })}
-      >
-        {t('editor.consoleLayout.reset', {})}
-      </Button>
+        <ConsolePresets theme={theme} set={set} />
+
+        <DndBoard
+          collisionDetection={collision}
+          describeItem={(item) => {
+            const id = String(item.id);
+            const slot = id.startsWith(SLOT_PREFIX) ? slotOf(layout, id) : undefined;
+            return slot
+              ? t(`editor.consoleLayout.slot.${slot}`, {})
+              : CONSOLE_WIDGETS.includes(id as ConsoleWidget)
+                ? widgetLabel(id as ConsoleWidget)
+                : id;
+          }}
+          renderOverlay={(active) =>
+            active && CONSOLE_WIDGETS.includes(String(active.id) as ConsoleWidget) ? (
+              <Chip label={widgetLabel(String(active.id) as ConsoleWidget)} />
+            ) : null
+          }
+          onDragStart={() => setDragging(theme.consoleLayout)}
+          onDragOver={onDragOver}
+          onDragEnd={onDragEnd}
+          onDragCancel={() => setDragging(null)}
+        >
+          <div className='flex flex-col gap-2'>
+            {slotBox('top')}
+            <div className='grid grid-cols-[minmax(0,1fr)_4.5rem_minmax(0,1fr)] gap-2'>
+              {slotBox('left')}
+              <div className='flex flex-col items-center justify-center gap-1.5 min-h-28 rounded-md border border-(--mantine-color-blue-filled) bg-(--mantine-color-blue-light) text-(--mantine-color-blue-light-color)'>
+                <FontAwesomeIcon icon={faTerminal} size='lg' />
+                <span className='text-[10px] font-semibold uppercase tracking-wider'>
+                  {t('editor.consoleLayout.terminal', {})}
+                </span>
+              </div>
+              {slotBox('right')}
+            </div>
+            {slotBox('bottom')}
+          </div>
+        </DndBoard>
+
+        <Button
+          variant='subtle'
+          color='gray'
+          size='compact-xs'
+          className='self-start'
+          disabled={isDefault}
+          leftSection={<FontAwesomeIcon icon={faRotateLeft} />}
+          onClick={() => set({ consoleLayout: DEFAULT_CONSOLE_LAYOUT })}
+        >
+          {t('editor.consoleLayout.reset', {})}
+        </Button>
+      </Stack>
+
+      <ConsoleFields theme={theme} set={set} />
     </Stack>
   );
 }

@@ -172,6 +172,10 @@ const translations = defineTranslations({
       down: 'Move cursor down',
       type: 'Type {key}',
     },
+    console: {
+      commands: 'Quick commands',
+      connect: 'Connect',
+    },
     editor: {
       contrast: {
         title: 'Some colours are hard to read',
@@ -272,7 +276,7 @@ const translations = defineTranslations({
         colours: 'Colours',
         coloursDescription: 'Everything else is mixed from these five.',
         style: 'Typography & shape',
-        styleDescription: 'Fonts, buttons, corner rounding, block opacity and borders, and the click effect.',
+        styleDescription: 'Fonts, buttons, corner rounding, block opacity and borders.',
         background: 'Background & branding',
         backgroundDescription:
           'An image behind the whole panel, dimmed with the page colour, and the browser tab icon.',
@@ -286,13 +290,17 @@ const translations = defineTranslations({
         homeDescription:
           "The cards on a server's home page, its banners and game images, and the getting started links.",
         console: 'Console',
-        consoleDescription: 'What the console page shows around the terminal, and where.',
+        consoleDescription:
+          'The console page: a preset or your own layout around the terminal, the terminal itself, the banner, the charts and quick commands.',
         servers: 'Servers list',
         serversDescription: 'The cards in the grid view of the servers list.',
         login: 'Login page',
         loginDescription: 'Layout, background, logo and support links for login, registration and password pages.',
         interface: 'Behaviour',
-        interfaceDescription: 'Toasts, page transitions, page titles and the phone file editor.',
+        interfaceDescription: 'Toasts, page titles and the phone file editor.',
+        motion: 'Animations',
+        motionDescription:
+          'Page transitions, cards coming in, hover and click effects, how dialogs and menus open, and the speed of it all.',
         components: 'Components',
         componentsDescription: 'Boxes, stat cards and tables across the panel.',
       },
@@ -487,12 +495,54 @@ const translations = defineTranslations({
           fade: 'Fade in',
           fadeUp: 'Fade up',
           fadeScale: 'Fade scale',
+          slide: 'Slide in',
+          slideDown: 'Slide down',
+          zoom: 'Zoom',
+          blur: 'Blur in',
         },
         pageTitles: 'Show page titles',
         pageTitlesDescription: 'The heading on server pages like Files and Databases. Their search and buttons stay.',
         mobileEditor: 'Phone-friendly file editor',
         mobileEditorDescription:
           'On phones the code editor wraps lines, hides the minimap and popups, uses a 16px font and gets a row of keys above the keyboard: undo, indent, find, symbols and arrows. Desktops stay as they are.',
+      },
+      motion: {
+        cardEntrance: 'Card entrance',
+        cardEntranceDescription:
+          'Cards and table rows come in one after another when a page opens. Hover a tile to see it.',
+        cardEntrances: {
+          none: 'None',
+          fade: 'Fade in',
+          rise: 'Rise',
+        },
+        hoverEffect: 'Hover effect',
+        hoverEffectDescription:
+          'Clickable cards, like the servers list, and buttons under the mouse pointer. Hover a tile to see it.',
+        hovers: {
+          none: 'None',
+          lift: 'Lift',
+          glow: 'Glow',
+        },
+        overlayMotion: 'Dialogs and menus',
+        overlayMotionDescription:
+          'How dialogs, drawers, menus and dropdowns open. They close the way they always do. Hover a tile to see it.',
+        overlays: {
+          default: 'Default',
+          pop: 'Pop',
+          slideUp: 'Slide up',
+          none: 'None',
+        },
+        animationSpeed: 'Animation speed',
+        animationSpeedDescription:
+          "Speeds up or slows down every animation above. The glassy toast's countdown keeps its real time.",
+        speeds: {
+          slow: 'Slow',
+          normal: 'Normal',
+          fast: 'Fast',
+        },
+        reduceMotion: 'Reduce motion for everyone',
+        reduceMotionDescription:
+          'Turns off page transitions, card entrance, hover movement, the click shrink, dialog and menu animations and the toast countdown for every user, whatever the options above say. Devices set to reduce motion never get them anyway.',
       },
       boxes: {
         title: 'Boxes',
@@ -528,6 +578,14 @@ const translations = defineTranslations({
         remove: 'Remove {name}',
         allPlaced: 'Every component is already on the page.',
         reset: 'Restore the default layout',
+        presets: 'Layout presets',
+        presetsDescription: 'Lay a ready made console page over the draft; change it further in the slots below.',
+        presetNames: {
+          classic: 'Classic',
+          sidebar: 'Sidebar',
+          focus: 'Focus',
+          dashboard: 'Dashboard',
+        },
         slot: {
           top: 'Above the terminal',
           left: 'Left of the terminal',
@@ -542,6 +600,9 @@ const translations = defineTranslations({
           memoryChart: 'Memory chart',
           networkChart: 'Network chart',
           extensionCards: 'Extension cards',
+          gauges: 'Usage rings',
+          commands: 'Quick commands',
+          connect: 'Connect',
         },
         widgetDescription: {
           banner: 'Server name, address, live stats and the power buttons.',
@@ -551,7 +612,72 @@ const translations = defineTranslations({
           memoryChart: 'Live memory graph.',
           networkChart: 'Live inbound and outbound traffic graph.',
           extensionCards: 'Stat cards other extensions add to the console.',
+          gauges: 'Ring meters for CPU, memory and disk against the server limits.',
+          commands: 'The buttons set under Quick command buttons below; only for users with console access.',
+          connect: 'The address and SFTP details with copy buttons, and an SFTP link.',
         },
+      },
+      console: {
+        terminalTitle: 'Terminal',
+        frame: 'Terminal frame',
+        frameDescription: 'The card around the terminal, its header and its input.',
+        frames: {
+          card: 'Card',
+          flush: 'Flush',
+          glass: 'Glass',
+        },
+        height: 'Terminal height',
+        heightDescription:
+          'Fill runs the terminal to the bottom of the window on wide screens; narrow screens keep the normal height.',
+        heights: {
+          auto: 'Normal',
+          fill: 'Fill the window',
+          tall: 'Tall',
+        },
+        cursor: 'Cursor',
+        cursorDescription: 'The panel hides the terminal cursor; pick a shape to show it.',
+        cursors: {
+          none: 'Hidden',
+          block: 'Block',
+          bar: 'Bar',
+          underline: 'Underline',
+        },
+        cursorBlink: 'Blinking cursor',
+        cursorBlinkDescription: 'Blinks while the terminal has focus, never with reduced motion. Needs a shown cursor.',
+        lineHeight: 'Line height',
+        bannerTitle: 'Banner',
+        banner: 'Banner style',
+        bannerDescription: 'The banner component: the Home banner with live stats, one row, or a slim status line.',
+        banners: {
+          full: 'Full',
+          compact: 'Compact',
+          minimal: 'Minimal',
+        },
+        chartsTitle: 'Charts',
+        chartStyle: 'Chart style',
+        chartStyles: {
+          area: 'Area',
+          line: 'Line',
+        },
+        chartHeight: 'Chart height',
+        chartHeights: {
+          small: 'Small',
+          medium: 'Medium',
+          large: 'Large',
+        },
+        chartArrangement: 'Chart arrangement',
+        chartArrangementDescription: 'Charts placed next to each other share a row, or each takes the full width.',
+        chartArrangements: {
+          row: 'Side by side',
+          stacked: 'Stacked',
+        },
+        commandsTitle: 'Quick command buttons',
+        commandsDescription:
+          'Up to {max} buttons for the Quick commands component; each sends its command to the server console. Users without console access do not see them.',
+        commandLabel: 'Label',
+        command: 'Command',
+        addCommand: 'Add command',
+        removeCommand: 'Remove command',
       },
       navStyle: {
         hover: 'Hover effect',

@@ -166,6 +166,10 @@
       "down": "Przesuń kursor w dół",
       "type": "Wpisz {key}"
     },
+    "console": {
+      "commands": "Szybkie polecenia",
+      "connect": "Połącz"
+    },
     "editor": {
       "contrast": {
         "title": "Niektóre kolory są słabo czytelne",
@@ -220,6 +224,13 @@
       "previewPage": "Strona podglądu",
       "previewDevice": "Szerokość podglądu",
       "previewScheme": "Schemat kolorów podglądu",
+      "status": {
+        "unsaved": "Niezapisane zmiany",
+        "saved": "Wszystkie zmiany zapisane"
+      },
+      "more": "Więcej akcji",
+      "resizePanel": "Zmień rozmiar panelu ustawień",
+      "sections": "Sekcje ustawień",
       "search": {
         "placeholder": "Szukaj ustawień",
         "clear": "Wyczyść wyszukiwanie",
@@ -242,33 +253,41 @@
         "admin": "Administracja",
         "login": "Strona logowania"
       },
+      "groups": {
+        "look": "Wygląd",
+        "navigation": "Nawigacja",
+        "pages": "Strony",
+        "interface": "Interfejs"
+      },
       "section": {
         "presets": "Presety",
         "presetsDescription": "Zacznij od gotowego wyglądu, zapisz własne i wybierz, które z nich mogą wybierać użytkownicy.",
         "colours": "Kolory",
         "coloursDescription": "Wszystkie pozostałe kolory powstają z tych pięciu.",
         "style": "Typografia i kształt",
-        "styleDescription": "Czcionki, przyciski, zaokrąglenie rogów, przezroczystość i obramowania bloków oraz efekt kliknięcia.",
+        "styleDescription": "Czcionki, przyciski, zaokrąglenie rogów, przezroczystość i obramowania bloków.",
         "background": "Tło i branding",
         "backgroundDescription": "Obraz za całym panelem, przyciemniony kolorem strony, oraz ikona karty przeglądarki.",
-        "home": "Strona serwera",
-        "homeDescription": "Karty na stronie głównej serwera, jego banery i obrazy gier oraz linki pierwszych kroków.",
-        "login": "Strona logowania",
-        "loginDescription": "Układ, tło, logo i linki pomocy na stronach logowania, rejestracji i hasła.",
-        "interface": "Zachowanie",
-        "interfaceDescription": "Powiadomienia, przejścia stron, tytuły stron i edytor plików na telefonie.",
-        "components": "Komponenty",
-        "componentsDescription": "Pola, karty statystyk i tabele w całym panelu.",
-        "console": "Konsola",
-        "consoleDescription": "Co strona konsoli pokazuje wokół terminala i gdzie.",
         "sidebar": "Pasek boczny i dok",
         "sidebarDescription": "Gdzie znajduje się menu na komputerze, gdzie trafiają logo i wyszukiwarka oraz jak nawigować na telefonach.",
         "menu": "Styl menu i wyszukiwanie",
         "menuDescription": "Jak wyglądają linki menu po najechaniu i po otwarciu oraz jakie wyszukiwanie pokazuje menu.",
         "menuOrder": "Kolejność menu",
         "menuOrderDescription": "Zwijane sekcje menu, kolejność menu administratora i które menu użytkownicy mogą układać.",
+        "home": "Strona serwera",
+        "homeDescription": "Karty na stronie głównej serwera, jego banery i obrazy gier oraz linki pierwszych kroków.",
+        "console": "Konsola",
+        "consoleDescription": "Strona konsoli: szablon lub własny układ wokół terminala, sam terminal, baner, wykresy i szybkie polecenia.",
         "servers": "Lista serwerów",
-        "serversDescription": "Karty w widoku siatki listy serwerów."
+        "serversDescription": "Karty w widoku siatki listy serwerów.",
+        "login": "Strona logowania",
+        "loginDescription": "Układ, tło, logo i linki pomocy na stronach logowania, rejestracji i hasła.",
+        "interface": "Zachowanie",
+        "interfaceDescription": "Powiadomienia, tytuły stron i edytor plików na telefonie.",
+        "motion": "Animacje",
+        "motionDescription": "Przejścia stron, pojawianie się kart, efekty najechania i kliknięcia, sposób otwierania okien dialogowych i menu oraz tempo tego wszystkiego.",
+        "components": "Komponenty",
+        "componentsDescription": "Pola, karty statystyk i tabele w całym panelu."
       },
       "accent": "Akcent",
       "accentDescription": "Przyciski, linki i aktywna pozycja menu",
@@ -364,6 +383,10 @@
       "backgroundImage": "URL obrazu",
       "backgroundImageDescription": "Pozostaw puste, aby użyć jednolitego tła.",
       "backgroundDim": "Przyciemnienie",
+      "serverHome": "Strona główna serwera",
+      "serverHomeDescription": "Strona główna w katalogu głównym serwera z kartami, obrazami i linkami poniżej; konsola dostaje własną stronę. Po wyłączeniu konsola jest pierwszą stroną serwera, jak bez Mint. Otwarte strony serwera zmienią się przy następnym wczytaniu.",
+      "homeCards": "Karty",
+      "homeImages": "Obrazy",
       "homeBanner": "URL domyślnego obrazu banera",
       "homeBannerDescription": "Używany dla jajek bez własnego banera. Pozostaw puste, aby użyć gradientu w kolorze akcentu.",
       "articles": "Linki „Pierwsze kroki”",
@@ -453,12 +476,49 @@
           "none": "Brak",
           "fade": "Pojawienie",
           "fadeUp": "Pojawienie w górę",
-          "fadeScale": "Pojawienie ze skalowaniem"
+          "fadeScale": "Pojawienie ze skalowaniem",
+          "slide": "Wsunięcie",
+          "slideDown": "Wsunięcie w dół",
+          "zoom": "Powiększenie",
+          "blur": "Pojawienie z rozmyciem"
         },
         "pageTitles": "Pokazuj tytuły stron",
         "pageTitlesDescription": "Nagłówek na stronach serwera, takich jak Pliki i Bazy danych. Wyszukiwarka i przyciski pozostają.",
         "mobileEditor": "Edytor plików przyjazny telefonom",
         "mobileEditorDescription": "Na telefonach edytor kodu zawija wiersze, ukrywa minimapę i wyskakujące okienka, używa czcionki 16px i pokazuje nad klawiaturą rząd klawiszy: cofnij, wcięcie, znajdź, symbole i strzałki. Na komputerach nic się nie zmienia."
+      },
+      "motion": {
+        "cardEntrance": "Pojawianie się kart",
+        "cardEntranceDescription": "Karty i wiersze tabel pojawiają się jedna po drugiej po otwarciu strony. Najedź na kafelek, aby to zobaczyć.",
+        "cardEntrances": {
+          "none": "Brak",
+          "fade": "Pojawienie",
+          "rise": "Uniesienie"
+        },
+        "hoverEffect": "Efekt najechania",
+        "hoverEffectDescription": "Klikalne karty, jak lista serwerów, i przyciski pod kursorem myszy. Najedź na kafelek, aby to zobaczyć.",
+        "hovers": {
+          "none": "Brak",
+          "lift": "Uniesienie",
+          "glow": "Poświata"
+        },
+        "overlayMotion": "Okna dialogowe i menu",
+        "overlayMotionDescription": "Jak otwierają się okna dialogowe, szuflady, menu i listy rozwijane. Zamykają się jak zawsze. Najedź na kafelek, aby to zobaczyć.",
+        "overlays": {
+          "default": "Domyślnie",
+          "pop": "Wyskoczenie",
+          "slideUp": "Wsunięcie w górę",
+          "none": "Brak"
+        },
+        "animationSpeed": "Szybkość animacji",
+        "animationSpeedDescription": "Przyspiesza lub spowalnia wszystkie powyższe animacje. Odliczanie szklanego powiadomienia zachowuje swój rzeczywisty czas.",
+        "speeds": {
+          "slow": "Wolna",
+          "normal": "Normalna",
+          "fast": "Szybka"
+        },
+        "reduceMotion": "Ogranicz ruch dla wszystkich",
+        "reduceMotionDescription": "Wyłącza przejścia stron, pojawianie się kart, ruch przy najechaniu, zmniejszenie przy kliknięciu, animacje okien dialogowych i menu oraz odliczanie powiadomień dla wszystkich użytkowników, niezależnie od powyższych opcji. Urządzenia z ograniczeniem ruchu i tak ich nigdy nie dostają."
       },
       "boxes": {
         "title": "Pola",
@@ -493,6 +553,14 @@
         "remove": "Usuń {name}",
         "allPlaced": "Wszystkie komponenty są już na stronie.",
         "reset": "Przywróć domyślny układ",
+        "presets": "Gotowe układy",
+        "presetsDescription": "Nakłada gotową stronę konsoli na wersję roboczą; dalej zmieniaj ją w miejscach poniżej.",
+        "presetNames": {
+          "classic": "Klasyczny",
+          "sidebar": "Pasek boczny",
+          "focus": "Skupienie",
+          "dashboard": "Pulpit"
+        },
         "slot": {
           "top": "Nad terminalem",
           "left": "Na lewo od terminala",
@@ -506,7 +574,10 @@
           "cpuChart": "Wykres CPU",
           "memoryChart": "Wykres pamięci",
           "networkChart": "Wykres sieci",
-          "extensionCards": "Karty rozszerzeń"
+          "extensionCards": "Karty rozszerzeń",
+          "gauges": "Pierścienie użycia",
+          "commands": "Szybkie polecenia",
+          "connect": "Połącz"
         },
         "widgetDescription": {
           "banner": "Nazwa serwera, adres, statystyki na żywo i przyciski zasilania.",
@@ -515,8 +586,71 @@
           "cpuChart": "Wykres obciążenia CPU na żywo.",
           "memoryChart": "Wykres pamięci na żywo.",
           "networkChart": "Wykres ruchu przychodzącego i wychodzącego na żywo.",
-          "extensionCards": "Karty statystyk dodawane do konsoli przez inne rozszerzenia."
+          "extensionCards": "Karty statystyk dodawane do konsoli przez inne rozszerzenia.",
+          "gauges": "Wskaźniki pierścieniowe CPU, pamięci i dysku względem limitów serwera.",
+          "commands": "Przyciski ustawione w sekcji Przyciski szybkich poleceń poniżej; tylko dla użytkowników z dostępem do konsoli.",
+          "connect": "Adres i dane SFTP z przyciskami kopiowania oraz link SFTP."
         }
+      },
+      "console": {
+        "terminalTitle": "Terminal",
+        "frame": "Ramka terminala",
+        "frameDescription": "Karta wokół terminala, jej nagłówek i pole wprowadzania.",
+        "frames": {
+          "card": "Karta",
+          "flush": "Bez odstępów",
+          "glass": "Szkło"
+        },
+        "height": "Wysokość terminala",
+        "heightDescription": "Wypełnienie okna rozciąga terminal do dołu okna na szerokich ekranach; wąskie ekrany zachowują normalną wysokość.",
+        "heights": {
+          "auto": "Normalna",
+          "fill": "Wypełnij okno",
+          "tall": "Wysoka"
+        },
+        "cursor": "Kursor",
+        "cursorDescription": "Panel ukrywa kursor terminala; wybierz kształt, aby go pokazać.",
+        "cursors": {
+          "none": "Ukryty",
+          "block": "Blok",
+          "bar": "Pionowa kreska",
+          "underline": "Podkreślenie"
+        },
+        "cursorBlink": "Migający kursor",
+        "cursorBlinkDescription": "Miga, gdy terminal ma fokus, nigdy przy ograniczonym ruchu. Wymaga widocznego kursora.",
+        "lineHeight": "Wysokość linii",
+        "bannerTitle": "Baner",
+        "banner": "Styl banera",
+        "bannerDescription": "Komponent banera: baner strony głównej ze statystykami na żywo, jeden wiersz lub wąski pasek stanu.",
+        "banners": {
+          "full": "Pełny",
+          "compact": "Kompaktowy",
+          "minimal": "Minimalny"
+        },
+        "chartsTitle": "Wykresy",
+        "chartStyle": "Styl wykresów",
+        "chartStyles": {
+          "area": "Obszar",
+          "line": "Linia"
+        },
+        "chartHeight": "Wysokość wykresów",
+        "chartHeights": {
+          "small": "Mała",
+          "medium": "Średnia",
+          "large": "Duża"
+        },
+        "chartArrangement": "Układ wykresów",
+        "chartArrangementDescription": "Wykresy umieszczone obok siebie dzielą wiersz albo każdy zajmuje pełną szerokość.",
+        "chartArrangements": {
+          "row": "Obok siebie",
+          "stacked": "Jeden pod drugim"
+        },
+        "commandsTitle": "Przyciski szybkich poleceń",
+        "commandsDescription": "Do {max} przycisków dla komponentu Szybkie polecenia; każdy wysyła swoje polecenie do konsoli serwera. Użytkownicy bez dostępu do konsoli ich nie widzą.",
+        "commandLabel": "Etykieta",
+        "command": "Polecenie",
+        "addCommand": "Dodaj polecenie",
+        "removeCommand": "Usuń polecenie"
       },
       "navStyle": {
         "hover": "Efekt najechania",
@@ -602,24 +736,7 @@
         "description": "Menu panelu administracyjnego dla wszystkich: przeciągaj linki i całe kategorie oraz linki w obrębie ich kategorii. Użytkownicy nadal mogą układać własne menu ponad nim. Menu serwera i pulpitu stosują kolejność tras z konfiguracji eggów i ustawień użytkownika.",
         "empty": "Menu administracyjne jeszcze się nie wczytało.",
         "reset": "Wróć do kolejności panelu"
-      },
-      "groups": {
-        "look": "Wygląd",
-        "navigation": "Nawigacja",
-        "pages": "Strony",
-        "interface": "Interfejs"
-      },
-      "serverHome": "Strona główna serwera",
-      "serverHomeDescription": "Strona główna w katalogu głównym serwera z kartami, obrazami i linkami poniżej; konsola dostaje własną stronę. Po wyłączeniu konsola jest pierwszą stroną serwera, jak bez Mint. Otwarte strony serwera zmienią się przy następnym wczytaniu.",
-      "homeCards": "Karty",
-      "homeImages": "Obrazy",
-      "status": {
-        "unsaved": "Niezapisane zmiany",
-        "saved": "Wszystkie zmiany zapisane"
-      },
-      "more": "Więcej akcji",
-      "resizePanel": "Zmień rozmiar panelu ustawień",
-      "sections": "Sekcje ustawień"
+      }
     },
     "library": {
       "saveAsPreset": "Zapisz jako preset",

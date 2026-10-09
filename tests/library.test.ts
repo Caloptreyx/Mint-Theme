@@ -45,7 +45,10 @@ describe('user theme fields', () => {
         ['homeBanner', 'articles', 'eggs', 'serverHome', 'layout', 'consoleLayout', 'supportLinks', 'favicon'].includes(key) ||
         key.startsWith('login') ||
         key.startsWith('auth') ||
-        key.startsWith('supportLinks'),
+        key.startsWith('supportLinks') ||
+        key.startsWith('terminal') ||
+        key.startsWith('console') ||
+        ['chartStyle', 'chartHeight', 'chartArrangement'].includes(key),
     );
     assert.ok(siteWide.length >= 10);
     for (const key of siteWide) assert.ok(!USER_THEME_FIELDS.includes(key as keyof NebulaTheme), key);

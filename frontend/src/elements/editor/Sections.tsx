@@ -8,7 +8,6 @@ import {
   type Article,
   BUTTON_STYLES,
   type ButtonStyle,
-  CLICK_EFFECTS,
   contrastIssues,
   derivedColors,
   type Font,
@@ -27,11 +26,12 @@ import EggImagesField from './EggImagesField.tsx';
 import FaviconField from './FaviconField.tsx';
 import InterfaceField from './InterfaceField.tsx';
 import LayoutField from './LayoutField.tsx';
+import MotionFields from './MotionFields.tsx';
 import NavOrderField from './NavOrderField.tsx';
 import NavStyleFields from './NavStyleFields.tsx';
 import ServerCardFields, { TableStyleField } from './ServerCardFields.tsx';
 import SidebarLayoutFields from './SidebarLayoutFields.tsx';
-import { BlockMock, ClickMock, GlassMock, InputMock } from './StyleMocks.tsx';
+import { BlockMock, GlassMock, InputMock } from './StyleMocks.tsx';
 import UrlInput from './UrlInput.tsx';
 
 const HEX = /^#[0-9a-f]{6}$/i;
@@ -49,6 +49,7 @@ export type Section =
   | 'servers'
   | 'login'
   | 'interface'
+  | 'motion'
   | 'components';
 
 interface Props {
@@ -248,17 +249,6 @@ export default function Sections({ section, theme, valid, set }: Props) {
               ]}
               onChange={(value) => set({ inputBorder: value === 'on' })}
             />
-            <ChoiceCards
-              label={t('editor.elements.clickEffect', {})}
-              description={t('editor.elements.clickEffectDescription', {})}
-              value={theme.clickEffect}
-              choices={CLICK_EFFECTS.map((effect) => ({
-                value: effect,
-                label: t(`editor.elements.click.${effect}`, {}),
-                preview: <ClickMock effect={effect} label={t('editor.elements.create', {})} />,
-              }))}
-              onChange={(clickEffect) => set({ clickEffect })}
-            />
           </Stack>
         </Stack>
       );
@@ -407,6 +397,8 @@ export default function Sections({ section, theme, valid, set }: Props) {
       return <ServerCardFields theme={theme} set={set} />;
     case 'interface':
       return <InterfaceField theme={theme} set={set} />;
+    case 'motion':
+      return <MotionFields theme={theme} set={set} />;
     case 'components':
       return (
         <Stack gap='xl'>

@@ -166,6 +166,10 @@
       "down": "Mover el cursor abajo",
       "type": "Escribir {key}"
     },
+    "console": {
+      "commands": "Comandos rápidos",
+      "connect": "Conectar"
+    },
     "editor": {
       "contrast": {
         "title": "Algunos colores son difíciles de leer",
@@ -220,6 +224,13 @@
       "previewPage": "Página de vista previa",
       "previewDevice": "Ancho de vista previa",
       "previewScheme": "Esquema de color de la vista previa",
+      "status": {
+        "unsaved": "Cambios sin guardar",
+        "saved": "Todos los cambios guardados"
+      },
+      "more": "Más acciones",
+      "resizePanel": "Redimensionar el panel de ajustes",
+      "sections": "Secciones de ajustes",
       "search": {
         "placeholder": "Buscar ajustes",
         "clear": "Borrar búsqueda",
@@ -242,33 +253,41 @@
         "admin": "Administración",
         "login": "Página de inicio de sesión"
       },
+      "groups": {
+        "look": "Aspecto",
+        "navigation": "Navegación",
+        "pages": "Páginas",
+        "interface": "Interfaz"
+      },
       "section": {
         "presets": "Preajustes",
         "presetsDescription": "Parte de un aspecto ya preparado, guarda los tuyos y elige cuáles pueden escoger los usuarios.",
         "colours": "Colores",
         "coloursDescription": "Todo lo demás se mezcla a partir de estos cinco.",
         "style": "Tipografía y forma",
-        "styleDescription": "Fuentes, botones, redondeo de esquinas, opacidad y bordes de bloques, y el efecto de clic.",
+        "styleDescription": "Fuentes, botones, redondeo de esquinas, opacidad y bordes de los bloques.",
         "background": "Fondo y marca",
         "backgroundDescription": "Una imagen detrás de todo el panel, atenuada con el color de la página, y el icono de la pestaña del navegador.",
-        "home": "Inicio del servidor",
-        "homeDescription": "Las tarjetas de la página de inicio de un servidor, sus banners e imágenes de juego, y los enlaces de primeros pasos.",
-        "login": "Página de inicio de sesión",
-        "loginDescription": "Diseño, fondo, logo y enlaces de soporte de las páginas de inicio de sesión, registro y contraseña.",
-        "interface": "Comportamiento",
-        "interfaceDescription": "Notificaciones, transiciones de página, títulos de página y el editor de archivos en móvil.",
-        "components": "Componentes",
-        "componentsDescription": "Cajas, tarjetas de estadísticas y tablas en todo el panel.",
-        "console": "Consola",
-        "consoleDescription": "Qué muestra la página de la consola alrededor del terminal, y dónde.",
         "sidebar": "Barra lateral y dock",
         "sidebarDescription": "Dónde se sitúa el menú en escritorio, dónde van su logo y búsqueda, y cómo se navega en móviles.",
         "menu": "Estilo de menú y búsqueda",
         "menuDescription": "Cómo se ven los enlaces del menú al pasar el cursor y abiertos, y qué búsqueda muestra el menú.",
         "menuOrder": "Orden del menú",
         "menuOrderDescription": "Secciones de menú plegables, el orden del menú de administración y qué menús pueden organizar los usuarios.",
+        "home": "Inicio del servidor",
+        "homeDescription": "Las tarjetas de la página de inicio de un servidor, sus banners e imágenes de juego, y los enlaces de primeros pasos.",
+        "console": "Consola",
+        "consoleDescription": "La página de consola: un preajuste o tu propio diseño alrededor de la terminal, la terminal en sí, el banner, los gráficos y los comandos rápidos.",
         "servers": "Lista de servidores",
-        "serversDescription": "Las tarjetas de la vista en cuadrícula de la lista de servidores."
+        "serversDescription": "Las tarjetas de la vista en cuadrícula de la lista de servidores.",
+        "login": "Página de inicio de sesión",
+        "loginDescription": "Diseño, fondo, logo y enlaces de soporte de las páginas de inicio de sesión, registro y contraseña.",
+        "interface": "Comportamiento",
+        "interfaceDescription": "Notificaciones, títulos de página y el editor de archivos en el móvil.",
+        "motion": "Animaciones",
+        "motionDescription": "Transiciones de página, entrada de tarjetas, efectos al pasar el cursor y al hacer clic, cómo se abren los diálogos y menús, y la velocidad de todo ello.",
+        "components": "Componentes",
+        "componentsDescription": "Cajas, tarjetas de estadísticas y tablas en todo el panel."
       },
       "accent": "Acento",
       "accentDescription": "Botones, enlaces y el elemento de menú activo",
@@ -364,6 +383,10 @@
       "backgroundImage": "URL de la imagen",
       "backgroundImageDescription": "Déjalo vacío para un fondo liso.",
       "backgroundDim": "Atenuación",
+      "serverHome": "Página de inicio del servidor",
+      "serverHomeDescription": "Una página de inicio en la raíz del servidor con las tarjetas, imágenes y enlaces de abajo; la consola pasa a su propia página. Desactivada, la consola es la primera página del servidor, como sin Mint. Las páginas de servidor abiertas cambian la próxima vez que se cargan.",
+      "homeCards": "Tarjetas",
+      "homeImages": "Imágenes",
       "homeBanner": "URL de la imagen de banner predeterminada",
       "homeBannerDescription": "Se usa para los eggs sin banner propio. Déjalo vacío para un degradado de acento.",
       "articles": "Enlaces de primeros pasos",
@@ -453,12 +476,49 @@
           "none": "Ninguna",
           "fade": "Aparecer",
           "fadeUp": "Aparecer hacia arriba",
-          "fadeScale": "Aparecer con escala"
+          "fadeScale": "Aparecer con escala",
+          "slide": "Deslizar",
+          "slideDown": "Deslizar hacia abajo",
+          "zoom": "Zoom",
+          "blur": "Aparecer desenfocado"
         },
         "pageTitles": "Mostrar títulos de página",
         "pageTitlesDescription": "El encabezado de páginas del servidor como Archivos y Bases de datos. Su búsqueda y sus botones se mantienen.",
         "mobileEditor": "Editor de archivos adaptado a móviles",
         "mobileEditorDescription": "En móviles el editor de código ajusta las líneas, oculta el minimapa y las ventanas emergentes, usa una fuente de 16px y muestra una fila de teclas sobre el teclado: deshacer, sangría, buscar, símbolos y flechas. En escritorio no cambia nada."
+      },
+      "motion": {
+        "cardEntrance": "Entrada de tarjetas",
+        "cardEntranceDescription": "Las tarjetas y filas de tabla aparecen una tras otra al abrir una página. Pasa el cursor por un recuadro para verlo.",
+        "cardEntrances": {
+          "none": "Ninguna",
+          "fade": "Aparecer",
+          "rise": "Subir"
+        },
+        "hoverEffect": "Efecto al pasar el cursor",
+        "hoverEffectDescription": "Tarjetas clicables, como la lista de servidores, y botones bajo el puntero del ratón. Pasa el cursor por un recuadro para verlo.",
+        "hovers": {
+          "none": "Ninguno",
+          "lift": "Elevar",
+          "glow": "Brillo"
+        },
+        "overlayMotion": "Diálogos y menús",
+        "overlayMotionDescription": "Cómo se abren los diálogos, paneles, menús y desplegables. Se cierran como siempre. Pasa el cursor por un recuadro para verlo.",
+        "overlays": {
+          "default": "Predeterminado",
+          "pop": "Rebote",
+          "slideUp": "Deslizar hacia arriba",
+          "none": "Ninguna"
+        },
+        "animationSpeed": "Velocidad de animación",
+        "animationSpeedDescription": "Acelera o ralentiza todas las animaciones anteriores. La cuenta atrás de la notificación de cristal mantiene su tiempo real.",
+        "speeds": {
+          "slow": "Lenta",
+          "normal": "Normal",
+          "fast": "Rápida"
+        },
+        "reduceMotion": "Reducir el movimiento para todos",
+        "reduceMotionDescription": "Desactiva las transiciones de página, la entrada de tarjetas, el movimiento al pasar el cursor, el encogimiento al hacer clic, las animaciones de diálogos y menús y la cuenta atrás de las notificaciones para todos los usuarios, digan lo que digan las opciones anteriores. Los dispositivos configurados para reducir el movimiento nunca las reciben."
       },
       "boxes": {
         "title": "Cajas",
@@ -493,6 +553,14 @@
         "remove": "Quitar {name}",
         "allPlaced": "Todos los componentes ya están en la página.",
         "reset": "Restaurar el diseño predeterminado",
+        "presets": "Diseños predefinidos",
+        "presetsDescription": "Aplica una página de consola ya hecha sobre el borrador; ajústala después en las ranuras de abajo.",
+        "presetNames": {
+          "classic": "Clásico",
+          "sidebar": "Barra lateral",
+          "focus": "Enfoque",
+          "dashboard": "Panel"
+        },
         "slot": {
           "top": "Encima del terminal",
           "left": "A la izquierda del terminal",
@@ -506,7 +574,10 @@
           "cpuChart": "Gráfico de CPU",
           "memoryChart": "Gráfico de memoria",
           "networkChart": "Gráfico de red",
-          "extensionCards": "Tarjetas de extensiones"
+          "extensionCards": "Tarjetas de extensiones",
+          "gauges": "Anillos de uso",
+          "commands": "Comandos rápidos",
+          "connect": "Conectar"
         },
         "widgetDescription": {
           "banner": "Nombre del servidor, dirección, estadísticas en vivo y los botones de encendido.",
@@ -515,8 +586,71 @@
           "cpuChart": "Gráfico en vivo de la carga de CPU.",
           "memoryChart": "Gráfico en vivo de la memoria.",
           "networkChart": "Gráfico en vivo del tráfico entrante y saliente.",
-          "extensionCards": "Tarjetas de estadísticas que otras extensiones añaden a la consola."
+          "extensionCards": "Tarjetas de estadísticas que otras extensiones añaden a la consola.",
+          "gauges": "Medidores circulares de CPU, memoria y disco frente a los límites del servidor.",
+          "commands": "Los botones definidos en «Botones de comandos rápidos» más abajo; solo para usuarios con acceso a la consola.",
+          "connect": "La dirección y los datos SFTP con botones para copiar, y un enlace SFTP."
         }
+      },
+      "console": {
+        "terminalTitle": "Terminal",
+        "frame": "Marco de la terminal",
+        "frameDescription": "La tarjeta alrededor de la terminal, su encabezado y su entrada.",
+        "frames": {
+          "card": "Tarjeta",
+          "flush": "A ras",
+          "glass": "Cristal"
+        },
+        "height": "Altura de la terminal",
+        "heightDescription": "«Llenar la ventana» extiende la terminal hasta el fondo de la ventana en pantallas anchas; las pantallas estrechas mantienen la altura normal.",
+        "heights": {
+          "auto": "Normal",
+          "fill": "Llenar la ventana",
+          "tall": "Alta"
+        },
+        "cursor": "Cursor",
+        "cursorDescription": "El panel oculta el cursor de la terminal; elige una forma para mostrarlo.",
+        "cursors": {
+          "none": "Oculto",
+          "block": "Bloque",
+          "bar": "Barra",
+          "underline": "Subrayado"
+        },
+        "cursorBlink": "Cursor parpadeante",
+        "cursorBlinkDescription": "Parpadea mientras la terminal tiene el foco, nunca con movimiento reducido. Requiere un cursor visible.",
+        "lineHeight": "Altura de línea",
+        "bannerTitle": "Banner",
+        "banner": "Estilo del banner",
+        "bannerDescription": "El componente banner: el banner de Inicio con estadísticas en vivo, una sola fila o una línea de estado delgada.",
+        "banners": {
+          "full": "Completo",
+          "compact": "Compacto",
+          "minimal": "Mínimo"
+        },
+        "chartsTitle": "Gráficos",
+        "chartStyle": "Estilo de gráfico",
+        "chartStyles": {
+          "area": "Área",
+          "line": "Línea"
+        },
+        "chartHeight": "Altura de gráfico",
+        "chartHeights": {
+          "small": "Pequeña",
+          "medium": "Media",
+          "large": "Grande"
+        },
+        "chartArrangement": "Disposición de gráficos",
+        "chartArrangementDescription": "Los gráficos colocados uno junto a otro comparten una fila, o cada uno ocupa todo el ancho.",
+        "chartArrangements": {
+          "row": "Lado a lado",
+          "stacked": "Apilados"
+        },
+        "commandsTitle": "Botones de comandos rápidos",
+        "commandsDescription": "Hasta {max} botones para el componente Comandos rápidos; cada uno envía su comando a la consola del servidor. Los usuarios sin acceso a la consola no los ven.",
+        "commandLabel": "Etiqueta",
+        "command": "Comando",
+        "addCommand": "Añadir comando",
+        "removeCommand": "Quitar comando"
       },
       "navStyle": {
         "hover": "Efecto al pasar el cursor",
@@ -602,24 +736,7 @@
         "description": "El menú de la administración para todos: arrastra enlaces y categorías completas, y los enlaces dentro de su categoría. Los usuarios aún pueden ordenar sus propios menús encima. Los menús de servidor y del panel siguen el orden de rutas de las configuraciones de eggs y de los ajustes de usuario.",
         "empty": "El menú de administración aún no se ha cargado.",
         "reset": "Volver al orden del panel"
-      },
-      "groups": {
-        "look": "Aspecto",
-        "navigation": "Navegación",
-        "pages": "Páginas",
-        "interface": "Interfaz"
-      },
-      "serverHome": "Página de inicio del servidor",
-      "serverHomeDescription": "Una página de inicio en la raíz del servidor con las tarjetas, imágenes y enlaces de abajo; la consola pasa a su propia página. Desactivada, la consola es la primera página del servidor, como sin Mint. Las páginas de servidor abiertas cambian la próxima vez que se cargan.",
-      "homeCards": "Tarjetas",
-      "homeImages": "Imágenes",
-      "status": {
-        "unsaved": "Cambios sin guardar",
-        "saved": "Todos los cambios guardados"
-      },
-      "more": "Más acciones",
-      "resizePanel": "Redimensionar el panel de ajustes",
-      "sections": "Secciones de ajustes"
+      }
     },
     "library": {
       "saveAsPreset": "Guardar como preajuste",

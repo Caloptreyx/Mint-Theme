@@ -108,11 +108,6 @@ export const SETTINGS: Setting[] = [
   { section: 'style', label: 'editor.blocks.border', also: ['editor.blocks.title'] },
   { section: 'style', label: 'editor.elementRadius', also: ['editor.elements.title'] },
   { section: 'style', label: 'editor.elements.inputBorder', also: ['editor.elements.title'] },
-  {
-    section: 'style',
-    label: 'editor.elements.clickEffect',
-    also: ['editor.elements.clickEffectDescription', 'editor.elements.click.'],
-  },
 
   { section: 'background', label: 'editor.backgroundImage', also: ['editor.backgroundImageDescription'] },
   { section: 'background', label: 'editor.backgroundDim' },
@@ -177,6 +172,66 @@ export const SETTINGS: Setting[] = [
       'editor.consoleLayout.widget.',
     ],
   },
+  {
+    section: 'console',
+    label: 'editor.consoleLayout.presets',
+    also: ['editor.consoleLayout.presetsDescription', 'editor.consoleLayout.presetNames.'],
+  },
+  {
+    section: 'console',
+    label: 'editor.console.frame',
+    also: ['editor.console.terminalTitle', 'editor.console.frameDescription', 'editor.console.frames.'],
+  },
+  {
+    section: 'console',
+    label: 'editor.console.height',
+    also: ['editor.console.terminalTitle', 'editor.console.heightDescription', 'editor.console.heights.'],
+  },
+  {
+    section: 'console',
+    label: 'editor.console.cursor',
+    also: ['editor.console.terminalTitle', 'editor.console.cursorDescription', 'editor.console.cursors.'],
+  },
+  {
+    section: 'console',
+    label: 'editor.console.cursorBlink',
+    also: ['editor.console.terminalTitle', 'editor.console.cursorBlinkDescription'],
+  },
+  { section: 'console', label: 'editor.console.lineHeight', also: ['editor.console.terminalTitle'] },
+  {
+    section: 'console',
+    label: 'editor.console.banner',
+    also: ['editor.console.bannerTitle', 'editor.console.bannerDescription', 'editor.console.banners.'],
+  },
+  {
+    section: 'console',
+    label: 'editor.console.chartStyle',
+    also: ['editor.console.chartsTitle', 'editor.console.chartStyles.'],
+  },
+  {
+    section: 'console',
+    label: 'editor.console.chartHeight',
+    also: ['editor.console.chartsTitle', 'editor.console.chartHeights.'],
+  },
+  {
+    section: 'console',
+    label: 'editor.console.chartArrangement',
+    also: [
+      'editor.console.chartsTitle',
+      'editor.console.chartArrangementDescription',
+      'editor.console.chartArrangements.',
+    ],
+  },
+  {
+    section: 'console',
+    label: 'editor.console.commandsTitle',
+    also: [
+      'editor.console.commandsDescription',
+      'editor.console.commandLabel',
+      'editor.console.command',
+      'editor.console.addCommand',
+    ],
+  },
 
   {
     section: 'servers',
@@ -209,17 +264,44 @@ export const SETTINGS: Setting[] = [
     label: 'editor.interface.toastStyle',
     also: ['editor.interface.toastStyleDescription', 'editor.interface.toasts.'],
   },
-  {
-    section: 'interface',
-    label: 'editor.interface.pageTransition',
-    also: ['editor.interface.pageTransitionDescription', 'editor.interface.transitions.'],
-  },
   { section: 'interface', label: 'editor.interface.pageTitles', also: ['editor.interface.pageTitlesDescription'] },
   {
     section: 'interface',
     label: 'editor.interface.mobileEditor',
     also: ['editor.interface.mobileEditorDescription'],
   },
+
+  {
+    section: 'motion',
+    label: 'editor.interface.pageTransition',
+    also: ['editor.interface.pageTransitionDescription', 'editor.interface.transitions.'],
+  },
+  {
+    section: 'motion',
+    label: 'editor.motion.cardEntrance',
+    also: ['editor.motion.cardEntranceDescription', 'editor.motion.cardEntrances.'],
+  },
+  {
+    section: 'motion',
+    label: 'editor.motion.hoverEffect',
+    also: ['editor.motion.hoverEffectDescription', 'editor.motion.hovers.'],
+  },
+  {
+    section: 'motion',
+    label: 'editor.elements.clickEffect',
+    also: ['editor.elements.clickEffectDescription', 'editor.elements.click.'],
+  },
+  {
+    section: 'motion',
+    label: 'editor.motion.overlayMotion',
+    also: ['editor.motion.overlayMotionDescription', 'editor.motion.overlays.'],
+  },
+  {
+    section: 'motion',
+    label: 'editor.motion.animationSpeed',
+    also: ['editor.motion.animationSpeedDescription', 'editor.motion.speeds.'],
+  },
+  { section: 'motion', label: 'editor.motion.reduceMotion', also: ['editor.motion.reduceMotionDescription'] },
 
   {
     section: 'components',

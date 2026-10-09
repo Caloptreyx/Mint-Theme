@@ -38,6 +38,8 @@ frontend/src/elements/     account/, home/, dashboard/, editor/, files/ (phone e
 frontend/src/app.css       static CSS: @font-face, flush sidebar, active link, sidebar sections, keyframes
 frontend/src/translations.ts  every user facing string
 tests/theme.test.ts        node:test cases for normalizeTheme() and buildCss() (not shipped)
+tests/motion.test.ts       node:test cases for the Animations section's fields (not shipped)
+tests/console.test.ts      node:test cases for the console page's fields (not shipped)
 tests/library.test.ts      node:test cases for lib/library.ts and the per user fields (not shipped)
 tests/editorSearch.test.ts node:test cases for the editor search's matching and ranking (not shipped)
 tests/editorDraft.test.ts  node:test cases for lib/editorDraft.ts (not shipped)
@@ -226,8 +228,28 @@ and break silently when core moves a file. Everything here is runtime:
   from that context. The provider wraps the whole page, above the slots, so a chart moved to another slot (a
   remount) keeps its history. Core's `statBlocks` slot follows the last chart run, or the extension cards when no
   chart is placed. The default is the page from before. `PowerButtons` (in `HeroCard`, so on Home and the
-  console's banner widget) renders core's `pages.server.console.powerButtonComponents` prepended and appended
-  slots as core's `ServerPowerControls` does, and closes the kill confirmation when the server goes offline.
+  console's full banner, and in the compact and minimal banners with `size`) renders core's
+  `pages.server.console.powerButtonComponents` prepended and appended slots as core's `ServerPowerControls` does, and
+  closes the kill confirmation when the server goes offline.
+  The console options (editor: `ConsoleLayoutField.tsx` with `ConsoleFields.tsx`, `tests/console.test.ts`; all site
+  wide, not in `USER_THEME_FIELDS`) are read by the page, so only the cursor adds CSS: `terminalFrame` restyles
+  core's terminal card (the terminal box's only element child; its drawers and modals portal out) with layered `!`
+  arbitrary variants on the box, because core pins the card's padding with `p-2!` and nothing unlayered beats a
+  layered `!important`; `terminalHeight` swaps the box's height classes, 'fill' measuring the room from its top to
+  the window's bottom edge (page scrolled to the top: the window's and every ancestor's scroll are added back, since
+  core's inset layout scrolls the content column) into `--nebula-terminal-fill`, used from `lg` up only.
+  `consoleBanner` picks the banner widget's shape. `chartStyle`, `chartHeight` and `chartArrangement` are classes on
+  `ChartsWidget` and its `ChartBlock`s only ('line' sets `fill:none` on recharts' `.recharts-area-area`, the heights
+  outrank `ChartBlock`'s `min-h-60` plot), so core's charts elsewhere never change. The editor's layout presets
+  (`classic`, `sidebar`, `focus`, `dashboard`; `focus` also sets the compact banner and 'fill') are not stored: a
+  tile patches the draft and shows as selected while the draft matches it. The `gauges`, `commands` and `connect`
+  widgets are in `elements/console/ExtraWidgets.tsx`: Mantine `RingProgress` rings from the server store's live
+  stats against the limits (empty without one); `consoleCommands` (at most 8, labels up to 40 and commands up to 200
+  characters, control characters dropped so a button is one console line, buttons missing either text dropped) as
+  buttons that send `SocketRequest.SEND_COMMAND` over the store's socket like core's console input, wrapped in
+  `ServerCan action='control.console'` as that input is, and disabled while it would be (socket down or server
+  offline); the allocation and SFTP host, port and username (`<user>.<short id>`, as core's SFTP modal) with copy
+  buttons, masked with `shownAddress()`, and core's `sftp://` link.
   Paths are also the keys of an egg configuration's `routeOrder`, and core hides (sidebar and router) every named
   route the order leaves out. `ConsoleRouteOrder` (`pages.global.prependComponent`, inside core's server store
   provider) subscribes to the server store and, inside `setServer`, fixes such orders both ways
@@ -376,10 +398,22 @@ and break silently when core moves a file. Everything here is runtime:
   Group headings are siblings of the rows (grid: `col-span-full`), so a row changing group moves, not
   remounts. Sort, group and view persist as `nebula:server-sort`, `nebula:server-group`, `nebula:server-view`.
 - `pages.server.console.xterm` init, after open and unmount handlers (`lib/terminal.ts`) hand the
-  theme's `monoFont` to xterm, which sizes its cell grid from its `fontFamily` option, not the CSS. The font
+  theme's `monoFont`, `terminalCursor`, `terminalCursorBlink` and `terminalLineHeight` to xterm, which sizes its cell
+  grid from its `fontFamily` and `lineHeight` options, not the CSS, and follow theme changes live. The font
   is only set once `document.fonts` has loaded it, because xterm measures its cells when the option changes;
   a font still loading leaves the grid sized for the fallback. Its colours are core's `getXtermTheme()`, reset
   on every scheme change; xterm 6 draws with DOM spans, so light mode fixes them in `buildCss` instead.
+  Core hides the cursor: it writes `ESC[?25l` right after the after open handlers, strips `?25h`/`?25l` from the
+  output and paints the cursor transparent. `terminalCursor: 'none'` (the default) touches none of that. Another
+  shape sets `cursorStyle` and `cursorInactiveStyle` (so it shows without focus too) and, in a microtask after core's
+  hide, writes `ESC[?47l ESC[?25h`: core's hide does not depend on the alternate screen, but xterm draws no cursor
+  until it counts as initialised (a focus, a key press or a screen switch), and leaving the alternate screen while on
+  the normal one switches nothing and only sets that flag. Going back to 'none' writes `ESC[?25l`. xterm's `reset()`
+  (core's reconnect) keeps both. The colour is CSS (`terminalCursorCss`, scoped to `.nebula-terminal`, the class the
+  after open handler adds to core's console terminals): an unblinking cursor with `!important`, since xterm paints its
+  block that way, a blinking one with Mint's own keyframes, as xterm's animate the transparent colour. xterm only
+  blinks a focused terminal; `cursorBlink` is off with `reduceMotion` or reduced motion, and the keyframes stop under
+  `prefers-reduced-motion: reduce`.
 - `mobileEditor` (`lib/mobileEditor.ts`, `elements/files/EditorKeys.tsx`). `elements.monacoEditor.addOnMountHandler`
   runs for every Monaco editor (file editor, tree pane, database console, logs; not diff editors): on a touch device
   whose editor node is under 768px wide it swaps in phone options (wrap, no minimap, folding, gutter extras or
@@ -438,20 +472,55 @@ and break silently when core moves a file. Everything here is runtime:
   exposes the Mantine colour as `data-nebula-tone` (green success, red error, yellow warning, teal info), and
   for `toastStyle: 'glassy'` `buildCss` restyles only notifications inside that stack. Mantine's colour bar
   (`::before`) becomes the icon tile with a data URI glyph per tone, and `::after` counts down core's 7.5s
-  `toastTimeout` (not on progress toasts, not under reduced motion).
+  `toastTimeout` (not on progress toasts, not under reduced motion or `reduceMotion`).
   `global.prependComponent(PageTransition)` (`elements/page/PageTransition.tsx`) renders a hidden marker
-  just before core's routes; on a pathname change it finds the content column after it (`#server-root`,
-  `#dashboard-root` or `#admin-root`, the sidebar's sibling) and sets `data-nebula-page-enter` on the div
-  core's `Container` holds the page in. `buildCss` animates that div's children, not an ancestor: a transform
-  there would pin fixed pages (the editor) to the column while it runs. The attribute goes once no page
-  animation is running and there is no fill mode, so nothing lingers for xterm's fit. The keyframes are
-  static in `app.css` because the editor's option tiles play them too.
+  just before core's routes; on a pathname change (when `pageTransition` or `cardEntrance` is set and
+  `reduceMotion` is off) it finds the content column after it (`#server-root`, `#dashboard-root` or
+  `#admin-root`, the sidebar's sibling) and sets `data-nebula-page-enter` on the div core's `Container` holds
+  the page in. `buildCss` animates that div's children, not an ancestor: a transform there would pin fixed
+  pages (the editor) to the column while it runs. The attribute goes once no animation named `nebula-page*`
+  is running and there is no fill mode, so nothing lingers for xterm's fit. The keyframes are static in
+  `app.css` because the editor's option tiles play them too; `slide` comes in from the inline end
+  (`--nebula-slide-dir` is -1 under `[dir="rtl"]`).
   `ServerContentContainer.addPropsInterceptor(hidePageTitle)` (`elements/page/PageTitles.tsx`) sets
   `hideTitleComponent` when `pageTitles` is off and puts the search box and `contentRight` buttons back in
   a right aligned row. Both read `currentTheme()` when they run, so the preview shows a change on its next
   navigation. Core's Files page hides the container title and draws its own heading beside its settings
   and view buttons, so `buildCss` hides just that heading (`[data-file-manager-page]`). Detail pages that
   show an item's name (a schedule, a database, the file editor) keep it.
+- Animations (the editor's Animations section, `elements/editor/MotionFields.tsx`, `tests/motion.test.ts`):
+  page transitions, `cardEntrance`, `hoverEffect`, `clickEffect`, `overlayMotion`, `animationSpeed` and
+  `reduceMotion` (site wide, not in `USER_THEME_FIELDS`). `buildCss` builds every rule that moves through
+  `motionOf(t)`: `ms()` scales a duration by `ANIMATION_SPEED_FACTORS` (0 with `reduceMotion`), `moving()` wraps
+  rules in `prefers-reduced-motion: no-preference` (and drops them with `reduceMotion`), `still()` puts the reduced
+  variant under `prefers-reduced-motion: reduce` (unconditional with `reduceMotion`). Speeds other than normal set
+  `--nebula-speed` on html, which `app.css`'s own transitions (the sidebar sections) multiply by. The glassy
+  toast's countdown keeps 7500ms whatever the speed, since it shows core's real timeout.
+  `cardEntrance` animates, on the same `data-nebula-page-enter` mark, the page's outermost cards (not cards
+  inside cards) and every table body row, with `animation-delay` by `:nth-child` (`CARD_STAGGER_MS`, the
+  `CARD_STAGGER_MAX`th and later share the last delay). Its fill mode is `backwards`, which only holds the
+  first frame through the delay, so nothing is left once a card's animation ends. Delays only stagger
+  siblings: cards in separate wrappers start together.
+  `hoverEffect` targets core's hoverable cards (core's `Card hoverable` adds `cursor-pointer` and
+  `transition-all!`; the servers list's cards and rows, core's server items), cards that are links, not the
+  hoverable cards inside them, and buttons that are not subtle or transparent (the menu links), disabled or
+  loading, inside `@media (hover:hover)`. 'lift' moves them up (a button only while not `:active`, so Mantine's
+  press nudge stays) with a shadow, 'glow' rings them in the accent (a filled button in its own `--button-bg`,
+  others in their text colour). Core's `transition-all!` is a layered `!important`, so on those cards only
+  the duration is Mint's. Under reduced motion the shadow or glow changes at once and nothing moves.
+  `overlayMotion` restyles `.mantine-Modal-content`, `.mantine-Drawer-content` and the Popover, Menu and
+  Combobox dropdowns. Mantine's `Transition` writes its state inline (every Mantine transition has
+  `opacity: 0` while closed or about to open) with an inline `transition`. 'pop' and 'slideUp' switch that
+  transition off (`!important`) only while the element is not `[style*="opacity: 0;"]` and run a keyframes
+  animation from mount (animations outrank inline styles while they run; a running transition would outrank
+  the animation, hence switching it off). On close the inline state goes back to `opacity: 0`, the rule stops
+  matching, and Mantine's own exit transition plays at Mantine's speed. 'none' and `reduceMotion` set
+  `transition: none !important` on them and the modal and drawer backdrops (`reduceMotion` tooltips too), so
+  they open and close at once; Mantine still unmounts a closed one after its duration, invisible meanwhile.
+  'default' adds nothing. The editor's 'Default' tile plays `nebula-overlay-fade-down`, a copy of Mantine's
+  modal entrance.
+  The editor's tiles for these options play the same keyframes three times slower at the draft's speed, under
+  `motion-safe`; the speed tiles play the chosen page transition (Fade up when none).
 - Server cards and table style. `serverCardStyle` is read by the servers grid itself (`ServerCard.tsx`,
   its `GRID_CLASS` sets the grid's columns per style), so it adds no CSS. `tableStyle: 'cards'` restyles
   core's `Table` (`elements/Table.tsx`: a div with an inline border and fill around Mantine's
@@ -483,7 +552,8 @@ checkout. Page level imports (`@/pages/server/console/...`) are why the floor is
 
 ## Verifying a change
 
-`normalizeTheme()` and `buildCss()` have tests in `tests/theme.test.ts`, the announcement button checks
+`normalizeTheme()` and `buildCss()` have tests in `tests/theme.test.ts` (the Animations section's fields in
+`tests/motion.test.ts`, the console page's in `tests/console.test.ts`), the announcement button checks
 in `tests/cta.test.ts`, presets, user choices and history in `tests/library.test.ts`, the editor search in
 `tests/editorSearch.test.ts`, the editor's draft checks in `tests/editorDraft.test.ts`, the local theme in
 `tests/localTheme.test.ts`, the side menu orders in `tests/navOrder.test.ts`, the servers list

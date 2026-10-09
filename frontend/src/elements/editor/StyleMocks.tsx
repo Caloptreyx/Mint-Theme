@@ -1,6 +1,7 @@
 import type { ClickEffect } from '../../lib/theme.ts';
 
-// Tiny previews for the Style section's ChoiceCards, drawn with the panel's live variables.
+// Tiny previews for the Style section's ChoiceCards (and the Animations section's click effect), drawn with the
+// panel's live variables.
 
 const TERMINAL_DOTS = ['bg-red-400', 'bg-yellow-400', 'bg-green-400'];
 

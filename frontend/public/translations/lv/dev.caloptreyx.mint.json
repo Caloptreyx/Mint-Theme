@@ -166,6 +166,10 @@
       "down": "Pārvietot kursoru uz leju",
       "type": "Ievadīt {key}"
     },
+    "console": {
+      "commands": "Ātrās komandas",
+      "connect": "Savienot"
+    },
     "editor": {
       "contrast": {
         "title": "Dažas krāsas ir grūti salasāmas",
@@ -220,6 +224,13 @@
       "previewPage": "Priekšskatījuma lapa",
       "previewDevice": "Priekšskatījuma platums",
       "previewScheme": "Priekšskatījuma krāsu shēma",
+      "status": {
+        "unsaved": "Nesaglabātas izmaiņas",
+        "saved": "Visas izmaiņas saglabātas"
+      },
+      "more": "Citas darbības",
+      "resizePanel": "Mainīt iestatījumu paneļa izmēru",
+      "sections": "Iestatījumu sadaļas",
       "search": {
         "placeholder": "Meklēt iestatījumos",
         "clear": "Notīrīt meklēšanu",
@@ -242,33 +253,41 @@
         "admin": "Administrēšana",
         "login": "Pieteikšanās lapa"
       },
+      "groups": {
+        "look": "Izskats",
+        "navigation": "Navigācija",
+        "pages": "Lapas",
+        "interface": "Saskarne"
+      },
       "section": {
         "presets": "Sagataves",
         "presetsDescription": "Sāciet ar gatavu izskatu, saglabājiet savus un izvēlieties, kurus lietotāji var izvēlēties.",
         "colours": "Krāsas",
         "coloursDescription": "Viss pārējais tiek jaukts no šīm piecām.",
         "style": "Tipogrāfija un forma",
-        "styleDescription": "Fonti, pogas, stūru noapaļojums, bloku necaurredzamība un apmales, kā arī klikšķa efekts.",
+        "styleDescription": "Fonti, pogas, stūru noapaļojums, bloku necaurredzamība un apmales.",
         "background": "Fons un zīmols",
         "backgroundDescription": "Attēls aiz visa paneļa, aptumšots ar lapas krāsu, un pārlūka cilnes ikona.",
-        "home": "Servera sākums",
-        "homeDescription": "Kartītes servera sākumlapā, tā baneri un spēļu attēli, kā arī darba sākšanas saites.",
-        "login": "Pieteikšanās lapa",
-        "loginDescription": "Izkārtojums, fons, logotips un atbalsta saites pieteikšanās, reģistrācijas un paroles lapām.",
-        "interface": "Uzvedība",
-        "interfaceDescription": "Paziņojumi, lapu pārejas, lapu virsraksti un failu redaktors tālrunī.",
-        "components": "Komponenti",
-        "componentsDescription": "Bloki, statistikas kartītes un tabulas visā panelī.",
-        "console": "Konsole",
-        "consoleDescription": "Ko konsoles lapa rāda ap termināli un kur.",
         "sidebar": "Sānjosla un doks",
         "sidebarDescription": "Kur izvēlne atrodas datorā, kur novietots tās logo un meklēšana un kā navigēt tālruņos.",
         "menu": "Izvēlnes stils un meklēšana",
         "menuDescription": "Kā izvēlnes saites izskatās, uzvirzot kursoru un atvērtas, un kādu meklēšanu izvēlne rāda.",
         "menuOrder": "Izvēlnes secība",
         "menuOrderDescription": "Sakļaujamas izvēlnes sadaļas, administratora izvēlnes secība un kuras izvēlnes lietotāji var kārtot.",
+        "home": "Servera sākums",
+        "homeDescription": "Kartītes servera sākumlapā, tā baneri un spēļu attēli, kā arī darba sākšanas saites.",
+        "console": "Konsole",
+        "consoleDescription": "Konsoles lapa: sagatave vai jūsu paša izkārtojums ap termināli, pats terminālis, reklāmkarogs, diagrammas un ātrās komandas.",
         "servers": "Serveru saraksts",
-        "serversDescription": "Kartītes serveru saraksta režģa skatā."
+        "serversDescription": "Kartītes serveru saraksta režģa skatā.",
+        "login": "Pieteikšanās lapa",
+        "loginDescription": "Izkārtojums, fons, logotips un atbalsta saites pieteikšanās, reģistrācijas un paroles lapām.",
+        "interface": "Uzvedība",
+        "interfaceDescription": "Paziņojumi, lapu virsraksti un failu redaktors tālrunī.",
+        "motion": "Animācijas",
+        "motionDescription": "Lapu pārejas, kartīšu parādīšanās, uzvirzīšanas un klikšķa efekti, kā atveras dialogi un izvēlnes, un tā visa ātrums.",
+        "components": "Komponenti",
+        "componentsDescription": "Bloki, statistikas kartītes un tabulas visā panelī."
       },
       "accent": "Akcents",
       "accentDescription": "Pogas, saites un aktīvais izvēlnes vienums",
@@ -364,6 +383,10 @@
       "backgroundImage": "Attēla URL",
       "backgroundImageDescription": "Atstājiet tukšu vienkāršam fonam.",
       "backgroundDim": "Aptumšojums",
+      "serverHome": "Servera sākumlapa",
+      "serverHomeDescription": "Sākumlapa servera saknē ar zemāk esošajām kartītēm, attēliem un saitēm; konsole iegūst savu lapu. Izslēgtā stāvoklī konsole ir servera pirmā lapa, kā bez Mint. Atvērtās servera lapas mainās nākamajā ielādē.",
+      "homeCards": "Kartītes",
+      "homeImages": "Attēli",
       "homeBanner": "Noklusējuma reklāmkaroga attēla URL",
       "homeBannerDescription": "Tiek izmantots olām bez sava reklāmkaroga. Atstājiet tukšu akcenta krāsu pārejai.",
       "articles": "Darba sākšanas saites",
@@ -453,12 +476,49 @@
           "none": "Nav",
           "fade": "Parādīšanās",
           "fadeUp": "Parādīšanās uz augšu",
-          "fadeScale": "Parādīšanās ar mērogošanu"
+          "fadeScale": "Parādīšanās ar mērogošanu",
+          "slide": "Ieslīdēšana",
+          "slideDown": "Slīdēšana lejup",
+          "zoom": "Tālummaiņa",
+          "blur": "Izplūdusi parādīšanās"
         },
         "pageTitles": "Rādīt lapu virsrakstus",
         "pageTitlesDescription": "Virsraksts servera lapās, piemēram, Faili un Datubāzes. To meklēšana un pogas paliek.",
         "mobileEditor": "Tālrunim piemērots failu redaktors",
         "mobileEditorDescription": "Tālruņos koda redaktors aplauž rindas, paslēpj minikarti un uznirstošos logus, izmanto 16px fontu un virs tastatūras rāda taustiņu rindu: atsaukt, atkāpe, meklēt, simboli un bultiņas. Datoros viss paliek kā bijis."
+      },
+      "motion": {
+        "cardEntrance": "Kartīšu parādīšanās",
+        "cardEntranceDescription": "Kartītes un tabulas rindas parādās viena pēc otras, kad tiek atvērta lapa. Uzvirziet uz flīzes, lai to redzētu.",
+        "cardEntrances": {
+          "none": "Nav",
+          "fade": "Parādīšanās",
+          "rise": "Pacelšanās"
+        },
+        "hoverEffect": "Uzvirzīšanas efekts",
+        "hoverEffectDescription": "Noklikšķināmas kartītes, piemēram, serveru saraksts, un pogas zem peles rādītāja. Uzvirziet uz flīzes, lai to redzētu.",
+        "hovers": {
+          "none": "Nav",
+          "lift": "Pacelšana",
+          "glow": "Mirdzums"
+        },
+        "overlayMotion": "Dialogi un izvēlnes",
+        "overlayMotionDescription": "Kā atveras dialogi, atvilktnes, izvēlnes un nolaižamie saraksti. Aizveras tie kā vienmēr. Uzvirziet uz flīzes, lai to redzētu.",
+        "overlays": {
+          "default": "Noklusējums",
+          "pop": "Uzlēciens",
+          "slideUp": "Slīdēšana augšup",
+          "none": "Nav"
+        },
+        "animationSpeed": "Animāciju ātrums",
+        "animationSpeedDescription": "Paātrina vai palēnina visas iepriekš minētās animācijas. Stiklotā paziņojuma atpakaļskaitīšana saglabā reālo laiku.",
+        "speeds": {
+          "slow": "Lēns",
+          "normal": "Normāls",
+          "fast": "Ātrs"
+        },
+        "reduceMotion": "Samazināt kustību visiem",
+        "reduceMotionDescription": "Izslēdz lapu pārejas, kartīšu parādīšanos, uzvirzīšanas kustību, saraušanos pēc klikšķa, dialogu un izvēlņu animācijas un paziņojumu atpakaļskaitīšanu visiem lietotājiem neatkarīgi no iepriekš minētajām opcijām. Ierīces ar iestatītu kustības samazināšanu tās tāpat nekad nesaņem."
       },
       "boxes": {
         "title": "Bloki",
@@ -493,6 +553,14 @@
         "remove": "Noņemt {name}",
         "allPlaced": "Visi komponenti jau ir lapā.",
         "reset": "Atjaunot noklusējuma izkārtojumu",
+        "presets": "Izkārtojuma sagataves",
+        "presetsDescription": "Uzliek melnrakstam gatavu konsoles lapu; tālāk mainiet to zemāk esošajās vietās.",
+        "presetNames": {
+          "classic": "Klasisks",
+          "sidebar": "Sānjosla",
+          "focus": "Fokuss",
+          "dashboard": "Informācijas panelis"
+        },
         "slot": {
           "top": "Virs termināļa",
           "left": "Pa kreisi no termināļa",
@@ -506,7 +574,10 @@
           "cpuChart": "CPU diagramma",
           "memoryChart": "Atmiņas diagramma",
           "networkChart": "Tīkla diagramma",
-          "extensionCards": "Paplašinājumu kartītes"
+          "extensionCards": "Paplašinājumu kartītes",
+          "gauges": "Lietojuma apļi",
+          "commands": "Ātrās komandas",
+          "connect": "Savienot"
         },
         "widgetDescription": {
           "banner": "Servera nosaukums, adrese, tiešraides statistika un barošanas pogas.",
@@ -515,8 +586,71 @@
           "cpuChart": "Tiešraides CPU noslodzes grafiks.",
           "memoryChart": "Tiešraides atmiņas grafiks.",
           "networkChart": "Tiešraides ienākošās un izejošās datplūsmas grafiks.",
-          "extensionCards": "Statistikas kartītes, ko konsolei pievieno citi paplašinājumi."
+          "extensionCards": "Statistikas kartītes, ko konsolei pievieno citi paplašinājumi.",
+          "gauges": "Apļveida rādītāji CPU, atmiņai un diskam attiecībā pret servera ierobežojumiem.",
+          "commands": "Pogas, kas iestatītas zemāk sadaļā Ātro komandu pogas; tikai lietotājiem ar piekļuvi konsolei.",
+          "connect": "Adrese un SFTP dati ar kopēšanas pogām, kā arī SFTP saite."
         }
+      },
+      "console": {
+        "terminalTitle": "Terminālis",
+        "frame": "Termināļa rāmis",
+        "frameDescription": "Kartīte ap termināli, tās galvene un ievades lauks.",
+        "frames": {
+          "card": "Kartīte",
+          "flush": "Līdzens",
+          "glass": "Stikls"
+        },
+        "height": "Termināļa augstums",
+        "heightDescription": "Loga aizpildīšana izstiepj termināli līdz loga apakšai platos ekrānos; šauri ekrāni saglabā parasto augstumu.",
+        "heights": {
+          "auto": "Normāls",
+          "fill": "Aizpildīt logu",
+          "tall": "Augsts"
+        },
+        "cursor": "Kursors",
+        "cursorDescription": "Panelis paslēpj termināļa kursoru; izvēlieties formu, lai to parādītu.",
+        "cursors": {
+          "none": "Paslēpts",
+          "block": "Bloks",
+          "bar": "Svītra",
+          "underline": "Pasvītrojums"
+        },
+        "cursorBlink": "Mirgojošs kursors",
+        "cursorBlinkDescription": "Mirgo, kamēr terminālis ir fokusā, nekad ar samazinātu kustību. Nepieciešams redzams kursors.",
+        "lineHeight": "Rindas augstums",
+        "bannerTitle": "Reklāmkarogs",
+        "banner": "Reklāmkaroga stils",
+        "bannerDescription": "Reklāmkaroga komponents: sākumlapas reklāmkarogs ar tiešraides statistiku, viena rinda vai šaura statusa josla.",
+        "banners": {
+          "full": "Pilns",
+          "compact": "Kompakts",
+          "minimal": "Minimāls"
+        },
+        "chartsTitle": "Diagrammas",
+        "chartStyle": "Diagrammu stils",
+        "chartStyles": {
+          "area": "Laukums",
+          "line": "Līnija"
+        },
+        "chartHeight": "Diagrammu augstums",
+        "chartHeights": {
+          "small": "Mazs",
+          "medium": "Vidējs",
+          "large": "Liels"
+        },
+        "chartArrangement": "Diagrammu izkārtojums",
+        "chartArrangementDescription": "Blakus novietotas diagrammas dala vienu rindu, vai arī katra aizņem visu platumu.",
+        "chartArrangements": {
+          "row": "Blakus",
+          "stacked": "Viena zem otras"
+        },
+        "commandsTitle": "Ātro komandu pogas",
+        "commandsDescription": "Līdz {max} pogām komponentam Ātrās komandas; katra nosūta savu komandu uz servera konsoli. Lietotāji bez piekļuves konsolei tās neredz.",
+        "commandLabel": "Nosaukums",
+        "command": "Komanda",
+        "addCommand": "Pievienot komandu",
+        "removeCommand": "Noņemt komandu"
       },
       "navStyle": {
         "hover": "Kursora efekts",
@@ -602,24 +736,7 @@
         "description": "Administrācijas izvēlne visiem: velc saites un veselas kategorijas, kā arī saites to kategorijā. Lietotāji joprojām var sakārtot savas izvēlnes virs tās. Servera un paneļa izvēlnes seko maršrutu secībām egg konfigurācijās un lietotāju iestatījumos.",
         "empty": "Administrācijas izvēlne vēl nav ielādēta.",
         "reset": "Atpakaļ uz paneļa secību"
-      },
-      "groups": {
-        "look": "Izskats",
-        "navigation": "Navigācija",
-        "pages": "Lapas",
-        "interface": "Saskarne"
-      },
-      "serverHome": "Servera sākumlapa",
-      "serverHomeDescription": "Sākumlapa servera saknē ar zemāk esošajām kartītēm, attēliem un saitēm; konsole iegūst savu lapu. Izslēgtā stāvoklī konsole ir servera pirmā lapa, kā bez Mint. Atvērtās servera lapas mainās nākamajā ielādē.",
-      "homeCards": "Kartītes",
-      "homeImages": "Attēli",
-      "status": {
-        "unsaved": "Nesaglabātas izmaiņas",
-        "saved": "Visas izmaiņas saglabātas"
-      },
-      "more": "Citas darbības",
-      "resizePanel": "Mainīt iestatījumu paneļa izmēru",
-      "sections": "Iestatījumu sadaļas"
+      }
     },
     "library": {
       "saveAsPreset": "Saglabāt kā sagatavi",
