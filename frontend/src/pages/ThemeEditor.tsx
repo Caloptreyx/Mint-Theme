@@ -4,34 +4,24 @@ import {
   faArrowRotateLeft,
   faArrowRotateRight,
   faArrowUpRightFromSquare,
-  faBars,
-  faBookOpen,
   faClockRotateLeft,
-  faCubes,
   faDisplay,
   faDownload,
-  faDroplet,
-  faFont,
-  faHouse,
-  faImage,
-  faRightToBracket,
+  faEllipsisVertical,
   faRotateRight,
-  faSwatchbook,
-  faTableColumns,
-  faTerminal,
   faTrashArrowUp,
   faUpload,
-  faWandMagicSparkles,
-  faXmark,
   type IconDefinition,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Loader, ActionIcon as MantineActionIcon, useComputedColorScheme } from '@mantine/core';
+import { Loader, useComputedColorScheme } from '@mantine/core';
 import { isAxiosError } from 'axios';
 import { useEffect, useMemo, useReducer, useRef, useState } from 'react';
 import { useBeforeUnload, useNavigate } from 'react-router';
 import updateTheme from '../api/updateTheme.ts';
 import { LOGIN_PREVIEW_PATH } from '../elements/auth/AuthScope.tsx';
+import EditorNav, { SECTION_ICONS } from '../elements/editor/EditorNav.tsx';
+import PanelResizer, { storedPanelWidth } from '../elements/editor/PanelResizer.tsx';
 import Sections, { type Section } from '../elements/editor/Sections.tsx';
 import {
   revealLabel,
@@ -61,6 +51,7 @@ import {
   Group,
   getServers,
   httpErrorToHuman,
+  Menu,
   Modal,
   ModalFooter,
   SegmentedControl,
@@ -80,22 +71,6 @@ import { DEFAULT_THEME, type NebulaTheme, normalizeTheme } from '../lib/theme.ts
 import { useExtTranslations } from '../translations.ts';
 
 const SUPPORT_URL = 'https://discord.gg/4qjMWU7S8x';
-
-const SECTIONS: { id: Section; icon: IconDefinition }[] = [
-  { id: 'presets', icon: faSwatchbook },
-  { id: 'colours', icon: faDroplet },
-  { id: 'style', icon: faFont },
-  { id: 'interface', icon: faWandMagicSparkles },
-  { id: 'navigation', icon: faBars },
-  { id: 'components', icon: faCubes },
-  { id: 'console', icon: faTerminal },
-  { id: 'background', icon: faImage },
-  { id: 'home', icon: faHouse },
-  { id: 'articles', icon: faBookOpen },
-  { id: 'layout', icon: faTableColumns },
-  { id: 'login', icon: faRightToBracket },
-];
-const SECTION_ICONS = Object.fromEntries(SECTIONS.map(({ id, icon }) => [id, icon])) as Record<Section, IconDefinition>;
 
 type Device = 'desktop' | 'tablet' | 'mobile';
 const DEVICE_WIDTH: Record<Device, number | null> = { desktop: null, tablet: 834, mobile: 390 };
@@ -179,6 +154,8 @@ export default function ThemeEditor() {
   const [serverId, setServerId] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const [historyOpen, setHistoryOpen] = useState(false);
+  const [panelWidth, setPanelWidth] = useState(storedPanelWidth);
+  const [resizing, setResizing] = useState(false);
   const [stage, setStage] = useState({ width: 0, height: 0 });
   // the draft can hold half-typed values; the preview, derived colours and contrast use the last valid one
   const [valid, setValid] = useState(draft);
@@ -329,6 +306,8 @@ export default function ThemeEditor() {
     setSection(id);
     // the real auth pages redirect signed in admins, so the login section jumps to its preview route
     if (id === 'login') setPage(LOGIN_PREVIEW_PATH);
+    if (id === 'servers') setPage('/');
+    if (id === 'home' && serverId) setPage(`/server/${serverId}`);
     if (id === 'console' && serverId) setPage(`/server/${serverId}/console`);
   };
 
@@ -394,226 +373,215 @@ export default function ThemeEditor() {
           : null;
 
   return (
-    <div className='fixed inset-0 z-[120] flex bg-(--mantine-color-body)'>
-      <nav className='flex flex-col items-center gap-1 w-14 shrink-0 py-3 bg-(--nebula-card) border-r border-(--mantine-color-default-border)'>
-        {SECTIONS.map(({ id, icon }) => (
-          <Tooltip key={id} label={t(`editor.section.${id}`, {})} position='right'>
-            <ActionIcon
-              size='lg'
-              variant={section === id ? 'light' : 'subtle'}
-              color={section === id ? 'blue' : 'gray'}
-              aria-label={t(`editor.section.${id}`, {})}
-              aria-current={section === id ? 'page' : undefined}
-              onClick={() => {
-                setQuery('');
-                openSection(id);
-              }}
-            >
-              <FontAwesomeIcon icon={icon} />
-            </ActionIcon>
-          </Tooltip>
-        ))}
-        <div className='flex-1' />
-        <Tooltip label={t('editor.support', {})} position='right'>
-          <MantineActionIcon
-            component='a'
-            href={SUPPORT_URL}
-            target='_blank'
-            rel='noopener noreferrer'
-            size='lg'
-            variant='subtle'
-            color='gray'
-            aria-label={t('editor.support', {})}
-          >
-            <FontAwesomeIcon icon={faDiscord} />
-          </MantineActionIcon>
-        </Tooltip>
-        <Tooltip label={t('editor.close', {})} position='right'>
-          <ActionIcon
-            size='lg'
-            variant='subtle'
-            color='gray'
-            aria-label={t('editor.close', {})}
-            onClick={() => navigate(closeTo)}
-          >
-            <FontAwesomeIcon icon={faArrowLeft} />
-          </ActionIcon>
-        </Tooltip>
-      </nav>
-
-      <aside className='flex flex-col w-88 shrink-0 bg-(--nebula-card) border-r border-(--mantine-color-default-border)'>
-        <div className='p-4 border-b border-(--mantine-color-default-border)'>
-          <Group justify='space-between' align='flex-start' wrap='nowrap'>
-            <div className='min-w-0'>
-              <Title order={4}>{t(`editor.section.${section}`, {})}</Title>
-              <Text size='xs' c='dimmed'>
-                {t(`editor.section.${section}Description`, {})}
-              </Text>
-            </div>
-            <Group gap={2} wrap='nowrap'>
-              {iconButton(t('editor.undo', {}), faArrowRotateLeft, history.undo, !history.canUndo)}
-              {iconButton(t('editor.redo', {}), faArrowRotateRight, history.redo, !history.canRedo)}
-              {iconButton(t('library.history', {}), faClockRotateLeft, () => setHistoryOpen(true))}
-            </Group>
-          </Group>
-          <SettingSearchInput query={query} onQuery={setQuery} onSubmit={() => hits[0] && pick(hits[0])} />
+    <div className='fixed inset-0 z-[120] flex flex-col bg-(--mantine-color-body)'>
+      <header className='flex h-14 shrink-0 items-center gap-2 px-3 bg-(--nebula-card) border-b border-(--mantine-color-default-border)'>
+        {iconButton(t('editor.close', {}), faArrowLeft, () => navigate(closeTo))}
+        <div className='min-w-0 mr-auto'>
+          <Text size='sm' fw={600} truncate>
+            {t('nav.editor', {})}
+          </Text>
+          <Text size='xs' c={dirty ? 'yellow' : 'dimmed'} role='status' truncate>
+            {load === 'pending'
+              ? t('editor.loading', {})
+              : dirty
+                ? t('editor.status.unsaved', {})
+                : t('editor.status.saved', {})}
+          </Text>
         </div>
-
-        {load === 'pending' && (
-          <Group gap='xs' className='px-4 pt-3' role='status'>
-            <Loader size='xs' />
-            <Text size='xs' c='dimmed'>
-              {t('editor.loading', {})}
-            </Text>
-          </Group>
+        <Group gap={2} wrap='nowrap'>
+          {iconButton(t('editor.undo', {}), faArrowRotateLeft, history.undo, !history.canUndo)}
+          {iconButton(t('editor.redo', {}), faArrowRotateRight, history.redo, !history.canRedo)}
+          {iconButton(t('library.history', {}), faClockRotateLeft, () => setHistoryOpen(true))}
+          <Menu position='bottom-end'>
+            <Menu.Target>
+              <ActionIcon variant='subtle' color='gray' size='lg' aria-label={t('editor.more', {})}>
+                <FontAwesomeIcon icon={faEllipsisVertical} />
+              </ActionIcon>
+            </Menu.Target>
+            <Menu.Dropdown>
+              <Menu.Item leftSection={<FontAwesomeIcon icon={faUpload} />} onClick={() => importRef.current?.click()}>
+                {t('editor.import', {})}
+              </Menu.Item>
+              <Menu.Item leftSection={<FontAwesomeIcon icon={faDownload} />} onClick={doExport}>
+                {t('editor.export', {})}
+              </Menu.Item>
+              <Menu.Item
+                leftSection={<FontAwesomeIcon icon={faDiscord} />}
+                onClick={() => window.open(SUPPORT_URL, '_blank', 'noopener,noreferrer')}
+              >
+                {t('editor.support', {})}
+              </Menu.Item>
+              <Menu.Divider />
+              <Menu.Item
+                color='red'
+                leftSection={<FontAwesomeIcon icon={faTrashArrowUp} />}
+                onClick={() => setConfirmReset(true)}
+              >
+                {t('editor.reset', {})}
+              </Menu.Item>
+            </Menu.Dropdown>
+          </Menu>
+        </Group>
+        <input
+          ref={importRef}
+          type='file'
+          accept='.json,application/json'
+          className='hidden'
+          onChange={(e) => {
+            const file = e.target.files?.[0];
+            e.target.value = '';
+            if (file) doImport(file);
+          }}
+        />
+        <div className='mx-1 h-6 w-px bg-(--mantine-color-default-border)' />
+        {local && (
+          <Tooltip label={t('localTheme.editorActive', {})} multiline w={280}>
+            <Button
+              variant='light'
+              color='yellow'
+              leftSection={<FontAwesomeIcon icon={faDisplay} />}
+              onClick={doStopLocal}
+            >
+              {t('localTheme.stop', {})}
+            </Button>
+          </Tooltip>
         )}
-        {load === 'failed' && (
-          <div className='px-4 pt-3'>
-            <Alert color='red' title={t('editor.loadFailed', {})}>
-              <Stack gap='xs' align='flex-start'>
-                <Text size='xs'>{t('editor.loadFailedDescription', {})}</Text>
-                <Button size='xs' variant='light' color='red' onClick={() => fetchTheme(false)}>
-                  {t('editor.retry', {})}
-                </Button>
-              </Stack>
-            </Alert>
+        <Tooltip label={badUrls ? t('editor.fixUrls', {}) : t('localTheme.applyDescription', {})} multiline w={280}>
+          <Button
+            variant={canSaveTheme ? 'default' : 'filled'}
+            leftSection={local ? undefined : <FontAwesomeIcon icon={faDisplay} />}
+            disabled={badUrls}
+            onClick={doApplyLocal}
+          >
+            {t('localTheme.apply', {})}
+          </Button>
+        </Tooltip>
+        {dirty && (
+          <Button variant='subtle' color='gray' onClick={() => setDraft(saved)}>
+            {t('editor.discard', {})}
+          </Button>
+        )}
+        <Tooltip label={saveBlocked} disabled={!saveBlocked || (canSaveTheme && !dirty)} multiline w={280}>
+          <div>
+            <Button disabled={!canSave} loading={saving} onClick={doSave}>
+              {t('editor.save', {})}
+            </Button>
           </div>
-        )}
+        </Tooltip>
+      </header>
 
-        <div ref={contentRef} className='flex-1 min-h-0 overflow-y-auto p-4'>
-          <Stack>
+      <div className='flex flex-1 min-h-0'>
+        <EditorNav
+          section={section}
+          onSection={(id) => {
+            setQuery('');
+            openSection(id);
+          }}
+          search={<SettingSearchInput query={query} onQuery={setQuery} onSubmit={() => hits[0] && pick(hits[0])} />}
+        />
+
+        <aside
+          className='flex flex-col shrink-0 min-w-80 max-w-[calc(100vw-36rem)] bg-(--nebula-card) border-r border-(--mantine-color-default-border)'
+          style={{ width: panelWidth }}
+        >
+          <div className='px-5 pt-4 pb-3 border-b border-(--mantine-color-default-border)'>
+            <Title order={4}>{t(`editor.section.${section}`, {})}</Title>
+            <Text size='xs' c='dimmed'>
+              {t(`editor.section.${section}Description`, {})}
+            </Text>
+          </div>
+
+          {load === 'pending' && (
+            <Group gap='xs' className='px-5 pt-3' role='status'>
+              <Loader size='xs' />
+              <Text size='xs' c='dimmed'>
+                {t('editor.loading', {})}
+              </Text>
+            </Group>
+          )}
+          {load === 'failed' && (
+            <div className='px-5 pt-3'>
+              <Alert color='red' title={t('editor.loadFailed', {})}>
+                <Stack gap='xs' align='flex-start'>
+                  <Text size='xs'>{t('editor.loadFailedDescription', {})}</Text>
+                  <Button size='xs' variant='light' color='red' onClick={() => fetchTheme(false)}>
+                    {t('editor.retry', {})}
+                  </Button>
+                </Stack>
+              </Alert>
+            </div>
+          )}
+          {!canSaveTheme && (
+            <Text size='xs' c='dimmed' className='px-5 pt-3'>
+              {t('editor.noPermission', {})}
+            </Text>
+          )}
+
+          <div ref={contentRef} className='flex-1 min-h-0 overflow-y-auto px-5 py-4'>
             {query.trim() ? (
               <SettingResults query={query} hits={hits} icons={SECTION_ICONS} onPick={pick} />
             ) : (
               <Sections section={section} theme={draft} valid={valid} set={set} />
             )}
-          </Stack>
-        </div>
-
-        <div className='px-3 pt-3 border-t border-(--mantine-color-default-border)'>
-          <Stack gap='xs'>
-            {!canSaveTheme && (
-              <Text size='xs' c='dimmed'>
-                {t('editor.noPermission', {})}
-              </Text>
-            )}
-            {local && (
-              <Group gap='xs' wrap='nowrap' role='status'>
-                <Text size='xs' className='flex-1'>
-                  {t('localTheme.editorActive', {})}
-                </Text>
-                <Button size='xs' variant='default' onClick={doStopLocal}>
-                  {t('localTheme.stop', {})}
-                </Button>
-              </Group>
-            )}
-            <Tooltip
-              label={badUrls ? t('editor.fixUrls', {}) : t('localTheme.applyDescription', {})}
-              multiline
-              w={280}
-              innerClassName='w-full'
-            >
-              <Button
-                fullWidth
-                variant={canSaveTheme ? 'default' : 'filled'}
-                leftSection={<FontAwesomeIcon icon={faDisplay} />}
-                disabled={badUrls}
-                onClick={doApplyLocal}
-              >
-                {t('localTheme.apply', {})}
-              </Button>
-            </Tooltip>
-          </Stack>
-        </div>
-        <Group gap={4} wrap='nowrap' className='p-3'>
-          <Tooltip label={t('editor.reset', {})}>
-            <ActionIcon
-              variant='subtle'
-              color='red'
-              size='lg'
-              aria-label={t('editor.reset', {})}
-              onClick={() => setConfirmReset(true)}
-            >
-              <FontAwesomeIcon icon={faTrashArrowUp} />
-            </ActionIcon>
-          </Tooltip>
-          {iconButton(t('editor.discard', {}), faXmark, () => setDraft(saved), !dirty)}
-          {iconButton(t('editor.import', {}), faUpload, () => importRef.current?.click())}
-          {iconButton(t('editor.export', {}), faDownload, doExport)}
-          <input
-            ref={importRef}
-            type='file'
-            accept='.json,application/json'
-            className='hidden'
-            onChange={(e) => {
-              const file = e.target.files?.[0];
-              e.target.value = '';
-              if (file) doImport(file);
-            }}
-          />
-          <Tooltip label={saveBlocked} disabled={!saveBlocked || (canSaveTheme && !dirty)}>
-            <div className='ml-auto'>
-              <Button disabled={!canSave} loading={saving} onClick={doSave}>
-                {t('editor.save', {})}
-              </Button>
-            </div>
-          </Tooltip>
-        </Group>
-        <HistoryModal opened={historyOpen} onClose={() => setHistoryOpen(false)} onLoad={setDraft} />
-      </aside>
-
-      <main className='flex flex-col flex-1 min-w-0'>
-        <Group gap='xs' className='p-3 border-b border-(--mantine-color-default-border)'>
-          <SegmentedControl
-            aria-label={t('editor.previewDevice', {})}
-            data={(['desktop', 'tablet', 'mobile'] as Device[]).map((d) => ({
-              value: d,
-              label: t(`editor.device.${d}`, {}),
-            }))}
-            value={device}
-            onChange={(value) => setDevice(value as Device)}
-          />
-          <SegmentedControl
-            aria-label={t('editor.previewScheme', {})}
-            data={(['dark', 'light'] as PreviewScheme[]).map((s) => ({
-              value: s,
-              label: t(`editor.scheme.${s}`, {}),
-            }))}
-            value={scheme}
-            onChange={(value) => setScheme(value as PreviewScheme)}
-          />
-          <Select
-            aria-label={t('editor.previewPage', {})}
-            data={pages}
-            value={page}
-            onChange={(value) => value && setPage(value)}
-            w={200}
-          />
-          {iconButton(t('editor.refresh', {}), faRotateRight, () => frame.current?.contentWindow?.location.reload())}
-          {iconButton(t('editor.openTab', {}), faArrowUpRightFromSquare, () =>
-            window.open(page, '_blank', 'noopener,noreferrer'),
-          )}
-        </Group>
-
-        <div
-          ref={stageRef}
-          className='flex-1 min-h-0 flex justify-center overflow-hidden'
-          style={{ padding: STAGE_PADDING }}
-        >
-          <div
-            className='shrink-0 overflow-hidden rounded-lg border border-(--mantine-color-default-border) shadow-xl'
-            style={{ width: logicalWidth * scale, height: logicalHeight * scale }}
-          >
-            <iframe
-              ref={frame}
-              title={t('editor.previewFrame', {})}
-              src={page}
-              className='border-0 origin-top-left'
-              style={{ width: logicalWidth, height: logicalHeight, transform: `scale(${scale})` }}
-            />
           </div>
-        </div>
-      </main>
+          <HistoryModal opened={historyOpen} onClose={() => setHistoryOpen(false)} onLoad={setDraft} />
+        </aside>
+
+        <PanelResizer width={panelWidth} onWidth={setPanelWidth} onDragging={setResizing} />
+
+        <main className='flex flex-col flex-1 min-w-0'>
+          <Group gap='xs' className='p-3 border-b border-(--mantine-color-default-border)'>
+            <SegmentedControl
+              aria-label={t('editor.previewDevice', {})}
+              data={(['desktop', 'tablet', 'mobile'] as Device[]).map((d) => ({
+                value: d,
+                label: t(`editor.device.${d}`, {}),
+              }))}
+              value={device}
+              onChange={(value) => setDevice(value as Device)}
+            />
+            <SegmentedControl
+              aria-label={t('editor.previewScheme', {})}
+              data={(['dark', 'light'] as PreviewScheme[]).map((s) => ({
+                value: s,
+                label: t(`editor.scheme.${s}`, {}),
+              }))}
+              value={scheme}
+              onChange={(value) => setScheme(value as PreviewScheme)}
+            />
+            <Select
+              aria-label={t('editor.previewPage', {})}
+              data={pages}
+              value={page}
+              onChange={(value) => value && setPage(value)}
+              w={200}
+            />
+            {iconButton(t('editor.refresh', {}), faRotateRight, () => frame.current?.contentWindow?.location.reload())}
+            {iconButton(t('editor.openTab', {}), faArrowUpRightFromSquare, () =>
+              window.open(page, '_blank', 'noopener,noreferrer'),
+            )}
+          </Group>
+
+          <div
+            ref={stageRef}
+            className='flex-1 min-h-0 flex justify-center overflow-hidden'
+            style={{ padding: STAGE_PADDING }}
+          >
+            <div
+              className='shrink-0 overflow-hidden rounded-lg border border-(--mantine-color-default-border) shadow-xl'
+              style={{ width: logicalWidth * scale, height: logicalHeight * scale }}
+            >
+              <iframe
+                ref={frame}
+                title={t('editor.previewFrame', {})}
+                src={page}
+                className={`border-0 origin-top-left ${resizing ? 'pointer-events-none' : ''}`}
+                style={{ width: logicalWidth, height: logicalHeight, transform: `scale(${scale})` }}
+              />
+            </div>
+          </div>
+        </main>
+      </div>
 
       <ConfirmationModal
         opened={blocker.state === 'blocked'}

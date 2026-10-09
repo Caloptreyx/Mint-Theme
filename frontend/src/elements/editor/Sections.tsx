@@ -29,7 +29,7 @@ import InterfaceField from './InterfaceField.tsx';
 import LayoutField from './LayoutField.tsx';
 import NavOrderField from './NavOrderField.tsx';
 import NavStyleFields from './NavStyleFields.tsx';
-import ServerCardFields from './ServerCardFields.tsx';
+import ServerCardFields, { TableStyleField } from './ServerCardFields.tsx';
 import SidebarLayoutFields from './SidebarLayoutFields.tsx';
 import { BlockMock, ClickMock, GlassMock, InputMock } from './StyleMocks.tsx';
 import UrlInput from './UrlInput.tsx';
@@ -40,15 +40,16 @@ export type Section =
   | 'presets'
   | 'colours'
   | 'style'
-  | 'interface'
-  | 'navigation'
-  | 'components'
-  | 'console'
   | 'background'
+  | 'sidebar'
+  | 'menu'
+  | 'menuOrder'
   | 'home'
-  | 'articles'
-  | 'layout'
-  | 'login';
+  | 'console'
+  | 'servers'
+  | 'login'
+  | 'interface'
+  | 'components';
 
 interface Props {
   section: Section;
@@ -76,6 +77,14 @@ function Labelled({ label, value, children }: { label: string; value?: string; c
   );
 }
 
+function Heading({ children }: { children: React.ReactNode }) {
+  return (
+    <Text size='xs' fw={600} tt='uppercase' c='dimmed' className='tracking-wider'>
+      {children}
+    </Text>
+  );
+}
+
 export default function Sections({ section, theme, valid, set }: Props) {
   const { t } = useExtTranslations();
   const derived = derivedColors(valid) as Record<string, string>;
@@ -93,9 +102,7 @@ export default function Sections({ section, theme, valid, set }: Props) {
           <ContrastSummary issues={issues} />
           {COLOR_GROUPS.map(({ group, keys, optional }) => (
             <Stack gap='xs' key={group}>
-              <Text size='xs' fw={600} tt='uppercase' c='dimmed' className='tracking-wider'>
-                {t(`editor.group.${group}`, {})}
-              </Text>
+              <Heading>{t(`editor.group.${group}`, {})}</Heading>
               {keys.map((key) => (
                 <div key={key}>
                   <ColorInput
@@ -173,9 +180,7 @@ export default function Sections({ section, theme, valid, set }: Props) {
             onChange={(value) => value && set({ buttonStyle: value as ButtonStyle })}
           />
           <Stack gap='md'>
-            <Text size='xs' fw={600} tt='uppercase' c='dimmed' className='tracking-wider'>
-              {t('editor.blocks.title', {})}
-            </Text>
+            <Heading>{t('editor.blocks.title', {})}</Heading>
             <Labelled label={t('editor.radius', {})} value={`${theme.radius}px`}>
               <Slider
                 min={0}
@@ -220,9 +225,7 @@ export default function Sections({ section, theme, valid, set }: Props) {
             />
           </Stack>
           <Stack gap='md'>
-            <Text size='xs' fw={600} tt='uppercase' c='dimmed' className='tracking-wider'>
-              {t('editor.elements.title', {})}
-            </Text>
+            <Heading>{t('editor.elements.title', {})}</Heading>
             <Labelled label={t('editor.elementRadius', {})} value={`${theme.elementRadius}px`}>
               <Slider
                 min={0}
@@ -286,9 +289,7 @@ export default function Sections({ section, theme, valid, set }: Props) {
         <Stack gap='xl'>
           <AuthLayoutFields theme={theme} set={set} />
           <Stack gap='md'>
-            <Text size='xs' fw={600} tt='uppercase' c='dimmed' className='tracking-wider'>
-              {t('editor.authLayout.appearanceTitle', {})}
-            </Text>
+            <Heading>{t('editor.authLayout.appearanceTitle', {})}</Heading>
             <UrlInput
               label={t('editor.login.background', {})}
               description={t('editor.login.backgroundDescription', {})}
@@ -318,15 +319,27 @@ export default function Sections({ section, theme, valid, set }: Props) {
           </Text>
         </Stack>
       );
-    case 'articles':
+    case 'home':
       return (
-        <Stack gap='lg'>
+        <Stack gap='xl'>
+          <Stack gap='md'>
+            <Heading>{t('editor.homeCards', {})}</Heading>
+            <LayoutField theme={theme} set={set} />
+          </Stack>
+          <Stack gap='md'>
+            <Heading>{t('editor.homeImages', {})}</Heading>
+            <UrlInput
+              label={t('editor.homeBanner', {})}
+              description={t('editor.homeBannerDescription', {})}
+              value={theme.homeBanner}
+              onChange={(homeBanner) => set({ homeBanner })}
+            />
+            <EggImagesField theme={theme} set={set} />
+          </Stack>
           <Stack gap='xs'>
             <div>
-              <Text size='sm' fw={600}>
-                {t('editor.articles', {})}
-              </Text>
-              <Text size='xs' c='dimmed'>
+              <Heading>{t('editor.articles', {})}</Heading>
+              <Text size='xs' c='dimmed' mt={4}>
                 {t('editor.articlesDescription', { max: MAX_ARTICLES })}
               </Text>
             </div>
@@ -375,39 +388,24 @@ export default function Sections({ section, theme, valid, set }: Props) {
           </Stack>
         </Stack>
       );
-    case 'layout':
-      return <LayoutField theme={theme} set={set} />;
+    case 'sidebar':
+      return <SidebarLayoutFields theme={theme} set={set} />;
+    case 'menu':
+      return <NavStyleFields theme={theme} set={set} />;
+    case 'menuOrder':
+      return <NavOrderField theme={theme} set={set} />;
+    case 'servers':
+      return <ServerCardFields theme={theme} set={set} />;
     case 'interface':
       return <InterfaceField theme={theme} set={set} />;
-    case 'navigation':
-      return (
-        <Stack gap='xl'>
-          <SidebarLayoutFields theme={theme} set={set} />
-          <NavStyleFields theme={theme} set={set} />
-          <NavOrderField theme={theme} set={set} />
-        </Stack>
-      );
     case 'components':
       return (
         <Stack gap='xl'>
-          <ServerCardFields theme={theme} set={set} />
           <BoxFields theme={theme} set={set} />
+          <TableStyleField theme={theme} set={set} />
         </Stack>
       );
     case 'console':
       return <ConsoleLayoutField theme={theme} set={set} />;
-    case 'home':
-      return (
-        <Stack gap='lg'>
-          <UrlInput
-            label={t('editor.homeBanner', {})}
-            description={t('editor.homeBannerDescription', {})}
-            value={theme.homeBanner}
-            onChange={(homeBanner) => set({ homeBanner })}
-          />
-
-          <EggImagesField theme={theme} set={set} />
-        </Stack>
-      );
   }
 }

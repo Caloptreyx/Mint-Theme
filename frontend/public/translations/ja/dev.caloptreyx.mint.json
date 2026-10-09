@@ -247,26 +247,28 @@
         "presetsDescription": "既成のデザインから始めたり、独自のものを保存したり、ユーザーが選べるプリセットを決めたりできます。",
         "colours": "カラー",
         "coloursDescription": "その他の色はすべて、この 5 色から作られます。",
-        "style": "スタイル",
-        "styleDescription": "フォントと角の丸み。",
-        "background": "背景",
+        "style": "タイポグラフィと形状",
+        "styleDescription": "フォント、ボタン、角の丸み、ブロックの不透明度と枠線、クリックエフェクト。",
+        "background": "背景とブランディング",
         "backgroundDescription": "パネル全体の背後に表示する画像（ページの色で暗くなります）と、ブラウザタブのアイコン。",
-        "home": "ホームページ",
-        "homeDescription": "ランディングページのバナーとゲーム画像。",
-        "articles": "はじめに",
-        "articlesDescription": "すべてのサーバーホームページに表示されるリンク。",
-        "layout": "レイアウト",
-        "layoutDescription": "ホームページに表示するカードとその配置。",
+        "home": "サーバーホーム",
+        "homeDescription": "サーバーのホームページのカード、バナーとゲーム画像、はじめにのリンク。",
         "login": "ログインページ",
         "loginDescription": "ログイン、登録、パスワードページのレイアウト、背景、ロゴ、サポートリンク。",
-        "interface": "インターフェース",
-        "interfaceDescription": "トースト、ページ遷移、ページタイトル。",
-        "navigation": "ナビゲーション",
-        "navigationDescription": "サイドバーのレイアウト、メニューのホバー効果、検索。",
+        "interface": "動作",
+        "interfaceDescription": "トースト、ページ遷移、ページタイトル、スマートフォンのファイルエディター。",
         "components": "コンポーネント",
-        "componentsDescription": "サーバーカード、テーブル、ボックス、統計カード。",
+        "componentsDescription": "パネル全体のボックス、統計カード、テーブル。",
         "console": "コンソール",
-        "consoleDescription": "コンソールページでターミナルの周りに表示するものとその配置。"
+        "consoleDescription": "コンソールページでターミナルの周りに表示するものとその配置。",
+        "sidebar": "サイドバーとドック",
+        "sidebarDescription": "デスクトップでのメニューの位置、ロゴと検索の配置、スマートフォンでのナビゲーション方法。",
+        "menu": "メニュースタイルと検索",
+        "menuDescription": "ホバー時と展開時のメニューリンクの見た目と、メニューに表示する検索。",
+        "menuOrder": "メニューの順序",
+        "menuOrderDescription": "折りたたみ可能なメニューセクション、管理メニューの順序、ユーザーが並べ替えられるメニュー。",
+        "servers": "サーバー一覧",
+        "serversDescription": "サーバー一覧のグリッド表示のカード。"
       },
       "accent": "アクセント",
       "accentDescription": "ボタン、リンク、選択中のメニュー項目",
@@ -517,7 +519,6 @@
         }
       },
       "navStyle": {
-        "title": "メニュー",
         "hover": "ホバー効果",
         "hoverDescription": "カーソルを合わせたときと、そのページを開いているときのメニューリンクの見た目。タイルにカーソルを合わせると両方を確認できます。",
         "hovers": {
@@ -543,7 +544,6 @@
         }
       },
       "serverCards": {
-        "title": "サーバー一覧",
         "cardStyle": "サーバーカードのスタイル",
         "cardStyleDescription": "サーバー一覧のグリッド表示でのカード。どのスタイルでもチェックボックス、ステータス、電源メニューは残ります。",
         "styles": {
@@ -563,7 +563,6 @@
         }
       },
       "navLayout": {
-        "title": "レイアウト",
         "layout": "ダッシュボードのレイアウト",
         "layoutDescription": "デスクトップでメニューをページの横にどう配置するか。「スリム」はホバーでリンク名を表示する固定のアイコンレールです。スマートフォンでは下のスマートフォン用ナビゲーションを使用します。",
         "layouts": {
@@ -592,7 +591,6 @@
         }
       },
       "navOrder": {
-        "title": "メニューの順序",
         "userArrange": "ユーザーによる並べ替え",
         "userArrangeDescription": "「メニューを並べ替え」を表示するメニュー（管理者も含む）。オフにすると全員にパネルの順序が表示され、ユーザーが保存した順序は無視されます。再びオンにすると元に戻ります。",
         "menus": {
@@ -604,7 +602,22 @@
         "description": "全員向けの管理エリアのメニュー：リンクやカテゴリ全体、カテゴリ内のリンクをドラッグします。ユーザーはその上で自分のメニューを並べ替えられます。サーバーとダッシュボードのメニューは、Egg 設定とユーザー設定のルート順に従います。",
         "empty": "管理メニューはまだ読み込まれていません。",
         "reset": "パネルの順序に戻す"
-      }
+      },
+      "groups": {
+        "look": "外観",
+        "navigation": "ナビゲーション",
+        "pages": "ページ",
+        "interface": "インターフェース"
+      },
+      "homeCards": "カード",
+      "homeImages": "画像",
+      "status": {
+        "unsaved": "未保存の変更",
+        "saved": "すべての変更を保存済み"
+      },
+      "more": "その他の操作",
+      "resizePanel": "設定パネルのサイズを変更",
+      "sections": "設定セクション"
     },
     "library": {
       "saveAsPreset": "プリセットとして保存",

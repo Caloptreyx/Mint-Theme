@@ -247,26 +247,28 @@
         "presetsDescription": "Začnite od hotového vzhľadu, uložte si vlastný a vyberte, z ktorých si môžu vyberať používatelia.",
         "colours": "Farby",
         "coloursDescription": "Všetko ostatné sa mieša z týchto piatich.",
-        "style": "Štýl",
-        "styleDescription": "Písmo a zaoblenie rohov.",
-        "background": "Pozadie",
+        "style": "Typografia a tvar",
+        "styleDescription": "Písma, tlačidlá, zaoblenie rohov, priehľadnosť a okraje blokov a efekt kliknutia.",
+        "background": "Pozadie a branding",
         "backgroundDescription": "Obrázok za celým panelom stmavený farbou stránky a ikona karty prehliadača.",
-        "home": "Domovská stránka",
-        "homeDescription": "Banner a obrázky hier pre úvodnú stránku.",
-        "articles": "Začíname",
-        "articlesDescription": "Odkazy zobrazené na domovskej stránke každého servera.",
-        "layout": "Rozloženie",
-        "layoutDescription": "Ktoré karty sa zobrazia na domovskej stránke a kde.",
+        "home": "Domov servera",
+        "homeDescription": "Karty na domovskej stránke servera, jeho bannery a obrázky hier a odkazy Začíname.",
         "login": "Prihlasovacia stránka",
         "loginDescription": "Rozloženie, pozadie, logo a odkazy na podporu pre stránky prihlásenia, registrácie a hesla.",
-        "interface": "Rozhranie",
-        "interfaceDescription": "Oznámenia, prechody stránok a nadpisy stránok.",
-        "navigation": "Navigácia",
-        "navigationDescription": "Rozloženie bočného panela, efekt pri prejdení myšou v ponuke a vyhľadávanie.",
+        "interface": "Správanie",
+        "interfaceDescription": "Upozornenia, prechody stránok, názvy stránok a editor súborov na telefóne.",
         "components": "Komponenty",
-        "componentsDescription": "Karty serverov, tabuľky, boxy a štatistické karty.",
+        "componentsDescription": "Boxy, štatistické karty a tabuľky v celom paneli.",
         "console": "Konzola",
-        "consoleDescription": "Čo sa na stránke konzoly zobrazuje okolo terminálu a kde."
+        "consoleDescription": "Čo sa na stránke konzoly zobrazuje okolo terminálu a kde.",
+        "sidebar": "Bočný panel a dok",
+        "sidebarDescription": "Kde je menu na počítači, kde sú jeho logo a vyhľadávanie a ako sa naviguje na telefónoch.",
+        "menu": "Štýl menu a vyhľadávanie",
+        "menuDescription": "Ako vyzerajú odkazy menu pri prejdení myšou a keď sú otvorené a aké vyhľadávanie menu zobrazuje.",
+        "menuOrder": "Poradie menu",
+        "menuOrderDescription": "Zbaliteľné sekcie menu, poradie administrátorského menu a ktoré menu môžu používatelia usporiadať.",
+        "servers": "Zoznam serverov",
+        "serversDescription": "Karty v mriežkovom zobrazení zoznamu serverov."
       },
       "accent": "Akcent",
       "accentDescription": "Tlačidlá, odkazy a aktívna položka ponuky",
@@ -517,7 +519,6 @@
         }
       },
       "navStyle": {
-        "title": "Ponuka",
         "hover": "Efekt pri prejdení myšou",
         "hoverDescription": "Ako vyzerajú odkazy ponuky pod kurzorom a keď je ich stránka otvorená. Obe podoby uvidíte po prejdení myšou nad dlaždicou.",
         "hovers": {
@@ -543,7 +544,6 @@
         }
       },
       "serverCards": {
-        "title": "Zoznam serverov",
         "cardStyle": "Štýl kariet serverov",
         "cardStyleDescription": "Karty v zobrazení mriežky zoznamu serverov. Každý štýl zachováva zaškrtávacie políčko, stav a ponuku napájania.",
         "styles": {
@@ -563,7 +563,6 @@
         }
       },
       "navLayout": {
-        "title": "Rozloženie",
         "layout": "Rozloženie ovládacieho panela",
         "layoutDescription": "Ako je ponuka umiestnená vedľa stránok na počítači. Úzke je pevný pás ikon, ktorý po prejdení myšou zobrazí názvy odkazov. Telefóny používajú navigáciu na telefóne nižšie.",
         "layouts": {
@@ -592,7 +591,6 @@
         }
       },
       "navOrder": {
-        "title": "Poradie menu",
         "userArrange": "Používatelia môžu usporiadať",
         "userArrangeDescription": "Ktoré menu majú „Usporiadať menu“, aj pre administrátorov. Po vypnutí menu ukazuje všetkým poradie panela a uložené poradia používateľov sa ignorujú; vrátia sa, keď ho znova zapnete.",
         "menus": {
@@ -604,7 +602,22 @@
         "description": "Menu administrácie pre všetkých: presúvajte odkazy a celé kategórie a odkazy v rámci ich kategórie. Používatelia si stále môžu nad ním usporiadať vlastné menu. Menu servera a nástenky sa riadia poradím trás v konfiguráciách eggov a v nastaveniach používateľov.",
         "empty": "Administrátorské menu sa ešte nenačítalo.",
         "reset": "Späť na poradie panela"
-      }
+      },
+      "groups": {
+        "look": "Vzhľad",
+        "navigation": "Navigácia",
+        "pages": "Stránky",
+        "interface": "Rozhranie"
+      },
+      "homeCards": "Karty",
+      "homeImages": "Obrázky",
+      "status": {
+        "unsaved": "Neuložené zmeny",
+        "saved": "Všetky zmeny uložené"
+      },
+      "more": "Ďalšie akcie",
+      "resizePanel": "Zmeniť veľkosť panela nastavení",
+      "sections": "Sekcie nastavení"
     },
     "library": {
       "saveAsPreset": "Uložiť ako predvoľbu",

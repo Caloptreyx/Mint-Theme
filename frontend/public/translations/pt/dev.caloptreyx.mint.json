@@ -247,26 +247,28 @@
         "presetsDescription": "Comece com um visual pronto, salve os seus e escolha quais os usuários podem selecionar.",
         "colours": "Cores",
         "coloursDescription": "Todo o resto é derivado destas cinco.",
-        "style": "Estilo",
-        "styleDescription": "Fonte e arredondamento dos cantos.",
-        "background": "Fundo",
+        "style": "Tipografia e forma",
+        "styleDescription": "Fontes, botões, arredondamento de cantos, opacidade e bordas dos blocos, e o efeito de clique.",
+        "background": "Fundo e marca",
         "backgroundDescription": "Uma imagem atrás de todo o painel, escurecida com a cor da página, e o ícone da aba do navegador.",
-        "home": "Página inicial",
-        "homeDescription": "Banner e imagens de jogos da página inicial.",
-        "articles": "Primeiros passos",
-        "articlesDescription": "Links exibidos na página inicial de cada servidor.",
-        "layout": "Layout",
-        "layoutDescription": "Quais cards a página inicial mostra e onde.",
+        "home": "Início do servidor",
+        "homeDescription": "Os cartões da página inicial de um servidor, os seus banners e imagens de jogo, e os links de primeiros passos.",
         "login": "Página de login",
         "loginDescription": "Layout, fundo, logo e links de suporte das páginas de login, cadastro e senha.",
-        "interface": "Interface",
-        "interfaceDescription": "Notificações, transições de página e títulos de página.",
-        "navigation": "Navegação",
-        "navigationDescription": "Layout da barra lateral, efeito ao passar o mouse no menu e pesquisa.",
+        "interface": "Comportamento",
+        "interfaceDescription": "Notificações, transições de página, títulos de página e o editor de ficheiros no telemóvel.",
         "components": "Componentes",
-        "componentsDescription": "Cards de servidor, tabelas, caixas e cards de estatísticas.",
+        "componentsDescription": "Caixas, cartões de estatísticas e tabelas em todo o painel.",
         "console": "Console",
-        "consoleDescription": "O que a página do console mostra ao redor do terminal, e onde."
+        "consoleDescription": "O que a página do console mostra ao redor do terminal, e onde.",
+        "sidebar": "Barra lateral e dock",
+        "sidebarDescription": "Onde o menu fica no computador, onde vão o logótipo e a pesquisa, e como se navega nos telemóveis.",
+        "menu": "Estilo do menu e pesquisa",
+        "menuDescription": "Como os links do menu aparecem ao passar o cursor e quando abertos, e que pesquisa o menu mostra.",
+        "menuOrder": "Ordem do menu",
+        "menuOrderDescription": "Secções de menu recolhíveis, a ordem do menu de administração e que menus os utilizadores podem organizar.",
+        "servers": "Lista de servidores",
+        "serversDescription": "Os cartões na vista em grelha da lista de servidores."
       },
       "accent": "Destaque",
       "accentDescription": "Botões, links e o item de menu ativo",
@@ -517,7 +519,6 @@
         }
       },
       "navStyle": {
-        "title": "Menu",
         "hover": "Efeito ao passar o mouse",
         "hoverDescription": "Como os links do menu ficam sob o cursor e enquanto a página deles está aberta. Passe o mouse sobre um bloco para ver os dois.",
         "hovers": {
@@ -543,7 +544,6 @@
         }
       },
       "serverCards": {
-        "title": "Lista de servidores",
         "cardStyle": "Estilo dos cards de servidor",
         "cardStyleDescription": "Os cards na visualização em grade da lista de servidores. Todos os estilos mantêm a caixa de seleção, o status e o menu de energia.",
         "styles": {
@@ -563,7 +563,6 @@
         }
       },
       "navLayout": {
-        "title": "Layout",
         "layout": "Layout do painel",
         "layoutDescription": "Como o menu fica ao lado das páginas no desktop. Compacto é uma barra fixa de ícones que mostra o nome dos links ao passar o mouse. Nos celulares, é usada a navegação no celular abaixo.",
         "layouts": {
@@ -592,7 +591,6 @@
         }
       },
       "navOrder": {
-        "title": "Ordem do menu",
         "userArrange": "Os usuários podem organizar",
         "userArrangeDescription": "Quais menus têm «Organizar menu», incluindo administradores. Desativado, o menu mostra a ordem do painel para todos e as ordens salvas pelos usuários são ignoradas; elas voltam se você ativar de novo.",
         "menus": {
@@ -604,7 +602,22 @@
         "description": "O menu da administração para todos: arraste links e categorias inteiras, e links dentro da sua categoria. Os usuários ainda podem organizar os próprios menus por cima. Os menus de servidor e do painel seguem a ordem de rotas das configurações de eggs e das configurações de usuário.",
         "empty": "O menu de administração ainda não carregou.",
         "reset": "Voltar à ordem do painel"
-      }
+      },
+      "groups": {
+        "look": "Aparência",
+        "navigation": "Navegação",
+        "pages": "Páginas",
+        "interface": "Interface"
+      },
+      "homeCards": "Cartões",
+      "homeImages": "Imagens",
+      "status": {
+        "unsaved": "Alterações não guardadas",
+        "saved": "Todas as alterações guardadas"
+      },
+      "more": "Mais ações",
+      "resizePanel": "Redimensionar o painel de definições",
+      "sections": "Secções de definições"
     },
     "library": {
       "saveAsPreset": "Salvar como predefinição",

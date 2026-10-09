@@ -1,4 +1,4 @@
-import { Stack, Text } from '../../lib/core.ts';
+import { Stack } from '../../lib/core.ts';
 import {
   DOCK_POSITIONS,
   type DockPosition,
@@ -167,17 +167,14 @@ function PhoneMock({ nav }: { nav: MobileNav }) {
   );
 }
 
-/** Navigation section: the dashboard layout, where the dock sits and the phone navigation. */
+/** Sidebar & dock section: the dashboard layout, where the dock sits and the phone navigation. */
 export default function SidebarLayoutFields({ theme, set }: Props) {
   const { t } = useExtTranslations();
   const label = t('editor.navLayout.mockConsole', {});
   const horizontal = theme.sidebarLayout === 'horizontal';
 
   return (
-    <Stack gap='md'>
-      <Text size='xs' fw={600} tt='uppercase' c='dimmed' className='tracking-wider'>
-        {t('editor.navLayout.title', {})}
-      </Text>
+    <Stack gap='lg'>
       <ChoiceCards
         label={t('editor.navLayout.layout', {})}
         description={t('editor.navLayout.layoutDescription', {})}

@@ -247,26 +247,28 @@
         "presetsDescription": "從現成的外觀開始、儲存你自己的外觀，並選擇使用者可以挑選哪些。",
         "colours": "顏色",
         "coloursDescription": "其他所有顏色都由這五種調配而成。",
-        "style": "樣式",
-        "styleDescription": "字型與圓角。",
-        "background": "背景",
+        "style": "字體與形狀",
+        "styleDescription": "字體、按鈕、圓角、區塊不透明度與邊框，以及點擊效果。",
+        "background": "背景與品牌",
         "backgroundDescription": "整個面板背後的圖片（以頁面顏色淡化），以及瀏覽器分頁圖示。",
-        "home": "首頁",
-        "homeDescription": "著陸頁的橫幅與遊戲圖片。",
-        "articles": "快速入門",
-        "articlesDescription": "顯示在每個伺服器首頁上的連結。",
-        "layout": "版面配置",
-        "layoutDescription": "首頁要顯示哪些卡片，以及放在哪裡。",
+        "home": "伺服器首頁",
+        "homeDescription": "伺服器首頁上的卡片、橫幅與遊戲圖片，以及入門連結。",
         "login": "登入頁面",
         "loginDescription": "登入、註冊與密碼頁面的版面配置、背景、標誌與支援連結。",
-        "interface": "介面",
-        "interfaceDescription": "通知、頁面轉場與頁面標題。",
-        "navigation": "導覽",
-        "navigationDescription": "側邊欄版面配置、選單懸停效果與搜尋。",
+        "interface": "行為",
+        "interfaceDescription": "通知、頁面轉場、頁面標題與手機檔案編輯器。",
         "components": "元件",
-        "componentsDescription": "伺服器卡片、表格、區塊與統計卡片。",
+        "componentsDescription": "整個面板中的方塊、統計卡片與表格。",
         "console": "主控台",
-        "consoleDescription": "主控台頁面在終端機周圍顯示哪些內容，以及放在哪裡。"
+        "consoleDescription": "主控台頁面在終端機周圍顯示哪些內容，以及放在哪裡。",
+        "sidebar": "側邊欄與 Dock",
+        "sidebarDescription": "選單在桌面上的位置、標誌與搜尋的位置，以及手機上的導覽方式。",
+        "menu": "選單樣式與搜尋",
+        "menuDescription": "選單連結在懸停與展開時的外觀，以及選單顯示的搜尋。",
+        "menuOrder": "選單順序",
+        "menuOrderDescription": "可摺疊的選單區段、管理選單的順序，以及使用者可排列的選單。",
+        "servers": "伺服器列表",
+        "serversDescription": "伺服器列表格狀檢視中的卡片。"
       },
       "accent": "強調色",
       "accentDescription": "按鈕、連結與目前選取的選單項目",
@@ -517,7 +519,6 @@
         }
       },
       "navStyle": {
-        "title": "選單",
         "hover": "懸停效果",
         "hoverDescription": "選單連結在滑鼠指標下以及其頁面開啟時的外觀。將滑鼠移到方塊上即可預覽兩者。",
         "hovers": {
@@ -543,7 +544,6 @@
         }
       },
       "serverCards": {
-        "title": "伺服器清單",
         "cardStyle": "伺服器卡片樣式",
         "cardStyleDescription": "伺服器清單格狀檢視中的卡片。所有樣式都保留核取方塊、狀態與電源選單。",
         "styles": {
@@ -563,7 +563,6 @@
         }
       },
       "navLayout": {
-        "title": "版面配置",
         "layout": "儀表板版面配置",
         "layoutDescription": "桌面版中選單如何位於頁面旁。「窄版」是固定的圖示欄，懸停時會顯示連結名稱。手機使用下方的手機導覽。",
         "layouts": {
@@ -592,7 +591,6 @@
         }
       },
       "navOrder": {
-        "title": "菜单顺序",
         "userArrange": "用户可排列",
         "userArrangeDescription": "哪些菜单提供“排列菜单”，包括管理员。关闭后，所有人看到面板的默认顺序，用户保存的顺序将被忽略；重新开启后会恢复。",
         "menus": {
@@ -604,7 +602,22 @@
         "description": "面向所有人的管理区域菜单：拖动链接和整个类别，以及类别内的链接。用户仍可在其上排列自己的菜单。服务器和仪表盘菜单遵循 Egg 配置和用户设置中的路由顺序。",
         "empty": "管理菜单尚未加载。",
         "reset": "恢复面板的顺序"
-      }
+      },
+      "groups": {
+        "look": "外觀",
+        "navigation": "導覽",
+        "pages": "頁面",
+        "interface": "介面"
+      },
+      "homeCards": "卡片",
+      "homeImages": "圖片",
+      "status": {
+        "unsaved": "未儲存的變更",
+        "saved": "所有變更已儲存"
+      },
+      "more": "更多動作",
+      "resizePanel": "調整設定面板大小",
+      "sections": "設定區段"
     },
     "library": {
       "saveAsPreset": "儲存為預設集",

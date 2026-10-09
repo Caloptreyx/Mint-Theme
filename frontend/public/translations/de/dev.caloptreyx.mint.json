@@ -247,26 +247,28 @@
         "presetsDescription": "Starte mit einem fertigen Look, speichere eigene Vorlagen und lege fest, welche Benutzer auswählen können.",
         "colours": "Farben",
         "coloursDescription": "Alles andere wird aus diesen fünf gemischt.",
-        "style": "Stil",
-        "styleDescription": "Schriftart und Eckenrundung.",
-        "background": "Hintergrund",
+        "style": "Schrift & Form",
+        "styleDescription": "Schriftarten, Buttons, Eckenrundung, Block-Deckkraft und Rahmen sowie der Klickeffekt.",
+        "background": "Hintergrund & Branding",
         "backgroundDescription": "Ein Bild hinter dem gesamten Panel, mit der Seitenfarbe abgedunkelt, sowie das Browser-Tab-Symbol.",
-        "home": "Startseite",
-        "homeDescription": "Banner und Spielbilder für die Startseite.",
-        "articles": "Erste Schritte",
-        "articlesDescription": "Links, die auf jeder Server-Startseite angezeigt werden.",
-        "layout": "Layout",
-        "layoutDescription": "Welche Karten die Startseite zeigt und wo.",
+        "home": "Server-Startseite",
+        "homeDescription": "Die Karten auf der Startseite eines Servers, seine Banner und Spielbilder sowie die Links unter Erste Schritte.",
         "login": "Anmeldeseite",
         "loginDescription": "Layout, Hintergrund, Logo und Support-Links für die Anmelde-, Registrierungs- und Passwortseiten.",
-        "interface": "Oberfläche",
-        "interfaceDescription": "Toasts, Seitenübergänge und Seitentitel.",
-        "navigation": "Navigation",
-        "navigationDescription": "Layout der Seitenleiste, Hover-Effekt im Menü und Suche.",
+        "interface": "Verhalten",
+        "interfaceDescription": "Toasts, Seitenübergänge, Seitentitel und der Datei-Editor auf dem Handy.",
         "components": "Komponenten",
-        "componentsDescription": "Serverkarten, Tabellen, Boxen und Statistikkarten.",
+        "componentsDescription": "Boxen, Statistikkarten und Tabellen im gesamten Panel.",
         "console": "Konsole",
-        "consoleDescription": "Was die Konsolenseite rund um das Terminal anzeigt und wo."
+        "consoleDescription": "Was die Konsolenseite rund um das Terminal anzeigt und wo.",
+        "sidebar": "Seitenleiste & Dock",
+        "sidebarDescription": "Wo das Menü auf dem Desktop sitzt, wo Logo und Suche platziert sind und wie auf Handys navigiert wird.",
+        "menu": "Menüstil & Suche",
+        "menuDescription": "Wie Menülinks beim Überfahren und im geöffneten Zustand aussehen und welche Suche das Menü anzeigt.",
+        "menuOrder": "Menüreihenfolge",
+        "menuOrderDescription": "Einklappbare Menübereiche, die Reihenfolge des Admin-Menüs und welche Menüs Benutzer anordnen können.",
+        "servers": "Serverliste",
+        "serversDescription": "Die Karten in der Rasteransicht der Serverliste."
       },
       "accent": "Akzent",
       "accentDescription": "Buttons, Links und der aktive Menüpunkt",
@@ -517,7 +519,6 @@
         }
       },
       "navStyle": {
-        "title": "Menü",
         "hover": "Hover-Effekt",
         "hoverDescription": "Wie Menülinks unter dem Mauszeiger und bei geöffneter Seite aussehen. Fahre mit der Maus über eine Kachel, um beides zu sehen.",
         "hovers": {
@@ -543,7 +544,6 @@
         }
       },
       "serverCards": {
-        "title": "Serverliste",
         "cardStyle": "Stil der Serverkarten",
         "cardStyleDescription": "Die Karten in der Rasteransicht der Serverliste. Jeder Stil behält das Kontrollkästchen, den Status und das Power-Menü.",
         "styles": {
@@ -563,7 +563,6 @@
         }
       },
       "navLayout": {
-        "title": "Layout",
         "layout": "Dashboard-Layout",
         "layoutDescription": "Wie das Menü auf dem Desktop neben den Seiten sitzt. Schmal ist eine feste Symbolleiste, die ihre Links beim Überfahren benennt. Smartphones verwenden die Smartphone-Navigation unten.",
         "layouts": {
@@ -592,7 +591,6 @@
         }
       },
       "navOrder": {
-        "title": "Menüreihenfolge",
         "userArrange": "Benutzer können anordnen",
         "userArrangeDescription": "Welche Menüs „Menü anordnen“ bekommen, auch für Admins. Ausgeschaltet zeigt das Menü für alle die Reihenfolge des Panels, und gespeicherte Reihenfolgen der Benutzer werden ignoriert; sie kehren zurück, wenn du es wieder einschaltest.",
         "menus": {
@@ -604,7 +602,22 @@
         "description": "Das Menü des Adminbereichs für alle: Ziehe Links und ganze Kategorien sowie Links innerhalb ihrer Kategorie. Benutzer können ihre eigenen Menüs weiterhin darüber anordnen. Server- und Dashboardmenü folgen den Routenreihenfolgen der Egg-Konfigurationen und der Benutzereinstellungen.",
         "empty": "Das Adminmenü ist noch nicht geladen.",
         "reset": "Zurück zur Reihenfolge des Panels"
-      }
+      },
+      "groups": {
+        "look": "Aussehen",
+        "navigation": "Navigation",
+        "pages": "Seiten",
+        "interface": "Oberfläche"
+      },
+      "homeCards": "Karten",
+      "homeImages": "Bilder",
+      "status": {
+        "unsaved": "Ungespeicherte Änderungen",
+        "saved": "Alle Änderungen gespeichert"
+      },
+      "more": "Weitere Aktionen",
+      "resizePanel": "Größe des Einstellungsbereichs ändern",
+      "sections": "Einstellungsbereiche"
     },
     "library": {
       "saveAsPreset": "Als Vorlage speichern",

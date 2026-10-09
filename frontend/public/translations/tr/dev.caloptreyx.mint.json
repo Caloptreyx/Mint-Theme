@@ -247,26 +247,28 @@
         "presetsDescription": "Hazır bir görünümle başlayın, kendinizinkini kaydedin ve kullanıcıların hangilerini seçebileceğini belirleyin.",
         "colours": "Renkler",
         "coloursDescription": "Diğer her şey bu beş renkten türetilir.",
-        "style": "Stil",
-        "styleDescription": "Yazı tipi ve köşe yuvarlaklığı.",
-        "background": "Arka plan",
+        "style": "Tipografi ve şekil",
+        "styleDescription": "Yazı tipleri, düğmeler, köşe yuvarlaklığı, blok opaklığı ve kenarlıkları ile tıklama efekti.",
+        "background": "Arka plan ve marka",
         "backgroundDescription": "Tüm panelin arkasında, sayfa rengiyle karartılan bir görsel ve tarayıcı sekmesi simgesi.",
-        "home": "Ana sayfa",
-        "homeDescription": "Açılış sayfası için banner ve oyun görselleri.",
-        "articles": "Başlarken",
-        "articlesDescription": "Her sunucu ana sayfasında gösterilen bağlantılar.",
-        "layout": "Düzen",
-        "layoutDescription": "Ana sayfanın hangi kartları nerede gösterdiği.",
+        "home": "Sunucu ana sayfası",
+        "homeDescription": "Bir sunucunun ana sayfasındaki kartlar, afişleri ve oyun görselleri ile başlangıç bağlantıları.",
         "login": "Giriş sayfası",
         "loginDescription": "Giriş, kayıt ve şifre sayfaları için düzen, arka plan, logo ve destek bağlantıları.",
-        "interface": "Arayüz",
-        "interfaceDescription": "Bildirimler, sayfa geçişleri ve sayfa başlıkları.",
-        "navigation": "Gezinme",
-        "navigationDescription": "Kenar çubuğu düzeni, menü üzerine gelme efekti ve arama.",
+        "interface": "Davranış",
+        "interfaceDescription": "Bildirimler, sayfa geçişleri, sayfa başlıkları ve telefondaki dosya düzenleyici.",
         "components": "Bileşenler",
-        "componentsDescription": "Sunucu kartları, tablolar, kutular ve istatistik kartları.",
+        "componentsDescription": "Panel genelindeki kutular, istatistik kartları ve tablolar.",
         "console": "Konsol",
-        "consoleDescription": "Konsol sayfasının terminalin çevresinde neyi, nerede gösterdiği."
+        "consoleDescription": "Konsol sayfasının terminalin çevresinde neyi, nerede gösterdiği.",
+        "sidebar": "Kenar çubuğu ve dock",
+        "sidebarDescription": "Menünün masaüstünde nerede durduğu, logosunun ve aramasının nereye gittiği ve telefonlarda nasıl gezinileceği.",
+        "menu": "Menü stili ve arama",
+        "menuDescription": "Menü bağlantılarının üzerine gelindiğinde ve açıkken nasıl göründüğü ve menünün hangi aramayı gösterdiği.",
+        "menuOrder": "Menü sırası",
+        "menuOrderDescription": "Daraltılabilir menü bölümleri, yönetici menüsünün sırası ve kullanıcıların hangi menüleri düzenleyebileceği.",
+        "servers": "Sunucu listesi",
+        "serversDescription": "Sunucu listesinin ızgara görünümündeki kartlar."
       },
       "accent": "Vurgu",
       "accentDescription": "Butonlar, bağlantılar ve etkin menü öğesi",
@@ -517,7 +519,6 @@
         }
       },
       "navStyle": {
-        "title": "Menü",
         "hover": "Üzerine gelme efekti",
         "hoverDescription": "Menü bağlantılarının imleç altındayken ve sayfaları açıkken nasıl göründüğü. İkisini de görmek için bir kutucuğun üzerine gelin.",
         "hovers": {
@@ -543,7 +544,6 @@
         }
       },
       "serverCards": {
-        "title": "Sunucu listesi",
         "cardStyle": "Sunucu kartı stili",
         "cardStyleDescription": "Sunucu listesinin ızgara görünümündeki kartlar. Her stil onay kutusunu, durumu ve güç menüsünü korur.",
         "styles": {
@@ -563,7 +563,6 @@
         }
       },
       "navLayout": {
-        "title": "Düzen",
         "layout": "Panel düzeni",
         "layoutDescription": "Menünün masaüstünde sayfaların yanında nasıl durduğu. İnce, bağlantılarının adını üzerine gelindiğinde gösteren sabit bir simge şerididir. Telefonlar aşağıdaki telefon gezinmesini kullanır.",
         "layouts": {
@@ -592,7 +591,6 @@
         }
       },
       "navOrder": {
-        "title": "Menü sırası",
         "userArrange": "Kullanıcılar düzenleyebilir",
         "userArrangeDescription": "Hangi menülerde “Menüyü düzenle” olacağı, yöneticiler dahil. Kapalıyken menü herkese panelin sırasını gösterir ve kullanıcıların kaydettiği sıralar yok sayılır; tekrar açarsanız geri gelirler.",
         "menus": {
@@ -604,7 +602,22 @@
         "description": "Herkes için yönetim alanının menüsü: bağlantıları ve kategorilerin tamamını, kategorileri içindeki bağlantıları sürükleyin. Kullanıcılar yine de kendi menülerini bunun üzerine düzenleyebilir. Sunucu ve pano menüleri egg yapılandırmalarının ve kullanıcı ayarlarının rota sıralarını izler.",
         "empty": "Yönetim menüsü henüz yüklenmedi.",
         "reset": "Panelin sırasına dön"
-      }
+      },
+      "groups": {
+        "look": "Görünüm",
+        "navigation": "Gezinme",
+        "pages": "Sayfalar",
+        "interface": "Arayüz"
+      },
+      "homeCards": "Kartlar",
+      "homeImages": "Görseller",
+      "status": {
+        "unsaved": "Kaydedilmemiş değişiklikler",
+        "saved": "Tüm değişiklikler kaydedildi"
+      },
+      "more": "Diğer işlemler",
+      "resizePanel": "Ayarlar panelini yeniden boyutlandır",
+      "sections": "Ayar bölümleri"
     },
     "library": {
       "saveAsPreset": "Hazır ayar olarak kaydet",

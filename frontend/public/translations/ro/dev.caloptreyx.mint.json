@@ -247,26 +247,28 @@
         "presetsDescription": "Pornește de la un aspect gata făcut, salvează-le pe ale tale și alege pe care le pot selecta utilizatorii.",
         "colours": "Culori",
         "coloursDescription": "Toate celelalte culori sunt amestecate din aceste cinci.",
-        "style": "Stil",
-        "styleDescription": "Font și rotunjirea colțurilor.",
-        "background": "Fundal",
+        "style": "Tipografie și formă",
+        "styleDescription": "Fonturi, butoane, rotunjirea colțurilor, opacitatea și marginile blocurilor și efectul de clic.",
+        "background": "Fundal și branding",
         "backgroundDescription": "O imagine în spatele întregului panou, estompată cu culoarea paginii, și pictograma filei browserului.",
-        "home": "Pagina de start",
-        "homeDescription": "Banner și imagini de joc pentru pagina de start.",
-        "articles": "Primii pași",
-        "articlesDescription": "Linkuri afișate pe pagina de start a fiecărui server.",
-        "layout": "Aranjament",
-        "layoutDescription": "Ce carduri afișează pagina de start și unde.",
+        "home": "Pagina serverului",
+        "homeDescription": "Cardurile de pe pagina de start a unui server, bannerele și imaginile jocului și linkurile de început.",
         "login": "Pagina de autentificare",
         "loginDescription": "Aranjament, fundal, logo și linkuri de asistență pentru paginile de autentificare, înregistrare și parolă.",
-        "interface": "Interfață",
-        "interfaceDescription": "Notificări, tranziții între pagini și titluri de pagină.",
-        "navigation": "Navigare",
-        "navigationDescription": "Aranjamentul barei laterale, efectul la trecerea peste meniu și căutarea.",
+        "interface": "Comportament",
+        "interfaceDescription": "Notificări, tranziții de pagină, titluri de pagină și editorul de fișiere pe telefon.",
         "components": "Componente",
-        "componentsDescription": "Carduri de server, tabele, casete și carduri de statistici.",
+        "componentsDescription": "Casete, carduri de statistici și tabele din tot panoul.",
         "console": "Consolă",
-        "consoleDescription": "Ce afișează pagina consolei în jurul terminalului și unde."
+        "consoleDescription": "Ce afișează pagina consolei în jurul terminalului și unde.",
+        "sidebar": "Bară laterală și dock",
+        "sidebarDescription": "Unde stă meniul pe desktop, unde sunt logo-ul și căutarea și cum se navighează pe telefoane.",
+        "menu": "Stil meniu și căutare",
+        "menuDescription": "Cum arată linkurile din meniu la trecerea cursorului și când sunt deschise și ce căutare afișează meniul.",
+        "menuOrder": "Ordinea meniului",
+        "menuOrderDescription": "Secțiuni de meniu pliabile, ordinea meniului de administrare și ce meniuri pot aranja utilizatorii.",
+        "servers": "Lista serverelor",
+        "serversDescription": "Cardurile din vizualizarea grilă a listei de servere."
       },
       "accent": "Accent",
       "accentDescription": "Butoane, linkuri și elementul de meniu activ",
@@ -517,7 +519,6 @@
         }
       },
       "navStyle": {
-        "title": "Meniu",
         "hover": "Efect la trecerea cursorului",
         "hoverDescription": "Cum arată linkurile din meniu sub cursor și cât timp pagina lor este deschisă. Treci cu cursorul peste o casetă pentru a le vedea pe amândouă.",
         "hovers": {
@@ -543,7 +544,6 @@
         }
       },
       "serverCards": {
-        "title": "Lista de servere",
         "cardStyle": "Stil carduri server",
         "cardStyleDescription": "Cardurile din vizualizarea grilă a listei de servere. Fiecare stil păstrează caseta de selectare, starea și meniul de alimentare.",
         "styles": {
@@ -563,7 +563,6 @@
         }
       },
       "navLayout": {
-        "title": "Aranjament",
         "layout": "Aranjament tablou de bord",
         "layoutDescription": "Cum stă meniul lângă pagini pe desktop. Îngust este o bară fixă de pictograme care își afișează numele linkurilor la trecerea cursorului. Telefoanele folosesc navigarea pe telefon de mai jos.",
         "layouts": {
@@ -592,7 +591,6 @@
         }
       },
       "navOrder": {
-        "title": "Ordinea meniului",
         "userArrange": "Utilizatorii pot aranja",
         "userArrangeDescription": "Ce meniuri au „Aranjează meniul”, inclusiv pentru administratori. Dezactivat, meniul arată tuturor ordinea panoului, iar ordinile salvate de utilizatori sunt ignorate; revin dacă îl activezi din nou.",
         "menus": {
@@ -604,7 +602,22 @@
         "description": "Meniul zonei de administrare pentru toată lumea: trage linkuri și categorii întregi, precum și linkuri în cadrul categoriei lor. Utilizatorii își pot aranja în continuare propriile meniuri peste el. Meniurile de server și de panou urmează ordinea rutelor din configurațiile egg și din setările utilizatorilor.",
         "empty": "Meniul de administrare nu s-a încărcat încă.",
         "reset": "Înapoi la ordinea panoului"
-      }
+      },
+      "groups": {
+        "look": "Aspect",
+        "navigation": "Navigare",
+        "pages": "Pagini",
+        "interface": "Interfață"
+      },
+      "homeCards": "Carduri",
+      "homeImages": "Imagini",
+      "status": {
+        "unsaved": "Modificări nesalvate",
+        "saved": "Toate modificările au fost salvate"
+      },
+      "more": "Mai multe acțiuni",
+      "resizePanel": "Redimensionează panoul de setări",
+      "sections": "Secțiuni de setări"
     },
     "library": {
       "saveAsPreset": "Salvează ca presetare",

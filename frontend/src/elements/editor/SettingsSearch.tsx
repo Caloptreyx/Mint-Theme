@@ -51,7 +51,6 @@ export function SettingSearchInput({
 
   return (
     <TextInput
-      mt='sm'
       aria-label={t('editor.search.placeholder', {})}
       placeholder={t('editor.search.placeholder', {})}
       leftSection={<FontAwesomeIcon icon={faMagnifyingGlass} />}

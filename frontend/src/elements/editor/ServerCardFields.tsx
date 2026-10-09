@@ -154,45 +154,46 @@ function TableMock({ style }: { style: TableStyle }) {
   );
 }
 
-/** Components section: the servers grid's cards and the table style. */
+/** Servers list section: the servers grid's cards. */
 export default function ServerCardFields({ theme, set }: Props) {
   const { t } = useExtTranslations();
 
   return (
-    <Stack gap='xl'>
-      <Stack gap='md'>
-        <Text size='xs' fw={600} tt='uppercase' c='dimmed' className='tracking-wider'>
-          {t('editor.serverCards.title', {})}
-        </Text>
-        <ChoiceCards
-          label={t('editor.serverCards.cardStyle', {})}
-          description={t('editor.serverCards.cardStyleDescription', {})}
-          value={theme.serverCardStyle}
-          columns={3}
-          choices={SERVER_CARD_STYLES.map((style) => ({
-            value: style,
-            label: t(`editor.serverCards.styles.${style}`, {}),
-            preview: <CardMock style={style} />,
-          }))}
-          onChange={(serverCardStyle) => set({ serverCardStyle })}
-        />
-      </Stack>
-      <Stack gap='md'>
-        <Text size='xs' fw={600} tt='uppercase' c='dimmed' className='tracking-wider'>
-          {t('editor.serverCards.tablesTitle', {})}
-        </Text>
-        <ChoiceCards
-          label={t('editor.serverCards.tableStyle', {})}
-          description={t('editor.serverCards.tableStyleDescription', {})}
-          value={theme.tableStyle}
-          choices={TABLE_STYLES.map((style) => ({
-            value: style,
-            label: t(`editor.serverCards.tables.${style}`, {}),
-            preview: <TableMock style={style} />,
-          }))}
-          onChange={(tableStyle) => set({ tableStyle })}
-        />
-      </Stack>
+    <ChoiceCards
+      label={t('editor.serverCards.cardStyle', {})}
+      description={t('editor.serverCards.cardStyleDescription', {})}
+      value={theme.serverCardStyle}
+      columns={3}
+      choices={SERVER_CARD_STYLES.map((style) => ({
+        value: style,
+        label: t(`editor.serverCards.styles.${style}`, {}),
+        preview: <CardMock style={style} />,
+      }))}
+      onChange={(serverCardStyle) => set({ serverCardStyle })}
+    />
+  );
+}
+
+/** Components section: the style of core's tables. */
+export function TableStyleField({ theme, set }: Props) {
+  const { t } = useExtTranslations();
+
+  return (
+    <Stack gap='md'>
+      <Text size='xs' fw={600} tt='uppercase' c='dimmed' className='tracking-wider'>
+        {t('editor.serverCards.tablesTitle', {})}
+      </Text>
+      <ChoiceCards
+        label={t('editor.serverCards.tableStyle', {})}
+        description={t('editor.serverCards.tableStyleDescription', {})}
+        value={theme.tableStyle}
+        choices={TABLE_STYLES.map((style) => ({
+          value: style,
+          label: t(`editor.serverCards.tables.${style}`, {}),
+          preview: <TableMock style={style} />,
+        }))}
+        onChange={(tableStyle) => set({ tableStyle })}
+      />
     </Stack>
   );
 }

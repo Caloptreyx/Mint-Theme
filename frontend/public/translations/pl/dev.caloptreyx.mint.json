@@ -247,26 +247,28 @@
         "presetsDescription": "Zacznij od gotowego wyglądu, zapisz własne i wybierz, które z nich mogą wybierać użytkownicy.",
         "colours": "Kolory",
         "coloursDescription": "Wszystkie pozostałe kolory powstają z tych pięciu.",
-        "style": "Styl",
-        "styleDescription": "Czcionka i zaokrąglenie rogów.",
-        "background": "Tło",
+        "style": "Typografia i kształt",
+        "styleDescription": "Czcionki, przyciski, zaokrąglenie rogów, przezroczystość i obramowania bloków oraz efekt kliknięcia.",
+        "background": "Tło i branding",
         "backgroundDescription": "Obraz za całym panelem, przyciemniony kolorem strony, oraz ikona karty przeglądarki.",
-        "home": "Strona główna",
-        "homeDescription": "Baner i obrazy gier na stronie startowej.",
-        "articles": "Pierwsze kroki",
-        "articlesDescription": "Linki wyświetlane na stronie głównej każdego serwera.",
-        "layout": "Układ",
-        "layoutDescription": "Które karty pokazuje strona główna i gdzie.",
+        "home": "Strona serwera",
+        "homeDescription": "Karty na stronie głównej serwera, jego banery i obrazy gier oraz linki pierwszych kroków.",
         "login": "Strona logowania",
         "loginDescription": "Układ, tło, logo i linki pomocy na stronach logowania, rejestracji i hasła.",
-        "interface": "Interfejs",
-        "interfaceDescription": "Powiadomienia, przejścia stron i tytuły stron.",
-        "navigation": "Nawigacja",
-        "navigationDescription": "Układ panelu bocznego, efekt najechania w menu i wyszukiwanie.",
+        "interface": "Zachowanie",
+        "interfaceDescription": "Powiadomienia, przejścia stron, tytuły stron i edytor plików na telefonie.",
         "components": "Komponenty",
-        "componentsDescription": "Karty serwerów, tabele, pola i karty statystyk.",
+        "componentsDescription": "Pola, karty statystyk i tabele w całym panelu.",
         "console": "Konsola",
-        "consoleDescription": "Co strona konsoli pokazuje wokół terminala i gdzie."
+        "consoleDescription": "Co strona konsoli pokazuje wokół terminala i gdzie.",
+        "sidebar": "Pasek boczny i dok",
+        "sidebarDescription": "Gdzie znajduje się menu na komputerze, gdzie trafiają logo i wyszukiwarka oraz jak nawigować na telefonach.",
+        "menu": "Styl menu i wyszukiwanie",
+        "menuDescription": "Jak wyglądają linki menu po najechaniu i po otwarciu oraz jakie wyszukiwanie pokazuje menu.",
+        "menuOrder": "Kolejność menu",
+        "menuOrderDescription": "Zwijane sekcje menu, kolejność menu administratora i które menu użytkownicy mogą układać.",
+        "servers": "Lista serwerów",
+        "serversDescription": "Karty w widoku siatki listy serwerów."
       },
       "accent": "Akcent",
       "accentDescription": "Przyciski, linki i aktywna pozycja menu",
@@ -517,7 +519,6 @@
         }
       },
       "navStyle": {
-        "title": "Menu",
         "hover": "Efekt najechania",
         "hoverDescription": "Jak wyglądają linki menu pod kursorem i gdy ich strona jest otwarta. Najedź na kafelek, aby zobaczyć oba stany.",
         "hovers": {
@@ -543,7 +544,6 @@
         }
       },
       "serverCards": {
-        "title": "Lista serwerów",
         "cardStyle": "Styl kart serwerów",
         "cardStyleDescription": "Karty w widoku siatki listy serwerów. Każdy styl zachowuje pole wyboru, status i menu zasilania.",
         "styles": {
@@ -563,7 +563,6 @@
         }
       },
       "navLayout": {
-        "title": "Układ",
         "layout": "Układ pulpitu",
         "layoutDescription": "Jak menu jest ułożone obok stron na komputerze. Wąski to stały pasek ikon, który pokazuje nazwy linków po najechaniu. Telefony używają nawigacji na telefonie opisanej poniżej.",
         "layouts": {
@@ -592,7 +591,6 @@
         }
       },
       "navOrder": {
-        "title": "Kolejność menu",
         "userArrange": "Użytkownicy mogą porządkować",
         "userArrangeDescription": "Które menu mają „Uporządkuj menu”, także dla administratorów. Po wyłączeniu menu pokazuje wszystkim kolejność panelu, a zapisane kolejności użytkowników są ignorowane; wracają po ponownym włączeniu.",
         "menus": {
@@ -604,7 +602,22 @@
         "description": "Menu panelu administracyjnego dla wszystkich: przeciągaj linki i całe kategorie oraz linki w obrębie ich kategorii. Użytkownicy nadal mogą układać własne menu ponad nim. Menu serwera i pulpitu stosują kolejność tras z konfiguracji eggów i ustawień użytkownika.",
         "empty": "Menu administracyjne jeszcze się nie wczytało.",
         "reset": "Wróć do kolejności panelu"
-      }
+      },
+      "groups": {
+        "look": "Wygląd",
+        "navigation": "Nawigacja",
+        "pages": "Strony",
+        "interface": "Interfejs"
+      },
+      "homeCards": "Karty",
+      "homeImages": "Obrazy",
+      "status": {
+        "unsaved": "Niezapisane zmiany",
+        "saved": "Wszystkie zmiany zapisane"
+      },
+      "more": "Więcej akcji",
+      "resizePanel": "Zmień rozmiar panelu ustawień",
+      "sections": "Sekcje ustawień"
     },
     "library": {
       "saveAsPreset": "Zapisz jako preset",

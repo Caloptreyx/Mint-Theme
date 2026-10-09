@@ -247,26 +247,28 @@
         "presetsDescription": "Parte de un aspecto ya preparado, guarda los tuyos y elige cuáles pueden escoger los usuarios.",
         "colours": "Colores",
         "coloursDescription": "Todo lo demás se mezcla a partir de estos cinco.",
-        "style": "Estilo",
-        "styleDescription": "Fuente y redondeo de esquinas.",
-        "background": "Fondo",
+        "style": "Tipografía y forma",
+        "styleDescription": "Fuentes, botones, redondeo de esquinas, opacidad y bordes de bloques, y el efecto de clic.",
+        "background": "Fondo y marca",
         "backgroundDescription": "Una imagen detrás de todo el panel, atenuada con el color de la página, y el icono de la pestaña del navegador.",
-        "home": "Página de inicio",
-        "homeDescription": "Banner e imágenes de juegos para la página de inicio.",
-        "articles": "Primeros pasos",
-        "articlesDescription": "Enlaces que se muestran en la página de inicio de cada servidor.",
-        "layout": "Diseño",
-        "layoutDescription": "Qué tarjetas muestra la página de inicio y dónde.",
+        "home": "Inicio del servidor",
+        "homeDescription": "Las tarjetas de la página de inicio de un servidor, sus banners e imágenes de juego, y los enlaces de primeros pasos.",
         "login": "Página de inicio de sesión",
         "loginDescription": "Diseño, fondo, logo y enlaces de soporte de las páginas de inicio de sesión, registro y contraseña.",
-        "interface": "Interfaz",
-        "interfaceDescription": "Notificaciones, transiciones de página y títulos de página.",
-        "navigation": "Navegación",
-        "navigationDescription": "Diseño de la barra lateral, efecto al pasar el cursor por el menú y búsqueda.",
+        "interface": "Comportamiento",
+        "interfaceDescription": "Notificaciones, transiciones de página, títulos de página y el editor de archivos en móvil.",
         "components": "Componentes",
-        "componentsDescription": "Tarjetas de servidor, tablas, cajas y tarjetas de estadísticas.",
+        "componentsDescription": "Cajas, tarjetas de estadísticas y tablas en todo el panel.",
         "console": "Consola",
-        "consoleDescription": "Qué muestra la página de la consola alrededor del terminal, y dónde."
+        "consoleDescription": "Qué muestra la página de la consola alrededor del terminal, y dónde.",
+        "sidebar": "Barra lateral y dock",
+        "sidebarDescription": "Dónde se sitúa el menú en escritorio, dónde van su logo y búsqueda, y cómo se navega en móviles.",
+        "menu": "Estilo de menú y búsqueda",
+        "menuDescription": "Cómo se ven los enlaces del menú al pasar el cursor y abiertos, y qué búsqueda muestra el menú.",
+        "menuOrder": "Orden del menú",
+        "menuOrderDescription": "Secciones de menú plegables, el orden del menú de administración y qué menús pueden organizar los usuarios.",
+        "servers": "Lista de servidores",
+        "serversDescription": "Las tarjetas de la vista en cuadrícula de la lista de servidores."
       },
       "accent": "Acento",
       "accentDescription": "Botones, enlaces y el elemento de menú activo",
@@ -517,7 +519,6 @@
         }
       },
       "navStyle": {
-        "title": "Menú",
         "hover": "Efecto al pasar el cursor",
         "hoverDescription": "Cómo se ven los enlaces del menú bajo el cursor y mientras su página está abierta. Pasa el cursor por un recuadro para ver ambos.",
         "hovers": {
@@ -543,7 +544,6 @@
         }
       },
       "serverCards": {
-        "title": "Lista de servidores",
         "cardStyle": "Estilo de tarjeta de servidor",
         "cardStyleDescription": "Las tarjetas de la vista de cuadrícula de la lista de servidores. Todos los estilos mantienen la casilla, el estado y el menú de encendido.",
         "styles": {
@@ -563,7 +563,6 @@
         }
       },
       "navLayout": {
-        "title": "Diseño",
         "layout": "Diseño del panel",
         "layoutDescription": "Cómo se sitúa el menú junto a las páginas en escritorio. Estrecho es una barra fija de iconos que muestra el nombre de sus enlaces al pasar el cursor. Los móviles usan la navegación móvil de abajo.",
         "layouts": {
@@ -592,7 +591,6 @@
         }
       },
       "navOrder": {
-        "title": "Orden del menú",
         "userArrange": "Los usuarios pueden ordenar",
         "userArrangeDescription": "Qué menús tienen «Ordenar menú», administradores incluidos. Desactivado, el menú muestra el orden del panel para todos y se ignoran los órdenes guardados por los usuarios; vuelven si lo activas de nuevo.",
         "menus": {
@@ -604,7 +602,22 @@
         "description": "El menú de la administración para todos: arrastra enlaces y categorías completas, y los enlaces dentro de su categoría. Los usuarios aún pueden ordenar sus propios menús encima. Los menús de servidor y del panel siguen el orden de rutas de las configuraciones de eggs y de los ajustes de usuario.",
         "empty": "El menú de administración aún no se ha cargado.",
         "reset": "Volver al orden del panel"
-      }
+      },
+      "groups": {
+        "look": "Aspecto",
+        "navigation": "Navegación",
+        "pages": "Páginas",
+        "interface": "Interfaz"
+      },
+      "homeCards": "Tarjetas",
+      "homeImages": "Imágenes",
+      "status": {
+        "unsaved": "Cambios sin guardar",
+        "saved": "Todos los cambios guardados"
+      },
+      "more": "Más acciones",
+      "resizePanel": "Redimensionar el panel de ajustes",
+      "sections": "Secciones de ajustes"
     },
     "library": {
       "saveAsPreset": "Guardar como preajuste",

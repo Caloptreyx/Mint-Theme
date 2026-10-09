@@ -247,26 +247,28 @@
         "presetsDescription": "Start fra et færdigt look, gem dine egne, og vælg hvilke brugerne kan vælge imellem.",
         "colours": "Farver",
         "coloursDescription": "Alt andet blandes ud fra disse fem.",
-        "style": "Stil",
-        "styleDescription": "Skrifttype og afrundede hjørner.",
-        "background": "Baggrund",
+        "style": "Typografi & form",
+        "styleDescription": "Skrifttyper, knapper, hjørneafrunding, blokgennemsigtighed og kanter samt klikeffekten.",
+        "background": "Baggrund & branding",
         "backgroundDescription": "Et billede bag hele panelet, nedtonet med sidens farve, samt ikonet i browserfanen.",
-        "home": "Forside",
-        "homeDescription": "Banner og spilbilleder til forsiden.",
-        "articles": "Kom godt i gang",
-        "articlesDescription": "Links, der vises på hver servers forside.",
-        "layout": "Layout",
-        "layoutDescription": "Hvilke kort forsiden viser, og hvor.",
+        "home": "Serverforside",
+        "homeDescription": "Kortene på en servers forside, dens bannere og spilbilleder samt Kom godt i gang-links.",
         "login": "Loginside",
         "loginDescription": "Layout, baggrund, logo og supportlinks til login-, registrerings- og adgangskodesider.",
-        "interface": "Brugerflade",
-        "interfaceDescription": "Notifikationer, sideovergange og sidetitler.",
-        "navigation": "Navigation",
-        "navigationDescription": "Sidebjælkens layout, menuens hover-effekt og søgning.",
+        "interface": "Adfærd",
+        "interfaceDescription": "Toasts, sideovergange, sidetitler og fileditoren på telefon.",
         "components": "Komponenter",
-        "componentsDescription": "Serverkort, tabeller, bokse og statistikkort.",
+        "componentsDescription": "Bokse, statistikkort og tabeller i hele panelet.",
         "console": "Konsol",
-        "consoleDescription": "Hvad konsolsiden viser omkring terminalen, og hvor."
+        "consoleDescription": "Hvad konsolsiden viser omkring terminalen, og hvor.",
+        "sidebar": "Sidebjælke & dock",
+        "sidebarDescription": "Hvor menuen sidder på computer, hvor logo og søgning placeres, og hvordan telefoner navigerer.",
+        "menu": "Menustil & søgning",
+        "menuDescription": "Hvordan menulinks ser ud ved hover og når de er åbne, og hvilken søgning menuen viser.",
+        "menuOrder": "Menurækkefølge",
+        "menuOrderDescription": "Sammenklappelige menusektioner, admin-menuens rækkefølge og hvilke menuer brugerne kan arrangere.",
+        "servers": "Serverliste",
+        "serversDescription": "Kortene i gittervisningen af serverlisten."
       },
       "accent": "Accent",
       "accentDescription": "Knapper, links og det aktive menupunkt",
@@ -517,7 +519,6 @@
         }
       },
       "navStyle": {
-        "title": "Menu",
         "hover": "Hover-effekt",
         "hoverDescription": "Hvordan menulinks ser ud under markøren, og mens deres side er åben. Hold musen over et felt for at se begge.",
         "hovers": {
@@ -543,7 +544,6 @@
         }
       },
       "serverCards": {
-        "title": "Serverliste",
         "cardStyle": "Stil for serverkort",
         "cardStyleDescription": "Kortene i gittervisningen af serverlisten. Alle stilarter beholder afkrydsningsfeltet, status og strømmenuen.",
         "styles": {
@@ -563,7 +563,6 @@
         }
       },
       "navLayout": {
-        "title": "Layout",
         "layout": "Dashboard-layout",
         "layoutDescription": "Hvordan menuen står ved siden af siderne på computer. Slim er en fast ikonskinne, der viser linkenes navne ved hover. Telefoner bruger mobilnavigationen nedenfor.",
         "layouts": {
@@ -592,7 +591,6 @@
         }
       },
       "navOrder": {
-        "title": "Menurækkefølge",
         "userArrange": "Brugere kan arrangere",
         "userArrangeDescription": "Hvilke menuer får »Arranger menu«, også for admins. Slået fra viser menuen panelets rækkefølge for alle, og brugernes gemte rækkefølger ignoreres; de kommer tilbage, hvis du slår det til igen.",
         "menus": {
@@ -604,7 +602,22 @@
         "description": "Adminområdets menu for alle: træk links og hele kategorier samt links inden for deres kategori. Brugere kan stadig arrangere deres egne menuer oven på den. Server- og dashboardmenuerne følger ruterækkefølgerne i egg-konfigurationerne og brugerindstillingerne.",
         "empty": "Adminmenuen er ikke indlæst endnu.",
         "reset": "Tilbage til panelets rækkefølge"
-      }
+      },
+      "groups": {
+        "look": "Udseende",
+        "navigation": "Navigation",
+        "pages": "Sider",
+        "interface": "Brugerflade"
+      },
+      "homeCards": "Kort",
+      "homeImages": "Billeder",
+      "status": {
+        "unsaved": "Ikke-gemte ændringer",
+        "saved": "Alle ændringer er gemt"
+      },
+      "more": "Flere handlinger",
+      "resizePanel": "Tilpas størrelsen på indstillingspanelet",
+      "sections": "Indstillingssektioner"
     },
     "library": {
       "saveAsPreset": "Gem som forudindstilling",

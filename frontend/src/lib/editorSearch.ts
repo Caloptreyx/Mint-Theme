@@ -114,79 +114,57 @@ export const SETTINGS: Setting[] = [
     also: ['editor.elements.clickEffectDescription', 'editor.elements.click.'],
   },
 
-  {
-    section: 'interface',
-    label: 'editor.interface.toastStyle',
-    also: ['editor.interface.toastStyleDescription', 'editor.interface.toasts.'],
-  },
-  {
-    section: 'interface',
-    label: 'editor.interface.pageTransition',
-    also: ['editor.interface.pageTransitionDescription', 'editor.interface.transitions.'],
-  },
-  { section: 'interface', label: 'editor.interface.pageTitles', also: ['editor.interface.pageTitlesDescription'] },
-  {
-    section: 'interface',
-    label: 'editor.interface.mobileEditor',
-    also: ['editor.interface.mobileEditorDescription'],
-  },
+  { section: 'background', label: 'editor.backgroundImage', also: ['editor.backgroundImageDescription'] },
+  { section: 'background', label: 'editor.backgroundDim' },
+  { section: 'background', label: 'editor.favicon.label', also: ['editor.favicon.description'] },
 
   {
-    section: 'navigation',
+    section: 'sidebar',
     label: 'editor.navLayout.layout',
-    also: ['editor.navLayout.title', 'editor.navLayout.layoutDescription', 'editor.navLayout.layouts.'],
+    also: ['editor.navLayout.layoutDescription', 'editor.navLayout.layouts.'],
   },
   {
-    section: 'navigation',
+    section: 'sidebar',
     label: 'editor.navLayout.dock',
     also: ['editor.navLayout.dockDescription', 'editor.navLayout.dockHorizontal', 'editor.navLayout.docks.'],
   },
   {
-    section: 'navigation',
+    section: 'sidebar',
     label: 'editor.mobileNav.label',
     also: ['editor.mobileNav.description', 'editor.mobileNav.options.'],
   },
+
   {
-    section: 'navigation',
+    section: 'menu',
     label: 'editor.navStyle.hover',
-    also: ['editor.navStyle.title', 'editor.navStyle.hoverDescription', 'editor.navStyle.hovers.'],
+    also: ['editor.navStyle.hoverDescription', 'editor.navStyle.hovers.'],
   },
   {
-    section: 'navigation',
+    section: 'menu',
     label: 'editor.navStyle.search',
     also: ['editor.navStyle.searchDescription', 'editor.navStyle.searches.', 'editor.navStyle.searchHints.'],
   },
+
+  { section: 'menuOrder', label: 'editor.sidebarGroups', also: ['editor.sidebarGroupsDescription'] },
   {
-    section: 'navigation',
+    section: 'menuOrder',
     label: 'editor.navOrder.userArrange',
     also: ['editor.navOrder.userArrangeDescription', 'editor.navOrder.menus.'],
   },
-  {
-    section: 'navigation',
-    label: 'editor.navOrder.label',
-    also: ['editor.navOrder.title', 'editor.navOrder.description'],
-  },
+  { section: 'menuOrder', label: 'editor.navOrder.label', also: ['editor.navOrder.description'] },
 
   {
-    section: 'components',
-    label: 'editor.serverCards.cardStyle',
-    also: ['editor.serverCards.title', 'editor.serverCards.cardStyleDescription', 'editor.serverCards.styles.'],
+    section: 'home',
+    label: 'editor.column.left',
+    also: ['editor.homeCards', 'editor.layoutDescription', 'editor.column.right', 'editor.card.', 'editor.hideCard'],
   },
+  { section: 'home', label: 'editor.homeBanner', also: ['editor.homeImages', 'editor.homeBannerDescription'] },
   {
-    section: 'components',
-    label: 'editor.serverCards.tableStyle',
-    also: ['editor.serverCards.tablesTitle', 'editor.serverCards.tableStyleDescription', 'editor.serverCards.tables.'],
+    section: 'home',
+    label: 'editor.eggImages',
+    also: ['editor.homeImages', 'editor.eggImagesDescription', 'editor.egg', 'editor.eggBanner', 'editor.eggIcon'],
   },
-  {
-    section: 'components',
-    label: 'editor.boxes.boxStyle',
-    also: ['editor.boxes.title', 'editor.boxes.boxStyleDescription', 'editor.boxes.styles.'],
-  },
-  {
-    section: 'components',
-    label: 'editor.boxes.statStyle',
-    also: ['editor.boxes.statsTitle', 'editor.boxes.statStyleDescription', 'editor.boxes.stats.'],
-  },
+  { section: 'home', label: 'editor.articles', also: ['editor.articlesDescription', 'editor.addArticle'] },
 
   {
     section: 'console',
@@ -199,24 +177,10 @@ export const SETTINGS: Setting[] = [
     ],
   },
 
-  { section: 'background', label: 'editor.backgroundImage', also: ['editor.backgroundImageDescription'] },
-  { section: 'background', label: 'editor.backgroundDim' },
-  { section: 'background', label: 'editor.favicon.label', also: ['editor.favicon.description'] },
-
-  { section: 'home', label: 'editor.homeBanner', also: ['editor.homeBannerDescription'] },
   {
-    section: 'home',
-    label: 'editor.eggImages',
-    also: ['editor.eggImagesDescription', 'editor.egg', 'editor.eggBanner', 'editor.eggIcon'],
-  },
-
-  { section: 'articles', label: 'editor.articles', also: ['editor.articlesDescription', 'editor.addArticle'] },
-
-  { section: 'layout', label: 'editor.sidebarGroups', also: ['editor.sidebarGroupsDescription'] },
-  {
-    section: 'layout',
-    label: 'editor.column.left',
-    also: ['editor.layoutDescription', 'editor.column.right', 'editor.card.', 'editor.hideCard'],
+    section: 'servers',
+    label: 'editor.serverCards.cardStyle',
+    also: ['editor.serverCards.cardStyleDescription', 'editor.serverCards.styles.'],
   },
 
   {
@@ -238,6 +202,39 @@ export const SETTINGS: Setting[] = [
     also: ['editor.authLayout.linksDescription', 'editor.authLayout.icons.', 'editor.authLayout.addLink'],
   },
   { section: 'login', label: 'editor.authLayout.linksPosition', also: ['editor.authLayout.positions.'] },
+
+  {
+    section: 'interface',
+    label: 'editor.interface.toastStyle',
+    also: ['editor.interface.toastStyleDescription', 'editor.interface.toasts.'],
+  },
+  {
+    section: 'interface',
+    label: 'editor.interface.pageTransition',
+    also: ['editor.interface.pageTransitionDescription', 'editor.interface.transitions.'],
+  },
+  { section: 'interface', label: 'editor.interface.pageTitles', also: ['editor.interface.pageTitlesDescription'] },
+  {
+    section: 'interface',
+    label: 'editor.interface.mobileEditor',
+    also: ['editor.interface.mobileEditorDescription'],
+  },
+
+  {
+    section: 'components',
+    label: 'editor.boxes.boxStyle',
+    also: ['editor.boxes.title', 'editor.boxes.boxStyleDescription', 'editor.boxes.styles.'],
+  },
+  {
+    section: 'components',
+    label: 'editor.boxes.statStyle',
+    also: ['editor.boxes.statsTitle', 'editor.boxes.statStyleDescription', 'editor.boxes.stats.'],
+  },
+  {
+    section: 'components',
+    label: 'editor.serverCards.tableStyle',
+    also: ['editor.serverCards.tablesTitle', 'editor.serverCards.tableStyleDescription', 'editor.serverCards.tables.'],
+  },
 ];
 
 /** The keys a setting's `also` stands for, prefixes expanded against every key there is. */

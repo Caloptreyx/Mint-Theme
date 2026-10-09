@@ -247,26 +247,28 @@
         "presetsDescription": "Sāciet ar gatavu izskatu, saglabājiet savus un izvēlieties, kurus lietotāji var izvēlēties.",
         "colours": "Krāsas",
         "coloursDescription": "Viss pārējais tiek jaukts no šīm piecām.",
-        "style": "Stils",
-        "styleDescription": "Fonts un stūru noapaļojums.",
-        "background": "Fons",
+        "style": "Tipogrāfija un forma",
+        "styleDescription": "Fonti, pogas, stūru noapaļojums, bloku necaurredzamība un apmales, kā arī klikšķa efekts.",
+        "background": "Fons un zīmols",
         "backgroundDescription": "Attēls aiz visa paneļa, aptumšots ar lapas krāsu, un pārlūka cilnes ikona.",
-        "home": "Sākumlapa",
-        "homeDescription": "Reklāmkarogs un spēļu attēli sākumlapai.",
-        "articles": "Darba sākšana",
-        "articlesDescription": "Saites, kas redzamas katra servera sākumlapā.",
-        "layout": "Izkārtojums",
-        "layoutDescription": "Kuras kartītes sākumlapā rādīt un kur.",
+        "home": "Servera sākums",
+        "homeDescription": "Kartītes servera sākumlapā, tā baneri un spēļu attēli, kā arī darba sākšanas saites.",
         "login": "Pieteikšanās lapa",
         "loginDescription": "Izkārtojums, fons, logotips un atbalsta saites pieteikšanās, reģistrācijas un paroles lapām.",
-        "interface": "Saskarne",
-        "interfaceDescription": "Paziņojumi, lapu pārejas un lapu virsraksti.",
-        "navigation": "Navigācija",
-        "navigationDescription": "Sānjoslas izkārtojums, izvēlnes kursora efekts un meklēšana.",
+        "interface": "Uzvedība",
+        "interfaceDescription": "Paziņojumi, lapu pārejas, lapu virsraksti un failu redaktors tālrunī.",
         "components": "Komponenti",
-        "componentsDescription": "Serveru kartītes, tabulas, bloki un statistikas kartītes.",
+        "componentsDescription": "Bloki, statistikas kartītes un tabulas visā panelī.",
         "console": "Konsole",
-        "consoleDescription": "Ko konsoles lapa rāda ap termināli un kur."
+        "consoleDescription": "Ko konsoles lapa rāda ap termināli un kur.",
+        "sidebar": "Sānjosla un doks",
+        "sidebarDescription": "Kur izvēlne atrodas datorā, kur novietots tās logo un meklēšana un kā navigēt tālruņos.",
+        "menu": "Izvēlnes stils un meklēšana",
+        "menuDescription": "Kā izvēlnes saites izskatās, uzvirzot kursoru un atvērtas, un kādu meklēšanu izvēlne rāda.",
+        "menuOrder": "Izvēlnes secība",
+        "menuOrderDescription": "Sakļaujamas izvēlnes sadaļas, administratora izvēlnes secība un kuras izvēlnes lietotāji var kārtot.",
+        "servers": "Serveru saraksts",
+        "serversDescription": "Kartītes serveru saraksta režģa skatā."
       },
       "accent": "Akcents",
       "accentDescription": "Pogas, saites un aktīvais izvēlnes vienums",
@@ -517,7 +519,6 @@
         }
       },
       "navStyle": {
-        "title": "Izvēlne",
         "hover": "Kursora efekts",
         "hoverDescription": "Kā izvēlnes saites izskatās zem kursora un kamēr to lapa ir atvērta. Novietojiet kursoru virs flīzes, lai redzētu abus.",
         "hovers": {
@@ -543,7 +544,6 @@
         }
       },
       "serverCards": {
-        "title": "Serveru saraksts",
         "cardStyle": "Servera kartīšu stils",
         "cardStyleDescription": "Kartītes serveru saraksta režģa skatā. Katrs stils saglabā izvēles rūtiņu, statusu un barošanas izvēlni.",
         "styles": {
@@ -563,7 +563,6 @@
         }
       },
       "navLayout": {
-        "title": "Izkārtojums",
         "layout": "Vadības paneļa izkārtojums",
         "layoutDescription": "Kā izvēlne novietota blakus lapām datorā. Šaurais ir fiksēta ikonu josla, kas parāda saišu nosaukumus, novietojot kursoru. Tālruņos tiek izmantota tālruņa navigācija zemāk.",
         "layouts": {
@@ -592,7 +591,6 @@
         }
       },
       "navOrder": {
-        "title": "Izvēlnes secība",
         "userArrange": "Lietotāji var kārtot",
         "userArrangeDescription": "Kurām izvēlnēm ir “Kārtot izvēlni”, arī administratoriem. Izslēgts — izvēlne visiem rāda paneļa secību, un lietotāju saglabātās secības tiek ignorētas; tās atgriežas, ja to atkal ieslēdz.",
         "menus": {
@@ -604,7 +602,22 @@
         "description": "Administrācijas izvēlne visiem: velc saites un veselas kategorijas, kā arī saites to kategorijā. Lietotāji joprojām var sakārtot savas izvēlnes virs tās. Servera un paneļa izvēlnes seko maršrutu secībām egg konfigurācijās un lietotāju iestatījumos.",
         "empty": "Administrācijas izvēlne vēl nav ielādēta.",
         "reset": "Atpakaļ uz paneļa secību"
-      }
+      },
+      "groups": {
+        "look": "Izskats",
+        "navigation": "Navigācija",
+        "pages": "Lapas",
+        "interface": "Saskarne"
+      },
+      "homeCards": "Kartītes",
+      "homeImages": "Attēli",
+      "status": {
+        "unsaved": "Nesaglabātas izmaiņas",
+        "saved": "Visas izmaiņas saglabātas"
+      },
+      "more": "Citas darbības",
+      "resizePanel": "Mainīt iestatījumu paneļa izmēru",
+      "sections": "Iestatījumu sadaļas"
     },
     "library": {
       "saveAsPreset": "Saglabāt kā sagatavi",

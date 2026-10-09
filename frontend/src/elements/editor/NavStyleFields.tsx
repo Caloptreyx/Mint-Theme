@@ -1,7 +1,7 @@
 import { faFolder, faTerminal } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Radio } from '@mantine/core';
-import { Stack, Text } from '../../lib/core.ts';
+import { Stack } from '../../lib/core.ts';
 import { NAV_HOVERS, type NavHover, type NebulaTheme, SEARCH_COMPONENTS } from '../../lib/theme.ts';
 import { useExtTranslations } from '../../translations.ts';
 import ChoiceCards from './ChoiceCards.tsx';
@@ -75,15 +75,12 @@ function NavHoverMock({ hover, label }: { hover: NavHover; label: string }) {
   );
 }
 
-/** Navigation section: how menu links react, and what search sits under the logo. */
+/** Menu style & search section: how menu links react, and what search sits under the logo. */
 export default function NavStyleFields({ theme, set }: Props) {
   const { t } = useExtTranslations();
 
   return (
-    <Stack gap='md'>
-      <Text size='xs' fw={600} tt='uppercase' c='dimmed' className='tracking-wider'>
-        {t('editor.navStyle.title', {})}
-      </Text>
+    <Stack gap='lg'>
       <ChoiceCards
         label={t('editor.navStyle.hover', {})}
         description={t('editor.navStyle.hoverDescription', {})}

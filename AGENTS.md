@@ -171,7 +171,7 @@ and break silently when core moves a file. Everything here is runtime:
   Core keeps links the user may not open in the menu inside `ServerCan`, which renders nothing, so the modal renders
   each link's wrappers with a marker in a hidden probe first and lists only links that left one; the list is read once
   per open. A save is merged into the previous order (`mergeNavOrder`), so ids not on screen (another egg's links)
-  keep their place. The editor's Navigation section arranges `adminNavOrder` over the admin menu GroupedNav publishes
+  keep their place. The editor's Menu order section arranges `adminNavOrder` over the admin menu GroupedNav publishes
   beside the editor (`publishAdminMenu`), as core renders it for the signed in admin. Above it, `userArrange` (theme,
   site wide, `{ server, dashboard, admin }` booleans, all true by default) turns users' arranging off per menu, admins
   included: `useNavOrders()` reports `arrangeable`, ArrangeMenu renders nothing and the user's saved order is ignored,
@@ -299,6 +299,17 @@ and break silently when core moves a file. Everything here is runtime:
   The theme PUT body is `{ theme, base? }`: `theme` is required (null resets, missing is 400); a `base` that is not
   the current version gives 409 and saves nothing; success returns `{ version }`. The logic is `routes::store_theme`,
   tested with cargo. `updateTheme(theme | null, base?)` returns that version.
+- The editor's layout (`pages/ThemeEditor.tsx`). A top bar holds close, the title with the draft's state (unsaved or
+  saved), undo, redo, history, a 'More actions' menu (import, export, Discord support, Reset to default), then 'Apply
+  in this browser' (and its Stop while a local theme is active), 'Discard changes' (only while dirty) and Save. Below
+  it: the section menu (`elements/editor/EditorNav.tsx`: the settings search on top, then the sections under four
+  foldable groups, Look, Navigation, Pages and Interface; a folded group holding the open section keeps its heading
+  in the accent colour), the settings panel (the section's title and description, the load and permission notices,
+  then `Sections`), the resize handle (`elements/editor/PanelResizer.tsx`: drag, arrow keys, Home/End, double click
+  for the default; 320 to 720px, kept per browser in `nebula:editor-width`; the preview frame ignores the pointer
+  while it drags) and the preview with its own toolbar. Opening Login, Server home, Console or Servers list points
+  the preview at that page. A new section needs its id in `Section` (`Sections.tsx`), an entry in
+  `SECTION_GROUPS` (`EditorNav.tsx`) and `editor.section.<id>` plus `<id>Description` keys.
 - The editor (`pages/ThemeEditor.tsx`) only saves once `loadTheme()` has returned the stored theme; until then it
   shows a loader, or an error with Retry. It keeps the loaded version and sends it as `base`; a 409 opens a modal to
   reload the stored theme or overwrite it (resent without `base`). A load only replaces the draft if the draft has not
@@ -323,9 +334,9 @@ and break silently when core moves a file. Everything here is runtime:
   can save the theme without being able to change panel settings. The editor asks `useCanSaveTheme()` (core's
   `useAdminCan`, true for admins): without it Save (Mod+S too), the conflict's Overwrite and every preset change
   ('Save as preset', save into, rename, delete, the users toggles) are off with `editor.noPermission` as their
-  tooltip and as a line in the Presets section and the footer; drafts, presets applied to the draft, history loads,
-  import and export still work.
-- 'Apply in this browser' (`localTheme.*`). The editor's footer button stores `normalizeTheme(draft, saved)` in
+  tooltip and as a line in the Presets section and above the settings panel; drafts, presets applied to the draft,
+  history loads, import and export still work.
+- 'Apply in this browser' (`localTheme.*`). The editor's top bar button stores `normalizeTheme(draft, saved)` in
   `nebula:local-theme`; `apply.ts` paints `paintedTheme(saved, local, choices, pick)`: the local theme stands in for
   the site theme in this browser only (auth pages included, `holdSiteTheme()` holds it too), users' picks still go
   over it. It is read with `parseLocalTheme()` (normalizeTheme, the security boundary) at startup, where it also

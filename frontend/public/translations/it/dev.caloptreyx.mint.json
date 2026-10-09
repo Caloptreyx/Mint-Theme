@@ -247,26 +247,28 @@
         "presetsDescription": "Parti da uno stile pronto, salva i tuoi e scegli quali possono usare gli utenti.",
         "colours": "Colori",
         "coloursDescription": "Tutto il resto deriva da questi cinque.",
-        "style": "Stile",
-        "styleDescription": "Font e arrotondamento degli angoli.",
-        "background": "Sfondo",
+        "style": "Tipografia e forma",
+        "styleDescription": "Font, pulsanti, arrotondamento degli angoli, opacità e bordi dei blocchi e l'effetto clic.",
+        "background": "Sfondo e branding",
         "backgroundDescription": "Un'immagine dietro tutto il pannello, attenuata con il colore della pagina, e l'icona della scheda del browser.",
-        "home": "Pagina home",
-        "homeDescription": "Banner e immagini dei giochi per la pagina iniziale.",
-        "articles": "Per iniziare",
-        "articlesDescription": "Link mostrati nella home di ogni server.",
-        "layout": "Layout",
-        "layoutDescription": "Quali schede mostra la home e dove.",
+        "home": "Home del server",
+        "homeDescription": "Le schede nella pagina home di un server, i suoi banner e le immagini di gioco e i link per iniziare.",
         "login": "Pagina di accesso",
         "loginDescription": "Layout, sfondo, logo e link di supporto per le pagine di accesso, registrazione e password.",
-        "interface": "Interfaccia",
-        "interfaceDescription": "Notifiche, transizioni di pagina e titoli delle pagine.",
-        "navigation": "Navigazione",
-        "navigationDescription": "Layout della barra laterale, effetto hover del menu e ricerca.",
+        "interface": "Comportamento",
+        "interfaceDescription": "Notifiche, transizioni di pagina, titoli di pagina e l'editor di file su telefono.",
         "components": "Componenti",
-        "componentsDescription": "Schede server, tabelle, riquadri e schede statistiche.",
+        "componentsDescription": "Riquadri, schede statistiche e tabelle in tutto il pannello.",
         "console": "Console",
-        "consoleDescription": "Cosa mostra la pagina della console intorno al terminale, e dove."
+        "consoleDescription": "Cosa mostra la pagina della console intorno al terminale, e dove.",
+        "sidebar": "Barra laterale e dock",
+        "sidebarDescription": "Dove si trova il menu su desktop, dove vanno logo e ricerca e come si naviga sui telefoni.",
+        "menu": "Stile del menu e ricerca",
+        "menuDescription": "Come appaiono i link del menu al passaggio del mouse e quando aperti, e quale ricerca mostra il menu.",
+        "menuOrder": "Ordine del menu",
+        "menuOrderDescription": "Sezioni di menu comprimibili, l'ordine del menu admin e quali menu gli utenti possono riordinare.",
+        "servers": "Elenco server",
+        "serversDescription": "Le schede nella vista a griglia dell'elenco server."
       },
       "accent": "Accento",
       "accentDescription": "Pulsanti, link e voce di menu attiva",
@@ -517,7 +519,6 @@
         }
       },
       "navStyle": {
-        "title": "Menu",
         "hover": "Effetto hover",
         "hoverDescription": "Come appaiono i link del menu sotto il puntatore e quando la loro pagina è aperta. Passa sopra un riquadro per vederli entrambi.",
         "hovers": {
@@ -543,7 +544,6 @@
         }
       },
       "serverCards": {
-        "title": "Elenco server",
         "cardStyle": "Stile delle schede server",
         "cardStyleDescription": "Le schede nella vista griglia dell'elenco server. Ogni stile mantiene la casella di selezione, lo stato e il menu di alimentazione.",
         "styles": {
@@ -563,7 +563,6 @@
         }
       },
       "navLayout": {
-        "title": "Layout",
         "layout": "Layout della dashboard",
         "layoutDescription": "Come si dispone il menu accanto alle pagine su desktop. Sottile è una barra di icone fissa che mostra i nomi dei link al passaggio. I telefoni usano la navigazione su telefono qui sotto.",
         "layouts": {
@@ -592,7 +591,6 @@
         }
       },
       "navOrder": {
-        "title": "Ordine del menu",
         "userArrange": "Gli utenti possono ordinare",
         "userArrangeDescription": "Quali menu hanno «Ordina menu», amministratori inclusi. Disattivato, il menu mostra a tutti l'ordine del pannello e gli ordini salvati dagli utenti vengono ignorati; tornano se lo riattivi.",
         "menus": {
@@ -604,7 +602,22 @@
         "description": "Il menu dell'amministrazione per tutti: trascina link e intere categorie, e i link all'interno della loro categoria. Gli utenti possono comunque ordinare i propri menu sopra di esso. I menu server e dashboard seguono l'ordine delle rotte delle configurazioni egg e delle impostazioni utente.",
         "empty": "Il menu di amministrazione non è ancora caricato.",
         "reset": "Torna all'ordine del pannello"
-      }
+      },
+      "groups": {
+        "look": "Aspetto",
+        "navigation": "Navigazione",
+        "pages": "Pagine",
+        "interface": "Interfaccia"
+      },
+      "homeCards": "Schede",
+      "homeImages": "Immagini",
+      "status": {
+        "unsaved": "Modifiche non salvate",
+        "saved": "Tutte le modifiche salvate"
+      },
+      "more": "Altre azioni",
+      "resizePanel": "Ridimensiona il pannello delle impostazioni",
+      "sections": "Sezioni delle impostazioni"
     },
     "library": {
       "saveAsPreset": "Salva come preset",

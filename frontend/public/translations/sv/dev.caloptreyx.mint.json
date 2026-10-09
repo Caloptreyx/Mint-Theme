@@ -247,26 +247,28 @@
         "presetsDescription": "Utgå från ett färdigt utseende, spara dina egna och välj vilka användarna kan välja mellan.",
         "colours": "Färger",
         "coloursDescription": "Allt annat blandas fram från dessa fem.",
-        "style": "Stil",
-        "styleDescription": "Typsnitt och hörnrundning.",
-        "background": "Bakgrund",
+        "style": "Typografi & form",
+        "styleDescription": "Typsnitt, knappar, hörnrundning, blockopacitet och kanter samt klickeffekten.",
+        "background": "Bakgrund & varumärke",
         "backgroundDescription": "En bild bakom hela panelen, nedtonad med sidans färg, samt ikonen för webbläsarfliken.",
-        "home": "Startsida",
-        "homeDescription": "Banner och spelbilder för startsidan.",
-        "articles": "Kom igång",
-        "articlesDescription": "Länkar som visas på varje servers startsida.",
-        "layout": "Layout",
-        "layoutDescription": "Vilka kort startsidan visar och var.",
+        "home": "Serverns startsida",
+        "homeDescription": "Korten på en servers startsida, dess banners och spelbilder samt Kom igång-länkarna.",
         "login": "Inloggningssida",
         "loginDescription": "Layout, bakgrund, logotyp och supportlänkar för inloggnings-, registrerings- och lösenordssidor.",
-        "interface": "Gränssnitt",
-        "interfaceDescription": "Notiser, sidövergångar och sidrubriker.",
-        "navigation": "Navigering",
-        "navigationDescription": "Sidopanelens layout, menyns hovringseffekt och sökning.",
+        "interface": "Beteende",
+        "interfaceDescription": "Notiser, sidövergångar, sidtitlar och filredigeraren på mobil.",
         "components": "Komponenter",
-        "componentsDescription": "Serverkort, tabeller, rutor och statistikkort.",
+        "componentsDescription": "Rutor, statistikkort och tabeller i hela panelen.",
         "console": "Konsol",
-        "consoleDescription": "Vad konsolsidan visar runt terminalen, och var."
+        "consoleDescription": "Vad konsolsidan visar runt terminalen, och var.",
+        "sidebar": "Sidofält & docka",
+        "sidebarDescription": "Var menyn sitter på datorn, var logotyp och sökning placeras och hur mobiler navigerar.",
+        "menu": "Menystil & sökning",
+        "menuDescription": "Hur menylänkar ser ut vid hovring och när de är öppna, och vilken sökning menyn visar.",
+        "menuOrder": "Menyordning",
+        "menuOrderDescription": "Hopfällbara menyavsnitt, adminmenyns ordning och vilka menyer användare kan ordna.",
+        "servers": "Serverlista",
+        "serversDescription": "Korten i rutnätsvyn för serverlistan."
       },
       "accent": "Accent",
       "accentDescription": "Knappar, länkar och det aktiva menyalternativet",
@@ -517,7 +519,6 @@
         }
       },
       "navStyle": {
-        "title": "Meny",
         "hover": "Hovringseffekt",
         "hoverDescription": "Hur menylänkar ser ut under pekaren och medan deras sida är öppen. Hovra över en ruta för att se båda.",
         "hovers": {
@@ -543,7 +544,6 @@
         }
       },
       "serverCards": {
-        "title": "Serverlista",
         "cardStyle": "Stil för serverkort",
         "cardStyleDescription": "Korten i rutnätsvyn av serverlistan. Alla stilar behåller kryssrutan, statusen och strömmenyn.",
         "styles": {
@@ -563,7 +563,6 @@
         }
       },
       "navLayout": {
-        "title": "Layout",
         "layout": "Layout för instrumentpanelen",
         "layoutDescription": "Hur menyn placeras bredvid sidorna på datorn. Smal är en fast ikonlist som visar länkarnas namn vid hovring. Mobiler använder mobilnavigeringen nedan.",
         "layouts": {
@@ -592,7 +591,6 @@
         }
       },
       "navOrder": {
-        "title": "Menyordning",
         "userArrange": "Användare kan ordna",
         "userArrangeDescription": "Vilka menyer som får ”Ordna menyn”, även för admins. Avstängt visar menyn panelens ordning för alla och användarnas sparade ordningar ignoreras; de kommer tillbaka om du slår på det igen.",
         "menus": {
@@ -604,7 +602,22 @@
         "description": "Adminområdets meny för alla: dra länkar och hela kategorier, och länkar inom sin kategori. Användare kan fortfarande ordna sina egna menyer ovanpå. Server- och instrumentpanelsmenyerna följer ruttordningarna i egg-konfigurationerna och användarinställningarna.",
         "empty": "Adminmenyn har inte laddats än.",
         "reset": "Tillbaka till panelens ordning"
-      }
+      },
+      "groups": {
+        "look": "Utseende",
+        "navigation": "Navigering",
+        "pages": "Sidor",
+        "interface": "Gränssnitt"
+      },
+      "homeCards": "Kort",
+      "homeImages": "Bilder",
+      "status": {
+        "unsaved": "Osparade ändringar",
+        "saved": "Alla ändringar sparade"
+      },
+      "more": "Fler åtgärder",
+      "resizePanel": "Ändra storlek på inställningspanelen",
+      "sections": "Inställningsavsnitt"
     },
     "library": {
       "saveAsPreset": "Spara som förinställning",

@@ -8,7 +8,6 @@ import {
   restrictToVerticalAxis,
   SortableItem,
   Stack,
-  Switch,
   Text,
   Tooltip,
 } from '../../lib/core.ts';
@@ -120,12 +119,6 @@ export default function LayoutField({ theme, set }: Props) {
 
   return (
     <Stack>
-      <Switch
-        label={t('editor.sidebarGroups', {})}
-        description={t('editor.sidebarGroupsDescription', {})}
-        checked={theme.sidebarGroups}
-        onChange={(e) => set({ sidebarGroups: e.currentTarget.checked })}
-      />
       <Text size='xs' c='dimmed'>
         {t('editor.layoutDescription', {})}
       </Text>

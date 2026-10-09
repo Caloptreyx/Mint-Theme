@@ -247,26 +247,28 @@
         "presetsDescription": "Partez d'un style prêt à l'emploi, enregistrez les vôtres et choisissez ceux que les utilisateurs peuvent sélectionner.",
         "colours": "Couleurs",
         "coloursDescription": "Tout le reste est dérivé de ces cinq couleurs.",
-        "style": "Style",
-        "styleDescription": "Police et arrondi des coins.",
-        "background": "Arrière-plan",
+        "style": "Typographie et forme",
+        "styleDescription": "Polices, boutons, arrondi des coins, opacité et bordures des blocs, et l'effet de clic.",
+        "background": "Arrière-plan et image de marque",
         "backgroundDescription": "Une image derrière tout le panel, atténuée avec la couleur de la page, et l'icône de l'onglet du navigateur.",
-        "home": "Page d'accueil",
-        "homeDescription": "Bannière et images de jeux pour la page d'accueil.",
-        "articles": "Premiers pas",
-        "articlesDescription": "Liens affichés sur chaque page d'accueil de serveur.",
-        "layout": "Disposition",
-        "layoutDescription": "Quelles cartes la page d'accueil affiche, et où.",
+        "home": "Accueil du serveur",
+        "homeDescription": "Les cartes de la page d'accueil d'un serveur, ses bannières et images de jeu, et les liens de prise en main.",
         "login": "Page de connexion",
         "loginDescription": "Disposition, arrière-plan, logo et liens d'assistance des pages de connexion, d'inscription et de mot de passe.",
-        "interface": "Interface",
-        "interfaceDescription": "Notifications, transitions de page et titres de page.",
-        "navigation": "Navigation",
-        "navigationDescription": "Disposition de la barre latérale, effet de survol du menu et recherche.",
+        "interface": "Comportement",
+        "interfaceDescription": "Notifications, transitions de page, titres de page et l'éditeur de fichiers sur mobile.",
         "components": "Composants",
-        "componentsDescription": "Cartes de serveur, tableaux, encadrés et cartes de statistiques.",
+        "componentsDescription": "Boîtes, cartes de statistiques et tableaux dans tout le panel.",
         "console": "Console",
-        "consoleDescription": "Ce que la page console affiche autour du terminal, et où."
+        "consoleDescription": "Ce que la page console affiche autour du terminal, et où.",
+        "sidebar": "Barre latérale et dock",
+        "sidebarDescription": "Où se place le menu sur ordinateur, où vont son logo et sa recherche, et comment naviguer sur mobile.",
+        "menu": "Style du menu et recherche",
+        "menuDescription": "L'apparence des liens du menu au survol et lorsqu'ils sont ouverts, et la recherche affichée par le menu.",
+        "menuOrder": "Ordre du menu",
+        "menuOrderDescription": "Sections de menu repliables, l'ordre du menu d'administration et les menus que les utilisateurs peuvent organiser.",
+        "servers": "Liste des serveurs",
+        "serversDescription": "Les cartes de la vue en grille de la liste des serveurs."
       },
       "accent": "Accent",
       "accentDescription": "Boutons, liens et élément de menu actif",
@@ -517,7 +519,6 @@
         }
       },
       "navStyle": {
-        "title": "Menu",
         "hover": "Effet de survol",
         "hoverDescription": "L'apparence des liens du menu sous le pointeur et lorsque leur page est ouverte. Survolez une vignette pour voir les deux.",
         "hovers": {
@@ -543,7 +544,6 @@
         }
       },
       "serverCards": {
-        "title": "Liste des serveurs",
         "cardStyle": "Style des cartes de serveur",
         "cardStyleDescription": "Les cartes de la vue en grille de la liste des serveurs. Chaque style conserve la case à cocher, le statut et le menu d'alimentation.",
         "styles": {
@@ -563,7 +563,6 @@
         }
       },
       "navLayout": {
-        "title": "Disposition",
         "layout": "Disposition du tableau de bord",
         "layoutDescription": "La position du menu à côté des pages sur ordinateur. Compact est une barre d'icônes fixe qui affiche le nom des liens au survol. Les téléphones utilisent la navigation mobile ci-dessous.",
         "layouts": {
@@ -592,7 +591,6 @@
         }
       },
       "navOrder": {
-        "title": "Ordre du menu",
         "userArrange": "Les utilisateurs peuvent organiser",
         "userArrangeDescription": "Quels menus reçoivent « Organiser le menu », administrateurs compris. Désactivé, le menu suit l'ordre du panel pour tout le monde et les ordres enregistrés par les utilisateurs sont ignorés ; ils reviennent si vous le réactivez.",
         "menus": {
@@ -604,7 +602,22 @@
         "description": "Le menu de l'administration pour tout le monde : faites glisser les liens et des catégories entières, et les liens au sein de leur catégorie. Les utilisateurs peuvent toujours organiser leurs propres menus par-dessus. Les menus serveur et tableau de bord suivent l'ordre des routes des configurations d'eggs et des paramètres utilisateur.",
         "empty": "Le menu d'administration n'est pas encore chargé.",
         "reset": "Revenir à l'ordre du panel"
-      }
+      },
+      "groups": {
+        "look": "Apparence",
+        "navigation": "Navigation",
+        "pages": "Pages",
+        "interface": "Interface"
+      },
+      "homeCards": "Cartes",
+      "homeImages": "Images",
+      "status": {
+        "unsaved": "Modifications non enregistrées",
+        "saved": "Toutes les modifications sont enregistrées"
+      },
+      "more": "Plus d'actions",
+      "resizePanel": "Redimensionner le panneau des paramètres",
+      "sections": "Sections des paramètres"
     },
     "library": {
       "saveAsPreset": "Enregistrer comme préréglage",

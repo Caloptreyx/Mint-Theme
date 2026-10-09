@@ -247,26 +247,28 @@
         "presetsDescription": "Bắt đầu từ một giao diện có sẵn, lưu mẫu của riêng bạn và chọn những mẫu người dùng được phép chọn.",
         "colours": "Màu sắc",
         "coloursDescription": "Mọi màu khác đều được pha từ năm màu này.",
-        "style": "Kiểu dáng",
-        "styleDescription": "Phông chữ và độ bo góc.",
-        "background": "Nền",
+        "style": "Chữ & hình dạng",
+        "styleDescription": "Phông chữ, nút, bo góc, độ mờ và viền khối, và hiệu ứng nhấp.",
+        "background": "Nền & thương hiệu",
         "backgroundDescription": "Hình ảnh phía sau toàn bộ bảng điều khiển, được làm mờ theo màu trang, cùng biểu tượng tab trình duyệt.",
-        "home": "Trang chủ",
-        "homeDescription": "Biểu ngữ và hình ảnh trò chơi cho trang chính.",
-        "articles": "Bắt đầu",
-        "articlesDescription": "Các liên kết hiển thị trên mọi trang chủ máy chủ.",
-        "layout": "Bố cục",
-        "layoutDescription": "Trang chủ hiển thị những thẻ nào và ở đâu.",
+        "home": "Trang chủ máy chủ",
+        "homeDescription": "Các thẻ trên trang chủ của máy chủ, biểu ngữ và hình ảnh trò chơi, và các liên kết bắt đầu.",
         "login": "Trang đăng nhập",
         "loginDescription": "Bố cục, nền, logo và liên kết hỗ trợ cho các trang đăng nhập, đăng ký và mật khẩu.",
-        "interface": "Giao diện",
-        "interfaceDescription": "Thông báo nổi, hiệu ứng chuyển trang và tiêu đề trang.",
-        "navigation": "Điều hướng",
-        "navigationDescription": "Bố cục thanh bên, hiệu ứng khi di chuột trên menu và tìm kiếm.",
+        "interface": "Hành vi",
+        "interfaceDescription": "Thông báo, chuyển trang, tiêu đề trang và trình chỉnh sửa tệp trên điện thoại.",
         "components": "Thành phần",
-        "componentsDescription": "Thẻ máy chủ, bảng, hộp và thẻ thống kê.",
+        "componentsDescription": "Hộp, thẻ thống kê và bảng trên toàn bảng điều khiển.",
         "console": "Console",
-        "consoleDescription": "Những gì trang console hiển thị quanh terminal, và ở đâu."
+        "consoleDescription": "Những gì trang console hiển thị quanh terminal, và ở đâu.",
+        "sidebar": "Thanh bên & dock",
+        "sidebarDescription": "Vị trí menu trên máy tính, nơi đặt logo và tìm kiếm, và cách điều hướng trên điện thoại.",
+        "menu": "Kiểu menu & tìm kiếm",
+        "menuDescription": "Giao diện liên kết menu khi di chuột và khi mở, và menu hiển thị tìm kiếm nào.",
+        "menuOrder": "Thứ tự menu",
+        "menuOrderDescription": "Các mục menu thu gọn được, thứ tự menu quản trị và những menu người dùng có thể sắp xếp.",
+        "servers": "Danh sách máy chủ",
+        "serversDescription": "Các thẻ trong chế độ xem lưới của danh sách máy chủ."
       },
       "accent": "Màu nhấn",
       "accentDescription": "Nút, liên kết và mục menu đang chọn",
@@ -517,7 +519,6 @@
         }
       },
       "navStyle": {
-        "title": "Menu",
         "hover": "Hiệu ứng di chuột",
         "hoverDescription": "Giao diện liên kết menu khi con trỏ đặt lên và khi trang của chúng đang mở. Di chuột lên một ô để xem cả hai.",
         "hovers": {
@@ -543,7 +544,6 @@
         }
       },
       "serverCards": {
-        "title": "Danh sách máy chủ",
         "cardStyle": "Kiểu thẻ máy chủ",
         "cardStyleDescription": "Các thẻ trong dạng lưới của danh sách máy chủ. Mọi kiểu đều giữ ô chọn, trạng thái và menu nguồn.",
         "styles": {
@@ -563,7 +563,6 @@
         }
       },
       "navLayout": {
-        "title": "Bố cục",
         "layout": "Bố cục bảng điều khiển",
         "layoutDescription": "Cách menu nằm cạnh các trang trên máy tính. Thu gọn là một dải biểu tượng cố định, hiện tên liên kết khi di chuột. Điện thoại dùng điều hướng trên điện thoại bên dưới.",
         "layouts": {
@@ -592,7 +591,6 @@
         }
       },
       "navOrder": {
-        "title": "Thứ tự menu",
         "userArrange": "Người dùng có thể sắp xếp",
         "userArrangeDescription": "Những menu nào có “Sắp xếp menu”, kể cả quản trị viên. Khi tắt, menu hiển thị thứ tự của panel cho mọi người và thứ tự người dùng đã lưu bị bỏ qua; chúng sẽ quay lại nếu bạn bật lại.",
         "menus": {
@@ -604,7 +602,22 @@
         "description": "Menu khu vực quản trị cho mọi người: kéo các liên kết và cả danh mục, cũng như các liên kết trong danh mục của chúng. Người dùng vẫn có thể tự sắp xếp menu của mình đè lên. Menu máy chủ và bảng điều khiển theo thứ tự route của cấu hình egg và cài đặt người dùng.",
         "empty": "Menu quản trị chưa tải xong.",
         "reset": "Quay lại thứ tự của panel"
-      }
+      },
+      "groups": {
+        "look": "Diện mạo",
+        "navigation": "Điều hướng",
+        "pages": "Trang",
+        "interface": "Giao diện"
+      },
+      "homeCards": "Thẻ",
+      "homeImages": "Hình ảnh",
+      "status": {
+        "unsaved": "Thay đổi chưa lưu",
+        "saved": "Đã lưu mọi thay đổi"
+      },
+      "more": "Thao tác khác",
+      "resizePanel": "Đổi kích thước bảng cài đặt",
+      "sections": "Các mục cài đặt"
     },
     "library": {
       "saveAsPreset": "Lưu thành mẫu",
