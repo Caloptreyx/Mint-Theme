@@ -214,7 +214,8 @@ and break silently when core moves a file. Everything here is runtime:
   keeps the drawer's open state inside the Sidebar, so Menu clicks core's own floating menu button: the bar renders a
   hidden `[data-nebula-bottom-nav-marker]` just before core's element, Menu looks for
   `.mantine-Card-root > .mantine-ActionIcon-root` among the nodes between the marker and the bar (one console warning
-  if none), and app.css hides that card. The bar uses core's `lg:` variant (a container query since 1.2.2), measures itself into
+  if none), and app.css hides that card. Core's mobile page title (1.2.4+, the id-less div right after that card, pulled up
+  beside it with `-mt-12`) gets its own margin back there. The bar uses core's `lg:` variant (a container query since 1.2.2), measures itself into
   `--nebula-bottom-nav-h` on html and sets `data-nebula-bottom-nav` while displayed, which app.css turns into bottom
   padding for the content column and a lift for core's `ActionBar`, bottom toasts and the uploads card. 'drawer' returns
   core's element untouched.
@@ -298,7 +299,8 @@ and break silently when core moves a file. Everything here is runtime:
   banners in a background task (failures only logged). `ProfileCard` fetches GET whenever the setting changes, shows
   no default banner while it loads, still checks the URL with `SAFE_URL`, and after an upload sets the returned URL
   and `setSaved(value)` to keep core's synced store in step; nothing else reads the stored format. The avatar opens core's
-  `AvatarContainer` in a modal; `app.css` hides the grid copy (`.order-60`).
+  `AvatarContainer` in a modal; `app.css` hides the grid copy (`.order-60`). The avatar button is disabled like core's card
+  is hidden when the panel's `allowChangingAvatar` (1.2.6+) is off; older panels lack it, which allows it.
 - Presets, users' own themes and the theme history (`backend/src/presets.rs`, `history.rs`, `lib/library.ts`,
   `elements/library/`). Custom presets are full normalized themes in the `presets` setting
   (`{ custom: [{ id, name, theme, users }], builtin: [id] }`, at most 20, each theme under the theme PUT's

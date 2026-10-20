@@ -18,6 +18,7 @@ import {
   Title,
   UnstyledButton,
   useAuth,
+  useGlobalStore,
   useToast,
   useUserSetting,
 } from '../../lib/core.ts';
@@ -67,8 +68,11 @@ export default function ProfileCard() {
     : `linear-gradient(120deg, color-mix(in srgb, var(--mantine-color-blue-filled) 30%, ${SHADE}), ${SHADE} 75%)`;
 
   const twoFactor = user.twoFactorMethods.length > 0;
-  // core locks its avatar card in these states, the shortcut here follows it
-  const locked = user.frozen || (user.requireTwoFactor && !user.twoFactorSatisfied);
+  // core locks its avatar card in these states and (from panel 1.2.6) hides it when admins turn avatar changes off;
+  // the shortcut here follows it. Older panels have no such setting (undefined), which allows it.
+  const userSettings = useGlobalStore((state) => state.settings.user);
+  const avatarAllowed = !('allowChangingAvatar' in userSettings) || userSettings.allowChangingAvatar !== false;
+  const locked = !avatarAllowed || user.frozen || (user.requireTwoFactor && !user.twoFactorSatisfied);
 
   const removeBanner = () =>
     axiosInstance

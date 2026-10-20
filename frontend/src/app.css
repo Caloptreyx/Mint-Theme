@@ -489,6 +489,12 @@ html[data-nebula-layout="slim"] #sidebar-desktop .nebula-nav-search-icon {
   display: none !important;
 }
 
+/* core's mobile page title (panel 1.2.4+) sits beside that button with a negative top margin; with the button gone it
+   would slide off the top, and core hides the in-page title below lg meanwhile */
+[data-nebula-bottom-nav-marker] + .mantine-Card-root + div:not([id]) {
+  margin: 1.25rem 1rem 1rem;
+}
+
 html[data-nebula-bottom-nav] [data-nebula-bottom-nav-marker] ~ :is(#dashboard-root, #server-root, #admin-root) {
   padding-bottom: var(--nebula-bottom-nav-h);
 }
