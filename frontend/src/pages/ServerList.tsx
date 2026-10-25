@@ -408,9 +408,7 @@ export default function ServerList() {
       {loading || fetchingAll ? (
         <Spinner.Centered />
       ) : visible.length === 0 ? (
-        <Text c='dimmed'>
-          {tExt(rows.length === 0 ? 'servers.none' : 'servers.noMatch', {})}
-        </Text>
+        <Text c='dimmed'>{tExt(rows.length === 0 ? 'servers.none' : 'servers.noMatch', {})}</Text>
       ) : view === 'grid' ? (
         // headings span the whole row whatever the card style's column count, and the cards stay siblings
         <div className={GRID_CLASS[theme.serverCardStyle]}>
