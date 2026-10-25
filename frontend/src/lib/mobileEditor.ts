@@ -15,7 +15,7 @@ const PHONE_WIDTH = 768;
 const MIN_FONT_SIZE = 16;
 
 /** Wrapped lines, a slim gutter, no popups (they don't fit a phone and cover the text) and wider scrollbars. */
-const PHONE_OPTIONS: EditorOptions = {
+const PHONE_OPTIONS = {
   wordWrap: 'on',
   minimap: { enabled: false },
   folding: false,
@@ -26,13 +26,25 @@ const PHONE_OPTIONS: EditorOptions = {
   quickSuggestions: false,
   suggestOnTriggerCharacters: false,
   parameterHints: { enabled: false },
-  hover: { enabled: false },
   stickyScroll: { enabled: false },
   overviewRulerLanes: 0,
   scrollbar: { verticalScrollbarSize: 18, horizontalScrollbarSize: 16 },
   renderLineHighlight: 'line',
-};
-const PHONE_KEYS = Object.keys(PHONE_OPTIONS) as OptionKey[];
+} satisfies EditorOptions;
+let phoneOptions: Partial<Record<OptionKey, unknown>> | null = null;
+
+/**
+ * PHONE_OPTIONS plus the hover turned off. `hover.enabled` is a boolean up to Monaco 0.55 (panel 1.2.6) and
+ * 'on' | 'off' | 'onKeyboardModifier' from 0.57 (panel 1.2.7), and each version reads the other's value as on, so
+ * the value follows the type of the loaded Monaco's default.
+ */
+function phoneOptionsFor(monaco: Monaco) {
+  if (!phoneOptions) {
+    const enabled = monaco.editor.EditorOptions.hover.defaultValue.enabled;
+    phoneOptions = { ...PHONE_OPTIONS, hover: { enabled: typeof enabled === 'string' ? 'off' : false } };
+  }
+  return phoneOptions;
+}
 
 interface Mounted {
   editor: CodeEditor;
@@ -106,6 +118,8 @@ export function mountMobileEditor(editor: CodeEditor, monaco: Monaco) {
   mounted.push(entry);
 
   const { EditorOption } = monaco.editor;
+  const phoneSet = phoneOptionsFor(monaco);
+  const phoneKeys = Object.keys(phoneSet) as OptionKey[];
   const apply = editor.updateOptions.bind(editor);
   /** What callers last asked for instead of the phone options, restored when they go; null while they are off. */
   let asked: Record<string, unknown> | null = null;
@@ -116,13 +130,13 @@ export function mountMobileEditor(editor: CodeEditor, monaco: Monaco) {
     if (!asked) return apply(options);
     const next: Record<string, unknown> = { ...options };
 
-    for (const key of PHONE_KEYS) {
+    for (const key of phoneKeys) {
       if (!(key in options)) continue;
-      const value = pick(options, key, PHONE_OPTIONS[key]);
+      const value = pick(options, key, phoneSet[key]);
       if (JSON.stringify(value) !== JSON.stringify(asked[key])) released.add(key);
       asked[key] = value;
       if (released.has(key)) continue;
-      const phone = PHONE_OPTIONS[key];
+      const phone = phoneSet[key];
       next[key] = phone && typeof phone === 'object' ? { ...(options[key] as object), ...phone } : phone;
     }
     if (typeof options.fontSize === 'number') {
@@ -147,14 +161,14 @@ export function mountMobileEditor(editor: CodeEditor, monaco: Monaco) {
       const fontSize = Math.max(MIN_FONT_SIZE, editor.getOption(EditorOption.fontSize));
       const phone: Record<string, unknown> = { fontSize };
       asked = { fontSize: raw.fontSize };
-      for (const key of PHONE_KEYS) {
-        asked[key] = pick(raw, key, PHONE_OPTIONS[key]);
-        if (!released.has(key)) phone[key] = PHONE_OPTIONS[key];
+      for (const key of phoneKeys) {
+        asked[key] = pick(raw, key, phoneSet[key]);
+        if (!released.has(key)) phone[key] = phoneSet[key];
       }
       apply(phone as EditorOptions);
     } else {
       const back: Record<string, unknown> = { fontSize: asked.fontSize };
-      for (const key of PHONE_KEYS) if (!released.has(key)) back[key] = asked[key];
+      for (const key of phoneKeys) if (!released.has(key)) back[key] = asked[key];
       asked = null;
       apply(back as EditorOptions);
     }
