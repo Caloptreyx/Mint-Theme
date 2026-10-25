@@ -4,6 +4,7 @@ import { Fragment, isValidElement, type ReactElement, type ReactNode, useLayoutE
 import { Link, useLocation } from 'react-router';
 import { useNebulaTheme } from '../../lib/apply.ts';
 import { Card } from '../../lib/core.ts';
+import { customIconOf, useCustomIcon } from '../../lib/customIcon.ts';
 import { isEmptyNavOrder, type NavOrder } from '../../lib/navOrder.ts';
 import { useExtTranslations } from '../../translations.ts';
 import { withConsoleRoot } from '../console/ConsoleFallback.tsx';
@@ -92,6 +93,7 @@ function primaryLinks({ header, children }: SidebarProps, pathname: string, orde
 function BarLink({ link, active }: { link: SidebarLinkProps; active: boolean }) {
   const { pathname } = useLocation();
   const to = link.to.endsWith('/*') ? link.to.slice(0, -2) : link.to;
+  const icon = useCustomIcon(customIconOf(link), link.icon);
 
   // the console's link leads to Home (the server root) while core blocks the console; it lights up there only
   return withConsoleRoot(to, (root) => {
@@ -103,7 +105,7 @@ function BarLink({ link, active }: { link: SidebarLinkProps; active: boolean }) 
         className={`${ITEM_CLASS} ${current ? 'text-(--mantine-color-blue-light-color)' : 'text-(--mantine-color-dimmed)'}`}
       >
         <span className={`${ICON_CLASS} ${current ? 'bg-(--mantine-color-blue-light)' : ''}`}>
-          <FontAwesomeIcon icon={link.icon ?? faLink} />
+          <FontAwesomeIcon icon={icon ?? faLink} />
         </span>
         <span className='w-full truncate text-center'>{link.name ?? link.title}</span>
       </Link>

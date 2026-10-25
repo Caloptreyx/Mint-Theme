@@ -38,6 +38,7 @@
       "showingOf": "Zobrazené: {count} z {total}",
       "pageOnly": "Triedenie, zoskupovanie a filter stavu sa vzťahujú len na servery na tejto stránke.",
       "noMatch": "Tomuto filtru nezodpovedá žiadny server.",
+      "none": "Zatiaľ nemáte žiadne servery.",
       "select": "Vybrať {name}",
       "selectAll": "Vybrať všetky zobrazené servery",
       "column": {

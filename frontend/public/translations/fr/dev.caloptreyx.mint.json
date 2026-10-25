@@ -38,6 +38,7 @@
       "showingOf": "{count} sur {total} affichés",
       "pageOnly": "Le tri, le regroupement et le filtre de statut ne portent que sur les serveurs de cette page.",
       "noMatch": "Aucun serveur ne correspond à ce filtre.",
+      "none": "Vous n'avez encore aucun serveur.",
       "select": "Sélectionner {name}",
       "selectAll": "Sélectionner tous les serveurs visibles",
       "column": {

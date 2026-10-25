@@ -218,7 +218,9 @@ and break silently when core moves a file. Everything here is runtime:
   beside it with `-mt-12`) gets its own margin back there. The bar uses core's `lg:` variant (a container query since 1.2.2), measures itself into
   `--nebula-bottom-nav-h` on html and sets `data-nebula-bottom-nav` while displayed, which app.css turns into bottom
   padding for the content column and a lift for core's `ActionBar`, bottom toasts and the uploads card. 'drawer' returns
-  core's element untouched.
+  core's element untouched. The bar and the 'Arrange menu' modal draw link icons themselves, so they resolve the
+  route icon an admin picked (panel 1.2.7+, `customIcon` on `Sidebar.Link`) with `lib/customIcon.ts`, a copy of
+  core's `useCustomIcon` that reads the link prop and the global store's `icons` only where they exist.
 - `routes.addServerRouteInterceptor` puts Home at `/` and replaces the console route with a copy
   (`{ ...route, path: '/console', element: ServerConsole }`), never changing it in place: core runs server route
   interceptors on its shared route objects in ServerRouter, the quick actions palette and the egg configuration
@@ -420,10 +422,12 @@ and break silently when core moves a file. Everything here is runtime:
   runs for every Monaco editor (file editor, tree pane, database console, logs; not diff editors): on a touch device
   whose editor node is under 768px wide it swaps in phone options (wrap, no minimap, folding, gutter extras or
   popups, font at least 16px so iOS doesn't zoom) and restores them when a layout change (rotation) or the option
-  says so. `@monaco-editor/react` hands core's `options` prop (wordWrap, minimap, fontSize from the file manager's
-  editor settings) to `updateOptions` on every render, so the handler wraps that editor's `updateOptions` while the
+  says so. Core's editor wrapper (`@monaco-editor/react` up to 1.2.6, core's own from 1.2.7) hands core's `options`
+  prop (wordWrap, minimap, fontSize from the file manager's editor settings) to `updateOptions` again on re-renders,
+  so the handler wraps that editor's `updateOptions` while the
   phone options are on: a repeated value keeps the phone value, a changed one is the user's and stands (fonts only
-  from 16px up). The handler keeps a registry of mounted editors, most recently focused last.
+  from 16px up). The handler keeps a registry of mounted editors, most recently focused last. Its types come from
+  core's registry (`ExtensionContext`), since 1.2.7 no longer ships `@monaco-editor/react`.
   `pages.server.files.editorContainer.appendContentComponent(EditorKeys)` adds the key row to the file editor
   page: the editor it drives is the registry's latest one inside the same content div, shown only for the
   'monaco' engine (core defaults touch devices to 'pierre', left alone) and editable editors, `lg:hidden!`. It is

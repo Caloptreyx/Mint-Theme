@@ -3,11 +3,12 @@ import { faGripVertical, faLink } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { type ComponentProps, type ReactNode, useSyncExternalStore } from 'react';
 import { Card, DndContainer, Group, restrictToVerticalAxis, SortableItem, Stack, Text } from '../../lib/core.ts';
+import { customIconOf, useCustomIcon } from '../../lib/customIcon.ts';
 import type { NavOrder } from '../../lib/navOrder.ts';
 import { useExtTranslations } from '../../translations.ts';
 import { findLink, isNavDivider, type NavEntry, navNodeId } from './nav.ts';
 
-type ArrangeLink = { id: string; name: string; icon?: IconDefinition };
+type ArrangeLink = { id: string; name: string; icon?: IconDefinition; customIcon: string | null };
 /** What the arranger lists: the menu's links and sections, without rules or links the user cannot open. */
 export type ArrangeItem =
   | ({ kind: 'link' } & ArrangeLink)
@@ -25,7 +26,7 @@ export function toArrangeItems(entries: NavEntry[], visible: ReadonlySet<string>
     const id = navNodeId(node);
     if (!link || !id || seen.has(id) || (visible && !visible.has(id))) return null;
     seen.add(id);
-    return { id, name: link.name ?? link.title ?? link.to, icon: link.icon };
+    return { id, name: link.name ?? link.title ?? link.to, icon: link.icon, customIcon: customIconOf(link) };
   };
 
   return entries.flatMap((entry): ArrangeItem[] => {
@@ -82,6 +83,7 @@ export function useAdminMenu(): ReactNode[] {
 
 function LinkRow({ link, handle }: { link: ArrangeLink; handle: ComponentProps<'div'> }) {
   const { t } = useExtTranslations();
+  const icon = useCustomIcon(link.customIcon, link.icon);
 
   return (
     <Card p='xs'>
@@ -93,7 +95,7 @@ function LinkRow({ link, handle }: { link: ArrangeLink; handle: ComponentProps<'
         >
           <FontAwesomeIcon icon={faGripVertical} />
         </div>
-        <FontAwesomeIcon icon={link.icon ?? faLink} className='w-4 shrink-0 text-(--mantine-color-dimmed)' />
+        <FontAwesomeIcon icon={icon ?? faLink} className='w-4 shrink-0 text-(--mantine-color-dimmed)' />
         <Text size='sm' truncate>
           {link.name}
         </Text>

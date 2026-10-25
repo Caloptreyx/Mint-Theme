@@ -38,6 +38,7 @@
       "showingOf": "Đang hiển thị {count} trên {total}",
       "pageOnly": "Sắp xếp, nhóm và bộ lọc trạng thái chỉ áp dụng cho các máy chủ trên trang này.",
       "noMatch": "Không có máy chủ nào khớp với bộ lọc này.",
+      "none": "Bạn chưa có máy chủ nào.",
       "select": "Chọn {name}",
       "selectAll": "Chọn tất cả máy chủ đang hiển thị",
       "column": {

@@ -38,6 +38,7 @@
       "showingOf": "顯示 {count} / {total}",
       "pageOnly": "排序、分組和狀態篩選僅適用於本頁的伺服器。",
       "noMatch": "沒有符合此篩選條件的伺服器。",
+      "none": "你還沒有任何伺服器。",
       "select": "選取 {name}",
       "selectAll": "選取所有顯示中的伺服器",
       "column": {

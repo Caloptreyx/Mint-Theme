@@ -409,7 +409,7 @@ export default function ServerList() {
         <Spinner.Centered />
       ) : visible.length === 0 ? (
         <Text c='dimmed'>
-          {rows.length === 0 ? t('pages.account.home.noServers', {}) : tExt('servers.noMatch', {})}
+          {tExt(rows.length === 0 ? 'servers.none' : 'servers.noMatch', {})}
         </Text>
       ) : view === 'grid' ? (
         // headings span the whole row whatever the card style's column count, and the cards stay siblings

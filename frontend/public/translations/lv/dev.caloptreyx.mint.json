@@ -38,6 +38,7 @@
       "showingOf": "Rāda: {count} no {total}",
       "pageOnly": "Kārtošana, grupēšana un statusa filtrs attiecas tikai uz serveriem šajā lapā.",
       "noMatch": "Neviens serveris neatbilst šim filtram.",
+      "none": "Jums vēl nav neviena servera.",
       "select": "Atlasīt {name}",
       "selectAll": "Atlasīt visus redzamos serverus",
       "column": {

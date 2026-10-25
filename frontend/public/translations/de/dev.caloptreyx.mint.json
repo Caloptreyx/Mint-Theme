@@ -38,6 +38,7 @@
       "showingOf": "{count} von {total} angezeigt",
       "pageOnly": "Sortierung, Gruppierung und Statusfilter gelten nur für die Server auf dieser Seite.",
       "noMatch": "Keine Server entsprechen diesem Filter.",
+      "none": "Du hast noch keine Server.",
       "select": "{name} auswählen",
       "selectAll": "Alle sichtbaren Server auswählen",
       "column": {

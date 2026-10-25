@@ -38,6 +38,7 @@
       "showingOf": "Visar {count} av {total}",
       "pageOnly": "Sortering, gruppering och statusfiltret gäller bara servrarna på den här sidan.",
       "noMatch": "Inga servrar matchar det här filtret.",
+      "none": "Du har inga servrar än.",
       "select": "Välj {name}",
       "selectAll": "Välj alla synliga servrar",
       "column": {

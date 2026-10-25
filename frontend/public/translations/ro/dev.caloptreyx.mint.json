@@ -38,6 +38,7 @@
       "showingOf": "Se afișează {count} din {total}",
       "pageOnly": "Sortarea, gruparea și filtrul de stare se aplică doar serverelor de pe această pagină.",
       "noMatch": "Niciun server nu corespunde acestui filtru.",
+      "none": "Nu ai încă niciun server.",
       "select": "Selectează {name}",
       "selectAll": "Selectează toate serverele vizibile",
       "column": {

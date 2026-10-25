@@ -40,6 +40,7 @@ const translations = defineTranslations({
       showingOf: 'Showing {count} of {total}',
       pageOnly: 'Sorting, grouping and the status filter only cover the servers on this page.',
       noMatch: 'No servers match this filter.',
+      none: "You don't have any servers yet.",
       select: 'Select {name}',
       selectAll: 'Select all visible servers',
       column: {

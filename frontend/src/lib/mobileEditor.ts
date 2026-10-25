@@ -1,5 +1,8 @@
-import type { OnMount } from '@monaco-editor/react';
+import type { ExtensionContext } from 'shared';
 import { currentTheme, subscribeTheme } from './apply.ts';
+
+// the handler type of core's registry: @monaco-editor/react's up to panel 1.2.6, core's own loader's from 1.2.7
+type OnMount = Parameters<ExtensionContext['extensionRegistry']['elements']['monacoEditor']['addOnMountHandler']>[0];
 
 export type CodeEditor = Parameters<OnMount>[0];
 type Monaco = Parameters<OnMount>[1];
@@ -92,8 +95,9 @@ function pick(raw: EditorOptions, key: OptionKey, phone: unknown): unknown {
  * Onmount handler for every Monaco editor. On a phone (touch, editor narrower than 768px) with `mobileEditor` on
  * it switches the options above in, and back out when the editor grows (rotation) or the option goes off.
  *
- * Core's file editor passes wordWrap, minimap and font size as props, and @monaco-editor/react hands all of its
- * props to `updateOptions` again on every render. So while the phone options are on, this editor's `updateOptions`
+ * Core's file editor passes wordWrap, minimap and font size as props, which its editor wrapper hands to
+ * `updateOptions` again (@monaco-editor/react up to panel 1.2.6 on every render, core's own wrapper from 1.2.7 when
+ * the options object changes). So while the phone options are on, this editor's `updateOptions`
  * sees callers' options first: a value a caller repeats keeps the phone value, a changed one is the user's choice
  * in core's editor settings and stands (a font size only counts from 16px up). Nothing flips back and forth.
  */

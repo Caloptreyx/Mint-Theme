@@ -38,6 +38,7 @@
       "showingOf": "Viser {count} af {total}",
       "pageOnly": "Sortering, gruppering og statusfilteret gælder kun serverne på denne side.",
       "noMatch": "Ingen servere matcher dette filter.",
+      "none": "Du har ingen servere endnu.",
       "select": "Vælg {name}",
       "selectAll": "Vælg alle synlige servere",
       "column": {

@@ -38,6 +38,7 @@
       "showingOf": "{total} sunucudan {count} tanesi gösteriliyor",
       "pageOnly": "Sıralama, gruplama ve durum filtresi yalnızca bu sayfadaki sunucuları kapsar.",
       "noMatch": "Bu filtreyle eşleşen sunucu yok.",
+      "none": "Henüz hiç sunucunuz yok.",
       "select": "{name} öğesini seç",
       "selectAll": "Görünen tüm sunucuları seç",
       "column": {
