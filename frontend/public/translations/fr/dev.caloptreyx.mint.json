@@ -722,7 +722,8 @@
         "description": "Sous la largeur ordinateur : le bouton de menu flottant du panel, ou une barre en bas de l'écran avec les pages principales et un bouton Menu pour le menu complet.",
         "options": {
           "drawer": "Tiroir",
-          "bottomBar": "Barre inférieure"
+          "bottomBar": "Barre inférieure",
+          "floatingBar": "Barre flottante"
         }
       },
       "navOrder": {

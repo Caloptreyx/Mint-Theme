@@ -722,7 +722,8 @@
         "description": "Masaüstü genişliğinin altında: çekirdeğin yüzen menü butonu veya ekranın altında ana sayfaları ve tam menü için bir Menü butonunu içeren bir çubuk.",
         "options": {
           "drawer": "Çekmece",
-          "bottomBar": "Alt çubuk"
+          "bottomBar": "Alt çubuk",
+          "floatingBar": "Yüzen çubuk"
         }
       },
       "navOrder": {

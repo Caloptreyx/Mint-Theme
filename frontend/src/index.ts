@@ -58,8 +58,8 @@ class DevCaloptreyxMintExtension extends Extension {
     // `sidebarLayout` and `dockPosition`: the shell adds the bars across the content (a render interceptor, so it
     // sees the props above), the slim rail names its links in tooltips and shows the square app icon
     Sidebar.addRenderInterceptor((element, props) => createElement(SidebarShell, { ...props, element }));
-    // `mobileNav: 'bottomBar'`: below lg a bottom bar of menu links whose Menu button opens core's drawer; registered
-    // after the shell so its first node stays core's floating menu button, which the bar clicks
+    // `mobileNav` 'bottomBar' or 'floatingBar': below lg a bar of menu links whose Menu button opens core's drawer;
+    // registered after the shell so its first node stays core's floating menu button, which the bar clicks
     Sidebar.addRenderInterceptor((element, props) => createElement(BottomNav, { ...props, element }));
     // while core's ServerStateGuard blocks every page but the server root (an install, restore or transfer), the
     // Console link points to Home, which shows the live console then; before RailTip so it gets core's own element

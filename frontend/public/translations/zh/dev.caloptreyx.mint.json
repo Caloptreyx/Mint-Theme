@@ -722,7 +722,8 @@
         "description": "低於桌面寬度時：使用核心的浮動選單按鈕，或是在螢幕底部顯示包含主要頁面與可開啟完整選單之「選單」按鈕的導覽列。",
         "options": {
           "drawer": "抽屜",
-          "bottomBar": "底部列"
+          "bottomBar": "底部列",
+          "floatingBar": "懸浮列"
         }
       },
       "navOrder": {

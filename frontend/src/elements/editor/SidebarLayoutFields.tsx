@@ -137,7 +137,8 @@ function LayoutMock({ layout, dock, label }: { layout: SidebarLayout; dock: Dock
   );
 }
 
-/** A phone: core's floating menu button over the page, or the bottom bar with its current link in the accent. */
+/** A phone: core's floating menu button over the page, or the bottom bar (on the edge or floating) with its current
+ * link in the accent. */
 function PhoneMock({ nav }: { nav: MobileNav }) {
   return (
     <div className='flex h-full w-8 flex-col overflow-hidden rounded-[6px] border-2 border-(--mantine-color-default-border)'>
@@ -153,8 +154,10 @@ function PhoneMock({ nav }: { nav: MobileNav }) {
         {/* too narrow for the console's name */}
         <ConsoleBox label='' />
       </div>
-      {nav === 'bottomBar' && (
-        <div className={`flex h-2.5 shrink-0 items-center justify-around border-t px-0.5 ${SURFACE}`}>
+      {nav !== 'drawer' && (
+        <div
+          className={`flex h-2.5 shrink-0 items-center justify-around px-0.5 ${SURFACE} ${nav === 'floatingBar' ? 'mx-0.5 mb-0.5 rounded-full border' : 'border-t'}`}
+        >
           {[0, 1, 2, 3].map((index) => (
             <span
               key={index}
@@ -208,6 +211,7 @@ export default function SidebarLayoutFields({ theme, set }: Props) {
         label={t('editor.mobileNav.label', {})}
         description={t('editor.mobileNav.description', {})}
         value={theme.mobileNav}
+        columns={3}
         choices={MOBILE_NAVS.map((nav) => ({
           value: nav,
           label: t(`editor.mobileNav.options.${nav}`, {}),

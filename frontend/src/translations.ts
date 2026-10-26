@@ -757,6 +757,7 @@ const translations = defineTranslations({
         options: {
           drawer: 'Drawer',
           bottomBar: 'Bottom bar',
+          floatingBar: 'Floating bar',
         },
       },
       navOrder: {

@@ -50,8 +50,11 @@ export type SidebarLayout = (typeof SIDEBAR_LAYOUTS)[number];
 /** Where the sidebar's header block (logo, search, the server block) sits; the horizontal layout ignores it. */
 export const DOCK_POSITIONS = ['sidebar', 'header', 'top'] as const;
 export type DockPosition = (typeof DOCK_POSITIONS)[number];
-/** Phone navigation below lg: 'drawer' is core's floating menu button, 'bottomBar' a fixed bar of links (BottomNav). */
-export const MOBILE_NAVS = ['drawer', 'bottomBar'] as const;
+/**
+ * Phone navigation below lg: 'drawer' is core's floating menu button, 'bottomBar' a fixed bar of links on the bottom
+ * edge and 'floatingBar' the same bar as a rounded pill above it (BottomNav).
+ */
+export const MOBILE_NAVS = ['drawer', 'bottomBar', 'floatingBar'] as const;
 export type MobileNav = (typeof MOBILE_NAVS)[number];
 
 export interface Article {

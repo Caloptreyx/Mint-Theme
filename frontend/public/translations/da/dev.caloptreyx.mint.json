@@ -722,7 +722,8 @@
         "description": "Under computerbredde: kernens svævende menuknap eller en bjælke nederst på skærmen med hovedsiderne og en Menu-knap til hele menuen.",
         "options": {
           "drawer": "Skuffe",
-          "bottomBar": "Bundbjælke"
+          "bottomBar": "Bundbjælke",
+          "floatingBar": "Svævende bjælke"
         }
       },
       "navOrder": {

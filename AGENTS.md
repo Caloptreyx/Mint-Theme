@@ -204,23 +204,32 @@ and break silently when core moves a file. Everything here is runtime:
   gets `RailTip` (a `Sidebar.Link` render interceptor, a tooltip only inside the desktop card) and `RailLogo`
   (an `AppIcon` one, the square icon), and GroupedNav renders every section's links there under a rule.
   `applyTheme()` mirrors both options onto html as `data-nebula-layout` and `data-nebula-dock` for static CSS.
-- `mobileNav: 'bottomBar'` (`elements/sidebar/BottomNav.tsx`), a second `Sidebar.addRenderInterceptor` registered after
-  the shell: below `lg` a fixed bottom bar (safe area aware) with up to four links taken from the menu the Sidebar
-  received, wrappers kept, so a `ServerCan` without access renders nothing and the next link fills in. Links come
-  first and Menu last in the DOM; links past the fourth are hidden (`[&>a:nth-of-type(n+5)]:hidden`). Both get a
-  focus-visible outline, with `!` because core's `button:focus` reset is unlayered. Server pages prefer Home, Console,
-  Files, Backups, Settings; the admin area Back, Overview, Servers, Users; the dashboard Servers, Account, Admin. A menu
-  with an order (the site's or the user's, see Menu order) gives its own first links instead, after the header's. Core
-  keeps the drawer's open state inside the Sidebar, so Menu clicks core's own floating menu button: the bar renders a
-  hidden `[data-nebula-bottom-nav-marker]` just before core's element, Menu looks for
+- `mobileNav: 'bottomBar' | 'floatingBar'` (`elements/sidebar/BottomNav.tsx`), a second `Sidebar.addRenderInterceptor`
+  registered after the shell: below `lg` a fixed bar with up to four links taken from the menu the Sidebar received,
+  wrappers kept, so a `ServerCan` without access renders nothing and the next link fills in. 'bottomBar' spans the
+  bottom edge with the safe area inset as padding; 'floatingBar' is a rounded pill (`max-w-md`, centred) held 0.75rem
+  plus the inset above it. The links stay within `max-w-xl` on tablets. Links come first and Menu last in the DOM;
+  links past the fourth are hidden (`[&>a:nth-of-type(n+5)]:hidden`). Both get a focus-visible outline, with `!`
+  because core's `button:focus` reset is unlayered. Colours and the current page's accent pill are app.css's
+  (`.nebula-bn-*`, the link's `aria-current`): the pill grows in from its middle (durations times `--nebula-speed`,
+  none under reduced motion), a press shows a lighter one at once, and Menu takes the current look through `:has()`
+  while none of the first four links is the current page, so the bar never shows nowhere. Server pages prefer Home,
+  Console, Files, Backups, Settings; the admin area Back, Overview, Servers, Users; the dashboard Servers, Account,
+  Admin. A menu with an order (the site's or the user's, see Menu order) gives its own first links instead, after the
+  header's. Core keeps the drawer's open state inside the Sidebar, so Menu clicks core's own floating menu button: the
+  bar renders a hidden `[data-nebula-bottom-nav-marker]` just before core's element, Menu looks for
   `.mantine-Card-root > .mantine-ActionIcon-root` among the nodes between the marker and the bar (one console warning
-  if none), and app.css hides that card. Core's mobile page title (1.2.4+, the id-less div right after that card, pulled up
-  beside it with `-mt-12`) gets its own margin back there. The bar uses core's `lg:` variant (a container query since 1.2.2), measures itself into
-  `--nebula-bottom-nav-h` on html and sets `data-nebula-bottom-nav` while displayed, which app.css turns into bottom
-  padding for the content column and a lift for core's `ActionBar`, bottom toasts and the uploads card. 'drawer' returns
-  core's element untouched. The bar and the 'Arrange menu' modal draw link icons themselves, so they resolve the
-  route icon an admin picked (panel 1.2.7+, `customIcon` on `Sidebar.Link`) with `lib/customIcon.ts`, a copy of
-  core's `useCustomIcon` that reads the link prop and the global store's `icons` only where they exist.
+  if none), and app.css hides that card. Core's mobile page title (1.2.4+, the id-less div right after that card,
+  pulled up beside it with `-mt-12`) gets its own margin back there. The bar uses core's `lg:` variant (a container
+  query since 1.2.2), measures the room it covers (its height plus its computed `bottom`) into `--nebula-bottom-nav-h`
+  on html and sets `data-nebula-bottom-nav` while displayed, which app.css turns into bottom padding for the content
+  column and a lift for core's `ActionBar`, bottom toasts and the uploads card. On a touch screen (`pointer: coarse`)
+  app.css hides the bar (`[data-nebula-bottom-nav-bar]`) while a text field that is not read only has focus, since
+  core's viewport (`interactive-widget=resizes-content`) would carry it up on the keyboard; it then measures 0 and
+  the room goes back. 'drawer' returns core's element untouched. The bar and the 'Arrange menu' modal draw link
+  icons themselves, so they resolve the route icon an admin picked (panel 1.2.7+, `customIcon` on `Sidebar.Link`) with
+  `lib/customIcon.ts`, a copy of core's `useCustomIcon` that reads the link prop and the global store's `icons` only
+  where they exist.
 - `routes.addServerRouteInterceptor` puts Home at `/` and replaces the console route with a copy
   (`{ ...route, path: '/console', element: ServerConsole }`), never changing it in place: core runs server route
   interceptors on its shared route objects in ServerRouter, the quick actions palette and the egg configuration

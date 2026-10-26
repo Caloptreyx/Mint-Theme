@@ -722,7 +722,8 @@
         "description": "Zem datora platuma: pamatpaneļa peldošā izvēlnes poga vai josla ekrāna apakšā ar galvenajām lapām un pogu Izvēlne pilnajai izvēlnei.",
         "options": {
           "drawer": "Izvelkamā izvēlne",
-          "bottomBar": "Apakšējā josla"
+          "bottomBar": "Apakšējā josla",
+          "floatingBar": "Peldoša josla"
         }
       },
       "navOrder": {

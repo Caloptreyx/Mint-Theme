@@ -722,7 +722,8 @@
         "description": "Sotto la larghezza desktop: il pulsante menu fluttuante del pannello, oppure una barra in fondo allo schermo con le pagine principali e un pulsante Menu per il menu completo.",
         "options": {
           "drawer": "Cassetto",
-          "bottomBar": "Barra inferiore"
+          "bottomBar": "Barra inferiore",
+          "floatingBar": "Barra fluttuante"
         }
       },
       "navOrder": {

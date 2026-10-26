@@ -722,7 +722,8 @@
         "description": "Unterhalb der Desktop-Breite: der schwebende Menü-Button des Panels oder eine Leiste am unteren Bildschirmrand mit den Hauptseiten und einem Menü-Button für das vollständige Menü.",
         "options": {
           "drawer": "Schublade",
-          "bottomBar": "Untere Leiste"
+          "bottomBar": "Untere Leiste",
+          "floatingBar": "Schwebende Leiste"
         }
       },
       "navOrder": {

@@ -6,6 +6,7 @@ import { useNebulaTheme } from '../../lib/apply.ts';
 import { Card } from '../../lib/core.ts';
 import { customIconOf, useCustomIcon } from '../../lib/customIcon.ts';
 import { isEmptyNavOrder, type NavOrder } from '../../lib/navOrder.ts';
+import type { MobileNav } from '../../lib/theme.ts';
 import { useExtTranslations } from '../../translations.ts';
 import { withConsoleRoot } from '../console/ConsoleFallback.tsx';
 import GroupedNav from './GroupedNav.tsx';
@@ -27,10 +28,19 @@ const SERVER_ORDER = ['', '/console', '/files', '/backups', '/settings'];
 const ADMIN_ORDER = ['/', '/admin', '/admin/servers', '/admin/users'];
 const DASHBOARD_ORDER = ['/', '/account', '/admin'];
 
+// colours, the current page's pill and the press tint are app.css's (`.nebula-bn-*`), which also gives Menu the pill
+// while no link on the bar is the current page
 const ITEM_CLASS =
-  'flex min-w-0 flex-1 flex-col items-center gap-1 px-1 pt-2 pb-1.5 text-[11px] font-medium leading-none rounded-md focus-visible:outline-solid! focus-visible:outline-2! focus-visible:-outline-offset-2! focus-visible:outline-(--mantine-color-blue-filled)!';
-const ICON_CLASS =
-  'flex h-7 w-12 items-center justify-center rounded-full text-base motion-safe:transition-colors motion-safe:duration-150';
+  'nebula-bn-item flex min-w-0 flex-1 flex-col items-center gap-1 px-1 pt-2 pb-1.5 text-[11px] font-medium leading-none rounded-md focus-visible:outline-solid! focus-visible:outline-2! focus-visible:-outline-offset-2! focus-visible:outline-(--mantine-color-blue-filled)!';
+const ICON_CLASS = 'nebula-bn-icon flex h-7 w-12 items-center justify-center rounded-full text-base';
+
+// 'bottomBar' spans the bottom edge with the home indicator's inset inside it; 'floatingBar' is a pill held clear of
+// the edges and that inset. Both keep their links to a phone's width on tablets.
+const BAR_CLASS: Record<Exclude<MobileNav, 'drawer'>, string> = {
+  bottomBar: 'inset-x-0 bottom-0 rounded-none! border-x-0! border-b-0! pb-[env(safe-area-inset-bottom)]!',
+  floatingBar:
+    'inset-x-3 bottom-[calc(0.75rem+env(safe-area-inset-bottom))] mx-auto max-w-md rounded-full! px-1.5! shadow-lg',
+};
 
 // core's floating menu button: an ActionIcon right inside the Card core renders first, before its drawer
 const MENU_BUTTON = '.mantine-Card-root > .mantine-ActionIcon-root';
@@ -99,12 +109,8 @@ function BarLink({ link, active }: { link: SidebarLinkProps; active: boolean }) 
   return withConsoleRoot(to, (root) => {
     const current = root ? pathname.replace(/\/$/, '') === root : active;
     return (
-      <Link
-        to={root ?? to}
-        aria-current={current ? 'page' : undefined}
-        className={`${ITEM_CLASS} ${current ? 'text-(--mantine-color-blue-light-color)' : 'text-(--mantine-color-dimmed)'}`}
-      >
-        <span className={`${ICON_CLASS} ${current ? 'bg-(--mantine-color-blue-light)' : ''}`}>
+      <Link to={root ?? to} aria-current={current ? 'page' : undefined} className={ITEM_CLASS}>
+        <span className={ICON_CLASS}>
           <FontAwesomeIcon icon={icon ?? faLink} />
         </span>
         <span className='w-full truncate text-center'>{link.name ?? link.title}</span>
@@ -114,12 +120,14 @@ function BarLink({ link, active }: { link: SidebarLinkProps; active: boolean }) 
 }
 
 /**
- * `mobileNav: 'bottomBar'`: below lg a bar fixed to the bottom of the screen with up to four links from the menu and
- * a Menu button. Core keeps its drawer's state inside the Sidebar, so Menu clicks core's own floating menu button,
- * which app.css hides after the marker rendered just before core's element. The bar measures itself into
- * `--nebula-bottom-nav-h` on html (with `data-nebula-bottom-nav` while it shows), which app.css turns into room
- * below the content column, core's bottom action bar and bottom toasts. `lg:` is the variant core hides its menu
- * button with, so the bar shows exactly where the drawer does; every desktop layout stays as it was.
+ * `mobileNav: 'bottomBar'` or `'floatingBar'`: below lg a bar fixed to the bottom of the screen with up to four links
+ * from the menu and a Menu button. Core keeps its drawer's state inside the Sidebar, so Menu clicks core's own floating
+ * menu button, which app.css hides after the marker rendered just before core's element. The bar measures the room it
+ * covers (its height plus its distance from the bottom edge) into `--nebula-bottom-nav-h` on html (with
+ * `data-nebula-bottom-nav` while it shows), which app.css turns into room below the content column, core's bottom
+ * action bar and bottom toasts. app.css hides it while a text field has focus on a touch screen (the on-screen
+ * keyboard is up), which measures 0 and gives that room back. `lg:` is the variant core hides its menu button with, so
+ * the bar shows exactly where the drawer does; every desktop layout stays as it was.
  */
 export default function BottomNav({ element, ...sidebar }: SidebarProps & { element: ReactElement<SidebarProps> }) {
   const { mobileNav } = useNebulaTheme();
@@ -128,21 +136,23 @@ export default function BottomNav({ element, ...sidebar }: SidebarProps & { elem
   const { site, own } = useNavOrders();
   const marker = useRef<HTMLSpanElement>(null);
   const bar = useRef<HTMLDivElement>(null);
-  const shown = mobileNav === 'bottomBar' && !pathname.startsWith('/oobe');
+  // the setup wizard's sidebar holds its steps, so it keeps core's menu button
+  const style = mobileNav === 'drawer' || pathname.startsWith('/oobe') ? null : mobileNav;
 
   useLayoutEffect(() => {
     const el = bar.current;
-    if (!shown || !el) return;
+    if (!style || !el) return;
     const root = document.documentElement;
 
     const clear = () => {
       root.style.removeProperty('--nebula-bottom-nav-h');
       delete root.dataset.nebulaBottomNav;
     };
-    // display: none from `lg` up measures 0, which clears the room again
+    // display: none (from `lg` up, or while typing) measures 0, which clears the room again
     const measure = () => {
       if (el.offsetHeight) {
-        root.style.setProperty('--nebula-bottom-nav-h', `${el.offsetHeight}px`);
+        const covered = el.offsetHeight + (Number.parseFloat(getComputedStyle(el).bottom) || 0);
+        root.style.setProperty('--nebula-bottom-nav-h', `${Math.round(covered)}px`);
         root.dataset.nebulaBottomNav = '';
       } else {
         clear();
@@ -156,10 +166,9 @@ export default function BottomNav({ element, ...sidebar }: SidebarProps & { elem
       observer.disconnect();
       clear();
     };
-  }, [shown]);
+  }, [style]);
 
-  // the setup wizard's sidebar holds its steps, so it keeps core's menu button
-  if (!shown) return element;
+  if (!style) return element;
 
   const links = primaryLinks(sidebar, pathname, [site, own]);
 
@@ -170,11 +179,15 @@ export default function BottomNav({ element, ...sidebar }: SidebarProps & { elem
       <Card
         ref={bar}
         p={0}
-        className='fixed! inset-x-0 bottom-0 z-100 rounded-none! border-x-0! border-b-0! pb-[env(safe-area-inset-bottom)]! backdrop-blur-md lg:hidden!'
+        data-nebula-bottom-nav-bar=''
+        className={`fixed! z-100 backdrop-blur-md lg:hidden! ${BAR_CLASS[style]}`}
       >
         {/* links first, as they show: one the user may not open renders nothing, so past the fourth link one
             only shows when an earlier one is missing; Menu always comes last */}
-        <nav aria-label={t('bottomNav.label', {})} className='flex w-full [&>a:nth-of-type(n+5)]:hidden'>
+        <nav
+          aria-label={t('bottomNav.label', {})}
+          className='nebula-bn-nav mx-auto flex w-full max-w-xl [&>a:nth-of-type(n+5)]:hidden'
+        >
           {links.map((node) => (
             <Fragment key={(node as ReactElement).key}>
               {swapLink(node, (link) => (
@@ -185,7 +198,7 @@ export default function BottomNav({ element, ...sidebar }: SidebarProps & { elem
           <button
             type='button'
             onClick={() => openDrawer(marker.current, bar.current)}
-            className={`${ITEM_CLASS} text-[11px]! leading-none! text-(--mantine-color-dimmed)`}
+            className={`nebula-bn-menu ${ITEM_CLASS} text-[11px]! leading-none!`}
           >
             <span className={ICON_CLASS}>
               <FontAwesomeIcon icon={faBars} />

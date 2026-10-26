@@ -722,7 +722,8 @@
         "description": "Sub lățimea de desktop: butonul de meniu flotant din panou sau o bară în partea de jos a ecranului cu paginile principale și un buton Meniu pentru meniul complet.",
         "options": {
           "drawer": "Sertar",
-          "bottomBar": "Bară de jos"
+          "bottomBar": "Bară de jos",
+          "floatingBar": "Bară flotantă"
         }
       },
       "navOrder": {

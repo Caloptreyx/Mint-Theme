@@ -482,9 +482,10 @@ html[data-nebula-layout="slim"] #sidebar-desktop .nebula-nav-search-icon {
   min-width: 12rem;
 }
 
-/* BottomNav (`mobileNav: 'bottomBar'`): core's floating menu button, the element after the bar's marker, gives way to
-   the bar, whose Menu button still clicks it. While the bar shows, html carries its measured height, which the
-   content column, core's bottom action bar (bulk file actions) and bottom placed toasts and uploads clear */
+/* BottomNav (`mobileNav` 'bottomBar' or 'floatingBar'): core's floating menu button, the element after the bar's
+   marker, gives way to the bar, whose Menu button still clicks it. While the bar shows, html carries the room it
+   covers (its height plus its gap to the bottom edge), which the content column, core's bottom action bar (bulk file
+   actions) and bottom placed toasts and uploads clear */
 [data-nebula-bottom-nav-marker] + .mantine-Card-root {
   display: none !important;
 }
@@ -522,6 +523,82 @@ html[data-nebula-bottom-nav] [data-nebula-editor-keys] {
 /* the 'Apply in this browser' notice (LocalThemeNotice) sits in the bottom right corner, above the bar */
 html[data-nebula-bottom-nav] [data-nebula-local-notice] {
   bottom: calc(0.75rem + var(--nebula-bottom-nav-h));
+}
+
+/* the bar's links and Menu: the current page's icon gets an accent pill that grows in from its middle, and a press
+   shows a lighter one at once. Menu takes the current look while no link on the bar is the current page (past the
+   fourth, links are hidden), so the bar always shows where you are */
+.nebula-bn-item {
+  color: var(--mantine-color-dimmed);
+  transition: color calc(150ms * var(--nebula-speed, 1)) ease;
+}
+
+.nebula-bn-icon {
+  position: relative;
+  isolation: isolate;
+}
+
+.nebula-bn-icon::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: var(--mantine-color-blue-light);
+  opacity: 0;
+  transform: scaleX(0.4);
+  transition:
+    opacity calc(150ms * var(--nebula-speed, 1)) ease,
+    transform calc(220ms * var(--nebula-speed, 1)) cubic-bezier(0.2, 0, 0, 1);
+}
+
+.nebula-bn-item:active .nebula-bn-icon::before {
+  opacity: 0.6;
+  transform: none;
+  transition: none;
+}
+
+.nebula-bn-item[aria-current="page"],
+.nebula-bn-nav:not(:has(> a[aria-current="page"]:nth-of-type(-n + 4))) > .nebula-bn-menu {
+  color: var(--mantine-color-blue-light-color);
+}
+
+.nebula-bn-item[aria-current="page"] .nebula-bn-icon::before,
+.nebula-bn-nav:not(:has(> a[aria-current="page"]:nth-of-type(-n + 4))) > .nebula-bn-menu .nebula-bn-icon::before {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nebula-bn-item,
+  .nebula-bn-icon::before {
+    transition: none;
+  }
+}
+
+/* a focused text field on a touch screen means the on-screen keyboard is up: the bar steps aside instead of riding
+   on top of it (core's viewport resizes with the keyboard), and measuring 0 hands its room back to the page */
+@media (pointer: coarse) {
+  html:has(
+      :is(
+          input:not(
+            [type="checkbox"],
+            [type="radio"],
+            [type="button"],
+            [type="submit"],
+            [type="reset"],
+            [type="range"],
+            [type="color"],
+            [type="file"],
+            [readonly]
+          ),
+          textarea:not([readonly]),
+          [contenteditable]:not([contenteditable="false"])
+        ):focus
+    )
+    [data-nebula-bottom-nav-bar] {
+    display: none !important;
+  }
 }
 
 /* page transitions, card entrance, overlay motion and the glassy toast's countdown; lib/theme.ts picks them

@@ -722,7 +722,8 @@
         "description": "Dưới độ rộng máy tính: nút menu nổi của bảng điều khiển, hoặc một thanh ở cuối màn hình với các trang chính và nút Menu để mở menu đầy đủ.",
         "options": {
           "drawer": "Ngăn kéo",
-          "bottomBar": "Thanh dưới cùng"
+          "bottomBar": "Thanh dưới cùng",
+          "floatingBar": "Thanh nổi"
         }
       },
       "navOrder": {

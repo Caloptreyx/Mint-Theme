@@ -722,7 +722,8 @@
         "description": "Pod šírkou počítača: plávajúce tlačidlo ponuky jadra alebo lišta v dolnej časti obrazovky s hlavnými stránkami a tlačidlom Ponuka pre celú ponuku.",
         "options": {
           "drawer": "Vysúvací panel",
-          "bottomBar": "Dolná lišta"
+          "bottomBar": "Dolná lišta",
+          "floatingBar": "Plávajúca lišta"
         }
       },
       "navOrder": {

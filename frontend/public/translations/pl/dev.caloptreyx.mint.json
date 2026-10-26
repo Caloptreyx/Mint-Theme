@@ -722,7 +722,8 @@
         "description": "Poniżej szerokości komputera: pływający przycisk menu z panelu lub pasek na dole ekranu z głównymi stronami i przyciskiem Menu otwierającym pełne menu.",
         "options": {
           "drawer": "Szuflada",
-          "bottomBar": "Dolny pasek"
+          "bottomBar": "Dolny pasek",
+          "floatingBar": "Pływający pasek"
         }
       },
       "navOrder": {

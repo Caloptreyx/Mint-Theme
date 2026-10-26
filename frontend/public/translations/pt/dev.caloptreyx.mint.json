@@ -722,7 +722,8 @@
         "description": "Abaixo da largura de desktop: o botão de menu flutuante do painel, ou uma barra na parte inferior da tela com as páginas principais e um botão Menu para o menu completo.",
         "options": {
           "drawer": "Gaveta",
-          "bottomBar": "Barra inferior"
+          "bottomBar": "Barra inferior",
+          "floatingBar": "Barra flutuante"
         }
       },
       "navOrder": {

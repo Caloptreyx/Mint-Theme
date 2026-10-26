@@ -722,7 +722,8 @@
         "description": "Por debajo del ancho de escritorio: el botón de menú flotante del panel, o una barra en la parte inferior de la pantalla con las páginas principales y un botón Menú para el menú completo.",
         "options": {
           "drawer": "Cajón",
-          "bottomBar": "Barra inferior"
+          "bottomBar": "Barra inferior",
+          "floatingBar": "Barra flotante"
         }
       },
       "navOrder": {

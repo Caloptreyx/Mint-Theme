@@ -722,7 +722,8 @@
         "description": "Under datorbredd: panelens flytande menyknapp, eller ett fält längst ned på skärmen med huvudsidorna och en Meny-knapp för hela menyn.",
         "options": {
           "drawer": "Utfällbar meny",
-          "bottomBar": "Bottenfält"
+          "bottomBar": "Bottenfält",
+          "floatingBar": "Flytande fält"
         }
       },
       "navOrder": {
