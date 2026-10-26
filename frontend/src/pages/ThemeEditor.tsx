@@ -9,14 +9,16 @@ import {
   faDownload,
   faEllipsisVertical,
   faRotateRight,
+  faStop,
   faTrashArrowUp,
   faUpload,
+  faXmark,
   type IconDefinition,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Loader, useComputedColorScheme } from '@mantine/core';
 import { isAxiosError } from 'axios';
-import { useEffect, useMemo, useReducer, useRef, useState } from 'react';
+import { useEffect, useMemo, useReducer, useRef, useState, useSyncExternalStore } from 'react';
 import { useBeforeUnload, useNavigate } from 'react-router';
 import updateTheme from '../api/updateTheme.ts';
 import { LOGIN_PREVIEW_PATH } from '../elements/auth/AuthScope.tsx';
@@ -75,6 +77,16 @@ const SUPPORT_URL = 'https://discord.gg/4qjMWU7S8x';
 type Device = 'desktop' | 'tablet' | 'mobile';
 const DEVICE_WIDTH: Record<Device, number | null> = { desktop: null, tablet: 834, mobile: 390 };
 const STAGE_PADDING = 24;
+/** Below this the editor shows one pane at a time (section list, a section's settings or the preview). The editor
+ * covers the whole window, so the window's width is the one that counts, not core's page container. */
+const WIDE_EDITOR = '(min-width: 64em)';
+const wideQuery = typeof matchMedia === 'function' ? matchMedia(WIDE_EDITOR) : null;
+// useSyncExternalStore's subscribe and snapshot, stable so it never resubscribes
+const subscribeWide = (onChange: () => void) => {
+  wideQuery?.addEventListener('change', onChange);
+  return () => wideQuery?.removeEventListener('change', onChange);
+};
+const isWide = () => wideQuery?.matches ?? true;
 const HISTORY = 50;
 
 /** Debounced undo/redo over whole drafts. */
@@ -159,6 +171,10 @@ export default function ThemeEditor() {
   const [stage, setStage] = useState({ width: 0, height: 0 });
   // the draft can hold half-typed values; the preview, derived colours and contrast use the last valid one
   const [valid, setValid] = useState(draft);
+  const wide = useSyncExternalStore(subscribeWide, isWide);
+  // phones: the preview pane, else the section list (`listing`) or the open section's settings
+  const [previewPane, setPreviewPane] = useState(false);
+  const [listing, setListing] = useState(true);
 
   const frame = useRef<HTMLIFrameElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
@@ -313,6 +329,7 @@ export default function ThemeEditor() {
 
   const openSection = (id: Section) => {
     setSection(id);
+    setListing(false);
     // the real auth pages redirect signed in admins, so the login section jumps to its preview route
     if (id === 'login') setPage(LOGIN_PREVIEW_PATH);
     if (id === 'servers') setPage('/');
@@ -358,10 +375,16 @@ export default function ThemeEditor() {
       })
       .catch(() => addToast(t('editor.importFailed', {}), 'error'));
 
-  const available = Math.max(320, stage.width - STAGE_PADDING * 2);
+  const stagePadding = wide ? STAGE_PADDING : 8;
+  const available = Math.max(wide ? 320 : 200, stage.width - stagePadding * 2);
   const logicalWidth = DEVICE_WIDTH[device] ?? available;
   const scale = Math.min(1, available / logicalWidth);
-  const logicalHeight = Math.max(320, stage.height - STAGE_PADDING * 2) / scale;
+  const logicalHeight = Math.max(320, stage.height - stagePadding * 2) / scale;
+
+  const searching = query.trim() !== '';
+  const navShown = wide || (!previewPane && listing && !searching);
+  const panelShown = wide || (!previewPane && (!listing || searching));
+  const searchInput = <SettingSearchInput query={query} onQuery={setQuery} onSubmit={() => hits[0] && pick(hits[0])} />;
 
   const iconButton = (label: string, icon: IconDefinition, onClick: () => void, disabled = false) => (
     <Tooltip label={label}>
@@ -383,7 +406,9 @@ export default function ThemeEditor() {
 
   return (
     <div className='fixed inset-0 z-[120] flex flex-col bg-(--mantine-color-body)'>
-      <header className='flex h-14 shrink-0 items-center gap-2 px-3 bg-(--nebula-card) border-b border-(--mantine-color-default-border)'>
+      <header
+        className={`flex h-14 shrink-0 items-center bg-(--nebula-card) border-b border-(--mantine-color-default-border) ${wide ? 'gap-2 px-3' : 'gap-1 px-1.5'}`}
+      >
         {iconButton(t('editor.close', {}), faArrowLeft, () => navigate(closeTo))}
         <div className='min-w-0 mr-auto'>
           <Text size='sm' fw={600} truncate>
@@ -400,7 +425,7 @@ export default function ThemeEditor() {
         <Group gap={2} wrap='nowrap'>
           {iconButton(t('editor.undo', {}), faArrowRotateLeft, history.undo, !history.canUndo)}
           {iconButton(t('editor.redo', {}), faArrowRotateRight, history.redo, !history.canRedo)}
-          {iconButton(t('library.history', {}), faClockRotateLeft, () => setHistoryOpen(true))}
+          {wide && iconButton(t('library.history', {}), faClockRotateLeft, () => setHistoryOpen(true))}
           <Menu position='bottom-end'>
             <Menu.Target>
               <ActionIcon variant='subtle' color='gray' size='lg' aria-label={t('editor.more', {})}>
@@ -408,6 +433,35 @@ export default function ThemeEditor() {
               </ActionIcon>
             </Menu.Target>
             <Menu.Dropdown>
+              {/* phones: the top bar only keeps undo, redo and Save; the rest moves in here */}
+              {!wide && (
+                <>
+                  <Menu.Item
+                    leftSection={<FontAwesomeIcon icon={faClockRotateLeft} />}
+                    onClick={() => setHistoryOpen(true)}
+                  >
+                    {t('library.history', {})}
+                  </Menu.Item>
+                  <Menu.Item
+                    leftSection={<FontAwesomeIcon icon={faDisplay} />}
+                    disabled={badUrls}
+                    onClick={doApplyLocal}
+                  >
+                    {t('localTheme.apply', {})}
+                  </Menu.Item>
+                  {local && (
+                    <Menu.Item color='yellow' leftSection={<FontAwesomeIcon icon={faStop} />} onClick={doStopLocal}>
+                      {t('localTheme.stopDescription', {})}
+                    </Menu.Item>
+                  )}
+                  {dirty && (
+                    <Menu.Item leftSection={<FontAwesomeIcon icon={faXmark} />} onClick={() => setDraft(saved)}>
+                      {t('editor.discard', {})}
+                    </Menu.Item>
+                  )}
+                  <Menu.Divider />
+                </>
+              )}
               <Menu.Item leftSection={<FontAwesomeIcon icon={faUpload} />} onClick={() => importRef.current?.click()}>
                 {t('editor.import', {})}
               </Menu.Item>
@@ -442,33 +496,37 @@ export default function ThemeEditor() {
             if (file) doImport(file);
           }}
         />
-        <div className='mx-1 h-6 w-px bg-(--mantine-color-default-border)' />
-        {local && (
-          <Tooltip label={t('localTheme.editorActive', {})} multiline w={280}>
-            <Button
-              variant='light'
-              color='yellow'
-              leftSection={<FontAwesomeIcon icon={faDisplay} />}
-              onClick={doStopLocal}
-            >
-              {t('localTheme.stop', {})}
-            </Button>
-          </Tooltip>
-        )}
-        <Tooltip label={badUrls ? t('editor.fixUrls', {}) : t('localTheme.applyDescription', {})} multiline w={280}>
-          <Button
-            variant={canSaveTheme ? 'default' : 'filled'}
-            leftSection={local ? undefined : <FontAwesomeIcon icon={faDisplay} />}
-            disabled={badUrls}
-            onClick={doApplyLocal}
-          >
-            {t('localTheme.apply', {})}
-          </Button>
-        </Tooltip>
-        {dirty && (
-          <Button variant='subtle' color='gray' onClick={() => setDraft(saved)}>
-            {t('editor.discard', {})}
-          </Button>
+        {wide && (
+          <>
+            <div className='mx-1 h-6 w-px bg-(--mantine-color-default-border)' />
+            {local && (
+              <Tooltip label={t('localTheme.editorActive', {})} multiline w={280}>
+                <Button
+                  variant='light'
+                  color='yellow'
+                  leftSection={<FontAwesomeIcon icon={faDisplay} />}
+                  onClick={doStopLocal}
+                >
+                  {t('localTheme.stop', {})}
+                </Button>
+              </Tooltip>
+            )}
+            <Tooltip label={badUrls ? t('editor.fixUrls', {}) : t('localTheme.applyDescription', {})} multiline w={280}>
+              <Button
+                variant={canSaveTheme ? 'default' : 'filled'}
+                leftSection={local ? undefined : <FontAwesomeIcon icon={faDisplay} />}
+                disabled={badUrls}
+                onClick={doApplyLocal}
+              >
+                {t('localTheme.apply', {})}
+              </Button>
+            </Tooltip>
+            {dirty && (
+              <Button variant='subtle' color='gray' onClick={() => setDraft(saved)}>
+                {t('editor.discard', {})}
+              </Button>
+            )}
+          </>
         )}
         <Tooltip label={saveBlocked} disabled={!saveBlocked || (canSaveTheme && !dirty)} multiline w={280}>
           <div>
@@ -479,25 +537,62 @@ export default function ThemeEditor() {
         </Tooltip>
       </header>
 
+      {!wide && (
+        <div className='shrink-0 p-2 border-b border-(--mantine-color-default-border) bg-(--nebula-card)'>
+          <SegmentedControl
+            fullWidth
+            aria-label={t('editor.panes.label', {})}
+            data={[
+              { value: 'settings', label: t('editor.panes.settings', {}) },
+              { value: 'preview', label: t('editor.panes.preview', {}) },
+            ]}
+            value={previewPane ? 'preview' : 'settings'}
+            onChange={(value) => setPreviewPane(value === 'preview')}
+          />
+          {/* phones keep the search above the list and its results, so it stays put while the results replace it */}
+          {!previewPane && (listing || searching) && <div className='pt-2'>{searchInput}</div>}
+        </div>
+      )}
+
       <div className='flex flex-1 min-h-0'>
         <EditorNav
           section={section}
+          fill={!wide}
+          hidden={!navShown}
           onSection={(id) => {
             setQuery('');
             openSection(id);
           }}
-          search={<SettingSearchInput query={query} onQuery={setQuery} onSubmit={() => hits[0] && pick(hits[0])} />}
+          search={wide ? searchInput : null}
         />
 
         <aside
-          className='flex flex-col shrink-0 min-w-80 max-w-[calc(100vw-36rem)] bg-(--nebula-card) border-r border-(--mantine-color-default-border)'
-          style={{ width: panelWidth }}
+          hidden={!panelShown}
+          className={`flex flex-col bg-(--nebula-card) ${wide ? 'shrink-0 min-w-80 max-w-[calc(100vw-36rem)] border-r border-(--mantine-color-default-border)' : 'flex-1 min-w-0'}`}
+          style={wide ? { width: panelWidth } : undefined}
         >
-          <div className='px-5 pt-4 pb-3 border-b border-(--mantine-color-default-border)'>
-            <Title order={4}>{t(`editor.section.${section}`, {})}</Title>
-            <Text size='xs' c='dimmed'>
-              {t(`editor.section.${section}Description`, {})}
-            </Text>
+          <div
+            hidden={!wide && searching}
+            className={`flex items-start gap-2 border-b border-(--mantine-color-default-border) ${wide ? 'px-5 pt-4 pb-3' : 'px-3 pt-3 pb-3'}`}
+          >
+            {!wide && (
+              <ActionIcon
+                variant='subtle'
+                color='gray'
+                size='lg'
+                className='shrink-0'
+                aria-label={t('editor.allSections', {})}
+                onClick={() => setListing(true)}
+              >
+                <FontAwesomeIcon icon={faArrowLeft} />
+              </ActionIcon>
+            )}
+            <div className='min-w-0'>
+              <Title order={4}>{t(`editor.section.${section}`, {})}</Title>
+              <Text size='xs' c='dimmed'>
+                {t(`editor.section.${section}Description`, {})}
+              </Text>
+            </div>
           </div>
 
           {load === 'pending' && (
@@ -526,7 +621,7 @@ export default function ThemeEditor() {
             </Text>
           )}
 
-          <div ref={contentRef} className='flex-1 min-h-0 overflow-y-auto px-5 py-4'>
+          <div ref={contentRef} className={`flex-1 min-h-0 overflow-y-auto ${wide ? 'px-5' : 'px-3'} py-4`}>
             {query.trim() ? (
               <SettingResults query={query} hits={hits} icons={SECTION_ICONS} onPick={pick} />
             ) : (
@@ -536,11 +631,12 @@ export default function ThemeEditor() {
           <HistoryModal opened={historyOpen} onClose={() => setHistoryOpen(false)} onLoad={setDraft} />
         </aside>
 
-        <PanelResizer width={panelWidth} onWidth={setPanelWidth} onDragging={setResizing} />
+        {wide && <PanelResizer width={panelWidth} onWidth={setPanelWidth} onDragging={setResizing} />}
 
-        <main className='flex flex-col flex-1 min-w-0'>
-          <Group gap='xs' className='p-3 border-b border-(--mantine-color-default-border)'>
+        <main hidden={!wide && !previewPane} className='flex flex-col flex-1 min-w-0'>
+          <Group gap='xs' className={`border-b border-(--mantine-color-default-border) ${wide ? 'p-3' : 'p-2'}`}>
             <SegmentedControl
+              size={wide ? 'sm' : 'xs'}
               aria-label={t('editor.previewDevice', {})}
               data={(['desktop', 'tablet', 'mobile'] as Device[]).map((d) => ({
                 value: d,
@@ -550,6 +646,7 @@ export default function ThemeEditor() {
               onChange={(value) => setDevice(value as Device)}
             />
             <SegmentedControl
+              size={wide ? 'sm' : 'xs'}
               aria-label={t('editor.previewScheme', {})}
               data={(['dark', 'light'] as PreviewScheme[]).map((s) => ({
                 value: s,
@@ -563,7 +660,9 @@ export default function ThemeEditor() {
               data={pages}
               value={page}
               onChange={(value) => value && setPage(value)}
-              w={200}
+              size={wide ? 'sm' : 'xs'}
+              w={wide ? 200 : undefined}
+              className={wide ? undefined : 'flex-1 min-w-36'}
             />
             {iconButton(t('editor.refresh', {}), faRotateRight, () => frame.current?.contentWindow?.location.reload())}
             {iconButton(t('editor.openTab', {}), faArrowUpRightFromSquare, () =>
@@ -574,7 +673,7 @@ export default function ThemeEditor() {
           <div
             ref={stageRef}
             className='flex-1 min-h-0 flex justify-center overflow-hidden'
-            style={{ padding: STAGE_PADDING }}
+            style={{ padding: stagePadding }}
           >
             <div
               className='shrink-0 overflow-hidden rounded-lg border border-(--mantine-color-default-border) shadow-xl'

@@ -232,6 +232,12 @@
       "more": "Thao tác khác",
       "resizePanel": "Đổi kích thước bảng cài đặt",
       "sections": "Các mục cài đặt",
+      "allSections": "Tất cả mục",
+      "panes": {
+        "label": "Chế độ xem trình chỉnh sửa",
+        "settings": "Cài đặt",
+        "preview": "Xem trước"
+      },
       "search": {
         "placeholder": "Tìm cài đặt",
         "clear": "Xóa tìm kiếm",
@@ -789,6 +795,7 @@
       "applied": "Đã áp dụng trong trình duyệt này. Chỉ bạn thấy.",
       "editorActive": "Trình duyệt này đang hiển thị giao diện bạn áp dụng tại đây thay cho giao diện đã lưu.",
       "notice": "Trình duyệt này đang hiển thị giao diện chỉ bạn mới thấy.",
+      "noticeShort": "Chủ đề cục bộ",
       "stop": "Dừng",
       "stopDescription": "Dừng hiển thị giao diện này trong trình duyệt này",
       "stopped": "Trình duyệt này lại hiển thị giao diện đã lưu."

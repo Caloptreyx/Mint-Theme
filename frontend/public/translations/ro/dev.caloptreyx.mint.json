@@ -232,6 +232,12 @@
       "more": "Mai multe acțiuni",
       "resizePanel": "Redimensionează panoul de setări",
       "sections": "Secțiuni de setări",
+      "allSections": "Toate secțiunile",
+      "panes": {
+        "label": "Vizualizare editor",
+        "settings": "Setări",
+        "preview": "Previzualizare"
+      },
       "search": {
         "placeholder": "Caută setări",
         "clear": "Șterge căutarea",
@@ -789,6 +795,7 @@
       "applied": "Aplicată în acest browser. Doar tu o vezi.",
       "editorActive": "Acest browser afișează o temă aplicată aici în locul celei salvate.",
       "notice": "Acest browser afișează o temă pe care doar tu o poți vedea.",
+      "noticeShort": "Temă locală",
       "stop": "Oprește",
       "stopDescription": "Oprește afișarea acestei teme în acest browser",
       "stopped": "Acest browser afișează din nou tema salvată."

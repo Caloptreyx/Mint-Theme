@@ -232,6 +232,12 @@
       "more": "Więcej akcji",
       "resizePanel": "Zmień rozmiar panelu ustawień",
       "sections": "Sekcje ustawień",
+      "allSections": "Wszystkie sekcje",
+      "panes": {
+        "label": "Widok edytora",
+        "settings": "Ustawienia",
+        "preview": "Podgląd"
+      },
       "search": {
         "placeholder": "Szukaj ustawień",
         "clear": "Wyczyść wyszukiwanie",
@@ -789,6 +795,7 @@
       "applied": "Zastosowano w tej przeglądarce. Widzisz go tylko Ty.",
       "editorActive": "Ta przeglądarka pokazuje motyw zastosowany tutaj zamiast zapisanego.",
       "notice": "Ta przeglądarka pokazuje motyw, który widzisz tylko Ty.",
+      "noticeShort": "Motyw lokalny",
       "stop": "Zatrzymaj",
       "stopDescription": "Zatrzymaj ten motyw w tej przeglądarce",
       "stopped": "Ta przeglądarka znów pokazuje zapisany motyw."

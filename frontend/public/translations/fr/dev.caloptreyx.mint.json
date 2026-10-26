@@ -232,6 +232,12 @@
       "more": "Plus d'actions",
       "resizePanel": "Redimensionner le panneau des paramètres",
       "sections": "Sections des paramètres",
+      "allSections": "Toutes les sections",
+      "panes": {
+        "label": "Vue de l'éditeur",
+        "settings": "Réglages",
+        "preview": "Aperçu"
+      },
       "search": {
         "placeholder": "Rechercher un réglage",
         "clear": "Effacer la recherche",
@@ -789,6 +795,7 @@
       "applied": "Appliqué dans ce navigateur. Vous seul le voyez.",
       "editorActive": "Ce navigateur affiche un thème appliqué ici au lieu du thème enregistré.",
       "notice": "Ce navigateur affiche un thème que vous seul pouvez voir.",
+      "noticeShort": "Thème local",
       "stop": "Arrêter",
       "stopDescription": "Arrêter d’afficher ce thème dans ce navigateur",
       "stopped": "Ce navigateur affiche de nouveau le thème enregistré."

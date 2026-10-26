@@ -68,16 +68,21 @@ export const SECTION_ICONS = Object.fromEntries(
 
 /**
  * The editor's section menu: each group's sections under a heading that folds them away. A folded group holding
- * the open section keeps its heading in the accent colour, so the open section is never lost.
+ * the open section keeps its heading in the accent colour, so the open section is never lost. `fill` is the
+ * phone layout, where the menu is a pane of its own.
  */
 export default function EditorNav({
   section,
   onSection,
   search,
+  fill = false,
+  hidden = false,
 }: {
   section: Section;
   onSection: (id: Section) => void;
   search: React.ReactNode;
+  fill?: boolean;
+  hidden?: boolean;
 }) {
   const { t } = useExtTranslations();
   const [folded, setFolded] = useState<SectionGroup[]>([]);
@@ -85,10 +90,11 @@ export default function EditorNav({
   return (
     <nav
       aria-label={t('editor.sections', {})}
-      className='flex w-60 shrink-0 flex-col bg-(--nebula-card) border-r border-(--mantine-color-default-border)'
+      hidden={hidden}
+      className={`flex flex-col bg-(--nebula-card) ${fill ? 'flex-1 min-w-0' : 'w-60 shrink-0 border-r border-(--mantine-color-default-border)'}`}
     >
-      <div className='p-3'>{search}</div>
-      <div className='flex-1 min-h-0 overflow-y-auto px-2 pb-3'>
+      {search && <div className='p-3'>{search}</div>}
+      <div className={`flex-1 min-h-0 overflow-y-auto px-2 pb-3 ${search ? '' : 'pt-3'}`}>
         {SECTION_GROUPS.map(({ id, sections }) => {
           const open = !folded.includes(id);
           const holdsSection = sections.some((entry) => entry.id === section);
@@ -122,7 +128,7 @@ export default function EditorNav({
                         key={entry.id}
                         aria-current={active ? 'page' : undefined}
                         onClick={() => onSection(entry.id)}
-                        className={`flex w-full cursor-pointer items-center gap-2.5 rounded-md px-2 py-1.5 text-left text-sm outline-none focus-visible:ring-2 focus-visible:ring-(--mantine-primary-color-filled) ${
+                        className={`flex w-full cursor-pointer items-center gap-2.5 rounded-md px-2 text-left text-sm outline-none focus-visible:ring-2 focus-visible:ring-(--mantine-primary-color-filled) ${fill ? 'py-2.5' : 'py-1.5'} ${
                           active
                             ? 'bg-(--mantine-primary-color-light) font-medium text-(--mantine-primary-color-light-color)'
                             : 'hover:bg-(--mantine-color-default-hover)'

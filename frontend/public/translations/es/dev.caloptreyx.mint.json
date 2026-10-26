@@ -232,6 +232,12 @@
       "more": "Más acciones",
       "resizePanel": "Redimensionar el panel de ajustes",
       "sections": "Secciones de ajustes",
+      "allSections": "Todas las secciones",
+      "panes": {
+        "label": "Vista del editor",
+        "settings": "Ajustes",
+        "preview": "Vista previa"
+      },
       "search": {
         "placeholder": "Buscar ajustes",
         "clear": "Borrar búsqueda",
@@ -789,6 +795,7 @@
       "applied": "Aplicado en este navegador. Solo tú lo ves.",
       "editorActive": "Este navegador muestra un tema que aplicaste aquí en lugar del guardado.",
       "notice": "Este navegador muestra un tema que solo tú puedes ver.",
+      "noticeShort": "Tema local",
       "stop": "Detener",
       "stopDescription": "Detener este tema en este navegador",
       "stopped": "Este navegador vuelve a mostrar el tema guardado."

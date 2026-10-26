@@ -34,13 +34,15 @@ const ITEM_CLASS =
   'nebula-bn-item flex min-w-0 flex-1 flex-col items-center gap-1 px-1 pt-2 pb-1.5 text-[11px] font-medium leading-none rounded-md focus-visible:outline-solid! focus-visible:outline-2! focus-visible:-outline-offset-2! focus-visible:outline-(--mantine-color-blue-filled)!';
 const ICON_CLASS = 'nebula-bn-icon flex h-7 w-12 items-center justify-center rounded-full text-base';
 
-// 'bottomBar' spans the bottom edge with the home indicator's inset inside it; 'floatingBar' is a pill held clear of
-// the edges and that inset. Both keep their links to a phone's width on tablets.
+// 'bottomBar' spans the bottom edge and reaches under the system navigation bar (`.nebula-bn-edge`, app.css);
+// 'floatingBar' is a pill held clear of the edges and that bar. Both keep their links to a phone's width on tablets.
 const BAR_CLASS: Record<Exclude<MobileNav, 'drawer'>, string> = {
-  bottomBar: 'inset-x-0 bottom-0 rounded-none! border-x-0! border-b-0! pb-[env(safe-area-inset-bottom)]!',
+  bottomBar: 'nebula-bn-edge inset-x-0 rounded-none! border-x-0! border-b-0!',
   floatingBar:
-    'inset-x-3 bottom-[calc(0.75rem+env(safe-area-inset-bottom))] mx-auto max-w-md rounded-full! px-1.5! shadow-lg',
+    'inset-x-3 bottom-[calc(0.75rem+env(safe-area-inset-bottom,0px))] mx-auto max-w-md rounded-full! px-1.5! shadow-lg',
 };
+// what the bar covers above its own height: the floating bar's gap to the system navigation bar
+const BAR_GAP: Record<Exclude<MobileNav, 'drawer'>, string> = { bottomBar: '0px', floatingBar: '0.75rem' };
 
 // core's floating menu button: an ActionIcon right inside the Card core renders first, before its drawer
 const MENU_BUTTON = '.mantine-Card-root > .mantine-ActionIcon-root';
@@ -122,12 +124,14 @@ function BarLink({ link, active }: { link: SidebarLinkProps; active: boolean }) 
 /**
  * `mobileNav: 'bottomBar'` or `'floatingBar'`: below lg a bar fixed to the bottom of the screen with up to four links
  * from the menu and a Menu button. Core keeps its drawer's state inside the Sidebar, so Menu clicks core's own floating
- * menu button, which app.css hides after the marker rendered just before core's element. The bar measures the room it
- * covers (its height plus its distance from the bottom edge) into `--nebula-bottom-nav-h` on html (with
- * `data-nebula-bottom-nav` while it shows), which app.css turns into room below the content column, core's bottom
- * action bar and bottom toasts. app.css hides it while a text field has focus on a touch screen (the on-screen
- * keyboard is up), which measures 0 and gives that room back. `lg:` is the variant core hides its menu button with, so
- * the bar shows exactly where the drawer does; every desktop layout stays as it was.
+ * menu button, which app.css hides after the marker rendered just before core's element. `--nebula-bottom-nav-h` on
+ * html (with `data-nebula-bottom-nav` while the bar shows) is the room the bar covers: its measured height without the
+ * padding that only reaches under the system navigation bar, plus its gap and `env(safe-area-inset-bottom)`, which is
+ * left to CSS because Chrome on Android changes it while its bottom chin slides in and out. app.css turns it into room
+ * below the content column, core's bottom action bar and bottom toasts. app.css hides the bar while a text field has
+ * focus on a touch screen (the on-screen keyboard is up), which measures 0 and gives that room back. `lg:` is the
+ * variant core hides its menu button with, so the bar shows exactly where the drawer does; every desktop layout stays
+ * as it was.
  */
 export default function BottomNav({ element, ...sidebar }: SidebarProps & { element: ReactElement<SidebarProps> }) {
   const { mobileNav } = useNebulaTheme();
@@ -151,8 +155,11 @@ export default function BottomNav({ element, ...sidebar }: SidebarProps & { elem
     // display: none (from `lg` up, or while typing) measures 0, which clears the room again
     const measure = () => {
       if (el.offsetHeight) {
-        const covered = el.offsetHeight + (Number.parseFloat(getComputedStyle(el).bottom) || 0);
-        root.style.setProperty('--nebula-bottom-nav-h', `${Math.round(covered)}px`);
+        const height = el.offsetHeight - (Number.parseFloat(getComputedStyle(el).paddingBottom) || 0);
+        root.style.setProperty(
+          '--nebula-bottom-nav-h',
+          `calc(${Math.round(height)}px + ${BAR_GAP[style]} + env(safe-area-inset-bottom, 0px))`,
+        );
         root.dataset.nebulaBottomNav = '';
       } else {
         clear();

@@ -232,6 +232,12 @@
       "more": "Diğer işlemler",
       "resizePanel": "Ayarlar panelini yeniden boyutlandır",
       "sections": "Ayar bölümleri",
+      "allSections": "Tüm bölümler",
+      "panes": {
+        "label": "Düzenleyici görünümü",
+        "settings": "Ayarlar",
+        "preview": "Önizleme"
+      },
       "search": {
         "placeholder": "Ayarlarda ara",
         "clear": "Aramayı temizle",
@@ -789,6 +795,7 @@
       "applied": "Bu tarayıcıda uygulandı. Yalnızca siz görüyorsunuz.",
       "editorActive": "Bu tarayıcı, kayıtlı tema yerine burada uyguladığınız bir temayı gösteriyor.",
       "notice": "Bu tarayıcı yalnızca sizin görebildiğiniz bir tema gösteriyor.",
+      "noticeShort": "Yerel tema",
       "stop": "Durdur",
       "stopDescription": "Bu temayı bu tarayıcıda göstermeyi durdur",
       "stopped": "Bu tarayıcı yeniden kayıtlı temayı gösteriyor."

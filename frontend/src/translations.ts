@@ -243,6 +243,12 @@ const translations = defineTranslations({
       more: 'More actions',
       resizePanel: 'Resize the settings panel',
       sections: 'Settings sections',
+      allSections: 'All sections',
+      panes: {
+        label: 'Editor view',
+        settings: 'Settings',
+        preview: 'Preview',
+      },
       search: {
         placeholder: 'Search settings',
         clear: 'Clear search',
@@ -828,6 +834,7 @@ const translations = defineTranslations({
       applied: 'Applied in this browser. Only you see it.',
       editorActive: 'This browser shows a theme you applied here instead of the saved one.',
       notice: 'This browser shows a theme that only you can see.',
+      noticeShort: 'Local theme',
       stop: 'Stop',
       stopDescription: 'Stop showing this theme in this browser',
       stopped: 'This browser shows the saved theme again.',

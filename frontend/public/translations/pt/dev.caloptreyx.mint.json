@@ -232,6 +232,12 @@
       "more": "Mais ações",
       "resizePanel": "Redimensionar o painel de definições",
       "sections": "Secções de definições",
+      "allSections": "Todas as seções",
+      "panes": {
+        "label": "Visualização do editor",
+        "settings": "Configurações",
+        "preview": "Pré-visualização"
+      },
       "search": {
         "placeholder": "Pesquisar configurações",
         "clear": "Limpar pesquisa",
@@ -789,6 +795,7 @@
       "applied": "Aplicado neste navegador. Só você o vê.",
       "editorActive": "Este navegador mostra um tema aplicado aqui em vez do salvo.",
       "notice": "Este navegador mostra um tema que só você pode ver.",
+      "noticeShort": "Tema local",
       "stop": "Parar",
       "stopDescription": "Parar de mostrar este tema neste navegador",
       "stopped": "Este navegador mostra o tema salvo novamente."

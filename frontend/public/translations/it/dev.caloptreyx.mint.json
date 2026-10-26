@@ -232,6 +232,12 @@
       "more": "Altre azioni",
       "resizePanel": "Ridimensiona il pannello delle impostazioni",
       "sections": "Sezioni delle impostazioni",
+      "allSections": "Tutte le sezioni",
+      "panes": {
+        "label": "Vista dell'editor",
+        "settings": "Impostazioni",
+        "preview": "Anteprima"
+      },
       "search": {
         "placeholder": "Cerca impostazioni",
         "clear": "Cancella ricerca",
@@ -789,6 +795,7 @@
       "applied": "Applicato in questo browser. Solo tu lo vedi.",
       "editorActive": "Questo browser mostra un tema applicato qui al posto di quello salvato.",
       "notice": "Questo browser mostra un tema che solo tu puoi vedere.",
+      "noticeShort": "Tema locale",
       "stop": "Interrompi",
       "stopDescription": "Interrompi questo tema in questo browser",
       "stopped": "Questo browser mostra di nuovo il tema salvato."

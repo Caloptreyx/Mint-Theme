@@ -232,6 +232,12 @@
       "more": "Flere handlinger",
       "resizePanel": "Tilpas størrelsen på indstillingspanelet",
       "sections": "Indstillingssektioner",
+      "allSections": "Alle sektioner",
+      "panes": {
+        "label": "Editorvisning",
+        "settings": "Indstillinger",
+        "preview": "Forhåndsvisning"
+      },
       "search": {
         "placeholder": "Søg i indstillinger",
         "clear": "Ryd søgning",
@@ -789,6 +795,7 @@
       "applied": "Anvendt i denne browser. Kun du ser det.",
       "editorActive": "Denne browser viser et tema, du har anvendt her, i stedet for det gemte.",
       "notice": "Denne browser viser et tema, som kun du kan se.",
+      "noticeShort": "Lokalt tema",
       "stop": "Stop",
       "stopDescription": "Stop med at vise dette tema i denne browser",
       "stopped": "Denne browser viser det gemte tema igen."

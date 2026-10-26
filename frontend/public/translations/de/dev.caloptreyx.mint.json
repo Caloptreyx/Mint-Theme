@@ -232,6 +232,12 @@
       "more": "Weitere Aktionen",
       "resizePanel": "Größe des Einstellungsbereichs ändern",
       "sections": "Einstellungsbereiche",
+      "allSections": "Alle Bereiche",
+      "panes": {
+        "label": "Editor-Ansicht",
+        "settings": "Einstellungen",
+        "preview": "Vorschau"
+      },
       "search": {
         "placeholder": "Einstellungen durchsuchen",
         "clear": "Suche leeren",
@@ -789,6 +795,7 @@
       "applied": "In diesem Browser angewendet. Nur du siehst es.",
       "editorActive": "Dieser Browser zeigt ein hier angewendetes Design statt des gespeicherten.",
       "notice": "Dieser Browser zeigt ein Design, das nur du sehen kannst.",
+      "noticeShort": "Lokales Theme",
       "stop": "Beenden",
       "stopDescription": "Beenden, dieses Design in diesem Browser zu zeigen",
       "stopped": "Dieser Browser zeigt wieder das gespeicherte Design."

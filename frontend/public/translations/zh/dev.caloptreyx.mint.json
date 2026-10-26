@@ -232,6 +232,12 @@
       "more": "更多動作",
       "resizePanel": "調整設定面板大小",
       "sections": "設定區段",
+      "allSections": "所有區段",
+      "panes": {
+        "label": "編輯器檢視",
+        "settings": "設定",
+        "preview": "預覽"
+      },
       "search": {
         "placeholder": "搜尋設定",
         "clear": "清除搜尋",
@@ -789,6 +795,7 @@
       "applied": "已在此浏览器中应用。只有你能看到。",
       "editorActive": "此浏览器显示的是你在这里应用的主题，而不是已保存的主题。",
       "notice": "此浏览器显示的是只有你能看到的主题。",
+      "noticeShort": "本機主題",
       "stop": "停止",
       "stopDescription": "停止在此浏览器中显示此主题",
       "stopped": "此浏览器已重新显示已保存的主题。"

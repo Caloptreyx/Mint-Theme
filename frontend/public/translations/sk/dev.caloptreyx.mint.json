@@ -232,6 +232,12 @@
       "more": "Ďalšie akcie",
       "resizePanel": "Zmeniť veľkosť panela nastavení",
       "sections": "Sekcie nastavení",
+      "allSections": "Všetky sekcie",
+      "panes": {
+        "label": "Zobrazenie editora",
+        "settings": "Nastavenia",
+        "preview": "Náhľad"
+      },
       "search": {
         "placeholder": "Hľadať nastavenia",
         "clear": "Vymazať hľadanie",
@@ -789,6 +795,7 @@
       "applied": "Použité v tomto prehliadači. Vidíte to iba vy.",
       "editorActive": "Tento prehliadač zobrazuje tému použitú tu namiesto uloženej.",
       "notice": "Tento prehliadač zobrazuje tému, ktorú vidíte iba vy.",
+      "noticeShort": "Lokálna téma",
       "stop": "Zastaviť",
       "stopDescription": "Zastaviť zobrazovanie tejto témy v tomto prehliadači",
       "stopped": "Tento prehliadač opäť zobrazuje uloženú tému."

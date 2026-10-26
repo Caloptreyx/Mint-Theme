@@ -232,6 +232,12 @@
       "more": "Fler åtgärder",
       "resizePanel": "Ändra storlek på inställningspanelen",
       "sections": "Inställningsavsnitt",
+      "allSections": "Alla avsnitt",
+      "panes": {
+        "label": "Redigerarvy",
+        "settings": "Inställningar",
+        "preview": "Förhandsvisning"
+      },
       "search": {
         "placeholder": "Sök inställningar",
         "clear": "Rensa sökning",
@@ -789,6 +795,7 @@
       "applied": "Används i den här webbläsaren. Bara du ser det.",
       "editorActive": "Den här webbläsaren visar ett tema du använt här i stället för det sparade.",
       "notice": "Den här webbläsaren visar ett tema som bara du kan se.",
+      "noticeShort": "Lokalt tema",
       "stop": "Stoppa",
       "stopDescription": "Stoppa visningen av det här temat i den här webbläsaren",
       "stopped": "Den här webbläsaren visar det sparade temat igen."

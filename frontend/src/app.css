@@ -484,8 +484,8 @@ html[data-nebula-layout="slim"] #sidebar-desktop .nebula-nav-search-icon {
 
 /* BottomNav (`mobileNav` 'bottomBar' or 'floatingBar'): core's floating menu button, the element after the bar's
    marker, gives way to the bar, whose Menu button still clicks it. While the bar shows, html carries the room it
-   covers (its height plus its gap to the bottom edge), which the content column, core's bottom action bar (bulk file
-   actions) and bottom placed toasts and uploads clear */
+   covers (its height, its gap and the system navigation bar's inset), which the content column, core's bottom action
+   bar (bulk file actions) and bottom placed toasts and uploads clear */
 [data-nebula-bottom-nav-marker] + .mantine-Card-root {
   display: none !important;
 }
@@ -494,6 +494,15 @@ html[data-nebula-layout="slim"] #sidebar-desktop .nebula-nav-search-icon {
    would slide off the top, and core hides the in-page title below lg meanwhile */
 [data-nebula-bottom-nav-marker] + .mantine-Card-root + div:not([id]) {
   margin: 1.25rem 1rem 1rem;
+}
+
+/* the edge bar's background reaches under the system navigation bar. Chrome on Android (135+) slides a "chin" over
+   that bar and changes safe-area-inset-bottom with it, so the padding is the largest inset, set once, and only
+   `bottom` follows the live one (Chrome's advice: padding that changes relayouts on every scroll frame); elsewhere
+   the max inset falls back to the plain inset */
+[data-nebula-bottom-nav-bar].nebula-bn-edge {
+  bottom: calc(env(safe-area-inset-bottom, 0px) - env(safe-area-max-inset-bottom, env(safe-area-inset-bottom, 0px)));
+  padding-bottom: env(safe-area-max-inset-bottom, env(safe-area-inset-bottom, 0px));
 }
 
 html[data-nebula-bottom-nav] [data-nebula-bottom-nav-marker] ~ :is(#dashboard-root, #server-root, #admin-root) {

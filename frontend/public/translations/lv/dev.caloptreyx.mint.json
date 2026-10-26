@@ -232,6 +232,12 @@
       "more": "Citas darbības",
       "resizePanel": "Mainīt iestatījumu paneļa izmēru",
       "sections": "Iestatījumu sadaļas",
+      "allSections": "Visas sadaļas",
+      "panes": {
+        "label": "Redaktora skats",
+        "settings": "Iestatījumi",
+        "preview": "Priekšskatījums"
+      },
       "search": {
         "placeholder": "Meklēt iestatījumos",
         "clear": "Notīrīt meklēšanu",
@@ -789,6 +795,7 @@
       "applied": "Lietots šajā pārlūkā. To redzat tikai jūs.",
       "editorActive": "Šis pārlūks rāda šeit lietotu motīvu saglabātā vietā.",
       "notice": "Šis pārlūks rāda motīvu, ko redzat tikai jūs.",
+      "noticeShort": "Lokālā tēma",
       "stop": "Apturēt",
       "stopDescription": "Apturēt šī motīva rādīšanu šajā pārlūkā",
       "stopped": "Šis pārlūks atkal rāda saglabāto motīvu."
