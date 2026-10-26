@@ -207,8 +207,11 @@ and break silently when core moves a file. Everything here is runtime:
 - `mobileNav: 'bottomBar' | 'floatingBar'` (`elements/sidebar/BottomNav.tsx`), a second `Sidebar.addRenderInterceptor`
   registered after the shell: below `lg` a fixed bar with up to four links taken from the menu the Sidebar received,
   wrappers kept, so a `ServerCan` without access renders nothing and the next link fills in. 'bottomBar' spans the
-  bottom edge with the safe area inset as padding; 'floatingBar' is a rounded pill (`max-w-md`, centred) held 0.75rem
-  plus the inset above it. The links stay within `max-w-xl` on tablets. Links come first and Menu last in the DOM;
+  bottom edge and reaches under the system navigation bar (`.nebula-bn-edge` in app.css, Chrome's advice for its
+  Android "chin" since 135: `padding-bottom` is `safe-area-max-inset-bottom`, set once, and only `bottom` follows the
+  live `safe-area-inset-bottom`, which changes while the chin slides; elsewhere the max falls back to the plain
+  inset); 'floatingBar' is a rounded pill (`max-w-md`, centred) held 0.75rem plus the live inset above the edge. The
+  links stay within `max-w-xl` on tablets. Links come first and Menu last in the DOM;
   links past the fourth are hidden (`[&>a:nth-of-type(n+5)]:hidden`). Both get a focus-visible outline, with `!`
   because core's `button:focus` reset is unlayered. Colours and the current page's accent pill are app.css's
   (`.nebula-bn-*`, the link's `aria-current`): the pill grows in from its middle (durations times `--nebula-speed`,
@@ -221,8 +224,10 @@ and break silently when core moves a file. Everything here is runtime:
   `.mantine-Card-root > .mantine-ActionIcon-root` among the nodes between the marker and the bar (one console warning
   if none), and app.css hides that card. Core's mobile page title (1.2.4+, the id-less div right after that card,
   pulled up beside it with `-mt-12`) gets its own margin back there. The bar uses core's `lg:` variant (a container
-  query since 1.2.2), measures the room it covers (its height plus its computed `bottom`) into `--nebula-bottom-nav-h`
-  on html and sets `data-nebula-bottom-nav` while displayed, which app.css turns into bottom padding for the content
+  query since 1.2.2) and writes the room it covers into `--nebula-bottom-nav-h` on html as
+  `calc(<height>px + <gap> + env(safe-area-inset-bottom, 0px))` (the measured height without the padding under the
+  system bar), so the live inset stays CSS's and nothing goes stale while the chin moves. It sets
+  `data-nebula-bottom-nav` while displayed, which app.css turns into bottom padding for the content
   column and a lift for core's `ActionBar`, bottom toasts and the uploads card. On a touch screen (`pointer: coarse`)
   app.css hides the bar (`[data-nebula-bottom-nav-bar]`) while a text field that is not read only has focus, since
   core's viewport (`interactive-widget=resizes-content`) would carry it up on the keyboard; it then measures 0 and
@@ -352,7 +357,12 @@ and break silently when core moves a file. Everything here is runtime:
   for the default; 320 to 720px, kept per browser in `nebula:editor-width`; the preview frame ignores the pointer
   while it drags) and the preview with its own toolbar. Opening Login, Server home, Console or Servers list points
   the preview at that page. A new section needs its id in `Section` (`Sections.tsx`), an entry in
-  `SECTION_GROUPS` (`EditorNav.tsx`) and `editor.section.<id>` plus `<id>Description` keys.
+  `SECTION_GROUPS` (`EditorNav.tsx`) and `editor.section.<id>` plus `<id>Description` keys. Below 64em of window width
+  (`WIDE_EDITOR`, a `matchMedia` store; core's lint bans Mantine's `useMediaQuery` and its `usePageBreakpoint` only
+  exists from 1.2.7) the editor shows one pane at a time: a Settings/Preview switch under the top bar, the search above
+  the section list (one input, so typing keeps focus while results replace the list), a section with a back button to
+  the list, and the preview with a wrapping toolbar. The panes stay mounted (`hidden`), so the frame keeps its page.
+  The top bar keeps undo, redo, More and Save; history, Apply in this browser, its Stop and Discard move into More.
 - The editor (`pages/ThemeEditor.tsx`) only saves once `loadTheme()` has returned the stored theme; until then it
   shows a loader, or an error with Retry. It keeps the loaded version and sends it as `base`; a 409 opens a modal to
   reload the stored theme or overwrite it (resent without `base`). A load only replaces the draft if the draft has not
@@ -385,7 +395,8 @@ and break silently when core moves a file. Everything here is runtime:
   over it. It is read with `parseLocalTheme()` (normalizeTheme, the security boundary) at startup, where it also
   skips the first visit guard, and from other tabs' `storage` events (removal included). The preview frame keeps
   painting drafts. `LocalThemeNotice` (`global.appendComponent`) shows a card in the bottom right corner while one
-  is active, with Stop (`clearLocalTheme()`); z-80 keeps it under core's ActionBar and toasts, app.css lifts it over
+  is active (below `sm` a one line pill, 'Local theme', with the full text as its title), with Stop
+  (`clearLocalTheme()`); z-80 keeps it under core's ActionBar and toasts, app.css lifts it over
   the bottom bar, and it never renders in the preview frame. The editor shows the same state with its own Stop.
   `siteTheme()` (local ?? saved) is what the account page's theme choice shows as the panel default.
 - The editor's search (`elements/editor/SettingsSearch.tsx`, `lib/editorSearch.ts`) runs over `SETTINGS`, a
