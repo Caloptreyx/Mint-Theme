@@ -165,6 +165,9 @@
       "right": "Flyt markøren til højre",
       "up": "Flyt markøren op",
       "down": "Flyt markøren ned",
+      "home": "Flyt markøren til starten af linjen",
+      "end": "Flyt markøren til slutningen af linjen",
+      "hideKeyboard": "Skjul tastatur",
       "type": "Skriv {key}"
     },
     "console": {

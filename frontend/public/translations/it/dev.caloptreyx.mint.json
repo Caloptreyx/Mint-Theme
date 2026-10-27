@@ -165,6 +165,9 @@
       "right": "Sposta il cursore a destra",
       "up": "Sposta il cursore in alto",
       "down": "Sposta il cursore in basso",
+      "home": "Sposta il cursore all'inizio della riga",
+      "end": "Sposta il cursore alla fine della riga",
+      "hideKeyboard": "Nascondi tastiera",
       "type": "Digita {key}"
     },
     "console": {

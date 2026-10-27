@@ -3,7 +3,10 @@ import {
   faArrowLeft,
   faArrowRight,
   faArrowUp,
+  faBackwardStep,
+  faForwardStep,
   faIndent,
+  faKeyboard,
   faMagnifyingGlass,
   faOutdent,
   faRotateLeft,
@@ -11,7 +14,15 @@ import {
   type IconDefinition,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { type ReactNode, type SyntheticEvent, useLayoutEffect, useRef, useState, useSyncExternalStore } from 'react';
+import {
+  type ReactNode,
+  type SyntheticEvent,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+  useSyncExternalStore,
+} from 'react';
 import { useNebulaTheme } from '../../lib/apply.ts';
 import { ActionIcon, Card, useFileManager, useVisualViewportBottomInset } from '../../lib/core.ts';
 import {
@@ -25,7 +36,7 @@ import {
 } from '../../lib/mobileEditor.ts';
 import { useExtTranslations } from '../../translations.ts';
 
-type Label = 'undo' | 'redo' | 'indent' | 'outdent' | 'find' | 'left' | 'right' | 'up' | 'down';
+type Label = 'undo' | 'redo' | 'indent' | 'outdent' | 'find' | 'left' | 'right' | 'up' | 'down' | 'home' | 'end';
 
 /** Monaco command ids (run like its own key bindings) and the keydown Pierre handles for the same key. */
 const COMMANDS: { label: Label; icon: IconDefinition; command: string; pierre?: KeyboardEventInit }[] = [
@@ -41,12 +52,14 @@ const ARROWS: {
   label: Label;
   icon: IconDefinition;
   command: string;
-  move: ['backward' | 'forward', 'character' | 'line'];
+  move: ['backward' | 'forward', 'character' | 'line' | 'lineboundary'];
 }[] = [
+  { label: 'home', icon: faBackwardStep, command: 'cursorHome', move: ['backward', 'lineboundary'] },
   { label: 'left', icon: faArrowLeft, command: 'cursorLeft', move: ['backward', 'character'] },
   { label: 'right', icon: faArrowRight, command: 'cursorRight', move: ['forward', 'character'] },
   { label: 'up', icon: faArrowUp, command: 'cursorUp', move: ['backward', 'line'] },
   { label: 'down', icon: faArrowDown, command: 'cursorDown', move: ['forward', 'line'] },
+  { label: 'end', icon: faForwardStep, command: 'cursorEnd', move: ['forward', 'lineboundary'] },
 ];
 
 /** The keys phone keyboards hide behind a second or third layer. */
@@ -177,6 +190,36 @@ export default function EditorKeys() {
     };
   }, [shown, editor, pierreTarget, inset]);
 
+  // the editor has focus, so the on-screen keyboard is up and the row offers a key that closes it
+  const [typing, setTyping] = useState(false);
+  useEffect(() => {
+    if (!shown) {
+      setTyping(false);
+      return;
+    }
+    const host =
+      pierreTarget?.getRootNode() instanceof ShadowRoot ? (pierreTarget.getRootNode() as ShadowRoot).host : null;
+    let frame = 0;
+    // focusout runs before the next element has focus, so the check waits a frame
+    const check = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => setTyping(editor ? editor.hasTextFocus() : !!host?.matches(':focus')));
+    };
+    check();
+    document.addEventListener('focusin', check);
+    document.addEventListener('focusout', check);
+    return () => {
+      cancelAnimationFrame(frame);
+      document.removeEventListener('focusin', check);
+      document.removeEventListener('focusout', check);
+    };
+  }, [shown, editor, pierreTarget]);
+
+  const hideKeyboard = () => {
+    if (editor) (document.activeElement as HTMLElement | null)?.blur();
+    else pierreTarget?.blur();
+  };
+
   const run = (command: string, payload: unknown = null) => {
     if (!editor) return;
     editor.focus();
@@ -206,7 +249,7 @@ export default function EditorKeys() {
   };
 
   // Pierre's own arrow handling lags one step behind text inserted by execCommand; the browser caret doesn't
-  const pierreMove = ([direction, unit]: ['backward' | 'forward', 'character' | 'line']) => {
+  const pierreMove = ([direction, unit]: ['backward' | 'forward', 'character' | 'line' | 'lineboundary']) => {
     if (!pierreTarget) return;
     pierreTarget.focus();
     const root = pierreTarget.getRootNode() as ShadowRoot & { getSelection?: () => Selection | null };
@@ -228,34 +271,44 @@ export default function EditorKeys() {
           onPointerDown={keepFocus}
           onMouseDown={keepFocus}
         >
-          <div className='flex items-center gap-1 overflow-x-auto overscroll-x-contain py-1 pr-[max(0.5rem,env(safe-area-inset-right))] pl-[max(0.5rem,env(safe-area-inset-left))] [scrollbar-width:none]'>
-            {COMMANDS.filter(({ pierre: key, label }) => editor || key || label === 'undo' || label === 'redo').map(
-              ({ label, icon, command, pierre: key }) => (
-                <Key key={label} label={t(`mobileEditor.${label}`, {})} onPress={() => press(label, command, key)}>
+          <div className='flex items-center'>
+            <div className='flex min-w-0 flex-1 items-center gap-1 overflow-x-auto overscroll-x-contain py-1 pr-[max(0.5rem,env(safe-area-inset-right))] pl-[max(0.5rem,env(safe-area-inset-left))] [scrollbar-width:none]'>
+              {COMMANDS.filter(({ pierre: key, label }) => editor || key || label === 'undo' || label === 'redo').map(
+                ({ label, icon, command, pierre: key }) => (
+                  <Key key={label} label={t(`mobileEditor.${label}`, {})} onPress={() => press(label, command, key)}>
+                    <FontAwesomeIcon icon={icon} />
+                  </Key>
+                ),
+              )}
+              {divider}
+              {/* the cursor keys come before the symbols: placing the caret by tapping is the hardest part on a phone */}
+              {ARROWS.map(({ label, icon, command, move }) => (
+                <Key
+                  key={label}
+                  label={t(`mobileEditor.${label}`, {})}
+                  onPress={() => (editor ? run(command) : pierreMove(move))}
+                >
                   <FontAwesomeIcon icon={icon} />
                 </Key>
-              ),
+              ))}
+              {divider}
+              {SYMBOLS.map((symbol) => (
+                <Key
+                  key={symbol}
+                  label={t('mobileEditor.type', { key: symbol })}
+                  onPress={() => (editor ? run('type', { text: symbol }) : pierreCommand('insertText', symbol))}
+                >
+                  <span className='font-mono text-base leading-none'>{symbol}</span>
+                </Key>
+              ))}
+            </div>
+            {typing && (
+              <div className='flex shrink-0 items-center self-stretch border-l border-(--mantine-color-default-border) py-1 pr-[max(0.5rem,env(safe-area-inset-right))] pl-1'>
+                <Key label={t('mobileEditor.hideKeyboard', {})} onPress={hideKeyboard}>
+                  <FontAwesomeIcon icon={faKeyboard} />
+                </Key>
+              </div>
             )}
-            {divider}
-            {SYMBOLS.map((symbol) => (
-              <Key
-                key={symbol}
-                label={t('mobileEditor.type', { key: symbol })}
-                onPress={() => (editor ? run('type', { text: symbol }) : pierreCommand('insertText', symbol))}
-              >
-                <span className='font-mono text-base leading-none'>{symbol}</span>
-              </Key>
-            ))}
-            {divider}
-            {ARROWS.map(({ label, icon, command, move }) => (
-              <Key
-                key={label}
-                label={t(`mobileEditor.${label}`, {})}
-                onPress={() => (editor ? run(command) : pierreMove(move))}
-              >
-                <FontAwesomeIcon icon={icon} />
-              </Key>
-            ))}
           </div>
         </Card>
       )}

@@ -165,6 +165,9 @@
       "right": "Déplacer le curseur à droite",
       "up": "Déplacer le curseur vers le haut",
       "down": "Déplacer le curseur vers le bas",
+      "home": "Placer le curseur en début de ligne",
+      "end": "Placer le curseur en fin de ligne",
+      "hideKeyboard": "Masquer le clavier",
       "type": "Saisir {key}"
     },
     "console": {

@@ -165,6 +165,9 @@
       "right": "Posunúť kurzor doprava",
       "up": "Posunúť kurzor nahor",
       "down": "Posunúť kurzor nadol",
+      "home": "Presunúť kurzor na začiatok riadka",
+      "end": "Presunúť kurzor na koniec riadka",
+      "hideKeyboard": "Skryť klávesnicu",
       "type": "Napísať {key}"
     },
     "console": {

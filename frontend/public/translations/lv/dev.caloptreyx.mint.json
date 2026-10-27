@@ -165,6 +165,9 @@
       "right": "Pārvietot kursoru pa labi",
       "up": "Pārvietot kursoru uz augšu",
       "down": "Pārvietot kursoru uz leju",
+      "home": "Pārvietot kursoru uz rindas sākumu",
+      "end": "Pārvietot kursoru uz rindas beigām",
+      "hideKeyboard": "Paslēpt tastatūru",
       "type": "Ievadīt {key}"
     },
     "console": {

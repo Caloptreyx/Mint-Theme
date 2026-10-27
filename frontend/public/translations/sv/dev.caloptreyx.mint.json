@@ -165,6 +165,9 @@
       "right": "Flytta markören åt höger",
       "up": "Flytta markören uppåt",
       "down": "Flytta markören nedåt",
+      "home": "Flytta markören till radens början",
+      "end": "Flytta markören till radens slut",
+      "hideKeyboard": "Dölj tangentbordet",
       "type": "Skriv {key}"
     },
     "console": {

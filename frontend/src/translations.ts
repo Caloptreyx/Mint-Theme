@@ -171,6 +171,9 @@ const translations = defineTranslations({
       right: 'Move cursor right',
       up: 'Move cursor up',
       down: 'Move cursor down',
+      home: 'Move cursor to the start of the line',
+      end: 'Move cursor to the end of the line',
+      hideKeyboard: 'Hide keyboard',
       type: 'Type {key}',
     },
     console: {

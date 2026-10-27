@@ -165,6 +165,9 @@
       "right": "游標右移",
       "up": "游標上移",
       "down": "游標下移",
+      "home": "將游標移至行首",
+      "end": "將游標移至行尾",
+      "hideKeyboard": "隱藏鍵盤",
       "type": "輸入 {key}"
     },
     "console": {

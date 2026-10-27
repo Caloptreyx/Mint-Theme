@@ -165,6 +165,9 @@
       "right": "Mută cursorul la dreapta",
       "up": "Mută cursorul în sus",
       "down": "Mută cursorul în jos",
+      "home": "Mută cursorul la începutul rândului",
+      "end": "Mută cursorul la sfârșitul rândului",
+      "hideKeyboard": "Ascunde tastatura",
       "type": "Tastează {key}"
     },
     "console": {

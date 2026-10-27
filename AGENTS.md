@@ -223,7 +223,8 @@ and break silently when core moves a file. Everything here is runtime:
   bar renders a hidden `[data-nebula-bottom-nav-marker]` just before core's element, Menu looks for
   `.mantine-Card-root > .mantine-ActionIcon-root` among the nodes between the marker and the bar (one console warning
   if none), and app.css hides that card. Core's mobile page title (1.2.4+, the id-less div right after that card,
-  pulled up beside it with `-mt-12`) gets its own margin back there. The bar uses core's `lg:` variant (a container
+  pulled up beside it with `-mt-12`) gets its own margin back there, and an `:empty` one (pages that put nothing in it:
+  Home, the file editor, Account) is hidden instead of leaving a blank 84px band. The bar uses core's `lg:` variant (a container
   query since 1.2.2) and writes the room it covers into `--nebula-bottom-nav-h` on html as
   `calc(<height>px + <gap> + env(safe-area-inset-bottom, 0px))` (the measured height without the padding under the
   system bar), so the live inset stays CSS's and nothing goes stale while the chin moves. It sets
@@ -233,8 +234,9 @@ and break silently when core moves a file. Everything here is runtime:
   `[data-file-manager-workspace]`), so app.css passes that value down under another name on
   `[data-file-manager-workspace-grid]` and redefines it on the grid's children minus the bar; without it the tree's last
   rows sat behind the bar with nothing to scroll. On a touch screen (`pointer: coarse`)
-  app.css hides the bar (`[data-nebula-bottom-nav-bar]`) while a text field that is not read only has focus, since
-  core's viewport (`interactive-widget=resizes-content`) would carry it up on the keyboard; it then measures 0 and
+  app.css hides the bar (`[data-nebula-bottom-nav-bar]`) while a text field that is not read only has focus, or
+  core's Pierre file editor (`diffs-container`, which matches `:focus` while its shadow root's contenteditable has
+  it), since core's viewport (`interactive-widget=resizes-content`) would carry it up on the keyboard; it then measures 0 and
   the room goes back. 'drawer' returns core's element untouched. The bar and the 'Arrange menu' modal draw link
   icons themselves, so they resolve the route icon an admin picked (panel 1.2.7+, `customIcon` on `Sidebar.Link`) with
   `lib/customIcon.ts`, a copy of core's `useCustomIcon` that reads the link prop and the global store's `icons` only
@@ -453,11 +455,16 @@ and break silently when core moves a file. Everything here is runtime:
   from 16px up). The handler keeps a registry of mounted editors, most recently focused last. Its types come from
   core's registry (`ExtensionContext`), since 1.2.7 no longer ships `@monaco-editor/react`.
   `pages.server.files.editorContainer.appendContentComponent(EditorKeys)` adds the key row to the file editor
-  page: the editor it drives is the registry's latest one inside the same content div, shown only for the
-  'monaco' engine (core defaults touch devices to 'pierre', left alone) and editable editors, `lg:hidden!`. It is
+  page, `lg:hidden!`, for editable editors of both engines: on 'monaco' it drives the registry's latest editor inside
+  the same content div (Monaco commands), on 'pierre' (core's default on touch devices, not exposed to extensions) the
+  contenteditable inside `diffs-container`'s shadow root (`execCommand` for typing and undo, keydown for Tab,
+  `Selection.modify` for the cursor keys). Order: undo, redo, indent, outdent (and find on Monaco), then Home, the
+  arrows and End, then the symbols. While the editor has focus (`hasTextFocus()` or the host's `:focus`, checked a
+  frame after focusin/focusout) a Hide keyboard key is pinned at the right and blurs it. It is
   fixed above the on-screen keyboard (core's `useVisualViewportBottomInset`), else app.css puts it on the bottom
   edge or on `--nebula-bottom-nav-h`; it reserves the strip it covers with Monaco's `padding.bottom` and
-  `cursorSurroundingLines`. Keys `preventDefault` pointer and mouse down so the editor keeps focus.
+  `cursorSurroundingLines` (Pierre: the host's `padding-bottom`). Keys `preventDefault` pointer and mouse down so the
+  editor keeps focus.
 - `pages.auth.prependComponent(AuthScope)` (`elements/auth/AuthScope.tsx`) puts `nebula-auth` on html
   while any auth page is mounted; `buildCss` scopes `loginBackground` to it. `AppIcon.addRenderInterceptor`
   wraps core's logo in `AuthLogo`, which shows `loginLogo` instead only while that scope is active.

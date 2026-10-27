@@ -165,6 +165,9 @@
       "right": "Di chuyển con trỏ sang phải",
       "up": "Di chuyển con trỏ lên",
       "down": "Di chuyển con trỏ xuống",
+      "home": "Di chuyển con trỏ về đầu dòng",
+      "end": "Di chuyển con trỏ về cuối dòng",
+      "hideKeyboard": "Ẩn bàn phím",
       "type": "Gõ {key}"
     },
     "console": {

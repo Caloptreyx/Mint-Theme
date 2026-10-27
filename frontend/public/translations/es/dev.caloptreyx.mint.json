@@ -165,6 +165,9 @@
       "right": "Mover el cursor a la derecha",
       "up": "Mover el cursor arriba",
       "down": "Mover el cursor abajo",
+      "home": "Mover el cursor al inicio de la línea",
+      "end": "Mover el cursor al final de la línea",
+      "hideKeyboard": "Ocultar teclado",
       "type": "Escribir {key}"
     },
     "console": {

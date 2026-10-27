@@ -165,6 +165,9 @@
       "right": "Mover o cursor para a direita",
       "up": "Mover o cursor para cima",
       "down": "Mover o cursor para baixo",
+      "home": "Mover o cursor para o início da linha",
+      "end": "Mover o cursor para o fim da linha",
+      "hideKeyboard": "Ocultar teclado",
       "type": "Digitar {key}"
     },
     "console": {

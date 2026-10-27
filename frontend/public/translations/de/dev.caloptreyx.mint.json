@@ -165,6 +165,9 @@
       "right": "Cursor nach rechts",
       "up": "Cursor nach oben",
       "down": "Cursor nach unten",
+      "home": "Cursor an den Zeilenanfang",
+      "end": "Cursor an das Zeilenende",
+      "hideKeyboard": "Tastatur ausblenden",
       "type": "{key} eingeben"
     },
     "console": {

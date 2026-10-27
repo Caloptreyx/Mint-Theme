@@ -165,6 +165,9 @@
       "right": "Przesuń kursor w prawo",
       "up": "Przesuń kursor w górę",
       "down": "Przesuń kursor w dół",
+      "home": "Przesuń kursor na początek wiersza",
+      "end": "Przesuń kursor na koniec wiersza",
+      "hideKeyboard": "Ukryj klawiaturę",
       "type": "Wpisz {key}"
     },
     "console": {

@@ -491,9 +491,14 @@ html[data-nebula-layout="slim"] #sidebar-desktop .nebula-nav-search-icon {
 }
 
 /* core's mobile page title (panel 1.2.4+) sits beside that button with a negative top margin; with the button gone it
-   would slide off the top, and core hides the in-page title below lg meanwhile */
+   would slide off the top, and core hides the in-page title below lg meanwhile. Pages that put nothing in it (the
+   file editor) would keep an empty 48px band and its margins, so an empty one goes */
 [data-nebula-bottom-nav-marker] + .mantine-Card-root + div:not([id]) {
   margin: 1.25rem 1rem 1rem;
+}
+
+[data-nebula-bottom-nav-marker] + .mantine-Card-root + div:not([id]):empty {
+  display: none;
 }
 
 /* the edge bar's background reaches under the system navigation bar. Chrome on Android (135+) slides a "chin" over
@@ -599,7 +604,8 @@ html[data-nebula-bottom-nav] [data-nebula-local-notice] {
 }
 
 /* a focused text field on a touch screen means the on-screen keyboard is up: the bar steps aside instead of riding
-   on top of it (core's viewport resizes with the keyboard), and measuring 0 hands its room back to the page */
+   on top of it (core's viewport resizes with the keyboard), and measuring 0 hands its room back to the page. Core's
+   Pierre file editor edits inside the shadow root of `diffs-container`, which matches :focus meanwhile */
 @media (pointer: coarse) {
   html:has(
       :is(
@@ -615,7 +621,8 @@ html[data-nebula-bottom-nav] [data-nebula-local-notice] {
             [readonly]
           ),
           textarea:not([readonly]),
-          [contenteditable]:not([contenteditable="false"])
+          [contenteditable]:not([contenteditable="false"]),
+          diffs-container
         ):focus
     )
     [data-nebula-bottom-nav-bar] {
