@@ -228,7 +228,11 @@ and break silently when core moves a file. Everything here is runtime:
   `calc(<height>px + <gap> + env(safe-area-inset-bottom, 0px))` (the measured height without the padding under the
   system bar), so the live inset stays CSS's and nothing goes stale while the chin moves. It sets
   `data-nebula-bottom-nav` while displayed, which app.css turns into bottom padding for the content
-  column and a lift for core's `ActionBar`, bottom toasts and the uploads card. On a touch screen (`pointer: coarse`)
+  column and a lift for core's `ActionBar`, bottom toasts and the uploads card. Files' tree view (1.2.4+) is out of the
+  page's flow and measured to the window's bottom (`--file-manager-workspace-height`, inline on
+  `[data-file-manager-workspace]`), so app.css passes that value down under another name on
+  `[data-file-manager-workspace-grid]` and redefines it on the grid's children minus the bar; without it the tree's last
+  rows sat behind the bar with nothing to scroll. On a touch screen (`pointer: coarse`)
   app.css hides the bar (`[data-nebula-bottom-nav-bar]`) while a text field that is not read only has focus, since
   core's viewport (`interactive-widget=resizes-content`) would carry it up on the keyboard; it then measures 0 and
   the room goes back. 'drawer' returns core's element untouched. The bar and the 'Arrange menu' modal draw link

@@ -517,6 +517,19 @@ html[data-nebula-bottom-nav] :is(.fixed.z-999, .z-998).bottom-4 {
   bottom: calc(1rem + var(--nebula-bottom-nav-h));
 }
 
+/* Files' tree view (panel 1.2.4+): core measures its panes to the window's bottom edge into
+   --file-manager-workspace-height, inline on [data-file-manager-workspace], which sits out of the page's flow, so the
+   room the page keeps for the bar never reaches it and the tree's last rows end up behind the bar. The grid passes the
+   measured value down under another name (a property can't reference itself) and its panes, the tree and the editor
+   split, take the bar off it */
+html[data-nebula-bottom-nav] [data-file-manager-workspace-grid] {
+  --nebula-file-workspace-h: var(--file-manager-workspace-height);
+}
+
+html[data-nebula-bottom-nav] [data-file-manager-workspace-grid] > * {
+  --file-manager-workspace-height: calc(var(--nebula-file-workspace-h) - var(--nebula-bottom-nav-h));
+}
+
 /* the phone file editor's key row (EditorKeys) with the on-screen keyboard closed: on the bottom edge clear of the
    home indicator, or on Mint's bottom bar; an open keyboard sets its offset inline */
 html [data-nebula-editor-keys] {
