@@ -12,6 +12,7 @@ A dark theme for [Calagopus Panel](https://calagopus.com) with a live, built-in 
 [![Calagopus 1.2.0+](https://img.shields.io/badge/Calagopus-1.2.0%2B-3b6cde)](https://calagopus.com)
 [![Latest release](https://img.shields.io/github/v/release/Caloptreyx/Mint-Theme?label=release)](https://github.com/Caloptreyx/Mint-Theme/releases/latest)
 [![License: MIT](https://img.shields.io/github/license/Caloptreyx/Mint-Theme)](LICENSE)
+[![Built with Claude Code](https://img.shields.io/badge/built%20with-Claude%20Code-D97757?logo=claude&logoColor=white)](https://claude.com/claude-code)
 
 <img src="docs/cover.png" alt="Mint Theme for Calagopus Panel" width="100%">
 
