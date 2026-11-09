@@ -62,6 +62,15 @@
       "view": {
         "list": "清單檢視",
         "grid": "格狀檢視"
+      },
+      "groups": {
+        "empty": "還沒有群組",
+        "emptyDescription": "群組把相關的伺服器放在一起。建立一個群組，再加入伺服器或把伺服器拖進來。",
+        "emptyGroup": "這個群組是空的。把伺服器拖到這裡，或用 + 加入。",
+        "loadFailed": "無法載入群組。",
+        "retry": "重試",
+        "reorder": "拖曳以重新排序 {name}",
+        "selectGroup": "選取 {name} 中的所有伺服器"
       }
     },
     "serverSort": {
@@ -172,7 +181,8 @@
     },
     "console": {
       "commands": "快速指令",
-      "connect": "連線"
+      "connect": "連線",
+      "history": "資源歷史"
     },
     "editor": {
       "contrast": {

@@ -33,7 +33,7 @@ frontend/src/lib/library.ts  presets, users' theme choices and history: ids, nor
 frontend/src/lib/editorSearch.ts  the editor's settings index (SETTINGS, COLOR_GROUPS) and searchSettings()
 frontend/src/lib/editorDraft.ts   checks on the editor's raw draft: urlValid, invalidUrls, isThemeFile, toHexColor
 frontend/src/lib/redact.ts  core's 'Hide server addresses' setting: useRedactAddresses(), shownAddress(), maskAddress()
-frontend/src/pages/        ServerHome, ServerConsole, ServerList (dashboard), ThemeEditor
+frontend/src/pages/        ServerHome, ServerConsole, ServerList and GroupedServerList (dashboard), ThemeEditor
 frontend/src/elements/     account/, home/, dashboard/, editor/, files/ (phone editor keys), library/ (presets, history, theme choice), sidebar/, page/ pieces
 frontend/src/app.css       static CSS: @font-face, flush sidebar, active link, sidebar sections, keyframes
 frontend/src/translations.ts  every user facing string
@@ -248,7 +248,9 @@ and break silently when core moves a file. Everything here is runtime:
   above and below it and in columns beside it, which stack under it below `lg` (`xl` when both are used).
   Core's `ServerStats` only exports all three charts together, so `ConsoleChartsProvider` runs core's
   `useStreamChart` for each and feeds them the same way, and `ChartsWidget` renders core's `ChartBlock`/`StreamChart`
-  from that context. The provider wraps the whole page, above the slots, so a chart moved to another slot (a
+  from that context. From panel 1.2.9 core's charts carry a clock linking to the server's resource history
+  (`/server/<id>/console/history`, a core route); the server route interceptor notes whether that route exists
+  (`setResourceHistory`) and Mint's `HistoryLink` is the chart's `action` only then. The provider wraps the whole page, above the slots, so a chart moved to another slot (a
   remount) keeps its history. Core's `statBlocks` slot follows the last chart run, or the extension cards when no
   chart is placed. The default is the page from before. `PowerButtons` (in `HeroCard`, so on Home and the
   console's full banner, and in the compact and minimal banners with `size`) renders core's
@@ -427,6 +429,19 @@ and break silently when core moves a file. Everything here is runtime:
   copies core `ServerItem`'s permission (`control.*`) and state checks, including Kill (confirmed) while stopping.
   Group headings are siblings of the rows (grid: `col-span-full`), so a row changing group moves, not
   remounts. Sort, group and view persist as `nebula:server-sort`, `nebula:server-group`, `nebula:server-view`.
+  Both servers pages start with `ServersHeader` (title, subtitle, the All/Grouped switch on the right; core keeps the
+  grouped page on `/` when the user's `useStartOnGroupedServers` says so, and the paths follow), so the switch sits in
+  the same place on both.
+- `pages.dashboard.home.enterContainerGrouped(...)` replaces the grouped servers page the same way with
+  `GroupedServerList` (`pages/GroupedServerList.tsx`, `elements/dashboard/ServerGroupCard.tsx`): the user's server
+  groups with each group's servers as Mint's `ServerCard`s in the theme's `serverCardStyle` grid. Everything else is
+  core's, from the floor's paths: the groups in the user store (`getServerGroups`, order by `order`), the group's
+  servers (`getServerGroupServers` under core's query key `[...servers.all(), group uuid]`), core's create, edit and
+  add-server modals, the group power actions (core skips busy servers), Remove from group (a `menuItems` entry in
+  `ServerCard`'s menu, confirmed), the expanded state in core's `dashboard::server_groups_expanded` setting, and the
+  drag and drop: core's `useServerGroupsDnd` with core's ids (groups by uuid in `SERVER_GROUPS_CONTAINER_ID`, cards
+  by `serverDndId` in a list per group carrying `{ server }`), so cards move between groups and groups reorder by
+  their grip. Core's empty state and error state elements are newer than 1.2.0, so those are Mint's.
 - `pages.server.console.xterm` init, after open and unmount handlers (`lib/terminal.ts`) hand the
   theme's `monoFont`, `terminalCursor`, `terminalCursorBlink` and `terminalLineHeight` to xterm, which sizes its cell
   grid from its `fontFamily` and `lineHeight` options, not the CSS, and follow theme changes live. The font

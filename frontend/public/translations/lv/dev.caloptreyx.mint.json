@@ -62,6 +62,15 @@
       "view": {
         "list": "Saraksta skats",
         "grid": "Režģa skats"
+      },
+      "groups": {
+        "empty": "Vēl nav grupu",
+        "emptyDescription": "Grupas tur kopā saistītos serverus. Izveido grupu, tad pievieno tai serverus vai ievelc tos.",
+        "emptyGroup": "Šī grupa ir tukša. Ievelc šeit serveri vai pievieno to ar +.",
+        "loadFailed": "Grupas neizdevās ielādēt.",
+        "retry": "Mēģināt vēlreiz",
+        "reorder": "Velc, lai pārkārtotu {name}",
+        "selectGroup": "Atlasīt visus serverus grupā {name}"
       }
     },
     "serverSort": {
@@ -172,7 +181,8 @@
     },
     "console": {
       "commands": "Ātrās komandas",
-      "connect": "Savienot"
+      "connect": "Savienot",
+      "history": "Resursu vēsture"
     },
     "editor": {
       "contrast": {

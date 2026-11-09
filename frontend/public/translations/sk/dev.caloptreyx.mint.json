@@ -62,6 +62,15 @@
       "view": {
         "list": "Zobrazenie zoznamu",
         "grid": "Zobrazenie mriežky"
+      },
+      "groups": {
+        "empty": "Zatiaľ žiadne skupiny",
+        "emptyDescription": "Skupiny držia súvisiace servery pokope. Vytvorte skupinu a potom do nej pridajte servery alebo ich presuňte.",
+        "emptyGroup": "Táto skupina je prázdna. Presuňte sem server alebo ho pridajte cez +.",
+        "loadFailed": "Skupiny sa nepodarilo načítať.",
+        "retry": "Skúsiť znova",
+        "reorder": "Potiahnutím zmeníte poradie {name}",
+        "selectGroup": "Vybrať všetky servery v {name}"
       }
     },
     "serverSort": {
@@ -172,7 +181,8 @@
     },
     "console": {
       "commands": "Rýchle príkazy",
-      "connect": "Pripojenie"
+      "connect": "Pripojenie",
+      "history": "História zdrojov"
     },
     "editor": {
       "contrast": {

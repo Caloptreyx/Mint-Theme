@@ -11,7 +11,7 @@ import {
   type IconDefinition,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useEffect, useState } from 'react';
+import { type ReactNode, useEffect, useState } from 'react';
 import { NavLink } from 'react-router';
 import {
   ActionIcon,
@@ -73,9 +73,11 @@ interface Props {
   variant: ServerCardStyle;
   selected: boolean;
   onSelect: (selected: boolean) => void;
+  /** Menu items after the power actions (the grouped page's Remove from group); the menu shows for them alone too. */
+  menuItems?: ReactNode;
 }
 
-export default function ServerCard({ server, art, icon, variant, selected, onSelect }: Props) {
+export default function ServerCard({ server, art, icon, variant, selected, onSelect, menuItems }: Props) {
   const { t } = useTranslations();
   const { t: tExt } = useExtTranslations();
   const { user } = useAuth();
@@ -159,7 +161,8 @@ export default function ServerCard({ server, art, icon, variant, selected, onSel
   const canRestart = can('control.restart');
   const canStop = can('control.stop');
 
-  const powerMenu = (canStart || canRestart || canStop) && (
+  const canPower = canStart || canRestart || canStop;
+  const powerMenu = (canPower || !!menuItems) && (
     <>
       <Menu>
         <Menu.Target>
@@ -205,6 +208,8 @@ export default function ServerCard({ server, art, icon, variant, selected, onSel
               {t('common.enum.serverPowerAction.kill', {})}
             </Menu.Item>
           )}
+          {canPower && menuItems && <Menu.Divider />}
+          {menuItems}
         </Menu.Dropdown>
       </Menu>
       <ConfirmationModal

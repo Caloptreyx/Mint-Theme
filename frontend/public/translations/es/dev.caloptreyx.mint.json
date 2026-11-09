@@ -62,6 +62,15 @@
       "view": {
         "list": "Vista de lista",
         "grid": "Vista de cuadrícula"
+      },
+      "groups": {
+        "empty": "Aún no hay grupos",
+        "emptyDescription": "Los grupos reúnen servidores relacionados. Crea uno y luego añade servidores o arrástralos dentro.",
+        "emptyGroup": "Este grupo está vacío. Arrastra un servidor aquí o añade uno con +.",
+        "loadFailed": "No se pudieron cargar los grupos.",
+        "retry": "Reintentar",
+        "reorder": "Arrastra para reordenar {name}",
+        "selectGroup": "Seleccionar todos los servidores de {name}"
       }
     },
     "serverSort": {
@@ -172,7 +181,8 @@
     },
     "console": {
       "commands": "Comandos rápidos",
-      "connect": "Conectar"
+      "connect": "Conectar",
+      "history": "Historial de recursos"
     },
     "editor": {
       "contrast": {

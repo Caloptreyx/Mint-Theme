@@ -62,6 +62,15 @@
       "view": {
         "list": "Listvy",
         "grid": "Rutnätsvy"
+      },
+      "groups": {
+        "empty": "Inga grupper än",
+        "emptyDescription": "Grupper håller ihop servrar som hör samman. Skapa en och lägg sedan till servrar eller dra in dem.",
+        "emptyGroup": "Den här gruppen är tom. Dra hit en server eller lägg till en med +.",
+        "loadFailed": "Grupperna kunde inte läsas in.",
+        "retry": "Försök igen",
+        "reorder": "Dra för att flytta {name}",
+        "selectGroup": "Markera alla servrar i {name}"
       }
     },
     "serverSort": {
@@ -172,7 +181,8 @@
     },
     "console": {
       "commands": "Snabbkommandon",
-      "connect": "Anslut"
+      "connect": "Anslut",
+      "history": "Resurshistorik"
     },
     "editor": {
       "contrast": {

@@ -65,6 +65,15 @@ const translations = defineTranslations({
         list: 'List view',
         grid: 'Grid view',
       },
+      groups: {
+        empty: 'No groups yet',
+        emptyDescription: 'Groups keep related servers together. Create one, then add servers to it or drag them in.',
+        emptyGroup: 'This group is empty. Drag a server here or add one with +.',
+        loadFailed: 'The groups could not be loaded.',
+        retry: 'Try again',
+        reorder: 'Drag to reorder {name}',
+        selectGroup: 'Select every server in {name}',
+      },
     },
     serverSort: {
       sortBy: 'Sort by',
@@ -179,6 +188,7 @@ const translations = defineTranslations({
     console: {
       commands: 'Quick commands',
       connect: 'Connect',
+      history: 'Resource history',
     },
     editor: {
       contrast: {

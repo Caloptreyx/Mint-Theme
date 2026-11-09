@@ -62,6 +62,15 @@
       "view": {
         "list": "Listevisning",
         "grid": "Gittervisning"
+      },
+      "groups": {
+        "empty": "Ingen grupper endnu",
+        "emptyDescription": "Grupper samler servere, der hører sammen. Opret en, og tilføj så servere eller træk dem ind.",
+        "emptyGroup": "Denne gruppe er tom. Træk en server hertil, eller tilføj en med +.",
+        "loadFailed": "Grupperne kunne ikke indlæses.",
+        "retry": "Prøv igen",
+        "reorder": "Træk for at flytte {name}",
+        "selectGroup": "Vælg alle servere i {name}"
       }
     },
     "serverSort": {
@@ -172,7 +181,8 @@
     },
     "console": {
       "commands": "Hurtigkommandoer",
-      "connect": "Forbind"
+      "connect": "Forbind",
+      "history": "Ressourcehistorik"
     },
     "editor": {
       "contrast": {

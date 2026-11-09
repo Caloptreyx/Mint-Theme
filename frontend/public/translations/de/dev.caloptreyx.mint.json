@@ -62,6 +62,15 @@
       "view": {
         "list": "Listenansicht",
         "grid": "Rasteransicht"
+      },
+      "groups": {
+        "empty": "Noch keine Gruppen",
+        "emptyDescription": "Gruppen halten zusammengehörige Server beisammen. Erstelle eine und füge dann Server hinzu oder ziehe sie hinein.",
+        "emptyGroup": "Diese Gruppe ist leer. Ziehe einen Server hierher oder füge einen mit + hinzu.",
+        "loadFailed": "Die Gruppen konnten nicht geladen werden.",
+        "retry": "Erneut versuchen",
+        "reorder": "Ziehen, um {name} zu verschieben",
+        "selectGroup": "Alle Server in {name} auswählen"
       }
     },
     "serverSort": {
@@ -172,7 +181,8 @@
     },
     "console": {
       "commands": "Schnellbefehle",
-      "connect": "Verbinden"
+      "connect": "Verbinden",
+      "history": "Ressourcenverlauf"
     },
     "editor": {
       "contrast": {

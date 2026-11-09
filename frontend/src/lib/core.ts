@@ -12,7 +12,12 @@
 export { default as getAllEggs } from '@/api/admin/nests/getAllEggs.ts';
 export { default as getAdminServers } from '@/api/admin/servers/getServers.ts';
 export { default as getAdminUsers } from '@/api/admin/users/getUsers.ts';
-export { axiosInstance, httpErrorToHuman } from '@/api/axios.ts';
+export { axiosInstance, getEmptyPaginationSet, httpErrorToHuman } from '@/api/axios.ts';
+export { default as deleteServerGroup } from '@/api/me/servers/groups/deleteServerGroup.ts';
+export { default as getServerGroupServers } from '@/api/me/servers/groups/getServerGroupServers.ts';
+export { default as getServerGroups } from '@/api/me/servers/groups/getServerGroups.ts';
+export { default as updateServerGroup } from '@/api/me/servers/groups/updateServerGroup.ts';
+export { default as updateServerGroupsOrder } from '@/api/me/servers/groups/updateServerGroupsOrder.ts';
 export { default as getServers } from '@/api/server/getServers.ts';
 export { default as renameServer } from '@/api/server/settings/renameServer.ts';
 export { default as updateDockerImage } from '@/api/server/startup/updateDockerImage.ts';
@@ -34,10 +39,12 @@ export { default as Avatar } from '@/elements/data-display/Avatar.tsx';
 export { default as Badge } from '@/elements/data-display/Badge.tsx';
 export { default as Card } from '@/elements/data-display/Card.tsx';
 export { default as StatCard } from '@/elements/data-display/StatCard.tsx';
+export { Pagination as TablePagination } from '@/elements/data-display/Table.tsx';
 export { default as TitleCard } from '@/elements/data-display/TitleCard.tsx';
 export { DndBoard, DndContainer, DndSortableList, SortableItem } from '@/elements/dnd/DragAndDrop.tsx';
 export { default as ExtensionSlot } from '@/elements/ExtensionSlot.tsx';
 export { default as Alert } from '@/elements/feedback/Alert.tsx';
+export { default as BlockedOverlay } from '@/elements/feedback/BlockedOverlay.tsx';
 export { default as Notification } from '@/elements/feedback/Notification.tsx';
 export { default as Progress } from '@/elements/feedback/Progress.tsx';
 export { default as Spinner } from '@/elements/feedback/Spinner.tsx';
@@ -47,6 +54,7 @@ export { default as Select } from '@/elements/input/Select.tsx';
 export { default as Switch } from '@/elements/input/Switch.tsx';
 export { default as TextArea } from '@/elements/input/TextArea.tsx';
 export { default as TextInput } from '@/elements/input/TextInput.tsx';
+export { default as Collapse } from '@/elements/layout/Collapse.tsx';
 export { default as Group } from '@/elements/layout/Group.tsx';
 export { default as SegmentedControl } from '@/elements/layout/SegmentedControl.tsx';
 export { default as Stack } from '@/elements/layout/Stack.tsx';
@@ -57,6 +65,7 @@ export { default as Sidebar } from '@/elements/navigation/Sidebar.tsx';
 export { default as Menu } from '@/elements/overlays/Menu.tsx';
 export { default as Tooltip } from '@/elements/overlays/Tooltip.tsx';
 export { default as QuickActionsTrigger } from '@/elements/quickActions/QuickActionsTrigger.tsx';
+export { default as ScrollingText } from '@/elements/ScrollingText.tsx';
 export { default as Code } from '@/elements/typography/Code.tsx';
 export { default as Kbd } from '@/elements/typography/Kbd.tsx';
 export { default as Text } from '@/elements/typography/Text.tsx';
@@ -83,13 +92,22 @@ export type { adminFullUserSchema } from '@/lib/schemas/admin/users.ts';
 export type { announcementSchema } from '@/lib/schemas/announcements.ts';
 export type { serverPowerAction, serverPowerState, serverSchema } from '@/lib/schemas/server/server.ts';
 export { serverSettingsRenameSchema } from '@/lib/schemas/server/settings.ts';
-export type { fullUserSchema } from '@/lib/schemas/user.ts';
-export { getUserSetting, removeUserSetting, setUserSetting, useUserSetting } from '@/lib/userSettings.ts';
+export type { fullUserSchema, userServerGroupSchema } from '@/lib/schemas/user.ts';
+export {
+  getUserSetting,
+  removeUserSetting,
+  setUserSetting,
+  useUserSetting,
+  useUserSettingMapEntry,
+} from '@/lib/userSettings.ts';
 export type { Props as AuthWrapperProps } from '@/pages/auth/AuthWrapper.tsx';
 // Page-level components
 export { default as AuthWrapper } from '@/pages/auth/AuthWrapper.tsx';
 export { default as AvatarContainer } from '@/pages/dashboard/account/AvatarContainer.tsx';
 export { default as BulkActionBar } from '@/pages/dashboard/home/BulkActionBar.tsx';
+export { default as GroupAddServerModal } from '@/pages/dashboard/home/modals/GroupAddServerModal.tsx';
+export { default as ServerGroupCreateModal } from '@/pages/dashboard/home/modals/ServerGroupCreateModal.tsx';
+export { default as ServerGroupEditModal } from '@/pages/dashboard/home/modals/ServerGroupEditModal.tsx';
 export { default as Console } from '@/pages/server/console/terminal/Console.tsx';
 
 // Hooks
@@ -97,6 +115,13 @@ export { useKeyboardShortcuts } from '@/plugins/quick-actions/useKeyboardShortcu
 export { useQuickActionLocation } from '@/plugins/quick-actions/useQuickActions.ts';
 export { useSearchablePaginatedTable } from '@/plugins/resource/useSearchablePaginatedTable.ts';
 export { useBulkPowerActions } from '@/plugins/server/useBulkPowerActions.ts';
+export type { ServerGroupDropBlockReason } from '@/plugins/server/useServerGroupsDnd.ts';
+export {
+  MAX_SERVERS_PER_GROUP,
+  SERVER_GROUPS_CONTAINER_ID,
+  serverDndId,
+  useServerGroupsDnd,
+} from '@/plugins/server/useServerGroupsDnd.ts';
 export { useServerListShowOthers } from '@/plugins/server/useServerListShowOthers.ts';
 export { useServerStats } from '@/plugins/server/useServerStats.ts';
 export { useStartOnGroupedServers } from '@/plugins/server/useStartOnGroupedServers.ts';

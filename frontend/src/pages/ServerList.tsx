@@ -11,10 +11,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Pagination } from '@mantine/core';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router';
 import type { z } from 'zod';
 import ServerCard, { GRID_CLASS } from '../elements/dashboard/ServerCard.tsx';
 import ServerRow, { COLUMN_CLASS, COLUMNS, ROW_GRID, type Server } from '../elements/dashboard/ServerRow.tsx';
+import ServersHeader from '../elements/dashboard/ServersHeader.tsx';
 import {
   filterServers,
   GROUP_KEYS,
@@ -57,11 +57,9 @@ import {
   type serverPowerAction,
   Text,
   TextInput,
-  Title,
   useBulkPowerActions,
   useSearchablePaginatedTable,
   useServerListShowOthers,
-  useStartOnGroupedServers,
   useTranslations,
   useUserStore,
 } from '../lib/core.ts';
@@ -99,9 +97,6 @@ export default function ServerList() {
   const { t, tItem } = useTranslations();
   const { t: tExt } = useExtTranslations();
   const theme = useNebulaTheme();
-  const navigate = useNavigate();
-  const { pathname } = useLocation();
-  const [startOnGrouped] = useStartOnGroupedServers();
   const [showOthers, setShowOthers] = useServerListShowOthers();
   const [view, setView] = useState<View>(() => (stored(VIEW_KEY) === 'grid' ? 'grid' : 'list'));
   const [sort, setSort] = useState<Sort | null>(() => parseSort(stored(SORT_STORAGE_KEY)));
@@ -181,10 +176,6 @@ export default function ServerList() {
     setFilter(next);
     restart(sort, group, next);
   };
-
-  // core keeps the grouped list on '/' when the user starts there, so the tabs follow that setting
-  const allPath = startOnGrouped ? '/all' : '/';
-  const groupedPath = startOnGrouped ? '/' : '/grouped';
 
   const order: OrderContext = { usage: (uuid) => usage?.[uuid] };
   const matched = sortServers(filterServers(rows, filter, order), sort, order);
@@ -319,22 +310,7 @@ export default function ServerList() {
 
   return (
     <>
-      <Group justify='space-between' align='flex-start' mb='md' wrap='nowrap' className='max-sm:flex-wrap!'>
-        <div className='min-w-0'>
-          <Title order={2}>{tExt('servers.title', {})}</Title>
-          <Text size='sm' c='dimmed'>
-            {tExt('servers.subtitle', {})}
-          </Text>
-        </div>
-        <SegmentedControl
-          value={pathname === groupedPath ? 'grouped' : 'all'}
-          onChange={(value) => navigate(value === 'grouped' ? groupedPath : allPath)}
-          data={[
-            { value: 'all', label: t('pages.account.home.tabs.allServers.title', {}) },
-            { value: 'grouped', label: t('pages.account.home.tabs.groupedServers.title', {}) },
-          ]}
-        />
-      </Group>
+      <ServersHeader />
 
       <Group mb='md' gap='sm'>
         <TextInput

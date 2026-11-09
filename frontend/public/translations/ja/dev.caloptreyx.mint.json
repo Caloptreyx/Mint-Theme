@@ -62,6 +62,15 @@
       "view": {
         "list": "リスト表示",
         "grid": "グリッド表示"
+      },
+      "groups": {
+        "empty": "グループはまだありません",
+        "emptyDescription": "グループは関連するサーバーをまとめます。グループを作成し、サーバーを追加するかドラッグして入れてください。",
+        "emptyGroup": "このグループは空です。サーバーをここにドラッグするか、+ で追加してください。",
+        "loadFailed": "グループを読み込めませんでした。",
+        "retry": "再試行",
+        "reorder": "ドラッグして {name} を並べ替え",
+        "selectGroup": "{name} のすべてのサーバーを選択"
       }
     },
     "serverSort": {
@@ -172,7 +181,8 @@
     },
     "console": {
       "commands": "クイックコマンド",
-      "connect": "接続"
+      "connect": "接続",
+      "history": "リソース履歴"
     },
     "editor": {
       "contrast": {

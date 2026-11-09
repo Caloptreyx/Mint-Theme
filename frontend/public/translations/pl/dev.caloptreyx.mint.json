@@ -62,6 +62,15 @@
       "view": {
         "list": "Widok listy",
         "grid": "Widok siatki"
+      },
+      "groups": {
+        "empty": "Brak grup",
+        "emptyDescription": "Grupy łączą powiązane serwery. Utwórz grupę, a potem dodaj do niej serwery lub przeciągnij je.",
+        "emptyGroup": "Ta grupa jest pusta. Przeciągnij tu serwer albo dodaj go przyciskiem +.",
+        "loadFailed": "Nie udało się wczytać grup.",
+        "retry": "Spróbuj ponownie",
+        "reorder": "Przeciągnij, aby zmienić kolejność {name}",
+        "selectGroup": "Zaznacz wszystkie serwery w {name}"
       }
     },
     "serverSort": {
@@ -172,7 +181,8 @@
     },
     "console": {
       "commands": "Szybkie polecenia",
-      "connect": "Połącz"
+      "connect": "Połącz",
+      "history": "Historia zasobów"
     },
     "editor": {
       "contrast": {

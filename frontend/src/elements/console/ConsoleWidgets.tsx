@@ -1,5 +1,6 @@
 import {
   faClock,
+  faClockRotateLeft,
   faCloudArrowDown,
   faCloudArrowUp,
   faCloudDownload,
@@ -11,6 +12,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { createContext, type ReactNode, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import { NavLink } from 'react-router';
 import { useShallow } from 'zustand/react/shallow';
 import { useNebulaTheme } from '../../lib/apply.ts';
 import {
@@ -34,6 +36,7 @@ import {
   serverStatusInfo,
   Title,
   TitleCard,
+  Tooltip,
   useServerStore,
   useStreamChart,
   useTranslations,
@@ -428,6 +431,32 @@ export function ConsoleChartsProvider({ children }: { children: ReactNode }) {
   );
 }
 
+/** Core's resource history page (panel 1.2.9+); the server route interceptor reports whether core has it. */
+export const RESOURCE_HISTORY_PATH = '/console/history';
+let resourceHistory = false;
+export function setResourceHistory(available: boolean) {
+  resourceHistory = available;
+}
+
+/** The clock core's own charts show beside their titles from 1.2.9, linking to the server's resource history. */
+function HistoryLink() {
+  const { t } = useExtTranslations();
+  const server = useServerStore((state) => state.server);
+  const label = t('console.history', {});
+
+  return (
+    <Tooltip label={label}>
+      <NavLink
+        to={`/server/${server.uuidShort}${RESOURCE_HISTORY_PATH}`}
+        className='inline-flex p-1 text-(--mantine-color-dimmed) hover:text-(--mantine-color-text)'
+        aria-label={label}
+      >
+        <FontAwesomeIcon icon={faClockRotateLeft} size='sm' />
+      </NavLink>
+    </Tooltip>
+  );
+}
+
 // ChartBlock's plot is its last div (`min-h-60`, 15rem); the arbitrary variant outranks it inside the layer
 const CHART_HEIGHT_CLASS: Record<ChartHeight, string | undefined> = {
   small: '[&>div:last-child]:min-h-40',
@@ -453,6 +482,7 @@ export function ChartsWidget({
   const overlayIcon = <FontAwesomeIcon icon={faPowerOff} className='text-2xl' />;
   const overlayLabel = offline ? t('pages.server.console.stats.offline', {}) : undefined;
   const blockClass = CHART_HEIGHT_CLASS[chartHeight];
+  const action = resourceHistory ? <HistoryLink /> : undefined;
 
   const blocks: Record<ChartWidget, ReactNode> = {
     cpuChart: (
@@ -464,6 +494,7 @@ export function ChartsWidget({
         value={cpu.value}
         overlayIcon={overlayIcon}
         overlayLabel={overlayLabel}
+        action={action}
       >
         <StreamChart {...cpu.props} />
       </ChartBlock>
@@ -477,6 +508,7 @@ export function ChartsWidget({
         value={memory.value}
         overlayIcon={overlayIcon}
         overlayLabel={overlayLabel}
+        action={action}
       >
         <StreamChart {...memory.props} />
       </ChartBlock>
@@ -490,6 +522,7 @@ export function ChartsWidget({
         legend={<ChartLegend {...network.legend} />}
         overlayIcon={overlayIcon}
         overlayLabel={overlayLabel}
+        action={action}
       >
         <StreamChart {...network.props} />
       </ChartBlock>

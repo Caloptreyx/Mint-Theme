@@ -62,6 +62,15 @@
       "view": {
         "list": "Liste görünümü",
         "grid": "Izgara görünümü"
+      },
+      "groups": {
+        "empty": "Henüz grup yok",
+        "emptyDescription": "Gruplar ilgili sunucuları bir arada tutar. Bir grup oluşturun, sonra sunucu ekleyin ya da sürükleyin.",
+        "emptyGroup": "Bu grup boş. Buraya bir sunucu sürükleyin veya + ile ekleyin.",
+        "loadFailed": "Gruplar yüklenemedi.",
+        "retry": "Tekrar dene",
+        "reorder": "{name} grubunu sıralamak için sürükleyin",
+        "selectGroup": "{name} içindeki tüm sunucuları seç"
       }
     },
     "serverSort": {
@@ -172,7 +181,8 @@
     },
     "console": {
       "commands": "Hızlı komutlar",
-      "connect": "Bağlan"
+      "connect": "Bağlan",
+      "history": "Kaynak geçmişi"
     },
     "editor": {
       "contrast": {

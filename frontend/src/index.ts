@@ -10,6 +10,7 @@ import { AuthLayout, withFormLinks } from './elements/auth/AuthLayout.tsx';
 import { AuthLogo, AuthScope, LOGIN_PREVIEW_PATH } from './elements/auth/AuthScope.tsx';
 import ConsoleRedirect, { withConsoleFallback } from './elements/console/ConsoleFallback.tsx';
 import ConsoleRouteOrder from './elements/console/ConsoleRouteOrder.tsx';
+import { RESOURCE_HISTORY_PATH, setResourceHistory } from './elements/console/ConsoleWidgets.tsx';
 import EditorKeys from './elements/files/EditorKeys.tsx';
 import ThemeChoiceCard from './elements/library/ThemeChoiceCard.tsx';
 import LocalThemeNotice from './elements/page/LocalThemeNotice.tsx';
@@ -33,6 +34,7 @@ import {
 import { mountMobileEditor } from './lib/mobileEditor.ts';
 import { THEME_UPDATE_PERMISSION } from './lib/permissions.ts';
 import { attachTerminal, detachTerminal, initTerminal } from './lib/terminal.ts';
+import GroupedServerList from './pages/GroupedServerList.tsx';
 import ServerConsole from './pages/ServerConsole.tsx';
 import ServerHome from './pages/ServerHome.tsx';
 import ServerList from './pages/ServerList.tsx';
@@ -82,6 +84,15 @@ class DevCaloptreyxMintExtension extends Extension {
         title: getExtTranslations().t('servers.title', {}),
         hideTitleComponent: true,
         children: createElement(ServerList),
+      })),
+    );
+    // the grouped list the same way, with Mint's header and server cards over core's groups and drag and drop
+    ctx.extensionRegistry.pages.dashboard.home.enterContainerGrouped((container) =>
+      container.addPropsInterceptor((props) => ({
+        ...props,
+        title: getExtTranslations().t('servers.title', {}),
+        hideTitleComponent: true,
+        children: createElement(GroupedServerList),
       })),
     );
 
@@ -154,6 +165,8 @@ class DevCaloptreyxMintExtension extends Extension {
     // With `serverHome` off the console stays at `/` (still Mint's layout) and there is no Home. Core runs this once
     // per server router (and quick actions palette, egg configuration editor), so a change shows on their next mount.
     ctx.extensionRegistry.routes.addServerRouteInterceptor((routes) => {
+      // panel 1.2.9 added a resource history page that core's charts link to; Mint's charts link to it where it exists
+      setResourceHistory(routes.some((route) => route.path === RESOURCE_HISTORY_PATH));
       const home = currentTheme().serverHome;
       const console = routes.findIndex((route) => route.path === '/');
       if (console !== -1) {

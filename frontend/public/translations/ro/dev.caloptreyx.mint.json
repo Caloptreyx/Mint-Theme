@@ -62,6 +62,15 @@
       "view": {
         "list": "Vizualizare listă",
         "grid": "Vizualizare grilă"
+      },
+      "groups": {
+        "empty": "Încă nu există grupuri",
+        "emptyDescription": "Grupurile țin împreună serverele înrudite. Creează unul, apoi adaugă servere sau trage-le în el.",
+        "emptyGroup": "Acest grup este gol. Trage un server aici sau adaugă unul cu +.",
+        "loadFailed": "Grupurile nu au putut fi încărcate.",
+        "retry": "Încearcă din nou",
+        "reorder": "Trage pentru a reordona {name}",
+        "selectGroup": "Selectează toate serverele din {name}"
       }
     },
     "serverSort": {
@@ -172,7 +181,8 @@
     },
     "console": {
       "commands": "Comenzi rapide",
-      "connect": "Conectare"
+      "connect": "Conectare",
+      "history": "Istoric resurse"
     },
     "editor": {
       "contrast": {

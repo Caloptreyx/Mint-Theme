@@ -62,6 +62,15 @@
       "view": {
         "list": "Vista elenco",
         "grid": "Vista griglia"
+      },
+      "groups": {
+        "empty": "Ancora nessun gruppo",
+        "emptyDescription": "I gruppi tengono insieme i server correlati. Creane uno, poi aggiungi server o trascinali dentro.",
+        "emptyGroup": "Questo gruppo è vuoto. Trascina qui un server o aggiungine uno con +.",
+        "loadFailed": "Impossibile caricare i gruppi.",
+        "retry": "Riprova",
+        "reorder": "Trascina per riordinare {name}",
+        "selectGroup": "Seleziona tutti i server in {name}"
       }
     },
     "serverSort": {
@@ -172,7 +181,8 @@
     },
     "console": {
       "commands": "Comandi rapidi",
-      "connect": "Connessione"
+      "connect": "Connessione",
+      "history": "Cronologia risorse"
     },
     "editor": {
       "contrast": {

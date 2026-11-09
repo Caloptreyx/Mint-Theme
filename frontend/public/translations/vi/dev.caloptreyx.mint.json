@@ -62,6 +62,15 @@
       "view": {
         "list": "Dạng danh sách",
         "grid": "Dạng lưới"
+      },
+      "groups": {
+        "empty": "Chưa có nhóm nào",
+        "emptyDescription": "Nhóm gom các máy chủ liên quan lại với nhau. Hãy tạo một nhóm rồi thêm máy chủ hoặc kéo chúng vào.",
+        "emptyGroup": "Nhóm này trống. Kéo một máy chủ vào đây hoặc thêm bằng nút +.",
+        "loadFailed": "Không thể tải các nhóm.",
+        "retry": "Thử lại",
+        "reorder": "Kéo để sắp xếp lại {name}",
+        "selectGroup": "Chọn mọi máy chủ trong {name}"
       }
     },
     "serverSort": {
@@ -172,7 +181,8 @@
     },
     "console": {
       "commands": "Lệnh nhanh",
-      "connect": "Kết nối"
+      "connect": "Kết nối",
+      "history": "Lịch sử tài nguyên"
     },
     "editor": {
       "contrast": {
