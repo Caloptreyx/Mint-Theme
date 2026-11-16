@@ -1,6 +1,6 @@
+import type { NebulaTheme } from '../lib/theme.ts';
 import { axiosInstance } from '../lib/core.ts';
 import { normalizeHistory, normalizeLibrary, type PresetLibrary, type ThemeHistory } from '../lib/library.ts';
-import type { NebulaTheme } from '../lib/theme.ts';
 
 const PRESETS = '/api/admin/extensions/dev.caloptreyx.mint/presets';
 

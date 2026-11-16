@@ -1,3 +1,4 @@
+import type { z } from 'zod';
 import { faMagnifyingGlass, faServer, faUser, type IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Combobox, TextInput, useCombobox } from '@mantine/core';
@@ -16,7 +17,7 @@ import {
   useState,
 } from 'react';
 import { useNavigate } from 'react-router';
-import type { z } from 'zod';
+import type { SearchComponent } from '../../lib/theme.ts';
 import { useNebulaTheme } from '../../lib/apply.ts';
 import {
   ActionIcon,
@@ -44,7 +45,6 @@ import {
   useShortcutOverrides,
   useToast,
 } from '../../lib/core.ts';
-import type { SearchComponent } from '../../lib/theme.ts';
 import { useExtTranslations } from '../../translations.ts';
 
 const MAX_RESULTS = 6;

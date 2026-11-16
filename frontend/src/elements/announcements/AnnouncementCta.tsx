@@ -1,7 +1,7 @@
 import type { AlertProps } from '@mantine/core';
+import type { z } from 'zod';
 import { createContext, isValidElement, type ReactElement, type ReactNode, useContext } from 'react';
 import { Link } from 'react-router';
-import type { z } from 'zod';
 import {
   type announcementSchema,
   announcementTypeColorMapping,

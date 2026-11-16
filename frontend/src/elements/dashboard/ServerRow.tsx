@@ -1,7 +1,7 @@
+import type { z } from 'zod';
 import { faGamepad } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { NavLink } from 'react-router';
-import type { z } from 'zod';
 import {
   bytesToString,
   Card,

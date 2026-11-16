@@ -1,6 +1,6 @@
 import type { z } from 'zod';
-import { Badge, type serverPowerState, serverStatusInfo, useTranslations } from '../../lib/core.ts';
 import type { Server } from './ServerRow.tsx';
+import { Badge, type serverPowerState, serverStatusInfo, useTranslations } from '../../lib/core.ts';
 
 /** The status a row or card shows: suspension, then the panel's own status, then the node's power state. */
 export default function StatusBadge({

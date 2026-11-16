@@ -1,8 +1,8 @@
 import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Alert } from '@mantine/core';
-import { Stack, Text } from '../../lib/core.ts';
 import type { ContrastIssue } from '../../lib/theme.ts';
+import { Stack, Text } from '../../lib/core.ts';
 import { useExtTranslations } from '../../translations.ts';
 
 /** The translated pieces of one issue; the ratio is floored so a pair just under the minimum never reads as meeting it. */

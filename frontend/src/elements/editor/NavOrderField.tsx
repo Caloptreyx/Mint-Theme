@@ -1,12 +1,12 @@
 import { faRotateLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Input } from '@mantine/core';
+import type { NebulaTheme } from '../../lib/theme.ts';
 import { Button, Stack, Switch, Text } from '../../lib/core.ts';
 import { EMPTY_NAV_ORDER, isEmptyNavOrder, mergeNavOrder, NAV_MENUS } from '../../lib/navOrder.ts';
-import type { NebulaTheme } from '../../lib/theme.ts';
 import { useExtTranslations } from '../../translations.ts';
-import NavArranger, { arrangedOrder, toArrangeItems, useAdminMenu } from '../sidebar/NavArranger.tsx';
 import { arrangeMenu, groupNav } from '../sidebar/nav.ts';
+import NavArranger, { arrangedOrder, toArrangeItems, useAdminMenu } from '../sidebar/NavArranger.tsx';
 
 interface Props {
   theme: NebulaTheme;

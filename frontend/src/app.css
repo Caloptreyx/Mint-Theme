@@ -1,155 +1,155 @@
 @font-face {
-  font-family: "Exo 2";
+  font-family: 'Exo 2';
   font-style: normal;
   font-weight: 100 900;
   font-display: swap;
-  src: url("./fonts/exo-2-latin-ext.woff2") format("woff2");
+  src: url('./fonts/exo-2-latin-ext.woff2') format('woff2');
   unicode-range:
-    U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF,
-    U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F,
+    U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
 @font-face {
-  font-family: "Exo 2";
+  font-family: 'Exo 2';
   font-style: normal;
   font-weight: 100 900;
   font-display: swap;
-  src: url("./fonts/exo-2-latin.woff2") format("woff2");
+  src: url('./fonts/exo-2-latin.woff2') format('woff2');
   unicode-range:
-    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
-    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC,
+    U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
 @font-face {
-  font-family: "Montserrat";
+  font-family: 'Montserrat';
   font-style: normal;
   font-weight: 100 900;
   font-display: swap;
-  src: url("./fonts/montserrat-latin-ext.woff2") format("woff2");
+  src: url('./fonts/montserrat-latin-ext.woff2') format('woff2');
   unicode-range:
-    U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF,
-    U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F,
+    U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
 @font-face {
-  font-family: "Montserrat";
+  font-family: 'Montserrat';
   font-style: normal;
   font-weight: 100 900;
   font-display: swap;
-  src: url("./fonts/montserrat-latin.woff2") format("woff2");
+  src: url('./fonts/montserrat-latin.woff2') format('woff2');
   unicode-range:
-    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
-    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC,
+    U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
 @font-face {
-  font-family: "Outfit";
+  font-family: 'Outfit';
   font-style: normal;
   font-weight: 100 900;
   font-display: swap;
-  src: url("./fonts/outfit-latin-ext.woff2") format("woff2");
+  src: url('./fonts/outfit-latin-ext.woff2') format('woff2');
   unicode-range:
-    U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF,
-    U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F,
+    U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
 @font-face {
-  font-family: "Outfit";
+  font-family: 'Outfit';
   font-style: normal;
   font-weight: 100 900;
   font-display: swap;
-  src: url("./fonts/outfit-latin.woff2") format("woff2");
+  src: url('./fonts/outfit-latin.woff2') format('woff2');
   unicode-range:
-    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
-    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC,
+    U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
 @font-face {
-  font-family: "Plus Jakarta Sans";
+  font-family: 'Plus Jakarta Sans';
   font-style: normal;
   font-weight: 200 800;
   font-display: swap;
-  src: url("./fonts/plus-jakarta-sans-latin-ext.woff2") format("woff2");
+  src: url('./fonts/plus-jakarta-sans-latin-ext.woff2') format('woff2');
   unicode-range:
-    U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF,
-    U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F,
+    U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
 @font-face {
-  font-family: "Plus Jakarta Sans";
+  font-family: 'Plus Jakarta Sans';
   font-style: normal;
   font-weight: 200 800;
   font-display: swap;
-  src: url("./fonts/plus-jakarta-sans-latin.woff2") format("woff2");
+  src: url('./fonts/plus-jakarta-sans-latin.woff2') format('woff2');
   unicode-range:
-    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
-    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC,
+    U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
 @font-face {
-  font-family: "Space Grotesk";
+  font-family: 'Space Grotesk';
   font-style: normal;
   font-weight: 300 700;
   font-display: swap;
-  src: url("./fonts/space-grotesk-latin-ext.woff2") format("woff2");
+  src: url('./fonts/space-grotesk-latin-ext.woff2') format('woff2');
   unicode-range:
-    U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF,
-    U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F,
+    U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
 @font-face {
-  font-family: "Space Grotesk";
+  font-family: 'Space Grotesk';
   font-style: normal;
   font-weight: 300 700;
   font-display: swap;
-  src: url("./fonts/space-grotesk-latin.woff2") format("woff2");
+  src: url('./fonts/space-grotesk-latin.woff2') format('woff2');
   unicode-range:
-    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
-    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC,
+    U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
 @font-face {
-  font-family: "JetBrains Mono";
+  font-family: 'JetBrains Mono';
   font-style: normal;
   font-weight: 100 800;
   font-display: swap;
-  src: url("./fonts/jetbrains-mono-latin-ext.woff2") format("woff2");
+  src: url('./fonts/jetbrains-mono-latin-ext.woff2') format('woff2');
   unicode-range:
-    U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF,
-    U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F,
+    U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
 @font-face {
-  font-family: "JetBrains Mono";
+  font-family: 'JetBrains Mono';
   font-style: normal;
   font-weight: 100 800;
   font-display: swap;
-  src: url("./fonts/jetbrains-mono-latin.woff2") format("woff2");
+  src: url('./fonts/jetbrains-mono-latin.woff2') format('woff2');
   unicode-range:
-    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
-    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC,
+    U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
 @font-face {
-  font-family: "Fira Code";
+  font-family: 'Fira Code';
   font-style: normal;
   font-weight: 300 700;
   font-display: swap;
-  src: url("./fonts/fira-code-latin-ext.woff2") format("woff2");
+  src: url('./fonts/fira-code-latin-ext.woff2') format('woff2');
   unicode-range:
-    U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF,
-    U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F,
+    U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
 @font-face {
-  font-family: "Fira Code";
+  font-family: 'Fira Code';
   font-style: normal;
   font-weight: 300 700;
   font-display: swap;
-  src: url("./fonts/fira-code-latin.woff2") format("woff2");
+  src: url('./fonts/fira-code-latin.woff2') format('woff2');
   unicode-range:
-    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
-    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC,
+    U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
 /* the background image is painted on html (see lib/theme.ts), body lets it through */
@@ -161,11 +161,11 @@ html {
 }
 
 /* `--nebula-scrollbar` is the theme's Scrollbar colour (dark mode only, lib/theme.ts), set only when chosen */
-[data-mantine-color-scheme="dark"] {
+[data-mantine-color-scheme='dark'] {
   scrollbar-color: var(--nebula-scrollbar, var(--mantine-color-dark-4)) transparent;
 }
 
-[data-mantine-color-scheme="light"] {
+[data-mantine-color-scheme='light'] {
   scrollbar-color: var(--mantine-color-gray-4) transparent;
 }
 
@@ -267,7 +267,7 @@ html[data-nebula-pending] body {
 }
 
 .nebula-sb-items a::before {
-  content: "";
+  content: '';
   position: absolute;
   left: calc(-0.75rem - 1px);
   top: 0.3125rem;
@@ -299,11 +299,11 @@ html[data-nebula-pending] body {
   display: none;
 }
 
-html[data-nebula-layout="slim"] #sidebar-desktop .nebula-nav-search-full {
+html[data-nebula-layout='slim'] #sidebar-desktop .nebula-nav-search-full {
   display: none;
 }
 
-html[data-nebula-layout="slim"] #sidebar-desktop .nebula-nav-search-icon {
+html[data-nebula-layout='slim'] #sidebar-desktop .nebula-nav-search-icon {
   display: flex;
   justify-content: center;
 }
@@ -359,11 +359,11 @@ html[data-nebula-layout="slim"] #sidebar-desktop .nebula-nav-search-icon {
   }
 
   /* the horizontal layout has one column; the sidebar card, collapsed by buildCss, sits under the bar */
-  div:has(> .nebula-bar[data-nebula-bar="nav"]) {
+  div:has(> .nebula-bar[data-nebula-bar='nav']) {
     grid-template-columns: minmax(0, 1fr);
   }
 
-  div:has(> .nebula-bar[data-nebula-bar="nav"]) > :is(.nebula-bar, #dashboard-root, #server-root, #admin-root) {
+  div:has(> .nebula-bar[data-nebula-bar='nav']) > :is(.nebula-bar, #dashboard-root, #server-root, #admin-root) {
     grid-column: 1;
   }
 }
@@ -566,7 +566,7 @@ html[data-nebula-bottom-nav] [data-nebula-local-notice] {
 }
 
 .nebula-bn-icon::before {
-  content: "";
+  content: '';
   position: absolute;
   inset: 0;
   z-index: -1;
@@ -585,13 +585,13 @@ html[data-nebula-bottom-nav] [data-nebula-local-notice] {
   transition: none;
 }
 
-.nebula-bn-item[aria-current="page"],
-.nebula-bn-nav:not(:has(> a[aria-current="page"]:nth-of-type(-n + 4))) > .nebula-bn-menu {
+.nebula-bn-item[aria-current='page'],
+.nebula-bn-nav:not(:has(> a[aria-current='page']:nth-of-type(-n + 4))) > .nebula-bn-menu {
   color: var(--mantine-color-blue-light-color);
 }
 
-.nebula-bn-item[aria-current="page"] .nebula-bn-icon::before,
-.nebula-bn-nav:not(:has(> a[aria-current="page"]:nth-of-type(-n + 4))) > .nebula-bn-menu .nebula-bn-icon::before {
+.nebula-bn-item[aria-current='page'] .nebula-bn-icon::before,
+.nebula-bn-nav:not(:has(> a[aria-current='page']:nth-of-type(-n + 4))) > .nebula-bn-menu .nebula-bn-icon::before {
   opacity: 1;
   transform: none;
 }
@@ -609,21 +609,21 @@ html[data-nebula-bottom-nav] [data-nebula-local-notice] {
 @media (pointer: coarse) {
   html:has(
       :is(
-          input:not(
-            [type="checkbox"],
-            [type="radio"],
-            [type="button"],
-            [type="submit"],
-            [type="reset"],
-            [type="range"],
-            [type="color"],
-            [type="file"],
-            [readonly]
-          ),
-          textarea:not([readonly]),
-          [contenteditable]:not([contenteditable="false"]),
-          diffs-container
-        ):focus
+        input:not(
+          [type='checkbox'],
+          [type='radio'],
+          [type='button'],
+          [type='submit'],
+          [type='reset'],
+          [type='range'],
+          [type='color'],
+          [type='file'],
+          [readonly]
+        ),
+        textarea:not([readonly]),
+        [contenteditable]:not([contenteditable='false']),
+        diffs-container
+      ):focus
     )
     [data-nebula-bottom-nav-bar] {
     display: none !important;
@@ -654,7 +654,7 @@ html[data-nebula-bottom-nav] [data-nebula-local-notice] {
 }
 
 /* in from the inline end: the right, or the left on a right to left page */
-[dir="rtl"] {
+[dir='rtl'] {
   --nebula-slide-dir: -1;
 }
 

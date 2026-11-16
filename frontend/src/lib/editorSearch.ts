@@ -78,13 +78,11 @@ export const SETTINGS: Setting[] = [
   { section: 'presets', label: 'library.builtin', also: ['library.users'] },
 
   ...COLOR_GROUPS.flatMap(({ group, keys, optional }) =>
-    keys.map(
-      (key): Setting => ({
-        section: 'colours',
-        label: `editor.${key}`,
-        also: optional ? [`editor.group.${group}`] : [`editor.group.${group}`, `editor.${key}Description` as Key],
-      }),
-    ),
+    keys.map((key): Setting => ({
+      section: 'colours',
+      label: `editor.${key}`,
+      also: optional ? [`editor.group.${group}`] : [`editor.group.${group}`, `editor.${key}Description` as Key],
+    })),
   ),
 
   {

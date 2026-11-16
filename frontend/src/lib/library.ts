@@ -54,7 +54,7 @@ export function presetNameProblem(value: string): 'empty' | 'long' | 'control' |
   const trimmed = value.trim();
   if (!trimmed) return 'empty';
   if ([...trimmed].length > PRESET_NAME_MAX) return 'long';
-  // biome-ignore lint/suspicious/noControlCharactersInRegex: control characters are what is refused
+  // oxlint-disable-next-line no-control-regex -- control characters are what is refused
   if (/[\u0000-\u001f\u007f-\u009f]/.test(trimmed)) return 'control';
   return null;
 }

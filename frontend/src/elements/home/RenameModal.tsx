@@ -1,7 +1,7 @@
+import type { z } from 'zod';
 import { useForm } from '@mantine/form';
 import { zod4Resolver } from 'mantine-form-zod-resolver';
 import { useState } from 'react';
-import type { z } from 'zod';
 import {
   Button,
   Group,

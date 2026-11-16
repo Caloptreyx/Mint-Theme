@@ -2,9 +2,9 @@ import type { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { faGripVertical, faLink } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { type ComponentProps, type ReactNode, useSyncExternalStore } from 'react';
+import type { NavOrder } from '../../lib/navOrder.ts';
 import { Card, DndContainer, Group, restrictToVerticalAxis, SortableItem, Stack, Text } from '../../lib/core.ts';
 import { customIconOf, useCustomIcon } from '../../lib/customIcon.ts';
-import type { NavOrder } from '../../lib/navOrder.ts';
 import { useExtTranslations } from '../../translations.ts';
 import { findLink, isNavDivider, type NavEntry, navNodeId } from './nav.ts';
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { getAllEggs, Select, Stack, Text } from '../../lib/core.ts';
 import type { EggImages, NebulaTheme } from '../../lib/theme.ts';
+import { getAllEggs, Select, Stack, Text } from '../../lib/core.ts';
 import { useExtTranslations } from '../../translations.ts';
 import UrlInput from './UrlInput.tsx';
 

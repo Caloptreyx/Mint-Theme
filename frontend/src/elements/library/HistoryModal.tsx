@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import type { ThemeHistory } from '../../lib/library.ts';
+import type { NebulaTheme } from '../../lib/theme.ts';
 import { getThemeHistory } from '../../api/library.ts';
 import {
   Button,
@@ -12,8 +14,6 @@ import {
   Text,
   useToast,
 } from '../../lib/core.ts';
-import type { ThemeHistory } from '../../lib/library.ts';
-import type { NebulaTheme } from '../../lib/theme.ts';
 import { useExtTranslations } from '../../translations.ts';
 import Swatches from './Swatches.tsx';
 

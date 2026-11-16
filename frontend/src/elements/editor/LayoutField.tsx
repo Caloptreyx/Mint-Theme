@@ -1,5 +1,6 @@
 import { faEye, faEyeSlash, faGripVertical, faLeftRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import type { HomeCard, HomeColumn, NebulaTheme } from '../../lib/theme.ts';
 import {
   ActionIcon,
   Card,
@@ -11,7 +12,6 @@ import {
   Text,
   Tooltip,
 } from '../../lib/core.ts';
-import type { HomeCard, HomeColumn, NebulaTheme } from '../../lib/theme.ts';
 import { useExtTranslations } from '../../translations.ts';
 
 interface Props {

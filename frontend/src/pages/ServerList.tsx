@@ -1,3 +1,4 @@
+import type { z } from 'zod';
 import {
   faArrowDownShortWide,
   faArrowDownWideShort,
@@ -11,10 +12,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Pagination } from '@mantine/core';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
-import type { z } from 'zod';
 import ServerCard, { GRID_CLASS } from '../elements/dashboard/ServerCard.tsx';
-import ServerRow, { COLUMN_CLASS, COLUMNS, ROW_GRID, type Server } from '../elements/dashboard/ServerRow.tsx';
-import ServersHeader from '../elements/dashboard/ServersHeader.tsx';
 import {
   filterServers,
   GROUP_KEYS,
@@ -39,6 +37,8 @@ import {
   serializeSort,
   sortServers,
 } from '../elements/dashboard/serverOrder.ts';
+import ServerRow, { COLUMN_CLASS, COLUMNS, ROW_GRID, type Server } from '../elements/dashboard/ServerRow.tsx';
+import ServersHeader from '../elements/dashboard/ServersHeader.tsx';
 import { useNebulaTheme } from '../lib/apply.ts';
 import {
   ActionIcon,

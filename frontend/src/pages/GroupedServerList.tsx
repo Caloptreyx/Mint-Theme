@@ -1,7 +1,7 @@
+import type { z } from 'zod';
 import { faLayerGroup, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { startTransition, useEffect, useState } from 'react';
-import type { z } from 'zod';
 import ServerCard from '../elements/dashboard/ServerCard.tsx';
 import ServerGroupCard, { type ServerGroupData } from '../elements/dashboard/ServerGroupCard.tsx';
 import ServersHeader from '../elements/dashboard/ServersHeader.tsx';

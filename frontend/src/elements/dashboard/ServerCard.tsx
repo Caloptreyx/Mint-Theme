@@ -13,6 +13,8 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { type ReactNode, useEffect, useState } from 'react';
 import { NavLink } from 'react-router';
+import type { ServerCardStyle } from '../../lib/theme.ts';
+import type { Server } from './ServerRow.tsx';
 import {
   ActionIcon,
   bytesToString,
@@ -32,9 +34,7 @@ import {
   useTranslations,
 } from '../../lib/core.ts';
 import { shownAddress, useRedactAddresses } from '../../lib/redact.ts';
-import type { ServerCardStyle } from '../../lib/theme.ts';
 import { useExtTranslations } from '../../translations.ts';
-import type { Server } from './ServerRow.tsx';
 import StatusBadge from './StatusBadge.tsx';
 
 const SHADE = 'var(--nebula-card)';

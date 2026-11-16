@@ -366,7 +366,7 @@ and break silently when core moves a file. Everything here is runtime:
   while it drags) and the preview with its own toolbar. Opening Login, Server home, Console or Servers list points
   the preview at that page. A new section needs its id in `Section` (`Sections.tsx`), an entry in
   `SECTION_GROUPS` (`EditorNav.tsx`) and `editor.section.<id>` plus `<id>Description` keys. Below 64em of window width
-  (`WIDE_EDITOR`, a `matchMedia` store; core's lint bans Mantine's `useMediaQuery` and its `usePageBreakpoint` only
+  (`WIDE_EDITOR`, a `matchMedia` store; core's Biome config up to 1.2.9 banned Mantine's `useMediaQuery` and its `usePageBreakpoint` only
   exists from 1.2.7) the editor shows one pane at a time: a Settings/Preview switch under the top bar, the search above
   the section list (one input, so typing keeps focus while results replace the list), a section with a back button to
   the list, and the preview with a wrapping toolbar. The panes stay mounted (`hidden`), so the frame keeps its page.
@@ -619,7 +619,9 @@ Everything else needs the panel: stage the extension into a panel checkout and r
 toolchain; there is no standalone build. CI does this on every push (`.github/workflows/check.yml` calls
 `Caloptreyx/.github/.github/workflows/extension-check.yml`, shared by every extension repo): on a
 Blacksmith runner it stages the extension into the newest `release-*` tag of `calagopus/panel` and runs the
-node tests, `pnpm typecheck`, `biome check`, `pnpm build` and `cargo test -p dev_caloptreyx_mint`. Push and
+node tests, `pnpm typecheck`, the panel's lint and format check (`oxlint` and `oxfmt --check` from panel 1.2.10, which
+replaced Biome; the shared workflow still runs `biome check` against older panels), `pnpm build` and
+`cargo test -p dev_caloptreyx_mint`. Push and
 read that run to verify a change; build by hand only when CI can't answer (a running panel, CI down), since
 builds are kept off the development VM:
 
@@ -627,11 +629,12 @@ builds are kept off the development VM:
 cp -r frontend/.  <panel>/frontend/extensions/dev_caloptreyx_mint/
 cp -r backend/.   <panel>/backend-extensions/dev_caloptreyx_mint/
 cp Metadata.toml  <panel>/backend-extensions/dev_caloptreyx_mint/
-cd <panel>/frontend && pnpm typecheck && pnpm exec biome check --write extensions/dev_caloptreyx_mint && pnpm build
+cd <panel>/frontend && pnpm typecheck && pnpm exec oxfmt extensions/dev_caloptreyx_mint && pnpm exec oxlint extensions/dev_caloptreyx_mint && pnpm build
 cd <panel> && SQLX_OFFLINE=true cargo test -p dev_caloptreyx_mint
 ```
 
-Sync any biome fixes back, then clean the panel checkout (remove the staged folders,
+Sync any oxfmt changes back (oxlint's `--fix` is not always right: it once turned a string's `[...s]` spread into
+`s`), then clean the panel checkout (remove the staged folders,
 `frontend/public/translations/en`, and `git checkout -- Cargo.lock frontend/pnpm-lock.yaml`).
 
 To run it: the backend extension must be registered with `panel-rs extensions resync` (it rewrites

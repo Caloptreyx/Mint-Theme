@@ -1,5 +1,5 @@
-import { axiosInstance } from '../lib/core.ts';
 import type { AnnouncementCta } from '../lib/cta.ts';
+import { axiosInstance } from '../lib/core.ts';
 
 /** Sets or, with null, removes one announcement's button; resolves to what was stored (trimmed). */
 export default async (announcement: string, cta: AnnouncementCta | null): Promise<AnnouncementCta | null> => {

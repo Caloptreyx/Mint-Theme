@@ -17,6 +17,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { type ComponentProps, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { z } from 'zod';
+import type { Server } from './ServerRow.tsx';
 import { useNebulaTheme } from '../../lib/apply.ts';
 import {
   ActionIcon,
@@ -57,7 +58,6 @@ import {
 } from '../../lib/core.ts';
 import { useExtTranslations } from '../../translations.ts';
 import ServerCard, { GRID_CLASS } from './ServerCard.tsx';
-import type { Server } from './ServerRow.tsx';
 
 export type ServerGroupData = z.infer<typeof userServerGroupSchema>;
 

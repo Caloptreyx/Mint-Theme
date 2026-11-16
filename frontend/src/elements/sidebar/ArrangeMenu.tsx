@@ -5,8 +5,8 @@ import { Fragment, type ReactNode, useLayoutEffect, useRef, useState } from 'rea
 import { ActionIcon, Button, Modal, ModalFooter, Stack, Text } from '../../lib/core.ts';
 import { isEmptyNavOrder, mergeNavOrder, type NavMenu, type NavOrder, navLinkId } from '../../lib/navOrder.ts';
 import { useExtTranslations } from '../../translations.ts';
-import NavArranger, { type ArrangeItem, arrangedOrder, toArrangeItems } from './NavArranger.tsx';
 import { arrangeMenu, groupNav, saveOwnNavOrder, swapLink, useNavOrders } from './nav.ts';
+import NavArranger, { type ArrangeItem, arrangedOrder, toArrangeItems } from './NavArranger.tsx';
 
 const NAV_ID = 'data-nebula-nav-id';
 

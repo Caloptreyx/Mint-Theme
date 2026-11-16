@@ -1,9 +1,9 @@
 import { faMagnifyingGlass, faXmark, type IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import type { Section } from './Sections.tsx';
 import { ActionIcon, Stack, Text, TextInput, UnstyledButton } from '../../lib/core.ts';
 import { expandTerms, SETTINGS, type SearchHit, type Setting, searchSettings } from '../../lib/editorSearch.ts';
 import translations, { useExtTranslations } from '../../translations.ts';
-import type { Section } from './Sections.tsx';
 
 interface SettingDoc {
   setting: Setting;
@@ -26,14 +26,12 @@ export function useSettingSearch(query: string): SettingHit[] {
       .replace(/\s*\{\w+\}/g, '')
       .trim();
 
-  const docs = SETTINGS.map(
-    (setting, i): SettingDoc => ({
-      setting,
-      label: lookup(setting.label),
-      section: t(`editor.section.${setting.section}`, {}),
-      also: [...TERMS[i].map(lookup), ENGLISH[setting.label], ...TERMS[i].map((key) => ENGLISH[key])],
-    }),
-  );
+  const docs = SETTINGS.map((setting, i): SettingDoc => ({
+    setting,
+    label: lookup(setting.label),
+    section: t(`editor.section.${setting.section}`, {}),
+    also: [...TERMS[i].map(lookup), ENGLISH[setting.label], ...TERMS[i].map((key) => ENGLISH[key])],
+  }));
 
   return searchSettings(docs, query);
 }

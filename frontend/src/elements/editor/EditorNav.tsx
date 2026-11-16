@@ -19,8 +19,8 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Collapse } from '@mantine/core';
 import { useState } from 'react';
-import { useExtTranslations } from '../../translations.ts';
 import type { Section } from './Sections.tsx';
+import { useExtTranslations } from '../../translations.ts';
 
 type SectionGroup = 'look' | 'navigation' | 'pages' | 'interface';
 

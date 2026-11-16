@@ -619,7 +619,7 @@ function lineHeight(v: unknown, fallback: number): number {
 }
 
 // a command is one console line: control characters (a newline would be a second command) are dropped
-// biome-ignore lint/suspicious/noControlCharactersInRegex: matching them is the point
+// oxlint-disable-next-line no-control-regex -- matching them is the point
 const CONTROL = /[\u0000-\u001f\u007f]/g;
 
 /** At most 8 buttons; both texts are cut to their limit and a button missing either is dropped. */

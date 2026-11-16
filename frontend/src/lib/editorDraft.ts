@@ -44,7 +44,8 @@ export function toHexColor(value: string): string | null {
   const hex = /^#?([0-9a-f]{3,4}|[0-9a-f]{6}|[0-9a-f]{8})$/.exec(v);
   if (hex) {
     const digits = hex[1];
-    const full = digits.length <= 4 ? [...digits.slice(0, 3)].map((c) => c + c).join('') : digits.slice(0, 6);
+    // #rgb and #rgba double each digit (alpha dropped)
+    const full = digits.length <= 4 ? Array.from(digits.slice(0, 3), (c) => c + c).join('') : digits.slice(0, 6);
     return `#${full}`;
   }
 

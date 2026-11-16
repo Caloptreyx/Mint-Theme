@@ -5,8 +5,8 @@ import { useLocation } from 'react-router';
 import { useNebulaTheme } from '../../lib/apply.ts';
 import { UnstyledButton } from '../../lib/core.ts';
 import ArrangeMenu from './ArrangeMenu.tsx';
-import { publishAdminMenu } from './NavArranger.tsx';
 import { arrangeMenu, flatten, groupNav, isNavActive, useNavOrders } from './nav.ts';
+import { publishAdminMenu } from './NavArranger.tsx';
 
 const CLOSED_KEY = 'nebula:sidebar-closed';
 

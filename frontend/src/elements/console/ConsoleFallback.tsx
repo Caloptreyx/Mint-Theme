@@ -1,6 +1,7 @@
+import type { z } from 'zod';
 import { cloneElement, type ReactElement, type ReactNode, useLayoutEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router';
-import type { z } from 'zod';
+import type { SidebarLinkProps } from '../sidebar/nav.ts';
 import { useNebulaTheme } from '../../lib/apply.ts';
 import {
   type fullUserSchema,
@@ -10,7 +11,6 @@ import {
   useAuth,
   useServerStore,
 } from '../../lib/core.ts';
-import type { SidebarLinkProps } from '../sidebar/nav.ts';
 
 type Server = z.infer<typeof serverSchema>;
 type User = z.infer<typeof fullUserSchema> | null;

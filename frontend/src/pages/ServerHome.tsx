@@ -4,6 +4,7 @@ import { Anchor } from '@mantine/core';
 import { Fragment, useState } from 'react';
 import { Link, useParams } from 'react-router';
 import { useShallow } from 'zustand/react/shallow';
+import type { HomeCardId, HomeColumn } from '../lib/theme.ts';
 import HeroCard from '../elements/home/HeroCard.tsx';
 import RenameModal from '../elements/home/RenameModal.tsx';
 import { useNebulaTheme } from '../lib/apply.ts';
@@ -30,7 +31,6 @@ import {
   useTranslations,
 } from '../lib/core.ts';
 import { shownAddress, useRedactAddresses } from '../lib/redact.ts';
-import type { HomeCardId, HomeColumn } from '../lib/theme.ts';
 import { useExtTranslations } from '../translations.ts';
 
 const NONE = '--';

@@ -1,5 +1,5 @@
-import { axiosInstance } from '../lib/core.ts';
 import type { NebulaTheme } from '../lib/theme.ts';
+import { axiosInstance } from '../lib/core.ts';
 
 /**
  * Stores the site theme (`null` resets it). With `base`, the backend refuses (409) when the stored theme is no

@@ -152,7 +152,7 @@ describe('motion css', () => {
       assert.ok(keyframes.startsWith('nebula-page'), keyframes);
     }
     // the slide follows the reading direction
-    assert.match(APP_CSS, /\[dir="rtl"\] \{\s*--nebula-slide-dir: -1;/);
+    assert.match(APP_CSS, /\[dir=["']rtl["']\] \{\s*--nebula-slide-dir: -1;/);
   });
 
   test('the new page transitions animate the entering page like the others', () => {

@@ -1,8 +1,8 @@
 import { Tooltip, useComputedColorScheme } from '@mantine/core';
 import { type ReactElement, useLayoutEffect, useRef, useState } from 'react';
+import type { SidebarLinkProps } from './nav.ts';
 import { useNebulaTheme } from '../../lib/apply.ts';
 import { useGlobalStore } from '../../lib/core.ts';
-import type { SidebarLinkProps } from './nav.ts';
 
 /**
  * Wraps every Sidebar.Link (a render interceptor) so the slim rail can name its icon only links. The same link

@@ -14,6 +14,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { createContext, type ReactNode, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { NavLink } from 'react-router';
 import { useShallow } from 'zustand/react/shallow';
+import type { ChartHeight, ConsoleWidget } from '../../lib/theme.ts';
 import { useNebulaTheme } from '../../lib/apply.ts';
 import {
   bytesToString,
@@ -42,7 +43,6 @@ import {
   useTranslations,
 } from '../../lib/core.ts';
 import { shownAddress, useRedactAddresses } from '../../lib/redact.ts';
-import type { ChartHeight, ConsoleWidget } from '../../lib/theme.ts';
 import { useExtTranslations } from '../../translations.ts';
 import HeroCard, { Pill } from '../home/HeroCard.tsx';
 import PowerButtons from '../home/PowerButtons.tsx';

@@ -1,6 +1,6 @@
+import type { MantineThemeOverride } from '@mantine/core';
 import { faHandPointer, faHouse, faPalette } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import type { MantineThemeOverride } from '@mantine/core';
 import { createElement, lazy } from 'react';
 import { Extension, type ExtensionContext, type HookableComponent } from 'shared';
 import ProfileCard from './elements/account/ProfileCard.tsx';

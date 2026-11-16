@@ -1,5 +1,5 @@
-import { FitAddon } from '@xterm/addon-fit';
 import type { ITerminalInitOnlyOptions, ITerminalOptions, Terminal } from '@xterm/xterm';
+import { FitAddon } from '@xterm/addon-fit';
 import { currentTheme, subscribeTheme } from './apply.ts';
 import { MONO_FONT_STACKS, type NebulaTheme } from './theme.ts';
 
