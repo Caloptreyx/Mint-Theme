@@ -1,27 +1,37 @@
 name: Release
 
+# A pushed `v*` tag is checked, its GitHub release created, and a real `panel-rs extensions export` of the tag
+# attached to it (Caloptreyx/.github extension-release.yml). "Run workflow" with a tag rebuilds an existing release's
+# zip without the check.
 on:
   push:
     tags:
       - 'v*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Release tag to export and upload to, e.g. v2.4.1
+        required: true
 
 permissions:
   contents: write
 
 concurrency:
-  group: release-${{ github.ref }}
+  group: release-${{ inputs.tag || github.ref_name }}
   cancel-in-progress: false
 
 jobs:
   # A release is checked against the newest panel it is known to pass on, so a new panel release (which check.yml
   # picks up on every push) cannot block shipping a Mint fix. Raise this once check.yml passes on a newer panel.
   check:
+    if: github.event_name == 'push'
     uses: Caloptreyx/.github/.github/workflows/extension-check.yml@main
     with:
       panel-ref: release-1.2.10
 
-  release:
+  publish:
     needs: check
+    if: github.event_name == 'push'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -37,10 +47,7 @@ jobs:
           fi
           echo "version=${version}" >> "$GITHUB_OUTPUT"
 
-      - name: Package
-        run: python3 scripts/package.py
-
-      - name: Publish
+      - name: Create the release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TAG: ${{ github.ref_name }}
@@ -49,6 +56,12 @@ jobs:
           if ! gh release view "${TAG}" > /dev/null 2>&1; then
             gh release create "${TAG}" --verify-tag --title "Mint Theme ${VERSION}" --generate-notes
           fi
-          # 1.2.1 and older (ID dev.s4way.nebula) only look for this asset name when they check for updates
-          cp dist/dev_caloptreyx_mint.c7s.zip dist/dev_s4way_nebula.c7s.zip
-          gh release upload "${TAG}" dist/dev_caloptreyx_mint.c7s.zip dist/dev_s4way_nebula.c7s.zip --clobber
+
+  export:
+    needs: publish
+    if: ${{ !cancelled() && (github.event_name == 'workflow_dispatch' || needs.publish.result == 'success') }}
+    uses: Caloptreyx/.github/.github/workflows/extension-release.yml@main
+    with:
+      tag: ${{ inputs.tag || github.ref_name }}
+      # 1.2.1 and older (ID dev.s4way.nebula) only look for this asset name when they check for updates
+      asset-aliases: dev_s4way_nebula.c7s.zip

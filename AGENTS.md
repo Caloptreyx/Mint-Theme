@@ -54,7 +54,7 @@ tests/localTheme.test.ts   node:test cases for lib/localTheme.ts (not shipped)
 tests/contrast.test.ts, shareCode.test.ts  node:test cases for the contrast fixes and the share codes (not shipped)
 tests/navOrder.test.ts     node:test cases for lib/navOrder.ts (not shipped)
 tests/cta.test.ts, serverOrder.test.ts, routeOrder.test.ts  node:test cases for lib/cta.ts, the servers list ordering and lib/routeOrder.ts (not shipped)
-scripts/package.py         builds the release zip; .github/workflows/release.yml runs it on v* tags
+scripts/package.py         packs a zip locally without panel-rs; releases use a real panel-rs export (release.yml)
 scripts/gallery.ts         prints the built-in presets' share codes for the Cala-Extensions gallery (not shipped)
 .github/workflows/check.yml  CI on every push: the org's shared extension check (see "Verifying a change")
 ```
@@ -711,7 +711,7 @@ To run it: the backend extension must be registered with `panel-rs extensions re
 restart. The frontend is embedded into the binary at compile time, so a `pnpm build` alone changes
 nothing.
 
-Package for release with `python3 scripts/package.py`. It writes `dist/dev_caloptreyx_mint.c7s.zip`:
+For a local install without panel-rs, `python3 scripts/package.py` packs `dist/dev_caloptreyx_mint.c7s.zip`:
 directory entries first, then files, in sorted walk order, skipping `.git`, `node_modules`, `target`
 and `dist` anywhere and `docs`, `tests`, `scripts`, `.github`, `README.md`, `.gitignore` at the root
 (`AGENTS.md`, `LICENSE` and `migrations/` ship). Check it with `panel-rs extensions inspect`.
@@ -719,9 +719,10 @@ and `dist` anywhere and `docs`, `tests`, `scripts`, `.github`, `README.md`, `.gi
 Pushing a `v*` tag runs `.github/workflows/release.yml`: the shared extension check (the same job as CI, but
 pinned to the panel in its `panel-ref`, the newest one `check.yml` is known to pass on, so a panel release cannot
 block a Mint release; raise it once a push's check passes on a newer panel), then a check that the tag is `v` +
-`version` in `backend/Cargo.toml` (it fails otherwise, so bump that first), the packaging script, then it creates
-the GitHub release `Mint Theme <version>` with generated notes if missing and uploads the zip
-(`gh release upload --clobber`).
+`version` in `backend/Cargo.toml` (it fails otherwise, so bump that first), then it creates the GitHub release
+`Mint Theme <version>` with generated notes if missing, and the org's `extension-release.yml` builds panel-rs on
+Blacksmith, runs `panel-rs extensions export` on the tag and uploads the zip, also as `dev_s4way_nebula.c7s.zip`
+(`gh release upload --clobber`). "Run workflow" on Release with a tag rebuilds an existing release's zips.
 
 Installed panels see a release through `check_for_updates` (`backend/src/updates.rs`) once it is
 published, not a draft or prerelease, and has the zip attached. Its changelog on **Admin → Updates** is the
