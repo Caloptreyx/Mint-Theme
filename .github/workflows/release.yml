@@ -13,8 +13,12 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  # A release is checked against the newest panel it is known to pass on, so a new panel release (which check.yml
+  # picks up on every push) cannot block shipping a Mint fix. Raise this once check.yml passes on a newer panel.
   check:
     uses: Caloptreyx/.github/.github/workflows/extension-check.yml@main
+    with:
+      panel-ref: release-1.2.10
 
   release:
     needs: check
