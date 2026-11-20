@@ -68,8 +68,9 @@ import {
   useToast,
 } from '../lib/core.ts';
 import { invalidUrls, isThemeFile } from '../lib/editorDraft.ts';
+import { normalizeTheme } from '../lib/normalize.ts';
 import { useCanSaveTheme } from '../lib/permissions.ts';
-import { DEFAULT_THEME, type NebulaTheme, normalizeTheme } from '../lib/theme.ts';
+import { DEFAULT_THEME, type NebulaTheme } from '../lib/theme.ts';
 import { useExtTranslations } from '../translations.ts';
 
 const SUPPORT_URL = 'https://discord.gg/4qjMWU7S8x';

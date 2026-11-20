@@ -2,8 +2,9 @@
 // Run with `node --test "tests/*.test.ts"`.
 import assert from 'node:assert/strict';
 import { describe, test } from 'node:test';
+import { buildCss } from '../frontend/src/lib/css/index.ts';
+import { normalizeTheme } from '../frontend/src/lib/normalize.ts';
 import {
-  buildCss,
   CHART_ARRANGEMENTS,
   CHART_HEIGHTS,
   CHART_STYLES,
@@ -15,7 +16,6 @@ import {
   MAX_COMMAND_LENGTH,
   MAX_CONSOLE_COMMANDS,
   type NebulaTheme,
-  normalizeTheme,
   TERMINAL_CURSORS,
   TERMINAL_FRAMES,
   TERMINAL_HEIGHTS,

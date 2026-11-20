@@ -2,9 +2,10 @@ import { faDiscord, faGithub } from '@fortawesome/free-brands-svg-icons';
 import { faBook, faEnvelope, faHeartPulse, faLink, type IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { createElement, Fragment, type ReactElement } from 'react';
+import type { SupportLink, SupportLinkIcon } from '../../lib/theme.ts';
 import { useNebulaTheme } from '../../lib/apply.ts';
 import { AppIcon, type AuthWrapperProps, Card } from '../../lib/core.ts';
-import { dimmedImage, type SupportLink, type SupportLinkIcon } from '../../lib/theme.ts';
+import { dimmedImage } from '../../lib/css/colors.ts';
 import { useExtTranslations } from '../../translations.ts';
 import { HeaderLogo } from './AuthScope.tsx';
 

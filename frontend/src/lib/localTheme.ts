@@ -1,5 +1,6 @@
+import type { NebulaTheme } from './theme.ts';
 import { resolveUserTheme, type ThemeChoice } from './library.ts';
-import { type NebulaTheme, normalizeTheme } from './theme.ts';
+import { normalizeTheme } from './normalize.ts';
 
 /** Where 'Apply in this browser' keeps the editor's draft; only this browser paints it. */
 export const LOCAL_THEME_KEY = 'nebula:local-theme';

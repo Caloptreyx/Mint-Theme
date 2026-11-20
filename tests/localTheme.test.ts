@@ -5,7 +5,8 @@ import assert from 'node:assert/strict';
 import { describe, test } from 'node:test';
 import { normalizeChoices } from '../frontend/src/lib/library.ts';
 import { paintedTheme, parseLocalTheme } from '../frontend/src/lib/localTheme.ts';
-import { DEFAULT_THEME, normalizeTheme } from '../frontend/src/lib/theme.ts';
+import { normalizeTheme } from '../frontend/src/lib/normalize.ts';
+import { DEFAULT_THEME } from '../frontend/src/lib/theme.ts';
 
 const ID_A = '00000000-0000-4000-8000-00000000000a';
 

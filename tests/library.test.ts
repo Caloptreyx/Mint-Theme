@@ -13,15 +13,9 @@ import {
   presetNameProblem,
   resolveUserTheme,
 } from '../frontend/src/lib/library.ts';
-import {
-  DEFAULT_THEME,
-  type NebulaTheme,
-  normalizeTheme,
-  PRESETS,
-  pickUserTheme,
-  USER_THEME_FIELDS,
-  withUserTheme,
-} from '../frontend/src/lib/theme.ts';
+import { normalizeTheme, withUserTheme } from '../frontend/src/lib/normalize.ts';
+import { PRESETS } from '../frontend/src/lib/presets.ts';
+import { DEFAULT_THEME, type NebulaTheme, pickUserTheme, USER_THEME_FIELDS } from '../frontend/src/lib/theme.ts';
 
 const ID_A = '00000000-0000-4000-8000-00000000000a';
 const ID_B = '00000000-0000-4000-8000-00000000000b';

@@ -22,7 +22,7 @@ import {
   useToast,
   useUserSetting,
 } from '../../lib/core.ts';
-import { SAFE_URL } from '../../lib/theme.ts';
+import { SAFE_URL } from '../../lib/normalize.ts';
 import { useExtTranslations } from '../../translations.ts';
 import BannerModal, { BANNER_API } from './BannerModal.tsx';
 

@@ -5,19 +5,21 @@ import { readFileSync } from 'node:fs';
 import { describe, test } from 'node:test';
 import {
   ANIMATION_SPEED_FACTORS,
-  ANIMATION_SPEEDS,
-  buildCss,
   CARD_ANIMATIONS,
-  CARD_ENTRANCES,
   CARD_STAGGER_MAX,
   CARD_STAGGER_MS,
+  OVERLAY_ANIMATIONS,
+  PAGE_ANIMATIONS,
+} from '../frontend/src/lib/css/motion.ts';
+import { buildCss } from '../frontend/src/lib/css/index.ts';
+import { normalizeTheme } from '../frontend/src/lib/normalize.ts';
+import {
+  ANIMATION_SPEEDS,
+  CARD_ENTRANCES,
   DEFAULT_THEME,
   HOVER_EFFECTS,
   type NebulaTheme,
-  normalizeTheme,
-  OVERLAY_ANIMATIONS,
   OVERLAY_MOTIONS,
-  PAGE_ANIMATIONS,
   PAGE_TRANSITIONS,
   USER_THEME_FIELDS,
 } from '../frontend/src/lib/theme.ts';

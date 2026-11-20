@@ -28,8 +28,10 @@ import {
   type PresetLibrary,
   presetNameProblem,
 } from '../../lib/library.ts';
+import { normalizeTheme } from '../../lib/normalize.ts';
 import { useCanSaveTheme } from '../../lib/permissions.ts';
-import { type NebulaTheme, normalizeTheme, PRESETS, pickUserTheme } from '../../lib/theme.ts';
+import { PRESETS } from '../../lib/presets.ts';
+import { type NebulaTheme, pickUserTheme } from '../../lib/theme.ts';
 import { useExtTranslations } from '../../translations.ts';
 import Swatches from './Swatches.tsx';
 

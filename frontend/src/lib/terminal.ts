@@ -1,7 +1,8 @@
 import type { ITerminalInitOnlyOptions, ITerminalOptions, Terminal } from '@xterm/xterm';
 import { FitAddon } from '@xterm/addon-fit';
+import type { NebulaTheme } from './theme.ts';
 import { currentTheme, subscribeTheme } from './apply.ts';
-import { MONO_FONT_STACKS, type NebulaTheme } from './theme.ts';
+import { MONO_FONT_STACKS } from './css/colors.ts';
 
 // 'a' is in the latin file and 'Ā' in latin-ext, so both subsets are fetched before xterm draws with them
 const SAMPLE = 'aĀ';

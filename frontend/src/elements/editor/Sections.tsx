@@ -1,6 +1,8 @@
 import { faPlus, faRotateLeft, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ColorInput, Slider } from '@mantine/core';
+import { derivedColors } from '../../lib/color.ts';
+import { contrastIssues } from '../../lib/contrast.ts';
 import { ActionIcon, Button, Card, Group, Select, Stack, Switch, Text, TextInput } from '../../lib/core.ts';
 import { toHexColor } from '../../lib/editorDraft.ts';
 import { COLOR_GROUPS } from '../../lib/editorSearch.ts';
@@ -8,8 +10,6 @@ import {
   type Article,
   BUTTON_STYLES,
   type ButtonStyle,
-  contrastIssues,
-  derivedColors,
   type Font,
   MAX_ARTICLES,
   type MonoFont,

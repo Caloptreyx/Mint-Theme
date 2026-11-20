@@ -1,5 +1,6 @@
+import type { NebulaTheme } from '../../lib/theme.ts';
 import { Stack, Text, useGlobalStore } from '../../lib/core.ts';
-import { type NebulaTheme, SAFE_URL } from '../../lib/theme.ts';
+import { SAFE_URL } from '../../lib/normalize.ts';
 import { useExtTranslations } from '../../translations.ts';
 import UrlInput from './UrlInput.tsx';
 

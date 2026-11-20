@@ -2,44 +2,39 @@
 // every visitor. Run with `node --test "tests/*.test.ts"` (Node 24 strips the types; theme.ts has no imports).
 import assert from 'node:assert/strict';
 import { describe, test } from 'node:test';
+import { contrastRatio, derivedColors, surfaceShades } from '../frontend/src/lib/color.ts';
+import { contrastIssues, MIN_TEXT_CONTRAST, MIN_UI_CONTRAST } from '../frontend/src/lib/contrast.ts';
+import { buildCss } from '../frontend/src/lib/css/index.ts';
+import { PAGE_ANIMATIONS } from '../frontend/src/lib/css/motion.ts';
+import { normalizeTheme, withUserTheme } from '../frontend/src/lib/normalize.ts';
+import { PRESETS } from '../frontend/src/lib/presets.ts';
 import {
   AUTH_LAYOUTS,
   AUTH_POSITIONS,
   BOX_STYLES,
   BUTTON_STYLES,
-  buildCss,
   CLICK_EFFECTS,
   CONSOLE_WIDGETS,
-  contrastIssues,
-  contrastRatio,
   DEFAULT_CONSOLE_LAYOUT,
   DEFAULT_LAYOUT,
   DEFAULT_THEME,
-  derivedColors,
   DOCK_POSITIONS,
   FONTS,
   HOME_CARDS,
   MAX_ARTICLES,
   MAX_SUPPORT_LINKS,
-  MIN_TEXT_CONTRAST,
-  MIN_UI_CONTRAST,
   MONO_FONTS,
   MOBILE_NAVS,
   NAV_HOVERS,
   type NebulaTheme,
-  normalizeTheme,
-  PAGE_ANIMATIONS,
   PAGE_TRANSITIONS,
-  PRESETS,
   SEARCH_COMPONENTS,
   SERVER_CARD_STYLES,
   SIDEBAR_LAYOUTS,
   STAT_STYLES,
   SUPPORT_LINK_ICONS,
-  surfaceShades,
   TABLE_STYLES,
   TOAST_STYLES,
-  withUserTheme,
 } from '../frontend/src/lib/theme.ts';
 
 const UUID_A = '0f8fad5b-d9cb-469f-a165-70867728950e';

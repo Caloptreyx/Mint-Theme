@@ -1,4 +1,5 @@
-import { DEFAULT_THEME, type NebulaTheme, SAFE_URL } from './theme.ts';
+import { SAFE_URL } from './normalize.ts';
+import { DEFAULT_THEME, type NebulaTheme } from './theme.ts';
 
 // Checks the editor runs on the raw draft, before normalizeTheme() would silently drop a value.
 

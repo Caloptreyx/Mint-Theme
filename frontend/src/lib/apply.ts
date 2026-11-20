@@ -1,9 +1,11 @@
 import { useSyncExternalStore } from 'react';
 import { z } from 'zod';
 import { axiosInstance, getUserSetting, useUserSettingsStore } from './core.ts';
+import { buildCss } from './css/index.ts';
 import { normalizeChoices, type PresetLibrary, THEME_CHOICE_KEY, type ThemeChoice } from './library.ts';
 import { LOCAL_THEME_KEY, paintedTheme, parseLocalTheme } from './localTheme.ts';
-import { buildCss, DEFAULT_THEME, type NebulaTheme, normalizeTheme } from './theme.ts';
+import { normalizeTheme } from './normalize.ts';
+import { DEFAULT_THEME, type NebulaTheme } from './theme.ts';
 
 const STYLE_ID = 'nebula-theme';
 const CACHE_KEY = 'nebula:theme';

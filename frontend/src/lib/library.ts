@@ -1,4 +1,6 @@
-import { type NebulaTheme, normalizeTheme, PRESETS, pickUserTheme, withUserTheme } from './theme.ts';
+import { normalizeTheme, withUserTheme } from './normalize.ts';
+import { PRESETS } from './presets.ts';
+import { type NebulaTheme, pickUserTheme } from './theme.ts';
 
 /** The backend's limits (`backend/src/presets.rs`). */
 export const PRESET_NAME_MAX = 40;

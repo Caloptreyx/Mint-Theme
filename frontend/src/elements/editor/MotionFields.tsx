@@ -2,19 +2,21 @@ import type { CSSProperties } from 'react';
 import { Stack, Switch } from '../../lib/core.ts';
 import {
   ANIMATION_SPEED_FACTORS,
-  ANIMATION_SPEEDS,
   CARD_ANIMATIONS,
-  CARD_ENTRANCES,
   CARD_STAGGER_MS,
+  OVERLAY_ANIMATIONS,
+  PAGE_ANIMATIONS,
+} from '../../lib/css/motion.ts';
+import {
+  ANIMATION_SPEEDS,
+  CARD_ENTRANCES,
   type CardEntrance,
   CLICK_EFFECTS,
   HOVER_EFFECTS,
   type HoverEffect,
   type NebulaTheme,
-  OVERLAY_ANIMATIONS,
   OVERLAY_MOTIONS,
   type OverlayMotion,
-  PAGE_ANIMATIONS,
   PAGE_TRANSITIONS,
   type PageTransition,
 } from '../../lib/theme.ts';

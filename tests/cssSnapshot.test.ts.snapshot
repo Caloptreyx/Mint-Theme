@@ -1,0 +1,2535 @@
+exports[`buildCss output > default 1`] = `
+html:root{
+--mantine-color-blue-0:#e9f3f9;
+--mantine-color-blue-1:#cee5f3;
+--mantine-color-blue-2:#a5cfe9;
+--mantine-color-blue-3:#7dbadf;
+--mantine-color-blue-4:#54a5d4;
+--mantine-color-blue-5:#3494cd;
+--mantine-color-blue-6:#1e88c7;
+--mantine-color-blue-7:#1972a7;
+--mantine-color-blue-8:#155f8b;
+--mantine-color-blue-9:#114c6f;
+--mantine-color-dark-0:#e6e4f0;
+--mantine-color-dark-1:#bcbac8;
+--mantine-color-dark-2:#8f8c9d;
+--mantine-color-dark-3:#696679;
+--mantine-color-dark-4:#332f46;
+--mantine-color-dark-5:#27233a;
+--mantine-color-dark-6:#110b21;
+--mantine-color-dark-7:#16122a;
+--mantine-color-dark-8:#110e20;
+--mantine-color-dark-9:#0c0a17;
+--nebula-highlight:#8fe3c8;
+--mantine-radius-xs:4px;
+--mantine-radius-sm:6px;
+--mantine-radius-default:6px;
+--mantine-radius-md:10px;
+--mantine-radius-lg:14px;
+--mantine-font-family:'Exo 2', Helvetica, Arial, sans-serif;
+--mantine-font-family-headings:'Exo 2', Helvetica, Arial, sans-serif;
+--font-sans:'Exo 2', Helvetica, Arial, sans-serif;
+}
+
+html:root[data-mantine-color-scheme="dark"]{
+--nebula-card:#110b21;
+--nebula-button-ink:#ffffff;
+--mantine-color-body:#16122a;
+--mantine-color-text:#e6e4f0;
+--mantine-color-dimmed:#8f8c9d;
+--mantine-color-placeholder:#696679;
+--mantine-color-default:#201d34;
+--mantine-color-default-hover:#2b273e;
+--mantine-color-default-border:#332f46;
+--mantine-color-anchor:#54a5d4;
+--mantine-color-blue-filled:#1e88c7;
+--mantine-color-blue-filled-hover:#3494cd;
+--mantine-color-blue-light:rgba(30, 136, 199, 0.2);
+--mantine-color-blue-light-hover:rgba(30, 136, 199, 0.28);
+--mantine-color-blue-light-color:#7dbadf;
+--mantine-color-blue-outline:#54a5d4;
+--mantine-color-blue-outline-hover:rgba(84, 165, 212, 0.08);
+--mantine-color-blue-text:#54a5d4;
+--chart-series-1:#54a5d4;
+}
+
+html:root[data-mantine-color-scheme="light"]{
+--mantine-color-gray-0:#f2f5f8;
+--mantine-color-gray-1:#ebeef1;
+--mantine-color-gray-2:#e5e7eb;
+--mantine-color-gray-3:#dbdee2;
+--mantine-color-gray-4:#ced0d6;
+--mantine-color-gray-5:#aeafb8;
+--mantine-color-gray-6:#888794;
+--mantine-color-gray-7:#5a586a;
+--mantine-color-gray-8:#434154;
+--mantine-color-gray-9:#312e43;
+--nebula-card:#f9fcfe;
+--nebula-button-ink:#16122a;
+--nebula-highlight:#5a8782;
+--mantine-color-white:#f9fcfe;
+--mantine-color-black:#16122a;
+--mantine-color-bright:#16122a;
+--mantine-color-body:#e6edf1;
+--mantine-color-text:#16122a;
+--mantine-color-dimmed:#6c6b7b;
+--mantine-color-placeholder:#aeafb8;
+--mantine-color-default:#f9fcfe;
+--mantine-color-default-hover:#f2f5f8;
+--mantine-color-default-color:#16122a;
+--mantine-color-default-border:#ced0d6;
+--mantine-color-anchor:#1d75ae;
+--mantine-color-blue-filled:#1e88c7;
+--mantine-color-blue-filled-hover:#1972a7;
+--mantine-color-blue-light:rgba(30, 136, 199, 0.1);
+--mantine-color-blue-light-hover:rgba(30, 136, 199, 0.14);
+--mantine-color-blue-light-color:#1d75ae;
+--mantine-color-blue-outline:#1e88c7;
+--mantine-color-blue-outline-hover:rgba(30, 136, 199, 0.05);
+--mantine-color-blue-text:#1d75ae;
+--chart-series-1:#1e88c7;
+--chart-tick-color:var(--mantine-color-dimmed);
+}
+
+html:root[data-mantine-color-scheme="light"] .xterm .xterm-scrollable-element{
+background-color:transparent!important;
+}
+
+html:root[data-mantine-color-scheme="light"] .xterm .xterm-rows{
+color:var(--mantine-color-text);
+}
+
+html:root[data-mantine-color-scheme="light"] :is([class~="text-neutral-400"],[class~="text-neutral-400!"],[class~="light:text-neutral-400!"],[class~="text-gray-400"],[class~="text-gray-400!"],[class~="light:text-gray-400!"],[class~="text-gray-500"],[class~="text-gray-500!"],[class~="light:text-gray-500!"],[class~="text-gray-600"],[class~="text-gray-600!"],[class~="light:text-gray-600!"]){
+--color-neutral-400:var(--mantine-color-dimmed);
+--color-gray-400:var(--mantine-color-dimmed);
+--color-gray-500:var(--mantine-color-dimmed);
+--color-gray-600:var(--mantine-color-dimmed);
+}
+
+html:root .mantine-Button-root[data-variant="filled"]:not([data-disabled]):not(:disabled){
+background-color:color-mix(in srgb,var(--button-bg) 22%,transparent)!important;
+border:1px solid color-mix(in srgb,var(--button-bg) 62%,transparent)!important;
+color:color-mix(in srgb,var(--button-bg) 55%,var(--nebula-button-ink))!important;
+}
+
+html:root .mantine-Button-root[data-variant="filled"]:not([data-disabled]):not(:disabled):hover{
+background-color:color-mix(in srgb,var(--button-bg) 34%,transparent)!important;
+}
+
+`;
+
+exports[`buildCss output > every colour, glass, slim rail 1`] = `
+html:root{
+--mantine-color-blue-0:#e9f3f9;
+--mantine-color-blue-1:#cee5f3;
+--mantine-color-blue-2:#a5cfe9;
+--mantine-color-blue-3:#7dbadf;
+--mantine-color-blue-4:#54a5d4;
+--mantine-color-blue-5:#3494cd;
+--mantine-color-blue-6:#1e88c7;
+--mantine-color-blue-7:#1972a7;
+--mantine-color-blue-8:#155f8b;
+--mantine-color-blue-9:#114c6f;
+--mantine-color-dark-0:#e6e4f0;
+--mantine-color-dark-1:#bcbac8;
+--mantine-color-dark-2:#8f8c9d;
+--mantine-color-dark-3:#696679;
+--mantine-color-dark-4:#332f46;
+--mantine-color-dark-5:#27233a;
+--mantine-color-dark-6:#110b21;
+--mantine-color-dark-7:#16122a;
+--mantine-color-dark-8:#110e20;
+--mantine-color-dark-9:#0c0a17;
+--nebula-highlight:#8fe3c8;
+--mantine-radius-xs:4px;
+--mantine-radius-sm:6px;
+--mantine-radius-default:6px;
+--mantine-radius-md:10px;
+--mantine-radius-lg:14px;
+--mantine-font-family:'Outfit', Helvetica, Arial, sans-serif;
+--mantine-font-family-headings:'Outfit', Helvetica, Arial, sans-serif;
+--font-sans:'Outfit', Helvetica, Arial, sans-serif;
+--mantine-font-family-monospace:'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace;
+--font-mono:'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace;
+--mantine-color-green-0:#e9f9ef;
+--mantine-color-green-1:#cef2dc;
+--mantine-color-green-2:#a7e8bf;
+--mantine-color-green-3:#7fdda2;
+--mantine-color-green-4:#57d385;
+--mantine-color-green-5:#38cb6e;
+--mantine-color-green-6:#22c55e;
+--mantine-color-green-7:#1da54f;
+--mantine-color-green-8:#188a42;
+--mantine-color-green-9:#136e35;
+--mantine-color-yellow-0:#fdf7e6;
+--mantine-color-yellow-1:#faeec9;
+--mantine-color-yellow-2:#f7e19c;
+--mantine-color-yellow-3:#f3d370;
+--mantine-color-yellow-4:#efc543;
+--mantine-color-yellow-5:#ecbb21;
+--mantine-color-yellow-6:#eab308;
+--mantine-color-yellow-7:#c59607;
+--mantine-color-yellow-8:#a47d06;
+--mantine-color-yellow-9:#836404;
+--mantine-color-red-0:#fdecec;
+--mantine-color-red-1:#fbd6d6;
+--mantine-color-red-2:#f9b4b4;
+--mantine-color-red-3:#f69393;
+--mantine-color-red-4:#f37171;
+--mantine-color-red-5:#f15757;
+--mantine-color-red-6:#ef4444;
+--mantine-color-red-7:#c93939;
+--mantine-color-red-8:#a73030;
+--mantine-color-red-9:#862626;
+--color-server-status-running:#22c55e;
+--color-server-status-starting:#eab308;
+--color-server-status-stopping:#eab308;
+--color-server-status-offline:#ef4444;
+--mantine-color-gray-0:#f4f6f8;
+--mantine-color-gray-1:#e7ebef;
+--mantine-color-gray-2:#d4dae3;
+--mantine-color-gray-3:#c1cad6;
+--mantine-color-gray-4:#aeb9c9;
+--mantine-color-gray-5:#9facbf;
+--mantine-color-gray-6:#94a3b8;
+--mantine-color-gray-7:#7c899b;
+--mantine-color-gray-8:#687281;
+--mantine-color-gray-9:#535b67;
+}
+
+html:root[data-mantine-color-scheme="dark"]{
+--nebula-card:rgba(17, 11, 33, 0.7);
+--nebula-button-ink:#ffffff;
+--mantine-color-body:#16122a;
+--mantine-color-text:#e6e4f0;
+--mantine-color-dimmed:#a3adbb;
+--mantine-color-placeholder:#7d8796;
+--mantine-color-default:#1d2430;
+--mantine-color-default-hover:#252e3b;
+--mantine-color-default-border:#334155;
+--mantine-color-anchor:#54a5d4;
+--mantine-color-blue-filled:#1e88c7;
+--mantine-color-blue-filled-hover:#3494cd;
+--mantine-color-blue-light:rgba(30, 136, 199, 0.2);
+--mantine-color-blue-light-hover:rgba(30, 136, 199, 0.28);
+--mantine-color-blue-light-color:#7dbadf;
+--mantine-color-blue-outline:#54a5d4;
+--mantine-color-blue-outline-hover:rgba(84, 165, 212, 0.08);
+--mantine-color-blue-text:#54a5d4;
+--chart-series-1:#38bdf8;
+--nebula-scrollbar:#475569;
+--mantine-primary-color-contrast:#06121f;
+--mantine-color-green-filled:#22c55e;
+--mantine-color-green-filled-hover:#38cb6e;
+--mantine-color-green-light:rgba(34, 197, 94, 0.2);
+--mantine-color-green-light-hover:rgba(34, 197, 94, 0.28);
+--mantine-color-green-light-color:#7fdda2;
+--mantine-color-green-outline:#57d385;
+--mantine-color-green-outline-hover:rgba(87, 211, 133, 0.08);
+--mantine-color-green-text:#57d385;
+--mantine-color-yellow-filled:#eab308;
+--mantine-color-yellow-filled-hover:#ecbb21;
+--mantine-color-yellow-light:rgba(234, 179, 8, 0.2);
+--mantine-color-yellow-light-hover:rgba(234, 179, 8, 0.28);
+--mantine-color-yellow-light-color:#f3d370;
+--mantine-color-yellow-outline:#efc543;
+--mantine-color-yellow-outline-hover:rgba(239, 197, 67, 0.08);
+--mantine-color-yellow-text:#efc543;
+--mantine-color-red-filled:#ef4444;
+--mantine-color-red-filled-hover:#f15757;
+--mantine-color-red-light:rgba(239, 68, 68, 0.2);
+--mantine-color-red-light-hover:rgba(239, 68, 68, 0.28);
+--mantine-color-red-light-color:#f69393;
+--mantine-color-red-outline:#f37171;
+--mantine-color-red-outline-hover:rgba(243, 113, 113, 0.08);
+--mantine-color-red-text:#f37171;
+--mantine-color-gray-filled:#94a3b8;
+--mantine-color-gray-filled-hover:#9facbf;
+--mantine-color-gray-light:rgba(148, 163, 184, 0.2);
+--mantine-color-gray-light-hover:rgba(148, 163, 184, 0.28);
+--mantine-color-gray-light-color:#c1cad6;
+--mantine-color-gray-outline:#aeb9c9;
+--mantine-color-gray-outline-hover:rgba(174, 185, 201, 0.08);
+--mantine-color-gray-text:#aeb9c9;
+--chart-series-2:#f472b6;
+}
+
+html:root[data-mantine-color-scheme="light"]{
+--mantine-color-gray-0:#f8f8f9;
+--mantine-color-gray-1:#f1f1f2;
+--mantine-color-gray-2:#eaeaec;
+--mantine-color-gray-3:#e0e1e3;
+--mantine-color-gray-4:#d2d3d6;
+--mantine-color-gray-5:#b0b3b8;
+--mantine-color-gray-6:#888c93;
+--mantine-color-gray-7:#585d68;
+--mantine-color-gray-8:#414652;
+--mantine-color-gray-9:#2e3441;
+--nebula-card:rgba(255, 255, 255, 0.7);
+--nebula-button-ink:#111827;
+--nebula-highlight:#588a81;
+--mantine-color-white:#ffffff;
+--mantine-color-black:#111827;
+--mantine-color-bright:#111827;
+--mantine-color-body:#f5f7fa;
+--mantine-color-text:#111827;
+--mantine-color-dimmed:#6b7079;
+--mantine-color-placeholder:#b0b3b8;
+--mantine-color-default:#ffffff;
+--mantine-color-default-hover:#f8f8f9;
+--mantine-color-default-color:#111827;
+--mantine-color-default-border:#d2d3d6;
+--mantine-color-anchor:#1c76ad;
+--mantine-color-blue-filled:#1e88c7;
+--mantine-color-blue-filled-hover:#1972a7;
+--mantine-color-blue-light:rgba(30, 136, 199, 0.1);
+--mantine-color-blue-light-hover:rgba(30, 136, 199, 0.14);
+--mantine-color-blue-light-color:#1c76ad;
+--mantine-color-blue-outline:#1e88c7;
+--mantine-color-blue-outline-hover:rgba(30, 136, 199, 0.05);
+--mantine-color-blue-text:#1c76ad;
+--chart-series-1:#38bdf8;
+--chart-tick-color:var(--mantine-color-dimmed);
+--mantine-primary-color-contrast:#06121f;
+--mantine-color-green-filled:#22c55e;
+--mantine-color-green-filled-hover:#1da54f;
+--mantine-color-green-light:rgba(34, 197, 94, 0.1);
+--mantine-color-green-light-hover:rgba(34, 197, 94, 0.14);
+--mantine-color-green-light-color:#1b7946;
+--mantine-color-green-outline:#22c55e;
+--mantine-color-green-outline-hover:rgba(34, 197, 94, 0.05);
+--mantine-color-green-text:#1b7946;
+--mantine-color-yellow-filled:#eab308;
+--mantine-color-yellow-filled-hover:#c59607;
+--mantine-color-yellow-light:rgba(234, 179, 8, 0.1);
+--mantine-color-yellow-light-hover:rgba(234, 179, 8, 0.14);
+--mantine-color-yellow-light-color:#8b6f16;
+--mantine-color-yellow-outline:#eab308;
+--mantine-color-yellow-outline-hover:rgba(234, 179, 8, 0.05);
+--mantine-color-yellow-text:#8b6f16;
+--mantine-color-red-filled:#ef4444;
+--mantine-color-red-filled-hover:#c93939;
+--mantine-color-red-light:rgba(239, 68, 68, 0.1);
+--mantine-color-red-light-hover:rgba(239, 68, 68, 0.14);
+--mantine-color-red-light-color:#cb3d3f;
+--mantine-color-red-outline:#ef4444;
+--mantine-color-red-outline-hover:rgba(239, 68, 68, 0.05);
+--mantine-color-red-text:#cb3d3f;
+--mantine-color-gray-filled:#94a3b8;
+--mantine-color-gray-filled-hover:#7c899b;
+--mantine-color-gray-light:rgba(148, 163, 184, 0.12);
+--mantine-color-gray-light-hover:rgba(148, 163, 184, 0.18);
+--mantine-color-gray-light-color:#5a6678;
+--mantine-color-gray-outline:#94a3b8;
+--mantine-color-gray-outline-hover:rgba(148, 163, 184, 0.05);
+--mantine-color-gray-text:#5a6678;
+--chart-series-2:#f472b6;
+}
+
+html:root[data-mantine-color-scheme="light"] .xterm .xterm-scrollable-element{
+background-color:transparent!important;
+}
+
+html:root[data-mantine-color-scheme="light"] .xterm .xterm-rows{
+color:var(--mantine-color-text);
+}
+
+html:root[data-mantine-color-scheme="light"] :is([class~="text-neutral-400"],[class~="text-neutral-400!"],[class~="light:text-neutral-400!"],[class~="text-gray-400"],[class~="text-gray-400!"],[class~="light:text-gray-400!"],[class~="text-gray-500"],[class~="text-gray-500!"],[class~="light:text-gray-500!"],[class~="text-gray-600"],[class~="text-gray-600!"],[class~="light:text-gray-600!"]){
+--color-neutral-400:var(--mantine-color-dimmed);
+--color-gray-400:var(--mantine-color-dimmed);
+--color-gray-500:var(--mantine-color-dimmed);
+--color-gray-600:var(--mantine-color-dimmed);
+}
+
+html:root .mantine-Button-root[data-variant="filled"]:not([data-disabled]):not(:disabled){
+background-color:color-mix(in srgb,var(--button-bg) 28%,transparent)!important;
+border:1px solid color-mix(in srgb,var(--nebula-button-ink) 22%,transparent)!important;
+color:color-mix(in srgb,var(--button-bg) 70%,var(--nebula-button-ink))!important;
+backdrop-filter:blur(10px);
+box-shadow:inset 0 1px 0 color-mix(in srgb,var(--nebula-button-ink) 12%,transparent);
+}
+
+html:root .mantine-Button-root[data-variant="filled"]:not([data-disabled]):not(:disabled):hover{
+background-color:color-mix(in srgb,var(--button-bg) 40%,transparent)!important;
+}
+
+html:root .mantine-Button-root[data-variant="filled"]:not([data-disabled]):not(:disabled){
+color:#fff7ed!important;
+}
+
+html:root .mantine-Button-root[style*="--button-bg: var(--mantine-color-blue-filled);
+"]{
+--button-color:#06121f!important;
+}
+
+html:root .mantine-ActionIcon-root[style*="--ai-bg: var(--mantine-color-blue-filled);
+"]{
+--ai-color:#06121f!important;
+}
+
+html:root .mantine-Badge-root:is([style*="--badge-bg: var(--mantine-color-blue-filled);
+"],:not([style*="--badge-bg"])){
+--badge-color:#06121f!important;
+}
+
+html:root .mantine-Button-root,html:root .mantine-ActionIcon-root{
+--mantine-color-blue-filled:#c2410c;
+--mantine-color-blue-filled-hover:#c85424;
+--mantine-color-blue-light:rgba(194, 65, 12, 0.2);
+--mantine-color-blue-light-hover:rgba(194, 65, 12, 0.28);
+--mantine-color-blue-light-color:#dc9172;
+--mantine-color-blue-outline:#d16f46;
+--mantine-color-blue-outline-hover:rgba(209, 111, 70, 0.08);
+}
+
+html:root[data-mantine-color-scheme="light"] .mantine-Button-root,html:root[data-mantine-color-scheme="light"] .mantine-ActionIcon-root{
+--mantine-color-blue-filled-hover:#a3370a;
+--mantine-color-blue-light:rgba(194, 65, 12, 0.1);
+--mantine-color-blue-light-hover:rgba(194, 65, 12, 0.14);
+--mantine-color-blue-light-color:#c2410c;
+--mantine-color-blue-outline:#c2410c;
+--mantine-color-blue-outline-hover:rgba(194, 65, 12, 0.05);
+}
+
+html:root{
+background-image:linear-gradient(color-mix(in srgb,var(--mantine-color-body) 75%,transparent),color-mix(in srgb,var(--mantine-color-body) 75%,transparent)),url("https://example.com/bg.webp");
+}
+
+html:root.nebula-auth{
+background-image:linear-gradient(color-mix(in srgb,var(--mantine-color-body) 75%,transparent),color-mix(in srgb,var(--mantine-color-body) 75%,transparent)),url("/login.jpg");
+}
+
+html:root .mantine-Card-root:not(.fixed > *){
+background-color:var(--nebula-card);
+}
+
+html:root .mantine-Paper-root[data-with-border]:not(.mantine-Card-root,.mantine-Dialog-root,.mantine-ActionBar-root){
+background-color:color-mix(in srgb,var(--mantine-color-body) 70%,transparent);
+}
+
+html:root .mantine-Card-root:not(.fixed > *),html:root .mantine-Paper-root[data-with-border]:not(.mantine-Card-root,.mantine-Dialog-root,.mantine-ActionBar-root){
+-webkit-backdrop-filter:blur(14px) saturate(160%);
+backdrop-filter:blur(14px) saturate(160%);
+}
+
+html:root .mantine-Card-root,html:root .mantine-Paper-root[data-with-border]:not(.mantine-Card-root,.mantine-Dialog-root,.mantine-ActionBar-root){
+border-color:transparent;
+}
+
+html:root[data-mantine-color-scheme="dark"] .mantine-Input-wrapper[data-variant="default"]{
+--input-bg:var(--mantine-color-dark-5);
+}
+
+html:root[data-mantine-color-scheme="light"] .mantine-Input-wrapper[data-variant="default"]{
+--input-bg:var(--mantine-color-gray-1);
+}
+
+html:root .mantine-Input-wrapper[data-variant="default"]:not([data-error],[data-success]){
+--input-bd:transparent;
+}
+
+html:root .mantine-active{
+transition:transform 180ms ease;
+}
+html:root .mantine-active:active:not(fieldset:disabled *){
+transform:scale(0.96);
+}
+
+@media (prefers-reduced-motion:reduce){
+html:root .mantine-active{
+transition:none;
+}
+html:root .mantine-active:active:not(fieldset:disabled *){
+transform:none;
+}
+}
+
+html:root .fixed.z-999 .mantine-Notification-root{
+background-color:color-mix(in srgb,var(--notification-color) 14%,color-mix(in srgb,var(--mantine-color-body) 68%,transparent));
+border:1px solid color-mix(in srgb,var(--notification-color) 38%,transparent);
+box-shadow:0 12px 32px -14px color-mix(in srgb,var(--notification-color) 55%,transparent);
+-webkit-backdrop-filter:blur(14px) saturate(160%);
+backdrop-filter:blur(14px) saturate(160%);
+padding-inline-start:54px;
+min-height:56px;
+}
+
+html:root .fixed.z-999 .mantine-Notification-root::before{
+display:block;
+top:50%;
+bottom:auto;
+width:30px;
+height:30px;
+margin-top:-15px;
+inset-inline-start:12px;
+border-radius:var(--mantine-radius-sm);
+background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 11v6.5M12 6.5h.01'/%3E%3C/svg%3E") center/16px no-repeat,var(--notification-color);
+}
+
+html:root .fixed.z-999 .mantine-Notification-root[data-nebula-tone="green"]::before{
+background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E");
+}
+
+html:root .fixed.z-999 .mantine-Notification-root[data-nebula-tone="red"]::before{
+background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 7l10 10M17 7L7 17'/%3E%3C/svg%3E");
+}
+
+html:root .fixed.z-999 .mantine-Notification-root[data-nebula-tone="yellow"]::before{
+background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23111111' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 6v8M12 18.5h.01'/%3E%3C/svg%3E");
+}
+
+html:root .fixed.z-999 .mantine-Notification-root:not(:has(.mantine-Progress-root))::after{
+content:'';
+position:absolute;
+inset-inline:0;
+bottom:0;
+height:3px;
+background:var(--notification-color);
+transform-origin:0 50%;
+animation:nebula-toast-countdown 7500ms linear forwards;
+}
+
+@media (prefers-reduced-motion:reduce){
+html:root .fixed.z-999 .mantine-Notification-root::after{
+display:none;
+}
+}
+
+html:root{
+--nebula-speed:1.5;
+}
+
+@media (prefers-reduced-motion:no-preference){
+html:root [data-nebula-page-enter] > *{
+animation:nebula-page-slide 375ms cubic-bezier(0.2, 0.8, 0.3, 1);
+}
+}
+
+@media (prefers-reduced-motion:no-preference){
+html:root [data-nebula-page-enter] :is(.mantine-Card-root:not([data-nebula-page-enter] .mantine-Card-root .mantine-Card-root),tbody > tr){
+animation:nebula-page-card-rise 480ms cubic-bezier(0.2, 0.8, 0.3, 1) backwards;
+}
+html:root [data-nebula-page-enter] :is(.mantine-Card-root:not([data-nebula-page-enter] .mantine-Card-root .mantine-Card-root),tbody > tr):nth-child(2){
+animation-delay:60ms;
+}
+html:root [data-nebula-page-enter] :is(.mantine-Card-root:not([data-nebula-page-enter] .mantine-Card-root .mantine-Card-root),tbody > tr):nth-child(3){
+animation-delay:120ms;
+}
+html:root [data-nebula-page-enter] :is(.mantine-Card-root:not([data-nebula-page-enter] .mantine-Card-root .mantine-Card-root),tbody > tr):nth-child(4){
+animation-delay:180ms;
+}
+html:root [data-nebula-page-enter] :is(.mantine-Card-root:not([data-nebula-page-enter] .mantine-Card-root .mantine-Card-root),tbody > tr):nth-child(5){
+animation-delay:240ms;
+}
+html:root [data-nebula-page-enter] :is(.mantine-Card-root:not([data-nebula-page-enter] .mantine-Card-root .mantine-Card-root),tbody > tr):nth-child(6){
+animation-delay:300ms;
+}
+html:root [data-nebula-page-enter] :is(.mantine-Card-root:not([data-nebula-page-enter] .mantine-Card-root .mantine-Card-root),tbody > tr):nth-child(7){
+animation-delay:360ms;
+}
+html:root [data-nebula-page-enter] :is(.mantine-Card-root:not([data-nebula-page-enter] .mantine-Card-root .mantine-Card-root),tbody > tr):nth-child(n+8){
+animation-delay:420ms;
+}
+}
+
+@media (hover:hover){
+html:root :is(.mantine-Card-root.cursor-pointer,a.mantine-Card-root):not(.cursor-pointer .mantine-Card-root):hover{
+box-shadow:0 14px 30px -16px rgb(0 0 0 / 0.55);
+}
+html:root .mantine-Button-root:not([data-variant="subtle"],[data-variant="transparent"],:disabled,[data-disabled],[data-loading]):hover{
+box-shadow:0 8px 18px -10px rgb(0 0 0 / 0.6);
+}
+}
+
+@media (prefers-reduced-motion:reduce){
+html:root :is(.mantine-Card-root.cursor-pointer,a.mantine-Card-root):not(.cursor-pointer .mantine-Card-root){
+transition-duration:0s;
+}
+html:root .mantine-Button-root:not([data-variant="subtle"],[data-variant="transparent"],:disabled,[data-disabled],[data-loading]){
+transition:none;
+}
+}
+
+@media (prefers-reduced-motion:no-preference){
+@media (hover:hover){
+html:root :is(.mantine-Card-root.cursor-pointer,a.mantine-Card-root):not(.cursor-pointer .mantine-Card-root){
+transition:transform 285ms ease,box-shadow 285ms ease;
+}
+html:root .mantine-Button-root:not([data-variant="subtle"],[data-variant="transparent"],:disabled,[data-disabled],[data-loading]){
+transition:transform 225ms ease,box-shadow 225ms ease;
+}
+html:root :is(.mantine-Card-root.cursor-pointer,a.mantine-Card-root):not(.cursor-pointer .mantine-Card-root):hover{
+transform:translateY(-3px);
+}
+html:root .mantine-Button-root:not([data-variant="subtle"],[data-variant="transparent"],:disabled,[data-disabled],[data-loading]):hover:not(:active){
+transform:translateY(-1px);
+}
+}
+}
+
+@media (prefers-reduced-motion:no-preference){
+html:root :is(.mantine-Modal-content,.mantine-Drawer-content):not([style*="opacity: 0;
+"]),html:root :is(.mantine-Popover-dropdown,.mantine-Menu-dropdown,.mantine-Combobox-dropdown):not([style*="opacity: 0;
+"]){
+transition:none!important;
+}
+html:root :is(.mantine-Modal-content,.mantine-Drawer-content){
+animation:nebula-overlay-pop 300ms cubic-bezier(0.2, 0.8, 0.3, 1);
+}
+html:root :is(.mantine-Popover-dropdown,.mantine-Menu-dropdown,.mantine-Combobox-dropdown){
+--nebula-overlay-shift:8px;
+transform-origin:top center;
+animation:nebula-overlay-pop 225ms cubic-bezier(0.2, 0.8, 0.3, 1);
+}
+html:root :is(.mantine-Popover-dropdown,.mantine-Menu-dropdown,.mantine-Combobox-dropdown)[data-position^="top"]{
+transform-origin:bottom center;
+}
+}
+
+html:root [data-file-manager-page] > .mantine-Group-root > .mantine-Group-root > .mantine-Title-root{
+display:none;
+}
+
+html:root .mantine-Card-root > #title-card-header,html:root .mantine-Card-root > .border-b:first-child:has(> div > h3){
+background:var(--mantine-color-blue-light);
+border-bottom-color:transparent!important;
+}
+
+html:root .mantine-Card-root > #title-card-header > .mantine-Title-root,html:root .mantine-Card-root > .border-b:first-child:has(> div > h3) > div > h3{
+color:var(--mantine-color-blue-light-color);
+}
+
+html:root .mantine-Tabs-root:has(a[href$="/admin/settings/webauthn"]) ~ div:has(> h2.mantine-Title-root:first-child),html:root .mantine-Tabs-root:has(a[href$="/admin/settings/webauthn"]) ~ .mantine-Group-root:has(> div:first-child > h2.mantine-Title-root:first-child),html:root .mantine-Tabs-root:has(a[href$="/admin/settings/webauthn"]) ~ form .mantine-Card-root > .mantine-Stack-root > h3.mantine-Title-root:first-child{
+padding:var(--mantine-spacing-xs) var(--mantine-spacing-md);
+border-radius:var(--mantine-radius-md);
+background:var(--mantine-color-blue-light);
+}
+
+html:root .mantine-Tabs-root:has(a[href$="/admin/settings/webauthn"]) ~ form .mantine-UnstyledButton-root:first-child:has(+ [aria-hidden="false"]:last-child),html:root .mantine-Tabs-root:has(a[href$="/admin/settings/webauthn"]) ~ * .mantine-Paper-root > div[class~="bg-(--mantine-color-default)"]:has(+ .mantine-Divider-root){
+background:var(--mantine-color-blue-light);
+}
+
+html:root .mantine-Tabs-root:has(a[href$="/admin/settings/webauthn"]) ~ * .mantine-Paper-root > div[class~="bg-(--mantine-color-default)"]:has(+ .mantine-Divider-root) + .mantine-Divider-root{
+border-top-color:transparent;
+}
+
+html:root .mantine-Tabs-root:has(a[href$="/admin/settings/webauthn"]) ~ div:has(> h2.mantine-Title-root:first-child) > h2,html:root .mantine-Tabs-root:has(a[href$="/admin/settings/webauthn"]) ~ .mantine-Group-root:has(> div:first-child > h2.mantine-Title-root:first-child) > div > h2,html:root .mantine-Tabs-root:has(a[href$="/admin/settings/webauthn"]) ~ form .mantine-Card-root > .mantine-Stack-root > h3.mantine-Title-root:first-child,html:root .mantine-Tabs-root:has(a[href$="/admin/settings/webauthn"]) ~ form .mantine-UnstyledButton-root:first-child:has(+ [aria-hidden="false"]:last-child) > .mantine-Text-root,html:root .mantine-Tabs-root:has(a[href$="/admin/settings/webauthn"]) ~ * .mantine-Paper-root > div[class~="bg-(--mantine-color-default)"]:has(+ .mantine-Divider-root) .mantine-Text-root{
+color:var(--mantine-color-blue-light-color)!important;
+}
+
+html:root .mantine-Card-root > .flex.flex-row.items-center:has(> .mantine-ThemeIcon-root + .flex-col){
+flex-direction:row-reverse;
+}
+html:root .mantine-Card-root > .flex.flex-row.items-center:has(> .mantine-ThemeIcon-root + .flex-col) > .flex-col{
+margin-left:0;
+margin-right:1rem;
+}
+
+html:root .mantine-Card-root > .flex.flex-row.items-center:has(> .mantine-ThemeIcon-root + .flex-col) > .mantine-ThemeIcon-root{
+width:auto;
+height:auto;
+min-width:0;
+min-height:0;
+align-self:flex-start;
+margin-top:2px;
+background:transparent;
+border-color:transparent;
+color:var(--ti-bg,var(--mantine-primary-color-filled));
+font-size:0.75rem;
+}
+
+html:root .mantine-Card-root > .flex.flex-row.items-center:has(> .mantine-ThemeIcon-root + .flex-col) > .flex-col{
+margin-right:0.75rem;
+}
+
+html:root div[style]:has(> .mantine-TableScrollContainer-scrollContainer){
+background:none!important;
+border-color:transparent!important;
+}
+
+html:root .mantine-TableScrollContainer-scrollContainer .mantine-Table-table{
+border-collapse:separate;
+border-spacing:0 6px;
+--nebula-row:var(--nebula-card);
+}
+
+html:root .mantine-Card-root .mantine-TableScrollContainer-scrollContainer .mantine-Table-table{
+--nebula-row:var(--mantine-color-default);
+}
+
+html:root .mantine-TableScrollContainer-scrollContainer .mantine-Table-table > .mantine-Table-thead > tr > th{
+box-shadow:none;
+color:var(--mantine-color-dimmed);
+}
+
+html:root .mantine-TableScrollContainer-scrollContainer .mantine-Table-table > .mantine-Table-tbody > tr:not(:has(> td:only-child:empty)){
+background-color:var(--nebula-row);
+}
+
+@media (hover:hover){
+html:root .mantine-TableScrollContainer-scrollContainer .mantine-Table-table > .mantine-Table-tbody > tr:not(:has(> td:only-child:empty))[data-hover]:hover{
+background-color:color-mix(in srgb,var(--mantine-color-text) 5%,var(--nebula-row));
+}
+}
+
+html:root .mantine-TableScrollContainer-scrollContainer .mantine-Table-table > .mantine-Table-tbody > tr:not(:has(> td:only-child:empty)) > td{
+border-block:1px solid transparent;
+}
+
+html:root .mantine-TableScrollContainer-scrollContainer .mantine-Table-table > .mantine-Table-tbody > tr:not(:has(> td:only-child:empty)) > td:first-child{
+border-inline-start:1px solid transparent;
+border-start-start-radius:var(--mantine-radius-md);
+border-end-start-radius:var(--mantine-radius-md);
+}
+
+html:root .mantine-TableScrollContainer-scrollContainer .mantine-Table-table > .mantine-Table-tbody > tr:not(:has(> td:only-child:empty)) > td:last-child{
+border-inline-end:1px solid transparent;
+border-start-end-radius:var(--mantine-radius-md);
+border-end-end-radius:var(--mantine-radius-md);
+}
+
+html:root #sidebar-content a,html:root .nebula-topnav a,html:root .nebula-topnav-menu a{
+--nebula-nav-accent:var(--mantine-color-blue-filled);
+--nebula-nav-tint:var(--mantine-color-blue-light);
+--nebula-nav-ink:var(--mantine-color-blue-light-color);
+}
+
+html:root[data-mantine-color-scheme="dark"]{
+--nebula-nav-fill:var(--mantine-color-default-hover);
+}
+
+html:root[data-mantine-color-scheme="light"]{
+--nebula-nav-fill:var(--mantine-color-gray-2);
+}
+
+@media (hover:hover){
+html:root #sidebar-content a > .mantine-Button-root:not(.active):hover,html:root .nebula-topnav a > .mantine-Button-root:not(.active):hover,html:root .nebula-topnav-menu a > .mantine-Button-root:not(.active):hover{
+background-color:transparent;
+}
+}
+
+html:root #sidebar-content a > .mantine-Button-root.active,html:root .nebula-topnav a > .mantine-Button-root.active,html:root .nebula-topnav-menu a > .mantine-Button-root.active{
+border-color:transparent;
+background-color:transparent;
+color:var(--mantine-color-text);
+}
+
+html:root .nebula-sb-items a:not(.active):hover::before{
+background:transparent;
+}
+
+html:root #sidebar-content a > .mantine-Button-root .mantine-Button-label > svg,html:root .nebula-topnav a > .mantine-Button-root .mantine-Button-label > svg,html:root .nebula-topnav-menu a > .mantine-Button-root .mantine-Button-label > svg{
+padding:0.375em 0.3em;
+border-radius:var(--mantine-radius-sm);
+transition:background-color 180ms ease,color 180ms ease;
+}
+
+@media (prefers-reduced-motion:reduce){
+html:root #sidebar-content a > .mantine-Button-root .mantine-Button-label > svg,html:root .nebula-topnav a > .mantine-Button-root .mantine-Button-label > svg,html:root .nebula-topnav-menu a > .mantine-Button-root .mantine-Button-label > svg{
+transition:none;
+}
+}
+
+@media (hover:hover){
+html:root #sidebar-content a > .mantine-Button-root:not(.active):hover .mantine-Button-label > svg,html:root .nebula-topnav a > .mantine-Button-root:not(.active):hover .mantine-Button-label > svg,html:root .nebula-topnav-menu a > .mantine-Button-root:not(.active):hover .mantine-Button-label > svg{
+background-color:var(--nebula-nav-tint);
+color:var(--nebula-nav-ink);
+}
+}
+
+html:root #sidebar-content a > .mantine-Button-root.active .mantine-Button-label > svg,html:root .nebula-topnav a > .mantine-Button-root.active .mantine-Button-label > svg,html:root .nebula-topnav-menu a > .mantine-Button-root.active .mantine-Button-label > svg{
+background-color:var(--nebula-nav-accent);
+color:var(--mantine-primary-color-contrast);
+}
+
+html:root #sidebar-desktop:has(~ :is(#dashboard-root,#server-root,#admin-root)){
+max-width:4rem;
+padding:0.5rem;
+}
+
+html:root #sidebar-desktop:has(~ :is(#dashboard-root,#server-root,#admin-root)) #sidebar-content > .overflow-y-auto{
+margin-right:-0.5rem;
+padding-right:0.5rem;
+scrollbar-width:none;
+}
+
+html:root #sidebar-desktop:has(~ :is(#dashboard-root,#server-root,#admin-root)) :is(a > .mantine-Button-root,.nebula-arrange){
+padding-inline:0;
+}
+
+html:root #sidebar-desktop:has(~ :is(#dashboard-root,#server-root,#admin-root)) :is(a > .mantine-Button-root,.nebula-arrange) .mantine-Button-label{
+justify-content:center;
+font-size:0;
+}
+
+html:root #sidebar-desktop:has(~ :is(#dashboard-root,#server-root,#admin-root)) :is(a > .mantine-Button-root,.nebula-arrange) .mantine-Button-label > svg{
+margin:0;
+font-size:1rem;
+}
+
+html:root #sidebar-desktop:has(~ :is(#dashboard-root,#server-root,#admin-root)) .nebula-rail-logo{
+display:block;
+}
+
+html:root #sidebar-desktop:has(~ :is(#dashboard-root,#server-root,#admin-root)) a:has(> .nebula-rail-logo) > :not(.nebula-rail-logo){
+display:none;
+}
+
+html:root #sidebar-desktop:has(~ :is(#dashboard-root,#server-root,#admin-root)) #sidebar-content > .shrink-0:first-child > .mantine-Button-root{
+padding-inline:0;
+}
+
+html:root #sidebar-desktop:has(~ :is(#dashboard-root,#server-root,#admin-root)) #sidebar-content > .shrink-0:first-child > .mantine-Button-root .mantine-Button-inner{
+justify-content:center!important;
+}
+
+html:root #sidebar-desktop:has(~ :is(#dashboard-root,#server-root,#admin-root)) #sidebar-content > .shrink-0:first-child > .mantine-Button-root .mantine-Button-label{
+font-size:0;
+}
+
+html:root #sidebar-desktop:has(~ :is(#dashboard-root,#server-root,#admin-root)) #sidebar-content > .shrink-0:first-child > .mantine-Button-root .mantine-Button-section{
+margin:0;
+}
+
+html:root #sidebar-desktop:has(~ :is(#dashboard-root,#server-root,#admin-root)) #sidebar-content > .shrink-0:first-child > .mantine-Button-root .mantine-Button-section[data-position="right"]{
+display:none;
+}
+
+html:root #sidebar-desktop:has(~ :is(#dashboard-root,#server-root,#admin-root)) #sidebar-content > .shrink-0:first-child > .mantine-Card-root{
+align-items:center;
+padding:0.375rem 0.25rem;
+}
+
+html:root #sidebar-desktop:has(~ :is(#dashboard-root,#server-root,#admin-root)) #sidebar-content > .shrink-0:first-child > .mantine-Card-root > :first-child,html:root #sidebar-desktop:has(~ :is(#dashboard-root,#server-root,#admin-root)) #sidebar-content > .shrink-0:first-child > .mantine-Card-root > :nth-child(2) > :not(:first-child){
+display:none;
+}
+
+html:root #sidebar-desktop:has(~ :is(#dashboard-root,#server-root,#admin-root)) #sidebar-content > .shrink-0:first-child > .mantine-Card-root > :nth-child(2){
+justify-content:center;
+}
+
+html:root #sidebar-desktop:has(~ :is(#dashboard-root,#server-root,#admin-root)) #sidebar-content > .shrink-0:first-child > .mantine-Card-root > :nth-child(3){
+flex-direction:column;
+align-self:stretch;
+gap:0.25rem;
+margin-top:0.375rem;
+}
+
+html:root #sidebar-desktop:has(~ :is(#dashboard-root,#server-root,#admin-root)) #sidebar-content > .shrink-0:first-child > .mantine-Card-root > :nth-child(3) > *,html:root #sidebar-desktop:has(~ :is(#dashboard-root,#server-root,#admin-root)) #sidebar-content > .shrink-0:first-child > .mantine-Card-root .mantine-Button-root{
+width:100%;
+}
+
+html:root #sidebar-desktop:has(~ :is(#dashboard-root,#server-root,#admin-root)) #sidebar-content > .shrink-0:first-child > .mantine-Card-root .mantine-Button-root{
+padding-inline:0;
+}
+
+html:root #sidebar-desktop:has(~ :is(#dashboard-root,#server-root,#admin-root)) #sidebar-content > .shrink-0:first-child > .mantine-Card-root .mantine-Button-label{
+font-size:0;
+}
+
+html:root #sidebar-desktop:has(~ :is(#dashboard-root,#server-root,#admin-root)) #sidebar-content > .shrink-0:first-child > .mantine-Card-root .mantine-Button-section{
+margin:0;
+}
+
+html:root #sidebar-desktop:has(~ :is(#dashboard-root,#server-root,#admin-root)) #sidebar-content > .shrink-0:first-child > .mantine-Card-root .mantine-Button-label > svg{
+font-size:0.75rem;
+}
+
+html:root #sidebar-desktop:has(~ :is(#dashboard-root,#server-root,#admin-root)) #sidebar-content > .shrink-0:last-child > :not(#sidebar-account-card){
+display:none;
+}
+
+html:root #sidebar-desktop:has(~ :is(#dashboard-root,#server-root,#admin-root)) #sidebar-account-card{
+flex-wrap:wrap;
+justify-content:center;
+gap:0.25rem;
+padding:0.25rem 0;
+}
+
+html:root #sidebar-desktop:has(~ :is(#dashboard-root,#server-root,#admin-root)) #sidebar-account-card > :first-child{
+flex:0 0 100%;
+justify-content:center;
+}
+
+html:root #sidebar-desktop:has(~ :is(#dashboard-root,#server-root,#admin-root)) #sidebar-account-card > :first-child > span{
+display:none;
+}
+
+html:root #sidebar-desktop:has(~ :is(#dashboard-root,#server-root,#admin-root)) .nebula-sb-toggle,html:root #sidebar-desktop:has(~ :is(#dashboard-root,#server-root,#admin-root)) .mantine-Divider-label{
+display:none;
+}
+
+html:root #sidebar-desktop:has(~ :is(#dashboard-root,#server-root,#admin-root)) .nebula-sb-rule{
+display:block;
+}
+
+html:root #sidebar-desktop:has(~ :is(#dashboard-root,#server-root,#admin-root)) .nebula-sb-items{
+display:block;
+margin:0;
+padding:0;
+border:0;
+}
+
+html:root #sidebar-desktop:has(~ :is(#dashboard-root,#server-root,#admin-root)) .nebula-sb-items a::before{
+content:none;
+}
+
+html:root #sidebar-desktop:has(~ :is(#dashboard-root,#server-root,#admin-root)) .mantine-Divider-root[data-with-label]{
+border-top:1px solid var(--mantine-color-default-border);
+}
+
+html:root #sidebar-desktop:has(~ :is(#dashboard-root,#server-root,#admin-root)) .nebula-dock-origin{
+display:none;
+}
+
+html:root .xterm.nebula-terminal .xterm-rows .xterm-cursor.xterm-cursor-block:not(.xterm-cursor-blink){
+background-color:var(--mantine-color-text)!important;
+color:var(--mantine-color-body)!important;
+}
+
+@keyframes nebula-cursor-blink{
+50%{
+background-color:transparent;
+color:inherit;
+}
+}
+
+html:root .xterm.nebula-terminal .xterm-rows .xterm-cursor.xterm-cursor-block.xterm-cursor-blink{
+background-color:var(--mantine-color-text);
+color:var(--mantine-color-body);
+animation:nebula-cursor-blink 1s step-end infinite;
+}
+
+@media (prefers-reduced-motion:reduce){
+html:root .xterm.nebula-terminal .xterm-rows .xterm-cursor.xterm-cursor-block.xterm-cursor-blink{
+animation:none;
+}
+}
+
+`;
+
+exports[`buildCss output > filled, floating, fast 1`] = `
+html:root{
+--mantine-color-blue-0:#e9f3f9;
+--mantine-color-blue-1:#cee5f3;
+--mantine-color-blue-2:#a5cfe9;
+--mantine-color-blue-3:#7dbadf;
+--mantine-color-blue-4:#54a5d4;
+--mantine-color-blue-5:#3494cd;
+--mantine-color-blue-6:#1e88c7;
+--mantine-color-blue-7:#1972a7;
+--mantine-color-blue-8:#155f8b;
+--mantine-color-blue-9:#114c6f;
+--mantine-color-dark-0:#e6e4f0;
+--mantine-color-dark-1:#bcbac8;
+--mantine-color-dark-2:#8f8c9d;
+--mantine-color-dark-3:#696679;
+--mantine-color-dark-4:#332f46;
+--mantine-color-dark-5:#27233a;
+--mantine-color-dark-6:#110b21;
+--mantine-color-dark-7:#16122a;
+--mantine-color-dark-8:#110e20;
+--mantine-color-dark-9:#0c0a17;
+--nebula-highlight:#8fe3c8;
+--mantine-radius-xs:4px;
+--mantine-radius-sm:6px;
+--mantine-radius-default:6px;
+--mantine-radius-md:10px;
+--mantine-radius-lg:14px;
+--mantine-font-family:'Exo 2', Helvetica, Arial, sans-serif;
+--mantine-font-family-headings:'Exo 2', Helvetica, Arial, sans-serif;
+--font-sans:'Exo 2', Helvetica, Arial, sans-serif;
+}
+
+html:root[data-mantine-color-scheme="dark"]{
+--nebula-card:#110b21;
+--nebula-button-ink:#ffffff;
+--mantine-color-body:#16122a;
+--mantine-color-text:#e6e4f0;
+--mantine-color-dimmed:#8f8c9d;
+--mantine-color-placeholder:#696679;
+--mantine-color-default:#201d34;
+--mantine-color-default-hover:#2b273e;
+--mantine-color-default-border:#332f46;
+--mantine-color-anchor:#54a5d4;
+--mantine-color-blue-filled:#1e88c7;
+--mantine-color-blue-filled-hover:#3494cd;
+--mantine-color-blue-light:rgba(30, 136, 199, 0.2);
+--mantine-color-blue-light-hover:rgba(30, 136, 199, 0.28);
+--mantine-color-blue-light-color:#7dbadf;
+--mantine-color-blue-outline:#54a5d4;
+--mantine-color-blue-outline-hover:rgba(84, 165, 212, 0.08);
+--mantine-color-blue-text:#54a5d4;
+--chart-series-1:#54a5d4;
+}
+
+html:root[data-mantine-color-scheme="light"]{
+--mantine-color-gray-0:#f2f5f8;
+--mantine-color-gray-1:#ebeef1;
+--mantine-color-gray-2:#e5e7eb;
+--mantine-color-gray-3:#dbdee2;
+--mantine-color-gray-4:#ced0d6;
+--mantine-color-gray-5:#aeafb8;
+--mantine-color-gray-6:#888794;
+--mantine-color-gray-7:#5a586a;
+--mantine-color-gray-8:#434154;
+--mantine-color-gray-9:#312e43;
+--nebula-card:#f9fcfe;
+--nebula-button-ink:#16122a;
+--nebula-highlight:#5a8782;
+--mantine-color-white:#f9fcfe;
+--mantine-color-black:#16122a;
+--mantine-color-bright:#16122a;
+--mantine-color-body:#e6edf1;
+--mantine-color-text:#16122a;
+--mantine-color-dimmed:#6c6b7b;
+--mantine-color-placeholder:#aeafb8;
+--mantine-color-default:#f9fcfe;
+--mantine-color-default-hover:#f2f5f8;
+--mantine-color-default-color:#16122a;
+--mantine-color-default-border:#ced0d6;
+--mantine-color-anchor:#1d75ae;
+--mantine-color-blue-filled:#1e88c7;
+--mantine-color-blue-filled-hover:#1972a7;
+--mantine-color-blue-light:rgba(30, 136, 199, 0.1);
+--mantine-color-blue-light-hover:rgba(30, 136, 199, 0.14);
+--mantine-color-blue-light-color:#1d75ae;
+--mantine-color-blue-outline:#1e88c7;
+--mantine-color-blue-outline-hover:rgba(30, 136, 199, 0.05);
+--mantine-color-blue-text:#1d75ae;
+--chart-series-1:#1e88c7;
+--chart-tick-color:var(--mantine-color-dimmed);
+}
+
+html:root[data-mantine-color-scheme="light"] .xterm .xterm-scrollable-element{
+background-color:transparent!important;
+}
+
+html:root[data-mantine-color-scheme="light"] .xterm .xterm-rows{
+color:var(--mantine-color-text);
+}
+
+html:root[data-mantine-color-scheme="light"] :is([class~="text-neutral-400"],[class~="text-neutral-400!"],[class~="light:text-neutral-400!"],[class~="text-gray-400"],[class~="text-gray-400!"],[class~="light:text-gray-400!"],[class~="text-gray-500"],[class~="text-gray-500!"],[class~="light:text-gray-500!"],[class~="text-gray-600"],[class~="text-gray-600!"],[class~="light:text-gray-600!"]){
+--color-neutral-400:var(--mantine-color-dimmed);
+--color-gray-400:var(--mantine-color-dimmed);
+--color-gray-500:var(--mantine-color-dimmed);
+--color-gray-600:var(--mantine-color-dimmed);
+}
+
+html:root .mantine-active:active:not(fieldset:disabled *){
+transform:none;
+}
+
+html:root{
+--nebula-speed:0.6;
+}
+
+@media (prefers-reduced-motion:no-preference){
+html:root [data-nebula-page-enter] > *{
+animation:nebula-page-zoom 144ms cubic-bezier(0.2, 0.8, 0.3, 1);
+}
+}
+
+@media (hover:hover){
+html:root :is(.mantine-Card-root.cursor-pointer,a.mantine-Card-root):not(.cursor-pointer .mantine-Card-root):hover{
+box-shadow:0 0 0 1px color-mix(in srgb,var(--mantine-color-blue-filled) 50%,transparent),0 10px 32px -12px color-mix(in srgb,var(--mantine-color-blue-filled) 65%,transparent);
+}
+html:root .mantine-Button-root:not([data-variant="subtle"],[data-variant="transparent"],:disabled,[data-disabled],[data-loading]):hover{
+box-shadow:0 0 0 1px color-mix(in srgb,currentColor 45%,transparent),0 0 18px -4px color-mix(in srgb,currentColor 60%,transparent);
+}
+html:root .mantine-Button-root:not([data-variant="subtle"],[data-variant="transparent"],:disabled,[data-disabled],[data-loading])[data-variant="filled"]:hover{
+box-shadow:0 0 0 1px color-mix(in srgb,var(--button-bg) 55%,transparent),0 0 18px -4px color-mix(in srgb,var(--button-bg) 70%,transparent);
+}
+}
+
+@media (prefers-reduced-motion:reduce){
+html:root :is(.mantine-Card-root.cursor-pointer,a.mantine-Card-root):not(.cursor-pointer .mantine-Card-root){
+transition-duration:0s;
+}
+html:root .mantine-Button-root:not([data-variant="subtle"],[data-variant="transparent"],:disabled,[data-disabled],[data-loading]){
+transition:none;
+}
+}
+
+@media (prefers-reduced-motion:no-preference){
+@media (hover:hover){
+html:root :is(.mantine-Card-root.cursor-pointer,a.mantine-Card-root):not(.cursor-pointer .mantine-Card-root){
+transition:transform 114ms ease,box-shadow 114ms ease;
+}
+html:root .mantine-Button-root:not([data-variant="subtle"],[data-variant="transparent"],:disabled,[data-disabled],[data-loading]){
+transition:transform 90ms ease,box-shadow 90ms ease;
+}
+}
+}
+
+@media (prefers-reduced-motion:no-preference){
+html:root :is(.mantine-Modal-content,.mantine-Drawer-content):not([style*="opacity: 0;
+"]),html:root :is(.mantine-Popover-dropdown,.mantine-Menu-dropdown,.mantine-Combobox-dropdown):not([style*="opacity: 0;
+"]){
+transition:none!important;
+}
+html:root :is(.mantine-Modal-content,.mantine-Drawer-content){
+animation:nebula-overlay-slide-up 144ms cubic-bezier(0.2, 0.8, 0.3, 1);
+}
+html:root :is(.mantine-Popover-dropdown,.mantine-Menu-dropdown,.mantine-Combobox-dropdown){
+--nebula-overlay-shift:8px;
+transform-origin:top center;
+animation:nebula-overlay-slide-up 108ms cubic-bezier(0.2, 0.8, 0.3, 1);
+}
+html:root :is(.mantine-Popover-dropdown,.mantine-Menu-dropdown,.mantine-Combobox-dropdown)[data-position^="top"]{
+transform-origin:bottom center;
+}
+}
+
+html:root .mantine-Card-root > #title-card-header,html:root .mantine-Card-root > .border-b:first-child:has(> div > h3){
+background:transparent;
+border-bottom:1px solid var(--mantine-color-default-border)!important;
+}
+
+html:root .mantine-Tabs-root:has(a[href$="/admin/settings/webauthn"]) ~ div:has(> h2.mantine-Title-root:first-child),html:root .mantine-Tabs-root:has(a[href$="/admin/settings/webauthn"]) ~ .mantine-Group-root:has(> div:first-child > h2.mantine-Title-root:first-child),html:root .mantine-Tabs-root:has(a[href$="/admin/settings/webauthn"]) ~ form .mantine-Card-root > .mantine-Stack-root > h3.mantine-Title-root:first-child{
+padding-bottom:var(--mantine-spacing-xs);
+border-bottom:1px solid var(--mantine-color-default-border);
+}
+
+html:root .mantine-Tabs-root:has(a[href$="/admin/settings/webauthn"]) ~ form .mantine-UnstyledButton-root:first-child:has(+ [aria-hidden="false"]:last-child){
+border-bottom:1px solid var(--mantine-color-default-border);
+}
+
+html:root .mantine-Tabs-root:has(a[href$="/admin/settings/webauthn"]) ~ * .mantine-Paper-root > div[class~="bg-(--mantine-color-default)"]:has(+ .mantine-Divider-root){
+background:transparent;
+}
+
+html:root .mantine-Card-root > .flex.flex-row.items-center:has(> .mantine-ThemeIcon-root + .flex-col) > .mantine-ThemeIcon-root{
+width:auto;
+height:auto;
+min-width:0;
+min-height:0;
+align-self:flex-start;
+margin-top:2px;
+background:transparent;
+border-color:transparent;
+color:var(--ti-bg,var(--mantine-primary-color-filled));
+font-size:0.75rem;
+}
+
+html:root .mantine-Card-root > .flex.flex-row.items-center:has(> .mantine-ThemeIcon-root + .flex-col) > .flex-col{
+margin-left:0.75rem;
+}
+
+html:root #sidebar-content a,html:root .nebula-topnav a,html:root .nebula-topnav-menu a{
+--nebula-nav-accent:var(--mantine-color-blue-filled);
+--nebula-nav-tint:var(--mantine-color-blue-light);
+--nebula-nav-ink:var(--mantine-color-blue-light-color);
+}
+
+html:root[data-mantine-color-scheme="dark"]{
+--nebula-nav-fill:var(--mantine-color-default-hover);
+}
+
+html:root[data-mantine-color-scheme="light"]{
+--nebula-nav-fill:var(--mantine-color-gray-2);
+}
+
+@media (hover:hover){
+html:root #sidebar-content a > .mantine-Button-root:not(.active):hover,html:root .nebula-topnav a > .mantine-Button-root:not(.active):hover,html:root .nebula-topnav-menu a > .mantine-Button-root:not(.active):hover{
+background-color:var(--nebula-nav-tint);
+color:var(--mantine-color-text);
+}
+}
+
+html:root #sidebar-content a > .mantine-Button-root.active,html:root .nebula-topnav a > .mantine-Button-root.active,html:root .nebula-topnav-menu a > .mantine-Button-root.active{
+border-color:transparent;
+background-color:var(--nebula-nav-accent);
+color:var(--mantine-primary-color-contrast);
+}
+
+html:root .nebula-sb-items a:not(.active):hover::before{
+background:transparent;
+}
+
+html:root #sidebar-desktop:has(~ :is(#dashboard-root,#server-root,#admin-root)){
+margin:0.5rem 0 0.5rem 0.5rem;
+top:0.5rem;
+height:calc(100vh - 1rem);
+border-radius:var(--paper-radius);
+border-width:1px;
+}
+
+html:root #sidebar-desktop:has(~ :is(#dashboard-root,#server-root,#admin-root)) .nebula-dock-origin{
+display:none;
+}
+
+html:root .xterm.nebula-terminal .xterm-rows .xterm-cursor.xterm-cursor-underline:not(.xterm-cursor-blink){
+border-bottom-color:var(--mantine-color-text)!important;
+}
+
+`;
+
+exports[`buildCss output > outline, reduced motion, top bar 1`] = `
+html:root{
+--mantine-color-blue-0:#e9f3f9;
+--mantine-color-blue-1:#cee5f3;
+--mantine-color-blue-2:#a5cfe9;
+--mantine-color-blue-3:#7dbadf;
+--mantine-color-blue-4:#54a5d4;
+--mantine-color-blue-5:#3494cd;
+--mantine-color-blue-6:#1e88c7;
+--mantine-color-blue-7:#1972a7;
+--mantine-color-blue-8:#155f8b;
+--mantine-color-blue-9:#114c6f;
+--mantine-color-dark-0:#e6e4f0;
+--mantine-color-dark-1:#bcbac8;
+--mantine-color-dark-2:#8f8c9d;
+--mantine-color-dark-3:#696679;
+--mantine-color-dark-4:#332f46;
+--mantine-color-dark-5:#27233a;
+--mantine-color-dark-6:#110b21;
+--mantine-color-dark-7:#16122a;
+--mantine-color-dark-8:#110e20;
+--mantine-color-dark-9:#0c0a17;
+--nebula-highlight:#8fe3c8;
+--mantine-radius-xs:4px;
+--mantine-radius-sm:6px;
+--mantine-radius-default:6px;
+--mantine-radius-md:10px;
+--mantine-radius-lg:14px;
+--mantine-font-family:'Space Grotesk', Helvetica, Arial, sans-serif;
+--mantine-font-family-headings:'Space Grotesk', Helvetica, Arial, sans-serif;
+--font-sans:'Space Grotesk', Helvetica, Arial, sans-serif;
+--mantine-font-family-monospace:'Fira Code', ui-monospace, Menlo, Consolas, monospace;
+--font-mono:'Fira Code', ui-monospace, Menlo, Consolas, monospace;
+}
+
+html:root[data-mantine-color-scheme="dark"]{
+--nebula-card:#110b21;
+--nebula-button-ink:#ffffff;
+--mantine-color-body:#16122a;
+--mantine-color-text:#e6e4f0;
+--mantine-color-dimmed:#8f8c9d;
+--mantine-color-placeholder:#696679;
+--mantine-color-default:#201d34;
+--mantine-color-default-hover:#2b273e;
+--mantine-color-default-border:#332f46;
+--mantine-color-anchor:#54a5d4;
+--mantine-color-blue-filled:#1e88c7;
+--mantine-color-blue-filled-hover:#3494cd;
+--mantine-color-blue-light:rgba(30, 136, 199, 0.2);
+--mantine-color-blue-light-hover:rgba(30, 136, 199, 0.28);
+--mantine-color-blue-light-color:#7dbadf;
+--mantine-color-blue-outline:#54a5d4;
+--mantine-color-blue-outline-hover:rgba(84, 165, 212, 0.08);
+--mantine-color-blue-text:#54a5d4;
+--chart-series-1:#54a5d4;
+}
+
+html:root[data-mantine-color-scheme="light"]{
+--mantine-color-gray-0:#f2f5f8;
+--mantine-color-gray-1:#ebeef1;
+--mantine-color-gray-2:#e5e7eb;
+--mantine-color-gray-3:#dbdee2;
+--mantine-color-gray-4:#ced0d6;
+--mantine-color-gray-5:#aeafb8;
+--mantine-color-gray-6:#888794;
+--mantine-color-gray-7:#5a586a;
+--mantine-color-gray-8:#434154;
+--mantine-color-gray-9:#312e43;
+--nebula-card:#f9fcfe;
+--nebula-button-ink:#16122a;
+--nebula-highlight:#5a8782;
+--mantine-color-white:#f9fcfe;
+--mantine-color-black:#16122a;
+--mantine-color-bright:#16122a;
+--mantine-color-body:#e6edf1;
+--mantine-color-text:#16122a;
+--mantine-color-dimmed:#6c6b7b;
+--mantine-color-placeholder:#aeafb8;
+--mantine-color-default:#f9fcfe;
+--mantine-color-default-hover:#f2f5f8;
+--mantine-color-default-color:#16122a;
+--mantine-color-default-border:#ced0d6;
+--mantine-color-anchor:#1d75ae;
+--mantine-color-blue-filled:#1e88c7;
+--mantine-color-blue-filled-hover:#1972a7;
+--mantine-color-blue-light:rgba(30, 136, 199, 0.1);
+--mantine-color-blue-light-hover:rgba(30, 136, 199, 0.14);
+--mantine-color-blue-light-color:#1d75ae;
+--mantine-color-blue-outline:#1e88c7;
+--mantine-color-blue-outline-hover:rgba(30, 136, 199, 0.05);
+--mantine-color-blue-text:#1d75ae;
+--chart-series-1:#1e88c7;
+--chart-tick-color:var(--mantine-color-dimmed);
+}
+
+html:root[data-mantine-color-scheme="light"] .xterm .xterm-scrollable-element{
+background-color:transparent!important;
+}
+
+html:root[data-mantine-color-scheme="light"] .xterm .xterm-rows{
+color:var(--mantine-color-text);
+}
+
+html:root[data-mantine-color-scheme="light"] :is([class~="text-neutral-400"],[class~="text-neutral-400!"],[class~="light:text-neutral-400!"],[class~="text-gray-400"],[class~="text-gray-400!"],[class~="light:text-gray-400!"],[class~="text-gray-500"],[class~="text-gray-500!"],[class~="light:text-gray-500!"],[class~="text-gray-600"],[class~="text-gray-600!"],[class~="light:text-gray-600!"]){
+--color-neutral-400:var(--mantine-color-dimmed);
+--color-gray-400:var(--mantine-color-dimmed);
+--color-gray-500:var(--mantine-color-dimmed);
+--color-gray-600:var(--mantine-color-dimmed);
+}
+
+html:root .mantine-Button-root[data-variant="filled"]:not([data-disabled]):not(:disabled){
+background-color:transparent!important;
+border:1px solid color-mix(in srgb,var(--button-bg) 70%,transparent)!important;
+color:color-mix(in srgb,var(--button-bg) 55%,var(--nebula-button-ink))!important;
+}
+
+html:root .mantine-Button-root[data-variant="filled"]:not([data-disabled]):not(:disabled):hover{
+background-color:color-mix(in srgb,var(--button-bg) 18%,transparent)!important;
+}
+
+html:root .mantine-Button-root[data-variant="filled"]:not([data-disabled]):not(:disabled){
+color:#e0f2fe!important;
+}
+
+html:root .mantine-active:active:not(fieldset:disabled *){
+transform:none;
+outline:2px solid var(--mantine-color-blue-filled);
+outline-offset:2px;
+}
+
+html:root{
+--nebula-speed:0;
+}
+
+@media (hover:hover){
+html:root :is(.mantine-Card-root.cursor-pointer,a.mantine-Card-root):not(.cursor-pointer .mantine-Card-root):hover{
+box-shadow:0 0 0 1px color-mix(in srgb,var(--mantine-color-blue-filled) 50%,transparent),0 10px 32px -12px color-mix(in srgb,var(--mantine-color-blue-filled) 65%,transparent);
+}
+html:root .mantine-Button-root:not([data-variant="subtle"],[data-variant="transparent"],:disabled,[data-disabled],[data-loading]):hover{
+box-shadow:0 0 0 1px color-mix(in srgb,currentColor 45%,transparent),0 0 18px -4px color-mix(in srgb,currentColor 60%,transparent);
+}
+html:root .mantine-Button-root:not([data-variant="subtle"],[data-variant="transparent"],:disabled,[data-disabled],[data-loading])[data-variant="filled"]:hover{
+box-shadow:0 0 0 1px color-mix(in srgb,var(--button-bg) 55%,transparent),0 0 18px -4px color-mix(in srgb,var(--button-bg) 70%,transparent);
+}
+}
+
+html:root :is(.mantine-Card-root.cursor-pointer,a.mantine-Card-root):not(.cursor-pointer .mantine-Card-root){
+transition-duration:0s;
+}
+html:root .mantine-Button-root:not([data-variant="subtle"],[data-variant="transparent"],:disabled,[data-disabled],[data-loading]){
+transition:none;
+}
+
+html:root :is(.mantine-Modal-content,.mantine-Drawer-content),html:root :is(.mantine-Popover-dropdown,.mantine-Menu-dropdown,.mantine-Combobox-dropdown),html:root :is(.mantine-Modal-overlay,.mantine-Drawer-overlay),html:root .mantine-Tooltip-tooltip{
+transition:none!important;
+}
+
+html:root .mantine-Card-root > #title-card-header,html:root .mantine-Card-root > .border-b:first-child:has(> div > h3){
+background:transparent;
+border-bottom-color:transparent!important;
+padding-bottom:0;
+}
+
+html:root .mantine-Card-root > #title-card-header > .mantine-Title-root,html:root .mantine-Card-root > .border-b:first-child:has(> div > h3) > div > h3{
+padding:4px 12px;
+border-radius:999px;
+background:var(--mantine-color-blue-light);
+color:var(--mantine-color-blue-light-color);
+}
+
+html:root .mantine-Tabs-root:has(a[href$="/admin/settings/webauthn"]) ~ * .mantine-Paper-root > div[class~="bg-(--mantine-color-default)"]:has(+ .mantine-Divider-root){
+background:transparent;
+}
+
+html:root .mantine-Tabs-root:has(a[href$="/admin/settings/webauthn"]) ~ * .mantine-Paper-root > div[class~="bg-(--mantine-color-default)"]:has(+ .mantine-Divider-root) + .mantine-Divider-root{
+border-top-color:transparent;
+}
+
+html:root .mantine-Tabs-root:has(a[href$="/admin/settings/webauthn"]) ~ form .mantine-UnstyledButton-root:first-child:has(+ [aria-hidden="false"]:last-child) > .mantine-Text-root{
+flex:0 1 auto!important;
+margin-right:auto;
+}
+
+html:root .mantine-Tabs-root:has(a[href$="/admin/settings/webauthn"]) ~ div:has(> h2.mantine-Title-root:first-child) > h2,html:root .mantine-Tabs-root:has(a[href$="/admin/settings/webauthn"]) ~ .mantine-Group-root:has(> div:first-child > h2.mantine-Title-root:first-child) > div > h2,html:root .mantine-Tabs-root:has(a[href$="/admin/settings/webauthn"]) ~ form .mantine-Card-root > .mantine-Stack-root > h3.mantine-Title-root:first-child,html:root .mantine-Tabs-root:has(a[href$="/admin/settings/webauthn"]) ~ form .mantine-UnstyledButton-root:first-child:has(+ [aria-hidden="false"]:last-child) > .mantine-Text-root,html:root .mantine-Tabs-root:has(a[href$="/admin/settings/webauthn"]) ~ * .mantine-Paper-root > div[class~="bg-(--mantine-color-default)"]:has(+ .mantine-Divider-root) .mantine-Text-root{
+width:fit-content;
+padding:4px 12px;
+border-radius:999px;
+background:var(--mantine-color-blue-light);
+color:var(--mantine-color-blue-light-color)!important;
+}
+
+html:root .mantine-Card-root > .flex.flex-row.items-center:has(> .mantine-ThemeIcon-root + .flex-col){
+flex-direction:row-reverse;
+}
+html:root .mantine-Card-root > .flex.flex-row.items-center:has(> .mantine-ThemeIcon-root + .flex-col) > .flex-col{
+margin-left:0;
+margin-right:1rem;
+}
+
+html:root div[style]:has(> .mantine-TableScrollContainer-scrollContainer){
+background:none!important;
+border-color:transparent!important;
+}
+
+html:root .mantine-TableScrollContainer-scrollContainer .mantine-Table-table{
+border-collapse:separate;
+border-spacing:0 6px;
+--nebula-row:var(--nebula-card);
+}
+
+html:root .mantine-Card-root .mantine-TableScrollContainer-scrollContainer .mantine-Table-table{
+--nebula-row:var(--mantine-color-default);
+}
+
+html:root .mantine-TableScrollContainer-scrollContainer .mantine-Table-table > .mantine-Table-thead > tr > th{
+box-shadow:none;
+color:var(--mantine-color-dimmed);
+}
+
+html:root .mantine-TableScrollContainer-scrollContainer .mantine-Table-table > .mantine-Table-tbody > tr:not(:has(> td:only-child:empty)){
+background-color:var(--nebula-row);
+}
+
+@media (hover:hover){
+html:root .mantine-TableScrollContainer-scrollContainer .mantine-Table-table > .mantine-Table-tbody > tr:not(:has(> td:only-child:empty))[data-hover]:hover{
+background-color:color-mix(in srgb,var(--mantine-color-text) 5%,var(--nebula-row));
+}
+}
+
+html:root .mantine-TableScrollContainer-scrollContainer .mantine-Table-table > .mantine-Table-tbody > tr:not(:has(> td:only-child:empty)) > td{
+border-block:1px solid var(--mantine-color-default-border);
+}
+
+html:root .mantine-TableScrollContainer-scrollContainer .mantine-Table-table > .mantine-Table-tbody > tr:not(:has(> td:only-child:empty)) > td:first-child{
+border-inline-start:1px solid var(--mantine-color-default-border);
+border-start-start-radius:var(--mantine-radius-md);
+border-end-start-radius:var(--mantine-radius-md);
+}
+
+html:root .mantine-TableScrollContainer-scrollContainer .mantine-Table-table > .mantine-Table-tbody > tr:not(:has(> td:only-child:empty)) > td:last-child{
+border-inline-end:1px solid var(--mantine-color-default-border);
+border-start-end-radius:var(--mantine-radius-md);
+border-end-end-radius:var(--mantine-radius-md);
+}
+
+html:root #sidebar-content a,html:root .nebula-topnav a,html:root .nebula-topnav-menu a{
+--nebula-nav-accent:var(--mantine-color-blue-filled);
+--nebula-nav-tint:var(--mantine-color-blue-light);
+--nebula-nav-ink:var(--mantine-color-blue-light-color);
+}
+
+html:root[data-mantine-color-scheme="dark"]{
+--nebula-nav-fill:var(--mantine-color-default-hover);
+}
+
+html:root[data-mantine-color-scheme="light"]{
+--nebula-nav-fill:var(--mantine-color-gray-2);
+}
+
+@media (hover:hover){
+html:root #sidebar-content a > .mantine-Button-root:not(.active):hover,html:root .nebula-topnav a > .mantine-Button-root:not(.active):hover,html:root .nebula-topnav-menu a > .mantine-Button-root:not(.active):hover{
+background-color:color-mix(in srgb,var(--nebula-nav-fill) 60%,transparent);
+color:var(--mantine-color-text);
+}
+}
+
+html:root #sidebar-content a > .mantine-Button-root.active,html:root .nebula-topnav a > .mantine-Button-root.active,html:root .nebula-topnav-menu a > .mantine-Button-root.active{
+border-color:transparent;
+background-color:var(--nebula-nav-fill);
+color:var(--mantine-color-text);
+}
+
+html:root .nebula-sb-items a:not(.active):hover::before{
+background:transparent;
+}
+
+html:root #sidebar-content a > .mantine-Button-root,html:root .nebula-topnav a > .mantine-Button-root,html:root .nebula-topnav-menu a > .mantine-Button-root{
+border-radius:999px;
+}
+
+html:root #sidebar-content a > .mantine-Button-root.active .mantine-Button-label > svg,html:root .nebula-topnav a > .mantine-Button-root.active .mantine-Button-label > svg,html:root .nebula-topnav-menu a > .mantine-Button-root.active .mantine-Button-label > svg{
+color:var(--nebula-nav-ink);
+}
+
+html:root #sidebar-desktop:has(~ :is(#dashboard-root,#server-root,#admin-root)){
+max-width:0;
+max-height:0;
+margin:0;
+padding:0;
+border:0;
+visibility:hidden;
+}
+
+html:root .xterm.nebula-terminal .xterm-rows .xterm-cursor.xterm-cursor-bar:not(.xterm-cursor-blink){
+box-shadow:2px 0 0 var(--mantine-color-text) inset!important;
+}
+
+`;
+
+exports[`buildCss output > pill layout 1`] = `
+html:root{
+--mantine-color-blue-0:#e9f3f9;
+--mantine-color-blue-1:#cee5f3;
+--mantine-color-blue-2:#a5cfe9;
+--mantine-color-blue-3:#7dbadf;
+--mantine-color-blue-4:#54a5d4;
+--mantine-color-blue-5:#3494cd;
+--mantine-color-blue-6:#1e88c7;
+--mantine-color-blue-7:#1972a7;
+--mantine-color-blue-8:#155f8b;
+--mantine-color-blue-9:#114c6f;
+--mantine-color-dark-0:#e6e4f0;
+--mantine-color-dark-1:#bcbac8;
+--mantine-color-dark-2:#8f8c9d;
+--mantine-color-dark-3:#696679;
+--mantine-color-dark-4:#332f46;
+--mantine-color-dark-5:#27233a;
+--mantine-color-dark-6:#110b21;
+--mantine-color-dark-7:#16122a;
+--mantine-color-dark-8:#110e20;
+--mantine-color-dark-9:#0c0a17;
+--nebula-highlight:#8fe3c8;
+--mantine-radius-xs:4px;
+--mantine-radius-sm:6px;
+--mantine-radius-default:6px;
+--mantine-radius-md:10px;
+--mantine-radius-lg:14px;
+--mantine-font-family:'Exo 2', Helvetica, Arial, sans-serif;
+--mantine-font-family-headings:'Exo 2', Helvetica, Arial, sans-serif;
+--font-sans:'Exo 2', Helvetica, Arial, sans-serif;
+}
+
+html:root[data-mantine-color-scheme="dark"]{
+--nebula-card:rgba(17, 11, 33, 0.85);
+--nebula-button-ink:#ffffff;
+--mantine-color-body:#16122a;
+--mantine-color-text:#e6e4f0;
+--mantine-color-dimmed:#8f8c9d;
+--mantine-color-placeholder:#696679;
+--mantine-color-default:#201d34;
+--mantine-color-default-hover:#2b273e;
+--mantine-color-default-border:#332f46;
+--mantine-color-anchor:#54a5d4;
+--mantine-color-blue-filled:#1e88c7;
+--mantine-color-blue-filled-hover:#3494cd;
+--mantine-color-blue-light:rgba(30, 136, 199, 0.2);
+--mantine-color-blue-light-hover:rgba(30, 136, 199, 0.28);
+--mantine-color-blue-light-color:#7dbadf;
+--mantine-color-blue-outline:#54a5d4;
+--mantine-color-blue-outline-hover:rgba(84, 165, 212, 0.08);
+--mantine-color-blue-text:#54a5d4;
+--chart-series-1:#54a5d4;
+}
+
+html:root[data-mantine-color-scheme="light"]{
+--mantine-color-gray-0:#f2f5f8;
+--mantine-color-gray-1:#ebeef1;
+--mantine-color-gray-2:#e5e7eb;
+--mantine-color-gray-3:#dbdee2;
+--mantine-color-gray-4:#ced0d6;
+--mantine-color-gray-5:#aeafb8;
+--mantine-color-gray-6:#888794;
+--mantine-color-gray-7:#5a586a;
+--mantine-color-gray-8:#434154;
+--mantine-color-gray-9:#312e43;
+--nebula-card:rgba(249, 252, 254, 0.85);
+--nebula-button-ink:#16122a;
+--nebula-highlight:#5a8782;
+--mantine-color-white:#f9fcfe;
+--mantine-color-black:#16122a;
+--mantine-color-bright:#16122a;
+--mantine-color-body:#e6edf1;
+--mantine-color-text:#16122a;
+--mantine-color-dimmed:#6c6b7b;
+--mantine-color-placeholder:#aeafb8;
+--mantine-color-default:#f9fcfe;
+--mantine-color-default-hover:#f2f5f8;
+--mantine-color-default-color:#16122a;
+--mantine-color-default-border:#ced0d6;
+--mantine-color-anchor:#1d75ae;
+--mantine-color-blue-filled:#1e88c7;
+--mantine-color-blue-filled-hover:#1972a7;
+--mantine-color-blue-light:rgba(30, 136, 199, 0.1);
+--mantine-color-blue-light-hover:rgba(30, 136, 199, 0.14);
+--mantine-color-blue-light-color:#1d75ae;
+--mantine-color-blue-outline:#1e88c7;
+--mantine-color-blue-outline-hover:rgba(30, 136, 199, 0.05);
+--mantine-color-blue-text:#1d75ae;
+--chart-series-1:#1e88c7;
+--chart-tick-color:var(--mantine-color-dimmed);
+}
+
+html:root[data-mantine-color-scheme="light"] .xterm .xterm-scrollable-element{
+background-color:transparent!important;
+}
+
+html:root[data-mantine-color-scheme="light"] .xterm .xterm-rows{
+color:var(--mantine-color-text);
+}
+
+html:root[data-mantine-color-scheme="light"] :is([class~="text-neutral-400"],[class~="text-neutral-400!"],[class~="light:text-neutral-400!"],[class~="text-gray-400"],[class~="text-gray-400!"],[class~="light:text-gray-400!"],[class~="text-gray-500"],[class~="text-gray-500!"],[class~="light:text-gray-500!"],[class~="text-gray-600"],[class~="text-gray-600!"],[class~="light:text-gray-600!"]){
+--color-neutral-400:var(--mantine-color-dimmed);
+--color-gray-400:var(--mantine-color-dimmed);
+--color-gray-500:var(--mantine-color-dimmed);
+--color-gray-600:var(--mantine-color-dimmed);
+}
+
+html:root .mantine-Button-root[data-variant="filled"]:not([data-disabled]):not(:disabled){
+background-color:color-mix(in srgb,var(--button-bg) 22%,transparent)!important;
+border:1px solid color-mix(in srgb,var(--button-bg) 62%,transparent)!important;
+color:color-mix(in srgb,var(--button-bg) 55%,var(--nebula-button-ink))!important;
+}
+
+html:root .mantine-Button-root[data-variant="filled"]:not([data-disabled]):not(:disabled):hover{
+background-color:color-mix(in srgb,var(--button-bg) 34%,transparent)!important;
+}
+
+html:root .mantine-Card-root:not(.fixed > *){
+background-color:var(--nebula-card);
+}
+
+html:root .mantine-Paper-root[data-with-border]:not(.mantine-Card-root,.mantine-Dialog-root,.mantine-ActionBar-root){
+background-color:color-mix(in srgb,var(--mantine-color-body) 85%,transparent);
+}
+
+html:root #sidebar-content a,html:root .nebula-topnav a,html:root .nebula-topnav-menu a{
+--nebula-nav-accent:var(--mantine-color-blue-filled);
+--nebula-nav-tint:var(--mantine-color-blue-light);
+--nebula-nav-ink:var(--mantine-color-blue-light-color);
+}
+
+html:root[data-mantine-color-scheme="dark"]{
+--nebula-nav-fill:var(--mantine-color-default-hover);
+}
+
+html:root[data-mantine-color-scheme="light"]{
+--nebula-nav-fill:var(--mantine-color-gray-2);
+}
+
+@media (hover:hover){
+html:root #sidebar-content a > .mantine-Button-root:not(.active):hover,html:root .nebula-topnav a > .mantine-Button-root:not(.active):hover,html:root .nebula-topnav-menu a > .mantine-Button-root:not(.active):hover{
+background-color:var(--nebula-nav-tint);
+color:var(--mantine-color-text);
+}
+}
+
+html:root #sidebar-content a > .mantine-Button-root.active,html:root .nebula-topnav a > .mantine-Button-root.active,html:root .nebula-topnav-menu a > .mantine-Button-root.active{
+border-color:transparent;
+background-color:var(--nebula-nav-accent);
+color:var(--mantine-primary-color-contrast);
+}
+
+html:root .nebula-sb-items a:not(.active):hover::before{
+background:transparent;
+}
+
+html:root #sidebar-content a > .mantine-Button-root,html:root .nebula-topnav a > .mantine-Button-root,html:root .nebula-topnav-menu a > .mantine-Button-root{
+border-radius:999px;
+}
+
+html:root #sidebar-desktop:has(~ :is(#dashboard-root,#server-root,#admin-root)){
+margin:0.75rem 0 0.75rem 0.75rem;
+top:0.75rem;
+height:calc(100vh - 1.5rem);
+border-radius:1.75rem;
+border-width:1px;
+padding:1rem 0.75rem;
+}
+
+html:root #sidebar-desktop:has(~ :is(#dashboard-root,#server-root,#admin-root)) #sidebar-account-card{
+display:none;
+}
+
+`;
+
+exports[`buildCss output > preset Ember 1`] = `
+html:root{
+--mantine-color-blue-0:#fbefea;
+--mantine-color-blue-1:#f7dcd0;
+--mantine-color-blue-2:#f0c0aa;
+--mantine-color-blue-3:#e9a484;
+--mantine-color-blue-4:#e2885e;
+--mantine-color-blue-5:#dd7240;
+--mantine-color-blue-6:#d9622b;
+--mantine-color-blue-7:#b65224;
+--mantine-color-blue-8:#98451e;
+--mantine-color-blue-9:#7a3718;
+--mantine-color-dark-0:#f1e7e2;
+--mantine-color-dark-1:#c6bcb8;
+--mantine-color-dark-2:#978e8a;
+--mantine-color-dark-3:#706764;
+--mantine-color-dark-4:#38302d;
+--mantine-color-dark-5:#2b2321;
+--mantine-color-dark-6:#130c0a;
+--mantine-color-dark-7:#1a1210;
+--mantine-color-dark-8:#140e0c;
+--mantine-color-dark-9:#0e0a09;
+--nebula-highlight:#ffc59b;
+--mantine-radius-xs:4px;
+--mantine-radius-sm:6px;
+--mantine-radius-default:6px;
+--mantine-radius-md:10px;
+--mantine-radius-lg:14px;
+--mantine-font-family:'Exo 2', Helvetica, Arial, sans-serif;
+--mantine-font-family-headings:'Exo 2', Helvetica, Arial, sans-serif;
+--font-sans:'Exo 2', Helvetica, Arial, sans-serif;
+}
+
+html:root[data-mantine-color-scheme="dark"]{
+--nebula-card:#130c0a;
+--nebula-button-ink:#ffffff;
+--mantine-color-body:#1a1210;
+--mantine-color-text:#f1e7e2;
+--mantine-color-dimmed:#978e8a;
+--mantine-color-placeholder:#706764;
+--mantine-color-default:#251d1b;
+--mantine-color-default-hover:#302725;
+--mantine-color-default-border:#38302d;
+--mantine-color-anchor:#e2885e;
+--mantine-color-blue-filled:#d9622b;
+--mantine-color-blue-filled-hover:#dd7240;
+--mantine-color-blue-light:rgba(217, 98, 43, 0.2);
+--mantine-color-blue-light-hover:rgba(217, 98, 43, 0.28);
+--mantine-color-blue-light-color:#e9a484;
+--mantine-color-blue-outline:#e2885e;
+--mantine-color-blue-outline-hover:rgba(226, 136, 94, 0.08);
+--mantine-color-blue-text:#e2885e;
+--chart-series-1:#e2885e;
+}
+
+html:root[data-mantine-color-scheme="light"]{
+--mantine-color-gray-0:#f7f4f3;
+--mantine-color-gray-1:#f0edec;
+--mantine-color-gray-2:#e9e6e5;
+--mantine-color-gray-3:#e0dddc;
+--mantine-color-gray-4:#d3cfce;
+--mantine-color-gray-5:#b3aead;
+--mantine-color-gray-6:#8c8785;
+--mantine-color-gray-7:#5e5856;
+--mantine-color-gray-8:#48413f;
+--mantine-color-gray-9:#352e2c;
+--nebula-card:#fefbfa;
+--nebula-button-ink:#1a1210;
+--nebula-highlight:#9a765e;
+--mantine-color-white:#fefbfa;
+--mantine-color-black:#1a1210;
+--mantine-color-bright:#1a1210;
+--mantine-color-body:#f2eae7;
+--mantine-color-text:#1a1210;
+--mantine-color-dimmed:#716b69;
+--mantine-color-placeholder:#b3aead;
+--mantine-color-default:#fefbfa;
+--mantine-color-default-hover:#f7f4f3;
+--mantine-color-default-color:#1a1210;
+--mantine-color-default-border:#d3cfce;
+--mantine-color-anchor:#ba5527;
+--mantine-color-blue-filled:#d9622b;
+--mantine-color-blue-filled-hover:#b65224;
+--mantine-color-blue-light:rgba(217, 98, 43, 0.1);
+--mantine-color-blue-light-hover:rgba(217, 98, 43, 0.14);
+--mantine-color-blue-light-color:#ba5527;
+--mantine-color-blue-outline:#d9622b;
+--mantine-color-blue-outline-hover:rgba(217, 98, 43, 0.05);
+--mantine-color-blue-text:#ba5527;
+--chart-series-1:#d9622b;
+--chart-tick-color:var(--mantine-color-dimmed);
+}
+
+html:root[data-mantine-color-scheme="light"] .xterm .xterm-scrollable-element{
+background-color:transparent!important;
+}
+
+html:root[data-mantine-color-scheme="light"] .xterm .xterm-rows{
+color:var(--mantine-color-text);
+}
+
+html:root[data-mantine-color-scheme="light"] :is([class~="text-neutral-400"],[class~="text-neutral-400!"],[class~="light:text-neutral-400!"],[class~="text-gray-400"],[class~="text-gray-400!"],[class~="light:text-gray-400!"],[class~="text-gray-500"],[class~="text-gray-500!"],[class~="light:text-gray-500!"],[class~="text-gray-600"],[class~="text-gray-600!"],[class~="light:text-gray-600!"]){
+--color-neutral-400:var(--mantine-color-dimmed);
+--color-gray-400:var(--mantine-color-dimmed);
+--color-gray-500:var(--mantine-color-dimmed);
+--color-gray-600:var(--mantine-color-dimmed);
+}
+
+html:root .mantine-Button-root[data-variant="filled"]:not([data-disabled]):not(:disabled){
+background-color:color-mix(in srgb,var(--button-bg) 22%,transparent)!important;
+border:1px solid color-mix(in srgb,var(--button-bg) 62%,transparent)!important;
+color:color-mix(in srgb,var(--button-bg) 55%,var(--nebula-button-ink))!important;
+}
+
+html:root .mantine-Button-root[data-variant="filled"]:not([data-disabled]):not(:disabled):hover{
+background-color:color-mix(in srgb,var(--button-bg) 34%,transparent)!important;
+}
+
+`;
+
+exports[`buildCss output > preset Emerald 1`] = `
+html:root{
+--mantine-color-blue-0:#e9f5f1;
+--mantine-color-blue-1:#cee9e0;
+--mantine-color-blue-2:#a5d8c7;
+--mantine-color-blue-3:#7dc6ae;
+--mantine-color-blue-4:#55b595;
+--mantine-color-blue-5:#35a782;
+--mantine-color-blue-6:#1f9d74;
+--mantine-color-blue-7:#1a8461;
+--mantine-color-blue-8:#166e51;
+--mantine-color-blue-9:#115841;
+--mantine-color-dark-0:#e3efe9;
+--mantine-color-dark-1:#b9c4bf;
+--mantine-color-dark-2:#8a9690;
+--mantine-color-dark-3:#646f6a;
+--mantine-color-dark-4:#2d3834;
+--mantine-color-dark-5:#202b27;
+--mantine-color-dark-6:#0b1411;
+--mantine-color-dark-7:#0f1a16;
+--mantine-color-dark-8:#0b1411;
+--mantine-color-dark-9:#080e0c;
+--nebula-highlight:#9be7c4;
+--mantine-radius-xs:4px;
+--mantine-radius-sm:6px;
+--mantine-radius-default:6px;
+--mantine-radius-md:10px;
+--mantine-radius-lg:14px;
+--mantine-font-family:'Exo 2', Helvetica, Arial, sans-serif;
+--mantine-font-family-headings:'Exo 2', Helvetica, Arial, sans-serif;
+--font-sans:'Exo 2', Helvetica, Arial, sans-serif;
+}
+
+html:root[data-mantine-color-scheme="dark"]{
+--nebula-card:#0b1411;
+--nebula-button-ink:#ffffff;
+--mantine-color-body:#0f1a16;
+--mantine-color-text:#e3efe9;
+--mantine-color-dimmed:#8a9690;
+--mantine-color-placeholder:#646f6a;
+--mantine-color-default:#1a2521;
+--mantine-color-default-hover:#242f2b;
+--mantine-color-default-border:#2d3834;
+--mantine-color-anchor:#55b595;
+--mantine-color-blue-filled:#1f9d74;
+--mantine-color-blue-filled-hover:#35a782;
+--mantine-color-blue-light:rgba(31, 157, 116, 0.2);
+--mantine-color-blue-light-hover:rgba(31, 157, 116, 0.28);
+--mantine-color-blue-light-color:#7dc6ae;
+--mantine-color-blue-outline:#55b595;
+--mantine-color-blue-outline-hover:rgba(85, 181, 149, 0.08);
+--mantine-color-blue-text:#55b595;
+--chart-series-1:#55b595;
+}
+
+html:root[data-mantine-color-scheme="light"]{
+--mantine-color-gray-0:#f2f6f5;
+--mantine-color-gray-1:#ebefee;
+--mantine-color-gray-2:#e4e9e7;
+--mantine-color-gray-3:#dbdfde;
+--mantine-color-gray-4:#cdd2d0;
+--mantine-color-gray-5:#acb2b0;
+--mantine-color-gray-6:#848c89;
+--mantine-color-gray-7:#555e5b;
+--mantine-color-gray-8:#3e4744;
+--mantine-color-gray-9:#2b3532;
+--nebula-card:#f9fdfc;
+--nebula-button-ink:#0f1a16;
+--nebula-highlight:#5d8d77;
+--mantine-color-white:#f9fdfc;
+--mantine-color-black:#0f1a16;
+--mantine-color-bright:#0f1a16;
+--mantine-color-body:#e6efeb;
+--mantine-color-text:#0f1a16;
+--mantine-color-dimmed:#68706d;
+--mantine-color-placeholder:#acb2b0;
+--mantine-color-default:#f9fdfc;
+--mantine-color-default-hover:#f2f6f5;
+--mantine-color-default-color:#0f1a16;
+--mantine-color-default-border:#cdd2d0;
+--mantine-color-anchor:#1a7658;
+--mantine-color-blue-filled:#1f9d74;
+--mantine-color-blue-filled-hover:#1a8461;
+--mantine-color-blue-light:rgba(31, 157, 116, 0.1);
+--mantine-color-blue-light-hover:rgba(31, 157, 116, 0.14);
+--mantine-color-blue-light-color:#1a7658;
+--mantine-color-blue-outline:#1f9d74;
+--mantine-color-blue-outline-hover:rgba(31, 157, 116, 0.05);
+--mantine-color-blue-text:#1a7658;
+--chart-series-1:#1f9d74;
+--chart-tick-color:var(--mantine-color-dimmed);
+}
+
+html:root[data-mantine-color-scheme="light"] .xterm .xterm-scrollable-element{
+background-color:transparent!important;
+}
+
+html:root[data-mantine-color-scheme="light"] .xterm .xterm-rows{
+color:var(--mantine-color-text);
+}
+
+html:root[data-mantine-color-scheme="light"] :is([class~="text-neutral-400"],[class~="text-neutral-400!"],[class~="light:text-neutral-400!"],[class~="text-gray-400"],[class~="text-gray-400!"],[class~="light:text-gray-400!"],[class~="text-gray-500"],[class~="text-gray-500!"],[class~="light:text-gray-500!"],[class~="text-gray-600"],[class~="text-gray-600!"],[class~="light:text-gray-600!"]){
+--color-neutral-400:var(--mantine-color-dimmed);
+--color-gray-400:var(--mantine-color-dimmed);
+--color-gray-500:var(--mantine-color-dimmed);
+--color-gray-600:var(--mantine-color-dimmed);
+}
+
+html:root .mantine-Button-root[data-variant="filled"]:not([data-disabled]):not(:disabled){
+background-color:color-mix(in srgb,var(--button-bg) 22%,transparent)!important;
+border:1px solid color-mix(in srgb,var(--button-bg) 62%,transparent)!important;
+color:color-mix(in srgb,var(--button-bg) 55%,var(--nebula-button-ink))!important;
+}
+
+html:root .mantine-Button-root[data-variant="filled"]:not([data-disabled]):not(:disabled):hover{
+background-color:color-mix(in srgb,var(--button-bg) 34%,transparent)!important;
+}
+
+`;
+
+exports[`buildCss output > preset Graphite 1`] = `
+html:root{
+--mantine-color-blue-0:#f0f2ff;
+--mantine-color-blue-1:#dfe2ff;
+--mantine-color-blue-2:#c4cbff;
+--mantine-color-blue-3:#aab3ff;
+--mantine-color-blue-4:#8f9bff;
+--mantine-color-blue-5:#7b89ff;
+--mantine-color-blue-6:#6c7cff;
+--mantine-color-blue-7:#5b68d6;
+--mantine-color-blue-8:#4c57b3;
+--mantine-color-blue-9:#3c458f;
+--mantine-color-dark-0:#e7e8ec;
+--mantine-color-dark-1:#bdbec2;
+--mantine-color-dark-2:#8f9094;
+--mantine-color-dark-3:#6a6b6f;
+--mantine-color-dark-4:#333438;
+--mantine-color-dark-5:#27282c;
+--mantine-color-dark-6:#101114;
+--mantine-color-dark-7:#16171b;
+--mantine-color-dark-8:#111114;
+--mantine-color-dark-9:#0c0d0f;
+--nebula-highlight:#b9c0ff;
+--mantine-radius-xs:4px;
+--mantine-radius-sm:6px;
+--mantine-radius-default:6px;
+--mantine-radius-md:10px;
+--mantine-radius-lg:14px;
+--mantine-font-family:'Exo 2', Helvetica, Arial, sans-serif;
+--mantine-font-family-headings:'Exo 2', Helvetica, Arial, sans-serif;
+--font-sans:'Exo 2', Helvetica, Arial, sans-serif;
+}
+
+html:root[data-mantine-color-scheme="dark"]{
+--nebula-card:#101114;
+--nebula-button-ink:#ffffff;
+--mantine-color-body:#16171b;
+--mantine-color-text:#e7e8ec;
+--mantine-color-dimmed:#8f9094;
+--mantine-color-placeholder:#6a6b6f;
+--mantine-color-default:#202125;
+--mantine-color-default-hover:#2b2c30;
+--mantine-color-default-border:#333438;
+--mantine-color-anchor:#8f9bff;
+--mantine-color-blue-filled:#6c7cff;
+--mantine-color-blue-filled-hover:#7b89ff;
+--mantine-color-blue-light:rgba(108, 124, 255, 0.2);
+--mantine-color-blue-light-hover:rgba(108, 124, 255, 0.28);
+--mantine-color-blue-light-color:#aab3ff;
+--mantine-color-blue-outline:#8f9bff;
+--mantine-color-blue-outline-hover:rgba(143, 155, 255, 0.08);
+--mantine-color-blue-text:#8f9bff;
+--chart-series-1:#8f9bff;
+}
+
+html:root[data-mantine-color-scheme="light"]{
+--mantine-color-gray-0:#f4f5f8;
+--mantine-color-gray-1:#edeef1;
+--mantine-color-gray-2:#e6e7ea;
+--mantine-color-gray-3:#dddee1;
+--mantine-color-gray-4:#cfd0d4;
+--mantine-color-gray-5:#afb0b4;
+--mantine-color-gray-6:#898a8d;
+--mantine-color-gray-7:#5b5c5f;
+--mantine-color-gray-8:#444549;
+--mantine-color-gray-9:#313236;
+--nebula-card:#fbfcff;
+--nebula-button-ink:#16171b;
+--nebula-highlight:#888dbb;
+--mantine-color-white:#fbfcff;
+--mantine-color-black:#16171b;
+--mantine-color-bright:#16171b;
+--mantine-color-body:#ebecf5;
+--mantine-color-text:#16171b;
+--mantine-color-dimmed:#6d6e72;
+--mantine-color-placeholder:#afb0b4;
+--mantine-color-default:#fbfcff;
+--mantine-color-default-hover:#f4f5f8;
+--mantine-color-default-color:#16171b;
+--mantine-color-default-border:#cfd0d4;
+--mantine-color-anchor:#525ebb;
+--mantine-color-blue-filled:#6c7cff;
+--mantine-color-blue-filled-hover:#5b68d6;
+--mantine-color-blue-light:rgba(108, 124, 255, 0.1);
+--mantine-color-blue-light-hover:rgba(108, 124, 255, 0.14);
+--mantine-color-blue-light-color:#525ebb;
+--mantine-color-blue-outline:#6c7cff;
+--mantine-color-blue-outline-hover:rgba(108, 124, 255, 0.05);
+--mantine-color-blue-text:#525ebb;
+--chart-series-1:#6c7cff;
+--chart-tick-color:var(--mantine-color-dimmed);
+}
+
+html:root[data-mantine-color-scheme="light"] .xterm .xterm-scrollable-element{
+background-color:transparent!important;
+}
+
+html:root[data-mantine-color-scheme="light"] .xterm .xterm-rows{
+color:var(--mantine-color-text);
+}
+
+html:root[data-mantine-color-scheme="light"] :is([class~="text-neutral-400"],[class~="text-neutral-400!"],[class~="light:text-neutral-400!"],[class~="text-gray-400"],[class~="text-gray-400!"],[class~="light:text-gray-400!"],[class~="text-gray-500"],[class~="text-gray-500!"],[class~="light:text-gray-500!"],[class~="text-gray-600"],[class~="text-gray-600!"],[class~="light:text-gray-600!"]){
+--color-neutral-400:var(--mantine-color-dimmed);
+--color-gray-400:var(--mantine-color-dimmed);
+--color-gray-500:var(--mantine-color-dimmed);
+--color-gray-600:var(--mantine-color-dimmed);
+}
+
+html:root .mantine-Button-root[data-variant="filled"]:not([data-disabled]):not(:disabled){
+background-color:color-mix(in srgb,var(--button-bg) 22%,transparent)!important;
+border:1px solid color-mix(in srgb,var(--button-bg) 62%,transparent)!important;
+color:color-mix(in srgb,var(--button-bg) 55%,var(--nebula-button-ink))!important;
+}
+
+html:root .mantine-Button-root[data-variant="filled"]:not([data-disabled]):not(:disabled):hover{
+background-color:color-mix(in srgb,var(--button-bg) 34%,transparent)!important;
+}
+
+`;
+
+exports[`buildCss output > preset Midnight 1`] = `
+html:root{
+--mantine-color-blue-0:#e9f3f9;
+--mantine-color-blue-1:#cee5f3;
+--mantine-color-blue-2:#a5cfe9;
+--mantine-color-blue-3:#7dbadf;
+--mantine-color-blue-4:#54a5d4;
+--mantine-color-blue-5:#3494cd;
+--mantine-color-blue-6:#1e88c7;
+--mantine-color-blue-7:#1972a7;
+--mantine-color-blue-8:#155f8b;
+--mantine-color-blue-9:#114c6f;
+--mantine-color-dark-0:#e6e4f0;
+--mantine-color-dark-1:#bcbac8;
+--mantine-color-dark-2:#8f8c9d;
+--mantine-color-dark-3:#696679;
+--mantine-color-dark-4:#332f46;
+--mantine-color-dark-5:#27233a;
+--mantine-color-dark-6:#110b21;
+--mantine-color-dark-7:#16122a;
+--mantine-color-dark-8:#110e20;
+--mantine-color-dark-9:#0c0a17;
+--nebula-highlight:#8fe3c8;
+--mantine-radius-xs:4px;
+--mantine-radius-sm:6px;
+--mantine-radius-default:6px;
+--mantine-radius-md:10px;
+--mantine-radius-lg:14px;
+--mantine-font-family:'Exo 2', Helvetica, Arial, sans-serif;
+--mantine-font-family-headings:'Exo 2', Helvetica, Arial, sans-serif;
+--font-sans:'Exo 2', Helvetica, Arial, sans-serif;
+}
+
+html:root[data-mantine-color-scheme="dark"]{
+--nebula-card:#110b21;
+--nebula-button-ink:#ffffff;
+--mantine-color-body:#16122a;
+--mantine-color-text:#e6e4f0;
+--mantine-color-dimmed:#8f8c9d;
+--mantine-color-placeholder:#696679;
+--mantine-color-default:#201d34;
+--mantine-color-default-hover:#2b273e;
+--mantine-color-default-border:#332f46;
+--mantine-color-anchor:#54a5d4;
+--mantine-color-blue-filled:#1e88c7;
+--mantine-color-blue-filled-hover:#3494cd;
+--mantine-color-blue-light:rgba(30, 136, 199, 0.2);
+--mantine-color-blue-light-hover:rgba(30, 136, 199, 0.28);
+--mantine-color-blue-light-color:#7dbadf;
+--mantine-color-blue-outline:#54a5d4;
+--mantine-color-blue-outline-hover:rgba(84, 165, 212, 0.08);
+--mantine-color-blue-text:#54a5d4;
+--chart-series-1:#54a5d4;
+}
+
+html:root[data-mantine-color-scheme="light"]{
+--mantine-color-gray-0:#f2f5f8;
+--mantine-color-gray-1:#ebeef1;
+--mantine-color-gray-2:#e5e7eb;
+--mantine-color-gray-3:#dbdee2;
+--mantine-color-gray-4:#ced0d6;
+--mantine-color-gray-5:#aeafb8;
+--mantine-color-gray-6:#888794;
+--mantine-color-gray-7:#5a586a;
+--mantine-color-gray-8:#434154;
+--mantine-color-gray-9:#312e43;
+--nebula-card:#f9fcfe;
+--nebula-button-ink:#16122a;
+--nebula-highlight:#5a8782;
+--mantine-color-white:#f9fcfe;
+--mantine-color-black:#16122a;
+--mantine-color-bright:#16122a;
+--mantine-color-body:#e6edf1;
+--mantine-color-text:#16122a;
+--mantine-color-dimmed:#6c6b7b;
+--mantine-color-placeholder:#aeafb8;
+--mantine-color-default:#f9fcfe;
+--mantine-color-default-hover:#f2f5f8;
+--mantine-color-default-color:#16122a;
+--mantine-color-default-border:#ced0d6;
+--mantine-color-anchor:#1d75ae;
+--mantine-color-blue-filled:#1e88c7;
+--mantine-color-blue-filled-hover:#1972a7;
+--mantine-color-blue-light:rgba(30, 136, 199, 0.1);
+--mantine-color-blue-light-hover:rgba(30, 136, 199, 0.14);
+--mantine-color-blue-light-color:#1d75ae;
+--mantine-color-blue-outline:#1e88c7;
+--mantine-color-blue-outline-hover:rgba(30, 136, 199, 0.05);
+--mantine-color-blue-text:#1d75ae;
+--chart-series-1:#1e88c7;
+--chart-tick-color:var(--mantine-color-dimmed);
+}
+
+html:root[data-mantine-color-scheme="light"] .xterm .xterm-scrollable-element{
+background-color:transparent!important;
+}
+
+html:root[data-mantine-color-scheme="light"] .xterm .xterm-rows{
+color:var(--mantine-color-text);
+}
+
+html:root[data-mantine-color-scheme="light"] :is([class~="text-neutral-400"],[class~="text-neutral-400!"],[class~="light:text-neutral-400!"],[class~="text-gray-400"],[class~="text-gray-400!"],[class~="light:text-gray-400!"],[class~="text-gray-500"],[class~="text-gray-500!"],[class~="light:text-gray-500!"],[class~="text-gray-600"],[class~="text-gray-600!"],[class~="light:text-gray-600!"]){
+--color-neutral-400:var(--mantine-color-dimmed);
+--color-gray-400:var(--mantine-color-dimmed);
+--color-gray-500:var(--mantine-color-dimmed);
+--color-gray-600:var(--mantine-color-dimmed);
+}
+
+html:root .mantine-Button-root[data-variant="filled"]:not([data-disabled]):not(:disabled){
+background-color:color-mix(in srgb,var(--button-bg) 22%,transparent)!important;
+border:1px solid color-mix(in srgb,var(--button-bg) 62%,transparent)!important;
+color:color-mix(in srgb,var(--button-bg) 55%,var(--nebula-button-ink))!important;
+}
+
+html:root .mantine-Button-root[data-variant="filled"]:not([data-disabled]):not(:disabled):hover{
+background-color:color-mix(in srgb,var(--button-bg) 34%,transparent)!important;
+}
+
+`;
+
+exports[`buildCss output > preset Mint 1`] = `
+html:root{
+--mantine-color-blue-0:#eaf9f4;
+--mantine-color-blue-1:#d1f1e6;
+--mantine-color-blue-2:#ace5d2;
+--mantine-color-blue-3:#86dabe;
+--mantine-color-blue-4:#61ceaa;
+--mantine-color-blue-5:#44c59a;
+--mantine-color-blue-6:#2fbf8f;
+--mantine-color-blue-7:#27a078;
+--mantine-color-blue-8:#218664;
+--mantine-color-blue-9:#1a6b50;
+--mantine-color-dark-0:#e5f3ee;
+--mantine-color-dark-1:#bac8c4;
+--mantine-color-dark-2:#8c9895;
+--mantine-color-dark-3:#65716f;
+--mantine-color-dark-4:#2e3839;
+--mantine-color-dark-5:#212b2c;
+--mantine-color-dark-6:#0b1314;
+--mantine-color-dark-7:#101a1b;
+--mantine-color-dark-8:#0c1414;
+--mantine-color-dark-9:#090e0f;
+--nebula-highlight:#b4f2dc;
+--mantine-radius-xs:4px;
+--mantine-radius-sm:6px;
+--mantine-radius-default:6px;
+--mantine-radius-md:10px;
+--mantine-radius-lg:14px;
+--mantine-font-family:'Exo 2', Helvetica, Arial, sans-serif;
+--mantine-font-family-headings:'Exo 2', Helvetica, Arial, sans-serif;
+--font-sans:'Exo 2', Helvetica, Arial, sans-serif;
+}
+
+html:root[data-mantine-color-scheme="dark"]{
+--nebula-card:#0b1314;
+--nebula-button-ink:#ffffff;
+--mantine-color-body:#101a1b;
+--mantine-color-text:#e5f3ee;
+--mantine-color-dimmed:#8c9895;
+--mantine-color-placeholder:#65716f;
+--mantine-color-default:#1b2526;
+--mantine-color-default-hover:#253030;
+--mantine-color-default-border:#2e3839;
+--mantine-color-anchor:#61ceaa;
+--mantine-color-blue-filled:#2fbf8f;
+--mantine-color-blue-filled-hover:#44c59a;
+--mantine-color-blue-light:rgba(47, 191, 143, 0.2);
+--mantine-color-blue-light-hover:rgba(47, 191, 143, 0.28);
+--mantine-color-blue-light-color:#86dabe;
+--mantine-color-blue-outline:#61ceaa;
+--mantine-color-blue-outline-hover:rgba(97, 206, 170, 0.08);
+--mantine-color-blue-text:#61ceaa;
+--chart-series-1:#61ceaa;
+--mantine-primary-color-contrast:#0b1314;
+}
+
+html:root[data-mantine-color-scheme="light"]{
+--mantine-color-gray-0:#f3f6f5;
+--mantine-color-gray-1:#ecefef;
+--mantine-color-gray-2:#e5e9e8;
+--mantine-color-gray-3:#dcdfdf;
+--mantine-color-gray-4:#ced2d1;
+--mantine-color-gray-5:#adb2b2;
+--mantine-color-gray-6:#858c8c;
+--mantine-color-gray-7:#565e5f;
+--mantine-color-gray-8:#3f4748;
+--mantine-color-gray-9:#2c3536;
+--nebula-card:#fafdfc;
+--nebula-button-ink:#101a1b;
+--nebula-highlight:#6c9387;
+--mantine-color-white:#fafdfc;
+--mantine-color-black:#101a1b;
+--mantine-color-bright:#101a1b;
+--mantine-color-body:#e7f1ee;
+--mantine-color-text:#101a1b;
+--mantine-color-dimmed:#697071;
+--mantine-color-placeholder:#adb2b2;
+--mantine-color-default:#fafdfc;
+--mantine-color-default-hover:#f3f6f5;
+--mantine-color-default-color:#101a1b;
+--mantine-color-default-border:#ced2d1;
+--mantine-color-anchor:#21765c;
+--mantine-color-blue-filled:#2fbf8f;
+--mantine-color-blue-filled-hover:#27a078;
+--mantine-color-blue-light:rgba(47, 191, 143, 0.1);
+--mantine-color-blue-light-hover:rgba(47, 191, 143, 0.14);
+--mantine-color-blue-light-color:#21765c;
+--mantine-color-blue-outline:#2fbf8f;
+--mantine-color-blue-outline-hover:rgba(47, 191, 143, 0.05);
+--mantine-color-blue-text:#21765c;
+--chart-series-1:#2fbf8f;
+--chart-tick-color:var(--mantine-color-dimmed);
+--mantine-primary-color-contrast:#0b1314;
+}
+
+html:root[data-mantine-color-scheme="light"] .xterm .xterm-scrollable-element{
+background-color:transparent!important;
+}
+
+html:root[data-mantine-color-scheme="light"] .xterm .xterm-rows{
+color:var(--mantine-color-text);
+}
+
+html:root[data-mantine-color-scheme="light"] :is([class~="text-neutral-400"],[class~="text-neutral-400!"],[class~="light:text-neutral-400!"],[class~="text-gray-400"],[class~="text-gray-400!"],[class~="light:text-gray-400!"],[class~="text-gray-500"],[class~="text-gray-500!"],[class~="light:text-gray-500!"],[class~="text-gray-600"],[class~="text-gray-600!"],[class~="light:text-gray-600!"]){
+--color-neutral-400:var(--mantine-color-dimmed);
+--color-gray-400:var(--mantine-color-dimmed);
+--color-gray-500:var(--mantine-color-dimmed);
+--color-gray-600:var(--mantine-color-dimmed);
+}
+
+html:root .mantine-Button-root[data-variant="filled"]:not([data-disabled]):not(:disabled){
+background-color:color-mix(in srgb,var(--button-bg) 22%,transparent)!important;
+border:1px solid color-mix(in srgb,var(--button-bg) 62%,transparent)!important;
+color:color-mix(in srgb,var(--button-bg) 55%,var(--nebula-button-ink))!important;
+}
+
+html:root .mantine-Button-root[data-variant="filled"]:not([data-disabled]):not(:disabled):hover{
+background-color:color-mix(in srgb,var(--button-bg) 34%,transparent)!important;
+}
+
+html:root .mantine-Button-root[style*="--button-bg: var(--mantine-color-blue-filled);
+"]{
+--button-color:#0b1314!important;
+}
+
+html:root .mantine-ActionIcon-root[style*="--ai-bg: var(--mantine-color-blue-filled);
+"]{
+--ai-color:#0b1314!important;
+}
+
+html:root .mantine-Badge-root:is([style*="--badge-bg: var(--mantine-color-blue-filled);
+"],:not([style*="--badge-bg"])){
+--badge-color:#0b1314!important;
+}
+
+`;
+
+exports[`buildCss output > preset Stellar 1`] = `
+html:root{
+--mantine-color-blue-0:#ebf0fc;
+--mantine-color-blue-1:#d4dff8;
+--mantine-color-blue-2:#b1c4f2;
+--mantine-color-blue-3:#8daaec;
+--mantine-color-blue-4:#6a8fe6;
+--mantine-color-blue-5:#4f7be1;
+--mantine-color-blue-6:#3b6cde;
+--mantine-color-blue-7:#325bba;
+--mantine-color-blue-8:#294c9b;
+--mantine-color-blue-9:#213c7c;
+--mantine-color-dark-0:#e2e4ee;
+--mantine-color-dark-1:#babcc8;
+--mantine-color-dark-2:#8e909e;
+--mantine-color-dark-3:#6b6c7c;
+--mantine-color-dark-4:#37384b;
+--mantine-color-dark-5:#2b2c3f;
+--mantine-color-dark-6:#222339;
+--mantine-color-dark-7:#1b1c30;
+--mantine-color-dark-8:#141524;
+--mantine-color-dark-9:#0f0f1a;
+--nebula-highlight:#8fb4ff;
+--mantine-radius-xs:4px;
+--mantine-radius-sm:6px;
+--mantine-radius-default:6px;
+--mantine-radius-md:10px;
+--mantine-radius-lg:14px;
+--mantine-font-family:'Exo 2', Helvetica, Arial, sans-serif;
+--mantine-font-family-headings:'Exo 2', Helvetica, Arial, sans-serif;
+--font-sans:'Exo 2', Helvetica, Arial, sans-serif;
+}
+
+html:root[data-mantine-color-scheme="dark"]{
+--nebula-card:#222339;
+--nebula-button-ink:#ffffff;
+--mantine-color-body:#1b1c30;
+--mantine-color-text:#e2e4ee;
+--mantine-color-dimmed:#8e909e;
+--mantine-color-placeholder:#6b6c7c;
+--mantine-color-default:#252639;
+--mantine-color-default-hover:#2f3043;
+--mantine-color-default-border:#37384b;
+--mantine-color-anchor:#6a8fe6;
+--mantine-color-blue-filled:#3b6cde;
+--mantine-color-blue-filled-hover:#4f7be1;
+--mantine-color-blue-light:rgba(59, 108, 222, 0.2);
+--mantine-color-blue-light-hover:rgba(59, 108, 222, 0.28);
+--mantine-color-blue-light-color:#8daaec;
+--mantine-color-blue-outline:#6a8fe6;
+--mantine-color-blue-outline-hover:rgba(106, 143, 230, 0.08);
+--mantine-color-blue-text:#6a8fe6;
+--chart-series-1:#6a8fe6;
+}
+
+html:root[data-mantine-color-scheme="light"]{
+--mantine-color-gray-0:#f3f4f8;
+--mantine-color-gray-1:#edeef2;
+--mantine-color-gray-2:#e6e7eb;
+--mantine-color-gray-3:#dddee3;
+--mantine-color-gray-4:#d0d1d7;
+--mantine-color-gray-5:#b0b1ba;
+--mantine-color-gray-6:#8b8c97;
+--mantine-color-gray-7:#5e5f6e;
+--mantine-color-gray-8:#484959;
+--mantine-color-gray-9:#363749;
+--nebula-card:#fafbfe;
+--nebula-button-ink:#1b1c30;
+--nebula-highlight:#6c86c1;
+--mantine-color-white:#fafbfe;
+--mantine-color-black:#1b1c30;
+--mantine-color-bright:#1b1c30;
+--mantine-color-body:#e9ecf4;
+--mantine-color-text:#1b1c30;
+--mantine-color-dimmed:#70717e;
+--mantine-color-placeholder:#b0b1ba;
+--mantine-color-default:#fafbfe;
+--mantine-color-default-hover:#f3f4f8;
+--mantine-color-default-color:#1b1c30;
+--mantine-color-default-border:#d0d1d7;
+--mantine-color-anchor:#3b6cde;
+--mantine-color-blue-filled:#3b6cde;
+--mantine-color-blue-filled-hover:#325bba;
+--mantine-color-blue-light:rgba(59, 108, 222, 0.1);
+--mantine-color-blue-light-hover:rgba(59, 108, 222, 0.14);
+--mantine-color-blue-light-color:#3b6cde;
+--mantine-color-blue-outline:#3b6cde;
+--mantine-color-blue-outline-hover:rgba(59, 108, 222, 0.05);
+--mantine-color-blue-text:#3b6cde;
+--chart-series-1:#3b6cde;
+--chart-tick-color:var(--mantine-color-dimmed);
+}
+
+html:root[data-mantine-color-scheme="light"] .xterm .xterm-scrollable-element{
+background-color:transparent!important;
+}
+
+html:root[data-mantine-color-scheme="light"] .xterm .xterm-rows{
+color:var(--mantine-color-text);
+}
+
+html:root[data-mantine-color-scheme="light"] :is([class~="text-neutral-400"],[class~="text-neutral-400!"],[class~="light:text-neutral-400!"],[class~="text-gray-400"],[class~="text-gray-400!"],[class~="light:text-gray-400!"],[class~="text-gray-500"],[class~="text-gray-500!"],[class~="light:text-gray-500!"],[class~="text-gray-600"],[class~="text-gray-600!"],[class~="light:text-gray-600!"]){
+--color-neutral-400:var(--mantine-color-dimmed);
+--color-gray-400:var(--mantine-color-dimmed);
+--color-gray-500:var(--mantine-color-dimmed);
+--color-gray-600:var(--mantine-color-dimmed);
+}
+
+html:root .mantine-Button-root[data-variant="filled"]:not([data-disabled]):not(:disabled){
+background-color:color-mix(in srgb,var(--button-bg) 22%,transparent)!important;
+border:1px solid color-mix(in srgb,var(--button-bg) 62%,transparent)!important;
+color:color-mix(in srgb,var(--button-bg) 55%,var(--nebula-button-ink))!important;
+}
+
+html:root .mantine-Button-root[data-variant="filled"]:not([data-disabled]):not(:disabled):hover{
+background-color:color-mix(in srgb,var(--button-bg) 34%,transparent)!important;
+}
+
+`;
+
+exports[`buildCss output > secondary fill menu 1`] = `
+html:root{
+--mantine-color-blue-0:#e9f3f9;
+--mantine-color-blue-1:#cee5f3;
+--mantine-color-blue-2:#a5cfe9;
+--mantine-color-blue-3:#7dbadf;
+--mantine-color-blue-4:#54a5d4;
+--mantine-color-blue-5:#3494cd;
+--mantine-color-blue-6:#1e88c7;
+--mantine-color-blue-7:#1972a7;
+--mantine-color-blue-8:#155f8b;
+--mantine-color-blue-9:#114c6f;
+--mantine-color-dark-0:#e6e4f0;
+--mantine-color-dark-1:#bcbac8;
+--mantine-color-dark-2:#8f8c9d;
+--mantine-color-dark-3:#696679;
+--mantine-color-dark-4:#332f46;
+--mantine-color-dark-5:#27233a;
+--mantine-color-dark-6:#110b21;
+--mantine-color-dark-7:#16122a;
+--mantine-color-dark-8:#110e20;
+--mantine-color-dark-9:#0c0a17;
+--nebula-highlight:#8fe3c8;
+--mantine-radius-xs:4px;
+--mantine-radius-sm:6px;
+--mantine-radius-default:6px;
+--mantine-radius-md:10px;
+--mantine-radius-lg:14px;
+--mantine-font-family:'Exo 2', Helvetica, Arial, sans-serif;
+--mantine-font-family-headings:'Exo 2', Helvetica, Arial, sans-serif;
+--font-sans:'Exo 2', Helvetica, Arial, sans-serif;
+}
+
+html:root[data-mantine-color-scheme="dark"]{
+--nebula-card:#110b21;
+--nebula-button-ink:#ffffff;
+--mantine-color-body:#16122a;
+--mantine-color-text:#e6e4f0;
+--mantine-color-dimmed:#8f8c9d;
+--mantine-color-placeholder:#696679;
+--mantine-color-default:#201d34;
+--mantine-color-default-hover:#2b273e;
+--mantine-color-default-border:#332f46;
+--mantine-color-anchor:#54a5d4;
+--mantine-color-blue-filled:#1e88c7;
+--mantine-color-blue-filled-hover:#3494cd;
+--mantine-color-blue-light:rgba(30, 136, 199, 0.2);
+--mantine-color-blue-light-hover:rgba(30, 136, 199, 0.28);
+--mantine-color-blue-light-color:#7dbadf;
+--mantine-color-blue-outline:#54a5d4;
+--mantine-color-blue-outline-hover:rgba(84, 165, 212, 0.08);
+--mantine-color-blue-text:#54a5d4;
+--chart-series-1:#54a5d4;
+}
+
+html:root[data-mantine-color-scheme="light"]{
+--mantine-color-gray-0:#f2f5f8;
+--mantine-color-gray-1:#ebeef1;
+--mantine-color-gray-2:#e5e7eb;
+--mantine-color-gray-3:#dbdee2;
+--mantine-color-gray-4:#ced0d6;
+--mantine-color-gray-5:#aeafb8;
+--mantine-color-gray-6:#888794;
+--mantine-color-gray-7:#5a586a;
+--mantine-color-gray-8:#434154;
+--mantine-color-gray-9:#312e43;
+--nebula-card:#f9fcfe;
+--nebula-button-ink:#16122a;
+--nebula-highlight:#5a8782;
+--mantine-color-white:#f9fcfe;
+--mantine-color-black:#16122a;
+--mantine-color-bright:#16122a;
+--mantine-color-body:#e6edf1;
+--mantine-color-text:#16122a;
+--mantine-color-dimmed:#6c6b7b;
+--mantine-color-placeholder:#aeafb8;
+--mantine-color-default:#f9fcfe;
+--mantine-color-default-hover:#f2f5f8;
+--mantine-color-default-color:#16122a;
+--mantine-color-default-border:#ced0d6;
+--mantine-color-anchor:#1d75ae;
+--mantine-color-blue-filled:#1e88c7;
+--mantine-color-blue-filled-hover:#1972a7;
+--mantine-color-blue-light:rgba(30, 136, 199, 0.1);
+--mantine-color-blue-light-hover:rgba(30, 136, 199, 0.14);
+--mantine-color-blue-light-color:#1d75ae;
+--mantine-color-blue-outline:#1e88c7;
+--mantine-color-blue-outline-hover:rgba(30, 136, 199, 0.05);
+--mantine-color-blue-text:#1d75ae;
+--chart-series-1:#1e88c7;
+--chart-tick-color:var(--mantine-color-dimmed);
+}
+
+html:root[data-mantine-color-scheme="light"] .xterm .xterm-scrollable-element{
+background-color:transparent!important;
+}
+
+html:root[data-mantine-color-scheme="light"] .xterm .xterm-rows{
+color:var(--mantine-color-text);
+}
+
+html:root[data-mantine-color-scheme="light"] :is([class~="text-neutral-400"],[class~="text-neutral-400!"],[class~="light:text-neutral-400!"],[class~="text-gray-400"],[class~="text-gray-400!"],[class~="light:text-gray-400!"],[class~="text-gray-500"],[class~="text-gray-500!"],[class~="light:text-gray-500!"],[class~="text-gray-600"],[class~="text-gray-600!"],[class~="light:text-gray-600!"]){
+--color-neutral-400:var(--mantine-color-dimmed);
+--color-gray-400:var(--mantine-color-dimmed);
+--color-gray-500:var(--mantine-color-dimmed);
+--color-gray-600:var(--mantine-color-dimmed);
+}
+
+html:root .mantine-Button-root[data-variant="filled"]:not([data-disabled]):not(:disabled){
+background-color:color-mix(in srgb,var(--button-bg) 22%,transparent)!important;
+border:1px solid color-mix(in srgb,var(--button-bg) 62%,transparent)!important;
+color:color-mix(in srgb,var(--button-bg) 55%,var(--nebula-button-ink))!important;
+}
+
+html:root .mantine-Button-root[data-variant="filled"]:not([data-disabled]):not(:disabled):hover{
+background-color:color-mix(in srgb,var(--button-bg) 34%,transparent)!important;
+}
+
+@media (prefers-reduced-motion:no-preference){
+html:root [data-nebula-page-enter] > *{
+animation:nebula-page-blur 250ms ease-out;
+}
+}
+
+html:root #sidebar-content a,html:root .nebula-topnav a,html:root .nebula-topnav-menu a{
+--nebula-nav-accent:var(--mantine-color-blue-filled);
+--nebula-nav-tint:var(--mantine-color-blue-light);
+--nebula-nav-ink:var(--mantine-color-blue-light-color);
+}
+
+html:root[data-mantine-color-scheme="dark"]{
+--nebula-nav-fill:var(--mantine-color-default-hover);
+}
+
+html:root[data-mantine-color-scheme="light"]{
+--nebula-nav-fill:var(--mantine-color-gray-2);
+}
+
+@media (hover:hover){
+html:root #sidebar-content a > .mantine-Button-root:not(.active):hover,html:root .nebula-topnav a > .mantine-Button-root:not(.active):hover,html:root .nebula-topnav-menu a > .mantine-Button-root:not(.active):hover{
+background-color:color-mix(in srgb,var(--nebula-nav-fill) 60%,transparent);
+color:var(--mantine-color-text);
+}
+}
+
+html:root #sidebar-content a > .mantine-Button-root.active,html:root .nebula-topnav a > .mantine-Button-root.active,html:root .nebula-topnav-menu a > .mantine-Button-root.active{
+border-color:transparent;
+background-color:var(--nebula-nav-fill);
+color:var(--nebula-nav-ink);
+}
+
+html:root .nebula-sb-items a:not(.active):hover::before{
+background:transparent;
+}
+
+`;

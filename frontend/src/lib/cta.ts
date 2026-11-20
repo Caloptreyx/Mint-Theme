@@ -1,4 +1,4 @@
-import { SAFE_URL } from './theme.ts';
+import { SAFE_URL } from './normalize.ts';
 
 // Call to action buttons on announcements. The backend (`backend/src/cta.rs`) applies the same rules; they are
 // checked again here because the map is rendered as links for every signed in user.
