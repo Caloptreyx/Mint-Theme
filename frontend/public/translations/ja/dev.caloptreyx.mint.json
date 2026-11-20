@@ -192,6 +192,10 @@
         "low": "{other} とのコントラストが低い: {ratio}:1（目標 {min}:1）",
         "lowAs": "{other} 上の{role}としてコントラストが低い: {ratio}:1（目標 {min}:1）",
         "named": "{name}（{role}）",
+        "fix": "{color} を使用",
+        "fixTitle": "最小値を満たす分だけ {field} を {color} に設定",
+        "fixAll": "すべて修正",
+        "fixAllTitle": "基準を満たさない色を、最小値を満たす分だけ暗く／明るくします",
         "roles": {
           "links": "リンク",
           "dimmed": "薄いテキスト",
@@ -670,7 +674,24 @@
         "commandLabel": "ラベル",
         "command": "コマンド",
         "addCommand": "コマンドを追加",
-        "removeCommand": "コマンドを削除"
+        "removeCommand": "コマンドを削除",
+        "terminalColors": "ターミナルカラー",
+        "terminalColorsDescription": "サーバーがテキスト表示に使う 16 色。ライトモードでは、明るいカードで読めるよう必要に応じて文字色を暗くします。",
+        "terminalPalette": "パレット",
+        "terminalPaletteDescription": "各テーマプリセットには専用のパレットがあり、プリセット適用時に設定されます。下の色を編集して独自のものを作れます。",
+        "terminalPaletteCore": "パネルのデフォルト",
+        "terminalNormal": "通常",
+        "terminalBright": "明るい",
+        "terminalColorNames": {
+          "black": "黒",
+          "red": "赤",
+          "green": "緑",
+          "yellow": "黄",
+          "blue": "青",
+          "magenta": "マゼンタ",
+          "cyan": "シアン",
+          "white": "白"
+        }
       },
       "navStyle": {
         "hover": "ホバー効果",
@@ -801,6 +822,18 @@
         "description": "あなたに表示されるパネルの見た目です。あなただけに適用され、サインインするすべてのデバイスで反映されます。",
         "default": "パネルのデフォルト"
       }
+    },
+    "share": {
+      "copyCode": "共有コードをコピー",
+      "copyLink": "共有リンクをコピー",
+      "paste": "共有コードを貼り付け",
+      "pasteTitle": "共有コードを貼り付け",
+      "pasteDescription": "共有コード（またはそれを含むリンク）にはテーマの見た目（カラー、フォント、形状、スタイル）が含まれます。適用しても変わるのは下書きだけで、保存するまで何も保存されません。",
+      "codeLabel": "共有コードまたはリンク",
+      "invalid": "Mint の共有コードではないか、途中で切れています。",
+      "preview": "カラー",
+      "apply": "下書きに適用",
+      "cancel": "キャンセル"
     },
     "localTheme": {
       "apply": "このブラウザーで適用",

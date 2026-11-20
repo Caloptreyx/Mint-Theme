@@ -192,6 +192,10 @@
         "low": "Độ tương phản thấp với {other}: {ratio}:1 (nên đạt {min}:1)",
         "lowAs": "Độ tương phản thấp khi làm {role} trên {other}: {ratio}:1 (nên đạt {min}:1)",
         "named": "{name} ({role})",
+        "fix": "Dùng {color}",
+        "fixTitle": "Đặt {field} thành {color}, vừa đủ để đạt mức tối thiểu",
+        "fixAll": "Sửa tất cả",
+        "fixAllTitle": "Làm tối hoặc sáng các màu chưa đạt vừa đủ để đạt mức tối thiểu",
         "roles": {
           "links": "liên kết",
           "dimmed": "văn bản mờ",
@@ -670,7 +674,24 @@
         "commandLabel": "Nhãn",
         "command": "Lệnh",
         "addCommand": "Thêm lệnh",
-        "removeCommand": "Xóa lệnh"
+        "removeCommand": "Xóa lệnh",
+        "terminalColors": "Màu terminal",
+        "terminalColorsDescription": "16 màu mà máy chủ dùng để in văn bản. Ở chế độ sáng, màu văn bản được làm tối khi cần để dễ đọc trên thẻ sáng.",
+        "terminalPalette": "Bảng màu",
+        "terminalPaletteDescription": "Mỗi mẫu có sẵn của giao diện đi kèm bảng màu riêng, được đặt khi áp dụng mẫu. Chỉnh một màu bên dưới để tạo bảng màu của riêng bạn.",
+        "terminalPaletteCore": "Mặc định của bảng điều khiển",
+        "terminalNormal": "Thường",
+        "terminalBright": "Sáng",
+        "terminalColorNames": {
+          "black": "Đen",
+          "red": "Đỏ",
+          "green": "Xanh lá",
+          "yellow": "Vàng",
+          "blue": "Xanh dương",
+          "magenta": "Đỏ tía",
+          "cyan": "Lục lam",
+          "white": "Trắng"
+        }
       },
       "navStyle": {
         "hover": "Hiệu ứng di chuột",
@@ -801,6 +822,18 @@
         "description": "Bảng điều khiển trông như thế nào đối với bạn. Chỉ bạn nhìn thấy, trên mọi thiết bị bạn đăng nhập.",
         "default": "Mặc định của bảng điều khiển"
       }
+    },
+    "share": {
+      "copyCode": "Sao chép mã chia sẻ",
+      "copyLink": "Sao chép liên kết chia sẻ",
+      "paste": "Dán mã chia sẻ",
+      "pasteTitle": "Dán mã chia sẻ",
+      "pasteDescription": "Mã chia sẻ (hoặc liên kết chứa mã) mang diện mạo của một giao diện: màu sắc, phông chữ, hình dạng và kiểu. Áp dụng chỉ thay đổi bản nháp; không có gì được lưu cho đến khi bạn lưu.",
+      "codeLabel": "Mã chia sẻ hoặc liên kết",
+      "invalid": "Đây không phải mã chia sẻ Mint, hoặc mã bị cắt mất.",
+      "preview": "Màu sắc",
+      "apply": "Áp dụng vào bản nháp",
+      "cancel": "Hủy"
     },
     "localTheme": {
       "apply": "Áp dụng trong trình duyệt này",

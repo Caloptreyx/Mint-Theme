@@ -27,6 +27,7 @@ import {
 } from '../../lib/theme.ts';
 import { useExtTranslations } from '../../translations.ts';
 import ChoiceCards from './ChoiceCards.tsx';
+import TerminalColorsField from './TerminalColorsField.tsx';
 
 interface Props {
   theme: NebulaTheme;
@@ -322,6 +323,16 @@ export default function ConsoleFields({ theme, set }: Props) {
             onChange={(terminalLineHeight) => set({ terminalLineHeight })}
           />
         </div>
+      </Stack>
+
+      <Stack gap='md'>
+        <div>
+          <Heading>{t('editor.console.terminalColors', {})}</Heading>
+          <Text size='xs' c='dimmed' mt={4}>
+            {t('editor.console.terminalColorsDescription', {})}
+          </Text>
+        </div>
+        <TerminalColorsField theme={theme} set={set} />
       </Stack>
 
       <Stack gap='md'>

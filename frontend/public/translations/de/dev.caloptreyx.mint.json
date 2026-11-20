@@ -192,6 +192,10 @@
         "low": "Geringer Kontrast zu {other}: {ratio}:1 (Ziel: {min}:1)",
         "lowAs": "Geringer Kontrast als {role} auf {other}: {ratio}:1 (Ziel: {min}:1)",
         "named": "{name} ({role})",
+        "fix": "{color} verwenden",
+        "fixTitle": "{field} auf {color} setzen, gerade genug für das Minimum",
+        "fixAll": "Alle beheben",
+        "fixAllTitle": "Fehlerhafte Farben gerade so weit abdunkeln oder aufhellen, dass sie die Minima erreichen",
         "roles": {
           "links": "Links",
           "dimmed": "gedimmter Text",
@@ -670,7 +674,24 @@
         "commandLabel": "Beschriftung",
         "command": "Befehl",
         "addCommand": "Befehl hinzufügen",
-        "removeCommand": "Befehl entfernen"
+        "removeCommand": "Befehl entfernen",
+        "terminalColors": "Terminalfarben",
+        "terminalColorsDescription": "Die 16 Farben, in denen Server Text ausgeben. Im hellen Modus werden Textfarben bei Bedarf abgedunkelt, damit sie auf der hellen Karte lesbar sind.",
+        "terminalPalette": "Palette",
+        "terminalPaletteDescription": "Jede Theme-Vorlage bringt ihre eigene Palette mit, die beim Anwenden der Vorlage gesetzt wird. Bearbeite unten eine Farbe, um deine eigene zu erstellen.",
+        "terminalPaletteCore": "Panel-Standard",
+        "terminalNormal": "Normal",
+        "terminalBright": "Hell",
+        "terminalColorNames": {
+          "black": "Schwarz",
+          "red": "Rot",
+          "green": "Grün",
+          "yellow": "Gelb",
+          "blue": "Blau",
+          "magenta": "Magenta",
+          "cyan": "Cyan",
+          "white": "Weiß"
+        }
       },
       "navStyle": {
         "hover": "Hover-Effekt",
@@ -801,6 +822,18 @@
         "description": "So sieht das Panel für dich aus. Nur du siehst es, auf jedem Gerät, auf dem du dich anmeldest.",
         "default": "Panel-Standard"
       }
+    },
+    "share": {
+      "copyCode": "Teilen-Code kopieren",
+      "copyLink": "Teilen-Link kopieren",
+      "paste": "Teilen-Code einfügen",
+      "pasteTitle": "Teilen-Code einfügen",
+      "pasteDescription": "Ein Teilen-Code (oder ein Link mit einem) enthält das Aussehen eines Themes: Farben, Schriften, Formen und Stile. Beim Anwenden ändert sich nur der Entwurf; gespeichert wird erst, wenn du speicherst.",
+      "codeLabel": "Teilen-Code oder Link",
+      "invalid": "Das ist kein Mint-Teilen-Code, oder er ist abgeschnitten.",
+      "preview": "Farben",
+      "apply": "Auf Entwurf anwenden",
+      "cancel": "Abbrechen"
     },
     "localTheme": {
       "apply": "In diesem Browser anwenden",

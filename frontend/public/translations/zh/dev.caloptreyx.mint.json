@@ -192,6 +192,10 @@
         "low": "與 {other} 的對比度過低：{ratio}:1（建議至少 {min}:1）",
         "lowAs": "作為{role}在 {other} 上的對比度過低：{ratio}:1（建議至少 {min}:1）",
         "named": "{name}（{role}）",
+        "fix": "使用 {color}",
+        "fixTitle": "將 {field} 設為 {color}，剛好達到最低要求",
+        "fixAll": "全部修正",
+        "fixAllTitle": "將未通過的顏色調深或調淺，剛好達到最低要求",
         "roles": {
           "links": "連結",
           "dimmed": "淡化文字",
@@ -670,7 +674,24 @@
         "commandLabel": "標籤",
         "command": "指令",
         "addCommand": "新增指令",
-        "removeCommand": "移除指令"
+        "removeCommand": "移除指令",
+        "terminalColors": "終端機顏色",
+        "terminalColorsDescription": "伺服器輸出文字所用的 16 種顏色。在淺色模式下，文字顏色會在需要時調深，以便在淺色卡片上閱讀。",
+        "terminalPalette": "調色盤",
+        "terminalPaletteDescription": "每個主題預設集都有自己的調色盤，會在套用預設集時設定。編輯下方的顏色即可自訂。",
+        "terminalPaletteCore": "面板預設",
+        "terminalNormal": "一般",
+        "terminalBright": "亮色",
+        "terminalColorNames": {
+          "black": "黑",
+          "red": "紅",
+          "green": "綠",
+          "yellow": "黃",
+          "blue": "藍",
+          "magenta": "洋紅",
+          "cyan": "青",
+          "white": "白"
+        }
       },
       "navStyle": {
         "hover": "懸停效果",
@@ -801,6 +822,18 @@
         "description": "面板在你眼中的外觀。僅你自己看得到，並套用於你登入的每部裝置。",
         "default": "面板預設"
       }
+    },
+    "share": {
+      "copyCode": "複製分享代碼",
+      "copyLink": "複製分享連結",
+      "paste": "貼上分享代碼",
+      "pasteTitle": "貼上分享代碼",
+      "pasteDescription": "分享代碼（或包含代碼的連結）帶有主題的外觀：顏色、字型、形狀與樣式。套用只會變更草稿；在你儲存之前不會儲存任何內容。",
+      "codeLabel": "分享代碼或連結",
+      "invalid": "這不是 Mint 分享代碼，或內容不完整。",
+      "preview": "顏色",
+      "apply": "套用到草稿",
+      "cancel": "取消"
     },
     "localTheme": {
       "apply": "在此浏览器中应用",

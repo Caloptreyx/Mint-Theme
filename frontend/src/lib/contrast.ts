@@ -1,5 +1,5 @@
 import type { NebulaTheme } from './theme.ts';
-import { accentShades, contrastRatio, lightBase, mix, readable, surfaceShades } from './color.ts';
+import { accentShades, contrastRatio, derivedColors, lightBase, mix, readable, surfaceShades } from './color.ts';
 
 /** WCAG AA: 4.5:1 for text, 3:1 for icons and other UI graphics. */
 export const MIN_TEXT_CONTRAST = 4.5;
@@ -81,4 +81,60 @@ export function contrastIssues(t: NebulaTheme): ContrastIssue[] {
     issues.push({ fg: 'textOnAccent', bg: 'accent', ratio: contrastRatio(onAccent, t.accent), min: MIN_TEXT_CONTRAST });
   }
   return issues.filter((issue) => issue.ratio < issue.min);
+}
+
+const sameIssue = (a: ContrastIssue, b: ContrastIssue) =>
+  a.fg === b.fg && a.bg === b.bg && a.role === b.role && a.min === b.min;
+
+/** Mixing steps toward black and toward white: 1% each, so a fix is never more than a step past the minimum. */
+const FIX_STEPS = 100;
+
+/**
+ * The smallest change to `issue.fg` (the field, never its partner) that clears `issue`: its colour (the derived
+ * fallback while empty) is mixed toward black and toward white in 1% steps, each direction stopping at the first
+ * colour where `contrastIssues` no longer has the issue. Of the two, fewer issues overall wins, then the shorter
+ * move. Null when neither direction clears it.
+ */
+export function fixContrast(t: NebulaTheme, issue: ContrastIssue): Partial<NebulaTheme> | null {
+  const field = issue.fg;
+  const start = t[field] || (derivedColors(t) as Record<string, string>)[field];
+  let best: { color: string; issues: number; step: number } | null = null;
+  for (const target of ['#000000', '#ffffff']) {
+    for (let step = 1; step <= FIX_STEPS; step++) {
+      const color = mix(target, start, step / FIX_STEPS);
+      const issues = contrastIssues({ ...t, [field]: color });
+      if (issues.some((other) => sameIssue(other, issue))) continue;
+      if (!best || issues.length < best.issues || (issues.length === best.issues && step < best.step)) {
+        best = { color, issues: issues.length, step };
+      }
+      break;
+    }
+  }
+  return best && { [field]: best.color };
+}
+
+/**
+ * Fixes the issues one at a time with `fixContrast`, recomputing them after each change (a new accent can break
+ * text on accent, for one). The stricter minimum goes first, so text on accent moves once for 4.5:1 rather than
+ * once for 3:1 and again. `patch` holds every field changed, `unfixed` what is still failing afterwards.
+ */
+export function fixAllContrast(t: NebulaTheme): { patch: Partial<NebulaTheme>; unfixed: ContrastIssue[] } {
+  let theme = t;
+  let patch: Partial<NebulaTheme> = {};
+  const skipped: ContrastIssue[] = [];
+  // every pass either fixes one issue or skips one for good; the cap stops fixes that keep undoing each other
+  for (let pass = 0; pass < 32; pass++) {
+    const issue = contrastIssues(theme)
+      .filter((i) => !skipped.some((s) => sameIssue(s, i)))
+      .sort((a, b) => b.min - a.min)[0];
+    if (!issue) break;
+    const fix = fixContrast(theme, issue);
+    if (!fix) {
+      skipped.push(issue);
+      continue;
+    }
+    theme = { ...theme, ...fix };
+    patch = { ...patch, ...fix };
+  }
+  return { patch, unfixed: contrastIssues(theme) };
 }

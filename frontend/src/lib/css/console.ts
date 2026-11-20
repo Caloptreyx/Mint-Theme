@@ -1,5 +1,6 @@
 // The console terminal's look; the other console options are classes on the console page.
-import type { NebulaTheme, TerminalCursor } from '../theme.ts';
+import { alpha, lightBase, readable } from '../color.ts';
+import { type NebulaTheme, TERMINAL_COLOR_COUNT, type TerminalCursor } from '../theme.ts';
 
 // the shown cursor in each shape: its declarations, and what its blink turns off for half a second
 const CURSOR_PAINT: Record<Exclude<TerminalCursor, 'none'>, { on: string[]; off: string }> = {
@@ -30,4 +31,36 @@ export function terminalCursorCss(t: NebulaTheme): string[] {
     );
   }
   return css;
+}
+
+const TERMINAL = '.xterm.nebula-terminal';
+
+/**
+ * The ANSI palette once `terminalColors` has all 16. xterm 6's DOM renderer paints a cell in palette colour N with the
+ * class `xterm-fg-N` or `xterm-bg-N` (after swapping them for inverse, and with N + 8 for bold text while
+ * `drawBoldTextInBrightColors` is on, xterm's default), plus `xterm-dim` at half opacity, from rules it injects as
+ * `.xterm-dom-renderer-owner-<n> .xterm-fg-N` (two classes, three with dim); these outrank them without
+ * `!important`, so the shown cursor (`terminalCursorCss`) still wins. Core resets its xterm theme on every scheme
+ * change, so both schemes are painted here: dark as given, light (a transparent terminal over the card) with the text
+ * colours pulled readable on the light surface; backgrounds stay as given.
+ */
+export function terminalColorsCss(t: NebulaTheme): string[] {
+  if (t.terminalColors.length !== TERMINAL_COLOR_COUNT) return [];
+  const light = lightBase(t);
+  const fg = (scheme: string, colors: string[]) =>
+    colors
+      .map(
+        (c, i) =>
+          `${scheme} ${TERMINAL} .xterm-fg-${i}{color:${c};}` +
+          `${scheme} ${TERMINAL} .xterm-fg-${i}.xterm-dim{color:${alpha(c, 0.5)};}`,
+      )
+      .join('');
+  return [
+    t.terminalColors.map((c, i) => `html:root ${TERMINAL} .xterm-bg-${i}{background-color:${c};}`).join(''),
+    fg('html:root[data-mantine-color-scheme="dark"]', t.terminalColors),
+    fg(
+      'html:root[data-mantine-color-scheme="light"]',
+      t.terminalColors.map((c) => readable(c, light.text, light.surface)),
+    ),
+  ];
 }

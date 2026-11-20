@@ -192,6 +192,10 @@
         "low": "Contrast scăzut cu {other}: {ratio}:1 (țintește {min}:1)",
         "lowAs": "Contrast scăzut ca {role} pe {other}: {ratio}:1 (țintește {min}:1)",
         "named": "{name} ({role})",
+        "fix": "Folosește {color}",
+        "fixTitle": "Setează {field} la {color}, exact cât să atingă minimul",
+        "fixAll": "Corectează tot",
+        "fixAllTitle": "Întunecă sau luminează culorile care nu trec exact cât să atingă minimele",
         "roles": {
           "links": "linkuri",
           "dimmed": "text estompat",
@@ -670,7 +674,24 @@
         "commandLabel": "Etichetă",
         "command": "Comandă",
         "addCommand": "Adaugă comandă",
-        "removeCommand": "Elimină comanda"
+        "removeCommand": "Elimină comanda",
+        "terminalColors": "Culori terminal",
+        "terminalColorsDescription": "Cele 16 culori în care serverele afișează text. În modul luminos, culorile textului sunt întunecate unde e nevoie, ca să se citească pe cardul luminos.",
+        "terminalPalette": "Paletă",
+        "terminalPaletteDescription": "Fiecare presetare de temă vine cu propria paletă, setată când presetarea e aplicată. Editează o culoare de mai jos ca să-ți faci propria paletă.",
+        "terminalPaletteCore": "Implicită panoului",
+        "terminalNormal": "Normale",
+        "terminalBright": "Strălucitoare",
+        "terminalColorNames": {
+          "black": "Negru",
+          "red": "Roșu",
+          "green": "Verde",
+          "yellow": "Galben",
+          "blue": "Albastru",
+          "magenta": "Magenta",
+          "cyan": "Cyan",
+          "white": "Alb"
+        }
       },
       "navStyle": {
         "hover": "Efect la trecerea cursorului",
@@ -801,6 +822,18 @@
         "description": "Cum arată panoul pentru tine. Doar tu o vezi, pe fiecare dispozitiv pe care te autentifici.",
         "default": "Implicitul panoului"
       }
+    },
+    "share": {
+      "copyCode": "Copiază codul de partajare",
+      "copyLink": "Copiază linkul de partajare",
+      "paste": "Lipește codul de partajare",
+      "pasteTitle": "Lipește un cod de partajare",
+      "pasteDescription": "Un cod de partajare (sau un link care îl conține) poartă aspectul unei teme: culori, fonturi, forme și stiluri. Aplicarea lui schimbă doar ciorna; nimic nu se salvează până nu salvezi.",
+      "codeLabel": "Cod sau link de partajare",
+      "invalid": "Acesta nu este un cod de partajare Mint sau este trunchiat.",
+      "preview": "Culori",
+      "apply": "Aplică pe ciornă",
+      "cancel": "Anulează"
     },
     "localTheme": {
       "apply": "Aplică în acest browser",

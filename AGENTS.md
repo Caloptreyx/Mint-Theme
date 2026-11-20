@@ -24,7 +24,13 @@ backend/src/history.rs     the last 10 replaced themes (written by the theme PUT
 backend/src/updates.rs     check_for_updates: GitHub releases of Caloptreyx/Mint-Theme, cached 10 min in memory, ETag revalidated
 frontend/src/index.ts      entry point: hooks, route interceptors, Mantine theme
 frontend/src/lib/core.ts   the one module that re-exports every core import (see the end of "How it hooks into the panel")
-frontend/src/lib/theme.ts  the theme model, normalizeTheme() and buildCss()
+frontend/src/lib/theme.ts  the theme model: fields and their options, DEFAULT_THEME, USER_THEME_FIELDS, pickUserTheme()
+frontend/src/lib/normalize.ts  normalizeTheme(), SAFE_URL, withUserTheme(): the security boundary, alone in its file
+frontend/src/lib/presets.ts  the built-in presets
+frontend/src/lib/color.ts  colour maths (mix, shades, luminance, readable()) and derivedColors()
+frontend/src/lib/contrast.ts  contrastIssues(), fixContrast(), fixAllContrast(): the WCAG checks behind the editor's contrast warnings and their fixes
+frontend/src/lib/shareCode.ts  share codes (`mint1.`): encodeShareCode(), decodeShareCode()
+frontend/src/lib/css/     buildCss() (index.ts) from one module per area: colors, blocks, interface, motion, nav, console
 frontend/src/lib/apply.ts  applies CSS (the site theme or the user's pick), caches it, preview bridge, useNebulaTheme(), the local theme
 frontend/src/lib/localTheme.ts  'Apply in this browser': parseLocalTheme() and paintedTheme() (local ?? saved, then the user's pick)
 frontend/src/lib/navOrder.ts  side menu orders: NavOrder, normalizeNavOrder(), arrange(), mergeOrder(), link and section ids
@@ -38,15 +44,18 @@ frontend/src/elements/     account/, home/, dashboard/, editor/, files/ (phone e
 frontend/src/app.css       static CSS: @font-face, flush sidebar, active link, sidebar sections, keyframes
 frontend/src/translations.ts  every user facing string
 tests/theme.test.ts        node:test cases for normalizeTheme() and buildCss() (not shipped)
+tests/cssSnapshot.test.ts  buildCss() output per built-in preset and for themes off every default, in its .snapshot (not shipped)
 tests/motion.test.ts       node:test cases for the Animations section's fields (not shipped)
 tests/console.test.ts      node:test cases for the console page's fields (not shipped)
 tests/library.test.ts      node:test cases for lib/library.ts and the per user fields (not shipped)
 tests/editorSearch.test.ts node:test cases for the editor search's matching and ranking (not shipped)
 tests/editorDraft.test.ts  node:test cases for lib/editorDraft.ts (not shipped)
 tests/localTheme.test.ts   node:test cases for lib/localTheme.ts (not shipped)
+tests/contrast.test.ts, shareCode.test.ts  node:test cases for the contrast fixes and the share codes (not shipped)
 tests/navOrder.test.ts     node:test cases for lib/navOrder.ts (not shipped)
 tests/cta.test.ts, serverOrder.test.ts, routeOrder.test.ts  node:test cases for lib/cta.ts, the servers list ordering and lib/routeOrder.ts (not shipped)
 scripts/package.py         builds the release zip; .github/workflows/release.yml runs it on v* tags
+scripts/gallery.ts         prints the built-in presets' share codes for the Cala-Extensions gallery (not shipped)
 .github/workflows/check.yml  CI on every push: the org's shared extension check (see "Verifying a change")
 ```
 
@@ -69,6 +78,14 @@ editor can repaint the panel live without a reload.
   (`mix(buttonColor || accent, surface, …)`) over both the dark surface and `lightSurface` (the two `bg` values
   keep the warnings' keys unique). The Colours section lists them on top and under each input
   (`ContrastWarnings.tsx`); they never block saving. Keep the pairs in step with `buildCss` when a colour moves.
+  `fixContrast(theme, issue)` (`lib/contrast.ts`) proposes the smallest change to the issue's `fg` field only (its
+  derived fallback while empty): it mixes that colour toward black and toward white in 1% steps, each direction
+  stopping at the first colour where `contrastIssues` no longer has that issue (same fg, bg, role, min), then prefers
+  fewer issues overall and then the shorter move; null when neither direction clears it. `fixAllContrast` applies
+  fixes one at a time, stricter minimum first and recomputing after each, skips the ones with no fix and stops after
+  32 passes; it returns the combined `patch` and the `unfixed` issues. `Sections` works out the fixes from `valid` and
+  hands them to `ContrastWarnings.tsx`, which shows a 'Use #hex' button with a swatch on each issue and 'Fix all' on
+  the summary. Both apply through `set`, so each is one undo step. Covered by `tests/contrast.test.ts`.
 - Status, offline and chart colours: the 0-9 scales go in plain `html:root` (the server-status variables too,
   since core defines them in Tailwind's `@theme`), while the `-filled`, `-filled-hover`, `-light`,
   `-light-hover`, `-light-color`, `-outline`, `-outline-hover` and `-text` variants of green, yellow, red (and
@@ -335,6 +352,15 @@ and break silently when core moves a file. Everything here is runtime:
   POST, id kept so users' picks follow it); the editor's custom preset cards offer 'Save draft into this preset'
   with a confirmation, sending `{ theme: normalizeTheme(draft) }`. Applying a preset in the editor lays its
   **look** over the draft (`pickUserTheme()`); the card's name and swatches are one 'Apply {name}' button.
+  Built-in presets (`lib/presets.ts`): every one sets `textOnAccent`, its `terminalColors` palette (each colour reads
+  at 4.5:1 on its surface, bright black 3:1) and the optional colours in `UNSET`, so applying one over another leaves
+  no colour behind. The first six are colours only. Contrast (near-black, white text, a yellow accent with black text
+  on accent, explicit muted, faint and line colours, solid buttons), Daylight (explicit `lightBackground`/
+  `lightSurface`/`lightText` with a calm dark side) and Mono (greys, near-neutral accent) also set the same style
+  fields: fonts, radii, button, block and input borders, click, toast, page transition, card entrance, hover, overlay
+  motion, box, stat, server card and table styles, menu hover and sidebar layout; the colour presets leave those
+  alone. `tests/theme.test.ts` checks that every preset gives no `contrastIssues` over the default, sets only
+  `USER_THEME_FIELDS`, sets every colour any preset sets, and that the styled ones share their style keys.
   The user selectable ones (custom ones with their theme) come from
   `GET /api/client/extensions/dev.caloptreyx.mint/theme-choices` (any signed in user, so visitors never get preset
   themes): `watchUserTheme()` fetches them through axiosInstance at startup when a user is signed in and on each
@@ -349,6 +375,25 @@ and break silently when core moves a file. Everything here is runtime:
   its preview frame (which then shows the draft). Every theme PUT that changes the theme moves the replaced
   one into `theme_history` with who saved it and when (the last 10, and at most 4 × 64 KiB in total, oldest
   dropped first); the editor's clock icon lists them (`GET .../history`, `settings.read` or `mint-theme.update`) and loads one into the draft.
+- Share codes (`lib/shareCode.ts`, `elements/library/ShareCodeModal.tsx`, `tests/shareCode.test.ts`).
+  `encodeShareCode(theme)` takes the normalized theme's look (`pickUserTheme`), keeps the fields that differ from
+  `DEFAULT_THEME`'s look, and writes them as JSON, deflate-raw (`CompressionStream`), base64url, prefixed `mint1.`.
+  `decodeShareCode(text)` finds `mint1.<base64url>` anywhere in the text (a pasted link works), refuses input over
+  16 KiB and stops inflating past 64 KiB, needs a plain object, and returns
+  `{ ...pickUserTheme(DEFAULT_THEME), ...pickUserTheme(parsed) }`: a full look, absent fields being the default's. Its
+  values are unchecked; callers lay it over the draft with `normalizeTheme({ ...draft, ...look }, draft)`, so
+  normalizeTheme stays the security boundary (the modal's swatches show `normalizeTheme(look)` for the same reason).
+  The editor's More actions menu has Copy share code, Copy share link (`<origin>/admin/mint#mint-share=<code>`,
+  `SHARE_HASH`) and Paste share code; the modal decodes live, shows the swatches, and Apply lays the look over the
+  draft as one undo step, with no permission needed. Opening the editor with a `#mint-share=` hash opens that modal
+  prefilled and removes the hash with `history.replaceState` (keeping react-router's state). Every preset card,
+  built-in and custom, has a copy share code action; a built-in preset's code carries its colours over the default
+  look. `useShareCode(theme)` returns a code only for the theme it was made from. Copying goes through core's
+  `handleRawCopyToClipboard` (`lib/core.ts`, `@/lib/clipboard/copy.ts`, in 1.2.0), which shows core's Copied/Failed
+  toast. `node scripts/gallery.ts > ../Cala-Extensions/data/mint-themes.json` prints
+  `[{ name, colors: { accent, highlight, background, surface, text, light*? }, code }]` for every built-in preset
+  (laid over the default and normalized) for the Cala-Extensions gallery at `/mint-themes/`, which opens codes in a
+  visitor's panel through the share link. Rerun it whenever `PRESETS` or the look fields change.
 - Theme version and conflicts. `GET /mint/theme` returns `{ theme, version }` (`version` = sha256 hex of the stored
   string, `""` for none), built once per stored string, with `ETag`, `Cache-Control: no-cache` and 304 on a matching
   `If-None-Match`; `loadTheme()` resolves to `{ theme, version }` (or null) and relies on the browser's revalidation.
@@ -356,7 +401,8 @@ and break silently when core moves a file. Everything here is runtime:
   the current version gives 409 and saves nothing; success returns `{ version }`. The logic is `routes::store_theme`,
   tested with cargo. `updateTheme(theme | null, base?)` returns that version.
 - The editor's layout (`pages/ThemeEditor.tsx`). A top bar holds close, the title with the draft's state (unsaved or
-  saved), undo, redo, history, a 'More actions' menu (import, export, Discord support, Reset to default), then 'Apply
+  saved), undo, redo, history, a 'More actions' menu (import, export, copy share code and link, paste share code,
+  Discord support, Reset to default), then 'Apply
   in this browser' (and its Stop while a local theme is active), 'Discard changes' (only while dirty) and Save. Below
   it: the section menu (`elements/editor/EditorNav.tsx`: the settings search on top, then the sections under four
   foldable groups, Look, Navigation, Pages and Interface; a folded group holding the open section keeps its heading
@@ -448,6 +494,19 @@ and break silently when core moves a file. Everything here is runtime:
   is only set once `document.fonts` has loaded it, because xterm measures its cells when the option changes;
   a font still loading leaves the grid sized for the fallback. Its colours are core's `getXtermTheme()`, reset
   on every scheme change; xterm 6 draws with DOM spans, so light mode fixes them in `buildCss` instead.
+  `terminalColors` (in `USER_THEME_FIELDS`; `[]` is core's) is the terminal's 16 ANSI colours in xterm order (normal
+  0-7, bright 8-15). `normalizeTheme` keeps `[]`, checks each of exactly 16 entries (an invalid one falls back to the
+  fallback theme's colour there, else core's) and keeps the fallback for anything else. Core's dark xterm theme sets
+  no ANSI colours, so `CORE_TERMINAL_COLORS` (theme.ts) is xterm 6's `DEFAULT_ANSI_COLORS`. xterm 6's DOM renderer
+  paints palette colour N with the classes `xterm-fg-N`/`xterm-bg-N` (after the inverse swap, N+8 for bold) and
+  `xterm-dim` at half opacity, from injected `.xterm-dom-renderer-owner-<n> .xterm-fg-N` rules. `terminalColorsCss`
+  (css/console.ts, after the cursor) outranks those on `.xterm.nebula-terminal` without `!important`, so a shown
+  cursor still wins. Backgrounds go in plain `html:root`; text colours go in the dark block as given and in the light
+  block through `readable(c, light.text, light.surface)`, because light mode's terminal is transparent over the card.
+  Core's palette emits nothing. The editor's Console section has 'Terminal colours' (`TerminalColorsField.tsx`):
+  `TERMINAL_PALETTES` tiles (core's first, then one per preset) patch the draft and show as selected while it has
+  exactly their colours; below them 16 colour inputs in Normal and Bright groups, prefilled with core's palette while
+  none are stored; editing one stores all 16.
   Core hides the cursor: it writes `ESC[?25l` right after the after open handlers, strips `?25h`/`?25l` from the
   output and paints the cursor transparent. `terminalCursor: 'none'` (the default) touches none of that. Another
   shape sets `cursorStyle` and `cursorInactiveStyle` (so it shows without focus too) and, in a microtask after core's
@@ -608,12 +667,20 @@ checkout. Page level imports (`@/pages/server/console/...`) are why the floor is
 `tests/motion.test.ts`, the console page's in `tests/console.test.ts`), the announcement button checks
 in `tests/cta.test.ts`, presets, user choices and history in `tests/library.test.ts`, the editor search in
 `tests/editorSearch.test.ts`, the editor's draft checks in `tests/editorDraft.test.ts`, the local theme in
-`tests/localTheme.test.ts`, the side menu orders in `tests/navOrder.test.ts`, the servers list
+`tests/localTheme.test.ts`, the side menu orders in `tests/navOrder.test.ts`, the contrast fixes in
+`tests/contrast.test.ts`, the share codes in `tests/shareCode.test.ts`, the servers list
 ordering in `tests/serverOrder.test.ts` and the route order fix in `tests/routeOrder.test.ts` (plain `node:test`, no
 dependencies, kept outside `frontend/src` so the panel never compiles them). Run them with
 `node --test "tests/*.test.ts"` (Node 24 strips the types; a bare `tests/` is not accepted as a path). Add a
 case there whenever a theme field or a validation helper changes; a new theme field that users should get
 from a picked preset also goes into `USER_THEME_FIELDS`.
+
+`tests/cssSnapshot.test.ts` keeps the whole stylesheet `buildCss()` writes for the default theme, every built-in
+preset and a few themes that move every option off its default, one declaration per line, in
+`tests/cssSnapshot.test.ts.snapshot`. Any change to the CSS fails it until the snapshot is refreshed with
+`node --test --test-update-snapshots tests/cssSnapshot.test.ts`; commit the refreshed file and read its diff like
+code: it must show only what the change meant to alter. A new option that emits CSS gets a value in one of its
+fixtures.
 
 Everything else needs the panel: stage the extension into a panel checkout and run the real
 toolchain; there is no standalone build. CI does this on every push (`.github/workflows/check.yml` calls
@@ -647,10 +714,12 @@ directory entries first, then files, in sorted walk order, skipping `.git`, `nod
 and `dist` anywhere and `docs`, `tests`, `scripts`, `.github`, `README.md`, `.gitignore` at the root
 (`AGENTS.md`, `LICENSE` and `migrations/` ship). Check it with `panel-rs extensions inspect`.
 
-Pushing a `v*` tag runs `.github/workflows/release.yml`: the shared extension check (the same job as CI),
-then a check that the tag is `v` + `version` in `backend/Cargo.toml` (it fails otherwise, so bump that
-first), the packaging script, then it creates the GitHub release `Mint Theme <version>` with generated
-notes if missing and uploads the zip (`gh release upload --clobber`).
+Pushing a `v*` tag runs `.github/workflows/release.yml`: the shared extension check (the same job as CI, but
+pinned to the panel in its `panel-ref`, the newest one `check.yml` is known to pass on, so a panel release cannot
+block a Mint release; raise it once a push's check passes on a newer panel), then a check that the tag is `v` +
+`version` in `backend/Cargo.toml` (it fails otherwise, so bump that first), the packaging script, then it creates
+the GitHub release `Mint Theme <version>` with generated notes if missing and uploads the zip
+(`gh release upload --clobber`).
 
 Installed panels see a release through `check_for_updates` (`backend/src/updates.rs`) once it is
 published, not a draft or prerelease, and has the zip attached. Its changelog on **Admin → Updates** is the

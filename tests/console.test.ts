@@ -2,6 +2,7 @@
 // Run with `node --test "tests/*.test.ts"`.
 import assert from 'node:assert/strict';
 import { describe, test } from 'node:test';
+import { contrastRatio, lightBase } from '../frontend/src/lib/color.ts';
 import { buildCss } from '../frontend/src/lib/css/index.ts';
 import { normalizeTheme } from '../frontend/src/lib/normalize.ts';
 import {
@@ -10,6 +11,7 @@ import {
   CHART_STYLES,
   CONSOLE_BANNERS,
   CONSOLE_WIDGETS,
+  CORE_TERMINAL_COLORS,
   DEFAULT_CONSOLE_LAYOUT,
   DEFAULT_THEME,
   MAX_COMMAND_LABEL,
@@ -239,5 +241,106 @@ describe('console css', () => {
     const still = build({ terminalCursor: 'bar', terminalCursorBlink: true, reduceMotion: true });
     assert.ok(!still.includes('nebula-cursor-blink'));
     assert.ok(still.includes('.xterm-cursor-bar:not(.xterm-cursor-blink){'));
+  });
+});
+
+describe('terminalColors', () => {
+  // prettier-ignore
+  const PALETTE = [
+    '#101010', '#ff5555', '#50fa7b', '#f1fa8c', '#6272a4', '#ff79c6', '#8be9fd', '#bbbbbb',
+    '#555555', '#ff6e6e', '#69ff94', '#ffffa5', '#d6acff', '#ff92df', '#a4ffff', '#ffffff',
+  ];
+  const build = (patch: Partial<NebulaTheme>) => buildCss(normalizeTheme({ ...DEFAULT_THEME, ...patch }));
+  const DARK = 'html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal';
+  const LIGHT = 'html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal';
+  /** The colour a rule paints, or undefined when the rule is missing. */
+  const painted = (css: string, selector: string) => /^[^;}]*:([^;}]*);/.exec(css.split(`${selector}{`)[1] ?? '')?.[1];
+
+  test('defaults to core\'s palette ([]), whose fallback colours are xterm\'s own 16', () => {
+    assert.deepEqual(DEFAULT_THEME.terminalColors, []);
+    assert.equal(CORE_TERMINAL_COLORS.length, 16);
+    assert.equal(CORE_TERMINAL_COLORS[1], '#cc0000');
+    assert.equal(CORE_TERMINAL_COLORS[15], '#eeeeec');
+  });
+
+  test('16 hex colours are kept in order and lowercased', () => {
+    const upper = PALETTE.map((c) => c.toUpperCase());
+    assert.deepEqual(normalizeTheme({ terminalColors: upper }).terminalColors, PALETTE);
+  });
+
+  test('an invalid entry falls back on its own: to the fallback theme\'s colour there, else core\'s', () => {
+    const mixed: unknown[] = [...PALETTE];
+    mixed[1] = 'red;}body{display:none}';
+    mixed[9] = '#fff';
+    mixed[15] = null;
+    const out = normalizeTheme({ terminalColors: mixed }).terminalColors;
+    assert.deepEqual(
+      out,
+      PALETTE.map((c, i) => ([1, 9, 15].includes(i) ? CORE_TERMINAL_COLORS[i] : c)),
+    );
+
+    const d = normalizeTheme({ terminalColors: PALETTE.map(() => '#123456') });
+    const overD = normalizeTheme({ terminalColors: mixed }, d).terminalColors;
+    assert.equal(overD[1], '#123456');
+    assert.equal(overD[9], '#123456');
+    assert.equal(overD[2], PALETTE[2]);
+  });
+
+  test('any other length or a non array keeps the fallback; [] goes back to core\'s', () => {
+    const d = normalizeTheme({ terminalColors: PALETTE });
+    for (const bad of [PALETTE.slice(0, 15), [...PALETTE, '#000000'], 'red', null, { 0: '#000000' }, 16]) {
+      assert.deepEqual(normalizeTheme({ terminalColors: bad }, d).terminalColors, PALETTE, JSON.stringify(bad));
+      assert.deepEqual(normalizeTheme({ terminalColors: bad }).terminalColors, [], JSON.stringify(bad));
+    }
+    assert.deepEqual(normalizeTheme({ terminalColors: [] }, d).terminalColors, []);
+  });
+
+  test('core\'s palette emits nothing, so core\'s dark and light xterm colours stay', () => {
+    assert.equal(build({ terminalColors: [] }), buildCss(DEFAULT_THEME));
+    assert.ok(!buildCss(DEFAULT_THEME).includes('.xterm-fg-'));
+    assert.equal(build({ terminalColors: PALETTE.slice(0, 15) }), buildCss(DEFAULT_THEME));
+  });
+
+  test('a palette paints xterm\'s colour classes on core\'s terminals only, after the rest of the css', () => {
+    const css = build({ terminalColors: PALETTE });
+    assert.ok(css.startsWith(buildCss(DEFAULT_THEME)));
+    for (const [i, c] of PALETTE.entries()) {
+      assert.equal(painted(css, `${DARK} .xterm-fg-${i}`), c, `fg ${i}`);
+      assert.equal(painted(css, `html:root .xterm.nebula-terminal .xterm-bg-${i}`), c, `bg ${i}`);
+    }
+    // xterm draws dim text at half opacity of the palette colour, in a rule with one more class
+    assert.equal(painted(css, `${DARK} .xterm-fg-1.xterm-dim`), 'rgba(255, 85, 85, 0.5)');
+    assert.ok(!css.includes('.xterm-fg-16'));
+    // scoped to the terminals lib/terminal.ts marks, never every xterm (core's log viewers), and without
+    // !important so the shown cursor's colour still wins on its cell
+    const palette = css.slice(buildCss(DEFAULT_THEME).length);
+    assert.equal(palette.split('{').length - 1, 16 * 5);
+    for (const rule of palette.split('}').filter((part) => part.trim())) {
+      assert.match(rule, /\.xterm\.nebula-terminal \.xterm-[fb]g-\d+/);
+      assert.ok(!rule.includes('!important'), rule);
+    }
+  });
+
+  test('light mode pulls the text colours readable on the light card and keeps dark ones as given', () => {
+    const theme = normalizeTheme({ ...DEFAULT_THEME, terminalColors: PALETTE });
+    const css = buildCss(theme);
+    const { surface } = lightBase(theme);
+    for (const [i, c] of PALETTE.entries()) {
+      const light = painted(css, `${LIGHT} .xterm-fg-${i}`);
+      assert.ok(light, `fg ${i}`);
+      assert.ok(contrastRatio(light, surface) >= 4.5, `${i}: ${light}`);
+      if (contrastRatio(c, surface) >= 4.5) assert.equal(light, c, `${i} already reads`);
+    }
+    assert.notEqual(painted(css, `${LIGHT} .xterm-fg-15`), '#ffffff');
+    assert.equal(painted(css, `${LIGHT} .xterm-fg-0`), '#101010');
+    // backgrounds are one rule for both schemes
+    assert.ok(!css.includes(`${LIGHT} .xterm-bg-`));
+  });
+
+  test('light mode follows lightText and lightSurface', () => {
+    const css = build({ terminalColors: PALETTE, lightSurface: '#fff8e7', lightText: '#3a1f00' });
+    const yellow = painted(css, `${LIGHT} .xterm-fg-3`);
+    assert.ok(yellow && contrastRatio(yellow, '#fff8e7') >= 4.5);
+    assert.notEqual(yellow, painted(build({ terminalColors: PALETTE }), `${LIGHT} .xterm-fg-3`));
   });
 });

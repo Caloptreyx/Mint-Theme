@@ -192,6 +192,10 @@
         "low": "{other} ile düşük kontrast: {ratio}:1 (hedef {min}:1)",
         "lowAs": "{other} üzerinde {role} olarak düşük kontrast: {ratio}:1 (hedef {min}:1)",
         "named": "{name} ({role})",
+        "fix": "{color} kullan",
+        "fixTitle": "{field} değerini {color} yap, minimumu karşılamaya yetecek kadar",
+        "fixAll": "Tümünü düzelt",
+        "fixAllTitle": "Başarısız renkleri minimumları karşılamaya yetecek kadar koyulaştır veya aç",
         "roles": {
           "links": "bağlantılar",
           "dimmed": "soluk metin",
@@ -670,7 +674,24 @@
         "commandLabel": "Etiket",
         "command": "Komut",
         "addCommand": "Komut ekle",
-        "removeCommand": "Komutu kaldır"
+        "removeCommand": "Komutu kaldır",
+        "terminalColors": "Terminal renkleri",
+        "terminalColorsDescription": "Sunucuların metin yazdığı 16 renk. Açık modda metin renkleri, açık kartta okunabilmeleri için gerektiğinde koyulaştırılır.",
+        "terminalPalette": "Palet",
+        "terminalPaletteDescription": "Her tema hazır ayarı, uygulandığında ayarlanan kendi paletiyle gelir. Kendinizinkini yapmak için aşağıdan bir rengi düzenleyin.",
+        "terminalPaletteCore": "Panel varsayılanı",
+        "terminalNormal": "Normal",
+        "terminalBright": "Parlak",
+        "terminalColorNames": {
+          "black": "Siyah",
+          "red": "Kırmızı",
+          "green": "Yeşil",
+          "yellow": "Sarı",
+          "blue": "Mavi",
+          "magenta": "Eflatun",
+          "cyan": "Camgöbeği",
+          "white": "Beyaz"
+        }
       },
       "navStyle": {
         "hover": "Üzerine gelme efekti",
@@ -801,6 +822,18 @@
         "description": "Panelin size nasıl göründüğü. Yalnızca siz görürsünüz, oturum açtığınız her cihazda.",
         "default": "Panel varsayılanı"
       }
+    },
+    "share": {
+      "copyCode": "Paylaşım kodunu kopyala",
+      "copyLink": "Paylaşım bağlantısını kopyala",
+      "paste": "Paylaşım kodu yapıştır",
+      "pasteTitle": "Bir paylaşım kodu yapıştırın",
+      "pasteDescription": "Bir paylaşım kodu (veya onu içeren bir bağlantı) bir temanın görünümünü taşır: renkler, yazı tipleri, şekiller ve stiller. Uygulamak yalnızca taslağı değiştirir; siz kaydedene kadar hiçbir şey kaydedilmez.",
+      "codeLabel": "Paylaşım kodu veya bağlantı",
+      "invalid": "Bu bir Mint paylaşım kodu değil ya da kesilmiş.",
+      "preview": "Renkler",
+      "apply": "Taslağa uygula",
+      "cancel": "İptal"
     },
     "localTheme": {
       "apply": "Bu tarayıcıda uygula",

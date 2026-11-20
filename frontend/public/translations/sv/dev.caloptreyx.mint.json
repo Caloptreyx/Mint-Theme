@@ -192,6 +192,10 @@
         "low": "Låg kontrast mot {other}: {ratio}:1 (sikta på {min}:1)",
         "lowAs": "Låg kontrast som {role} på {other}: {ratio}:1 (sikta på {min}:1)",
         "named": "{name} ({role})",
+        "fix": "Använd {color}",
+        "fixTitle": "Sätt {field} till {color}, precis nog för att nå minimum",
+        "fixAll": "Åtgärda alla",
+        "fixAllTitle": "Gör de underkända färgerna mörkare eller ljusare, precis nog för att nå minimikraven",
         "roles": {
           "links": "länkar",
           "dimmed": "nedtonad text",
@@ -670,7 +674,24 @@
         "commandLabel": "Etikett",
         "command": "Kommando",
         "addCommand": "Lägg till kommando",
-        "removeCommand": "Ta bort kommando"
+        "removeCommand": "Ta bort kommando",
+        "terminalColors": "Terminalfärger",
+        "terminalColorsDescription": "De 16 färger som servrar skriver text i. I ljust läge görs textfärger mörkare där det behövs så att de syns på det ljusa kortet.",
+        "terminalPalette": "Palett",
+        "terminalPaletteDescription": "Varje temaförinställning har sin egen palett, som sätts när förinställningen används. Ändra en färg nedan för att göra en egen.",
+        "terminalPaletteCore": "Panelens standard",
+        "terminalNormal": "Normal",
+        "terminalBright": "Ljus",
+        "terminalColorNames": {
+          "black": "Svart",
+          "red": "Röd",
+          "green": "Grön",
+          "yellow": "Gul",
+          "blue": "Blå",
+          "magenta": "Magenta",
+          "cyan": "Cyan",
+          "white": "Vit"
+        }
       },
       "navStyle": {
         "hover": "Hovringseffekt",
@@ -801,6 +822,18 @@
         "description": "Hur panelen ser ut för dig. Bara du ser det, på alla enheter du loggar in på.",
         "default": "Panelens standard"
       }
+    },
+    "share": {
+      "copyCode": "Kopiera delningskod",
+      "copyLink": "Kopiera delningslänk",
+      "paste": "Klistra in delningskod",
+      "pasteTitle": "Klistra in en delningskod",
+      "pasteDescription": "En delningskod (eller en länk som innehåller en) bär ett temas utseende: färger, typsnitt, former och stilar. Att använda den ändrar bara utkastet; inget sparas förrän du sparar.",
+      "codeLabel": "Delningskod eller länk",
+      "invalid": "Detta är ingen delningskod för Mint, eller så är den avklippt.",
+      "preview": "Färger",
+      "apply": "Använd på utkast",
+      "cancel": "Avbryt"
     },
     "localTheme": {
       "apply": "Använd i den här webbläsaren",

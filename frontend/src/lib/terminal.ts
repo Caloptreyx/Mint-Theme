@@ -47,7 +47,7 @@ export function initTerminal(options: ITerminalOptions & ITerminalInitOnlyOption
 /**
  * Switches to the picked font once it has loaded (changing the option makes xterm remeasure its cells), shows
  * or hides the cursor, and keeps following the theme, so editor previews and a late theme fetch reach an open
- * terminal. The `nebula-terminal` class scopes buildCss's cursor colour to core's console terminals.
+ * terminal. The `nebula-terminal` class scopes buildCss's cursor colour and ANSI palette to core's console terminals.
  */
 export function attachTerminal(term: Terminal) {
   const fit = new FitAddon();

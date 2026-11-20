@@ -198,6 +198,18 @@ export const SETTINGS: Setting[] = [
   { section: 'console', label: 'editor.console.lineHeight', also: ['editor.console.terminalTitle'] },
   {
     section: 'console',
+    label: 'editor.console.terminalColors',
+    also: [
+      'editor.console.terminalColorsDescription',
+      'editor.console.terminalPalette',
+      'editor.console.terminalPaletteCore',
+      'editor.console.terminalNormal',
+      'editor.console.terminalBright',
+      'editor.console.terminalColorNames.',
+    ],
+  },
+  {
+    section: 'console',
     label: 'editor.console.banner',
     also: ['editor.console.bannerTitle', 'editor.console.bannerDescription', 'editor.console.banners.'],
   },

@@ -2,7 +2,7 @@ import { faPlus, faRotateLeft, faTrash } from '@fortawesome/free-solid-svg-icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ColorInput, Slider } from '@mantine/core';
 import { derivedColors } from '../../lib/color.ts';
-import { contrastIssues } from '../../lib/contrast.ts';
+import { contrastIssues, fixAllContrast, fixContrast } from '../../lib/contrast.ts';
 import { ActionIcon, Button, Card, Group, Select, Stack, Switch, Text, TextInput } from '../../lib/core.ts';
 import { toHexColor } from '../../lib/editorDraft.ts';
 import { COLOR_GROUPS } from '../../lib/editorSearch.ts';
@@ -98,9 +98,12 @@ export default function Sections({ section, theme, valid, set }: Props) {
       return <PresetsSection theme={theme} set={set} />;
     case 'colours': {
       const issues = contrastIssues(valid);
+      // fixes come from the valid draft and go through `set`, so each is one undo step
+      const fixes = issues.map((issue) => fixContrast(valid, issue));
+      const fixAll = issues.length ? fixAllContrast(valid).patch : {};
       return (
         <Stack gap='lg'>
-          <ContrastSummary issues={issues} />
+          <ContrastSummary issues={issues} fixes={fixes} fixAll={fixAll} onFix={set} />
           {COLOR_GROUPS.map(({ group, keys, optional }) => (
             <Stack gap='xs' key={group}>
               <Heading>{t(`editor.group.${group}`, {})}</Heading>
@@ -139,7 +142,7 @@ export default function Sections({ section, theme, valid, set }: Props) {
                       ) : undefined
                     }
                   />
-                  <ContrastWarnings field={key} issues={issues} />
+                  <ContrastWarnings field={key} issues={issues} fixes={fixes} onFix={set} />
                 </div>
               ))}
             </Stack>

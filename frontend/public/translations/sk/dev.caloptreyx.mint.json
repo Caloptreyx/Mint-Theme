@@ -192,6 +192,10 @@
         "low": "Nízky kontrast s {other}: {ratio}:1 (cieľ je {min}:1)",
         "lowAs": "Nízky kontrast ako {role} na {other}: {ratio}:1 (cieľ je {min}:1)",
         "named": "{name} ({role})",
+        "fix": "Použiť {color}",
+        "fixTitle": "Nastaviť {field} na {color}, práve toľko, aby splnil minimum",
+        "fixAll": "Opraviť všetko",
+        "fixAllTitle": "Stmaviť alebo zosvetliť nevyhovujúce farby práve toľko, aby splnili minimá",
         "roles": {
           "links": "odkazy",
           "dimmed": "stlmený text",
@@ -670,7 +674,24 @@
         "commandLabel": "Popis",
         "command": "Príkaz",
         "addCommand": "Pridať príkaz",
-        "removeCommand": "Odstrániť príkaz"
+        "removeCommand": "Odstrániť príkaz",
+        "terminalColors": "Farby terminálu",
+        "terminalColorsDescription": "16 farieb, ktorými servery vypisujú text. Vo svetlom režime sa farby textu podľa potreby stmavia, aby boli čitateľné na svetlej karte.",
+        "terminalPalette": "Paleta",
+        "terminalPaletteDescription": "Každá predvoľba témy má vlastnú paletu, nastavenú pri použití predvoľby. Upravte farbu nižšie a vytvorte si vlastnú.",
+        "terminalPaletteCore": "Predvolená panela",
+        "terminalNormal": "Normálne",
+        "terminalBright": "Jasné",
+        "terminalColorNames": {
+          "black": "Čierna",
+          "red": "Červená",
+          "green": "Zelená",
+          "yellow": "Žltá",
+          "blue": "Modrá",
+          "magenta": "Purpurová",
+          "cyan": "Azúrová",
+          "white": "Biela"
+        }
       },
       "navStyle": {
         "hover": "Efekt pri prejdení myšou",
@@ -801,6 +822,18 @@
         "description": "Ako panel vyzerá pre vás. Vidíte ju iba vy, na každom zariadení, na ktorom sa prihlásite.",
         "default": "Predvolená téma panela"
       }
+    },
+    "share": {
+      "copyCode": "Kopírovať kód na zdieľanie",
+      "copyLink": "Kopírovať odkaz na zdieľanie",
+      "paste": "Vložiť kód na zdieľanie",
+      "pasteTitle": "Vložte kód na zdieľanie",
+      "pasteDescription": "Kód na zdieľanie (alebo odkaz, ktorý ho obsahuje) nesie vzhľad témy: farby, písma, tvary a štýly. Jeho použitie zmení iba koncept; nič sa neuloží, kým neuložíte.",
+      "codeLabel": "Kód na zdieľanie alebo odkaz",
+      "invalid": "Toto nie je kód na zdieľanie Mint alebo je skrátený.",
+      "preview": "Farby",
+      "apply": "Použiť na koncept",
+      "cancel": "Zrušiť"
     },
     "localTheme": {
       "apply": "Použiť v tomto prehliadači",

@@ -7,7 +7,7 @@ import { contrastIssues, MIN_TEXT_CONTRAST, MIN_UI_CONTRAST } from '../frontend/
 import { buildCss } from '../frontend/src/lib/css/index.ts';
 import { PAGE_ANIMATIONS } from '../frontend/src/lib/css/motion.ts';
 import { normalizeTheme, withUserTheme } from '../frontend/src/lib/normalize.ts';
-import { PRESETS } from '../frontend/src/lib/presets.ts';
+import { PRESETS, TERMINAL_PALETTES } from '../frontend/src/lib/presets.ts';
 import {
   AUTH_LAYOUTS,
   AUTH_POSITIONS,
@@ -35,6 +35,7 @@ import {
   SUPPORT_LINK_ICONS,
   TABLE_STYLES,
   TOAST_STYLES,
+  USER_THEME_FIELDS,
 } from '../frontend/src/lib/theme.ts';
 
 const UUID_A = '0f8fad5b-d9cb-469f-a165-70867728950e';
@@ -1739,5 +1740,94 @@ describe('light mode leftovers and text on accent', () => {
     }
     assert.match(schemeBlock(css, 'light'), /--chart-tick-color:var\(--mantine-color-dimmed\);/);
     assert.doesNotMatch(schemeBlock(css, 'dark'), /--chart-tick-color/);
+  });
+});
+
+describe('built-in presets', () => {
+  const COLOR_FIELDS = new Set<string>([
+    ...BASE_COLORS,
+    ...OPTIONAL_COLORS,
+    'lightBackground',
+    'lightSurface',
+    'lightText',
+    'terminalColors',
+  ]);
+  const keysOf = (preset: (typeof PRESETS)[number]) => Object.keys(preset.theme);
+  const styleKeys = (preset: (typeof PRESETS)[number]) =>
+    keysOf(preset)
+      .filter((key) => !COLOR_FIELDS.has(key))
+      .sort();
+
+  test('every preset sets only the look, so it applies the same as a user\'s pick', () => {
+    for (const preset of PRESETS) {
+      for (const key of keysOf(preset)) {
+        assert.ok(USER_THEME_FIELDS.includes(key as keyof NebulaTheme), `${preset.name}: ${key}`);
+      }
+    }
+  });
+
+  test('every colour one preset sets, every preset sets, so applying one over another leaves nothing behind', () => {
+    const colors = new Set(PRESETS.flatMap((preset) => keysOf(preset).filter((key) => COLOR_FIELDS.has(key))));
+    assert.ok(colors.has('lightBackground') && colors.has('textMuted') && colors.has('terminalColors'));
+    for (const preset of PRESETS) {
+      for (const key of colors) assert.ok(key in preset.theme, `${preset.name}: ${key}`);
+    }
+    for (const a of PRESETS) {
+      for (const b of PRESETS) {
+        const over = withUserTheme(withUserTheme(DEFAULT_THEME, a.theme), b.theme);
+        const alone = withUserTheme(DEFAULT_THEME, b.theme);
+        for (const key of colors as Set<keyof NebulaTheme>) {
+          assert.deepEqual(over[key], alone[key], `${a.name} then ${b.name}: ${key}`);
+        }
+      }
+    }
+  });
+
+  test('the colour presets leave style fields alone; the styled ones all set the same style fields', () => {
+    const styled = PRESETS.filter((preset) => styleKeys(preset).length > 0);
+    assert.deepEqual(
+      styled.map((preset) => preset.name),
+      ['Contrast', 'Daylight', 'Mono'],
+    );
+    for (const preset of styled) assert.deepEqual(styleKeys(preset), styleKeys(styled[0]), preset.name);
+    // so applying one styled preset over another resets every style field it set
+    const [a, b] = styled;
+    const over = withUserTheme(withUserTheme(DEFAULT_THEME, a.theme), b.theme);
+    assert.deepEqual(over, withUserTheme(DEFAULT_THEME, b.theme));
+    // and each one shows the options off differently
+    for (const key of ['buttonStyle', 'navHover', 'pageTransition', 'boxStyle'] as const) {
+      assert.equal(new Set(styled.map((preset) => preset.theme[key])).size, styled.length, key);
+    }
+  });
+
+  test('every preset has a 16 colour terminal palette that reads on its own surface', () => {
+    for (const preset of PRESETS) {
+      const theme = normalizeTheme({ ...DEFAULT_THEME, ...preset.theme });
+      assert.equal(preset.theme.terminalColors.length, 16, preset.name);
+      assert.deepEqual(theme.terminalColors, preset.theme.terminalColors, preset.name);
+      for (const [i, color] of theme.terminalColors.entries()) {
+        // black is mostly a background; bright black is the grey of timestamps and hints
+        const min = i === 0 ? 1 : i === 8 ? 3 : MIN_TEXT_CONTRAST;
+        assert.ok(contrastRatio(color, theme.surface) >= min, `${preset.name} ${i}: ${color} on ${theme.surface}`);
+      }
+    }
+  });
+
+  test('the editor\'s palettes are core\'s first, then one per preset', () => {
+    assert.deepEqual(TERMINAL_PALETTES[0], { id: 'core', name: 'Core', colors: [] });
+    assert.deepEqual(
+      TERMINAL_PALETTES.slice(1).map(({ name, colors }) => ({ name, colors })),
+      PRESETS.map((preset) => ({ name: preset.name, colors: preset.theme.terminalColors })),
+    );
+    assert.equal(new Set(TERMINAL_PALETTES.map((palette) => palette.id)).size, TERMINAL_PALETTES.length);
+  });
+
+  test('Contrast and Daylight set what they are about', () => {
+    const contrast = PRESETS.find((preset) => preset.name === 'Contrast');
+    assert.ok(contrast?.theme.textMuted && contrast.theme.line && contrast.theme.textOnAccent);
+    assert.equal(contrast.theme.buttonStyle, 'filled');
+    assert.equal(contrast.theme.blockBorder, true);
+    const daylight = PRESETS.find((preset) => preset.name === 'Daylight');
+    assert.ok(daylight?.theme.lightBackground && daylight.theme.lightSurface && daylight.theme.lightText);
   });
 });

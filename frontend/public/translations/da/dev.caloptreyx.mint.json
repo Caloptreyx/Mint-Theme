@@ -192,6 +192,10 @@
         "low": "Lav kontrast med {other}: {ratio}:1 (sigt efter {min}:1)",
         "lowAs": "Lav kontrast som {role} på {other}: {ratio}:1 (sigt efter {min}:1)",
         "named": "{name} ({role})",
+        "fix": "Brug {color}",
+        "fixTitle": "Sæt {field} til {color}, lige nok til at nå minimum",
+        "fixAll": "Ret alle",
+        "fixAllTitle": "Gør de fejlende farver mørkere eller lysere, lige nok til at nå minimumskravene",
         "roles": {
           "links": "links",
           "dimmed": "nedtonet tekst",
@@ -670,7 +674,24 @@
         "commandLabel": "Etiket",
         "command": "Kommando",
         "addCommand": "Tilføj kommando",
-        "removeCommand": "Fjern kommando"
+        "removeCommand": "Fjern kommando",
+        "terminalColors": "Terminalfarver",
+        "terminalColorsDescription": "De 16 farver, servere skriver tekst i. I lys tilstand gøres tekstfarver mørkere efter behov, så de kan læses på det lyse kort.",
+        "terminalPalette": "Palet",
+        "terminalPaletteDescription": "Hver temaforudindstilling har sin egen palet, som sættes når forudindstillingen anvendes. Rediger en farve nedenfor for at lave din egen.",
+        "terminalPaletteCore": "Panelets standard",
+        "terminalNormal": "Normal",
+        "terminalBright": "Lys",
+        "terminalColorNames": {
+          "black": "Sort",
+          "red": "Rød",
+          "green": "Grøn",
+          "yellow": "Gul",
+          "blue": "Blå",
+          "magenta": "Magenta",
+          "cyan": "Cyan",
+          "white": "Hvid"
+        }
       },
       "navStyle": {
         "hover": "Hover-effekt",
@@ -801,6 +822,18 @@
         "description": "Sådan ser panelet ud for dig. Kun du kan se det, på alle enheder, du logger ind på.",
         "default": "Panelets standard"
       }
+    },
+    "share": {
+      "copyCode": "Kopiér delingskode",
+      "copyLink": "Kopiér delingslink",
+      "paste": "Indsæt delingskode",
+      "pasteTitle": "Indsæt en delingskode",
+      "pasteDescription": "En delingskode (eller et link med en) indeholder et temas udseende: farver, skrifttyper, former og stilarter. Anvendelse ændrer kun kladden; intet gemmes, før du gemmer.",
+      "codeLabel": "Delingskode eller link",
+      "invalid": "Dette er ikke en Mint-delingskode, eller den er afkortet.",
+      "preview": "Farver",
+      "apply": "Anvend på kladde",
+      "cancel": "Annuller"
     },
     "localTheme": {
       "apply": "Anvend i denne browser",

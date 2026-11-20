@@ -192,6 +192,10 @@
         "low": "Contraste bajo con {other}: {ratio}:1 (objetivo {min}:1)",
         "lowAs": "Contraste bajo como {role} sobre {other}: {ratio}:1 (objetivo {min}:1)",
         "named": "{name} ({role})",
+        "fix": "Usar {color}",
+        "fixTitle": "Cambiar {field} a {color}, lo justo para alcanzar el mínimo",
+        "fixAll": "Corregir todo",
+        "fixAllTitle": "Oscurece o aclara los colores que fallan lo justo para alcanzar los mínimos",
         "roles": {
           "links": "enlaces",
           "dimmed": "texto atenuado",
@@ -670,7 +674,24 @@
         "commandLabel": "Etiqueta",
         "command": "Comando",
         "addCommand": "Añadir comando",
-        "removeCommand": "Quitar comando"
+        "removeCommand": "Quitar comando",
+        "terminalColors": "Colores de la terminal",
+        "terminalColorsDescription": "Los 16 colores en los que los servidores imprimen texto. En modo claro, los colores del texto se oscurecen cuando hace falta para que se lean sobre la tarjeta clara.",
+        "terminalPalette": "Paleta",
+        "terminalPaletteDescription": "Cada preajuste de tema trae su propia paleta, que se aplica junto con el preajuste. Edita un color abajo para crear la tuya.",
+        "terminalPaletteCore": "Predeterminada del panel",
+        "terminalNormal": "Normal",
+        "terminalBright": "Brillante",
+        "terminalColorNames": {
+          "black": "Negro",
+          "red": "Rojo",
+          "green": "Verde",
+          "yellow": "Amarillo",
+          "blue": "Azul",
+          "magenta": "Magenta",
+          "cyan": "Cian",
+          "white": "Blanco"
+        }
       },
       "navStyle": {
         "hover": "Efecto al pasar el cursor",
@@ -801,6 +822,18 @@
         "description": "Cómo se ve el panel para ti. Solo tú lo ves, en todos los dispositivos donde inicies sesión.",
         "default": "Predeterminado del panel"
       }
+    },
+    "share": {
+      "copyCode": "Copiar código para compartir",
+      "copyLink": "Copiar enlace para compartir",
+      "paste": "Pegar código para compartir",
+      "pasteTitle": "Pegar un código para compartir",
+      "pasteDescription": "Un código para compartir (o un enlace que lo contenga) lleva el aspecto de un tema: colores, fuentes, formas y estilos. Aplicarlo solo cambia el borrador; no se guarda nada hasta que guardes.",
+      "codeLabel": "Código o enlace para compartir",
+      "invalid": "No es un código para compartir de Mint, o está cortado.",
+      "preview": "Colores",
+      "apply": "Aplicar al borrador",
+      "cancel": "Cancelar"
     },
     "localTheme": {
       "apply": "Aplicar en este navegador",

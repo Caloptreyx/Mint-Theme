@@ -198,6 +198,10 @@ const translations = defineTranslations({
         low: 'Low contrast with {other}: {ratio}:1 (aim for {min}:1)',
         lowAs: 'Low contrast as {role} on {other}: {ratio}:1 (aim for {min}:1)',
         named: '{name} ({role})',
+        fix: 'Use {color}',
+        fixTitle: 'Set {field} to {color}, just enough to meet the minimum',
+        fixAll: 'Fix all',
+        fixAllTitle: 'Darken or lighten the failing colours just enough to meet the minimums',
         roles: {
           links: 'links',
           dimmed: 'dimmed text',
@@ -698,6 +702,25 @@ const translations = defineTranslations({
         command: 'Command',
         addCommand: 'Add command',
         removeCommand: 'Remove command',
+        terminalColors: 'Terminal colours',
+        terminalColorsDescription:
+          'The 16 colours servers print text in. In light mode text colours are darkened where needed so they read on the light card.',
+        terminalPalette: 'Palette',
+        terminalPaletteDescription:
+          'Every theme preset comes with its own palette, set when the preset is applied. Edit a colour below to make your own.',
+        terminalPaletteCore: 'Panel default',
+        terminalNormal: 'Normal',
+        terminalBright: 'Bright',
+        terminalColorNames: {
+          black: 'Black',
+          red: 'Red',
+          green: 'Green',
+          yellow: 'Yellow',
+          blue: 'Blue',
+          magenta: 'Magenta',
+          cyan: 'Cyan',
+          white: 'White',
+        },
       },
       navStyle: {
         hover: 'Hover effect',
@@ -839,6 +862,19 @@ const translations = defineTranslations({
         description: 'How the panel looks for you. Only you see it, on every device you sign in on.',
         default: 'Panel default',
       },
+    },
+    share: {
+      copyCode: 'Copy share code',
+      copyLink: 'Copy share link',
+      paste: 'Paste share code',
+      pasteTitle: 'Paste a share code',
+      pasteDescription:
+        "A share code (or a link holding one) carries a theme's look: colours, fonts, shapes and styles. Applying it changes the draft only; nothing is saved until you save.",
+      codeLabel: 'Share code or link',
+      invalid: 'This is not a Mint share code, or it is cut off.',
+      preview: 'Colours',
+      apply: 'Apply to draft',
+      cancel: 'Cancel',
     },
     localTheme: {
       apply: 'Apply in this browser',

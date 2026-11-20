@@ -1640,6 +1640,1114 @@ display:none;
 
 `;
 
+exports[`buildCss output > preset Contrast 1`] = `
+html:root{
+--mantine-color-blue-0:#fffae6;
+--mantine-color-blue-1:#fff4c7;
+--mantine-color-blue-2:#ffeb99;
+--mantine-color-blue-3:#ffe16b;
+--mantine-color-blue-4:#ffd83d;
+--mantine-color-blue-5:#ffd119;
+--mantine-color-blue-6:#ffcc00;
+--mantine-color-blue-7:#d6ab00;
+--mantine-color-blue-8:#b38f00;
+--mantine-color-blue-9:#8f7200;
+--mantine-color-dark-0:#ffffff;
+--mantine-color-dark-1:#cdcdcd;
+--mantine-color-dark-2:#969696;
+--mantine-color-dark-3:#696969;
+--mantine-color-dark-4:#282828;
+--mantine-color-dark-5:#191919;
+--mantine-color-dark-6:#0f0f0f;
+--mantine-color-dark-7:#050505;
+--mantine-color-dark-8:#040404;
+--mantine-color-dark-9:#030303;
+--nebula-highlight:#00e5ff;
+--mantine-radius-xs:2px;
+--mantine-radius-sm:4px;
+--mantine-radius-default:4px;
+--mantine-radius-md:6px;
+--mantine-radius-lg:10px;
+--mantine-font-family:'Plus Jakarta Sans', Helvetica, Arial, sans-serif;
+--mantine-font-family-headings:'Plus Jakarta Sans', Helvetica, Arial, sans-serif;
+--font-sans:'Plus Jakarta Sans', Helvetica, Arial, sans-serif;
+--mantine-font-family-monospace:'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace;
+--font-mono:'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace;
+}
+
+html:root[data-mantine-color-scheme="dark"]{
+--nebula-card:#0f0f0f;
+--nebula-button-ink:#ffffff;
+--mantine-color-body:#050505;
+--mantine-color-text:#ffffff;
+--mantine-color-dimmed:#d0d0d0;
+--mantine-color-placeholder:#a8a8a8;
+--mantine-color-default:#121212;
+--mantine-color-default-hover:#1e1e1e;
+--mantine-color-default-border:#6b6b6b;
+--mantine-color-anchor:#ffd83d;
+--mantine-color-blue-filled:#ffcc00;
+--mantine-color-blue-filled-hover:#ffd119;
+--mantine-color-blue-light:rgba(255, 204, 0, 0.2);
+--mantine-color-blue-light-hover:rgba(255, 204, 0, 0.28);
+--mantine-color-blue-light-color:#ffe16b;
+--mantine-color-blue-outline:#ffd83d;
+--mantine-color-blue-outline-hover:rgba(255, 216, 61, 0.08);
+--mantine-color-blue-text:#ffd83d;
+--chart-series-1:#ffd83d;
+--mantine-primary-color-contrast:#000000;
+}
+
+html:root[data-mantine-color-scheme="light"]{
+--mantine-color-gray-0:#f8f7f2;
+--mantine-color-gray-1:#f0efea;
+--mantine-color-gray-2:#e9e8e3;
+--mantine-color-gray-3:#dfded9;
+--mantine-color-gray-4:#d0cfcb;
+--mantine-color-gray-5:#adaca8;
+--mantine-color-gray-6:#82827f;
+--mantine-color-gray-7:#50504e;
+--mantine-color-gray-8:#373736;
+--mantine-color-gray-9:#232322;
+--nebula-card:#fffef9;
+--nebula-button-ink:#050505;
+--nebula-highlight:#02a2b4;
+--mantine-color-white:#fffef9;
+--mantine-color-black:#050505;
+--mantine-color-bright:#050505;
+--mantine-color-body:#f4f1e4;
+--mantine-color-text:#050505;
+--mantine-color-dimmed:#646462;
+--mantine-color-placeholder:#adaca8;
+--mantine-color-default:#fffef9;
+--mantine-color-default-hover:#f8f7f2;
+--mantine-color-default-color:#050505;
+--mantine-color-default-border:#d0cfcb;
+--mantine-color-anchor:#6e5903;
+--mantine-color-blue-filled:#ffcc00;
+--mantine-color-blue-filled-hover:#d6ab00;
+--mantine-color-blue-light:rgba(255, 204, 0, 0.1);
+--mantine-color-blue-light-hover:rgba(255, 204, 0, 0.14);
+--mantine-color-blue-light-color:#6e5903;
+--mantine-color-blue-outline:#ffcc00;
+--mantine-color-blue-outline-hover:rgba(255, 204, 0, 0.05);
+--mantine-color-blue-text:#6e5903;
+--chart-series-1:#ffcc00;
+--chart-tick-color:var(--mantine-color-dimmed);
+--mantine-primary-color-contrast:#000000;
+}
+
+html:root[data-mantine-color-scheme="light"] .xterm .xterm-scrollable-element{
+background-color:transparent!important;
+}
+
+html:root[data-mantine-color-scheme="light"] .xterm .xterm-rows{
+color:var(--mantine-color-text);
+}
+
+html:root[data-mantine-color-scheme="light"] :is([class~="text-neutral-400"],[class~="text-neutral-400!"],[class~="light:text-neutral-400!"],[class~="text-gray-400"],[class~="text-gray-400!"],[class~="light:text-gray-400!"],[class~="text-gray-500"],[class~="text-gray-500!"],[class~="light:text-gray-500!"],[class~="text-gray-600"],[class~="text-gray-600!"],[class~="light:text-gray-600!"]){
+--color-neutral-400:var(--mantine-color-dimmed);
+--color-gray-400:var(--mantine-color-dimmed);
+--color-gray-500:var(--mantine-color-dimmed);
+--color-gray-600:var(--mantine-color-dimmed);
+}
+
+html:root .mantine-Button-root[style*="--button-bg: var(--mantine-color-blue-filled);
+"]{
+--button-color:#000000!important;
+}
+
+html:root .mantine-ActionIcon-root[style*="--ai-bg: var(--mantine-color-blue-filled);
+"]{
+--ai-color:#000000!important;
+}
+
+html:root .mantine-Badge-root:is([style*="--badge-bg: var(--mantine-color-blue-filled);
+"],:not([style*="--badge-bg"])){
+--badge-color:#000000!important;
+}
+
+html:root .mantine-active:active:not(fieldset:disabled *){
+transform:none;
+outline:2px solid var(--mantine-color-blue-filled);
+outline-offset:2px;
+}
+
+@media (prefers-reduced-motion:no-preference){
+html:root [data-nebula-page-enter] > *{
+animation:nebula-page-fade 200ms ease-out;
+}
+}
+
+@media (hover:hover){
+html:root :is(.mantine-Card-root.cursor-pointer,a.mantine-Card-root):not(.cursor-pointer .mantine-Card-root):hover{
+box-shadow:0 0 0 1px color-mix(in srgb,var(--mantine-color-blue-filled) 50%,transparent),0 10px 32px -12px color-mix(in srgb,var(--mantine-color-blue-filled) 65%,transparent);
+}
+html:root .mantine-Button-root:not([data-variant="subtle"],[data-variant="transparent"],:disabled,[data-disabled],[data-loading]):hover{
+box-shadow:0 0 0 1px color-mix(in srgb,currentColor 45%,transparent),0 0 18px -4px color-mix(in srgb,currentColor 60%,transparent);
+}
+html:root .mantine-Button-root:not([data-variant="subtle"],[data-variant="transparent"],:disabled,[data-disabled],[data-loading])[data-variant="filled"]:hover{
+box-shadow:0 0 0 1px color-mix(in srgb,var(--button-bg) 55%,transparent),0 0 18px -4px color-mix(in srgb,var(--button-bg) 70%,transparent);
+}
+}
+
+@media (prefers-reduced-motion:reduce){
+html:root :is(.mantine-Card-root.cursor-pointer,a.mantine-Card-root):not(.cursor-pointer .mantine-Card-root){
+transition-duration:0s;
+}
+html:root .mantine-Button-root:not([data-variant="subtle"],[data-variant="transparent"],:disabled,[data-disabled],[data-loading]){
+transition:none;
+}
+}
+
+@media (prefers-reduced-motion:no-preference){
+@media (hover:hover){
+html:root :is(.mantine-Card-root.cursor-pointer,a.mantine-Card-root):not(.cursor-pointer .mantine-Card-root){
+transition:transform 190ms ease,box-shadow 190ms ease;
+}
+html:root .mantine-Button-root:not([data-variant="subtle"],[data-variant="transparent"],:disabled,[data-disabled],[data-loading]){
+transition:transform 150ms ease,box-shadow 150ms ease;
+}
+}
+}
+
+html:root .mantine-Card-root > #title-card-header,html:root .mantine-Card-root > .border-b:first-child:has(> div > h3){
+background:transparent;
+border-bottom:1px solid var(--mantine-color-default-border)!important;
+}
+
+html:root .mantine-Tabs-root:has(a[href$="/admin/settings/webauthn"]) ~ div:has(> h2.mantine-Title-root:first-child),html:root .mantine-Tabs-root:has(a[href$="/admin/settings/webauthn"]) ~ .mantine-Group-root:has(> div:first-child > h2.mantine-Title-root:first-child),html:root .mantine-Tabs-root:has(a[href$="/admin/settings/webauthn"]) ~ form .mantine-Card-root > .mantine-Stack-root > h3.mantine-Title-root:first-child{
+padding-bottom:var(--mantine-spacing-xs);
+border-bottom:1px solid var(--mantine-color-default-border);
+}
+
+html:root .mantine-Tabs-root:has(a[href$="/admin/settings/webauthn"]) ~ form .mantine-UnstyledButton-root:first-child:has(+ [aria-hidden="false"]:last-child){
+border-bottom:1px solid var(--mantine-color-default-border);
+}
+
+html:root .mantine-Tabs-root:has(a[href$="/admin/settings/webauthn"]) ~ * .mantine-Paper-root > div[class~="bg-(--mantine-color-default)"]:has(+ .mantine-Divider-root){
+background:transparent;
+}
+
+html:root #sidebar-content a,html:root .nebula-topnav a,html:root .nebula-topnav-menu a{
+--nebula-nav-accent:var(--mantine-color-blue-filled);
+--nebula-nav-tint:var(--mantine-color-blue-light);
+--nebula-nav-ink:var(--mantine-color-blue-light-color);
+}
+
+html:root[data-mantine-color-scheme="dark"]{
+--nebula-nav-fill:var(--mantine-color-default-hover);
+}
+
+html:root[data-mantine-color-scheme="light"]{
+--nebula-nav-fill:var(--mantine-color-gray-2);
+}
+
+@media (hover:hover){
+html:root #sidebar-content a > .mantine-Button-root:not(.active):hover,html:root .nebula-topnav a > .mantine-Button-root:not(.active):hover,html:root .nebula-topnav-menu a > .mantine-Button-root:not(.active):hover{
+background-color:var(--nebula-nav-tint);
+color:var(--mantine-color-text);
+}
+}
+
+html:root #sidebar-content a > .mantine-Button-root.active,html:root .nebula-topnav a > .mantine-Button-root.active,html:root .nebula-topnav-menu a > .mantine-Button-root.active{
+border-color:transparent;
+background-color:var(--nebula-nav-accent);
+color:var(--mantine-primary-color-contrast);
+}
+
+html:root .nebula-sb-items a:not(.active):hover::before{
+background:transparent;
+}
+
+html:root .xterm.nebula-terminal .xterm-bg-0{
+background-color:#2a2a2a;
+}
+html:root .xterm.nebula-terminal .xterm-bg-1{
+background-color:#ff5555;
+}
+html:root .xterm.nebula-terminal .xterm-bg-2{
+background-color:#50fa7b;
+}
+html:root .xterm.nebula-terminal .xterm-bg-3{
+background-color:#ffe14d;
+}
+html:root .xterm.nebula-terminal .xterm-bg-4{
+background-color:#5cb3ff;
+}
+html:root .xterm.nebula-terminal .xterm-bg-5{
+background-color:#ff79c6;
+}
+html:root .xterm.nebula-terminal .xterm-bg-6{
+background-color:#4ff0ff;
+}
+html:root .xterm.nebula-terminal .xterm-bg-7{
+background-color:#e6e6e6;
+}
+html:root .xterm.nebula-terminal .xterm-bg-8{
+background-color:#a0a0a0;
+}
+html:root .xterm.nebula-terminal .xterm-bg-9{
+background-color:#ff8080;
+}
+html:root .xterm.nebula-terminal .xterm-bg-10{
+background-color:#8dffac;
+}
+html:root .xterm.nebula-terminal .xterm-bg-11{
+background-color:#fff08a;
+}
+html:root .xterm.nebula-terminal .xterm-bg-12{
+background-color:#99ceff;
+}
+html:root .xterm.nebula-terminal .xterm-bg-13{
+background-color:#ffa6dc;
+}
+html:root .xterm.nebula-terminal .xterm-bg-14{
+background-color:#9ef7ff;
+}
+html:root .xterm.nebula-terminal .xterm-bg-15{
+background-color:#ffffff;
+}
+
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-0{
+color:#2a2a2a;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-0.xterm-dim{
+color:rgba(42, 42, 42, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-1{
+color:#ff5555;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-1.xterm-dim{
+color:rgba(255, 85, 85, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-2{
+color:#50fa7b;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-2.xterm-dim{
+color:rgba(80, 250, 123, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-3{
+color:#ffe14d;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-3.xterm-dim{
+color:rgba(255, 225, 77, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-4{
+color:#5cb3ff;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-4.xterm-dim{
+color:rgba(92, 179, 255, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-5{
+color:#ff79c6;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-5.xterm-dim{
+color:rgba(255, 121, 198, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-6{
+color:#4ff0ff;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-6.xterm-dim{
+color:rgba(79, 240, 255, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-7{
+color:#e6e6e6;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-7.xterm-dim{
+color:rgba(230, 230, 230, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-8{
+color:#a0a0a0;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-8.xterm-dim{
+color:rgba(160, 160, 160, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-9{
+color:#ff8080;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-9.xterm-dim{
+color:rgba(255, 128, 128, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-10{
+color:#8dffac;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-10.xterm-dim{
+color:rgba(141, 255, 172, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-11{
+color:#fff08a;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-11.xterm-dim{
+color:rgba(255, 240, 138, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-12{
+color:#99ceff;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-12.xterm-dim{
+color:rgba(153, 206, 255, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-13{
+color:#ffa6dc;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-13.xterm-dim{
+color:rgba(255, 166, 220, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-14{
+color:#9ef7ff;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-14.xterm-dim{
+color:rgba(158, 247, 255, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-15{
+color:#ffffff;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-15.xterm-dim{
+color:rgba(255, 255, 255, 0.5);
+}
+
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-0{
+color:#2a2a2a;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-0.xterm-dim{
+color:rgba(42, 42, 42, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-1{
+color:#b43d3d;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-1.xterm-dim{
+color:rgba(180, 61, 61, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-2{
+color:#256c37;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-2.xterm-dim{
+color:rgba(37, 108, 55, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-3{
+color:#6e6123;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-3.xterm-dim{
+color:rgba(110, 97, 35, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-4{
+color:#366691;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-4.xterm-dim{
+color:rgba(54, 102, 145, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-5{
+color:#914671;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-5.xterm-dim{
+color:rgba(145, 70, 113, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-6{
+color:#24686e;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-6.xterm-dim{
+color:rgba(36, 104, 110, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-7{
+color:#646464;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-7.xterm-dim{
+color:rgba(100, 100, 100, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-8{
+color:#727272;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-8.xterm-dim{
+color:rgba(114, 114, 114, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-9{
+color:#b45b5b;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-9.xterm-dim{
+color:rgba(180, 91, 91, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-10{
+color:#3e6e4b;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-10.xterm-dim{
+color:rgba(62, 110, 75, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-11{
+color:#6e683d;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-11.xterm-dim{
+color:rgba(110, 104, 61, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-12{
+color:#587691;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-12.xterm-dim{
+color:rgba(88, 118, 145, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-13{
+color:#915f7d;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-13.xterm-dim{
+color:rgba(145, 95, 125, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-14{
+color:#456b6e;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-14.xterm-dim{
+color:rgba(69, 107, 110, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-15{
+color:#6e6e6e;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-15.xterm-dim{
+color:rgba(110, 110, 110, 0.5);
+}
+
+`;
+
+exports[`buildCss output > preset Daylight 1`] = `
+html:root{
+--mantine-color-blue-0:#eaf1f9;
+--mantine-color-blue-1:#d1dff1;
+--mantine-color-blue-2:#acc5e5;
+--mantine-color-blue-3:#86abda;
+--mantine-color-blue-4:#6192ce;
+--mantine-color-blue-5:#447dc5;
+--mantine-color-blue-6:#2f6fbf;
+--mantine-color-blue-7:#275da0;
+--mantine-color-blue-8:#214e86;
+--mantine-color-blue-9:#1a3e6b;
+--mantine-color-dark-0:#e6e8eb;
+--mantine-color-dark-1:#bec0c3;
+--mantine-color-dark-2:#919497;
+--mantine-color-dark-3:#6d6f74;
+--mantine-color-dark-4:#383b40;
+--mantine-color-dark-5:#2c2f34;
+--mantine-color-dark-6:#23272e;
+--mantine-color-dark-7:#1c1f24;
+--mantine-color-dark-8:#15171b;
+--mantine-color-dark-9:#0f1114;
+--nebula-highlight:#e0a458;
+--mantine-radius-xs:6px;
+--mantine-radius-sm:10px;
+--mantine-radius-default:10px;
+--mantine-radius-md:16px;
+--mantine-radius-lg:20px;
+--mantine-font-family:'Outfit', Helvetica, Arial, sans-serif;
+--mantine-font-family-headings:'Outfit', Helvetica, Arial, sans-serif;
+--font-sans:'Outfit', Helvetica, Arial, sans-serif;
+--mantine-font-family-monospace:'Fira Code', ui-monospace, Menlo, Consolas, monospace;
+--font-mono:'Fira Code', ui-monospace, Menlo, Consolas, monospace;
+}
+
+html:root[data-mantine-color-scheme="dark"]{
+--nebula-card:#23272e;
+--nebula-button-ink:#ffffff;
+--mantine-color-body:#1c1f24;
+--mantine-color-text:#e6e8eb;
+--mantine-color-dimmed:#919497;
+--mantine-color-placeholder:#6d6f74;
+--mantine-color-default:#26292e;
+--mantine-color-default-hover:#303338;
+--mantine-color-default-border:#383b40;
+--mantine-color-anchor:#6192ce;
+--mantine-color-blue-filled:#2f6fbf;
+--mantine-color-blue-filled-hover:#447dc5;
+--mantine-color-blue-light:rgba(47, 111, 191, 0.2);
+--mantine-color-blue-light-hover:rgba(47, 111, 191, 0.28);
+--mantine-color-blue-light-color:#86abda;
+--mantine-color-blue-outline:#6192ce;
+--mantine-color-blue-outline-hover:rgba(97, 146, 206, 0.08);
+--mantine-color-blue-text:#6192ce;
+--chart-series-1:#6192ce;
+}
+
+html:root[data-mantine-color-scheme="light"]{
+--mantine-color-gray-0:#f8f6f1;
+--mantine-color-gray-1:#f2f0eb;
+--mantine-color-gray-2:#ebe9e4;
+--mantine-color-gray-3:#e2e0db;
+--mantine-color-gray-4:#d5d3ce;
+--mantine-color-gray-5:#b6b3af;
+--mantine-color-gray-6:#918e89;
+--mantine-color-gray-7:#64615d;
+--mantine-color-gray-8:#4e4b46;
+--mantine-color-gray-9:#3d3935;
+--nebula-card:#fffdf8;
+--nebula-button-ink:#221e1a;
+--nebula-highlight:#a77c45;
+--mantine-color-white:#fffdf8;
+--mantine-color-black:#221e1a;
+--mantine-color-bright:#221e1a;
+--mantine-color-body:#f3f0e9;
+--mantine-color-text:#221e1a;
+--mantine-color-dimmed:#76736e;
+--mantine-color-placeholder:#b6b3af;
+--mantine-color-default:#fffdf8;
+--mantine-color-default-hover:#f8f6f1;
+--mantine-color-default-color:#221e1a;
+--mantine-color-default-border:#d5d3ce;
+--mantine-color-anchor:#2f6fbf;
+--mantine-color-blue-filled:#2f6fbf;
+--mantine-color-blue-filled-hover:#275da0;
+--mantine-color-blue-light:rgba(47, 111, 191, 0.1);
+--mantine-color-blue-light-hover:rgba(47, 111, 191, 0.14);
+--mantine-color-blue-light-color:#2f6fbf;
+--mantine-color-blue-outline:#2f6fbf;
+--mantine-color-blue-outline-hover:rgba(47, 111, 191, 0.05);
+--mantine-color-blue-text:#2f6fbf;
+--chart-series-1:#2f6fbf;
+--chart-tick-color:var(--mantine-color-dimmed);
+}
+
+html:root[data-mantine-color-scheme="light"] .xterm .xterm-scrollable-element{
+background-color:transparent!important;
+}
+
+html:root[data-mantine-color-scheme="light"] .xterm .xterm-rows{
+color:var(--mantine-color-text);
+}
+
+html:root[data-mantine-color-scheme="light"] :is([class~="text-neutral-400"],[class~="text-neutral-400!"],[class~="light:text-neutral-400!"],[class~="text-gray-400"],[class~="text-gray-400!"],[class~="light:text-gray-400!"],[class~="text-gray-500"],[class~="text-gray-500!"],[class~="light:text-gray-500!"],[class~="text-gray-600"],[class~="text-gray-600!"],[class~="light:text-gray-600!"]){
+--color-neutral-400:var(--mantine-color-dimmed);
+--color-gray-400:var(--mantine-color-dimmed);
+--color-gray-500:var(--mantine-color-dimmed);
+--color-gray-600:var(--mantine-color-dimmed);
+}
+
+html:root .mantine-Button-root[data-variant="filled"]:not([data-disabled]):not(:disabled){
+background-color:color-mix(in srgb,var(--button-bg) 22%,transparent)!important;
+border:1px solid color-mix(in srgb,var(--button-bg) 62%,transparent)!important;
+color:color-mix(in srgb,var(--button-bg) 55%,var(--nebula-button-ink))!important;
+}
+
+html:root .mantine-Button-root[data-variant="filled"]:not([data-disabled]):not(:disabled):hover{
+background-color:color-mix(in srgb,var(--button-bg) 34%,transparent)!important;
+}
+
+html:root .mantine-active{
+transition:transform 120ms ease;
+}
+html:root .mantine-active:active:not(fieldset:disabled *){
+transform:scale(0.96);
+}
+
+@media (prefers-reduced-motion:reduce){
+html:root .mantine-active{
+transition:none;
+}
+html:root .mantine-active:active:not(fieldset:disabled *){
+transform:none;
+}
+}
+
+html:root .fixed.z-999 .mantine-Notification-root{
+background-color:color-mix(in srgb,var(--notification-color) 14%,color-mix(in srgb,var(--mantine-color-body) 68%,transparent));
+border:1px solid color-mix(in srgb,var(--notification-color) 38%,transparent);
+box-shadow:0 12px 32px -14px color-mix(in srgb,var(--notification-color) 55%,transparent);
+-webkit-backdrop-filter:blur(14px) saturate(160%);
+backdrop-filter:blur(14px) saturate(160%);
+padding-inline-start:54px;
+min-height:56px;
+}
+
+html:root .fixed.z-999 .mantine-Notification-root::before{
+display:block;
+top:50%;
+bottom:auto;
+width:30px;
+height:30px;
+margin-top:-15px;
+inset-inline-start:12px;
+border-radius:var(--mantine-radius-sm);
+background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 11v6.5M12 6.5h.01'/%3E%3C/svg%3E") center/16px no-repeat,var(--notification-color);
+}
+
+html:root .fixed.z-999 .mantine-Notification-root[data-nebula-tone="green"]::before{
+background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E");
+}
+
+html:root .fixed.z-999 .mantine-Notification-root[data-nebula-tone="red"]::before{
+background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 7l10 10M17 7L7 17'/%3E%3C/svg%3E");
+}
+
+html:root .fixed.z-999 .mantine-Notification-root[data-nebula-tone="yellow"]::before{
+background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23111111' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 6v8M12 18.5h.01'/%3E%3C/svg%3E");
+}
+
+html:root .fixed.z-999 .mantine-Notification-root:not(:has(.mantine-Progress-root))::after{
+content:'';
+position:absolute;
+inset-inline:0;
+bottom:0;
+height:3px;
+background:var(--notification-color);
+transform-origin:0 50%;
+animation:nebula-toast-countdown 7500ms linear forwards;
+}
+
+@media (prefers-reduced-motion:reduce){
+html:root .fixed.z-999 .mantine-Notification-root::after{
+display:none;
+}
+}
+
+@media (prefers-reduced-motion:no-preference){
+html:root [data-nebula-page-enter] > *{
+animation:nebula-page-fade-up 240ms cubic-bezier(0.2, 0.8, 0.3, 1);
+}
+}
+
+@media (prefers-reduced-motion:no-preference){
+html:root [data-nebula-page-enter] :is(.mantine-Card-root:not([data-nebula-page-enter] .mantine-Card-root .mantine-Card-root),tbody > tr){
+animation:nebula-page-card-rise 320ms cubic-bezier(0.2, 0.8, 0.3, 1) backwards;
+}
+html:root [data-nebula-page-enter] :is(.mantine-Card-root:not([data-nebula-page-enter] .mantine-Card-root .mantine-Card-root),tbody > tr):nth-child(2){
+animation-delay:40ms;
+}
+html:root [data-nebula-page-enter] :is(.mantine-Card-root:not([data-nebula-page-enter] .mantine-Card-root .mantine-Card-root),tbody > tr):nth-child(3){
+animation-delay:80ms;
+}
+html:root [data-nebula-page-enter] :is(.mantine-Card-root:not([data-nebula-page-enter] .mantine-Card-root .mantine-Card-root),tbody > tr):nth-child(4){
+animation-delay:120ms;
+}
+html:root [data-nebula-page-enter] :is(.mantine-Card-root:not([data-nebula-page-enter] .mantine-Card-root .mantine-Card-root),tbody > tr):nth-child(5){
+animation-delay:160ms;
+}
+html:root [data-nebula-page-enter] :is(.mantine-Card-root:not([data-nebula-page-enter] .mantine-Card-root .mantine-Card-root),tbody > tr):nth-child(6){
+animation-delay:200ms;
+}
+html:root [data-nebula-page-enter] :is(.mantine-Card-root:not([data-nebula-page-enter] .mantine-Card-root .mantine-Card-root),tbody > tr):nth-child(7){
+animation-delay:240ms;
+}
+html:root [data-nebula-page-enter] :is(.mantine-Card-root:not([data-nebula-page-enter] .mantine-Card-root .mantine-Card-root),tbody > tr):nth-child(n+8){
+animation-delay:280ms;
+}
+}
+
+@media (hover:hover){
+html:root :is(.mantine-Card-root.cursor-pointer,a.mantine-Card-root):not(.cursor-pointer .mantine-Card-root):hover{
+box-shadow:0 14px 30px -16px rgb(0 0 0 / 0.55);
+}
+html:root .mantine-Button-root:not([data-variant="subtle"],[data-variant="transparent"],:disabled,[data-disabled],[data-loading]):hover{
+box-shadow:0 8px 18px -10px rgb(0 0 0 / 0.6);
+}
+}
+
+@media (prefers-reduced-motion:reduce){
+html:root :is(.mantine-Card-root.cursor-pointer,a.mantine-Card-root):not(.cursor-pointer .mantine-Card-root){
+transition-duration:0s;
+}
+html:root .mantine-Button-root:not([data-variant="subtle"],[data-variant="transparent"],:disabled,[data-disabled],[data-loading]){
+transition:none;
+}
+}
+
+@media (prefers-reduced-motion:no-preference){
+@media (hover:hover){
+html:root :is(.mantine-Card-root.cursor-pointer,a.mantine-Card-root):not(.cursor-pointer .mantine-Card-root){
+transition:transform 190ms ease,box-shadow 190ms ease;
+}
+html:root .mantine-Button-root:not([data-variant="subtle"],[data-variant="transparent"],:disabled,[data-disabled],[data-loading]){
+transition:transform 150ms ease,box-shadow 150ms ease;
+}
+html:root :is(.mantine-Card-root.cursor-pointer,a.mantine-Card-root):not(.cursor-pointer .mantine-Card-root):hover{
+transform:translateY(-3px);
+}
+html:root .mantine-Button-root:not([data-variant="subtle"],[data-variant="transparent"],:disabled,[data-disabled],[data-loading]):hover:not(:active){
+transform:translateY(-1px);
+}
+}
+}
+
+@media (prefers-reduced-motion:no-preference){
+html:root :is(.mantine-Modal-content,.mantine-Drawer-content):not([style*="opacity: 0;
+"]),html:root :is(.mantine-Popover-dropdown,.mantine-Menu-dropdown,.mantine-Combobox-dropdown):not([style*="opacity: 0;
+"]){
+transition:none!important;
+}
+html:root :is(.mantine-Modal-content,.mantine-Drawer-content){
+animation:nebula-overlay-pop 200ms cubic-bezier(0.2, 0.8, 0.3, 1);
+}
+html:root :is(.mantine-Popover-dropdown,.mantine-Menu-dropdown,.mantine-Combobox-dropdown){
+--nebula-overlay-shift:8px;
+transform-origin:top center;
+animation:nebula-overlay-pop 150ms cubic-bezier(0.2, 0.8, 0.3, 1);
+}
+html:root :is(.mantine-Popover-dropdown,.mantine-Menu-dropdown,.mantine-Combobox-dropdown)[data-position^="top"]{
+transform-origin:bottom center;
+}
+}
+
+html:root .mantine-Card-root > #title-card-header,html:root .mantine-Card-root > .border-b:first-child:has(> div > h3){
+background:var(--mantine-color-blue-light);
+border-bottom-color:transparent!important;
+}
+
+html:root .mantine-Card-root > #title-card-header > .mantine-Title-root,html:root .mantine-Card-root > .border-b:first-child:has(> div > h3) > div > h3{
+color:var(--mantine-color-blue-light-color);
+}
+
+html:root .mantine-Tabs-root:has(a[href$="/admin/settings/webauthn"]) ~ div:has(> h2.mantine-Title-root:first-child),html:root .mantine-Tabs-root:has(a[href$="/admin/settings/webauthn"]) ~ .mantine-Group-root:has(> div:first-child > h2.mantine-Title-root:first-child),html:root .mantine-Tabs-root:has(a[href$="/admin/settings/webauthn"]) ~ form .mantine-Card-root > .mantine-Stack-root > h3.mantine-Title-root:first-child{
+padding:var(--mantine-spacing-xs) var(--mantine-spacing-md);
+border-radius:var(--mantine-radius-md);
+background:var(--mantine-color-blue-light);
+}
+
+html:root .mantine-Tabs-root:has(a[href$="/admin/settings/webauthn"]) ~ form .mantine-UnstyledButton-root:first-child:has(+ [aria-hidden="false"]:last-child),html:root .mantine-Tabs-root:has(a[href$="/admin/settings/webauthn"]) ~ * .mantine-Paper-root > div[class~="bg-(--mantine-color-default)"]:has(+ .mantine-Divider-root){
+background:var(--mantine-color-blue-light);
+}
+
+html:root .mantine-Tabs-root:has(a[href$="/admin/settings/webauthn"]) ~ * .mantine-Paper-root > div[class~="bg-(--mantine-color-default)"]:has(+ .mantine-Divider-root) + .mantine-Divider-root{
+border-top-color:transparent;
+}
+
+html:root .mantine-Tabs-root:has(a[href$="/admin/settings/webauthn"]) ~ div:has(> h2.mantine-Title-root:first-child) > h2,html:root .mantine-Tabs-root:has(a[href$="/admin/settings/webauthn"]) ~ .mantine-Group-root:has(> div:first-child > h2.mantine-Title-root:first-child) > div > h2,html:root .mantine-Tabs-root:has(a[href$="/admin/settings/webauthn"]) ~ form .mantine-Card-root > .mantine-Stack-root > h3.mantine-Title-root:first-child,html:root .mantine-Tabs-root:has(a[href$="/admin/settings/webauthn"]) ~ form .mantine-UnstyledButton-root:first-child:has(+ [aria-hidden="false"]:last-child) > .mantine-Text-root,html:root .mantine-Tabs-root:has(a[href$="/admin/settings/webauthn"]) ~ * .mantine-Paper-root > div[class~="bg-(--mantine-color-default)"]:has(+ .mantine-Divider-root) .mantine-Text-root{
+color:var(--mantine-color-blue-light-color)!important;
+}
+
+html:root .mantine-Card-root > .flex.flex-row.items-center:has(> .mantine-ThemeIcon-root + .flex-col){
+flex-direction:row-reverse;
+}
+html:root .mantine-Card-root > .flex.flex-row.items-center:has(> .mantine-ThemeIcon-root + .flex-col) > .flex-col{
+margin-left:0;
+margin-right:1rem;
+}
+
+html:root div[style]:has(> .mantine-TableScrollContainer-scrollContainer){
+background:none!important;
+border-color:transparent!important;
+}
+
+html:root .mantine-TableScrollContainer-scrollContainer .mantine-Table-table{
+border-collapse:separate;
+border-spacing:0 6px;
+--nebula-row:var(--nebula-card);
+}
+
+html:root .mantine-Card-root .mantine-TableScrollContainer-scrollContainer .mantine-Table-table{
+--nebula-row:var(--mantine-color-default);
+}
+
+html:root .mantine-TableScrollContainer-scrollContainer .mantine-Table-table > .mantine-Table-thead > tr > th{
+box-shadow:none;
+color:var(--mantine-color-dimmed);
+}
+
+html:root .mantine-TableScrollContainer-scrollContainer .mantine-Table-table > .mantine-Table-tbody > tr:not(:has(> td:only-child:empty)){
+background-color:var(--nebula-row);
+}
+
+@media (hover:hover){
+html:root .mantine-TableScrollContainer-scrollContainer .mantine-Table-table > .mantine-Table-tbody > tr:not(:has(> td:only-child:empty))[data-hover]:hover{
+background-color:color-mix(in srgb,var(--mantine-color-text) 5%,var(--nebula-row));
+}
+}
+
+html:root .mantine-TableScrollContainer-scrollContainer .mantine-Table-table > .mantine-Table-tbody > tr:not(:has(> td:only-child:empty)) > td{
+border-block:1px solid var(--mantine-color-default-border);
+}
+
+html:root .mantine-TableScrollContainer-scrollContainer .mantine-Table-table > .mantine-Table-tbody > tr:not(:has(> td:only-child:empty)) > td:first-child{
+border-inline-start:1px solid var(--mantine-color-default-border);
+border-start-start-radius:var(--mantine-radius-md);
+border-end-start-radius:var(--mantine-radius-md);
+}
+
+html:root .mantine-TableScrollContainer-scrollContainer .mantine-Table-table > .mantine-Table-tbody > tr:not(:has(> td:only-child:empty)) > td:last-child{
+border-inline-end:1px solid var(--mantine-color-default-border);
+border-start-end-radius:var(--mantine-radius-md);
+border-end-end-radius:var(--mantine-radius-md);
+}
+
+html:root #sidebar-content a,html:root .nebula-topnav a,html:root .nebula-topnav-menu a{
+--nebula-nav-accent:var(--mantine-color-blue-filled);
+--nebula-nav-tint:var(--mantine-color-blue-light);
+--nebula-nav-ink:var(--mantine-color-blue-light-color);
+}
+
+html:root[data-mantine-color-scheme="dark"]{
+--nebula-nav-fill:var(--mantine-color-default-hover);
+}
+
+html:root[data-mantine-color-scheme="light"]{
+--nebula-nav-fill:var(--mantine-color-gray-2);
+}
+
+@media (hover:hover){
+html:root #sidebar-content a > .mantine-Button-root:not(.active):hover,html:root .nebula-topnav a > .mantine-Button-root:not(.active):hover,html:root .nebula-topnav-menu a > .mantine-Button-root:not(.active):hover{
+background-color:var(--nebula-nav-tint);
+color:var(--mantine-color-text);
+}
+}
+
+html:root #sidebar-content a > .mantine-Button-root.active,html:root .nebula-topnav a > .mantine-Button-root.active,html:root .nebula-topnav-menu a > .mantine-Button-root.active{
+border-color:transparent;
+background-color:var(--nebula-nav-accent);
+color:var(--mantine-primary-color-contrast);
+}
+
+html:root .nebula-sb-items a:not(.active):hover::before{
+background:transparent;
+}
+
+html:root #sidebar-content a > .mantine-Button-root,html:root .nebula-topnav a > .mantine-Button-root,html:root .nebula-topnav-menu a > .mantine-Button-root{
+border-radius:999px;
+}
+
+html:root #sidebar-desktop:has(~ :is(#dashboard-root,#server-root,#admin-root)){
+margin:0.5rem 0 0.5rem 0.5rem;
+top:0.5rem;
+height:calc(100vh - 1rem);
+border-radius:var(--paper-radius);
+border-width:1px;
+}
+
+html:root .xterm.nebula-terminal .xterm-bg-0{
+background-color:#323842;
+}
+html:root .xterm.nebula-terminal .xterm-bg-1{
+background-color:#e5786d;
+}
+html:root .xterm.nebula-terminal .xterm-bg-2{
+background-color:#8cc07a;
+}
+html:root .xterm.nebula-terminal .xterm-bg-3{
+background-color:#e3bb67;
+}
+html:root .xterm.nebula-terminal .xterm-bg-4{
+background-color:#6fa8e2;
+}
+html:root .xterm.nebula-terminal .xterm-bg-5{
+background-color:#c391d9;
+}
+html:root .xterm.nebula-terminal .xterm-bg-6{
+background-color:#67c3c0;
+}
+html:root .xterm.nebula-terminal .xterm-bg-7{
+background-color:#cdd5dd;
+}
+html:root .xterm.nebula-terminal .xterm-bg-8{
+background-color:#808b97;
+}
+html:root .xterm.nebula-terminal .xterm-bg-9{
+background-color:#f59a90;
+}
+html:root .xterm.nebula-terminal .xterm-bg-10{
+background-color:#aed79f;
+}
+html:root .xterm.nebula-terminal .xterm-bg-11{
+background-color:#f0d293;
+}
+html:root .xterm.nebula-terminal .xterm-bg-12{
+background-color:#96c2ee;
+}
+html:root .xterm.nebula-terminal .xterm-bg-13{
+background-color:#d9b5e8;
+}
+html:root .xterm.nebula-terminal .xterm-bg-14{
+background-color:#97dcd9;
+}
+html:root .xterm.nebula-terminal .xterm-bg-15{
+background-color:#f3f6f8;
+}
+
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-0{
+color:#323842;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-0.xterm-dim{
+color:rgba(50, 56, 66, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-1{
+color:#e5786d;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-1.xterm-dim{
+color:rgba(229, 120, 109, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-2{
+color:#8cc07a;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-2.xterm-dim{
+color:rgba(140, 192, 122, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-3{
+color:#e3bb67;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-3.xterm-dim{
+color:rgba(227, 187, 103, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-4{
+color:#6fa8e2;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-4.xterm-dim{
+color:rgba(111, 168, 226, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-5{
+color:#c391d9;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-5.xterm-dim{
+color:rgba(195, 145, 217, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-6{
+color:#67c3c0;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-6.xterm-dim{
+color:rgba(103, 195, 192, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-7{
+color:#cdd5dd;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-7.xterm-dim{
+color:rgba(205, 213, 221, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-8{
+color:#808b97;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-8.xterm-dim{
+color:rgba(128, 139, 151, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-9{
+color:#f59a90;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-9.xterm-dim{
+color:rgba(245, 154, 144, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-10{
+color:#aed79f;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-10.xterm-dim{
+color:rgba(174, 215, 159, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-11{
+color:#f0d293;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-11.xterm-dim{
+color:rgba(240, 210, 147, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-12{
+color:#96c2ee;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-12.xterm-dim{
+color:rgba(150, 194, 238, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-13{
+color:#d9b5e8;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-13.xterm-dim{
+color:rgba(217, 181, 232, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-14{
+color:#97dcd9;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-14.xterm-dim{
+color:rgba(151, 220, 217, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-15{
+color:#f3f6f8;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-15.xterm-dim{
+color:rgba(243, 246, 248, 0.5);
+}
+
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-0{
+color:#323842;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-0.xterm-dim{
+color:rgba(50, 56, 66, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-1{
+color:#aa5d54;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-1.xterm-dim{
+color:rgba(170, 93, 84, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-2{
+color:#5d7950;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-2.xterm-dim{
+color:rgba(93, 121, 80, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-3{
+color:#73603a;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-3.xterm-dim{
+color:rgba(115, 96, 58, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-4{
+color:#4d6b8a;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-4.xterm-dim{
+color:rgba(77, 107, 138, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-5{
+color:#7c5e85;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-5.xterm-dim{
+color:rgba(124, 94, 133, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-6{
+color:#497a77;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-6.xterm-dim{
+color:rgba(73, 122, 119, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-7{
+color:#6a6b6c;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-7.xterm-dim{
+color:rgba(106, 107, 108, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-8{
+color:#646a71;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-8.xterm-dim{
+color:rgba(100, 106, 113, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-9{
+color:#98635c;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-9.xterm-dim{
+color:rgba(152, 99, 92, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-10{
+color:#5d6c52;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-10.xterm-dim{
+color:rgba(93, 108, 82, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-11{
+color:#796a4d;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-11.xterm-dim{
+color:rgba(121, 106, 77, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-12{
+color:#536373;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-12.xterm-dim{
+color:rgba(83, 99, 115, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-13{
+color:#6f5d71;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-13.xterm-dim{
+color:rgba(111, 93, 113, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-14{
+color:#536e6a;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-14.xterm-dim{
+color:rgba(83, 110, 106, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-15{
+color:#5d5a58;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-15.xterm-dim{
+color:rgba(93, 90, 88, 0.5);
+}
+
+`;
+
 exports[`buildCss output > preset Ember 1`] = `
 html:root{
 --mantine-color-blue-0:#fbefea;
@@ -1756,6 +2864,249 @@ color:color-mix(in srgb,var(--button-bg) 55%,var(--nebula-button-ink))!important
 
 html:root .mantine-Button-root[data-variant="filled"]:not([data-disabled]):not(:disabled):hover{
 background-color:color-mix(in srgb,var(--button-bg) 34%,transparent)!important;
+}
+
+html:root .xterm.nebula-terminal .xterm-bg-0{
+background-color:#2a1e1a;
+}
+html:root .xterm.nebula-terminal .xterm-bg-1{
+background-color:#f0614a;
+}
+html:root .xterm.nebula-terminal .xterm-bg-2{
+background-color:#a5c25c;
+}
+html:root .xterm.nebula-terminal .xterm-bg-3{
+background-color:#f2b14c;
+}
+html:root .xterm.nebula-terminal .xterm-bg-4{
+background-color:#6f9fd8;
+}
+html:root .xterm.nebula-terminal .xterm-bg-5{
+background-color:#d58ab0;
+}
+html:root .xterm.nebula-terminal .xterm-bg-6{
+background-color:#6cc0b0;
+}
+html:root .xterm.nebula-terminal .xterm-bg-7{
+background-color:#dccfc8;
+}
+html:root .xterm.nebula-terminal .xterm-bg-8{
+background-color:#8a7268;
+}
+html:root .xterm.nebula-terminal .xterm-bg-9{
+background-color:#ff8f78;
+}
+html:root .xterm.nebula-terminal .xterm-bg-10{
+background-color:#c4dd85;
+}
+html:root .xterm.nebula-terminal .xterm-bg-11{
+background-color:#ffc59b;
+}
+html:root .xterm.nebula-terminal .xterm-bg-12{
+background-color:#9cc0eb;
+}
+html:root .xterm.nebula-terminal .xterm-bg-13{
+background-color:#eab0cc;
+}
+html:root .xterm.nebula-terminal .xterm-bg-14{
+background-color:#98dccf;
+}
+html:root .xterm.nebula-terminal .xterm-bg-15{
+background-color:#fbf3ef;
+}
+
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-0{
+color:#2a1e1a;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-0.xterm-dim{
+color:rgba(42, 30, 26, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-1{
+color:#f0614a;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-1.xterm-dim{
+color:rgba(240, 97, 74, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-2{
+color:#a5c25c;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-2.xterm-dim{
+color:rgba(165, 194, 92, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-3{
+color:#f2b14c;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-3.xterm-dim{
+color:rgba(242, 177, 76, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-4{
+color:#6f9fd8;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-4.xterm-dim{
+color:rgba(111, 159, 216, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-5{
+color:#d58ab0;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-5.xterm-dim{
+color:rgba(213, 138, 176, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-6{
+color:#6cc0b0;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-6.xterm-dim{
+color:rgba(108, 192, 176, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-7{
+color:#dccfc8;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-7.xterm-dim{
+color:rgba(220, 207, 200, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-8{
+color:#8a7268;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-8.xterm-dim{
+color:rgba(138, 114, 104, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-9{
+color:#ff8f78;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-9.xterm-dim{
+color:rgba(255, 143, 120, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-10{
+color:#c4dd85;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-10.xterm-dim{
+color:rgba(196, 221, 133, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-11{
+color:#ffc59b;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-11.xterm-dim{
+color:rgba(255, 197, 155, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-12{
+color:#9cc0eb;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-12.xterm-dim{
+color:rgba(156, 192, 235, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-13{
+color:#eab0cc;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-13.xterm-dim{
+color:rgba(234, 176, 204, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-14{
+color:#98dccf;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-14.xterm-dim{
+color:rgba(152, 220, 207, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-15{
+color:#fbf3ef;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-15.xterm-dim{
+color:rgba(251, 243, 239, 0.5);
+}
+
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-0{
+color:#2a1e1a;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-0.xterm-dim{
+color:rgba(42, 30, 26, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-1{
+color:#b04939;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-1.xterm-dim{
+color:rgba(176, 73, 57, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-2{
+color:#68753b;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-2.xterm-dim{
+color:rgba(104, 117, 59, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-3{
+color:#936b32;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-3.xterm-dim{
+color:rgba(147, 107, 50, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-4{
+color:#55759c;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-4.xterm-dim{
+color:rgba(85, 117, 156, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-5{
+color:#83556a;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-5.xterm-dim{
+color:rgba(131, 85, 106, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-6{
+color:#48736a;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-6.xterm-dim{
+color:rgba(72, 115, 106, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-7{
+color:#6b615d;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-7.xterm-dim{
+color:rgba(107, 97, 93, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-8{
+color:#78635a;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-8.xterm-dim{
+color:rgba(120, 99, 90, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-9{
+color:#9a584a;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-9.xterm-dim{
+color:rgba(154, 88, 74, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-10{
+color:#616741;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-10.xterm-dim{
+color:rgba(97, 103, 65, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-11{
+color:#7a5d4a;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-11.xterm-dim{
+color:rgba(122, 93, 74, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-12{
+color:#63738b;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-12.xterm-dim{
+color:rgba(99, 115, 139, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-13{
+color:#8e6a79;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-13.xterm-dim{
+color:rgba(142, 106, 121, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-14{
+color:#4f6760;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-14.xterm-dim{
+color:rgba(79, 103, 96, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-15{
+color:#79716e;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-15.xterm-dim{
+color:rgba(121, 113, 110, 0.5);
 }
 
 `;
@@ -1878,6 +3229,249 @@ html:root .mantine-Button-root[data-variant="filled"]:not([data-disabled]):not(:
 background-color:color-mix(in srgb,var(--button-bg) 34%,transparent)!important;
 }
 
+html:root .xterm.nebula-terminal .xterm-bg-0{
+background-color:#1a2924;
+}
+html:root .xterm.nebula-terminal .xterm-bg-1{
+background-color:#ef7a6f;
+}
+html:root .xterm.nebula-terminal .xterm-bg-2{
+background-color:#3fc48f;
+}
+html:root .xterm.nebula-terminal .xterm-bg-3{
+background-color:#d9c060;
+}
+html:root .xterm.nebula-terminal .xterm-bg-4{
+background-color:#5aa9d6;
+}
+html:root .xterm.nebula-terminal .xterm-bg-5{
+background-color:#c48ac8;
+}
+html:root .xterm.nebula-terminal .xterm-bg-6{
+background-color:#4ec9b8;
+}
+html:root .xterm.nebula-terminal .xterm-bg-7{
+background-color:#c8d9d1;
+}
+html:root .xterm.nebula-terminal .xterm-bg-8{
+background-color:#678a7d;
+}
+html:root .xterm.nebula-terminal .xterm-bg-9{
+background-color:#ff9e94;
+}
+html:root .xterm.nebula-terminal .xterm-bg-10{
+background-color:#9be7c4;
+}
+html:root .xterm.nebula-terminal .xterm-bg-11{
+background-color:#eedc8a;
+}
+html:root .xterm.nebula-terminal .xterm-bg-12{
+background-color:#8cc8ec;
+}
+html:root .xterm.nebula-terminal .xterm-bg-13{
+background-color:#deb0e0;
+}
+html:root .xterm.nebula-terminal .xterm-bg-14{
+background-color:#8ae8db;
+}
+html:root .xterm.nebula-terminal .xterm-bg-15{
+background-color:#eef7f2;
+}
+
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-0{
+color:#1a2924;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-0.xterm-dim{
+color:rgba(26, 41, 36, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-1{
+color:#ef7a6f;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-1.xterm-dim{
+color:rgba(239, 122, 111, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-2{
+color:#3fc48f;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-2.xterm-dim{
+color:rgba(63, 196, 143, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-3{
+color:#d9c060;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-3.xterm-dim{
+color:rgba(217, 192, 96, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-4{
+color:#5aa9d6;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-4.xterm-dim{
+color:rgba(90, 169, 214, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-5{
+color:#c48ac8;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-5.xterm-dim{
+color:rgba(196, 138, 200, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-6{
+color:#4ec9b8;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-6.xterm-dim{
+color:rgba(78, 201, 184, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-7{
+color:#c8d9d1;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-7.xterm-dim{
+color:rgba(200, 217, 209, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-8{
+color:#678a7d;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-8.xterm-dim{
+color:rgba(103, 138, 125, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-9{
+color:#ff9e94;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-9.xterm-dim{
+color:rgba(255, 158, 148, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-10{
+color:#9be7c4;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-10.xterm-dim{
+color:rgba(155, 231, 196, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-11{
+color:#eedc8a;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-11.xterm-dim{
+color:rgba(238, 220, 138, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-12{
+color:#8cc8ec;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-12.xterm-dim{
+color:rgba(140, 200, 236, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-13{
+color:#deb0e0;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-13.xterm-dim{
+color:rgba(222, 176, 224, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-14{
+color:#8ae8db;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-14.xterm-dim{
+color:rgba(138, 232, 219, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-15{
+color:#eef7f2;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-15.xterm-dim{
+color:rgba(238, 247, 242, 0.5);
+}
+
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-0{
+color:#1a2924;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-0.xterm-dim{
+color:rgba(26, 41, 36, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-1{
+color:#ac5d54;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-1.xterm-dim{
+color:rgba(172, 93, 84, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-2{
+color:#2a795a;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-2.xterm-dim{
+color:rgba(42, 121, 90, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-3{
+color:#646035;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-3.xterm-dim{
+color:rgba(100, 96, 53, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-4{
+color:#396a82;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-4.xterm-dim{
+color:rgba(57, 106, 130, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-5{
+color:#8e6893;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-5.xterm-dim{
+color:rgba(142, 104, 147, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-6{
+color:#327c71;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-6.xterm-dim{
+color:rgba(50, 124, 113, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-7{
+color:#5d6a65;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-7.xterm-dim{
+color:rgba(93, 106, 101, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-8{
+color:#59786d;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-8.xterm-dim{
+color:rgba(89, 120, 109, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-9{
+color:#95645d;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-9.xterm-dim{
+color:rgba(149, 100, 93, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-10{
+color:#4a705f;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-10.xterm-dim{
+color:rgba(74, 112, 95, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-11{
+color:#6d6b47;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-11.xterm-dim{
+color:rgba(109, 107, 71, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-12{
+color:#446370;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-12.xterm-dim{
+color:rgba(68, 99, 112, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-13{
+color:#836e87;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-13.xterm-dim{
+color:rgba(131, 110, 135, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-14{
+color:#437169;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-14.xterm-dim{
+color:rgba(67, 113, 105, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-15{
+color:#6d7772;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-15.xterm-dim{
+color:rgba(109, 119, 114, 0.5);
+}
+
 `;
 
 exports[`buildCss output > preset Graphite 1`] = `
@@ -1998,6 +3592,249 @@ html:root .mantine-Button-root[data-variant="filled"]:not([data-disabled]):not(:
 background-color:color-mix(in srgb,var(--button-bg) 34%,transparent)!important;
 }
 
+html:root .xterm.nebula-terminal .xterm-bg-0{
+background-color:#24262d;
+}
+html:root .xterm.nebula-terminal .xterm-bg-1{
+background-color:#ff6b6b;
+}
+html:root .xterm.nebula-terminal .xterm-bg-2{
+background-color:#69d29a;
+}
+html:root .xterm.nebula-terminal .xterm-bg-3{
+background-color:#f0c75e;
+}
+html:root .xterm.nebula-terminal .xterm-bg-4{
+background-color:#7686ff;
+}
+html:root .xterm.nebula-terminal .xterm-bg-5{
+background-color:#c58af9;
+}
+html:root .xterm.nebula-terminal .xterm-bg-6{
+background-color:#5ccfe6;
+}
+html:root .xterm.nebula-terminal .xterm-bg-7{
+background-color:#d0d2d9;
+}
+html:root .xterm.nebula-terminal .xterm-bg-8{
+background-color:#70737e;
+}
+html:root .xterm.nebula-terminal .xterm-bg-9{
+background-color:#ff9393;
+}
+html:root .xterm.nebula-terminal .xterm-bg-10{
+background-color:#95e6b9;
+}
+html:root .xterm.nebula-terminal .xterm-bg-11{
+background-color:#f7dc8f;
+}
+html:root .xterm.nebula-terminal .xterm-bg-12{
+background-color:#b9c0ff;
+}
+html:root .xterm.nebula-terminal .xterm-bg-13{
+background-color:#dbb5fc;
+}
+html:root .xterm.nebula-terminal .xterm-bg-14{
+background-color:#93e2f2;
+}
+html:root .xterm.nebula-terminal .xterm-bg-15{
+background-color:#f5f6f8;
+}
+
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-0{
+color:#24262d;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-0.xterm-dim{
+color:rgba(36, 38, 45, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-1{
+color:#ff6b6b;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-1.xterm-dim{
+color:rgba(255, 107, 107, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-2{
+color:#69d29a;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-2.xterm-dim{
+color:rgba(105, 210, 154, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-3{
+color:#f0c75e;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-3.xterm-dim{
+color:rgba(240, 199, 94, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-4{
+color:#7686ff;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-4.xterm-dim{
+color:rgba(118, 134, 255, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-5{
+color:#c58af9;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-5.xterm-dim{
+color:rgba(197, 138, 249, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-6{
+color:#5ccfe6;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-6.xterm-dim{
+color:rgba(92, 207, 230, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-7{
+color:#d0d2d9;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-7.xterm-dim{
+color:rgba(208, 210, 217, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-8{
+color:#70737e;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-8.xterm-dim{
+color:rgba(112, 115, 126, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-9{
+color:#ff9393;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-9.xterm-dim{
+color:rgba(255, 147, 147, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-10{
+color:#95e6b9;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-10.xterm-dim{
+color:rgba(149, 230, 185, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-11{
+color:#f7dc8f;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-11.xterm-dim{
+color:rgba(247, 220, 143, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-12{
+color:#b9c0ff;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-12.xterm-dim{
+color:rgba(185, 192, 255, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-13{
+color:#dbb5fc;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-13.xterm-dim{
+color:rgba(219, 181, 252, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-14{
+color:#93e2f2;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-14.xterm-dim{
+color:rgba(147, 226, 242, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-15{
+color:#f5f6f8;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-15.xterm-dim{
+color:rgba(245, 246, 248, 0.5);
+}
+
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-0{
+color:#24262d;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-0.xterm-dim{
+color:rgba(36, 38, 45, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-1{
+color:#b95253;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-1.xterm-dim{
+color:rgba(185, 82, 83, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-2{
+color:#448062;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-2.xterm-dim{
+color:rgba(68, 128, 98, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-3{
+color:#726137;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-3.xterm-dim{
+color:rgba(114, 97, 55, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-4{
+color:#5965bb;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-4.xterm-dim{
+color:rgba(89, 101, 187, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-5{
+color:#785797;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-5.xterm-dim{
+color:rgba(120, 87, 151, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-6{
+color:#336470;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-6.xterm-dim{
+color:rgba(51, 100, 112, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-7{
+color:#64666b;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-7.xterm-dim{
+color:rgba(100, 102, 107, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-8{
+color:#70737e;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-8.xterm-dim{
+color:rgba(112, 115, 126, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-9{
+color:#985c5e;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-9.xterm-dim{
+color:rgba(152, 92, 94, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-10{
+color:#4b6e5d;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-10.xterm-dim{
+color:rgba(75, 110, 93, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-11{
+color:#756a4c;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-11.xterm-dim{
+color:rgba(117, 106, 76, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-12{
+color:#5a5e7b;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-12.xterm-dim{
+color:rgba(90, 94, 123, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-13{
+color:#695979;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-13.xterm-dim{
+color:rgba(105, 89, 121, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-14{
+color:#4b6c75;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-14.xterm-dim{
+color:rgba(75, 108, 117, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-15{
+color:#545559;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-15.xterm-dim{
+color:rgba(84, 85, 89, 0.5);
+}
+
 `;
 
 exports[`buildCss output > preset Midnight 1`] = `
@@ -2116,6 +3953,249 @@ color:color-mix(in srgb,var(--button-bg) 55%,var(--nebula-button-ink))!important
 
 html:root .mantine-Button-root[data-variant="filled"]:not([data-disabled]):not(:disabled):hover{
 background-color:color-mix(in srgb,var(--button-bg) 34%,transparent)!important;
+}
+
+html:root .xterm.nebula-terminal .xterm-bg-0{
+background-color:#241c3d;
+}
+html:root .xterm.nebula-terminal .xterm-bg-1{
+background-color:#ff6b8b;
+}
+html:root .xterm.nebula-terminal .xterm-bg-2{
+background-color:#5fd7a7;
+}
+html:root .xterm.nebula-terminal .xterm-bg-3{
+background-color:#f2c56b;
+}
+html:root .xterm.nebula-terminal .xterm-bg-4{
+background-color:#4fa8e8;
+}
+html:root .xterm.nebula-terminal .xterm-bg-5{
+background-color:#c592ff;
+}
+html:root .xterm.nebula-terminal .xterm-bg-6{
+background-color:#5ad1e0;
+}
+html:root .xterm.nebula-terminal .xterm-bg-7{
+background-color:#d4d0e6;
+}
+html:root .xterm.nebula-terminal .xterm-bg-8{
+background-color:#6e6890;
+}
+html:root .xterm.nebula-terminal .xterm-bg-9{
+background-color:#ff94ad;
+}
+html:root .xterm.nebula-terminal .xterm-bg-10{
+background-color:#8fe3c8;
+}
+html:root .xterm.nebula-terminal .xterm-bg-11{
+background-color:#ffdd99;
+}
+html:root .xterm.nebula-terminal .xterm-bg-12{
+background-color:#85c4f2;
+}
+html:root .xterm.nebula-terminal .xterm-bg-13{
+background-color:#dcb8ff;
+}
+html:root .xterm.nebula-terminal .xterm-bg-14{
+background-color:#93e6f0;
+}
+html:root .xterm.nebula-terminal .xterm-bg-15{
+background-color:#f4f2fb;
+}
+
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-0{
+color:#241c3d;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-0.xterm-dim{
+color:rgba(36, 28, 61, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-1{
+color:#ff6b8b;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-1.xterm-dim{
+color:rgba(255, 107, 139, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-2{
+color:#5fd7a7;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-2.xterm-dim{
+color:rgba(95, 215, 167, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-3{
+color:#f2c56b;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-3.xterm-dim{
+color:rgba(242, 197, 107, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-4{
+color:#4fa8e8;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-4.xterm-dim{
+color:rgba(79, 168, 232, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-5{
+color:#c592ff;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-5.xterm-dim{
+color:rgba(197, 146, 255, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-6{
+color:#5ad1e0;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-6.xterm-dim{
+color:rgba(90, 209, 224, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-7{
+color:#d4d0e6;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-7.xterm-dim{
+color:rgba(212, 208, 230, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-8{
+color:#6e6890;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-8.xterm-dim{
+color:rgba(110, 104, 144, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-9{
+color:#ff94ad;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-9.xterm-dim{
+color:rgba(255, 148, 173, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-10{
+color:#8fe3c8;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-10.xterm-dim{
+color:rgba(143, 227, 200, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-11{
+color:#ffdd99;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-11.xterm-dim{
+color:rgba(255, 221, 153, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-12{
+color:#85c4f2;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-12.xterm-dim{
+color:rgba(133, 196, 242, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-13{
+color:#dcb8ff;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-13.xterm-dim{
+color:rgba(220, 184, 255, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-14{
+color:#93e6f0;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-14.xterm-dim{
+color:rgba(147, 230, 240, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-15{
+color:#f4f2fb;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-15.xterm-dim{
+color:rgba(244, 242, 251, 0.5);
+}
+
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-0{
+color:#241c3d;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-0.xterm-dim{
+color:rgba(36, 28, 61, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-1{
+color:#b9506e;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-1.xterm-dim{
+color:rgba(185, 80, 110, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-2{
+color:#35655f;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-2.xterm-dim{
+color:rgba(53, 101, 95, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-3{
+color:#725d45;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-3.xterm-dim{
+color:rgba(114, 93, 69, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-4{
+color:#366694;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-4.xterm-dim{
+color:rgba(54, 102, 148, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-5{
+color:#785aa1;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-5.xterm-dim{
+color:rgba(120, 90, 161, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-6{
+color:#3c7d90;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-6.xterm-dim{
+color:rgba(60, 125, 144, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-7{
+color:#666279;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-7.xterm-dim{
+color:rgba(102, 98, 121, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-8{
+color:#6e6890;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-8.xterm-dim{
+color:rgba(110, 104, 144, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-9{
+color:#985b73;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-9.xterm-dim{
+color:rgba(152, 91, 115, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-10{
+color:#496a6c;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-10.xterm-dim{
+color:rgba(73, 106, 108, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-11{
+color:#786759;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-11.xterm-dim{
+color:rgba(120, 103, 89, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-12{
+color:#54769a;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-12.xterm-dim{
+color:rgba(84, 118, 154, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-13{
+color:#695883;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-13.xterm-dim{
+color:rgba(105, 88, 131, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-14{
+color:#4b6b7d;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-14.xterm-dim{
+color:rgba(75, 107, 125, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-15{
+color:#737082;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-15.xterm-dim{
+color:rgba(115, 112, 130, 0.5);
 }
 
 `;
@@ -2255,6 +4335,788 @@ html:root .mantine-Badge-root:is([style*="--badge-bg: var(--mantine-color-blue-f
 --badge-color:#0b1314!important;
 }
 
+html:root .xterm.nebula-terminal .xterm-bg-0{
+background-color:#1c2b2b;
+}
+html:root .xterm.nebula-terminal .xterm-bg-1{
+background-color:#f2777a;
+}
+html:root .xterm.nebula-terminal .xterm-bg-2{
+background-color:#4fd6a4;
+}
+html:root .xterm.nebula-terminal .xterm-bg-3{
+background-color:#e8c46a;
+}
+html:root .xterm.nebula-terminal .xterm-bg-4{
+background-color:#6cb6eb;
+}
+html:root .xterm.nebula-terminal .xterm-bg-5{
+background-color:#d28fd8;
+}
+html:root .xterm.nebula-terminal .xterm-bg-6{
+background-color:#5fd3d0;
+}
+html:root .xterm.nebula-terminal .xterm-bg-7{
+background-color:#c9dcd6;
+}
+html:root .xterm.nebula-terminal .xterm-bg-8{
+background-color:#6b8a85;
+}
+html:root .xterm.nebula-terminal .xterm-bg-9{
+background-color:#ff9a9c;
+}
+html:root .xterm.nebula-terminal .xterm-bg-10{
+background-color:#8af0c8;
+}
+html:root .xterm.nebula-terminal .xterm-bg-11{
+background-color:#f6dd94;
+}
+html:root .xterm.nebula-terminal .xterm-bg-12{
+background-color:#9ad0ff;
+}
+html:root .xterm.nebula-terminal .xterm-bg-13{
+background-color:#e8b3ec;
+}
+html:root .xterm.nebula-terminal .xterm-bg-14{
+background-color:#9cefe9;
+}
+html:root .xterm.nebula-terminal .xterm-bg-15{
+background-color:#f2fbf8;
+}
+
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-0{
+color:#1c2b2b;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-0.xterm-dim{
+color:rgba(28, 43, 43, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-1{
+color:#f2777a;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-1.xterm-dim{
+color:rgba(242, 119, 122, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-2{
+color:#4fd6a4;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-2.xterm-dim{
+color:rgba(79, 214, 164, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-3{
+color:#e8c46a;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-3.xterm-dim{
+color:rgba(232, 196, 106, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-4{
+color:#6cb6eb;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-4.xterm-dim{
+color:rgba(108, 182, 235, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-5{
+color:#d28fd8;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-5.xterm-dim{
+color:rgba(210, 143, 216, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-6{
+color:#5fd3d0;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-6.xterm-dim{
+color:rgba(95, 211, 208, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-7{
+color:#c9dcd6;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-7.xterm-dim{
+color:rgba(201, 220, 214, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-8{
+color:#6b8a85;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-8.xterm-dim{
+color:rgba(107, 138, 133, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-9{
+color:#ff9a9c;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-9.xterm-dim{
+color:rgba(255, 154, 156, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-10{
+color:#8af0c8;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-10.xterm-dim{
+color:rgba(138, 240, 200, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-11{
+color:#f6dd94;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-11.xterm-dim{
+color:rgba(246, 221, 148, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-12{
+color:#9ad0ff;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-12.xterm-dim{
+color:rgba(154, 208, 255, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-13{
+color:#e8b3ec;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-13.xterm-dim{
+color:rgba(232, 179, 236, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-14{
+color:#9cefe9;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-14.xterm-dim{
+color:rgba(156, 239, 233, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-15{
+color:#f2fbf8;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-15.xterm-dim{
+color:rgba(242, 251, 248, 0.5);
+}
+
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-0{
+color:#1c2b2b;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-0.xterm-dim{
+color:rgba(28, 43, 43, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-1{
+color:#ae5b5e;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-1.xterm-dim{
+color:rgba(174, 91, 94, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-2{
+color:#2a6955;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-2.xterm-dim{
+color:rgba(42, 105, 85, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-3{
+color:#6b613c;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-3.xterm-dim{
+color:rgba(107, 97, 60, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-4{
+color:#44718f;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-4.xterm-dim{
+color:rgba(68, 113, 143, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-5{
+color:#7d5c85;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-5.xterm-dim{
+color:rgba(125, 92, 133, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-6{
+color:#316867;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-6.xterm-dim{
+color:rgba(49, 104, 103, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-7{
+color:#5e6b6a;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-7.xterm-dim{
+color:rgba(94, 107, 106, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-8{
+color:#5c7874;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-8.xterm-dim{
+color:rgba(92, 120, 116, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-9{
+color:#966263;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-9.xterm-dim{
+color:rgba(150, 98, 99, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-10{
+color:#437464;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-10.xterm-dim{
+color:rgba(67, 116, 100, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-11{
+color:#716c4e;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-11.xterm-dim{
+color:rgba(113, 108, 78, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-12{
+color:#4a667b;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-12.xterm-dim{
+color:rgba(74, 102, 123, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-13{
+color:#6b5a73;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-13.xterm-dim{
+color:rgba(107, 90, 115, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-14{
+color:#4b7372;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-14.xterm-dim{
+color:rgba(75, 115, 114, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-15{
+color:#4f5959;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-15.xterm-dim{
+color:rgba(79, 89, 89, 0.5);
+}
+
+`;
+
+exports[`buildCss output > preset Mono 1`] = `
+html:root{
+--mantine-color-blue-0:#f6f7f8;
+--mantine-color-blue-1:#eceef0;
+--mantine-color-blue-2:#dde0e3;
+--mantine-color-blue-3:#cdd2d7;
+--mantine-color-blue-4:#bec4cb;
+--mantine-color-blue-5:#b2b9c1;
+--mantine-color-blue-6:#a9b1ba;
+--mantine-color-blue-7:#8e959c;
+--mantine-color-blue-8:#767c82;
+--mantine-color-blue-9:#5f6368;
+--mantine-color-dark-0:#ededed;
+--mantine-color-dark-1:#c2c2c2;
+--mantine-color-dark-2:#929292;
+--mantine-color-dark-3:#6b6b6b;
+--mantine-color-dark-4:#323232;
+--mantine-color-dark-5:#252525;
+--mantine-color-dark-6:#1b1b1b;
+--mantine-color-dark-7:#141414;
+--mantine-color-dark-8:#0f0f0f;
+--mantine-color-dark-9:#0b0b0b;
+--nebula-highlight:#e0e0e0;
+--mantine-radius-xs:1px;
+--mantine-radius-sm:2px;
+--mantine-radius-default:2px;
+--mantine-radius-md:4px;
+--mantine-radius-lg:8px;
+--mantine-font-family:'Space Grotesk', Helvetica, Arial, sans-serif;
+--mantine-font-family-headings:'Space Grotesk', Helvetica, Arial, sans-serif;
+--font-sans:'Space Grotesk', Helvetica, Arial, sans-serif;
+--mantine-font-family-monospace:'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace;
+--font-mono:'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace;
+}
+
+html:root[data-mantine-color-scheme="dark"]{
+--nebula-card:#1b1b1b;
+--nebula-button-ink:#ffffff;
+--mantine-color-body:#141414;
+--mantine-color-text:#ededed;
+--mantine-color-dimmed:#929292;
+--mantine-color-placeholder:#6b6b6b;
+--mantine-color-default:#1f1f1f;
+--mantine-color-default-hover:#2a2a2a;
+--mantine-color-default-border:#323232;
+--mantine-color-anchor:#bec4cb;
+--mantine-color-blue-filled:#a9b1ba;
+--mantine-color-blue-filled-hover:#b2b9c1;
+--mantine-color-blue-light:rgba(169, 177, 186, 0.2);
+--mantine-color-blue-light-hover:rgba(169, 177, 186, 0.28);
+--mantine-color-blue-light-color:#cdd2d7;
+--mantine-color-blue-outline:#bec4cb;
+--mantine-color-blue-outline-hover:rgba(190, 196, 203, 0.08);
+--mantine-color-blue-text:#bec4cb;
+--chart-series-1:#bec4cb;
+--mantine-primary-color-contrast:#141414;
+}
+
+html:root[data-mantine-color-scheme="light"]{
+--mantine-color-gray-0:#f6f6f6;
+--mantine-color-gray-1:#efefef;
+--mantine-color-gray-2:#e8e8e8;
+--mantine-color-gray-3:#dfdfdf;
+--mantine-color-gray-4:#d1d1d1;
+--mantine-color-gray-5:#b0b0b0;
+--mantine-color-gray-6:#898989;
+--mantine-color-gray-7:#5a5a5a;
+--mantine-color-gray-8:#434343;
+--mantine-color-gray-9:#303030;
+--nebula-card:#fdfdfd;
+--nebula-button-ink:#141414;
+--nebula-highlight:#868686;
+--mantine-color-white:#fdfdfd;
+--mantine-color-black:#141414;
+--mantine-color-bright:#141414;
+--mantine-color-body:#efeff0;
+--mantine-color-text:#141414;
+--mantine-color-dimmed:#6d6d6d;
+--mantine-color-placeholder:#b0b0b0;
+--mantine-color-default:#fdfdfd;
+--mantine-color-default-hover:#f6f6f6;
+--mantine-color-default-color:#141414;
+--mantine-color-default-border:#d1d1d1;
+--mantine-color-anchor:#676c71;
+--mantine-color-blue-filled:#a9b1ba;
+--mantine-color-blue-filled-hover:#8e959c;
+--mantine-color-blue-light:rgba(169, 177, 186, 0.1);
+--mantine-color-blue-light-hover:rgba(169, 177, 186, 0.14);
+--mantine-color-blue-light-color:#676c71;
+--mantine-color-blue-outline:#a9b1ba;
+--mantine-color-blue-outline-hover:rgba(169, 177, 186, 0.05);
+--mantine-color-blue-text:#676c71;
+--chart-series-1:#a9b1ba;
+--chart-tick-color:var(--mantine-color-dimmed);
+--mantine-primary-color-contrast:#141414;
+}
+
+html:root[data-mantine-color-scheme="light"] .xterm .xterm-scrollable-element{
+background-color:transparent!important;
+}
+
+html:root[data-mantine-color-scheme="light"] .xterm .xterm-rows{
+color:var(--mantine-color-text);
+}
+
+html:root[data-mantine-color-scheme="light"] :is([class~="text-neutral-400"],[class~="text-neutral-400!"],[class~="light:text-neutral-400!"],[class~="text-gray-400"],[class~="text-gray-400!"],[class~="light:text-gray-400!"],[class~="text-gray-500"],[class~="text-gray-500!"],[class~="light:text-gray-500!"],[class~="text-gray-600"],[class~="text-gray-600!"],[class~="light:text-gray-600!"]){
+--color-neutral-400:var(--mantine-color-dimmed);
+--color-gray-400:var(--mantine-color-dimmed);
+--color-gray-500:var(--mantine-color-dimmed);
+--color-gray-600:var(--mantine-color-dimmed);
+}
+
+html:root .mantine-Button-root[data-variant="filled"]:not([data-disabled]):not(:disabled){
+background-color:transparent!important;
+border:1px solid color-mix(in srgb,var(--button-bg) 70%,transparent)!important;
+color:color-mix(in srgb,var(--button-bg) 55%,var(--nebula-button-ink))!important;
+}
+
+html:root .mantine-Button-root[data-variant="filled"]:not([data-disabled]):not(:disabled):hover{
+background-color:color-mix(in srgb,var(--button-bg) 18%,transparent)!important;
+}
+
+html:root .mantine-Button-root[style*="--button-bg: var(--mantine-color-blue-filled);
+"]{
+--button-color:#141414!important;
+}
+
+html:root .mantine-ActionIcon-root[style*="--ai-bg: var(--mantine-color-blue-filled);
+"]{
+--ai-color:#141414!important;
+}
+
+html:root .mantine-Badge-root:is([style*="--badge-bg: var(--mantine-color-blue-filled);
+"],:not([style*="--badge-bg"])){
+--badge-color:#141414!important;
+}
+
+@media (prefers-reduced-motion:no-preference){
+html:root [data-nebula-page-enter] > *{
+animation:nebula-page-slide 250ms cubic-bezier(0.2, 0.8, 0.3, 1);
+}
+}
+
+@media (prefers-reduced-motion:no-preference){
+html:root [data-nebula-page-enter] :is(.mantine-Card-root:not([data-nebula-page-enter] .mantine-Card-root .mantine-Card-root),tbody > tr){
+animation:nebula-page-card-fade 260ms ease-out backwards;
+}
+html:root [data-nebula-page-enter] :is(.mantine-Card-root:not([data-nebula-page-enter] .mantine-Card-root .mantine-Card-root),tbody > tr):nth-child(2){
+animation-delay:40ms;
+}
+html:root [data-nebula-page-enter] :is(.mantine-Card-root:not([data-nebula-page-enter] .mantine-Card-root .mantine-Card-root),tbody > tr):nth-child(3){
+animation-delay:80ms;
+}
+html:root [data-nebula-page-enter] :is(.mantine-Card-root:not([data-nebula-page-enter] .mantine-Card-root .mantine-Card-root),tbody > tr):nth-child(4){
+animation-delay:120ms;
+}
+html:root [data-nebula-page-enter] :is(.mantine-Card-root:not([data-nebula-page-enter] .mantine-Card-root .mantine-Card-root),tbody > tr):nth-child(5){
+animation-delay:160ms;
+}
+html:root [data-nebula-page-enter] :is(.mantine-Card-root:not([data-nebula-page-enter] .mantine-Card-root .mantine-Card-root),tbody > tr):nth-child(6){
+animation-delay:200ms;
+}
+html:root [data-nebula-page-enter] :is(.mantine-Card-root:not([data-nebula-page-enter] .mantine-Card-root .mantine-Card-root),tbody > tr):nth-child(7){
+animation-delay:240ms;
+}
+html:root [data-nebula-page-enter] :is(.mantine-Card-root:not([data-nebula-page-enter] .mantine-Card-root .mantine-Card-root),tbody > tr):nth-child(n+8){
+animation-delay:280ms;
+}
+}
+
+@media (prefers-reduced-motion:no-preference){
+html:root :is(.mantine-Modal-content,.mantine-Drawer-content):not([style*="opacity: 0;
+"]),html:root :is(.mantine-Popover-dropdown,.mantine-Menu-dropdown,.mantine-Combobox-dropdown):not([style*="opacity: 0;
+"]){
+transition:none!important;
+}
+html:root :is(.mantine-Modal-content,.mantine-Drawer-content){
+animation:nebula-overlay-slide-up 240ms cubic-bezier(0.2, 0.8, 0.3, 1);
+}
+html:root :is(.mantine-Popover-dropdown,.mantine-Menu-dropdown,.mantine-Combobox-dropdown){
+--nebula-overlay-shift:8px;
+transform-origin:top center;
+animation:nebula-overlay-slide-up 180ms cubic-bezier(0.2, 0.8, 0.3, 1);
+}
+html:root :is(.mantine-Popover-dropdown,.mantine-Menu-dropdown,.mantine-Combobox-dropdown)[data-position^="top"]{
+transform-origin:bottom center;
+}
+}
+
+html:root .mantine-Card-root > #title-card-header,html:root .mantine-Card-root > .border-b:first-child:has(> div > h3){
+background:transparent;
+border-bottom-color:transparent!important;
+padding-bottom:0;
+}
+
+html:root .mantine-Card-root > #title-card-header > .mantine-Title-root,html:root .mantine-Card-root > .border-b:first-child:has(> div > h3) > div > h3{
+padding:4px 12px;
+border-radius:999px;
+background:var(--mantine-color-blue-light);
+color:var(--mantine-color-blue-light-color);
+}
+
+html:root .mantine-Tabs-root:has(a[href$="/admin/settings/webauthn"]) ~ * .mantine-Paper-root > div[class~="bg-(--mantine-color-default)"]:has(+ .mantine-Divider-root){
+background:transparent;
+}
+
+html:root .mantine-Tabs-root:has(a[href$="/admin/settings/webauthn"]) ~ * .mantine-Paper-root > div[class~="bg-(--mantine-color-default)"]:has(+ .mantine-Divider-root) + .mantine-Divider-root{
+border-top-color:transparent;
+}
+
+html:root .mantine-Tabs-root:has(a[href$="/admin/settings/webauthn"]) ~ form .mantine-UnstyledButton-root:first-child:has(+ [aria-hidden="false"]:last-child) > .mantine-Text-root{
+flex:0 1 auto!important;
+margin-right:auto;
+}
+
+html:root .mantine-Tabs-root:has(a[href$="/admin/settings/webauthn"]) ~ div:has(> h2.mantine-Title-root:first-child) > h2,html:root .mantine-Tabs-root:has(a[href$="/admin/settings/webauthn"]) ~ .mantine-Group-root:has(> div:first-child > h2.mantine-Title-root:first-child) > div > h2,html:root .mantine-Tabs-root:has(a[href$="/admin/settings/webauthn"]) ~ form .mantine-Card-root > .mantine-Stack-root > h3.mantine-Title-root:first-child,html:root .mantine-Tabs-root:has(a[href$="/admin/settings/webauthn"]) ~ form .mantine-UnstyledButton-root:first-child:has(+ [aria-hidden="false"]:last-child) > .mantine-Text-root,html:root .mantine-Tabs-root:has(a[href$="/admin/settings/webauthn"]) ~ * .mantine-Paper-root > div[class~="bg-(--mantine-color-default)"]:has(+ .mantine-Divider-root) .mantine-Text-root{
+width:fit-content;
+padding:4px 12px;
+border-radius:999px;
+background:var(--mantine-color-blue-light);
+color:var(--mantine-color-blue-light-color)!important;
+}
+
+html:root .mantine-Card-root > .flex.flex-row.items-center:has(> .mantine-ThemeIcon-root + .flex-col) > .mantine-ThemeIcon-root{
+width:auto;
+height:auto;
+min-width:0;
+min-height:0;
+align-self:flex-start;
+margin-top:2px;
+background:transparent;
+border-color:transparent;
+color:var(--ti-bg,var(--mantine-primary-color-filled));
+font-size:0.75rem;
+}
+
+html:root .mantine-Card-root > .flex.flex-row.items-center:has(> .mantine-ThemeIcon-root + .flex-col) > .flex-col{
+margin-left:0.75rem;
+}
+
+html:root #sidebar-content a,html:root .nebula-topnav a,html:root .nebula-topnav-menu a{
+--nebula-nav-accent:var(--mantine-color-blue-filled);
+--nebula-nav-tint:var(--mantine-color-blue-light);
+--nebula-nav-ink:var(--mantine-color-blue-light-color);
+}
+
+html:root[data-mantine-color-scheme="dark"]{
+--nebula-nav-fill:var(--mantine-color-default-hover);
+}
+
+html:root[data-mantine-color-scheme="light"]{
+--nebula-nav-fill:var(--mantine-color-gray-2);
+}
+
+@media (hover:hover){
+html:root #sidebar-content a > .mantine-Button-root:not(.active):hover,html:root .nebula-topnav a > .mantine-Button-root:not(.active):hover,html:root .nebula-topnav-menu a > .mantine-Button-root:not(.active):hover{
+background-color:transparent;
+}
+}
+
+html:root #sidebar-content a > .mantine-Button-root.active,html:root .nebula-topnav a > .mantine-Button-root.active,html:root .nebula-topnav-menu a > .mantine-Button-root.active{
+border-color:transparent;
+background-color:transparent;
+color:var(--mantine-color-text);
+}
+
+html:root .nebula-sb-items a:not(.active):hover::before{
+background:transparent;
+}
+
+html:root #sidebar-content a > .mantine-Button-root .mantine-Button-label > svg,html:root .nebula-topnav a > .mantine-Button-root .mantine-Button-label > svg,html:root .nebula-topnav-menu a > .mantine-Button-root .mantine-Button-label > svg{
+padding:0.375em 0.3em;
+border-radius:var(--mantine-radius-sm);
+transition:background-color 120ms ease,color 120ms ease;
+}
+
+@media (prefers-reduced-motion:reduce){
+html:root #sidebar-content a > .mantine-Button-root .mantine-Button-label > svg,html:root .nebula-topnav a > .mantine-Button-root .mantine-Button-label > svg,html:root .nebula-topnav-menu a > .mantine-Button-root .mantine-Button-label > svg{
+transition:none;
+}
+}
+
+@media (hover:hover){
+html:root #sidebar-content a > .mantine-Button-root:not(.active):hover .mantine-Button-label > svg,html:root .nebula-topnav a > .mantine-Button-root:not(.active):hover .mantine-Button-label > svg,html:root .nebula-topnav-menu a > .mantine-Button-root:not(.active):hover .mantine-Button-label > svg{
+background-color:var(--nebula-nav-tint);
+color:var(--nebula-nav-ink);
+}
+}
+
+html:root #sidebar-content a > .mantine-Button-root.active .mantine-Button-label > svg,html:root .nebula-topnav a > .mantine-Button-root.active .mantine-Button-label > svg,html:root .nebula-topnav-menu a > .mantine-Button-root.active .mantine-Button-label > svg{
+background-color:var(--nebula-nav-accent);
+color:var(--mantine-primary-color-contrast);
+}
+
+html:root .xterm.nebula-terminal .xterm-bg-0{
+background-color:#2e2e2e;
+}
+html:root .xterm.nebula-terminal .xterm-bg-1{
+background-color:#d08a8a;
+}
+html:root .xterm.nebula-terminal .xterm-bg-2{
+background-color:#9cbf9c;
+}
+html:root .xterm.nebula-terminal .xterm-bg-3{
+background-color:#cfc49a;
+}
+html:root .xterm.nebula-terminal .xterm-bg-4{
+background-color:#94a8c4;
+}
+html:root .xterm.nebula-terminal .xterm-bg-5{
+background-color:#b9a0bf;
+}
+html:root .xterm.nebula-terminal .xterm-bg-6{
+background-color:#98bcbc;
+}
+html:root .xterm.nebula-terminal .xterm-bg-7{
+background-color:#cfcfcf;
+}
+html:root .xterm.nebula-terminal .xterm-bg-8{
+background-color:#808080;
+}
+html:root .xterm.nebula-terminal .xterm-bg-9{
+background-color:#e3aaaa;
+}
+html:root .xterm.nebula-terminal .xterm-bg-10{
+background-color:#b9d6b9;
+}
+html:root .xterm.nebula-terminal .xterm-bg-11{
+background-color:#e3dbb8;
+}
+html:root .xterm.nebula-terminal .xterm-bg-12{
+background-color:#b5c5db;
+}
+html:root .xterm.nebula-terminal .xterm-bg-13{
+background-color:#d2bfd7;
+}
+html:root .xterm.nebula-terminal .xterm-bg-14{
+background-color:#b8d6d6;
+}
+html:root .xterm.nebula-terminal .xterm-bg-15{
+background-color:#f2f2f2;
+}
+
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-0{
+color:#2e2e2e;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-0.xterm-dim{
+color:rgba(46, 46, 46, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-1{
+color:#d08a8a;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-1.xterm-dim{
+color:rgba(208, 138, 138, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-2{
+color:#9cbf9c;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-2.xterm-dim{
+color:rgba(156, 191, 156, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-3{
+color:#cfc49a;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-3.xterm-dim{
+color:rgba(207, 196, 154, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-4{
+color:#94a8c4;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-4.xterm-dim{
+color:rgba(148, 168, 196, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-5{
+color:#b9a0bf;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-5.xterm-dim{
+color:rgba(185, 160, 191, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-6{
+color:#98bcbc;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-6.xterm-dim{
+color:rgba(152, 188, 188, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-7{
+color:#cfcfcf;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-7.xterm-dim{
+color:rgba(207, 207, 207, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-8{
+color:#808080;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-8.xterm-dim{
+color:rgba(128, 128, 128, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-9{
+color:#e3aaaa;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-9.xterm-dim{
+color:rgba(227, 170, 170, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-10{
+color:#b9d6b9;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-10.xterm-dim{
+color:rgba(185, 214, 185, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-11{
+color:#e3dbb8;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-11.xterm-dim{
+color:rgba(227, 219, 184, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-12{
+color:#b5c5db;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-12.xterm-dim{
+color:rgba(181, 197, 219, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-13{
+color:#d2bfd7;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-13.xterm-dim{
+color:rgba(210, 191, 215, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-14{
+color:#b8d6d6;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-14.xterm-dim{
+color:rgba(184, 214, 214, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-15{
+color:#f2f2f2;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-15.xterm-dim{
+color:rgba(242, 242, 242, 0.5);
+}
+
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-0{
+color:#2e2e2e;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-0.xterm-dim{
+color:rgba(46, 46, 46, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-1{
+color:#986767;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-1.xterm-dim{
+color:rgba(152, 103, 103, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-2{
+color:#607460;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-2.xterm-dim{
+color:rgba(96, 116, 96, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-3{
+color:#635e4c;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-3.xterm-dim{
+color:rgba(99, 94, 76, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-4{
+color:#5c6777;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-4.xterm-dim{
+color:rgba(92, 103, 119, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-5{
+color:#706274;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-5.xterm-dim{
+color:rgba(112, 98, 116, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-6{
+color:#5e7272;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-6.xterm-dim{
+color:rgba(94, 114, 114, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-7{
+color:#636363;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-7.xterm-dim{
+color:rgba(99, 99, 99, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-8{
+color:#6f6f6f;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-8.xterm-dim{
+color:rgba(111, 111, 111, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-9{
+color:#886868;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-9.xterm-dim{
+color:rgba(136, 104, 104, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-10{
+color:#596559;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-10.xterm-dim{
+color:rgba(89, 101, 89, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-11{
+color:#6b6859;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-11.xterm-dim{
+color:rgba(107, 104, 89, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-12{
+color:#585e68;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-12.xterm-dim{
+color:rgba(88, 94, 104, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-13{
+color:#645c66;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-13.xterm-dim{
+color:rgba(100, 92, 102, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-14{
+color:#596565;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-14.xterm-dim{
+color:rgba(89, 101, 101, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-15{
+color:#717171;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-15.xterm-dim{
+color:rgba(113, 113, 113, 0.5);
+}
+
 `;
 
 exports[`buildCss output > preset Stellar 1`] = `
@@ -2373,6 +5235,249 @@ color:color-mix(in srgb,var(--button-bg) 55%,var(--nebula-button-ink))!important
 
 html:root .mantine-Button-root[data-variant="filled"]:not([data-disabled]):not(:disabled):hover{
 background-color:color-mix(in srgb,var(--button-bg) 34%,transparent)!important;
+}
+
+html:root .xterm.nebula-terminal .xterm-bg-0{
+background-color:#2c2e4a;
+}
+html:root .xterm.nebula-terminal .xterm-bg-1{
+background-color:#f47c8a;
+}
+html:root .xterm.nebula-terminal .xterm-bg-2{
+background-color:#7fd18b;
+}
+html:root .xterm.nebula-terminal .xterm-bg-3{
+background-color:#f0c674;
+}
+html:root .xterm.nebula-terminal .xterm-bg-4{
+background-color:#7a9ff2;
+}
+html:root .xterm.nebula-terminal .xterm-bg-5{
+background-color:#c49bf2;
+}
+html:root .xterm.nebula-terminal .xterm-bg-6{
+background-color:#66c9d9;
+}
+html:root .xterm.nebula-terminal .xterm-bg-7{
+background-color:#cfd3e6;
+}
+html:root .xterm.nebula-terminal .xterm-bg-8{
+background-color:#7a7ea3;
+}
+html:root .xterm.nebula-terminal .xterm-bg-9{
+background-color:#ff9eaa;
+}
+html:root .xterm.nebula-terminal .xterm-bg-10{
+background-color:#a3e4ad;
+}
+html:root .xterm.nebula-terminal .xterm-bg-11{
+background-color:#f9dc9a;
+}
+html:root .xterm.nebula-terminal .xterm-bg-12{
+background-color:#8fb4ff;
+}
+html:root .xterm.nebula-terminal .xterm-bg-13{
+background-color:#dabbff;
+}
+html:root .xterm.nebula-terminal .xterm-bg-14{
+background-color:#93dfea;
+}
+html:root .xterm.nebula-terminal .xterm-bg-15{
+background-color:#f1f3fa;
+}
+
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-0{
+color:#2c2e4a;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-0.xterm-dim{
+color:rgba(44, 46, 74, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-1{
+color:#f47c8a;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-1.xterm-dim{
+color:rgba(244, 124, 138, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-2{
+color:#7fd18b;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-2.xterm-dim{
+color:rgba(127, 209, 139, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-3{
+color:#f0c674;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-3.xterm-dim{
+color:rgba(240, 198, 116, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-4{
+color:#7a9ff2;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-4.xterm-dim{
+color:rgba(122, 159, 242, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-5{
+color:#c49bf2;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-5.xterm-dim{
+color:rgba(196, 155, 242, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-6{
+color:#66c9d9;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-6.xterm-dim{
+color:rgba(102, 201, 217, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-7{
+color:#cfd3e6;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-7.xterm-dim{
+color:rgba(207, 211, 230, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-8{
+color:#7a7ea3;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-8.xterm-dim{
+color:rgba(122, 126, 163, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-9{
+color:#ff9eaa;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-9.xterm-dim{
+color:rgba(255, 158, 170, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-10{
+color:#a3e4ad;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-10.xterm-dim{
+color:rgba(163, 228, 173, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-11{
+color:#f9dc9a;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-11.xterm-dim{
+color:rgba(249, 220, 154, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-12{
+color:#8fb4ff;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-12.xterm-dim{
+color:rgba(143, 180, 255, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-13{
+color:#dabbff;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-13.xterm-dim{
+color:rgba(218, 187, 255, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-14{
+color:#93dfea;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-14.xterm-dim{
+color:rgba(147, 223, 234, 0.5);
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-15{
+color:#f1f3fa;
+}
+html:root[data-mantine-color-scheme="dark"] .xterm.nebula-terminal .xterm-fg-15.xterm-dim{
+color:rgba(241, 243, 250, 0.5);
+}
+
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-0{
+color:#2c2e4a;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-0.xterm-dim{
+color:rgba(44, 46, 74, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-1{
+color:#955262;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-1.xterm-dim{
+color:rgba(149, 82, 98, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-2{
+color:#456856;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-2.xterm-dim{
+color:rgba(69, 104, 86, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-3{
+color:#74634d;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-3.xterm-dim{
+color:rgba(116, 99, 77, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-4{
+color:#50659d;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-4.xterm-dim{
+color:rgba(80, 101, 157, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-5{
+color:#7a639d;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-5.xterm-dim{
+color:rgba(122, 99, 157, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-6{
+color:#3b6577;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-6.xterm-dim{
+color:rgba(59, 101, 119, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-7{
+color:#67697c;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-7.xterm-dim{
+color:rgba(103, 105, 124, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-8{
+color:#6b6e91;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-8.xterm-dim{
+color:rgba(107, 110, 145, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-9{
+color:#9b6574;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-9.xterm-dim{
+color:rgba(155, 101, 116, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-10{
+color:#547065;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-10.xterm-dim{
+color:rgba(84, 112, 101, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-11{
+color:#786d5d;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-11.xterm-dim{
+color:rgba(120, 109, 93, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-12{
+color:#5c71a4;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-12.xterm-dim{
+color:rgba(92, 113, 164, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-13{
+color:#6b5f87;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-13.xterm-dim{
+color:rgba(107, 95, 135, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-14{
+color:#4d6e7e;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-14.xterm-dim{
+color:rgba(77, 110, 126, 0.5);
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-15{
+color:#575869;
+}
+html:root[data-mantine-color-scheme="light"] .xterm.nebula-terminal .xterm-fg-15.xterm-dim{
+color:rgba(87, 88, 105, 0.5);
 }
 
 `;

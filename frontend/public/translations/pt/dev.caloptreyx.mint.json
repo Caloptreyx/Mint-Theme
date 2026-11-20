@@ -192,6 +192,10 @@
         "low": "Baixo contraste com {other}: {ratio}:1 (ideal: {min}:1)",
         "lowAs": "Baixo contraste como {role} sobre {other}: {ratio}:1 (ideal: {min}:1)",
         "named": "{name} ({role})",
+        "fix": "Usar {color}",
+        "fixTitle": "Definir {field} como {color}, só o suficiente para atingir o mínimo",
+        "fixAll": "Corrigir tudo",
+        "fixAllTitle": "Escurecer ou clarear as cores reprovadas só o suficiente para atingir os mínimos",
         "roles": {
           "links": "links",
           "dimmed": "texto esmaecido",
@@ -670,7 +674,24 @@
         "commandLabel": "Rótulo",
         "command": "Comando",
         "addCommand": "Adicionar comando",
-        "removeCommand": "Remover comando"
+        "removeCommand": "Remover comando",
+        "terminalColors": "Cores do terminal",
+        "terminalColorsDescription": "As 16 cores em que os servidores imprimem texto. No modo claro, as cores do texto são escurecidas quando necessário para ficarem legíveis no card claro.",
+        "terminalPalette": "Paleta",
+        "terminalPaletteDescription": "Cada predefinição de tema vem com sua própria paleta, definida quando a predefinição é aplicada. Edite uma cor abaixo para criar a sua.",
+        "terminalPaletteCore": "Padrão do painel",
+        "terminalNormal": "Normal",
+        "terminalBright": "Brilhante",
+        "terminalColorNames": {
+          "black": "Preto",
+          "red": "Vermelho",
+          "green": "Verde",
+          "yellow": "Amarelo",
+          "blue": "Azul",
+          "magenta": "Magenta",
+          "cyan": "Ciano",
+          "white": "Branco"
+        }
       },
       "navStyle": {
         "hover": "Efeito ao passar o mouse",
@@ -801,6 +822,18 @@
         "description": "Como o painel aparece para você. Só você vê, em todos os dispositivos em que fizer login.",
         "default": "Padrão do painel"
       }
+    },
+    "share": {
+      "copyCode": "Copiar código de compartilhamento",
+      "copyLink": "Copiar link de compartilhamento",
+      "paste": "Colar código de compartilhamento",
+      "pasteTitle": "Colar um código de compartilhamento",
+      "pasteDescription": "Um código de compartilhamento (ou um link que contenha um) traz o visual de um tema: cores, fontes, formas e estilos. Aplicá-lo altera apenas o rascunho; nada é salvo até você salvar.",
+      "codeLabel": "Código ou link de compartilhamento",
+      "invalid": "Este não é um código de compartilhamento do Mint, ou está incompleto.",
+      "preview": "Cores",
+      "apply": "Aplicar ao rascunho",
+      "cancel": "Cancelar"
     },
     "localTheme": {
       "apply": "Aplicar neste navegador",

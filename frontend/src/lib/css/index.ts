@@ -1,7 +1,7 @@
 import type { NebulaTheme } from '../theme.ts';
 import { blockCss, cardStyleCss } from './blocks.ts';
 import { colorCss } from './colors.ts';
-import { terminalCursorCss } from './console.ts';
+import { terminalColorsCss, terminalCursorCss } from './console.ts';
 import { interfaceCss } from './interface.ts';
 import { motionCss, motionOf } from './motion.ts';
 import { navCss } from './nav.ts';
@@ -17,5 +17,6 @@ export function buildCss(t: NebulaTheme): string {
     ...cardStyleCss(t),
     ...navCss(t, motion),
     ...terminalCursorCss(t),
+    ...terminalColorsCss(t),
   ].join('\n');
 }

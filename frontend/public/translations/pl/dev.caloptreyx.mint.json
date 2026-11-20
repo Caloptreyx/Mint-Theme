@@ -192,6 +192,10 @@
         "low": "Niski kontrast z {other}: {ratio}:1 (zalecane {min}:1)",
         "lowAs": "Niski kontrast jako {role} na {other}: {ratio}:1 (zalecane {min}:1)",
         "named": "{name} ({role})",
+        "fix": "Użyj {color}",
+        "fixTitle": "Ustaw {field} na {color}, tylko tyle, by spełnić minimum",
+        "fixAll": "Popraw wszystko",
+        "fixAllTitle": "Przyciemnij lub rozjaśnij niespełniające wymagań kolory tylko tyle, by osiągnąć minimum",
         "roles": {
           "links": "linki",
           "dimmed": "przygaszony tekst",
@@ -670,7 +674,24 @@
         "commandLabel": "Etykieta",
         "command": "Polecenie",
         "addCommand": "Dodaj polecenie",
-        "removeCommand": "Usuń polecenie"
+        "removeCommand": "Usuń polecenie",
+        "terminalColors": "Kolory terminala",
+        "terminalColorsDescription": "16 kolorów, w których serwery wypisują tekst. W trybie jasnym kolory tekstu są w razie potrzeby przyciemniane, by były czytelne na jasnej karcie.",
+        "terminalPalette": "Paleta",
+        "terminalPaletteDescription": "Każdy preset motywu ma własną paletę, ustawianą przy zastosowaniu presetu. Edytuj kolor poniżej, by stworzyć własną.",
+        "terminalPaletteCore": "Domyślna panelu",
+        "terminalNormal": "Zwykłe",
+        "terminalBright": "Jasne",
+        "terminalColorNames": {
+          "black": "Czarny",
+          "red": "Czerwony",
+          "green": "Zielony",
+          "yellow": "Żółty",
+          "blue": "Niebieski",
+          "magenta": "Magenta",
+          "cyan": "Cyjan",
+          "white": "Biały"
+        }
       },
       "navStyle": {
         "hover": "Efekt najechania",
@@ -801,6 +822,18 @@
         "description": "Jak wygląda panel dla Ciebie. Widzisz go tylko Ty, na każdym urządzeniu, na którym się logujesz.",
         "default": "Domyślny panelu"
       }
+    },
+    "share": {
+      "copyCode": "Kopiuj kod udostępniania",
+      "copyLink": "Kopiuj link udostępniania",
+      "paste": "Wklej kod udostępniania",
+      "pasteTitle": "Wklej kod udostępniania",
+      "pasteDescription": "Kod udostępniania (lub zawierający go link) przenosi wygląd motywu: kolory, czcionki, kształty i style. Zastosowanie go zmienia tylko szkic; nic nie zostanie zapisane, dopóki nie zapiszesz.",
+      "codeLabel": "Kod lub link udostępniania",
+      "invalid": "To nie jest kod udostępniania Mint albo jest ucięty.",
+      "preview": "Kolory",
+      "apply": "Zastosuj do szkicu",
+      "cancel": "Anuluj"
     },
     "localTheme": {
       "apply": "Zastosuj w tej przeglądarce",

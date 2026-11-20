@@ -75,6 +75,7 @@ export { default as Title } from '@/elements/typography/Title.tsx';
 export { isAdmin } from '@/lib/auth/permissions.ts';
 export type { ChartLegendProps, StreamChartProps } from '@/lib/chart.ts';
 export { formatBytes, formatBytesRate, formatPercent, useStreamChart } from '@/lib/chart.ts';
+export { handleRawCopyToClipboard } from '@/lib/clipboard/copy.ts';
 export { formatAllocation, isConflictingState, serverStatusInfo } from '@/lib/domain/server.ts';
 export { restrictToVerticalAxis } from '@/lib/dragAndDrop.ts';
 export { announcementTypeColorMapping } from '@/lib/enums.ts';

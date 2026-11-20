@@ -132,6 +132,19 @@ export const TERMINAL_CURSORS = ['none', 'block', 'bar', 'underline'] as const;
 export type TerminalCursor = (typeof TERMINAL_CURSORS)[number];
 /** xterm's `lineHeight`; core's is 1.2. */
 export const TERMINAL_LINE_HEIGHT = { min: 1, max: 2, default: 1.2 } as const;
+/**
+ * The console terminal's ANSI colours in xterm order: black, red, green, yellow, blue, magenta, cyan, white (0-7), then
+ * the bright ones (8-15). Core's dark scheme (`getXtermTheme()` in core's `src/lib/editor/xterm.ts`) sets none, so it
+ * draws xterm 6's own (`DEFAULT_ANSI_COLORS` in `@xterm/xterm`'s `src/browser/Types.ts`); its light one sets darker
+ * colours of its own.
+ */
+export const TERMINAL_COLOR_NAMES = ['black', 'red', 'green', 'yellow', 'blue', 'magenta', 'cyan', 'white'] as const;
+export const TERMINAL_COLOR_COUNT = 16;
+// prettier-ignore
+export const CORE_TERMINAL_COLORS: readonly string[] = [
+  '#2e3436', '#cc0000', '#4e9a06', '#c4a000', '#3465a4', '#75507b', '#06989a', '#d3d7cf',
+  '#555753', '#ef2929', '#8ae234', '#fce94f', '#729fcf', '#ad7fa8', '#34e2e2', '#eeeeec',
+];
 /** The console's banner widget: 'full' is the Home banner, the others one slim row. */
 export const CONSOLE_BANNERS = ['full', 'compact', 'minimal'] as const;
 export type ConsoleBanner = (typeof CONSOLE_BANNERS)[number];
@@ -246,6 +259,8 @@ export interface NebulaTheme {
   terminalCursor: TerminalCursor;
   terminalCursorBlink: boolean;
   terminalLineHeight: number;
+  /** 16 lowercase `#rrggbb` in xterm order (`CORE_TERMINAL_COLORS`), or [] for core's own. */
+  terminalColors: string[];
   /** The banner widget: the Home banner, one row, or a slim status line. */
   consoleBanner: ConsoleBanner;
   /** The console's charts only, never core's charts elsewhere. */
@@ -338,6 +353,7 @@ export const DEFAULT_THEME: NebulaTheme = {
   terminalCursor: 'none',
   terminalCursorBlink: false,
   terminalLineHeight: TERMINAL_LINE_HEIGHT.default,
+  terminalColors: [],
   consoleBanner: 'full',
   chartStyle: 'area',
   chartHeight: 'medium',
@@ -388,6 +404,7 @@ export const USER_THEME_FIELDS: readonly (keyof NebulaTheme)[] = [
   'offline',
   'chartOne',
   'chartTwo',
+  'terminalColors',
   'sidebarGroups',
   'radius',
   'elementRadius',
@@ -419,7 +436,7 @@ export const USER_THEME_FIELDS: readonly (keyof NebulaTheme)[] = [
   'dockPosition',
 ];
 
-/** Only the `USER_THEME_FIELDS` a preset sets; a built-in preset sets just its colours. */
+/** Only the `USER_THEME_FIELDS` a preset sets. */
 export function pickUserTheme(preset: unknown): Partial<NebulaTheme> {
   const r = (preset && typeof preset === 'object' ? preset : {}) as Record<string, unknown>;
   const out: Record<string, unknown> = {};

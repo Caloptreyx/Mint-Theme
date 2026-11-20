@@ -1,4 +1,11 @@
-import { faFileArrowUp, faFloppyDisk, faPen, faTrash, type IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import {
+  faFileArrowUp,
+  faFloppyDisk,
+  faPen,
+  faShareNodes,
+  faTrash,
+  type IconDefinition,
+} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 import { createPreset, deletePreset, getPresets, updatePreset } from '../../api/library.ts';
@@ -9,6 +16,7 @@ import {
   Card,
   ConfirmationModal,
   Group,
+  handleRawCopyToClipboard,
   httpErrorToHuman,
   Modal,
   ModalFooter,
@@ -33,6 +41,7 @@ import { useCanSaveTheme } from '../../lib/permissions.ts';
 import { PRESETS } from '../../lib/presets.ts';
 import { type NebulaTheme, pickUserTheme } from '../../lib/theme.ts';
 import { useExtTranslations } from '../../translations.ts';
+import { useShareCode } from './ShareCodeModal.tsx';
 import Swatches from './Swatches.tsx';
 
 function NameModal({
@@ -138,6 +147,8 @@ function PresetCard({
   children?: React.ReactNode;
 }) {
   const { t } = useExtTranslations();
+  const { addToast } = useToast();
+  const shareCode = useShareCode(theme);
 
   return (
     <Card hoverable p='sm'>
@@ -161,11 +172,15 @@ function PresetCard({
             onChange={(e) => onUsers(e.currentTarget.checked)}
           />
         </Tooltip>
-        {children && (
-          <Group gap={2} wrap='nowrap'>
-            {children}
-          </Group>
-        )}
+        <Group gap={2} wrap='nowrap'>
+          <PresetAction
+            label={t('share.copyCode', {})}
+            icon={faShareNodes}
+            blocked={null}
+            onClick={() => shareCode && handleRawCopyToClipboard(shareCode, addToast)}
+          />
+          {children}
+        </Group>
       </Group>
     </Card>
   );

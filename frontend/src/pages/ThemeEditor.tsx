@@ -8,7 +8,10 @@ import {
   faDisplay,
   faDownload,
   faEllipsisVertical,
+  faLink,
+  faPaste,
   faRotateRight,
+  faShareNodes,
   faStop,
   faTrashArrowUp,
   faUpload,
@@ -33,6 +36,7 @@ import {
   useSettingSearch,
 } from '../elements/editor/SettingsSearch.tsx';
 import HistoryModal from '../elements/library/HistoryModal.tsx';
+import ShareCodeModal, { useShareCode } from '../elements/library/ShareCodeModal.tsx';
 import {
   applyLocalTheme,
   clearLocalTheme,
@@ -52,6 +56,7 @@ import {
   ConfirmationModal,
   Group,
   getServers,
+  handleRawCopyToClipboard,
   httpErrorToHuman,
   Menu,
   Modal,
@@ -70,6 +75,7 @@ import {
 import { invalidUrls, isThemeFile } from '../lib/editorDraft.ts';
 import { normalizeTheme } from '../lib/normalize.ts';
 import { useCanSaveTheme } from '../lib/permissions.ts';
+import { SHARE_HASH } from '../lib/shareCode.ts';
 import { DEFAULT_THEME, type NebulaTheme } from '../lib/theme.ts';
 import { useExtTranslations } from '../translations.ts';
 
@@ -167,6 +173,8 @@ export default function ThemeEditor() {
   const [serverId, setServerId] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const [historyOpen, setHistoryOpen] = useState(false);
+  // the text in the 'Paste share code' modal, null while it is closed
+  const [shareText, setShareText] = useState<string | null>(null);
   const [panelWidth, setPanelWidth] = useState(storedPanelWidth);
   const [resizing, setResizing] = useState(false);
   const [stage, setStage] = useState({ width: 0, height: 0 });
@@ -184,6 +192,7 @@ export default function ThemeEditor() {
   const shown = useRef(draft);
   const history = useHistory(draft, setDraft);
   const hits = useSettingSearch(query);
+  const shareCode = useShareCode(valid);
 
   const set = (patch: Partial<NebulaTheme>) => setDraft((d) => ({ ...d, ...patch }));
   const dirty = JSON.stringify(normalizeTheme(draft, saved)) !== JSON.stringify(saved);
@@ -204,6 +213,15 @@ export default function ThemeEditor() {
 
   // the editor edits the site theme, so it shows that, never the admin's own pick
   useEffect(() => holdSiteTheme(), []);
+
+  // a share link (`/admin/mint#mint-share=<code>`) opens the paste modal with its code; the hash goes at once so a
+  // reload or a copied address doesn't bring it back
+  useEffect(() => {
+    const { hash, pathname, search } = window.location;
+    if (!hash.startsWith(`#${SHARE_HASH}`)) return;
+    setShareText(hash.slice(SHARE_HASH.length + 1));
+    window.history.replaceState(window.history.state, '', pathname + search);
+  }, []);
 
   /** Loads the stored theme; `replace` drops the draft, otherwise edits made meanwhile are kept. */
   const fetchTheme = (replace: boolean) => {
@@ -365,6 +383,17 @@ export default function ThemeEditor() {
     URL.revokeObjectURL(link.href);
   };
 
+  /** A share code's look over the draft, as a preset is applied; normalizeTheme checks every value the code carries. */
+  const applyShared = (look: Partial<NebulaTheme>) => setDraft((d) => normalizeTheme({ ...d, ...look }, d));
+
+  const copyShare = (link: boolean) => {
+    if (!shareCode) return;
+    handleRawCopyToClipboard(
+      link ? `${window.location.origin}/admin/mint#${SHARE_HASH}${shareCode}` : shareCode,
+      addToast,
+    );
+  };
+
   const doImport = (file: File) =>
     file
       .text()
@@ -469,6 +498,25 @@ export default function ThemeEditor() {
               <Menu.Item leftSection={<FontAwesomeIcon icon={faDownload} />} onClick={doExport}>
                 {t('editor.export', {})}
               </Menu.Item>
+              <Menu.Divider />
+              <Menu.Item
+                leftSection={<FontAwesomeIcon icon={faShareNodes} />}
+                disabled={!shareCode}
+                onClick={() => copyShare(false)}
+              >
+                {t('share.copyCode', {})}
+              </Menu.Item>
+              <Menu.Item
+                leftSection={<FontAwesomeIcon icon={faLink} />}
+                disabled={!shareCode}
+                onClick={() => copyShare(true)}
+              >
+                {t('share.copyLink', {})}
+              </Menu.Item>
+              <Menu.Item leftSection={<FontAwesomeIcon icon={faPaste} />} onClick={() => setShareText('')}>
+                {t('share.paste', {})}
+              </Menu.Item>
+              <Menu.Divider />
               <Menu.Item
                 leftSection={<FontAwesomeIcon icon={faDiscord} />}
                 onClick={() => window.open(SUPPORT_URL, '_blank', 'noopener,noreferrer')}
@@ -630,6 +678,12 @@ export default function ThemeEditor() {
             )}
           </div>
           <HistoryModal opened={historyOpen} onClose={() => setHistoryOpen(false)} onLoad={setDraft} />
+          <ShareCodeModal
+            opened={shareText !== null}
+            initial={shareText ?? ''}
+            onClose={() => setShareText(null)}
+            onApply={applyShared}
+          />
         </aside>
 
         {wide && <PanelResizer width={panelWidth} onWidth={setPanelWidth} onDragging={setResizing} />}

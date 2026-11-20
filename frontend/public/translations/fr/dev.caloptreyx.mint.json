@@ -192,6 +192,10 @@
         "low": "Contraste faible avec {other} : {ratio}:1 (visez {min}:1)",
         "lowAs": "Contraste faible en tant que {role} sur {other} : {ratio}:1 (visez {min}:1)",
         "named": "{name} ({role})",
+        "fix": "Utiliser {color}",
+        "fixTitle": "Régler {field} sur {color}, juste assez pour atteindre le minimum",
+        "fixAll": "Tout corriger",
+        "fixAllTitle": "Assombrir ou éclaircir les couleurs en échec juste assez pour atteindre les minimums",
         "roles": {
           "links": "liens",
           "dimmed": "texte atténué",
@@ -670,7 +674,24 @@
         "commandLabel": "Libellé",
         "command": "Commande",
         "addCommand": "Ajouter une commande",
-        "removeCommand": "Supprimer la commande"
+        "removeCommand": "Supprimer la commande",
+        "terminalColors": "Couleurs du terminal",
+        "terminalColorsDescription": "Les 16 couleurs dans lesquelles les serveurs affichent le texte. En mode clair, les couleurs du texte sont assombries si nécessaire pour rester lisibles sur la carte claire.",
+        "terminalPalette": "Palette",
+        "terminalPaletteDescription": "Chaque préréglage de thème a sa propre palette, définie à l'application du préréglage. Modifiez une couleur ci-dessous pour créer la vôtre.",
+        "terminalPaletteCore": "Par défaut du panel",
+        "terminalNormal": "Normal",
+        "terminalBright": "Vif",
+        "terminalColorNames": {
+          "black": "Noir",
+          "red": "Rouge",
+          "green": "Vert",
+          "yellow": "Jaune",
+          "blue": "Bleu",
+          "magenta": "Magenta",
+          "cyan": "Cyan",
+          "white": "Blanc"
+        }
       },
       "navStyle": {
         "hover": "Effet de survol",
@@ -801,6 +822,18 @@
         "description": "L'apparence du panel pour vous. Vous seul la voyez, sur chaque appareil où vous vous connectez.",
         "default": "Par défaut du panel"
       }
+    },
+    "share": {
+      "copyCode": "Copier le code de partage",
+      "copyLink": "Copier le lien de partage",
+      "paste": "Coller un code de partage",
+      "pasteTitle": "Coller un code de partage",
+      "pasteDescription": "Un code de partage (ou un lien qui en contient un) transporte l'apparence d'un thème : couleurs, polices, formes et styles. L'appliquer ne modifie que le brouillon ; rien n'est enregistré tant que vous n'enregistrez pas.",
+      "codeLabel": "Code ou lien de partage",
+      "invalid": "Ce n'est pas un code de partage Mint, ou il est tronqué.",
+      "preview": "Couleurs",
+      "apply": "Appliquer au brouillon",
+      "cancel": "Annuler"
     },
     "localTheme": {
       "apply": "Appliquer dans ce navigateur",

@@ -192,6 +192,10 @@
         "low": "Contrasto basso con {other}: {ratio}:1 (obiettivo {min}:1)",
         "lowAs": "Contrasto basso come {role} su {other}: {ratio}:1 (obiettivo {min}:1)",
         "named": "{name} ({role})",
+        "fix": "Usa {color}",
+        "fixTitle": "Imposta {field} su {color}, quanto basta per raggiungere il minimo",
+        "fixAll": "Correggi tutto",
+        "fixAllTitle": "Scurisci o schiarisci i colori non conformi quanto basta per raggiungere i minimi",
         "roles": {
           "links": "link",
           "dimmed": "testo attenuato",
@@ -670,7 +674,24 @@
         "commandLabel": "Etichetta",
         "command": "Comando",
         "addCommand": "Aggiungi comando",
-        "removeCommand": "Rimuovi comando"
+        "removeCommand": "Rimuovi comando",
+        "terminalColors": "Colori del terminale",
+        "terminalColorsDescription": "I 16 colori con cui i server stampano il testo. In modalità chiara i colori del testo vengono scuriti quando serve, per essere leggibili sulla scheda chiara.",
+        "terminalPalette": "Palette",
+        "terminalPaletteDescription": "Ogni preset del tema ha la sua palette, impostata quando applichi il preset. Modifica un colore qui sotto per crearne una tua.",
+        "terminalPaletteCore": "Predefinita del pannello",
+        "terminalNormal": "Normale",
+        "terminalBright": "Brillante",
+        "terminalColorNames": {
+          "black": "Nero",
+          "red": "Rosso",
+          "green": "Verde",
+          "yellow": "Giallo",
+          "blue": "Blu",
+          "magenta": "Magenta",
+          "cyan": "Ciano",
+          "white": "Bianco"
+        }
       },
       "navStyle": {
         "hover": "Effetto hover",
@@ -801,6 +822,18 @@
         "description": "L'aspetto del pannello per te. Solo tu lo vedi, su ogni dispositivo con cui accedi.",
         "default": "Predefinito del pannello"
       }
+    },
+    "share": {
+      "copyCode": "Copia codice di condivisione",
+      "copyLink": "Copia link di condivisione",
+      "paste": "Incolla codice di condivisione",
+      "pasteTitle": "Incolla un codice di condivisione",
+      "pasteDescription": "Un codice di condivisione (o un link che lo contiene) porta con sé l'aspetto di un tema: colori, font, forme e stili. Applicarlo modifica solo la bozza; nulla viene salvato finché non salvi.",
+      "codeLabel": "Codice o link di condivisione",
+      "invalid": "Questo non è un codice di condivisione Mint, oppure è troncato.",
+      "preview": "Colori",
+      "apply": "Applica alla bozza",
+      "cancel": "Annulla"
     },
     "localTheme": {
       "apply": "Applica in questo browser",

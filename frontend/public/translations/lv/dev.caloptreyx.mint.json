@@ -192,6 +192,10 @@
         "low": "Zems kontrasts ar {other}: {ratio}:1 (mērķis {min}:1)",
         "lowAs": "Zems kontrasts kā {role} uz {other}: {ratio}:1 (mērķis {min}:1)",
         "named": "{name} ({role})",
+        "fix": "Lietot {color}",
+        "fixTitle": "Iestatīt {field} uz {color}, tieši tik, lai sasniegtu minimumu",
+        "fixAll": "Labot visu",
+        "fixAllTitle": "Aptumšot vai padarīt gaišākas neatbilstošās krāsas tieši tik, lai sasniegtu minimumus",
         "roles": {
           "links": "saites",
           "dimmed": "blāvs teksts",
@@ -670,7 +674,24 @@
         "commandLabel": "Nosaukums",
         "command": "Komanda",
         "addCommand": "Pievienot komandu",
-        "removeCommand": "Noņemt komandu"
+        "removeCommand": "Noņemt komandu",
+        "terminalColors": "Termināļa krāsas",
+        "terminalColorsDescription": "16 krāsas, kurās serveri drukā tekstu. Gaišajā režīmā teksta krāsas pēc vajadzības tiek aptumšotas, lai tās būtu salasāmas uz gaišās kartītes.",
+        "terminalPalette": "Palete",
+        "terminalPaletteDescription": "Katrai motīva sagatavei ir sava palete, kas tiek iestatīta, lietojot sagatavi. Rediģējiet krāsu zemāk, lai izveidotu savu.",
+        "terminalPaletteCore": "Paneļa noklusējums",
+        "terminalNormal": "Parastās",
+        "terminalBright": "Spilgtās",
+        "terminalColorNames": {
+          "black": "Melna",
+          "red": "Sarkana",
+          "green": "Zaļa",
+          "yellow": "Dzeltena",
+          "blue": "Zila",
+          "magenta": "Fuksīna",
+          "cyan": "Ciāna",
+          "white": "Balta"
+        }
       },
       "navStyle": {
         "hover": "Kursora efekts",
@@ -801,6 +822,18 @@
         "description": "Kā panelis izskatās jums. To redzat tikai jūs, katrā ierīcē, kurā piesakāties.",
         "default": "Paneļa noklusējums"
       }
+    },
+    "share": {
+      "copyCode": "Kopēt kopīgošanas kodu",
+      "copyLink": "Kopēt kopīgošanas saiti",
+      "paste": "Ielīmēt kopīgošanas kodu",
+      "pasteTitle": "Ielīmējiet kopīgošanas kodu",
+      "pasteDescription": "Kopīgošanas kods (vai saite ar to) satur motīva izskatu: krāsas, fontus, formas un stilus. Tā lietošana maina tikai melnrakstu; nekas netiek saglabāts, kamēr nesaglabājat.",
+      "codeLabel": "Kopīgošanas kods vai saite",
+      "invalid": "Tas nav Mint kopīgošanas kods, vai tas ir nepilnīgs.",
+      "preview": "Krāsas",
+      "apply": "Lietot melnrakstam",
+      "cancel": "Atcelt"
     },
     "localTheme": {
       "apply": "Lietot šajā pārlūkā",

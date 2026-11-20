@@ -40,7 +40,8 @@ describe('user theme fields', () => {
         key.startsWith('login') ||
         key.startsWith('auth') ||
         key.startsWith('supportLinks') ||
-        key.startsWith('terminal') ||
+        // the terminal's colours are part of the look; its frame, height and cursor are the console page's
+        (key.startsWith('terminal') && key !== 'terminalColors') ||
         key.startsWith('console') ||
         ['chartStyle', 'chartHeight', 'chartArrangement'].includes(key),
     );

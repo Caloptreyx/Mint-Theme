@@ -18,6 +18,7 @@ import {
   type ConsoleCommand,
   type ConsoleLayout,
   type ConsoleWidget,
+  CORE_TERMINAL_COLORS,
   DEFAULT_LAYOUT,
   DEFAULT_THEME,
   DOCK_POSITIONS,
@@ -46,6 +47,7 @@ import {
   SUPPORT_LINK_ICONS,
   type SupportLink,
   TABLE_STYLES,
+  TERMINAL_COLOR_COUNT,
   TERMINAL_CURSORS,
   TERMINAL_FRAMES,
   TERMINAL_HEIGHTS,
@@ -164,6 +166,18 @@ function lineHeight(v: unknown, fallback: number): number {
   return Math.round(Math.min(TERMINAL_LINE_HEIGHT.max, Math.max(TERMINAL_LINE_HEIGHT.min, v)) * 100) / 100;
 }
 
+/**
+ * [] is core's palette; 16 entries are each a colour, an invalid one falling back to the fallback's colour there
+ * (core's when the fallback is core's palette); any other array or value is the fallback.
+ */
+function terminalColors(v: unknown, fallback: string[]): string[] {
+  if (!Array.isArray(v)) return fallback;
+  if (v.length === 0) return [];
+  if (v.length !== TERMINAL_COLOR_COUNT) return fallback;
+  const base = fallback.length === TERMINAL_COLOR_COUNT ? fallback : CORE_TERMINAL_COLORS;
+  return Array.from(v, (c, i) => color(c, base[i]));
+}
+
 // a command is one console line: control characters (a newline would be a second command) are dropped
 // oxlint-disable-next-line no-control-regex -- matching them is the point
 const CONTROL = /[\u0000-\u001f\u007f]/g;
@@ -246,6 +260,7 @@ export function normalizeTheme(raw: unknown, d: NebulaTheme = DEFAULT_THEME): Ne
     terminalCursor: TERMINAL_CURSORS.find((cursor) => cursor === r.terminalCursor) ?? d.terminalCursor,
     terminalCursorBlink: typeof r.terminalCursorBlink === 'boolean' ? r.terminalCursorBlink : d.terminalCursorBlink,
     terminalLineHeight: lineHeight(r.terminalLineHeight, d.terminalLineHeight),
+    terminalColors: terminalColors(r.terminalColors, d.terminalColors),
     consoleBanner: CONSOLE_BANNERS.find((banner) => banner === r.consoleBanner) ?? d.consoleBanner,
     chartStyle: CHART_STYLES.find((style) => style === r.chartStyle) ?? d.chartStyle,
     chartHeight: CHART_HEIGHTS.find((height) => height === r.chartHeight) ?? d.chartHeight,
