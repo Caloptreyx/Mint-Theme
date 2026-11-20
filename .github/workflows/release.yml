@@ -1,8 +1,8 @@
 name: Release
 
-# A pushed `v*` tag is checked, its GitHub release created, and a real `panel-rs extensions export` of the tag
-# attached to it (Caloptreyx/.github extension-release.yml). "Run workflow" with a tag rebuilds an existing release's
-# zip without the check.
+# A pushed `v*` tag is checked, its GitHub release created, a real `panel-rs extensions export` of the tag attached
+# to it (Caloptreyx/.github extension-release.yml), and that zip published as a SourceXchange release. "Run workflow"
+# with a tag rebuilds an existing release's zip without the check, and re-publishes it to SourceXchange if asked.
 on:
   push:
     tags:
@@ -12,6 +12,10 @@ on:
       tag:
         description: Release tag to export and upload to, e.g. v2.4.1
         required: true
+      sourcexchange:
+        description: Also publish the tag as a SourceXchange release
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -65,3 +69,49 @@ jobs:
       tag: ${{ inputs.tag || github.ref_name }}
       # 1.2.1 and older (ID dev.s4way.nebula) only look for this asset name when they check for updates
       asset-aliases: dev_s4way_nebula.c7s.zip
+
+  # Publishes the shipped zip to SourceXchange product vars.SOURCEXCHANGE_PRODUCT_ID (skipped while unset), with the
+  # GitHub release notes as its changelog. The release is created by this workflow's GITHUB_TOKEN, which fires no
+  # `release` event, so this runs here rather than in a release-triggered workflow.
+  sourcexchange:
+    needs: export
+    if: ${{ !cancelled() && needs.export.result == 'success' && (github.event_name == 'push' || inputs.sourcexchange) }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Publish to SourceXchange
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ inputs.tag || github.ref_name }}
+          PRODUCT_ID: ${{ vars.SOURCEXCHANGE_PRODUCT_ID }}
+          SXC_TOKEN: ${{ secrets.SOURCEXCHANGE_TOKEN }}
+          # not the dev_s4way_nebula.c7s.zip alias, which only old installs look for on GitHub
+          ASSET: dev_caloptreyx_mint.c7s.zip
+        run: |
+          if [ -z "${PRODUCT_ID}" ]; then
+            echo "::notice::SOURCEXCHANGE_PRODUCT_ID is not set, skipping the SourceXchange release"
+            exit 0
+          fi
+          # SourceXchange release names: at most 30 of letters, digits and _ + . -
+          if ! [[ "${TAG}" =~ ^[A-Za-z0-9_+.-]{1,30}$ ]]; then
+            echo "::error::tag ${TAG} is not a valid SourceXchange release name"
+            exit 1
+          fi
+          gh release download "${TAG}" --repo "${GITHUB_REPOSITORY}" --pattern "${ASSET}"
+          gh release view "${TAG}" --repo "${GITHUB_REPOSITORY}" --json body,isPrerelease > release.json
+          stage=$(jq -r 'if .isPrerelease then "beta" else "stable" end' release.json)
+          # the changelog takes 10 to 4096 characters
+          jq -r .body release.json | python3 -c '
+          import os, sys
+          notes = sys.stdin.read().strip() or "Release " + os.environ["TAG"]
+          sys.stdout.write(notes[:4096].ljust(10, "."))' > changelog.txt
+          status=$(curl -sS -o response.json -w '%{http_code}' -X POST \
+            -H "Authorization: Bearer ${SXC_TOKEN}" -H 'Accept: application/json' \
+            -F "name=${TAG}" -F "changelog=<changelog.txt" -F "stage=${stage}" \
+            -F "file=@${ASSET};type=application/zip" \
+            "https://www.sourcexchange.net/api/products/${PRODUCT_ID}/releases")
+          cat response.json; echo
+          if [ "${status}" != 201 ]; then
+            echo "::error::SourceXchange answered HTTP ${status}"
+            exit 1
+          fi
+          echo "Published ${TAG} (${stage}) to SourceXchange product ${PRODUCT_ID}"

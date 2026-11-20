@@ -722,7 +722,11 @@ block a Mint release; raise it once a push's check passes on a newer panel), the
 `version` in `backend/Cargo.toml` (it fails otherwise, so bump that first), then it creates the GitHub release
 `Mint Theme <version>` with generated notes if missing, and the org's `extension-release.yml` builds panel-rs on
 Blacksmith, runs `panel-rs extensions export` on the tag and uploads the zip, also as `dev_s4way_nebula.c7s.zip`
-(`gh release upload --clobber`). "Run workflow" on Release with a tag rebuilds an existing release's zips.
+(`gh release upload --clobber`). Last, it publishes `dev_caloptreyx_mint.c7s.zip` as a SourceXchange release of
+product `vars.SOURCEXCHANGE_PRODUCT_ID` (secret `SOURCEXCHANGE_TOKEN`), named after the tag, `stable` or `beta` for
+a prerelease, with the GitHub release notes as they are at that moment (the generated ones) as its changelog.
+"Run workflow" on Release with a tag rebuilds an existing release's zips, and with "Also publish" ticked re-publishes
+it to SourceXchange.
 
 Installed panels see a release through `check_for_updates` (`backend/src/updates.rs`) once it is
 published, not a draft or prerelease, and has the zip attached. Its changelog on **Admin → Updates** is the
