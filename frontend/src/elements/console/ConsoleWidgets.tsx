@@ -431,11 +431,16 @@ export function ConsoleChartsProvider({ children }: { children: ReactNode }) {
   );
 }
 
-/** Core's resource history page (panel 1.2.9+); the server route interceptor reports whether core has it. */
+/**
+ * Core's resource history page (panel 1.2.9+). The server route interceptor reports it whenever the routes it gets
+ * hold it; it never turns it off again, because core's quick actions palette (mounted on every page) also runs the
+ * interceptors, with only the extension routes until it has loaded core's, which would hide the link on each of its
+ * re-renders. The panel's routes never change while the page is open.
+ */
 export const RESOURCE_HISTORY_PATH = '/console/history';
 let resourceHistory = false;
-export function setResourceHistory(available: boolean) {
-  resourceHistory = available;
+export function noteResourceHistory() {
+  resourceHistory = true;
 }
 
 /** The clock core's own charts show beside their titles from 1.2.9, linking to the server's resource history. */

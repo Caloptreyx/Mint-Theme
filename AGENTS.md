@@ -266,8 +266,10 @@ and break silently when core moves a file. Everything here is runtime:
   Core's `ServerStats` only exports all three charts together, so `ConsoleChartsProvider` runs core's
   `useStreamChart` for each and feeds them the same way, and `ChartsWidget` renders core's `ChartBlock`/`StreamChart`
   from that context. From panel 1.2.9 core's charts carry a clock linking to the server's resource history
-  (`/server/<id>/console/history`, a core route); the server route interceptor notes whether that route exists
-  (`setResourceHistory`) and Mint's `HistoryLink` is the chart's `action` only then. The provider wraps the whole page, above the slots, so a chart moved to another slot (a
+  (`/server/<id>/console/history`, a core route); the server route interceptor notes once it has seen that route
+  (`noteResourceHistory`, never reset: core's quick actions palette, mounted on every page, runs the interceptors too,
+  with only the extension routes until it has loaded core's) and Mint's `HistoryLink` is the chart's `action` only
+  then. The provider wraps the whole page, above the slots, so a chart moved to another slot (a
   remount) keeps its history. Core's `statBlocks` slot follows the last chart run, or the extension cards when no
   chart is placed. The default is the page from before. `PowerButtons` (in `HeroCard`, so on Home and the
   console's full banner, and in the compact and minimal banners with `size`) renders core's

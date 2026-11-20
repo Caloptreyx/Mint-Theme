@@ -10,7 +10,7 @@ import { AuthLayout, withFormLinks } from './elements/auth/AuthLayout.tsx';
 import { AuthLogo, AuthScope, LOGIN_PREVIEW_PATH } from './elements/auth/AuthScope.tsx';
 import ConsoleRedirect, { withConsoleFallback } from './elements/console/ConsoleFallback.tsx';
 import ConsoleRouteOrder from './elements/console/ConsoleRouteOrder.tsx';
-import { RESOURCE_HISTORY_PATH, setResourceHistory } from './elements/console/ConsoleWidgets.tsx';
+import { noteResourceHistory, RESOURCE_HISTORY_PATH } from './elements/console/ConsoleWidgets.tsx';
 import EditorKeys from './elements/files/EditorKeys.tsx';
 import ThemeChoiceCard from './elements/library/ThemeChoiceCard.tsx';
 import LocalThemeNotice from './elements/page/LocalThemeNotice.tsx';
@@ -166,7 +166,7 @@ class DevCaloptreyxMintExtension extends Extension {
     // per server router (and quick actions palette, egg configuration editor), so a change shows on their next mount.
     ctx.extensionRegistry.routes.addServerRouteInterceptor((routes) => {
       // panel 1.2.9 added a resource history page that core's charts link to; Mint's charts link to it where it exists
-      setResourceHistory(routes.some((route) => route.path === RESOURCE_HISTORY_PATH));
+      if (routes.some((route) => route.path === RESOURCE_HISTORY_PATH)) noteResourceHistory();
       const home = currentTheme().serverHome;
       const console = routes.findIndex((route) => route.path === '/');
       if (console !== -1) {
