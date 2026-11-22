@@ -399,7 +399,7 @@ html:root.nebula-auth{
 background-image:linear-gradient(color-mix(in srgb,var(--mantine-color-body) 75%,transparent),color-mix(in srgb,var(--mantine-color-body) 75%,transparent)),url("/login.jpg");
 }
 
-html:root .mantine-Card-root:not(.fixed > *){
+html:root .mantine-Card-root:not(.fixed > *,.z-20[class~="top-1/2"] > *){
 background-color:var(--nebula-card);
 }
 
@@ -407,7 +407,7 @@ html:root .mantine-Paper-root[data-with-border]:not(.mantine-Card-root,.mantine-
 background-color:color-mix(in srgb,var(--mantine-color-body) 70%,transparent);
 }
 
-html:root .mantine-Card-root:not(.fixed > *),html:root .mantine-Paper-root[data-with-border]:not(.mantine-Card-root,.mantine-Dialog-root,.mantine-ActionBar-root){
+html:root .mantine-Card-root:not(.fixed > *,.z-20[class~="top-1/2"] > *),html:root .mantine-Paper-root[data-with-border]:not(.mantine-Card-root,.mantine-Dialog-root,.mantine-ActionBar-root){
 -webkit-backdrop-filter:blur(14px) saturate(160%);
 backdrop-filter:blur(14px) saturate(160%);
 }
@@ -1632,7 +1632,7 @@ html:root .mantine-Button-root[data-variant="filled"]:not([data-disabled]):not(:
 background-color:color-mix(in srgb,var(--button-bg) 34%,transparent)!important;
 }
 
-html:root .mantine-Card-root:not(.fixed > *){
+html:root .mantine-Card-root:not(.fixed > *,.z-20[class~="top-1/2"] > *){
 background-color:var(--nebula-card);
 }
 

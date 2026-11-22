@@ -114,10 +114,16 @@ editor can repaint the panel live without a reload.
   presets always set `textOnAccent` (Mint `#0b1314`, the others `''`), so applying one over another resets it.
 - "Blocks" are Mantine cards (the sidebar is one) and bordered papers. `blockOpacity` turns
   `--nebula-card` into an rgba colour and paints cards with it, so treat `--nebula-card` as possibly
-  translucent; overlays (modals, menus, popovers, dialogs, the fixed bulk action bar) are never matched and
-  stay solid. Styles that match nothing by default are only emitted when an option leaves its default, so
-  an older saved theme builds the same CSS. The default `clickEffect`, 'drop', is Mantine's own
-  `.mantine-active:active` 1px nudge.
+  translucent; overlays (modals, menus, popovers, dialogs, the fixed bulk action bar, core's PreviewCard hover
+  copy) are never matched and stay solid. Styles that match nothing by default are only emitted when an option
+  leaves its default, so an older saved theme builds the same CSS. The default `clickEffect`, 'drop', is
+  Mantine's own `.mantine-active:active` 1px nudge.
+- Core's `PreviewCard` (panel 1.2.8+: admin extension cards, egg library cards) lays a fuller copy of the card over
+  it on hover, centred, 24px wider each side and 48px taller, so the card's buttons (Configure, the toggle, delete,
+  Open) moved out from under the pointer. `app.css` pins that copy (`.relative > .mantine-Card-root +
+  .absolute.z-20[class~='top-1/2']`) to the card's bottom edge at its width and at least its height, and gives its
+  borderless content card a transparent border like the card's, so it grows upward only and the buttons stay to
+  the pixel. A static rule, not a hook: `PreviewCard` does not exist on the 1.2.0 floor.
 - `boxStyle` restyles the title row of titled cards: core's `TitleCard` (`#title-card-header`, which the Home
   cards use too; its divider is an inline style, hence `!important`) and `ChartBlock` (a `border-b` header
   holding an h3). Admin Settings (1.2.0 to 1.2.3) has no titled cards, only flat FormEngine grids, so there it

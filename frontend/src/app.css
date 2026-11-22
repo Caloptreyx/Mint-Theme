@@ -219,6 +219,27 @@ html[data-nebula-pending] body {
   display: none;
 }
 
+/* core's PreviewCard (panel 1.2.8+: the admin extension cards and the egg library's cards) lays a fuller copy of
+   the card over it on hover, centred on the card, 24px wider on each side and 48px taller than it at least, so
+   the card's buttons (Configure, the toggle, delete) drop out from under the pointer. Pinned to the card's bottom
+   edge at its width and at least its height (not 48px more), the copy only grows upward by the rows the card
+   leaves out; the transparent border matches the card's, so the buttons stay exactly where they were */
+.relative > .mantine-Card-root + .absolute.z-20[class~='top-1/2'] {
+  top: auto;
+  bottom: 0;
+  left: 0 !important;
+  right: 0 !important;
+  translate: none;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+.relative > .mantine-Card-root + .absolute.z-20[class~='top-1/2'] > .mantine-Card-root:last-child {
+  flex: 1 0 auto;
+  min-height: 0 !important;
+  border: calc(0.0625rem * var(--mantine-scale)) solid transparent;
+}
+
 /* collapsible sidebar sections (GroupedNav): a toggle row, then the links hanging off a left rail */
 .nebula-sb-section {
   margin-top: 0.125rem;

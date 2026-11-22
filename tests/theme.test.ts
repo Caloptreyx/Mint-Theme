@@ -664,7 +664,11 @@ describe('blocks and elements', () => {
     const css = buildCss(normalizeTheme({ blockOpacity: 80 }));
     assert.match(css, /html:root\[data-mantine-color-scheme="dark"\]\{--nebula-card:rgba\(\d+, \d+, \d+, 0\.8\);/);
     assert.match(css, /html:root\[data-mantine-color-scheme="light"\]\{[^}]*--nebula-card:rgba\(\d+, \d+, \d+, 0\.8\);/);
-    assert.match(css, /\.mantine-Card-root:not\(\.fixed > \*\)\{background-color:var\(--nebula-card\);\}/);
+    // the bulk action bar and core's PreviewCard hover copy (an overlay) keep the solid fill
+    assert.match(
+      css,
+      /\.mantine-Card-root:not\(\.fixed > \*,\.z-20\[class~="top-1\/2"\] > \*\)\{background-color:var\(--nebula-card\);\}/,
+    );
     assert.match(css, /\.mantine-Paper-root[^{]*\{background-color:color-mix\(in srgb,var\(--mantine-color-body\) 80%,transparent\);\}/);
     // overlays are never matched, so modals and dialogs stay solid
     assert.equal(/Modal|Drawer|Popover|Menu/.test(css), false);

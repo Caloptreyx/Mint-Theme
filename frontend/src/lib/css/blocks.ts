@@ -4,14 +4,16 @@ import type { NebulaTheme } from '../theme.ts';
 export function blockCss(t: NebulaTheme): string[] {
   const css: string[] = [];
   // blocks are Mantine cards (the sidebar is one) and bordered papers; overlays (modals, menus, popovers,
-  // dialogs) are left alone so they stay solid, and so is a card floating in a fixed bar (the bulk action bar)
+  // dialogs, core's PreviewCard hover copy) are left alone so they stay solid, and so is a card floating in a
+  // fixed bar (the bulk action bar)
   const CARD = 'html:root .mantine-Card-root';
   const PAPER =
     'html:root .mantine-Paper-root[data-with-border]:not(.mantine-Card-root,.mantine-Dialog-root,.mantine-ActionBar-root)';
-  const SEE_THROUGH = `${CARD}:not(.fixed > *),${PAPER}`;
+  const BLOCK = `${CARD}:not(.fixed > *,.z-20[class~="top-1/2"] > *)`;
+  const SEE_THROUGH = `${BLOCK},${PAPER}`;
   if (t.blockOpacity < 100) {
     css.push(
-      `${CARD}:not(.fixed > *){background-color:var(--nebula-card);}`,
+      `${BLOCK}{background-color:var(--nebula-card);}`,
       `${PAPER}{background-color:color-mix(in srgb,var(--mantine-color-body) ${t.blockOpacity}%,transparent);}`,
     );
     const blur = 'blur(14px) saturate(160%)';
