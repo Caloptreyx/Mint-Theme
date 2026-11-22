@@ -1333,7 +1333,7 @@ describe('dashboard layout and dock position', () => {
     const slim = laid('slim');
     const horizontal = laid('horizontal');
     for (const rule of [...own(slim), ...own(horizontal)]) assert.doesNotMatch(rule, /[{;](width|display):/);
-    assert.ok(slim.includes(`${SIDEBAR}{max-width:4rem;padding:0.5rem;}`));
+    assert.ok(slim.includes(`${SIDEBAR}{max-width:4rem;padding:0.5rem!important;}`));
     assert.ok(horizontal.includes(`${SIDEBAR}{max-width:0;max-height:0;margin:0;padding:0;border:0;visibility:hidden;}`));
   });
 

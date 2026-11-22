@@ -19,7 +19,7 @@ import PageTransition from './elements/page/PageTransition.tsx';
 import BottomNav from './elements/sidebar/BottomNav.tsx';
 import GroupedNav from './elements/sidebar/GroupedNav.tsx';
 import { withNavSearch } from './elements/sidebar/NavSearch.tsx';
-import { RailLogo, RailTip } from './elements/sidebar/Rail.tsx';
+import { RailLogo, RailTip, withRailServer } from './elements/sidebar/Rail.tsx';
 import SidebarShell from './elements/sidebar/SidebarShell.tsx';
 import { applyCachedTheme, currentTheme, listenForPreview, loadTheme, watchUserTheme } from './lib/apply.ts';
 import {
@@ -57,6 +57,8 @@ class DevCaloptreyxMintExtension extends Extension {
     }));
     // `searchComponent` swaps core's Quick actions button (and moves its server switcher) in place, in every sidebar
     Sidebar.addPropsInterceptor(withNavSearch);
+    // the slim rail shows core's server block as an initials tile with icon-only power buttons, named in a tooltip
+    Sidebar.addPropsInterceptor(withRailServer);
     // `sidebarLayout` and `dockPosition`: the shell adds the bars across the content (a render interceptor, so it
     // sees the props above), the slim rail names its links in tooltips and shows the square app icon
     Sidebar.addRenderInterceptor((element, props) => createElement(SidebarShell, { ...props, element }));

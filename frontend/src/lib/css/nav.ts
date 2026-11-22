@@ -95,10 +95,12 @@ function railCss(): string[] {
   // core's links, and 'Arrange menu' (elements/sidebar/ArrangeMenu.tsx), which copies their button
   const LINK = `${SIDEBAR} :is(a > .mantine-Button-root,.nebula-arrange)`;
   const SEARCH = `${SIDEBAR_HEADER} > .mantine-Button-root`;
-  const SERVER = `${SIDEBAR_HEADER} > .mantine-Card-root`;
+  // core's server block (in a link to the server from panel 1.2.5), inside RailServer's wrapper
+  const SERVER = `${SIDEBAR} .nebula-rail-server .mantine-Card-root`;
   const ACCOUNT = `${SIDEBAR} #sidebar-account-card`;
   return [
-    `${SIDEBAR}{max-width:4rem;padding:0.5rem;}`,
+    // core pads the card with an inline style (Mantine's `p`), as it does the server block and account cards below
+    `${SIDEBAR}{max-width:4rem;padding:0.5rem!important;}`,
     // app.css lets the scroller reach into the padding for its bar; the rail is too narrow for one
     `${SIDEBAR} #sidebar-content > .overflow-y-auto{margin-right:-0.5rem;padding-right:0.5rem;scrollbar-width:none;}`,
     // the names shrink to nothing rather than going, so screen readers still read them
@@ -114,22 +116,30 @@ function railCss(): string[] {
     `${SEARCH} .mantine-Button-label{font-size:0;}`,
     `${SEARCH} .mantine-Button-section{margin:0;}`,
     `${SEARCH} .mantine-Button-section[data-position="right"]{display:none;}`,
-    // the server block keeps its status dot and the power buttons, stacked
-    `${SERVER}{align-items:center;padding:0.375rem 0.25rem;}`,
-    `${SERVER} > :first-child,${SERVER} > :nth-child(2) > :not(:first-child){display:none;}`,
-    `${SERVER} > :nth-child(2){justify-content:center;}`,
-    `${SERVER} > :nth-child(3){flex-direction:column;align-self:stretch;gap:0.25rem;margin-top:0.375rem;}`,
-    `${SERVER} > :nth-child(3) > *,${SERVER} .mantine-Button-root{width:100%;}`,
+    // the server block: its name row becomes a tile with RailServer's initials, the status indicator sits on the
+    // tile's corner without its label and uptime, and the power buttons stack below as icons
+    `${SERVER}{display:grid;justify-items:center;row-gap:0.375rem;padding:0.375rem!important;}`,
+    `${SERVER} > :first-child{grid-area:1/1;justify-content:center;width:2.25rem;height:2.25rem;border-radius:var(--mantine-radius-md);background-color:color-mix(in srgb,var(--mantine-color-blue-filled) 20%,transparent);}`,
+    `${SERVER} > :first-child > *{display:none;}`,
+    `${SERVER} > :first-child::before{content:var(--nebula-rail-initials);font-size:0.8125rem;font-weight:600;line-height:1;}`,
+    `${SERVER} > :nth-child(2){grid-area:1/1;align-self:end;justify-content:flex-end;width:2.25rem;height:auto;transform:translate(0.25rem,0.25rem);}`,
+    `${SERVER} > :nth-child(2) > :not(:first-child){display:none;}`,
+    `${SERVER} > :nth-child(2) > :first-child{box-sizing:content-box;padding:1px;border-radius:9999px;background-color:var(--mantine-color-body);}`,
+    `${SERVER} > :nth-child(3){grid-area:2/1;flex-direction:column;justify-self:stretch;gap:0.25rem;margin:0;}`,
+    `${SERVER} > :nth-child(3) > *,${SERVER} .mantine-Button-root{flex:none;width:100%;}`,
     `${SERVER} .mantine-Button-root{padding-inline:0;}`,
     `${SERVER} .mantine-Button-label{font-size:0;}`,
     `${SERVER} .mantine-Button-section{margin:0;}`,
     // the restart button's icon is its label, not a section
     `${SERVER} .mantine-Button-label > svg{font-size:0.75rem;}`,
-    // the footer keeps the account, down to its avatar over the menu button
+    // the footer keeps the account: its avatar at the menu icons' size over the menu button, turned to lie flat
     `${SIDEBAR_FOOTER} > :not(#sidebar-account-card){display:none;}`,
-    `${ACCOUNT}{flex-wrap:wrap;justify-content:center;gap:0.25rem;padding:0.25rem 0;}`,
+    `${ACCOUNT}{flex-wrap:wrap;justify-content:center;row-gap:0.125rem;padding:0.375rem 0 0.125rem!important;}`,
     `${ACCOUNT} > :first-child{flex:0 0 100%;justify-content:center;}`,
     `${ACCOUNT} > :first-child > span{display:none;}`,
+    `${ACCOUNT} .mantine-Avatar-root{--avatar-size:2.25rem!important;}`,
+    `${ACCOUNT} > .mantine-ActionIcon-root{width:100%;height:1.25rem;min-height:0;}`,
+    `${ACCOUNT} > .mantine-ActionIcon-root svg{transform:rotate(90deg);}`,
     // section toggles and labelled dividers become plain rules
     `${SIDEBAR} .nebula-sb-toggle,${SIDEBAR} .mantine-Divider-label{display:none;}`,
     `${SIDEBAR} .nebula-sb-rule{display:block;}`,

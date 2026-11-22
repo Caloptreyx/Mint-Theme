@@ -413,17 +413,24 @@ html[data-nebula-layout='slim'] #sidebar-desktop .nebula-nav-search-icon {
   min-width: 8rem;
 }
 
-/* core's server block: the name over the status, the power buttons beside them */
-.nebula-dock > .mantine-Card-root {
+/* core's server block (in a link to the server from panel 1.2.5): the name over the status, the power buttons
+   beside them */
+.nebula-dock > :is(.mantine-Card-root, a:has(> .mantine-Card-root)) {
+  margin-left: auto;
+}
+
+.nebula-dock > .mantine-Card-root,
+.nebula-dock > a > .mantine-Card-root {
   display: grid;
   grid-template-columns: minmax(0, 12rem) auto;
   column-gap: 0.75rem;
   align-items: center;
-  margin-left: auto;
+  height: auto;
   padding: 0.375rem 0.375rem 0.375rem 0.75rem;
 }
 
-.nebula-dock > .mantine-Card-root > :nth-child(3) {
+.nebula-dock > .mantine-Card-root > :nth-child(3),
+.nebula-dock > a > .mantine-Card-root > :nth-child(3) {
   grid-area: 1 / 2 / 3 / 3;
   margin: 0;
 }

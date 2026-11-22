@@ -4,18 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Combobox, TextInput, useCombobox } from '@mantine/core';
 import { useDebouncedValue } from '@mantine/hooks';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
-import {
-  Children,
-  cloneElement,
-  createElement,
-  Fragment,
-  isValidElement,
-  type ReactElement,
-  type ReactNode,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import { createElement, type ReactNode, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router';
 import type { SearchComponent } from '../../lib/theme.ts';
 import { useNebulaTheme } from '../../lib/apply.ts';
@@ -46,6 +35,7 @@ import {
   useToast,
 } from '../../lib/core.ts';
 import { useExtTranslations } from '../../translations.ts';
+import { swapElements } from './nav.ts';
 
 const MAX_RESULTS = 6;
 const QUICK_ACTIONS_OPTION = 'nebula:quick-actions';
@@ -344,30 +334,18 @@ export function NavSearchFooter({ fallback }: { fallback: ReactNode }) {
   return searchComponent === 'palette' ? fallback : null;
 }
 
-/** Replaces matching elements anywhere in the routers' nested fragments, keeping the fragments walkable. */
-function swap(node: ReactNode, replace: (element: ReactElement) => ReactNode | undefined): ReactNode {
-  if (Array.isArray(node)) return Children.map(node, (child) => swap(child, replace));
-  if (!isValidElement(node)) return node;
-
-  const replaced = replace(node);
-  if (replaced !== undefined) return replaced;
-  if (node.type !== Fragment) return node;
-
-  return cloneElement(node, undefined, swap((node.props as { children?: ReactNode }).children, replace));
-}
-
 /**
  * Sidebar props interceptor: core's Quick actions button and server switcher sit in the sidebar's header and
  * footer, which the routers build; they are swapped in place for components that read `searchComponent` live.
  */
 export function withNavSearch<P extends { header?: ReactNode; footer?: ReactNode }>(props: P): P {
   let isServer = false;
-  const footer = swap(props.footer, (element) => {
+  const footer = swapElements(props.footer, (element) => {
     if (element.type !== ServerSwitcher) return undefined;
     isServer = !!(element.props as { isServer?: boolean }).isServer;
     return createElement(NavSearchFooter, { key: element.key ?? undefined, fallback: element });
   });
-  const header = swap(props.header, (element) =>
+  const header = swapElements(props.header, (element) =>
     element.type === QuickActionsTrigger
       ? createElement(NavSearch, { key: element.key ?? undefined, fallback: element, isServer })
       : undefined,

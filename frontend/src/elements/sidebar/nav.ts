@@ -147,6 +147,18 @@ export function swapLink(node: ReactNode, render: (link: SidebarLinkProps) => Re
   });
 }
 
+/** Replaces matching elements anywhere in the routers' nested fragments, keeping the fragments walkable. */
+export function swapElements(node: ReactNode, replace: (element: ReactElement) => ReactNode | undefined): ReactNode {
+  if (Array.isArray(node)) return Children.map(node, (child) => swapElements(child, replace));
+  if (!isValidElement(node)) return node;
+
+  const replaced = replace(node);
+  if (replaced !== undefined) return replaced;
+  if (node.type !== Fragment) return node;
+
+  return cloneElement(node, undefined, swapElements((node.props as { children?: ReactNode }).children, replace));
+}
+
 /** Each user's own order per menu, a core synced user setting so it follows them to every device. */
 export const NAV_ORDER_KEY = 'nebula::nav_order';
 type OwnOrders = Partial<Record<NavMenu, NavOrder>>;

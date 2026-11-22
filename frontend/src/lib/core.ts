@@ -66,6 +66,7 @@ export { default as Menu } from '@/elements/overlays/Menu.tsx';
 export { default as Tooltip } from '@/elements/overlays/Tooltip.tsx';
 export { default as QuickActionsTrigger } from '@/elements/quickActions/QuickActionsTrigger.tsx';
 export { default as ScrollingText } from '@/elements/ScrollingText.tsx';
+export { default as ServerStatusIndicator } from '@/elements/ServerStatusIndicator.tsx';
 export { default as Code } from '@/elements/typography/Code.tsx';
 export { default as Kbd } from '@/elements/typography/Kbd.tsx';
 export { default as Text } from '@/elements/typography/Text.tsx';

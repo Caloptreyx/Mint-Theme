@@ -39,6 +39,7 @@ frontend/src/lib/library.ts  presets, users' theme choices and history: ids, nor
 frontend/src/lib/editorSearch.ts  the editor's settings index (SETTINGS, COLOR_GROUPS) and searchSettings()
 frontend/src/lib/editorDraft.ts   checks on the editor's raw draft: urlValid, invalidUrls, isThemeFile, toHexColor
 frontend/src/lib/redact.ts  core's 'Hide server addresses' setting: useRedactAddresses(), shownAddress(), maskAddress()
+frontend/src/lib/initials.ts  railInitials(): the slim rail's server tile letters, as a CSS string
 frontend/src/pages/        ServerHome, ServerConsole, ServerList and GroupedServerList (dashboard), ThemeEditor
 frontend/src/elements/     account/, home/, dashboard/, editor/, files/ (phone editor keys), library/ (presets, history, theme choice), sidebar/, page/ pieces
 frontend/src/app.css       static CSS: @font-face, flush sidebar, active link, sidebar sections, keyframes
@@ -53,6 +54,7 @@ tests/editorDraft.test.ts  node:test cases for lib/editorDraft.ts (not shipped)
 tests/localTheme.test.ts   node:test cases for lib/localTheme.ts (not shipped)
 tests/contrast.test.ts, shareCode.test.ts  node:test cases for the contrast fixes and the share codes (not shipped)
 tests/navOrder.test.ts     node:test cases for lib/navOrder.ts (not shipped)
+tests/initials.test.ts     node:test cases for lib/initials.ts (not shipped)
 tests/cta.test.ts, serverOrder.test.ts, routeOrder.test.ts  node:test cases for lib/cta.ts, the servers list ordering and lib/routeOrder.ts (not shipped)
 scripts/package.py         packs a zip locally without panel-rs; releases use a real panel-rs export (release.yml)
 scripts/gallery.ts         prints the built-in presets' share codes for the Cala-Extensions gallery (not shipped)
@@ -217,9 +219,17 @@ and break silently when core moves a file. Everything here is runtime:
   only, so the drawer below `lg` keeps everything. app.css makes the router's root a grid while a bar exists and
   puts the bar in the content column's cell, so it sticks; the column is pushed down by `--nebula-bar-h`, which
   the bar measures with a ResizeObserver. `buildCss` reshapes `#sidebar-desktop`, scoped to the one beside
-  `#dashboard-root`, `#server-root` or `#admin-root` (the setup wizard's sidebar holds its steps). The slim rail
-  gets `RailTip` (a `Sidebar.Link` render interceptor, a tooltip only inside the desktop card) and `RailLogo`
-  (an `AppIcon` one, the square icon), and GroupedNav renders every section's links there under a rule.
+  `#dashboard-root`, `#server-root` or `#admin-root` (the setup wizard's sidebar holds its steps). Core pads that card
+  and its server block and account cards with Mantine's `p`, an inline style, so the rail's paddings need `!important`.
+  The slim rail gets `RailTip` (a `Sidebar.Link` render interceptor, a tooltip only inside the desktop card) and
+  `RailLogo` (an `AppIcon` one, the square icon), and GroupedNav renders every section's links there under a rule.
+  `withRailServer` (a Sidebar props interceptor, `elements/sidebar/Rail.tsx`) wraps core's `ServerStatusIndicator` in
+  `RailServer` while the rail shows it (slim with the dock in the sidebar): a `.nebula-rail-server` div with the
+  server's name as a tooltip (desktop card only) and its initials (`railInitials()`, `lib/initials.ts`, a CSS string)
+  in `--nebula-rail-initials`. `buildCss` turns core's block into a tile showing those initials with the status
+  indicator on its corner, over icon-only power buttons, and the account card into its avatar at 2.25rem over a
+  flat `…` menu button. From panel 1.2.5 core's server block is a `Card` inside a `NavLink`, so selectors reach it
+  as `a > .mantine-Card-root` too (the dock's rules in app.css match both shapes).
   `applyTheme()` mirrors both options onto html as `data-nebula-layout` and `data-nebula-dock` for static CSS.
 - `mobileNav: 'bottomBar' | 'floatingBar'` (`elements/sidebar/BottomNav.tsx`), a second `Sidebar.addRenderInterceptor`
   registered after the shell: below `lg` a fixed bar with up to four links taken from the menu the Sidebar received,
