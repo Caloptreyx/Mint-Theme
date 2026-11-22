@@ -368,9 +368,10 @@ mod put {
 }
 
 mod delete {
+    use axum::http::StatusCode;
     use serde::Serialize;
     use shared::{
-        GetState,
+        ApiError, GetState,
         models::{
             user::{GetPermissionManager, GetUser},
             user_activity::GetUserActivityLogger,
@@ -382,7 +383,10 @@ mod delete {
     #[derive(ToSchema, Serialize)]
     struct Response {}
 
-    #[utoipa::path(delete, path = "/", responses((status = OK, body = inline(Response))))]
+    #[utoipa::path(delete, path = "/", responses(
+        (status = OK, body = inline(Response)),
+        (status = CONFLICT, body = ApiError),
+    ))]
     pub async fn route(
         state: GetState,
         permissions: GetPermissionManager,
@@ -390,6 +394,13 @@ mod delete {
         activity_logger: GetUserActivityLogger,
     ) -> ApiResponseResult {
         permissions.has_user_permission("account.avatar")?;
+
+        // a frozen account changes nothing on its profile; core's avatar upload refuses it the same way
+        if user.frozen {
+            return ApiResponse::error("account is frozen")
+                .with_status(StatusCode::CONFLICT)
+                .ok();
+        }
 
         tokio::spawn(async move {
             let previous = super::swap_setting(&state, &user, None).await?;
@@ -407,7 +418,8 @@ mod delete {
     }
 }
 
-/// `GET` (`settings.read`), `PUT` and `DELETE` (`account.avatar`) on the signed in user's banner.
+/// `GET` (`settings.read`), `PUT` and `DELETE` (`account.avatar`, 409 for a frozen account) on the signed in
+/// user's banner.
 pub fn router(state: &State) -> OpenApiRouter<State> {
     OpenApiRouter::new()
         .routes(routes!(get::route, put::route, delete::route))

@@ -73,6 +73,9 @@ export default function ProfileCard() {
   // the shortcut here follows it. Older panels have no such setting (undefined), which allows it.
   const avatarAllowed = !('allowChangingAvatar' in userSettings) || userSettings.allowChangingAvatar !== false;
   const locked = !avatarAllowed || user.frozen || (user.requireTwoFactor && !user.twoFactorSatisfied);
+  // the backend refuses banner changes of a frozen account, like core's avatar route; the buttons get the look core
+  // gives its own account cards then, and stay disabled for the keyboard
+  const bannerLocked = user.frozen;
 
   const removeBanner = () =>
     axiosInstance
@@ -83,17 +86,27 @@ export default function ProfileCard() {
   return (
     <Card p={0} className='nebula-profile overflow-hidden mb-4'>
       <div className='relative h-32 sm:h-40 bg-cover bg-center' style={{ backgroundImage }}>
-        <Group gap='xs' className='absolute top-3 right-3'>
+        <Group
+          gap='xs'
+          className={`absolute top-3 right-3${bannerLocked ? ' pointer-events-none select-none blur-sm opacity-60' : ''}`}
+          aria-disabled={bannerLocked}
+        >
           <Button
             size='xs'
             variant='default'
             leftSection={<FontAwesomeIcon icon={faImage} />}
+            disabled={bannerLocked}
             onClick={() => setEditing(true)}
           >
             {tExt('account.changeBanner', {})}
           </Button>
           {saved && (
-            <ActionIcon variant='default' aria-label={tExt('account.removeBanner', {})} onClick={removeBanner}>
+            <ActionIcon
+              variant='default'
+              aria-label={tExt('account.removeBanner', {})}
+              disabled={bannerLocked}
+              onClick={removeBanner}
+            >
               <FontAwesomeIcon icon={faXmark} />
             </ActionIcon>
           )}
@@ -151,7 +164,7 @@ export default function ProfileCard() {
       </Modal>
 
       <BannerModal
-        opened={editing}
+        opened={editing && !bannerLocked}
         onClose={() => setEditing(false)}
         preview={backgroundImage}
         onSaved={({ banner: uploaded, value }) => {

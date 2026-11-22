@@ -339,7 +339,8 @@ and break silently when core moves a file. Everything here is runtime:
   raw value.
 - `pages.dashboard.account.container` hides the account title and prepends `ProfileCard`. The banner
   (`backend/src/banner.rs`) is `GET/PUT/DELETE /api/client/extensions/dev.caloptreyx.mint/banner` (GET needs
-  `settings.read`; PUT and DELETE the avatar route's checks, `account.avatar`; activity `mint:banner.update|delete`).
+  `settings.read`; PUT and DELETE `account.avatar`, and both answer 409 `account is frozen` for a frozen account, as
+  core's avatar upload does; activity `mint:banner.update|delete`).
   Each upload is re-encoded to a 1500x500 JPEG (cropped to 3:1 around the centre, transparency laid over grey 128)
   at a new `publicdata/nebula/banners/<user>/<random>.jpg` (the storage prefix core serves for extensions), and the
   previous file is removed. The backend writes the file's absolute URL plus `?v=<millis>` into core's user setting
@@ -353,7 +354,11 @@ and break silently when core moves a file. Everything here is runtime:
   no default banner while it loads, still checks the URL with `SAFE_URL`, and after an upload sets the returned URL
   and `setSaved(value)` to keep core's synced store in step; nothing else reads the stored format. The avatar opens core's
   `AvatarContainer` in a modal; `app.css` hides the grid copy (`.order-60`). The avatar button is disabled like core's card
-  is hidden when the panel's `allowChangingAvatar` (1.2.6+) is off; older panels lack it, which allows it.
+  is hidden when the panel's `allowChangingAvatar` (1.2.6+) is off; older panels lack it, which allows it. For a frozen
+  account (core's red notice above the page) the banner buttons are disabled and get the look core gives its own
+  account cards then (`pointer-events-none select-none blur-sm opacity-60`, `aria-disabled`). Core's settings API
+  itself does not refuse frozen accounts, so users' own picks (`nebula::theme_choice`, `nebula::nav_order`) stay
+  theirs to change, like core's own preferences; the theme choice card sits in core's account grid, which core locks.
 - Presets, users' own themes and the theme history (`backend/src/presets.rs`, `history.rs`, `lib/library.ts`,
   `elements/library/`). Custom presets are full normalized themes in the `presets` setting
   (`{ custom: [{ id, name, theme, users }], builtin: [id] }`, at most 20, each theme under the theme PUT's
