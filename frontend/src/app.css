@@ -161,6 +161,11 @@ html {
   background-attachment: fixed;
 }
 
+/* core's body grey would show as a strip around its boot spinner until a scheme is set */
+html:not([data-mantine-color-scheme]) body {
+  background-color: transparent;
+}
+
 /* `--nebula-scrollbar` is the theme's Scrollbar colour (dark mode only, lib/theme.ts), set only when chosen */
 [data-mantine-color-scheme='dark'] {
   scrollbar-color: var(--nebula-scrollbar, var(--mantine-color-dark-4)) transparent;
