@@ -152,9 +152,10 @@
     U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
-/* the background image is painted on html (see lib/theme.ts), body lets it through */
+/* the background image is painted on html (see lib/theme.ts), body lets it through; before core's script runs no
+   theme is known yet, and the default theme's background stands in for the white canvas */
 html {
-  background-color: var(--mantine-color-body);
+  background-color: var(--mantine-color-body, #16122a);
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -178,9 +179,10 @@ html[data-nebula-pending] body {
   visibility: hidden;
 }
 
-/* core's boot spinner (index.html's, until the app mounts) spins before Mantine defines its primary colour */
+/* core's boot spinner (index.html's, until the app mounts) spins before Mantine defines its primary colour; the
+   default theme's accent before core's script runs */
 #root > div > .spinner:not([data-testid]) {
-  --loader-color: var(--mantine-color-blue-filled);
+  --loader-color: var(--mantine-color-blue-filled, #1e88c7);
 }
 
 #sidebar-desktop {
