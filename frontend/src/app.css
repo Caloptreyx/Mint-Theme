@@ -178,6 +178,11 @@ html[data-nebula-pending] body {
   visibility: hidden;
 }
 
+/* core's boot spinner (index.html's, until the app mounts) spins before Mantine defines its primary colour */
+#root > div > .spinner:not([data-testid]) {
+  --loader-color: var(--mantine-color-blue-filled);
+}
+
 #sidebar-desktop {
   margin: 0;
   top: 0;

@@ -149,6 +149,15 @@ editor can repaint the panel live without a reload.
   theme's, the chart tick grey becomes the dimmed colour, and so do core's Tailwind greys (`text-neutral-400`,
   `text-gray-400/500/600`, bare, `!` and `light:`). Those are `!important` utilities in a layer, which nothing
   unlayered beats, so `buildCss` redefines the `--color-*` variable they read on those elements.
+- The look paints before core mounts. Core's entry awaits its startup requests (settings, and icons from 1.2.7)
+  before it initialises extensions, showing its boot spinner in the stock colours meanwhile, so `index.ts` calls
+  `bootTheme()` as the module loads: it sets Mantine's `data-mantine-color-scheme` as the provider will (the stored
+  choice, `auto` resolved, else core's dark), paints the cached theme (or the user's pick, from core's settings
+  replica) and starts `loadTheme()`, so a stale cache is usually corrected before the page mounts; `app.css` gives
+  the boot spinner the accent. It skips a Mint that index.html's `inactive-extensions` meta lists (1.2.9+); on
+  older panels a disabled Mint is only noticed when core's first render into `#root` finds `startTheme()` (called
+  by `initialize()`) never ran, and `dropTheme()` takes the paint back. What still shows the stock `#242424`: a
+  first visit (hidden body, below), and possibly the frame painted before core's script runs.
 - A first visit has no cached theme (`nebula:theme`): `applyCachedTheme()` paints nothing and sets
   `data-nebula-pending` on html, which `app.css` turns into a hidden body, until `loadTheme()` settles (the
   fetched theme, or the default if it failed) or 1.5s pass; `repaint()` does nothing meanwhile. The trade off is

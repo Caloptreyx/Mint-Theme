@@ -33,6 +33,14 @@ let shownKey = '';
  */
 const PENDING_MS = 1500;
 let pendingTimer: number | undefined;
+/** Mint's frontend identifier, as index.html lists it among the inactive extensions (panel 1.2.9+). */
+const IDENTIFIER = 'dev_caloptreyx_mint';
+/** bootTheme() painted before core initialised the extensions. */
+let booted = false;
+/** Core initialised Mint (startTheme()). */
+let started = false;
+/** Core mounted without initialising Mint (disabled on a panel before 1.2.9): nothing paints any more. */
+let dropped = false;
 
 export const savedTheme = () => saved;
 
@@ -213,6 +221,7 @@ function applyFavicon(href: string) {
  * bring the same theme again.
  */
 function applyTheme(theme: NebulaTheme) {
+  if (dropped) return;
   let el = document.getElementById(STYLE_ID);
   if (!el) {
     el = document.createElement('style');
@@ -288,7 +297,7 @@ export function setChoicesFromLibrary(lib: PresetLibrary) {
 }
 
 /** Paints the last known theme (or the user's pick) right away so a custom look doesn't flash in after the fetch. */
-export function applyCachedTheme() {
+function applyCachedTheme() {
   let cachedTheme: string | null = null;
   try {
     cachedTheme = localStorage.getItem(CACHE_KEY);
@@ -304,6 +313,71 @@ export function applyCachedTheme() {
     pendingTimer = window.setTimeout(reveal, PENDING_MS);
   }
   repaint();
+}
+
+// Mantine's localStorage colour scheme manager keeps the admin's choice under this key
+const SCHEME_KEY = 'mantine-color-scheme-value';
+const SCHEME_ATTR = 'data-mantine-color-scheme';
+
+/**
+ * The scheme core's MantineProvider will set when it mounts (core's default is dark), set now so the scheme blocks of
+ * the cached theme apply to the boot spinner too, as Mantine's own ColorSchemeScript would.
+ */
+function seedScheme() {
+  const root = document.documentElement;
+  if (root.hasAttribute(SCHEME_ATTR)) return;
+  let stored: string | null = null;
+  try {
+    stored = localStorage.getItem(SCHEME_KEY);
+  } catch {
+    // storage blocked: Mantine falls back to the default too
+  }
+  const light = stored === 'light' || (stored === 'auto' && window.matchMedia('(prefers-color-scheme: light)').matches);
+  root.setAttribute(SCHEME_ATTR, light ? 'light' : 'dark');
+}
+
+/** Takes back what bootTheme() painted, for a Mint core never initialised. */
+function dropTheme() {
+  window.clearTimeout(pendingTimer);
+  pendingTimer = undefined;
+  applyFavicon('');
+  dropped = true;
+  document.getElementById(STYLE_ID)?.remove();
+  const data = document.documentElement.dataset;
+  for (const key of Object.keys(data)) if (key.startsWith('nebula')) delete data[key];
+}
+
+/**
+ * Runs while core's entry imports the extensions, before its startup requests, which core awaits before initialising
+ * extensions and mounting, its boot spinner in the stock colours meanwhile. Paints the cached theme (or the user's
+ * pick, from core's settings replica) in the scheme Mantine will pick and starts the fetch, so the spinner already
+ * wears the site's look and a stale cache is usually corrected before the page mounts. A disabled Mint paints nothing:
+ * from panel 1.2.9 index.html says so; before, core mounts without calling initialize(), and its first render into
+ * `#root` takes the paint back.
+ */
+export function bootTheme() {
+  const inactive = document.querySelector<HTMLMetaElement>('meta[name="inactive-extensions"]')?.content.split(',');
+  if (inactive?.includes(IDENTIFIER)) return;
+  booted = true;
+  seedScheme();
+  applyCachedTheme();
+  void loadTheme();
+
+  const root = document.getElementById('root');
+  if (!root) return;
+  const mount = new MutationObserver(() => {
+    mount.disconnect();
+    if (!started) dropTheme();
+  });
+  mount.observe(root, { childList: true });
+}
+
+/** Core initialised Mint: keeps what bootTheme() painted, or paints now if index.html had listed it as inactive. */
+export function startTheme() {
+  started = true;
+  if (booted) return;
+  applyCachedTheme();
+  void loadTheme();
 }
 
 /**
@@ -327,9 +401,6 @@ export async function loadTheme(): Promise<{ theme: NebulaTheme; version: string
 
 export type PreviewScheme = 'light' | 'dark';
 
-// Mantine's localStorage colour scheme manager keeps the admin's choice under this key
-const SCHEME_KEY = 'mantine-color-scheme-value';
-const SCHEME_ATTR = 'data-mantine-color-scheme';
 let previewScheme: PreviewScheme | null = null;
 
 /** The editor renders the panel in an iframe and streams drafts into it, with the scheme to show them in. */

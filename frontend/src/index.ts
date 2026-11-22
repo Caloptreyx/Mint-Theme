@@ -21,7 +21,7 @@ import GroupedNav from './elements/sidebar/GroupedNav.tsx';
 import { withNavSearch } from './elements/sidebar/NavSearch.tsx';
 import { RailLogo, RailTip, withRailServer } from './elements/sidebar/Rail.tsx';
 import SidebarShell from './elements/sidebar/SidebarShell.tsx';
-import { applyCachedTheme, currentTheme, listenForPreview, loadTheme, watchUserTheme } from './lib/apply.ts';
+import { bootTheme, currentTheme, listenForPreview, startTheme, watchUserTheme } from './lib/apply.ts';
 import {
   Alert,
   AppIcon,
@@ -40,6 +40,10 @@ import ServerHome from './pages/ServerHome.tsx';
 import ServerList from './pages/ServerList.tsx';
 import ThemeEditor from './pages/ThemeEditor.tsx';
 import { getExtTranslations } from './translations.ts';
+
+// core awaits its startup requests (settings, and icons from panel 1.2.7) before it initialises extensions and
+// mounts, its boot spinner in the stock colours meanwhile: the cached theme paints as this module loads instead
+bootTheme();
 
 // the preview route is the only place that loads it outside core's own lazy auth router
 const Login = lazy(() => import('@/pages/auth/Login.tsx'));
@@ -73,8 +77,8 @@ class DevCaloptreyxMintExtension extends Extension {
       createElement(RailLogo, { fallback: element, className: props.className }),
     );
 
-    applyCachedTheme();
-    void loadTheme();
+    // the cached theme painted as this module loaded and its fetch is on its way (lib/apply.ts)
+    startTheme();
     // a user's own pick among the presets an admin offers replaces the site look for them (lib/apply.ts)
     watchUserTheme();
     listenForPreview();
