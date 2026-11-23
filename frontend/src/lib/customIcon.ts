@@ -16,6 +16,16 @@ export function customIconOf(link: object): string | null {
   return 'customIcon' in link && typeof link.customIcon === 'string' && link.customIcon ? link.customIcon : null;
 }
 
+/**
+ * A Sidebar.Link's `icon` when it is a FontAwesome icon definition. Panel 1.2.11 types it as `IconLike`, which may
+ * also be an element or component; Mint's menus draw definitions only and use their default icon for the rest.
+ */
+export function iconDefinitionOf(icon: unknown): IconDefinition | undefined {
+  return typeof icon === 'object' && icon !== null && 'prefix' in icon && 'iconName' in icon && 'icon' in icon
+    ? (icon as IconDefinition)
+    : undefined;
+}
+
 /** Core's `useCustomIcon`: the configured icon when the panel knows it, else `fallback`. */
 export function useCustomIcon(identifier: string | null, fallback: IconDefinition | undefined) {
   const icons = useGlobalStore((state) => ('icons' in state ? state.icons : undefined));

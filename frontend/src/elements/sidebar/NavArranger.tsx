@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { type ComponentProps, type ReactNode, useSyncExternalStore } from 'react';
 import type { NavOrder } from '../../lib/navOrder.ts';
 import { Card, DndContainer, Group, restrictToVerticalAxis, SortableItem, Stack, Text } from '../../lib/core.ts';
-import { customIconOf, useCustomIcon } from '../../lib/customIcon.ts';
+import { customIconOf, iconDefinitionOf, useCustomIcon } from '../../lib/customIcon.ts';
 import { useExtTranslations } from '../../translations.ts';
 import { findLink, isNavDivider, type NavEntry, navNodeId } from './nav.ts';
 
@@ -26,7 +26,12 @@ export function toArrangeItems(entries: NavEntry[], visible: ReadonlySet<string>
     const id = navNodeId(node);
     if (!link || !id || seen.has(id) || (visible && !visible.has(id))) return null;
     seen.add(id);
-    return { id, name: link.name ?? link.title ?? link.to, icon: link.icon, customIcon: customIconOf(link) };
+    return {
+      id,
+      name: link.name ?? link.title ?? link.to,
+      icon: iconDefinitionOf(link.icon),
+      customIcon: customIconOf(link),
+    };
   };
 
   return entries.flatMap((entry): ArrangeItem[] => {

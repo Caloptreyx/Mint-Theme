@@ -5,7 +5,7 @@ import { Link, useLocation } from 'react-router';
 import type { MobileNav } from '../../lib/theme.ts';
 import { useNebulaTheme } from '../../lib/apply.ts';
 import { Card } from '../../lib/core.ts';
-import { customIconOf, useCustomIcon } from '../../lib/customIcon.ts';
+import { customIconOf, iconDefinitionOf, useCustomIcon } from '../../lib/customIcon.ts';
 import { isEmptyNavOrder, type NavOrder } from '../../lib/navOrder.ts';
 import { useExtTranslations } from '../../translations.ts';
 import { withConsoleRoot } from '../console/ConsoleFallback.tsx';
@@ -105,7 +105,7 @@ function primaryLinks({ header, children }: SidebarProps, pathname: string, orde
 function BarLink({ link, active }: { link: SidebarLinkProps; active: boolean }) {
   const { pathname } = useLocation();
   const to = link.to.endsWith('/*') ? link.to.slice(0, -2) : link.to;
-  const icon = useCustomIcon(customIconOf(link), link.icon);
+  const icon = useCustomIcon(customIconOf(link), iconDefinitionOf(link.icon));
 
   // the console's link leads to Home (the server root) while core blocks the console; it lights up there only
   return withConsoleRoot(to, (root) => {

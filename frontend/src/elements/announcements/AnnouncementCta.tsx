@@ -84,7 +84,7 @@ function AnnouncementCtaButton({ title, content, color }: Props) {
  * Props interceptor for core's Alert. Announcements render as an Alert with a string title and a markdown body
  * (`content.md()`, whose child is the source text); those get the button appended, anything else passes through.
  */
-export function withAnnouncementCta<P extends AlertProps>(props: P): P {
+export function withAnnouncementCta<P extends Pick<AlertProps, 'title' | 'children' | 'color'>>(props: P): P {
   const body = props.children;
   if (typeof props.title !== 'string' || !isValidElement<{ children?: unknown }>(body)) return props;
   if (typeof body.props.children !== 'string') return props;
