@@ -236,7 +236,7 @@ const translations = defineTranslations({
       retry: 'Try again',
       fixUrls: 'Fix the highlighted URLs first.',
       noPermission:
-        'Saving needs the settings.update or mint-theme.update admin permission. Apply in this browser shows your draft to you alone.',
+        'Saving needs the settings.update or mint-theme.update admin permission. Preview in browser shows your draft to you alone.',
       urlInvalid: 'Must start with https:// or /, with no spaces, quotes or brackets.',
       colorInvalid: 'Not a colour; use #rrggbb.',
       leaveTitle: 'Unsaved changes',
@@ -253,6 +253,11 @@ const translations = defineTranslations({
       previewPage: 'Preview page',
       previewDevice: 'Preview width',
       previewScheme: 'Preview colour scheme',
+      previewZoom: 'Scaled to {percent}% ({width}px)',
+      collapseNav: 'Hide sections menu',
+      expandNav: 'Show sections menu',
+      expandPreview: 'Expand preview',
+      restorePreview: 'Show settings',
       status: {
         unsaved: 'Unsaved changes',
         saved: 'All changes saved',
@@ -837,6 +842,12 @@ const translations = defineTranslations({
       deleteConfirm: 'Delete {name}? Users who picked it go back to the panel default.',
       users: 'Users can choose this',
       apply: 'Apply {name}',
+      applyAction: 'Apply',
+      active: 'Active',
+      kindColours: 'Colours',
+      kindFull: 'Full style',
+      offeredCount: '{count} offered to users',
+      saveBehaviorHint: 'Clicking a preset updates the draft; user choice toggles save immediately.',
       overwrite: 'Save draft into this preset',
       overwriteTitle: 'Save draft into preset',
       overwriteConfirm: "Replace {name}'s look with the current draft? Users who picked it see the new look.",
@@ -877,7 +888,7 @@ const translations = defineTranslations({
       cancel: 'Cancel',
     },
     localTheme: {
-      apply: 'Apply in this browser',
+      apply: 'Preview in browser',
       applyDescription:
         'Shows the draft as the panel theme in this browser only, login pages included. Nothing is saved and nobody else sees it.',
       applied: 'Applied in this browser. Only you see it.',

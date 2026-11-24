@@ -7,7 +7,7 @@ import { contrastIssues, MIN_TEXT_CONTRAST, MIN_UI_CONTRAST } from '../frontend/
 import { buildCss } from '../frontend/src/lib/css/index.ts';
 import { PAGE_ANIMATIONS } from '../frontend/src/lib/css/motion.ts';
 import { normalizeTheme, withUserTheme } from '../frontend/src/lib/normalize.ts';
-import { PRESETS, TERMINAL_PALETTES } from '../frontend/src/lib/presets.ts';
+import { isFullStylePreset, PRESETS, presetMatchesTheme, TERMINAL_PALETTES } from '../frontend/src/lib/presets.ts';
 import {
   AUTH_LAYOUTS,
   AUTH_POSITIONS,
@@ -1833,5 +1833,24 @@ describe('built-in presets', () => {
     assert.equal(contrast.theme.blockBorder, true);
     const daylight = PRESETS.find((preset) => preset.name === 'Daylight');
     assert.ok(daylight?.theme.lightBackground && daylight.theme.lightSurface && daylight.theme.lightText);
+  });
+
+  test('isFullStylePreset and presetMatchesTheme identify styled presets and active drafts', () => {
+    assert.deepEqual(
+      PRESETS.filter((preset) => isFullStylePreset(preset.theme)).map((preset) => preset.name),
+      ['Contrast', 'Daylight', 'Mono'],
+    );
+    const mint = PRESETS.find((preset) => preset.name === 'Mint')!;
+    const emerald = PRESETS.find((preset) => preset.name === 'Emerald')!;
+    const contrast = PRESETS.find((preset) => preset.name === 'Contrast')!;
+
+    const appliedMint = withUserTheme(DEFAULT_THEME, mint.theme);
+    assert.equal(presetMatchesTheme(mint.theme, appliedMint), true);
+    assert.equal(presetMatchesTheme(emerald.theme, appliedMint), false);
+
+    const appliedContrast = withUserTheme(DEFAULT_THEME, contrast.theme);
+    assert.equal(presetMatchesTheme(contrast.theme, appliedContrast), true);
+    assert.equal(presetMatchesTheme(contrast.theme, { ...appliedContrast, radius: 12 }), false);
+    assert.equal(presetMatchesTheme(mint.theme, appliedContrast), false);
   });
 });

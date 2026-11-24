@@ -4,10 +4,13 @@ import {
   faArrowRotateLeft,
   faArrowRotateRight,
   faArrowUpRightFromSquare,
+  faBars,
   faClockRotateLeft,
+  faCompress,
   faDisplay,
   faDownload,
   faEllipsisVertical,
+  faExpand,
   faLink,
   faPaste,
   faRotateRight,
@@ -52,6 +55,7 @@ import {
 import {
   ActionIcon,
   Alert,
+  Badge,
   Button,
   ConfirmationModal,
   Group,
@@ -75,15 +79,13 @@ import {
 import { invalidUrls, isThemeFile } from '../lib/editorDraft.ts';
 import { normalizeTheme } from '../lib/normalize.ts';
 import { useCanSaveTheme } from '../lib/permissions.ts';
+import { type PreviewDevice, previewViewport } from '../lib/previewViewport.ts';
 import { SHARE_HASH } from '../lib/shareCode.ts';
 import { DEFAULT_THEME, type NebulaTheme } from '../lib/theme.ts';
 import { useExtTranslations } from '../translations.ts';
 
 const SUPPORT_URL = 'https://discord.gg/4qjMWU7S8x';
 
-type Device = 'desktop' | 'tablet' | 'mobile';
-const DEVICE_WIDTH: Record<Device, number | null> = { desktop: null, tablet: 834, mobile: 390 };
-const STAGE_PADDING = 24;
 /** Below this the editor shows one pane at a time (section list, a section's settings or the preview). The editor
  * covers the whole window, so the window's width is the one that counts, not core's page container. */
 const WIDE_EDITOR = '(min-width: 64em)';
@@ -165,7 +167,7 @@ export default function ThemeEditor() {
   const [query, setQuery] = useState('');
   // the label a search result jumps to, revealed once its section has rendered
   const [reveal, setReveal] = useState<string | null>(null);
-  const [device, setDevice] = useState<Device>('desktop');
+  const [device, setDevice] = useState<PreviewDevice>('desktop');
   // the preview starts in the admin's own scheme; the toggle only ever touches the frame
   const adminScheme = useComputedColorScheme('dark', { getInitialValueInEffect: false });
   const [scheme, setScheme] = useState<PreviewScheme>(adminScheme);
@@ -184,6 +186,9 @@ export default function ThemeEditor() {
   // phones: the preview pane, else the section list (`listing`) or the open section's settings
   const [previewPane, setPreviewPane] = useState(false);
   const [listing, setListing] = useState(true);
+  // wide screens: collapse the section menu or expand the preview full-width on 1280-1440px screens
+  const [navCollapsed, setNavCollapsed] = useState(false);
+  const [previewExpanded, setPreviewExpanded] = useState(false);
 
   const frame = useRef<HTMLIFrameElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
@@ -405,15 +410,12 @@ export default function ThemeEditor() {
       })
       .catch(() => addToast(t('editor.importFailed', {}), 'error'));
 
-  const stagePadding = wide ? STAGE_PADDING : 8;
-  const available = Math.max(wide ? 320 : 200, stage.width - stagePadding * 2);
-  const logicalWidth = DEVICE_WIDTH[device] ?? available;
-  const scale = Math.min(1, available / logicalWidth);
-  const logicalHeight = Math.max(320, stage.height - stagePadding * 2) / scale;
+  const { stagePadding, logicalWidth, logicalHeight, scale } = previewViewport(device, stage, wide);
 
   const searching = query.trim() !== '';
-  const navShown = wide || (!previewPane && listing && !searching);
-  const panelShown = wide || (!previewPane && (!listing || searching));
+  const navShown = wide ? !navCollapsed && !previewExpanded : !previewPane && listing && !searching;
+  const panelShown = wide ? !previewExpanded : !previewPane && (!listing || searching);
+  const showLocalHeader = dirty || local || !canSaveTheme;
   const searchInput = <SettingSearchInput query={query} onQuery={setQuery} onSubmit={() => hits[0] && pick(hits[0])} />;
 
   const iconButton = (label: string, icon: IconDefinition, onClick: () => void, disabled = false) => (
@@ -440,6 +442,11 @@ export default function ThemeEditor() {
         className={`flex h-14 shrink-0 items-center bg-(--nebula-card) border-b border-(--mantine-color-default-border) ${wide ? 'gap-2 px-3' : 'gap-1 px-1.5'}`}
       >
         {iconButton(t('editor.close', {}), faArrowLeft, () => navigate(closeTo))}
+        {wide &&
+          !previewExpanded &&
+          iconButton(t(navCollapsed ? 'editor.expandNav' : 'editor.collapseNav', {}), faBars, () =>
+            setNavCollapsed((v) => !v),
+          )}
         <div className='min-w-0 mr-auto'>
           <Text size='sm' fw={600} truncate>
             {t('nav.editor', {})}
@@ -463,15 +470,17 @@ export default function ThemeEditor() {
               </ActionIcon>
             </Menu.Target>
             <Menu.Dropdown>
-              {/* phones: the top bar only keeps undo, redo and Save; the rest moves in here */}
-              {!wide && (
+              {/* phones keep secondary actions here; wide screens also tuck Preview in browser here while clean */}
+              {(!wide || !showLocalHeader) && (
                 <>
-                  <Menu.Item
-                    leftSection={<FontAwesomeIcon icon={faClockRotateLeft} />}
-                    onClick={() => setHistoryOpen(true)}
-                  >
-                    {t('library.history', {})}
-                  </Menu.Item>
+                  {!wide && (
+                    <Menu.Item
+                      leftSection={<FontAwesomeIcon icon={faClockRotateLeft} />}
+                      onClick={() => setHistoryOpen(true)}
+                    >
+                      {t('library.history', {})}
+                    </Menu.Item>
+                  )}
                   <Menu.Item
                     leftSection={<FontAwesomeIcon icon={faDisplay} />}
                     disabled={badUrls}
@@ -479,12 +488,12 @@ export default function ThemeEditor() {
                   >
                     {t('localTheme.apply', {})}
                   </Menu.Item>
-                  {local && (
+                  {!wide && local && (
                     <Menu.Item color='yellow' leftSection={<FontAwesomeIcon icon={faStop} />} onClick={doStopLocal}>
                       {t('localTheme.stopDescription', {})}
                     </Menu.Item>
                   )}
-                  {dirty && (
+                  {!wide && dirty && (
                     <Menu.Item leftSection={<FontAwesomeIcon icon={faXmark} />} onClick={() => setDraft(saved)}>
                       {t('editor.discard', {})}
                     </Menu.Item>
@@ -545,7 +554,7 @@ export default function ThemeEditor() {
             if (file) doImport(file);
           }}
         />
-        {wide && (
+        {wide && showLocalHeader && (
           <>
             <div className='mx-1 h-6 w-px bg-(--mantine-color-default-border)' />
             {local && (
@@ -686,19 +695,21 @@ export default function ThemeEditor() {
           />
         </aside>
 
-        {wide && <PanelResizer width={panelWidth} onWidth={setPanelWidth} onDragging={setResizing} />}
+        {wide && !previewExpanded && (
+          <PanelResizer width={panelWidth} onWidth={setPanelWidth} onDragging={setResizing} />
+        )}
 
         <main hidden={!wide && !previewPane} className='flex flex-col flex-1 min-w-0'>
           <Group gap='xs' className={`border-b border-(--mantine-color-default-border) ${wide ? 'p-3' : 'p-2'}`}>
             <SegmentedControl
               size={wide ? 'sm' : 'xs'}
               aria-label={t('editor.previewDevice', {})}
-              data={(['desktop', 'tablet', 'mobile'] as Device[]).map((d) => ({
+              data={(['desktop', 'tablet', 'mobile'] as PreviewDevice[]).map((d) => ({
                 value: d,
                 label: t(`editor.device.${d}`, {}),
               }))}
               value={device}
-              onChange={(value) => setDevice(value as Device)}
+              onChange={(value) => setDevice(value as PreviewDevice)}
             />
             <SegmentedControl
               size={wide ? 'sm' : 'xs'}
@@ -719,6 +730,24 @@ export default function ThemeEditor() {
               w={wide ? 200 : undefined}
               className={wide ? undefined : 'flex-1 min-w-36'}
             />
+            {scale < 0.995 && (
+              <Tooltip
+                label={t('editor.previewZoom', {
+                  percent: Math.round(scale * 100),
+                  width: Math.round(logicalWidth),
+                })}
+              >
+                <Badge variant='light' color='gray' size='sm' className='shrink-0 tabular-nums'>
+                  {Math.round(scale * 100)}%
+                </Badge>
+              </Tooltip>
+            )}
+            {wide &&
+              iconButton(
+                t(previewExpanded ? 'editor.restorePreview' : 'editor.expandPreview', {}),
+                previewExpanded ? faCompress : faExpand,
+                () => setPreviewExpanded((v) => !v),
+              )}
             {iconButton(t('editor.refresh', {}), faRotateRight, () => frame.current?.contentWindow?.location.reload())}
             {iconButton(t('editor.openTab', {}), faArrowUpRightFromSquare, () =>
               window.open(page, '_blank', 'noopener,noreferrer'),

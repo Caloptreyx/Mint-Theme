@@ -67,16 +67,16 @@ export const PRESETS: { name: string; theme: Partial<NebulaTheme> & { terminalCo
     name: 'Emerald',
     theme: {
       ...UNSET,
-      accent: '#1f9d74',
-      highlight: '#9be7c4',
-      background: '#0f1a16',
-      surface: '#0b1411',
-      text: '#e3efe9',
+      accent: '#15803d',
+      highlight: '#a3e635',
+      background: '#0b1610',
+      surface: '#112118',
+      text: '#e6f4ea',
       textOnAccent: '',
       // prettier-ignore
       terminalColors: [
-        '#1a2924', '#ef7a6f', '#3fc48f', '#d9c060', '#5aa9d6', '#c48ac8', '#4ec9b8', '#c8d9d1',
-        '#678a7d', '#ff9e94', '#9be7c4', '#eedc8a', '#8cc8ec', '#deb0e0', '#8ae8db', '#eef7f2',
+        '#192b20', '#ef7a6f', '#4ade80', '#d9c060', '#5aa9d6', '#c48ac8', '#4ec9b8', '#cce0d2',
+        '#6c8c77', '#ff9e94', '#a3e635', '#eedc8a', '#8cc8ec', '#deb0e0', '#8ae8db', '#eef8f1',
       ],
     },
   },
@@ -239,3 +239,48 @@ export const TERMINAL_PALETTES: { id: string; name: string; colors: string[] }[]
     colors: preset.theme.terminalColors,
   })),
 ];
+
+const COLOR_ONLY_KEYS = new Set<keyof NebulaTheme>([
+  'accent',
+  'highlight',
+  'background',
+  'surface',
+  'text',
+  'textOnAccent',
+  'textMuted',
+  'textFaint',
+  'line',
+  'surfaceRaised',
+  'surfaceOverlay',
+  'scrollbar',
+  'buttonColor',
+  'buttonText',
+  'success',
+  'warning',
+  'danger',
+  'offline',
+  'chartOne',
+  'chartTwo',
+  'lightBackground',
+  'lightSurface',
+  'lightText',
+  'terminalColors',
+]);
+
+/** True when a preset changes layout, typography, shapes or motion in addition to colours. */
+export const isFullStylePreset = (theme: Partial<NebulaTheme>): boolean =>
+  (Object.keys(theme) as (keyof NebulaTheme)[]).some((key) => !COLOR_ONLY_KEYS.has(key));
+
+const sameValue = (a: unknown, b: unknown): boolean => {
+  if (a === b) return true;
+  if (Array.isArray(a) && Array.isArray(b)) {
+    return a.length === b.length && a.every((v, i) => sameValue(v, b[i]));
+  }
+  return false;
+};
+
+/** True when every field a preset sets already matches the current theme. */
+export const presetMatchesTheme = (preset: Partial<NebulaTheme>, current: NebulaTheme): boolean => {
+  const entries = Object.entries(preset) as [keyof NebulaTheme, unknown][];
+  return entries.length > 0 && entries.every(([key, value]) => sameValue(value, current[key]));
+};

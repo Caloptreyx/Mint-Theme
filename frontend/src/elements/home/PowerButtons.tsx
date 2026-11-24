@@ -48,6 +48,7 @@ export default function PowerButtons({ size }: { size?: 'xs' | 'compact-sm' }) {
         <Button
           size={size}
           color='green'
+          className='disabled:opacity-45'
           leftSection={<FontAwesomeIcon icon={faPlay} />}
           disabled={blocked || state !== 'offline'}
           loading={state === 'starting'}
@@ -59,7 +60,8 @@ export default function PowerButtons({ size }: { size?: 'xs' | 'compact-sm' }) {
       <ServerCan action='control.restart'>
         <Button
           size={size}
-          color='gray'
+          color='orange'
+          className='disabled:opacity-45'
           leftSection={<FontAwesomeIcon icon={faRotateRight} />}
           disabled={blocked}
           onClick={() => send('restart')}
@@ -71,6 +73,7 @@ export default function PowerButtons({ size }: { size?: 'xs' | 'compact-sm' }) {
         <Button
           size={size}
           color='red'
+          className='disabled:opacity-45'
           leftSection={<FontAwesomeIcon icon={stopping ? faSkull : faStop} />}
           disabled={blocked || state === 'offline'}
           onClick={() => (stopping ? setConfirmKill(true) : send('stop'))}

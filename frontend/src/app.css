@@ -551,7 +551,7 @@ html[data-nebula-layout='slim'] #sidebar-desktop .nebula-nav-search-icon {
 }
 
 html[data-nebula-bottom-nav] [data-nebula-bottom-nav-marker] ~ :is(#dashboard-root, #server-root, #admin-root) {
-  padding-bottom: var(--nebula-bottom-nav-h);
+  padding-bottom: calc(var(--nebula-bottom-nav-h) + 1rem);
 }
 
 html[data-nebula-bottom-nav] body > .fixed.bottom-0.z-90 {

@@ -59,7 +59,7 @@ export default function HeroCard({ banner, icon, children }: { banner: string; i
   // banner is a sanitised URL (see normalizeTheme), the scrim keeps the text readable on any picture
   const backgroundImage = banner
     ? `linear-gradient(90deg, ${SHADE} 5%, color-mix(in srgb, ${SHADE} 45%, transparent) 55%, color-mix(in srgb, ${SHADE} 25%, transparent)), url("${banner}")`
-    : `linear-gradient(120deg, color-mix(in srgb, var(--mantine-color-blue-filled) 24%, ${SHADE}), ${SHADE} 70%)`;
+    : `linear-gradient(120deg, color-mix(in srgb, var(--mantine-color-blue-filled) 12%, ${SHADE}), ${SHADE} 58%)`;
 
   return (
     <Card p={0}>

@@ -12,6 +12,7 @@ import { createPreset, deletePreset, getPresets, updatePreset } from '../../api/
 import { setChoicesFromLibrary } from '../../lib/apply.ts';
 import {
   ActionIcon,
+  Badge,
   Button,
   Card,
   ConfirmationModal,
@@ -38,7 +39,7 @@ import {
 } from '../../lib/library.ts';
 import { normalizeTheme } from '../../lib/normalize.ts';
 import { useCanSaveTheme } from '../../lib/permissions.ts';
-import { PRESETS } from '../../lib/presets.ts';
+import { isFullStylePreset, PRESETS, presetMatchesTheme } from '../../lib/presets.ts';
 import { type NebulaTheme, pickUserTheme } from '../../lib/theme.ts';
 import { useExtTranslations } from '../../translations.ts';
 import { useShareCode } from './ShareCodeModal.tsx';
@@ -129,6 +130,9 @@ function PresetAction({
 function PresetCard({
   name,
   theme,
+  active,
+  kind,
+  shareable = false,
   users,
   disabled,
   blocked,
@@ -138,6 +142,11 @@ function PresetCard({
 }: {
   name: string;
   theme: Partial<NebulaTheme>;
+  active: boolean;
+  /** Built-in presets show whether they only touch colours or also replace layout, typography and motion. */
+  kind?: 'colours' | 'full';
+  /** Built-ins stay uncluttered; custom presets keep the share code shortcut. */
+  shareable?: boolean;
   users: boolean;
   disabled: boolean;
   /** Why the user may not change presets, or null. */
@@ -148,21 +157,66 @@ function PresetCard({
 }) {
   const { t } = useExtTranslations();
   const { addToast } = useToast();
-  const shareCode = useShareCode(theme);
+  const shareCode = useShareCode(shareable ? theme : {});
 
   return (
-    <Card hoverable p='sm'>
+    <Card
+      p='xs'
+      className={
+        active
+          ? 'border-(--mantine-primary-color-filled)! ring-1 ring-(--mantine-primary-color-filled)/40 bg-(--mantine-primary-color-light)/15!'
+          : undefined
+      }
+    >
       <UnstyledButton
         aria-label={t('library.apply', { name })}
+        aria-pressed={active}
         onClick={onApply}
-        className='flex items-center justify-between gap-2 w-full text-left'
+        className='group flex w-full cursor-pointer items-center justify-between gap-2 rounded-sm px-1.5 py-1 -mx-1.5 -mt-1 text-left transition-colors hover:bg-(--mantine-color-default-hover) focus-visible:ring-2 focus-visible:ring-(--mantine-primary-color-filled)'
       >
-        <Text fw={600} truncate>
-          {name}
-        </Text>
+        <div className='min-w-0 flex-1'>
+          <Group gap={6} wrap='nowrap'>
+            <Text size='sm' fw={600} truncate>
+              {name}
+            </Text>
+            {active ? (
+              <Badge size='xs' variant='light' className='shrink-0'>
+                {t('library.active', {})}
+              </Badge>
+            ) : (
+              <Badge
+                size='xs'
+                variant='default'
+                className='shrink-0 opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100'
+              >
+                {t('library.applyAction', {})}
+              </Badge>
+            )}
+          </Group>
+          {kind && (
+            <Text
+              size='xs'
+              c={kind === 'full' ? undefined : 'dimmed'}
+              className={
+                kind === 'full'
+                  ? 'text-(--mantine-primary-color-light-color) leading-tight mt-0.5'
+                  : 'leading-tight mt-0.5'
+              }
+            >
+              {kind === 'full' ? t('library.kindFull', {}) : t('library.kindColours', {})}
+            </Text>
+          )}
+        </div>
         <Swatches theme={theme} />
       </UnstyledButton>
-      <Group justify='space-between' wrap='nowrap' mt='xs' gap='xs'>
+      <Group
+        justify='space-between'
+        wrap='nowrap'
+        mt={6}
+        pt={6}
+        gap='xs'
+        className='border-t border-(--mantine-color-default-border)'
+      >
         <Tooltip label={blocked} disabled={!blocked}>
           <Switch
             size='xs'
@@ -172,15 +226,19 @@ function PresetCard({
             onChange={(e) => onUsers(e.currentTarget.checked)}
           />
         </Tooltip>
-        <Group gap={2} wrap='nowrap'>
-          <PresetAction
-            label={t('share.copyCode', {})}
-            icon={faShareNodes}
-            blocked={null}
-            onClick={() => shareCode && handleRawCopyToClipboard(shareCode, addToast)}
-          />
-          {children}
-        </Group>
+        {(shareable || children) && (
+          <Group gap={2} wrap='nowrap'>
+            {shareable && (
+              <PresetAction
+                label={t('share.copyCode', {})}
+                icon={faShareNodes}
+                blocked={null}
+                onClick={() => shareCode && handleRawCopyToClipboard(shareCode, addToast)}
+              />
+            )}
+            {children}
+          </Group>
+        )}
       </Group>
     </Card>
   );
@@ -231,83 +289,122 @@ export default function PresetsSection({
   };
 
   const full = (library?.custom.length ?? 0) >= MAX_CUSTOM_PRESETS;
+  const offeredCount = (library?.builtin.length ?? 0) + (library?.custom.filter((preset) => preset.users).length ?? 0);
 
   return (
-    <Stack gap='md'>
+    <Stack gap='sm'>
       {blocked && (
         <Text size='xs' c='dimmed'>
           {blocked}
         </Text>
       )}
-      <Tooltip label={blocked} disabled={!blocked} innerClassName='w-full'>
-        <Button
-          variant='light'
-          fullWidth
-          leftSection={<FontAwesomeIcon icon={faFloppyDisk} />}
-          disabled={!library || full || !!blocked}
-          onClick={() => setCreating(true)}
-        >
-          {t('library.saveAsPreset', {})}
-        </Button>
-      </Tooltip>
-      {full && (
-        <Text size='xs' c='dimmed'>
-          {t('library.limit', { max: MAX_CUSTOM_PRESETS })}
-        </Text>
-      )}
 
       {library && (
-        <Stack gap='xs'>
-          <Text size='xs' fw={600} tt='uppercase' c='dimmed' className='tracking-wider'>
-            {t('library.custom', {})}
-          </Text>
-          {library.custom.length === 0 && (
-            <Text size='sm' c='dimmed'>
-              {t('library.empty', {})}
+        <Stack gap={6}>
+          <Group justify='space-between' wrap='nowrap' gap='xs'>
+            <Text size='xs' fw={600} tt='uppercase' c='dimmed' className='tracking-wider'>
+              {t('library.custom', {})}
             </Text>
+            {library.custom.length > 0 && (
+              <Tooltip label={blocked} disabled={!blocked}>
+                <Button
+                  size='xs'
+                  variant='light'
+                  leftSection={<FontAwesomeIcon icon={faFloppyDisk} />}
+                  disabled={full || !!blocked}
+                  onClick={() => setCreating(true)}
+                >
+                  {t('library.saveAsPreset', {})}
+                </Button>
+              </Tooltip>
+            )}
+          </Group>
+          {library.custom.length === 0 ? (
+            <Card p='xs'>
+              <Stack gap='xs'>
+                <Text size='xs' c='dimmed'>
+                  {t('library.empty', {})} {t('library.saveAsPresetDescription', {})}
+                </Text>
+                <Tooltip label={blocked} disabled={!blocked} innerClassName='w-full'>
+                  <Button
+                    size='xs'
+                    variant='light'
+                    fullWidth
+                    leftSection={<FontAwesomeIcon icon={faFloppyDisk} />}
+                    disabled={full || !!blocked}
+                    onClick={() => setCreating(true)}
+                  >
+                    {t('library.saveAsPreset', {})}
+                  </Button>
+                </Tooltip>
+              </Stack>
+            </Card>
+          ) : (
+            <>
+              {full && (
+                <Text size='xs' c='dimmed'>
+                  {t('library.limit', { max: MAX_CUSTOM_PRESETS })}
+                </Text>
+              )}
+              {library.custom.map((preset) => {
+                const look = pickUserTheme(preset.theme);
+                return (
+                  <PresetCard
+                    key={preset.id}
+                    name={preset.name}
+                    theme={preset.theme}
+                    active={presetMatchesTheme(look, theme)}
+                    shareable
+                    users={preset.users}
+                    disabled={busy}
+                    blocked={blocked}
+                    onApply={() => set(look)}
+                    onUsers={(users) =>
+                      run(updatePreset(preset.id, { users })).catch(() => {
+                        // run() already showed the error
+                      })
+                    }
+                  >
+                    <PresetAction
+                      label={t('library.rename', {})}
+                      icon={faPen}
+                      blocked={blocked}
+                      onClick={() => setRenaming(preset)}
+                    />
+                    <PresetAction
+                      label={t('library.overwrite', {})}
+                      icon={faFileArrowUp}
+                      blocked={blocked}
+                      onClick={() => setOverwriting(preset)}
+                    />
+                    <PresetAction
+                      label={t('library.delete', {})}
+                      icon={faTrash}
+                      color='red'
+                      blocked={blocked}
+                      onClick={() => setDeleting(preset)}
+                    />
+                  </PresetCard>
+                );
+              })}
+            </>
           )}
-          {library.custom.map((preset) => (
-            <PresetCard
-              key={preset.id}
-              name={preset.name}
-              theme={preset.theme}
-              users={preset.users}
-              disabled={busy}
-              blocked={blocked}
-              onApply={() => set(pickUserTheme(preset.theme))}
-              onUsers={(users) =>
-                run(updatePreset(preset.id, { users })).catch(() => {
-                  // run() already showed the error
-                })
-              }
-            >
-              <PresetAction
-                label={t('library.rename', {})}
-                icon={faPen}
-                blocked={blocked}
-                onClick={() => setRenaming(preset)}
-              />
-              <PresetAction
-                label={t('library.overwrite', {})}
-                icon={faFileArrowUp}
-                blocked={blocked}
-                onClick={() => setOverwriting(preset)}
-              />
-              <PresetAction
-                label={t('library.delete', {})}
-                icon={faTrash}
-                color='red'
-                blocked={blocked}
-                onClick={() => setDeleting(preset)}
-              />
-            </PresetCard>
-          ))}
         </Stack>
       )}
 
-      <Stack gap='xs'>
-        <Text size='xs' fw={600} tt='uppercase' c='dimmed' className='tracking-wider'>
-          {t('library.builtin', {})}
+      <Stack gap={6}>
+        <Group justify='space-between' wrap='nowrap' gap='xs'>
+          <Text size='xs' fw={600} tt='uppercase' c='dimmed' className='tracking-wider'>
+            {t('library.builtin', {})}
+          </Text>
+          {library && (
+            <Badge size='xs' variant='light' color={offeredCount > 0 ? undefined : 'gray'}>
+              {t('library.offeredCount', { count: offeredCount })}
+            </Badge>
+          )}
+        </Group>
+        <Text size='xs' c='dimmed'>
+          {t('library.saveBehaviorHint', {})}
         </Text>
         {PRESETS.map((preset) => {
           const id = builtinId(preset.name);
@@ -316,6 +413,8 @@ export default function PresetsSection({
               key={id}
               name={preset.name}
               theme={preset.theme}
+              active={presetMatchesTheme(preset.theme, theme)}
+              kind={isFullStylePreset(preset.theme) ? 'full' : 'colours'}
               users={library?.builtin.includes(id) ?? false}
               disabled={!library || busy}
               blocked={blocked}
@@ -329,10 +428,6 @@ export default function PresetsSection({
           );
         })}
       </Stack>
-
-      <Text size='xs' c='dimmed'>
-        {t('library.saveAsPresetDescription', {})}
-      </Text>
 
       <NameModal
         opened={creating}
