@@ -222,6 +222,7 @@
       "imported": "Temat har importerats; tryck på Spara för att använda det.",
       "save": "Spara",
       "saved": "Temat har sparats.",
+      "savedEmailSyncFailed": "Temat sparades, men e-postfärgerna kunde inte synkroniseras. Spara igen eller kontrollera serverloggen.",
       "loading": "Läser in det sparade temat…",
       "loadFailed": "Det sparade temat kunde inte läsas in",
       "loadFailedDescription": "Spara är avstängt tills det har lästs in, så att det lagrade temat aldrig ersätts av ett inaktuellt.",

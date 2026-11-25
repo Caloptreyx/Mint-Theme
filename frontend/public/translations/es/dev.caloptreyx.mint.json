@@ -222,6 +222,7 @@
       "imported": "Tema importado; pulsa Guardar para usarlo.",
       "save": "Guardar",
       "saved": "Tema guardado.",
+      "savedEmailSyncFailed": "Tema guardado, pero no se pudieron sincronizar los colores del correo. Guarda de nuevo o revisa el registro del servidor.",
       "loading": "Cargando el tema guardado…",
       "loadFailed": "No se pudo cargar el tema guardado",
       "loadFailedDescription": "Guardar permanece desactivado hasta que se cargue, para que el tema almacenado nunca se reemplace por uno desactualizado.",

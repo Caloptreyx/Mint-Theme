@@ -222,6 +222,7 @@
       "imported": "Tema importato; premi Salva per usarlo.",
       "save": "Salva",
       "saved": "Tema salvato.",
+      "savedEmailSyncFailed": "Tema salvato, ma non è stato possibile sincronizzare i colori delle email. Salva di nuovo o controlla i log del server.",
       "loading": "Caricamento del tema salvato…",
       "loadFailed": "Impossibile caricare il tema salvato",
       "loadFailedDescription": "Il salvataggio resta disattivato finché non viene caricato, così il tema memorizzato non viene mai sostituito da uno obsoleto.",

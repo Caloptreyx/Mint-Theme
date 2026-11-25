@@ -222,6 +222,7 @@
       "imported": "Tema importeret; tryk på Gem for at bruge det.",
       "save": "Gem",
       "saved": "Tema gemt.",
+      "savedEmailSyncFailed": "Temaet blev gemt, men e-mailfarverne kunne ikke synkroniseres. Gem igen eller tjek serverloggen.",
       "loading": "Indlæser det gemte tema…",
       "loadFailed": "Det gemte tema kunne ikke indlæses",
       "loadFailedDescription": "Gem er slået fra, indtil det er indlæst, så det gemte tema aldrig erstattes af et forældet.",

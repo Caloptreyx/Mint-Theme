@@ -516,14 +516,14 @@ pub(crate) fn resolve_vars(raw_theme: &str, app_url: &str) -> ResolvedEmailVars 
     }
 }
 
+/// Serializes all `mint_email_*` global variable writes so boot sync and concurrent theme saves
+/// never interleave stale values after newer ones.
+static SYNC_LOCK: tokio::sync::Mutex<()> = tokio::sync::Mutex::const_new(());
+
 /// Syncs Mint's resolved email palette to Calagopus's global `email_variables` table when
 /// `emailSync` is enabled. Variables already matching their desired value are skipped, and ones
 /// returning to their built-in default clear their DB override row cleanly.
-pub(crate) async fn sync(
-    state: &State,
-    raw_theme: &str,
-    app_url: &str,
-) -> Result<(), anyhow::Error> {
+async fn sync(state: &State, raw_theme: &str, app_url: &str) -> Result<(), anyhow::Error> {
     if !sync_enabled(raw_theme) {
         return Ok(());
     }
@@ -571,33 +571,45 @@ pub(crate) async fn sync(
     Ok(())
 }
 
+/// Reads the currently stored theme under `SYNC_LOCK` and syncs its resolved palette to global
+/// email variables, ensuring the latest persisted theme always wins.
+pub(crate) async fn sync_current(state: &State) -> Result<(), anyhow::Error> {
+    let _guard = SYNC_LOCK.lock().await;
+
+    let settings = state.settings.get().await?;
+    let stored_theme = settings
+        .find_extension_settings::<crate::settings::ExtensionSettingsData>()
+        .map(|s| s.theme.to_string())
+        .unwrap_or_default();
+    let app_url = settings.app.url.to_string();
+    drop(settings);
+
+    sync(state, &stored_theme, &app_url).await
+}
+
 /// Runs once after panel startup finishes populating `state.mail.templates` so an existing saved
 /// theme syncs its email variables immediately after upgrading Mint.
 pub(crate) fn spawn_boot_sync(state: State) {
     tokio::spawn(async move {
+        let mut ready = false;
         for _ in 0..50 {
             match state.mail.templates.get_variables(&state, None).await {
-                Ok(vars) if vars.iter().any(|v| v.name == "mint_email_bg") => break,
+                Ok(vars) if vars.iter().any(|v| v.name == "mint_email_bg") => {
+                    ready = true;
+                    break;
+                }
                 _ => tokio::time::sleep(std::time::Duration::from_millis(100)).await,
             }
         }
 
-        let (stored_theme, app_url) = match state.settings.get().await {
-            Ok(settings) => {
-                let theme = settings
-                    .find_extension_settings::<crate::settings::ExtensionSettingsData>()
-                    .map(|s| s.theme.to_string())
-                    .unwrap_or_default();
-                let url = settings.app.url.to_string();
-                (theme, url)
-            }
-            Err(err) => {
-                tracing::warn!("mint mail boot sync: failed to read settings: {err:#}");
-                return;
-            }
-        };
+        if !ready {
+            tracing::warn!(
+                "mint mail boot sync timed out waiting for email template registration"
+            );
+            return;
+        }
 
-        if let Err(err) = sync(&state, &stored_theme, &app_url).await {
+        if let Err(err) = sync_current(&state).await {
             tracing::warn!("mint mail boot sync failed: {err:#}");
         }
     });

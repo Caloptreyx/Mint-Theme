@@ -222,6 +222,7 @@
       "imported": "Téma bola importovaná; stlačte Uložiť, aby ste ju použili.",
       "save": "Uložiť",
       "saved": "Téma bola uložená.",
+      "savedEmailSyncFailed": "Téma bola uložená, ale farby e-mailov sa nepodarilo synchronizovať. Uložte znova alebo skontrolujte log servera.",
       "loading": "Načítava sa uložená téma…",
       "loadFailed": "Uloženú tému sa nepodarilo načítať",
       "loadFailedDescription": "Ukladanie zostane vypnuté, kým sa nenačíta, aby sa uložená téma nikdy nenahradila zastaranou.",

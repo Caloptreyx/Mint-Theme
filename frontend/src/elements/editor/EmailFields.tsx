@@ -79,7 +79,7 @@ export default function EmailFields({ theme, valid, set }: Props) {
   const { t } = useExtTranslations();
   const { addToast } = useToast();
   const canResetTemplates = useAdminCan('email-templates.update');
-  const darkDefaults = resolveEmailPalette({ ...valid, emailTheme: 'dark' });
+  const customDefaults = resolveEmailPalette({ ...valid, emailTheme: 'custom' });
   const [overridden, setOverridden] = useState<string[]>([]);
   const [confirmReset, setConfirmReset] = useState(false);
   const [resetting, setResetting] = useState(false);
@@ -166,7 +166,7 @@ export default function EmailFields({ theme, valid, set }: Props) {
                 key={key}
                 label={t(`editor.email.colors.${key}`, {})}
                 description={!theme[key] ? t('editor.derived', {}) : undefined}
-                value={theme[key] || darkDefaults[fallbackKey]}
+                value={theme[key] || customDefaults[fallbackKey]}
                 error={theme[key] && !HEX.test(theme[key]) ? t('editor.colorInvalid', {}) : undefined}
                 onChange={(value) => set({ [key]: value })}
                 onBlur={() => {

@@ -222,6 +222,7 @@
       "imported": "主題已匯入；按下儲存即可套用。",
       "save": "儲存",
       "saved": "主題已儲存。",
+      "savedEmailSyncFailed": "主题已保存，但无法同步邮件配色。请重试保存或检查服务器日志。",
       "loading": "正在載入已儲存的主題…",
       "loadFailed": "無法載入已儲存的主題",
       "loadFailedDescription": "載入完成前將停用儲存，以免已儲存的主題被過時的版本取代。",
