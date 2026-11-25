@@ -99,9 +99,7 @@ export default function EmailFields({ theme, valid, set }: Props) {
   }, []);
 
   const overriddenLabels = overridden.map((id) =>
-    (EMAIL_TEMPLATES as readonly string[]).includes(id)
-      ? t(`editor.email.templates.${id as EmailTemplateId}`, {})
-      : id,
+    (EMAIL_TEMPLATES as readonly string[]).includes(id) ? t(`editor.email.templates.${id as EmailTemplateId}`, {}) : id,
   );
 
   const doResetOverrides = () => {
@@ -121,11 +119,15 @@ export default function EmailFields({ theme, valid, set }: Props) {
       {overridden.length > 0 && (
         <Alert color='yellow' title={t('editor.email.overridesTitle', {})}>
           <Stack gap='xs' align='flex-start'>
-            <Text size='xs'>
-              {t('editor.email.overridesDescription', { templates: overriddenLabels.join(', ') })}
-            </Text>
+            <Text size='xs'>{t('editor.email.overridesDescription', { templates: overriddenLabels.join(', ') })}</Text>
             {canResetTemplates && (
-              <Button size='xs' variant='light' color='yellow' loading={resetting} onClick={() => setConfirmReset(true)}>
+              <Button
+                size='xs'
+                variant='light'
+                color='yellow'
+                loading={resetting}
+                onClick={() => setConfirmReset(true)}
+              >
                 {t('editor.email.overridesReset', {})}
               </Button>
             )}

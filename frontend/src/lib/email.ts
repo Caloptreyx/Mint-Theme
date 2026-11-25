@@ -1,6 +1,6 @@
+import type { NebulaTheme } from './theme.ts';
 // Email palette derivation and live HTML preview matching backend/src/mail.rs and backend/mails/*.html.
 import { contrastRatio, lightBase, luminance, mix, readable } from './color.ts';
-import type { NebulaTheme } from './theme.ts';
 
 export const EMAIL_PREVIEW_PAGE = '__mint_email_preview__';
 
