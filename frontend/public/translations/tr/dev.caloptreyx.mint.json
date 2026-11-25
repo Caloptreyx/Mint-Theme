@@ -310,7 +310,7 @@
         "login": "Giriş sayfası",
         "loginDescription": "Giriş, kayıt ve şifre sayfaları için düzen, arka plan, logo ve destek bağlantıları.",
         "emails": "E-postalar",
-        "emailsDescription": "Tema renklerinizle senkronize edilen markalı e-posta şablonları ve canlı önizleme.",
+        "emailsDescription": "Tema renklerinizle senkronize, canlı önizlemeli isteğe bağlı markalı e-posta şablonları.",
         "interface": "Davranış",
         "interfaceDescription": "Bildirimler, sayfa başlıkları ve telefondaki dosya düzenleyici.",
         "motion": "Animasyonlar",
@@ -793,8 +793,15 @@
       "expandPreview": "Önizlemeyi genişlet",
       "restorePreview": "Ayarları göster",
       "email": {
+        "enabled": "Mint e-posta şablonlarını kullan",
+        "enabledDescription": "Varsayılan olarak kapalı. Açıkken Mint kendi düzenini panelin e-posta şablonlarına kaydeder ve renklerini temayla uyumlu tutar. Kapatmak panelin varsayılan şablonlarını geri yükler. Yönetici → Ayarlar → Posta Şablonları bölümünde elle düzenlenen şablonlar hiçbir durumda değiştirilmez.",
+        "enabledOn": "Mint e-posta şablonları açık.",
+        "enabledOff": "Mint e-posta şablonları kapalı. E-postalar yeniden panelin varsayılan şablonlarını kullanıyor.",
+        "enabledNoPermission": "Mint e-posta şablonlarını açıp kapatmak için e-posta şablonlarını düzenleme izni gerekir.",
+        "statusFailed": "Mint e-posta şablonlarının açık olup olmadığı yüklenemedi.",
+        "offNotice": "Gönderilen e-postalar panelin varsayılan şablonlarını kullanır. Aşağıdaki önizleme ve ayarlar, Mint şablonlarının açtığınızda nasıl görüneceğini gösterir.",
         "sync": "Tema renklerini e-postalara senkronize et",
-        "syncDescription": "Temayı her kaydettiğinizde genel mint_email_* şablon değişkenlerini günceller. Yönetici → Ayarlar → Posta Şablonları bölümünden elle yönetmek için kapatın.",
+        "syncDescription": "Mint e-posta şablonları açıkken, temayı her kaydettiğinizde genel mint_email_* şablon değişkenlerini günceller. Bunları Yönetici → Ayarlar → Posta Şablonları bölümünden elle yönetmek için kapatın.",
         "theme": "E-posta paleti",
         "themeDescription": "Giden e-postaların koyu temanızı, açık temanızı veya özel renkleri kullanıp kullanmayacağını seçin.",
         "themes": {
@@ -815,7 +822,7 @@
         "logoDescription": "Panel adının üzerinde gösterilen isteğe bağlı PNG, JPEG veya WebP logosu. / ile başlayan yollar panel URL'sine göre çözümlenir.",
         "footer": "Alt bilgi notu",
         "footerDescription": "E-posta kartının altında gösterilen isteğe bağlı kısa satır (en fazla {max} karakter).",
-        "adminHint": "Metinleri, çevirileri veya şablon HTML'lerini Yönetici → Ayarlar → Posta Şablonları bölümünden düzenleyin. Mint özel şablon düzenlemelerinizi asla ezmez.",
+        "adminHint": "Metinleri, çevirileri veya şablon HTML'lerini Yönetici → Ayarlar → Posta Şablonları bölümünden düzenleyin. Mint, \"Mint düzenini kullan\" seçmediğiniz sürece elle düzenlenmiş şablonların üzerine asla yazmaz.",
         "previewFrame": "E-posta önizlemesi",
         "previewTemplate": "E-posta şablonu",
         "templates": {
@@ -830,12 +837,12 @@
           "server_installed": "Sunucu kuruldu",
           "server_restored": "Sunucu geri yüklendi"
         },
-        "overridesTitle": "Özel HTML bazı şablonlarda Mint düzenini geçersiz kılıyor",
-        "overridesDescription": "Bu şablonlarda Yönetici → Ayarlar → Posta Şablonları altında kayıtlı özel HTML var; bu yüzden gönderilen e-postalar Mint yerine onu kullanıyor: {templates}.",
+        "overridesTitle": "Bazı şablonlar Mint düzenini kullanmıyor",
+        "overridesDescription": "Bu şablonların Yönetici → Ayarlar → Posta Şablonları bölümünde kendi HTML'i kayıtlı ya da panelin varsayılanına sıfırlanmış, bu yüzden gönderilen e-postalar Mint düzenini kullanmıyor: {templates}.",
         "overridesReset": "Mint düzenini kullan",
-        "overridesResetTitle": "Geçersiz kılınan e-posta düzenlerini sıfırla",
-        "overridesResetConfirm": "{templates} için özel HTML temizlenip Mint düzeni kullanılsın mı? Konular, etkin durumları ve metin değişkenleri korunur.",
-        "overridesResetDone": "Geçersiz kılınan e-posta şablonları artık Mint düzenini kullanıyor."
+        "overridesResetTitle": "Mint e-posta düzenini kullan",
+        "overridesResetConfirm": "{templates} HTML'i Mint düzeniyle değiştirilsin mi? Konular, etkinleştirme anahtarları ve metin değişkenleri korunur.",
+        "overridesResetDone": "Bu e-posta şablonları artık Mint düzenini kullanıyor."
       }
     },
     "library": {

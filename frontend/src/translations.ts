@@ -329,7 +329,7 @@ const translations = defineTranslations({
         login: 'Login page',
         loginDescription: 'Layout, background, logo and support links for login, registration and password pages.',
         emails: 'Emails',
-        emailsDescription: 'Branded email templates synced to your theme colours, with a live preview.',
+        emailsDescription: 'Optional branded email templates synced to your theme colours, with a live preview.',
         interface: 'Behaviour',
         interfaceDescription: 'Toasts, page titles and the phone file editor.',
         motion: 'Animations',
@@ -832,9 +832,18 @@ const translations = defineTranslations({
         reset: "Back to the panel's order",
       },
       email: {
+        enabled: 'Use Mint email templates',
+        enabledDescription:
+          "Off by default. While on, Mint saves its layout into the panel's email templates and keeps their colours in step with the theme. Turning it off restores the panel's stock templates. Templates edited by hand under Admin → Settings → Mail Templates are never changed either way.",
+        enabledOn: 'Mint email templates are on.',
+        enabledOff: "Mint email templates are off. Emails use the panel's stock templates again.",
+        enabledNoPermission: 'Turning Mint email templates on or off needs permission to update email templates.',
+        statusFailed: 'Could not load whether Mint email templates are on.',
+        offNotice:
+          "Sent emails use the panel's stock templates. The preview and the settings below show Mint's templates as they will look once you turn them on.",
         sync: 'Sync theme colours to emails',
         syncDescription:
-          'Updates the global mint_email_* template variables whenever you save the theme. Turn off to manage them manually in Admin → Settings → Mail Templates.',
+          'While Mint email templates are on, updates the global mint_email_* template variables whenever you save the theme. Turn off to manage them manually in Admin → Settings → Mail Templates.',
         theme: 'Email palette',
         themeDescription: 'Choose whether outbound emails follow your dark theme, light theme, or custom colours.',
         themes: {
@@ -857,15 +866,15 @@ const translations = defineTranslations({
         footer: 'Footer note',
         footerDescription: 'Optional short line shown below the email card (up to {max} characters).',
         adminHint:
-          'Edit wording, translations or per-template HTML under Admin → Settings → Mail Templates. Custom template edits are never overwritten by Mint.',
-        overridesTitle: 'Custom HTML is overriding Mint on some templates',
+          'Edit wording, translations or per-template HTML under Admin → Settings → Mail Templates. Mint never overwrites hand-edited templates unless you pick Use Mint layout.',
+        overridesTitle: 'Some templates do not use Mint’s layout',
         overridesDescription:
-          'These templates have custom HTML saved under Admin → Settings → Mail Templates, so sent emails use that instead of Mint: {templates}.',
+          'These templates have their own HTML saved, or were reset to the panel’s stock, under Admin → Settings → Mail Templates, so sent emails do not use Mint’s layout: {templates}.',
         overridesReset: 'Use Mint layout',
-        overridesResetTitle: 'Reset overridden email layouts',
+        overridesResetTitle: 'Use Mint’s email layout',
         overridesResetConfirm:
-          'Clear custom HTML on {templates} so they use Mint’s layout? Subjects, enabled toggles and wording variables are kept.',
-        overridesResetDone: 'Overridden email templates now use Mint’s layout.',
+          'Replace the HTML of {templates} with Mint’s layout? Subjects, enabled toggles and wording variables are kept.',
+        overridesResetDone: 'These email templates now use Mint’s layout.',
         previewFrame: 'Email preview',
         previewTemplate: 'Email template',
         templates: {

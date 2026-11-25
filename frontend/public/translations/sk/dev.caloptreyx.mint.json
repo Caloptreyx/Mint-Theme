@@ -310,7 +310,7 @@
         "login": "Prihlasovacia stránka",
         "loginDescription": "Rozloženie, pozadie, logo a odkazy na podporu pre stránky prihlásenia, registrácie a hesla.",
         "emails": "E-maily",
-        "emailsDescription": "E-mailové šablóny synchronizované s farbami témy a živý náhľad.",
+        "emailsDescription": "Voliteľné značkové e-mailové šablóny synchronizované s farbami vašej témy, so živým náhľadom.",
         "interface": "Správanie",
         "interfaceDescription": "Upozornenia, názvy stránok a editor súborov v telefóne.",
         "motion": "Animácie",
@@ -793,8 +793,15 @@
       "expandPreview": "Rozšíriť náhľad",
       "restorePreview": "Zobraziť nastavenia",
       "email": {
+        "enabled": "Používať e-mailové šablóny Mint",
+        "enabledDescription": "Predvolene vypnuté. Keď je zapnuté, Mint uloží svoje rozloženie do e-mailových šablón panelu a udržiava ich farby v súlade s témou. Vypnutím sa obnovia štandardné šablóny panelu. Šablóny upravené ručne v Admin → Nastavenia → E-mailové šablóny sa nikdy nemenia.",
+        "enabledOn": "E-mailové šablóny Mint sú zapnuté.",
+        "enabledOff": "E-mailové šablóny Mint sú vypnuté. E-maily opäť používajú štandardné šablóny panelu.",
+        "enabledNoPermission": "Na zapnutie alebo vypnutie e-mailových šablón Mint je potrebné oprávnenie upravovať e-mailové šablóny.",
+        "statusFailed": "Nepodarilo sa zistiť, či sú e-mailové šablóny Mint zapnuté.",
+        "offNotice": "Odoslané e-maily používajú štandardné šablóny panelu. Náhľad a nastavenia nižšie ukazujú, ako budú šablóny Mint vyzerať po zapnutí.",
         "sync": "Synchronizovať farby témy s e-mailami",
-        "syncDescription": "Aktualizuje globálne premenné šablón mint_email_* pri každom uložení témy. Vypnite, ak ich chcete spravovať ručne v Admin → Nastavenia → E-mailové šablóny.",
+        "syncDescription": "Keď sú e-mailové šablóny Mint zapnuté, aktualizuje globálne premenné mint_email_* pri každom uložení témy. Vypnite, ak ich chcete spravovať ručne v Admin → Nastavenia → E-mailové šablóny.",
         "theme": "Paleta e-mailov",
         "themeDescription": "Vyberte, či odchádzajúce e-maily používajú tmavú tému, svetlú tému alebo vlastné farby.",
         "themes": {
@@ -815,7 +822,7 @@
         "logoDescription": "Voliteľné logo PNG, JPEG alebo WebP nad názvom panela. Cesty začínajúce / sa doplnia o URL panela.",
         "footer": "Poznámka v pätičke",
         "footerDescription": "Voliteľný krátky riadok pod kartou e-mailu (do {max} znakov).",
-        "adminHint": "Texty, preklady alebo HTML jednotlivých šablón upravte v Admin → Nastavenia → E-mailové šablóny. Mint nikdy neprepíše vaše vlastné úpravy.",
+        "adminHint": "Texty, preklady alebo HTML jednotlivých šablón upravte v Admin → Nastavenia → E-mailové šablóny. Mint nikdy neprepíše ručne upravené šablóny, pokiaľ nezvolíte „Použiť rozloženie Mint“.",
         "previewFrame": "Náhľad e-mailu",
         "previewTemplate": "E-mailová šablóna",
         "templates": {
@@ -830,12 +837,12 @@
           "server_installed": "Server nainštalovaný",
           "server_restored": "Server obnovený"
         },
-        "overridesTitle": "Vlastné HTML prepisuje Mint v niektorých šablónach",
-        "overridesDescription": "Tieto šablóny majú uložené vlastné HTML v Admin → Nastavenia → E-mailové šablóny, takže odoslané e-maily používajú ho namiesto Mint: {templates}.",
+        "overridesTitle": "Niektoré šablóny nepoužívajú rozloženie Mint",
+        "overridesDescription": "Tieto šablóny majú uložené vlastné HTML alebo boli obnovené na štandard panelu v Admin → Nastavenia → E-mailové šablóny, takže odoslané e-maily nepoužívajú rozloženie Mint: {templates}.",
         "overridesReset": "Použiť rozloženie Mint",
-        "overridesResetTitle": "Obnoviť prepísané rozloženia e-mailov",
-        "overridesResetConfirm": "Vymazať vlastné HTML v {templates}, aby používali rozloženie Mint? Predmety, zapnutie a textové premenné zostanú zachované.",
-        "overridesResetDone": "Prepísané e-mailové šablóny teraz používajú rozloženie Mint."
+        "overridesResetTitle": "Použiť e-mailové rozloženie Mint",
+        "overridesResetConfirm": "Nahradiť HTML šablón {templates} rozložením Mint? Predmety, prepínače aktivácie a textové premenné zostanú zachované.",
+        "overridesResetDone": "Tieto e-mailové šablóny teraz používajú rozloženie Mint."
       }
     },
     "library": {

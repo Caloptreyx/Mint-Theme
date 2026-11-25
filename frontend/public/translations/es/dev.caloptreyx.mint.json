@@ -310,7 +310,7 @@
         "login": "Página de inicio de sesión",
         "loginDescription": "Diseño, fondo, logo y enlaces de soporte de las páginas de inicio de sesión, registro y contraseña.",
         "emails": "Correos",
-        "emailsDescription": "Plantillas de correo personalizadas sincronizadas con los colores del tema y vista previa en vivo.",
+        "emailsDescription": "Plantillas de correo de marca opcionales sincronizadas con los colores de tu tema, con vista previa en vivo.",
         "interface": "Comportamiento",
         "interfaceDescription": "Notificaciones, títulos de página y el editor de archivos en el móvil.",
         "motion": "Animaciones",
@@ -793,8 +793,15 @@
       "expandPreview": "Ampliar vista previa",
       "restorePreview": "Mostrar ajustes",
       "email": {
+        "enabled": "Usar plantillas de correo de Mint",
+        "enabledDescription": "Desactivado por defecto. Al activarlo, Mint guarda su diseño en las plantillas de correo del panel y mantiene sus colores en línea con el tema. Al desactivarlo se restauran las plantillas originales del panel. Las plantillas editadas a mano en Admin → Ajustes → Plantillas de correo nunca se modifican.",
+        "enabledOn": "Las plantillas de correo de Mint están activadas.",
+        "enabledOff": "Las plantillas de correo de Mint están desactivadas. Los correos vuelven a usar las plantillas originales del panel.",
+        "enabledNoPermission": "Activar o desactivar las plantillas de correo de Mint requiere permiso para editar plantillas de correo.",
+        "statusFailed": "No se pudo comprobar si las plantillas de correo de Mint están activadas.",
+        "offNotice": "Los correos enviados usan las plantillas originales del panel. La vista previa y los ajustes de abajo muestran cómo se verán las plantillas de Mint al activarlas.",
         "sync": "Sincronizar colores del tema con correos",
-        "syncDescription": "Actualiza las variables globales mint_email_* cada vez que guardas el tema. Desactívalo para gestionarlas manualmente en Admin → Ajustes → Plantillas de correo.",
+        "syncDescription": "Con las plantillas de correo de Mint activadas, actualiza las variables globales mint_email_* cada vez que guardas el tema. Desactívalo para gestionarlas manualmente en Admin → Ajustes → Plantillas de correo.",
         "theme": "Paleta de correos",
         "themeDescription": "Elige si los correos salientes usan tu tema oscuro, tu tema claro o colores personalizados.",
         "themes": {
@@ -815,7 +822,7 @@
         "logoDescription": "Logotipo PNG, JPEG o WebP opcional sobre el nombre del panel. Las rutas que empiezan por / usan la URL del panel.",
         "footer": "Nota al pie",
         "footerDescription": "Línea breve opcional debajo de la tarjeta del correo (hasta {max} caracteres).",
-        "adminHint": "Edita los textos, traducciones o HTML por plantilla en Admin → Ajustes → Plantillas de correo. Mint nunca sobrescribe tus ediciones personalizadas.",
+        "adminHint": "Edita los textos, traducciones o HTML por plantilla en Admin → Ajustes → Plantillas de correo. Mint nunca sobrescribe plantillas editadas a mano salvo que elijas «Usar diseño de Mint».",
         "previewFrame": "Vista previa del correo",
         "previewTemplate": "Plantilla de correo",
         "templates": {
@@ -830,12 +837,12 @@
           "server_installed": "Servidor instalado",
           "server_restored": "Servidor restaurado"
         },
-        "overridesTitle": "El HTML personalizado sobrescribe Mint en algunas plantillas",
-        "overridesDescription": "Estas plantillas tienen HTML personalizado guardado en Admin → Ajustes → Plantillas de correo, por lo que los correos enviados usan ese diseño en lugar de Mint: {templates}.",
+        "overridesTitle": "Algunas plantillas no usan el diseño de Mint",
+        "overridesDescription": "Estas plantillas tienen su propio HTML guardado, o se restablecieron a las originales del panel, en Admin → Ajustes → Plantillas de correo, así que los correos enviados no usan el diseño de Mint: {templates}.",
         "overridesReset": "Usar diseño de Mint",
-        "overridesResetTitle": "Restablecer diseños de correo sobrescritos",
-        "overridesResetConfirm": "¿Borrar el HTML personalizado de {templates} para que usen el diseño de Mint? Se conservarán los asuntos, el estado activado y las variables de texto.",
-        "overridesResetDone": "Las plantillas de correo sobrescritas ahora usan el diseño de Mint."
+        "overridesResetTitle": "Usar el diseño de correo de Mint",
+        "overridesResetConfirm": "¿Reemplazar el HTML de {templates} por el diseño de Mint? Se conservan los asuntos, los interruptores de activación y las variables de texto.",
+        "overridesResetDone": "Estas plantillas de correo ahora usan el diseño de Mint."
       }
     },
     "library": {

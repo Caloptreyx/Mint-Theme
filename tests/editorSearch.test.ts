@@ -93,11 +93,11 @@ describe('expandTerms', () => {
     }
   });
 
-  test('emails section indexes sync, palette, logo and footer settings', () => {
+  test('emails section indexes the templates switch, sync, palette, logo and footer settings', () => {
     const emailSettings = SETTINGS.filter((setting) => setting.section === 'emails');
     assert.deepEqual(
       emailSettings.map((setting) => setting.label),
-      ['editor.email.sync', 'editor.email.theme', 'editor.email.logo', 'editor.email.footer'],
+      ['editor.email.enabled', 'editor.email.sync', 'editor.email.theme', 'editor.email.logo', 'editor.email.footer'],
     );
   });
 });

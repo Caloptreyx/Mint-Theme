@@ -14,14 +14,14 @@ An extension is a Rust crate plus a TypeScript frontend that the panel compiles 
 ```
 Metadata.toml              package name, display name, panel version range
 backend/src/lib.rs         Extension impl: mounts the routers, hands over the settings deserializer
-backend/src/settings.rs    four opaque settings: `theme` (the editor's JSON), `announcement_ctas`, `presets`, `theme_history`
+backend/src/settings.rs    five opaque settings: `theme` (the editor's JSON), `announcement_ctas`, `presets`, `theme_history`, `email_templates` (bool, off unless "true")
 backend/src/routes.rs      GET /mint/theme (public, `{ theme, version }` with an ETag) and PUT /api/admin/.../theme (settings.update or mint-theme.update)
 backend/src/permissions.rs the `mint-theme.update` admin permission and the checks every theme, preset and history route uses
 backend/src/banner.rs      per user account banner GET/upload/remove (client API), removal on user deletion
 backend/src/cta.rs         announcement call to action buttons: GET (client API) and PUT (admin API)
 backend/src/presets.rs     custom presets and user selectable presets: GET/POST/PATCH/DELETE (admin API), theme-choices GET (client API)
 backend/src/history.rs     the last 10 replaced themes (written by the theme PUT), GET (admin API)
-backend/src/mail.rs        overrides all 10 core email templates (`backend/mails/*.html`), declares `mint_email_*` global variables and syncs them from the saved theme
+backend/src/mail.rs        opt-in email templates (`backend/mails/*.html`): GET/PUT .../email-templates (admin API), boot reconcile, `mint_email_*` globals synced from the saved theme
 backend/src/updates.rs     check_for_updates: GitHub releases of Caloptreyx/Mint-Theme, cached 10 min in memory, ETag revalidated
 frontend/src/index.ts      entry point: hooks, route interceptors, Mantine theme
 frontend/src/lib/core.ts   the one module that re-exports every core import (see the end of "How it hooks into the panel")
@@ -39,7 +39,7 @@ frontend/src/lib/permissions.ts  useCanSaveTheme(): settings.update or mint-them
 frontend/src/lib/library.ts  presets, users' theme choices and history: ids, normalizers, resolveUserTheme()
 frontend/src/lib/editorSearch.ts  the editor's settings index (SETTINGS, COLOR_GROUPS) and searchSettings()
 frontend/src/lib/editorDraft.ts   checks on the editor's raw draft: urlValid, invalidUrls, isThemeFile, toHexColor
-frontend/src/lib/email.ts  resolveEmailPalette() (matches backend/src/mail.rs) and renderEmailPreviewHtml() for the editor's live email preview
+frontend/src/lib/email.ts  resolveEmailPalette() (matches backend/src/mail.rs), renderEmailPreviewHtml() for the editor's live email preview, parseEmailTemplatesStatus()/templatesWithoutMint()
 frontend/src/lib/redact.ts  core's 'Hide server addresses' setting: useRedactAddresses(), shownAddress(), maskAddress()
 frontend/src/lib/initials.ts  railInitials(): the slim rail's server tile letters, as a CSS string
 frontend/src/pages/        ServerHome, ServerConsole, ServerList and GroupedServerList (dashboard), ThemeEditor
@@ -465,6 +465,27 @@ and break silently when core moves a file. Everything here is runtime:
   the like to `#rrggbb` on blur (not on change, which would break typing) and flag what is still not hex; an import
   needs at least one theme field. Derived colours and contrast warnings use the last valid normalized draft
   (`Sections`' `valid` prop), not the half-typed one.
+- Email templates (`backend/src/mail.rs`, `elements/editor/EmailFields.tsx`, `api/emailTemplates.ts`, `lib/email.ts`,
+  `tests/email.test.ts`) are **opt-in**: the `email_templates` setting is off by default and is not part of the theme
+  draft. 2.4.9 replaced core's template defaults (`mutate_template`) unasked; from 2.4.10 `register()` only declares the
+  `mint_email_*` globals (every boot, so turning the templates on needs no restart) and core's defaults stay stock. While
+  on, Mint saves its HTML as each core template's content (`email_templates.content`, the row core's Mail Templates
+  editor writes). `classify()` sorts a template's saved content into `stock` (none), `mint` (exactly the current
+  `mails/<id>.html`), `outdated` (sha256 in `RELEASED_TEMPLATE_SHA256`: a layout an older release shipped) or `custom`
+  (anything else, even one character off), and `plan(mode, state)` decides per template: `Off` clears `mint` and
+  `outdated` (stock again), `Enable` writes stock and `outdated`, `Refresh` (boot while on) writes `outdated` only, so a
+  template reset to stock in core stays stock, and `Overwrite` (the editor's 'Use Mint layout', which also turns the
+  setting on) writes everything not `mint`. `custom` is only ever replaced by `Overwrite`. At boot the setting picks
+  `Off` or `Refresh`, which is the upgrade path from 2.4.9: the setting is missing, so off, and any template whose
+  content is exactly 2.4.9's layout (saved unchanged through core's editor) goes back to stock. Whenever a file in
+  `backend/mails/` changes, add its new hash to `RELEASED_TEMPLATE_SHA256` and keep the old ones (a cargo test fails
+  otherwise). `GET .../email-templates` (`settings.read` or `mint-theme.update`) returns `{ enabled, templates: [{
+  identifier, state }] }`; `PUT` (`email-templates.update`, activity `mint:email_templates.enable|disable`) takes `{
+  enabled, overwrite? }`. The `mint_email_*` sync (`emailSync` in the theme, on by default) runs on theme saves and at
+  boot only while the templates are on. Writes go through one `LOCK`. The editor's Emails section shows the switch on
+  top (applied at once, disabled without `email-templates.update`), a notice that sent emails are stock while it is
+  off, and, while on, the templates not using Mint's layout with 'Use Mint layout'; the palette, branding and preview
+  work either way.
 - `routes.addAdminRoute` adds the editor (`permission: ['settings.read', 'mint-theme.update']`, any of them; core's
   `AdminGuard` lets every role with an admin permission into `/admin`); it is also the extension's
   `cardConfigurationPage`, which core's extensions page gates with `extensions.*`. The close button goes back to

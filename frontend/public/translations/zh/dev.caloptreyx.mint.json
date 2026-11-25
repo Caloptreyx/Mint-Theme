@@ -310,7 +310,7 @@
         "login": "登入頁面",
         "loginDescription": "登入、註冊與密碼頁面的版面配置、背景、標誌與支援連結。",
         "emails": "邮件",
-        "emailsDescription": "与主题配色同步的邮件模板，并提供实时预览。",
+        "emailsDescription": "可选的品牌邮件模板，与主题颜色同步，并提供实时预览。",
         "interface": "行為",
         "interfaceDescription": "通知、頁面標題與手機上的檔案編輯器。",
         "motion": "動畫",
@@ -793,8 +793,15 @@
       "expandPreview": "展开预览",
       "restorePreview": "显示设置",
       "email": {
+        "enabled": "使用 Mint 邮件模板",
+        "enabledDescription": "默认关闭。开启后，Mint 会将其布局保存到面板的邮件模板中，并使颜色与主题保持一致。关闭后将恢复面板的默认模板。在管理 → 设置 → 邮件模板中手动编辑过的模板在任何情况下都不会被更改。",
+        "enabledOn": "Mint 邮件模板已开启。",
+        "enabledOff": "Mint 邮件模板已关闭。邮件将重新使用面板的默认模板。",
+        "enabledNoPermission": "开启或关闭 Mint 邮件模板需要更新邮件模板的权限。",
+        "statusFailed": "无法加载 Mint 邮件模板是否已开启。",
+        "offNotice": "发送的邮件使用面板的默认模板。下方的预览和设置展示的是开启后 Mint 模板的样子。",
         "sync": "将主题配色同步到邮件",
-        "syncDescription": "每次保存主题时自动更新全局 mint_email_* 模板变量。关闭后可在管理 → 设置 → 邮件模板中手动管理。",
+        "syncDescription": "Mint 邮件模板开启时，每次保存主题都会更新全局 mint_email_* 模板变量。关闭后可在管理 → 设置 → 邮件模板中手动管理。",
         "theme": "邮件配色",
         "themeDescription": "选择外发邮件跟随深色主题、浅色主题或自定义颜色。",
         "themes": {
@@ -815,7 +822,7 @@
         "logoDescription": "显示在面板名称上方的可选 PNG、JPEG 或 WebP Logo。以 / 开头的相对路径会自动拼接面板 URL。",
         "footer": "页脚备注",
         "footerDescription": "显示在邮件卡片下方的可选简短说明（最多 {max} 个字符）。",
-        "adminHint": "可在管理 → 设置 → 邮件模板中修改文案、翻译或单个模板 HTML。Mint 不会覆盖你的自定义模板。",
+        "adminHint": "可在管理 → 设置 → 邮件模板中修改文案、翻译或单个模板 HTML。除非你选择“使用 Mint 布局”，Mint 不会覆盖手动编辑过的模板。",
         "previewFrame": "邮件预览",
         "previewTemplate": "邮件模板",
         "templates": {
@@ -830,12 +837,12 @@
           "server_installed": "服务器安装完成",
           "server_restored": "服务器已恢复"
         },
-        "overridesTitle": "部分模板的自定义 HTML 覆盖了 Mint 样式",
-        "overridesDescription": "以下模板在管理 → 设置 → 邮件模板中保存了自定义 HTML，因此实际发送的邮件会使用该内容而不是 Mint：{templates}。",
+        "overridesTitle": "部分模板未使用 Mint 布局",
+        "overridesDescription": "这些模板在管理 → 设置 → 邮件模板中保存了自己的 HTML，或已重置为面板默认模板，因此发送的邮件不会使用 Mint 布局：{templates}。",
         "overridesReset": "使用 Mint 布局",
-        "overridesResetTitle": "重置被覆盖的邮件布局",
-        "overridesResetConfirm": "清除 {templates} 上的自定义 HTML 以改用 Mint 布局？邮件主题、启用开关和文案变量都会保留。",
-        "overridesResetDone": "被覆盖的邮件模板现已改用 Mint 布局。"
+        "overridesResetTitle": "使用 Mint 邮件布局",
+        "overridesResetConfirm": "将 {templates} 的 HTML 替换为 Mint 布局？主题、启用开关和文案变量将保留。",
+        "overridesResetDone": "这些邮件模板现已使用 Mint 布局。"
       }
     },
     "library": {

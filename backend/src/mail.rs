@@ -1,10 +1,11 @@
-//! Mint's email template overrides and live theme-to-email syncing.
+//! Mint's email templates (opt-in) and live theme-to-email syncing.
 //!
-//! All 10 core Calagopus email templates are mutated via `ExtensionEmailTemplateBuilder::mutate_template`
-//! to use Mint's table-based HTML layout while keeping every core `{{ vars.* }}` text fragment intact
-//! so panel translations and operator wording edits keep working. Colours, radii, logo and optional
-//! footer live in global `mint_email_*` variables so saving the theme in `/admin/mint` updates every
-//! email live without touching any template HTML or wording overrides.
+//! Off by default (`email_templates` setting). While it is on, Mint saves its table-based HTML layout as
+//! the content of the 10 core Calagopus email templates (the same rows core's Mail Templates editor
+//! writes), keeping every core `{{ vars.* }}` text fragment so panel translations and wording edits keep
+//! working, and syncs colours, radii, logo and footer into global `mint_email_*` variables on each theme
+//! save. Turning it off clears every template whose content is exactly a layout Mint shipped, which
+//! restores core's stock template; HTML an operator saved by hand is never touched either way.
 
 use shared::{
     State,
@@ -26,7 +27,7 @@ const DARK_SHADOW: &str = "0 12px 32px rgba(0, 0, 0, 0.35)";
 const LIGHT_SHADOW: &str = "0 8px 30px rgba(15, 23, 42, 0.08)";
 const MAX_FOOTER_CHARS: usize = 200;
 
-/// Core template identifiers mutated by Mint, paired with their embedded HTML defaults.
+/// Core template identifiers Mint writes while its templates are on, paired with Mint's HTML.
 const TEMPLATES: &[(&str, &str)] = &[
     ("account_created", include_str!("../mails/account_created.html")),
     ("password_reset", include_str!("../mails/password_reset.html")),
@@ -47,6 +48,53 @@ const TEMPLATES: &[(&str, &str)] = &[
         include_str!("../mails/server_installed.html"),
     ),
     ("server_restored", include_str!("../mails/server_restored.html")),
+];
+
+/// SHA-256 of every template HTML a Mint release has shipped, per template. Saved content hashing to one
+/// of these is Mint's own; anything else is the operator's. When a file in `mails/` changes, add its new
+/// hash and keep the old ones, so an upgrade still recognises (and replaces or restores) older layouts.
+const RELEASED_TEMPLATE_SHA256: &[(&str, &str)] = &[
+    // 2.4.9 (installed as the panel's defaults) and 2.4.10
+    (
+        "account_created",
+        "8f76948911dc918bb3b9357e50ecd10bbe90b448dd70c76c089d0459cabef6fb",
+    ),
+    (
+        "added_to_server",
+        "73494d65f6baa6494eccf0ef9ae58a7368f032ccd716f98e5f384edccc4b9562",
+    ),
+    (
+        "connection_test",
+        "f426b8357e24c260d7c303e86bfe9887df2c8b5f55f226713f3299b6184222ed",
+    ),
+    (
+        "email_verification",
+        "c8db1086603c609e27d886bfb222014305067f2d12747b0c836ab7197e5702f3",
+    ),
+    (
+        "password_reset",
+        "a05d8db01be14cdfef9543aec291df3e348b6e107a57939a3c76ed0c1dacda38",
+    ),
+    (
+        "removed_from_server",
+        "4beb58252447efe3594f7d147419d8657ee983df35142f01c7d32f5bb9fc1e5b",
+    ),
+    (
+        "server_installed",
+        "73494d65f6baa6494eccf0ef9ae58a7368f032ccd716f98e5f384edccc4b9562",
+    ),
+    (
+        "server_restored",
+        "73494d65f6baa6494eccf0ef9ae58a7368f032ccd716f98e5f384edccc4b9562",
+    ),
+    (
+        "session_created",
+        "67512338a28503d235e8073f804d761b474a5a2553ae9d38e0aa4bf292303daa",
+    ),
+    (
+        "two_factor_code",
+        "d37a71b99e0640263b8955d46f7d7deebe3e0cf089b3facec03c5a5e7badd60d",
+    ),
 ];
 
 /// Default global variables registered on boot (the resolved dark palette of `DEFAULT_THEME`).
@@ -72,17 +120,82 @@ const GLOBAL_DEFAULTS: &[(&str, &str)] = &[
     ("mint_email_footer", ""),
 ];
 
-/// Registers Mint's default email layouts and global style variables on the panel's builder.
+/// Declares Mint's global style variables on the panel's builder. Core's stock templates never read
+/// them; they are declared on every boot so turning the templates on needs no restart.
 pub(crate) fn register(mut builder: ExtensionEmailTemplateBuilder) -> ExtensionEmailTemplateBuilder {
-    for &(identifier, content) in TEMPLATES {
-        builder = builder.mutate_template(identifier, |template| {
-            template.default_content = content;
-        });
-    }
     for &(name, default_value) in GLOBAL_DEFAULTS {
         builder = builder.add_template_variable(None, name, default_value);
     }
     builder
+}
+
+/// Where a core template's saved content comes from.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, serde::Serialize, utoipa::ToSchema)]
+#[serde(rename_all = "snake_case")]
+pub(crate) enum TemplateState {
+    /// Nothing saved: core's stock template.
+    Stock,
+    /// Mint's current layout.
+    Mint,
+    /// A layout an older Mint release wrote.
+    Outdated,
+    /// HTML the operator saved by hand.
+    Custom,
+}
+
+pub(crate) fn classify(identifier: &str, content: Option<&str>) -> TemplateState {
+    use sha2::Digest;
+
+    let Some(content) = content else {
+        return TemplateState::Stock;
+    };
+    if TEMPLATES
+        .iter()
+        .any(|&(id, html)| id == identifier && html == content)
+    {
+        return TemplateState::Mint;
+    }
+    let hash = hex::encode(sha2::Sha256::digest(content.as_bytes()));
+    if RELEASED_TEMPLATE_SHA256
+        .iter()
+        .any(|&(id, known)| id == identifier && known == hash)
+    {
+        TemplateState::Outdated
+    } else {
+        TemplateState::Custom
+    }
+}
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub(crate) enum Mode {
+    /// The setting is off: Mint's layouts (any release) go back to core's stock.
+    Off,
+    /// The setting is on, at boot: older Mint layouts are brought up to date. Templates the operator
+    /// reset to stock or edited stay as they are.
+    Refresh,
+    /// The setting was just turned on: stock templates and older Mint layouts get Mint's.
+    Enable,
+    /// "Use Mint layout": every template gets Mint's, hand-saved HTML included.
+    Overwrite,
+}
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub(crate) enum Change {
+    /// Save Mint's current layout as the template's content.
+    Write,
+    /// Clear the saved content, which restores core's stock template.
+    Clear,
+}
+
+pub(crate) fn plan(mode: Mode, state: TemplateState) -> Option<Change> {
+    use TemplateState::*;
+
+    match mode {
+        Mode::Off => matches!(state, Mint | Outdated).then_some(Change::Clear),
+        Mode::Refresh => (state == Outdated).then_some(Change::Write),
+        Mode::Enable => matches!(state, Stock | Outdated).then_some(Change::Write),
+        Mode::Overwrite => (state != Mint).then_some(Change::Write),
+    }
 }
 
 #[derive(Debug, PartialEq, Eq)]
@@ -516,9 +629,9 @@ pub(crate) fn resolve_vars(raw_theme: &str, app_url: &str) -> ResolvedEmailVars 
     }
 }
 
-/// Serializes all `mint_email_*` global variable writes so boot sync and concurrent theme saves
-/// never interleave stale values after newer ones.
-static SYNC_LOCK: tokio::sync::Mutex<()> = tokio::sync::Mutex::const_new(());
+/// Serializes every write Mint makes to email templates and `mint_email_*` variables (boot, the
+/// templates toggle, theme saves), so none of them interleave stale values after newer ones.
+static LOCK: tokio::sync::Mutex<()> = tokio::sync::Mutex::const_new(());
 
 /// Syncs Mint's resolved email palette to Calagopus's global `email_variables` table when
 /// `emailSync` is enabled. Variables already matching their desired value are skipped, and ones
@@ -571,24 +684,96 @@ async fn sync(state: &State, raw_theme: &str, app_url: &str) -> Result<(), anyho
     Ok(())
 }
 
-/// Reads the currently stored theme under `SYNC_LOCK` and syncs its resolved palette to global
-/// email variables, ensuring the latest persisted theme always wins.
-pub(crate) async fn sync_current(state: &State) -> Result<(), anyhow::Error> {
-    let _guard = SYNC_LOCK.lock().await;
-
+/// The stored theme, whether Mint's templates are on, and the panel URL.
+async fn stored(state: &State) -> Result<(String, bool, String), anyhow::Error> {
     let settings = state.settings.get().await?;
-    let stored_theme = settings
+    let (theme, enabled) = settings
         .find_extension_settings::<crate::settings::ExtensionSettingsData>()
-        .map(|s| s.theme.to_string())
+        .map(|s| (s.theme.to_string(), s.email_templates))
         .unwrap_or_default();
-    let app_url = settings.app.url.to_string();
-    drop(settings);
-
-    sync(state, &stored_theme, &app_url).await
+    Ok((theme, enabled, settings.app.url.to_string()))
 }
 
-/// Runs once after panel startup finishes populating `state.mail.templates` so an existing saved
-/// theme syncs its email variables immediately after upgrading Mint.
+/// Syncs the stored theme's palette to the global email variables while Mint's templates are on.
+/// Call with `LOCK` held.
+async fn sync_stored(state: &State) -> Result<(), anyhow::Error> {
+    let (theme, enabled, app_url) = stored(state).await?;
+    if !enabled {
+        return Ok(());
+    }
+    sync(state, &theme, &app_url).await
+}
+
+/// Reads the currently stored theme under `LOCK` and syncs its resolved palette to global email
+/// variables (only while Mint's templates are on), ensuring the latest persisted theme always wins.
+pub(crate) async fn sync_current(state: &State) -> Result<(), anyhow::Error> {
+    let _guard = LOCK.lock().await;
+    sync_stored(state).await
+}
+
+/// Every core template Mint manages with where its saved content comes from, in `TEMPLATES` order.
+async fn template_states(
+    state: &State,
+) -> Result<Vec<(&'static str, TemplateState)>, anyhow::Error> {
+    use sqlx::Row;
+
+    let rows = sqlx::query(
+        "SELECT identifier, content FROM email_templates WHERE content IS NOT NULL",
+    )
+    .fetch_all(state.database.read())
+    .await?;
+
+    let mut saved = std::collections::HashMap::with_capacity(rows.len());
+    for row in rows {
+        saved.insert(
+            row.try_get::<String, _>("identifier")?,
+            row.try_get::<String, _>("content")?,
+        );
+    }
+
+    Ok(TEMPLATES
+        .iter()
+        .map(|&(id, _)| (id, classify(id, saved.get(id).map(String::as_str))))
+        .collect())
+}
+
+/// Applies `plan(mode, …)` to every template Mint manages and returns the ones changed. Call with
+/// `LOCK` held.
+async fn reconcile(state: &State, mode: Mode) -> Result<Vec<&'static str>, anyhow::Error> {
+    let mut changed = Vec::new();
+    for (identifier, current) in template_states(state).await? {
+        let Some(change) = plan(mode, current) else {
+            continue;
+        };
+        let Ok(template) = state.mail.templates.get_template(identifier) else {
+            continue;
+        };
+        let content = match change {
+            Change::Write => TEMPLATES
+                .iter()
+                .find(|&&(id, _)| id == identifier)
+                .map(|&(_, html)| html.to_string()),
+            Change::Clear => None,
+        };
+        template
+            .update(
+                state,
+                UpdateEmailTemplate {
+                    content: Some(content),
+                    subject: None,
+                    enabled: None,
+                },
+            )
+            .await?;
+        changed.push(identifier);
+    }
+    Ok(changed)
+}
+
+/// Runs once after panel startup finishes populating `state.mail.templates`. With the templates off
+/// (the default, and the state after upgrading from 2.4.9, which used them unasked), every template
+/// still holding a layout Mint shipped goes back to core's stock; with them on, older Mint layouts are
+/// replaced by the current one and the palette is synced.
 pub(crate) fn spawn_boot_sync(state: State) {
     tokio::spawn(async move {
         let mut ready = false;
@@ -609,63 +794,75 @@ pub(crate) fn spawn_boot_sync(state: State) {
             return;
         }
 
-        if let Err(err) = sync_current(&state).await {
+        let _guard = LOCK.lock().await;
+        let result = async {
+            let (_, enabled, _) = stored(&state).await?;
+            let changed =
+                reconcile(&state, if enabled { Mode::Refresh } else { Mode::Off }).await?;
+            if !changed.is_empty() {
+                tracing::info!(
+                    "mint {} email templates: {}",
+                    if enabled { "updated" } else { "restored core's stock" },
+                    changed.join(", ")
+                );
+            }
+            sync_stored(&state).await
+        }
+        .await;
+        if let Err(err) = result {
             tracing::warn!("mint mail boot sync failed: {err:#}");
         }
     });
 }
 
-/// Lists core templates whose `email_templates.content` row overrides Mint's default layout.
-async fn list_overridden(state: &State) -> Result<Vec<String>, anyhow::Error> {
-    use sqlx::Row;
+mod status {
+    use serde::Serialize;
+    use utoipa::ToSchema;
 
-    let rows = sqlx::query(
-        "SELECT identifier, content FROM email_templates WHERE content IS NOT NULL",
-    )
-    .fetch_all(state.database.read())
-    .await?;
-
-    let mut overridden = Vec::new();
-    for row in rows {
-        let identifier: String = row.try_get("identifier")?;
-        let content: String = row.try_get("content")?;
-        if let Some(&(_, default_html)) = TEMPLATES.iter().find(|&&(id, _)| id == identifier)
-            && content != default_html
-        {
-            overridden.push(identifier);
-        }
+    #[derive(ToSchema, Serialize)]
+    pub struct Template {
+        identifier: &'static str,
+        state: super::TemplateState,
     }
-    overridden.sort();
-    Ok(overridden)
+
+    #[derive(ToSchema, Serialize)]
+    pub struct Status {
+        /// Whether Mint's email templates are on (off by default).
+        enabled: bool,
+        /// Each core template Mint manages and where its saved content comes from.
+        templates: Vec<Template>,
+    }
+
+    pub async fn read(state: &shared::State) -> Result<Status, anyhow::Error> {
+        let (_, enabled, _) = super::stored(state).await?;
+        let templates = super::template_states(state)
+            .await?
+            .into_iter()
+            .map(|(identifier, state)| Template { identifier, state })
+            .collect();
+        Ok(Status { enabled, templates })
+    }
 }
 
-mod get_overrides {
-    use serde::Serialize;
+mod get {
     use shared::{
         GetState,
         models::user::GetPermissionManager,
         response::{ApiResponse, ApiResponseResult},
     };
-    use utoipa::ToSchema;
-
-    #[derive(ToSchema, Serialize)]
-    struct Response {
-        overridden: Vec<String>,
-    }
 
     #[utoipa::path(get, path = "/", responses(
-        (status = OK, body = inline(Response)),
+        (status = OK, body = super::status::Status),
     ))]
     pub async fn route(state: GetState, permissions: GetPermissionManager) -> ApiResponseResult {
         crate::permissions::can_read(&permissions)?;
 
-        let overridden = super::list_overridden(&state).await?;
-        ApiResponse::new_serialized(Response { overridden }).ok()
+        ApiResponse::new_serialized(super::status::read(&state).await?).ok()
     }
 }
 
-mod reset_overrides {
-    use serde::Serialize;
+mod put {
+    use serde::Deserialize;
     use shared::{
         GetState,
         models::{admin_activity::GetAdminActivityLogger, user::GetPermissionManager},
@@ -673,57 +870,63 @@ mod reset_overrides {
     };
     use utoipa::ToSchema;
 
-    #[derive(ToSchema, Serialize)]
-    struct Response {
-        reset: Vec<String>,
+    #[derive(ToSchema, Deserialize)]
+    pub struct Payload {
+        /// Turns Mint's email templates on or off. Off restores core's stock template wherever the
+        /// saved content is a layout Mint shipped; hand-saved HTML is kept.
+        enabled: bool,
+        /// With `enabled`, also replace hand-saved HTML with Mint's layout ("Use Mint layout").
+        #[serde(default)]
+        overwrite: bool,
     }
 
-    #[utoipa::path(post, path = "/", responses(
-        (status = OK, body = inline(Response)),
-    ))]
+    #[utoipa::path(put, path = "/", responses(
+        (status = OK, body = super::status::Status),
+    ), request_body = inline(Payload))]
     pub async fn route(
         state: GetState,
         permissions: GetPermissionManager,
         activity_logger: GetAdminActivityLogger,
+        shared::Payload(data): shared::Payload<Payload>,
     ) -> ApiResponseResult {
         permissions.has_admin_permission("email-templates.update")?;
 
-        let overridden = super::list_overridden(&state).await?;
-        let mut reset = Vec::new();
+        let _guard = super::LOCK.lock().await;
 
-        for identifier in overridden {
-            if let Ok(template) = state.mail.templates.get_template(&identifier) {
-                template
-                    .update(
-                        &state,
-                        super::UpdateEmailTemplate {
-                            content: Some(None),
-                            subject: None,
-                            enabled: None,
-                        },
-                    )
-                    .await?;
-                reset.push(identifier);
-            }
+        let mut settings = state.settings.get_mut().await?;
+        settings
+            .find_mut_extension_settings::<crate::settings::ExtensionSettingsData>()?
+            .email_templates = data.enabled;
+        settings.save().await?;
+
+        let mode = match (data.enabled, data.overwrite) {
+            (false, _) => super::Mode::Off,
+            (true, false) => super::Mode::Enable,
+            (true, true) => super::Mode::Overwrite,
+        };
+        let changed = super::reconcile(&state, mode).await?;
+        if let Err(err) = super::sync_stored(&state).await {
+            tracing::warn!("failed to sync mint email theme variables: {err:#}");
         }
 
-        if !reset.is_empty() {
-            activity_logger
-                .log(
-                    "mint:email_templates.reset",
-                    serde_json::json!({ "templates": reset }),
-                )
-                .await;
-        }
+        activity_logger
+            .log(
+                if data.enabled {
+                    "mint:email_templates.enable"
+                } else {
+                    "mint:email_templates.disable"
+                },
+                serde_json::json!({ "templates": changed, "overwrite": data.overwrite }),
+            )
+            .await;
 
-        ApiResponse::new_serialized(Response { reset }).ok()
+        ApiResponse::new_serialized(super::status::read(&state).await?).ok()
     }
 }
 
 pub fn admin(state: &State) -> OpenApiRouter<State> {
     OpenApiRouter::new()
-        .routes(routes!(get_overrides::route))
-        .nest("/reset", OpenApiRouter::new().routes(routes!(reset_overrides::route)))
+        .routes(routes!(get::route, put::route))
         .with_state(state.clone())
 }
 
@@ -845,15 +1048,19 @@ mod tests {
     }
 
     #[test]
-    fn register_mutates_all_core_templates_and_declares_all_globals() {
+    fn register_keeps_stock_templates_and_declares_all_globals() {
+        let stock = ExtensionEmailTemplateBuilder::default();
         let builder = register(ExtensionEmailTemplateBuilder::default());
         for &(id, html) in TEMPLATES {
-            let tpl = builder
-                .templates
-                .iter()
-                .find(|t| t.identifier == id)
-                .unwrap_or_else(|| panic!("core template {id} missing"));
-            assert_eq!(tpl.default_content, html);
+            let find = |b: &ExtensionEmailTemplateBuilder| {
+                b.templates
+                    .iter()
+                    .find(|t| t.identifier == id)
+                    .map(|t| t.default_content)
+                    .unwrap_or_else(|| panic!("core template {id} missing"))
+            };
+            assert_eq!(find(&builder), find(&stock), "{id} default was replaced");
+            assert_ne!(find(&builder), html, "{id} default is Mint's");
         }
 
         let declared: HashSet<&str> = builder
@@ -865,6 +1072,96 @@ mod tests {
         for &(name, _) in GLOBAL_DEFAULTS {
             assert!(declared.contains(name), "global var {name} not registered");
         }
+    }
+
+    #[test]
+    fn every_shipped_layout_is_a_released_hash() {
+        use sha2::Digest;
+
+        for &(id, html) in TEMPLATES {
+            let hash = hex::encode(sha2::Sha256::digest(html.as_bytes()));
+            assert!(
+                RELEASED_TEMPLATE_SHA256
+                    .iter()
+                    .any(|&(known_id, known)| known_id == id && known == hash),
+                "{id}: add {hash} to RELEASED_TEMPLATE_SHA256"
+            );
+        }
+    }
+
+    fn html(id: &str) -> &'static str {
+        TEMPLATES.iter().find(|&&(t, _)| t == id).unwrap().1
+    }
+
+    #[test]
+    fn classify_tells_stock_mint_and_custom_apart() {
+        assert_eq!(classify("password_reset", None), TemplateState::Stock);
+        assert_eq!(
+            classify("password_reset", Some(html("password_reset"))),
+            TemplateState::Mint
+        );
+        // another template's Mint layout, or one edited by a single character, is the operator's
+        assert_eq!(
+            classify("password_reset", Some(html("account_created"))),
+            TemplateState::Custom
+        );
+        let edited = html("password_reset").replace("{{ vars.greeting }}", "Hello!");
+        assert_eq!(classify("password_reset", Some(&edited)), TemplateState::Custom);
+        assert_eq!(
+            classify("password_reset", Some(&format!("{} ", html("password_reset")))),
+            TemplateState::Custom
+        );
+    }
+
+    #[test]
+    fn off_restores_only_mint_layouts() {
+        use TemplateState::*;
+
+        // first boot after 2.4.9 and turning the setting off run the same plan
+        assert_eq!(plan(Mode::Off, Mint), Some(Change::Clear));
+        assert_eq!(plan(Mode::Off, Outdated), Some(Change::Clear));
+        assert_eq!(plan(Mode::Off, Stock), None);
+        assert_eq!(plan(Mode::Off, Custom), None);
+    }
+
+    #[test]
+    fn on_writes_mint_layouts_but_keeps_custom_html() {
+        use TemplateState::*;
+
+        assert_eq!(plan(Mode::Enable, Stock), Some(Change::Write));
+        assert_eq!(plan(Mode::Enable, Outdated), Some(Change::Write));
+        assert_eq!(plan(Mode::Enable, Mint), None);
+        assert_eq!(plan(Mode::Enable, Custom), None);
+
+        // at boot only older Mint layouts are updated; a template reset to stock while on stays stock
+        assert_eq!(plan(Mode::Refresh, Outdated), Some(Change::Write));
+        assert_eq!(plan(Mode::Refresh, Stock), None);
+        assert_eq!(plan(Mode::Refresh, Mint), None);
+        assert_eq!(plan(Mode::Refresh, Custom), None);
+
+        // "Use Mint layout" is the only way custom HTML is replaced
+        assert_eq!(plan(Mode::Overwrite, Custom), Some(Change::Write));
+        assert_eq!(plan(Mode::Overwrite, Stock), Some(Change::Write));
+        assert_eq!(plan(Mode::Overwrite, Mint), None);
+    }
+
+    #[test]
+    fn upgrade_from_2_4_9_restores_untouched_templates_only() {
+        // what a 2.4.9 install can hold: nothing saved (2.4.9's layout came from the defaults), 2.4.9's
+        // layout saved unchanged through core's editor, and hand-edited HTML
+        let rows: [(&str, Option<String>); 3] = [
+            ("account_created", None),
+            ("password_reset", Some(html("password_reset").to_string())),
+            (
+                "two_factor_code",
+                Some(html("two_factor_code").replace("{{ vars.intro }}", "Your code:")),
+            ),
+        ];
+        let changes: Vec<_> = rows
+            .iter()
+            .map(|(id, content)| plan(Mode::Off, classify(id, content.as_deref())))
+            .collect();
+        assert_eq!(changes, [None, Some(Change::Clear), None]);
     }
 
     #[test]

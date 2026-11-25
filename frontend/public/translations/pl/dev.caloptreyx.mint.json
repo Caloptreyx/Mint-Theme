@@ -310,7 +310,7 @@
         "login": "Strona logowania",
         "loginDescription": "Układ, tło, logo i linki pomocy na stronach logowania, rejestracji i hasła.",
         "emails": "E-maile",
-        "emailsDescription": "Szablony e-maili zsynchronizowane z kolorami motywu wraz z podglądem na żywo.",
+        "emailsDescription": "Opcjonalne firmowe szablony e-maili zsynchronizowane z kolorami motywu, z podglądem na żywo.",
         "interface": "Zachowanie",
         "interfaceDescription": "Powiadomienia, tytuły stron i edytor plików na telefonie.",
         "motion": "Animacje",
@@ -793,8 +793,15 @@
       "expandPreview": "Rozwiń podgląd",
       "restorePreview": "Pokaż ustawienia",
       "email": {
+        "enabled": "Używaj szablonów e-maili Mint",
+        "enabledDescription": "Domyślnie wyłączone. Po włączeniu Mint zapisuje swój układ w szablonach e-maili panelu i utrzymuje ich kolory zgodne z motywem. Wyłączenie przywraca domyślne szablony panelu. Szablony edytowane ręcznie w Admin → Ustawienia → Szablony e-maili nigdy nie są zmieniane.",
+        "enabledOn": "Szablony e-maili Mint są włączone.",
+        "enabledOff": "Szablony e-maili Mint są wyłączone. E-maile ponownie korzystają z domyślnych szablonów panelu.",
+        "enabledNoPermission": "Włączenie lub wyłączenie szablonów e-maili Mint wymaga uprawnienia do edycji szablonów e-maili.",
+        "statusFailed": "Nie udało się sprawdzić, czy szablony e-maili Mint są włączone.",
+        "offNotice": "Wysyłane e-maile korzystają z domyślnych szablonów panelu. Podgląd i ustawienia poniżej pokazują, jak będą wyglądać szablony Mint po włączeniu.",
         "sync": "Synchronizuj kolory motywu z e-mailami",
-        "syncDescription": "Aktualizuje globalne zmienne szablonów mint_email_* przy każdym zapisaniu motywu. Wyłącz, aby zarządzać nimi ręcznie w Admin → Ustawienia → Szablony e-maili.",
+        "syncDescription": "Gdy szablony e-maili Mint są włączone, aktualizuje globalne zmienne mint_email_* przy każdym zapisie motywu. Wyłącz, aby zarządzać nimi ręcznie w Admin → Ustawienia → Szablony e-maili.",
         "theme": "Paleta e-maili",
         "themeDescription": "Wybierz, czy wychodzące e-maile korzystają z ciemnego motywu, jasnego motywu czy własnych kolorów.",
         "themes": {
@@ -815,7 +822,7 @@
         "logoDescription": "Opcjonalne logo PNG, JPEG lub WebP wyświetlane nad nazwą panelu. Ścieżki zaczynające się od / korzystają z adresu URL panelu.",
         "footer": "Notatka w stopce",
         "footerDescription": "Opcjonalna krótka linia pod kartą e-maila (do {max} znaków).",
-        "adminHint": "Treść, tłumaczenia lub kod HTML szablonów edytuj w Admin → Ustawienia → Szablony e-maili. Mint nigdy nie nadpisuje własnych zmian w szablonach.",
+        "adminHint": "Treść, tłumaczenia lub kod HTML szablonów edytuj w Admin → Ustawienia → Szablony e-maili. Mint nigdy nie nadpisuje ręcznie edytowanych szablonów, chyba że wybierzesz „Użyj układu Mint”.",
         "previewFrame": "Podgląd e-maila",
         "previewTemplate": "Szablon e-maila",
         "templates": {
@@ -830,12 +837,12 @@
           "server_installed": "Serwer zainstalowany",
           "server_restored": "Serwer przywrócony"
         },
-        "overridesTitle": "Własny kod HTML nadpisuje Mint w części szablonów",
-        "overridesDescription": "Te szablony mają zapisany własny HTML w Admin → Ustawienia → Szablony e-maili, więc wysyłane wiadomości używają go zamiast Mint: {templates}.",
+        "overridesTitle": "Niektóre szablony nie używają układu Mint",
+        "overridesDescription": "Te szablony mają zapisany własny kod HTML lub zostały przywrócone do domyślnych szablonów panelu w Admin → Ustawienia → Szablony e-maili, więc wysyłane e-maile nie używają układu Mint: {templates}.",
         "overridesReset": "Użyj układu Mint",
-        "overridesResetTitle": "Zresetuj nadpisane układy e-maili",
-        "overridesResetConfirm": "Wyczyścić własny HTML w {templates}, aby używały układu Mint? Tematy, przełączniki włączenia i zmienne tekstowe zostaną zachowane.",
-        "overridesResetDone": "Nadpisane szablony e-maili korzystają teraz z układu Mint."
+        "overridesResetTitle": "Użyj układu e-maili Mint",
+        "overridesResetConfirm": "Zastąpić kod HTML szablonów {templates} układem Mint? Tematy, przełączniki włączenia i zmienne tekstowe zostaną zachowane.",
+        "overridesResetDone": "Te szablony e-maili korzystają teraz z układu Mint."
       }
     },
     "library": {

@@ -19,6 +19,37 @@ export const EMAIL_TEMPLATES = [
 
 export type EmailTemplateId = (typeof EMAIL_TEMPLATES)[number];
 
+/** Where a core template's saved content comes from (`TemplateState` in backend/src/mail.rs). */
+export const EMAIL_TEMPLATE_STATES = ['stock', 'mint', 'outdated', 'custom'] as const;
+
+export type EmailTemplateState = (typeof EMAIL_TEMPLATE_STATES)[number];
+
+export interface EmailTemplatesStatus {
+  /** Whether Mint's email templates are on (off by default). */
+  enabled: boolean;
+  templates: { identifier: EmailTemplateId; state: EmailTemplateState }[];
+}
+
+/** Reads the backend's templates status; anything malformed counts as off, unknown templates are dropped. */
+export function parseEmailTemplatesStatus(data: unknown): EmailTemplatesStatus {
+  const record = data && typeof data === 'object' ? (data as { enabled?: unknown; templates?: unknown }) : {};
+  const templates: EmailTemplatesStatus['templates'] = [];
+  if (Array.isArray(record.templates)) {
+    for (const entry of record.templates) {
+      const { identifier, state } = (entry ?? {}) as { identifier?: unknown; state?: unknown };
+      const id = EMAIL_TEMPLATES.find((known) => known === identifier);
+      const known = EMAIL_TEMPLATE_STATES.find((s) => s === state);
+      if (id && known) templates.push({ identifier: id, state: known });
+    }
+  }
+  return { enabled: record.enabled === true, templates };
+}
+
+/** Templates whose emails do not use Mint's current layout while Mint's templates are on; none while off. */
+export function templatesWithoutMint(status: EmailTemplatesStatus): EmailTemplateId[] {
+  return status.enabled ? status.templates.filter((t) => t.state !== 'mint').map((t) => t.identifier) : [];
+}
+
 export interface EmailPalette {
   colorScheme: 'dark' | 'light';
   bg: string;

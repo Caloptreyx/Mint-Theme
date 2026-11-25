@@ -310,7 +310,7 @@
         "login": "Page de connexion",
         "loginDescription": "Disposition, arrière-plan, logo et liens d'assistance des pages de connexion, d'inscription et de mot de passe.",
         "emails": "E-mails",
-        "emailsDescription": "Modèles d'e-mails personnalisés synchronisés avec les couleurs de votre thème, avec aperçu en direct.",
+        "emailsDescription": "Modèles d'e-mails personnalisés optionnels synchronisés avec les couleurs de votre thème, avec aperçu en direct.",
         "interface": "Comportement",
         "interfaceDescription": "Notifications, titres de page et l'éditeur de fichiers sur téléphone.",
         "motion": "Animations",
@@ -793,8 +793,15 @@
       "expandPreview": "Agrandir l’aperçu",
       "restorePreview": "Afficher les paramètres",
       "email": {
+        "enabled": "Utiliser les modèles d'e-mails Mint",
+        "enabledDescription": "Désactivé par défaut. Une fois activé, Mint enregistre sa mise en page dans les modèles d'e-mails du panel et aligne leurs couleurs sur le thème. Le désactiver restaure les modèles d'origine du panel. Les modèles modifiés à la main dans Admin → Paramètres → Modèles d'e-mails ne sont jamais touchés.",
+        "enabledOn": "Les modèles d'e-mails Mint sont activés.",
+        "enabledOff": "Les modèles d'e-mails Mint sont désactivés. Les e-mails utilisent à nouveau les modèles d'origine du panel.",
+        "enabledNoPermission": "Activer ou désactiver les modèles d'e-mails Mint nécessite l'autorisation de modifier les modèles d'e-mails.",
+        "statusFailed": "Impossible de savoir si les modèles d'e-mails Mint sont activés.",
+        "offNotice": "Les e-mails envoyés utilisent les modèles d'origine du panel. L'aperçu et les paramètres ci-dessous montrent les modèles Mint tels qu'ils apparaîtront une fois activés.",
         "sync": "Synchroniser les couleurs du thème avec les e-mails",
-        "syncDescription": "Met à jour les variables globales mint_email_* à chaque enregistrement du thème. Désactivez pour les gérer manuellement dans Admin → Paramètres → Modèles d'e-mails.",
+        "syncDescription": "Lorsque les modèles d'e-mails Mint sont activés, met à jour les variables globales mint_email_* à chaque enregistrement du thème. Désactivez pour les gérer manuellement dans Admin → Paramètres → Modèles d'e-mails.",
         "theme": "Palette des e-mails",
         "themeDescription": "Choisissez si les e-mails sortants suivent votre thème sombre, clair ou des couleurs personnalisées.",
         "themes": {
@@ -815,7 +822,7 @@
         "logoDescription": "Logo PNG, JPEG ou WebP facultatif affiché au-dessus du nom du panneau. Les chemins commençant par / utilisent l'URL du panneau.",
         "footer": "Note de pied de page",
         "footerDescription": "Courte ligne facultative affichée sous la carte d'e-mail (jusqu'à {max} caractères).",
-        "adminHint": "Modifiez le texte, les traductions ou le HTML de chaque modèle dans Admin → Paramètres → Modèles d'e-mails. Mint n'écrase jamais vos modifications personnalisées.",
+        "adminHint": "Modifiez le texte, les traductions ou le HTML de chaque modèle dans Admin → Paramètres → Modèles d'e-mails. Mint n'écrase jamais les modèles modifiés à la main, sauf si vous choisissez « Utiliser la mise en page Mint ».",
         "previewFrame": "Aperçu de l'e-mail",
         "previewTemplate": "Modèle d'e-mail",
         "templates": {
@@ -830,12 +837,12 @@
           "server_installed": "Serveur installé",
           "server_restored": "Serveur restauré"
         },
-        "overridesTitle": "Du HTML personnalisé remplace Mint sur certains modèles",
-        "overridesDescription": "Ces modèles ont du HTML personnalisé enregistré dans Admin → Paramètres → Modèles d'e-mails, les e-mails envoyés l'utilisent donc à la place de Mint : {templates}.",
+        "overridesTitle": "Certains modèles n'utilisent pas la mise en page Mint",
+        "overridesDescription": "Ces modèles ont leur propre HTML enregistré, ou ont été réinitialisés aux modèles d'origine du panel, dans Admin → Paramètres → Modèles d'e-mails ; les e-mails envoyés n'utilisent donc pas la mise en page Mint : {templates}.",
         "overridesReset": "Utiliser la mise en page Mint",
-        "overridesResetTitle": "Réinitialiser les mises en page remplacées",
-        "overridesResetConfirm": "Effacer le HTML personnalisé de {templates} pour utiliser la mise en page Mint ? Les objets, états activés et variables de texte sont conservés.",
-        "overridesResetDone": "Les modèles remplacés utilisent désormais la mise en page Mint."
+        "overridesResetTitle": "Utiliser la mise en page d'e-mail Mint",
+        "overridesResetConfirm": "Remplacer le HTML de {templates} par la mise en page Mint ? Les objets, les interrupteurs d'activation et les variables de texte sont conservés.",
+        "overridesResetDone": "Ces modèles d'e-mails utilisent désormais la mise en page Mint."
       }
     },
     "library": {

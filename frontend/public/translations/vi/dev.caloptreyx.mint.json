@@ -310,7 +310,7 @@
         "login": "Trang đăng nhập",
         "loginDescription": "Bố cục, nền, logo và liên kết hỗ trợ cho các trang đăng nhập, đăng ký và mật khẩu.",
         "emails": "Email",
-        "emailsDescription": "Mẫu email đồng bộ với màu giao diện của bạn kèm bản xem trước trực tiếp.",
+        "emailsDescription": "Mẫu email mang thương hiệu tùy chọn, đồng bộ với màu giao diện của bạn, có xem trước trực tiếp.",
         "interface": "Hành vi",
         "interfaceDescription": "Thông báo, tiêu đề trang và trình sửa tệp trên điện thoại.",
         "motion": "Hoạt ảnh",
@@ -793,8 +793,15 @@
       "expandPreview": "Mở rộng xem trước",
       "restorePreview": "Hiện cài đặt",
       "email": {
+        "enabled": "Dùng mẫu email Mint",
+        "enabledDescription": "Tắt theo mặc định. Khi bật, Mint lưu bố cục của nó vào các mẫu email của bảng điều khiển và giữ màu sắc khớp với giao diện. Tắt đi sẽ khôi phục các mẫu gốc của bảng điều khiển. Các mẫu đã chỉnh sửa thủ công tại Quản trị → Cài đặt → Mẫu email không bao giờ bị thay đổi.",
+        "enabledOn": "Mẫu email Mint đang bật.",
+        "enabledOff": "Mẫu email Mint đang tắt. Email lại dùng các mẫu gốc của bảng điều khiển.",
+        "enabledNoPermission": "Cần quyền chỉnh sửa mẫu email để bật hoặc tắt mẫu email Mint.",
+        "statusFailed": "Không tải được trạng thái bật/tắt của mẫu email Mint.",
+        "offNotice": "Email gửi đi dùng các mẫu gốc của bảng điều khiển. Bản xem trước và cài đặt bên dưới hiển thị mẫu của Mint như khi bạn bật chúng.",
         "sync": "Đồng bộ màu giao diện sang email",
-        "syncDescription": "Cập nhật các biến mẫu toàn cục mint_email_* mỗi khi bạn lưu giao diện. Tắt đi để tự chỉnh trong Quản trị → Cài đặt → Mẫu email.",
+        "syncDescription": "Khi mẫu email Mint đang bật, cập nhật các biến mẫu toàn cục mint_email_* mỗi khi bạn lưu giao diện. Tắt để tự quản lý chúng tại Quản trị → Cài đặt → Mẫu email.",
         "theme": "Bảng màu email",
         "themeDescription": "Chọn email gửi đi dùng giao diện tối, giao diện sáng hay màu tùy chỉnh.",
         "themes": {
@@ -815,7 +822,7 @@
         "logoDescription": "Logo PNG, JPEG hoặc WebP tùy chọn hiển thị trên tên bảng điều khiển. Đường dẫn bắt đầu bằng / sẽ ghép với URL bảng điều khiển.",
         "footer": "Ghi chú chân trang",
         "footerDescription": "Dòng ngắn tùy chọn hiển thị dưới thẻ email (tối đa {max} ký tự).",
-        "adminHint": "Chỉnh nội dung, bản dịch hoặc HTML từng mẫu tại Quản trị → Cài đặt → Mẫu email. Mint không bao giờ ghi đè các mẫu bạn đã tùy chỉnh.",
+        "adminHint": "Chỉnh nội dung, bản dịch hoặc HTML từng mẫu tại Quản trị → Cài đặt → Mẫu email. Mint không bao giờ ghi đè các mẫu đã chỉnh sửa thủ công trừ khi bạn chọn \"Dùng bố cục Mint\".",
         "previewFrame": "Xem trước email",
         "previewTemplate": "Mẫu email",
         "templates": {
@@ -830,12 +837,12 @@
           "server_installed": "Máy chủ đã cài xong",
           "server_restored": "Máy chủ đã khôi phục"
         },
-        "overridesTitle": "HTML tùy chỉnh đang ghi đè Mint trên một số mẫu",
-        "overridesDescription": "Các mẫu này đang có HTML tùy chỉnh trong Quản trị → Cài đặt → Mẫu email nên email gửi đi dùng bố cục đó thay vì Mint: {templates}.",
+        "overridesTitle": "Một số mẫu không dùng bố cục của Mint",
+        "overridesDescription": "Các mẫu này đã lưu HTML riêng hoặc đã được đặt lại về mẫu gốc của bảng điều khiển tại Quản trị → Cài đặt → Mẫu email, nên email gửi đi không dùng bố cục của Mint: {templates}.",
         "overridesReset": "Dùng bố cục Mint",
-        "overridesResetTitle": "Đặt lại bố cục email bị ghi đè",
-        "overridesResetConfirm": "Xóa HTML tùy chỉnh trên {templates} để dùng bố cục của Mint? Tiêu đề, trạng thái bật/tắt và các biến nội dung vẫn được giữ nguyên.",
-        "overridesResetDone": "Các mẫu email bị ghi đè hiện đã dùng bố cục của Mint."
+        "overridesResetTitle": "Dùng bố cục email của Mint",
+        "overridesResetConfirm": "Thay HTML của {templates} bằng bố cục của Mint? Tiêu đề, công tắc bật và các biến nội dung được giữ nguyên.",
+        "overridesResetDone": "Các mẫu email này hiện đã dùng bố cục của Mint."
       }
     },
     "library": {

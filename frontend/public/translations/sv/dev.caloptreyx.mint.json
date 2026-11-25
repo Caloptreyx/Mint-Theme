@@ -310,7 +310,7 @@
         "login": "Inloggningssida",
         "loginDescription": "Layout, bakgrund, logotyp och supportlänkar för inloggnings-, registrerings- och lösenordssidor.",
         "emails": "E-post",
-        "emailsDescription": "E-postmallar synkroniserade med dina temafärger och en förhandsvisning i realtid.",
+        "emailsDescription": "Valfria varumärkta e-postmallar synkade med dina temafärger, med liveförhandsvisning.",
         "interface": "Beteende",
         "interfaceDescription": "Notiser, sidrubriker och filredigeraren i mobilen.",
         "motion": "Animationer",
@@ -793,8 +793,15 @@
       "expandPreview": "Expandera förhandsgranskning",
       "restorePreview": "Visa inställningar",
       "email": {
+        "enabled": "Använd Mints e-postmallar",
+        "enabledDescription": "Av som standard. När det är på sparar Mint sin layout i panelens e-postmallar och håller deras färger i takt med temat. Om du stänger av det återställs panelens standardmallar. Mallar som redigerats för hand under Admin → Inställningar → E-postmallar ändras aldrig.",
+        "enabledOn": "Mints e-postmallar är på.",
+        "enabledOff": "Mints e-postmallar är av. E-post använder panelens standardmallar igen.",
+        "enabledNoPermission": "Det krävs behörighet att redigera e-postmallar för att slå på eller av Mints e-postmallar.",
+        "statusFailed": "Kunde inte läsa in om Mints e-postmallar är på.",
+        "offNotice": "Skickad e-post använder panelens standardmallar. Förhandsvisningen och inställningarna nedan visar Mints mallar som de kommer att se ut när du slår på dem.",
         "sync": "Synkronisera temafärger till e-post",
-        "syncDescription": "Uppdaterar de globala mallvariablerna mint_email_* varje gång du sparar temat. Stäng av för att hantera dem manuellt i Admin → Inställningar → E-postmallar.",
+        "syncDescription": "När Mints e-postmallar är på uppdateras de globala mint_email_*-mallvariablerna varje gång du sparar temat. Stäng av för att hantera dem manuellt under Admin → Inställningar → E-postmallar.",
         "theme": "E-postpalett",
         "themeDescription": "Välj om utgående e-post ska följa ditt mörka tema, ljusa tema eller egna färger.",
         "themes": {
@@ -815,7 +822,7 @@
         "logoDescription": "Valfri PNG-, JPEG- eller WebP-logotyp ovanför panelnamnet. Sökvägar som börjar med / använder panelens URL.",
         "footer": "Sidfotstext",
         "footerDescription": "Valfri kort rad under e-postkortet (upp till {max} tecken).",
-        "adminHint": "Redigera text, översättningar eller HTML per mall under Admin → Inställningar → E-postmallar. Egna malländringar skrivs aldrig över av Mint.",
+        "adminHint": "Redigera text, översättningar eller HTML per mall under Admin → Inställningar → E-postmallar. Mint skriver aldrig över handredigerade mallar om du inte väljer \"Använd Mint-layout\".",
         "previewFrame": "Förhandsvisning av e-post",
         "previewTemplate": "E-postmall",
         "templates": {
@@ -830,12 +837,12 @@
           "server_installed": "Server installerad",
           "server_restored": "Server återställd"
         },
-        "overridesTitle": "Anpassad HTML åsidosätter Mint i vissa mallar",
-        "overridesDescription": "Dessa mallar har anpassad HTML sparad under Admin → Inställningar → E-postmallar, så skickade mejl använder den i stället för Mint: {templates}.",
+        "overridesTitle": "Vissa mallar använder inte Mints layout",
+        "overridesDescription": "Dessa mallar har egen HTML sparad, eller har återställts till panelens standard, under Admin → Inställningar → E-postmallar, så skickad e-post använder inte Mints layout: {templates}.",
         "overridesReset": "Använd Mint-layout",
-        "overridesResetTitle": "Återställ åsidosatta e-postlayouter",
-        "overridesResetConfirm": "Rensa anpassad HTML på {templates} så att de använder Mints layout? Ämnesrader, aktiveringslägen och textvariabler behålls.",
-        "overridesResetDone": "Åsidosatta e-postmallar använder nu Mints layout."
+        "overridesResetTitle": "Använd Mints e-postlayout",
+        "overridesResetConfirm": "Ersätta HTML:en för {templates} med Mints layout? Ämnesrader, aktiveringsreglage och textvariabler behålls.",
+        "overridesResetDone": "Dessa e-postmallar använder nu Mints layout."
       }
     },
     "library": {

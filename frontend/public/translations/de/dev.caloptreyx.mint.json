@@ -310,7 +310,7 @@
         "login": "Anmeldeseite",
         "loginDescription": "Layout, Hintergrund, Logo und Support-Links für die Anmelde-, Registrierungs- und Passwortseiten.",
         "emails": "E-Mails",
-        "emailsDescription": "Gebrandete E-Mail-Vorlagen, synchronisiert mit deinen Designfarben, inklusive Live-Vorschau.",
+        "emailsDescription": "Optionale gebrandete E-Mail-Vorlagen, synchronisiert mit deinen Designfarben, inklusive Live-Vorschau.",
         "interface": "Verhalten",
         "interfaceDescription": "Toasts, Seitentitel und der Dateieditor auf dem Handy.",
         "motion": "Animationen",
@@ -793,8 +793,15 @@
       "expandPreview": "Vorschau vergrößern",
       "restorePreview": "Einstellungen anzeigen",
       "email": {
+        "enabled": "Mint-E-Mail-Vorlagen verwenden",
+        "enabledDescription": "Standardmäßig aus. Wenn aktiv, speichert Mint sein Layout in den E-Mail-Vorlagen des Panels und hält deren Farben im Einklang mit dem Design. Beim Ausschalten werden die Standardvorlagen des Panels wiederhergestellt. Unter Admin → Einstellungen → Mail-Vorlagen von Hand bearbeitete Vorlagen werden in keinem Fall verändert.",
+        "enabledOn": "Mint-E-Mail-Vorlagen sind aktiv.",
+        "enabledOff": "Mint-E-Mail-Vorlagen sind aus. E-Mails verwenden wieder die Standardvorlagen des Panels.",
+        "enabledNoPermission": "Zum Ein- oder Ausschalten der Mint-E-Mail-Vorlagen ist die Berechtigung zum Bearbeiten von E-Mail-Vorlagen nötig.",
+        "statusFailed": "Status der Mint-E-Mail-Vorlagen konnte nicht geladen werden.",
+        "offNotice": "Gesendete E-Mails verwenden die Standardvorlagen des Panels. Vorschau und Einstellungen unten zeigen, wie Mints Vorlagen nach dem Einschalten aussehen.",
         "sync": "Designfarben mit E-Mails synchronisieren",
-        "syncDescription": "Aktualisiert die globalen mint_email_*-Vorlagenvariablen beim Speichern des Designs. Deaktivieren, um sie manuell unter Admin → Einstellungen → Mail-Vorlagen zu verwalten.",
+        "syncDescription": "Aktualisiert bei aktiven Mint-E-Mail-Vorlagen die globalen mint_email_*-Vorlagenvariablen beim Speichern des Designs. Deaktivieren, um sie manuell unter Admin → Einstellungen → Mail-Vorlagen zu verwalten.",
         "theme": "E-Mail-Farbpalette",
         "themeDescription": "Wähle, ob ausgehende E-Mails deinem dunklen Design, hellen Design oder eigenen Farben folgen.",
         "themes": {
@@ -815,7 +822,7 @@
         "logoDescription": "Optionales PNG-, JPEG- oder WebP-Logo über dem Panelnamen. Relative /-Pfade werden über die Panel-URL aufgelöst.",
         "footer": "Fußzeilenhinweis",
         "footerDescription": "Optionale kurze Zeile unterhalb der E-Mail-Karte (bis zu {max} Zeichen).",
-        "adminHint": "Texte, Übersetzungen oder individuelles HTML kannst du unter Admin → Einstellungen → Mail-Vorlagen bearbeiten. Eigene Vorlagen werden von Mint nie überschrieben.",
+        "adminHint": "Texte, Übersetzungen oder individuelles HTML kannst du unter Admin → Einstellungen → Mail-Vorlagen bearbeiten. Von Hand bearbeitete Vorlagen überschreibt Mint nur, wenn du „Mint-Layout verwenden“ wählst.",
         "previewFrame": "E-Mail-Vorschau",
         "previewTemplate": "E-Mail-Vorlage",
         "templates": {
@@ -830,12 +837,12 @@
           "server_installed": "Server installiert",
           "server_restored": "Server wiederhergestellt"
         },
-        "overridesTitle": "Benutzerdefiniertes HTML überschreibt Mint bei einigen Vorlagen",
-        "overridesDescription": "Diese Vorlagen haben eigenes HTML unter Admin → Einstellungen → Mail-Vorlagen gespeichert, daher nutzen gesendete E-Mails dieses statt Mint: {templates}.",
+        "overridesTitle": "Einige Vorlagen verwenden nicht Mints Layout",
+        "overridesDescription": "Diese Vorlagen haben eigenes HTML gespeichert oder wurden unter Admin → Einstellungen → Mail-Vorlagen auf den Panel-Standard zurückgesetzt, daher nutzen gesendete E-Mails nicht Mints Layout: {templates}.",
         "overridesReset": "Mint-Layout verwenden",
-        "overridesResetTitle": "Überschriebene E-Mail-Layouts zurücksetzen",
-        "overridesResetConfirm": "Eigenes HTML für {templates} entfernen, damit sie das Mint-Layout verwenden? Betreffs, Aktivierungen und Textvariablen bleiben erhalten.",
-        "overridesResetDone": "Die überschriebenen E-Mail-Vorlagen verwenden jetzt das Mint-Layout."
+        "overridesResetTitle": "Mints E-Mail-Layout verwenden",
+        "overridesResetConfirm": "Das HTML von {templates} durch Mints Layout ersetzen? Betreffzeilen, Aktivierungsschalter und Textvariablen bleiben erhalten.",
+        "overridesResetDone": "Diese E-Mail-Vorlagen verwenden jetzt Mints Layout."
       }
     },
     "library": {

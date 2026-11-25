@@ -310,7 +310,7 @@
         "login": "ログインページ",
         "loginDescription": "ログイン、登録、パスワードページのレイアウト、背景、ロゴ、サポートリンク。",
         "emails": "メール",
-        "emailsDescription": "テーマカラーと同期するメールテンプレートとライブプレビュー。",
+        "emailsDescription": "テーマカラーと同期する任意のブランドメールテンプレートとライブプレビュー。",
         "interface": "動作",
         "interfaceDescription": "トースト、ページタイトル、スマートフォンのファイルエディター。",
         "motion": "アニメーション",
@@ -793,8 +793,15 @@
       "expandPreview": "プレビューを拡大",
       "restorePreview": "設定を表示",
       "email": {
+        "enabled": "Mint のメールテンプレートを使う",
+        "enabledDescription": "既定ではオフです。オンの間、Mint はパネルのメールテンプレートに独自のレイアウトを保存し、色をテーマと揃えます。オフにするとパネル標準のテンプレートに戻ります。管理 → 設定 → メールテンプレートで手動編集したテンプレートはどちらの場合も変更されません。",
+        "enabledOn": "Mint のメールテンプレートはオンです。",
+        "enabledOff": "Mint のメールテンプレートはオフです。メールは再びパネル標準のテンプレートを使います。",
+        "enabledNoPermission": "Mint のメールテンプレートを切り替えるには、メールテンプレートを更新する権限が必要です。",
+        "statusFailed": "Mint のメールテンプレートがオンかどうかを読み込めませんでした。",
+        "offNotice": "送信メールはパネル標準のテンプレートを使います。下のプレビューと設定は、オンにしたときの Mint のテンプレートを表示しています。",
         "sync": "テーマカラーをメールに同期",
-        "syncDescription": "テーマを保存するたびにグローバル変数 mint_email_* を更新します。管理 → 設定 → メールテンプレートで手動管理する場合はオフにしてください。",
+        "syncDescription": "Mint のメールテンプレートがオンの間、テーマを保存するたびにグローバル変数 mint_email_* を更新します。管理 → 設定 → メールテンプレートで手動管理する場合はオフにしてください。",
         "theme": "メールパレット",
         "themeDescription": "送信メールにダークテーマ、ライトテーマ、カスタムカラーのどれを使うか選択します。",
         "themes": {
@@ -815,7 +822,7 @@
         "logoDescription": "パネル名の上に表示する任意の PNG / JPEG / WebP ロゴ。/ で始まるパスはパネル URL 基準で解決されます。",
         "footer": "フッター注記",
         "footerDescription": "メールカードの下に表示する任意の短いテキスト（最大 {max} 文字）。",
-        "adminHint": "文言・翻訳・各テンプレートの HTML は管理 → 設定 → メールテンプレートで編集できます。Mint がカスタム編集を上書きすることはありません。",
+        "adminHint": "文言・翻訳・各テンプレートの HTML は管理 → 設定 → メールテンプレートで編集できます。「Mint レイアウトを使う」を選ばない限り、Mint が手動編集したテンプレートを上書きすることはありません。",
         "previewFrame": "メールプレビュー",
         "previewTemplate": "メールテンプレート",
         "templates": {
@@ -830,12 +837,12 @@
           "server_installed": "サーバーインストール完了",
           "server_restored": "サーバー復元完了"
         },
-        "overridesTitle": "一部のテンプレートでカスタム HTML が Mint を上書きしています",
-        "overridesDescription": "次のテンプレートには管理 → 設定 → メールテンプレートでカスタム HTML が保存されているため、Mint ではなくそちらが送信されます: {templates}。",
+        "overridesTitle": "一部のテンプレートは Mint のレイアウトを使っていません",
+        "overridesDescription": "これらのテンプレートは管理 → 設定 → メールテンプレートで独自の HTML が保存されているか、パネル標準にリセットされているため、送信メールに Mint のレイアウトが使われません: {templates}。",
         "overridesReset": "Mint レイアウトを使う",
-        "overridesResetTitle": "上書きされたメールレイアウトをリセット",
-        "overridesResetConfirm": "{templates} のカスタム HTML をクリアして Mint のレイアウトを使いますか？件名・有効設定・テキスト変数は保持されます。",
-        "overridesResetDone": "上書きされていたメールテンプレートが Mint のレイアウトを使うようになりました。"
+        "overridesResetTitle": "Mint のメールレイアウトを使う",
+        "overridesResetConfirm": "{templates} の HTML を Mint のレイアウトに置き換えますか？件名、有効化スイッチ、文言変数は保持されます。",
+        "overridesResetDone": "これらのメールテンプレートは Mint のレイアウトを使うようになりました。"
       }
     },
     "library": {

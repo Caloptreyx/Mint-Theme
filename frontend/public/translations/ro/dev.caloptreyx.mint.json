@@ -310,7 +310,7 @@
         "login": "Pagina de autentificare",
         "loginDescription": "Aranjament, fundal, logo și linkuri de asistență pentru paginile de autentificare, înregistrare și parolă.",
         "emails": "E-mailuri",
-        "emailsDescription": "Șabloane de e-mail sincronizate cu culorile temei, cu previzualizare live.",
+        "emailsDescription": "Șabloane de e-mail personalizate opționale, sincronizate cu culorile temei, cu previzualizare live.",
         "interface": "Comportament",
         "interfaceDescription": "Notificări, titluri de pagină și editorul de fișiere pe telefon.",
         "motion": "Animații",
@@ -793,8 +793,15 @@
       "expandPreview": "Extinde previzualizarea",
       "restorePreview": "Afișează setările",
       "email": {
+        "enabled": "Folosește șabloanele de e-mail Mint",
+        "enabledDescription": "Dezactivat implicit. Când e activ, Mint salvează aspectul său în șabloanele de e-mail ale panoului și le menține culorile la fel cu tema. Dezactivarea restaurează șabloanele standard ale panoului. Șabloanele editate manual în Admin → Setări → Șabloane e-mail nu sunt modificate niciodată.",
+        "enabledOn": "Șabloanele de e-mail Mint sunt active.",
+        "enabledOff": "Șabloanele de e-mail Mint sunt dezactivate. E-mailurile folosesc din nou șabloanele standard ale panoului.",
+        "enabledNoPermission": "Activarea sau dezactivarea șabloanelor de e-mail Mint necesită permisiunea de a edita șabloanele de e-mail.",
+        "statusFailed": "Nu s-a putut verifica dacă șabloanele de e-mail Mint sunt active.",
+        "offNotice": "E-mailurile trimise folosesc șabloanele standard ale panoului. Previzualizarea și setările de mai jos arată cum vor arăta șabloanele Mint după activare.",
         "sync": "Sincronizează culorile temei cu e-mailurile",
-        "syncDescription": "Actualizează variabilele globale mint_email_* ori de câte ori salvezi tema. Dezactivează pentru a le gestiona manual în Admin → Setări → Șabloane e-mail.",
+        "syncDescription": "Când șabloanele de e-mail Mint sunt active, actualizează variabilele globale mint_email_* la fiecare salvare a temei. Dezactivează pentru a le gestiona manual în Admin → Setări → Șabloane e-mail.",
         "theme": "Paletă e-mail",
         "themeDescription": "Alege dacă e-mailurile trimise folosesc tema întunecată, tema deschisă sau culori personalizate.",
         "themes": {
@@ -815,7 +822,7 @@
         "logoDescription": "Logo PNG, JPEG sau WebP opțional afișat deasupra numelui panoului. Căile care încep cu / folosesc URL-ul panoului.",
         "footer": "Notă subsol",
         "footerDescription": "Rând scurt opțional afișat sub cardul de e-mail (până la {max} caractere).",
-        "adminHint": "Editează textele, traducerile sau HTML-ul fiecărui șablon în Admin → Setări → Șabloane e-mail. Mint nu suprascrie niciodată modificările tale.",
+        "adminHint": "Editează textele, traducerile sau HTML-ul fiecărui șablon în Admin → Setări → Șabloane e-mail. Mint nu suprascrie niciodată șabloanele editate manual, decât dacă alegi „Folosește aspectul Mint”.",
         "previewFrame": "Previzualizare e-mail",
         "previewTemplate": "Șablon e-mail",
         "templates": {
@@ -830,12 +837,12 @@
           "server_installed": "Server instalat",
           "server_restored": "Server restaurat"
         },
-        "overridesTitle": "HTML personalizat suprascrie Mint pe unele șabloane",
-        "overridesDescription": "Aceste șabloane au HTML personalizat salvat în Admin → Setări → Șabloane e-mail, așa că e-mailurile trimise îl folosesc în locul Mint: {templates}.",
+        "overridesTitle": "Unele șabloane nu folosesc aspectul Mint",
+        "overridesDescription": "Aceste șabloane au HTML propriu salvat sau au fost resetate la cele standard ale panoului în Admin → Setări → Șabloane e-mail, așa că e-mailurile trimise nu folosesc aspectul Mint: {templates}.",
         "overridesReset": "Folosește aspectul Mint",
-        "overridesResetTitle": "Resetează aspectele de e-mail suprascrise",
-        "overridesResetConfirm": "Ștergi HTML-ul personalizat pentru {templates} ca să folosească aspectul Mint? Subiectele, stările activate și variabilele de text sunt păstrate.",
-        "overridesResetDone": "Șabloanele de e-mail suprascrise folosesc acum aspectul Mint."
+        "overridesResetTitle": "Folosește aspectul de e-mail Mint",
+        "overridesResetConfirm": "Înlocuiești HTML-ul pentru {templates} cu aspectul Mint? Subiectele, comutatoarele de activare și variabilele de text se păstrează.",
+        "overridesResetDone": "Aceste șabloane de e-mail folosesc acum aspectul Mint."
       }
     },
     "library": {

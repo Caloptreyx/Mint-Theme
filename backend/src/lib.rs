@@ -62,7 +62,7 @@ impl Extension for ExtensionStruct {
                         history::admin(&state),
                     )
                     .nest(
-                        "/extensions/dev.caloptreyx.mint/email-overrides",
+                        "/extensions/dev.caloptreyx.mint/email-templates",
                         mail::admin(&state),
                     )
             })

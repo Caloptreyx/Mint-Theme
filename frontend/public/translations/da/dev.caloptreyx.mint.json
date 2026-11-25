@@ -310,7 +310,7 @@
         "login": "Loginside",
         "loginDescription": "Layout, baggrund, logo og supportlinks til login-, registrerings- og adgangskodesider.",
         "emails": "E-mails",
-        "emailsDescription": "Brandede e-mailskabeloner synkroniseret med dine temafarver og en live forhåndsvisning.",
+        "emailsDescription": "Valgfrie brandede e-mailskabeloner synkroniseret med dine temafarver, med live-forhåndsvisning.",
         "interface": "Adfærd",
         "interfaceDescription": "Notifikationer, sidetitler og fileditoren på telefonen.",
         "motion": "Animationer",
@@ -793,8 +793,15 @@
       "expandPreview": "Udvid forhåndsvisning",
       "restorePreview": "Vis indstillinger",
       "email": {
+        "enabled": "Brug Mints e-mailskabeloner",
+        "enabledDescription": "Slået fra som standard. Når den er slået til, gemmer Mint sit layout i panelets e-mailskabeloner og holder deres farver i takt med temaet. Når den slås fra, gendannes panelets standardskabeloner. Skabeloner redigeret manuelt under Admin → Indstillinger → Mail-skabeloner ændres aldrig.",
+        "enabledOn": "Mints e-mailskabeloner er slået til.",
+        "enabledOff": "Mints e-mailskabeloner er slået fra. E-mails bruger igen panelets standardskabeloner.",
+        "enabledNoPermission": "Det kræver tilladelse til at redigere e-mailskabeloner at slå Mints e-mailskabeloner til eller fra.",
+        "statusFailed": "Kunne ikke indlæse, om Mints e-mailskabeloner er slået til.",
+        "offNotice": "Sendte e-mails bruger panelets standardskabeloner. Forhåndsvisningen og indstillingerne nedenfor viser Mints skabeloner, som de vil se ud, når du slår dem til.",
         "sync": "Synkroniser temafarver til e-mails",
-        "syncDescription": "Opdaterer de globale mint_email_*-skabelonvariabler hver gang du gemmer temaet. Slå fra for at styre dem manuelt under Admin → Indstillinger → Mail-skabeloner.",
+        "syncDescription": "Når Mints e-mailskabeloner er slået til, opdateres de globale mint_email_*-skabelonvariabler, hver gang du gemmer temaet. Slå fra for at styre dem manuelt under Admin → Indstillinger → Mail-skabeloner.",
         "theme": "E-mailpalet",
         "themeDescription": "Vælg om udgående e-mails skal følge dit mørke tema, lyse tema eller brugerdefinerede farver.",
         "themes": {
@@ -815,7 +822,7 @@
         "logoDescription": "Valgfrit PNG-, JPEG- eller WebP-logo vist over panelnavnet. Rodrelative /-stier løses mod panelets URL.",
         "footer": "Sidefodsnote",
         "footerDescription": "Valgfri kort linje vist under e-mailkortet (op til {max} tegn).",
-        "adminHint": "Rediger tekst, oversættelser eller HTML pr. skabelon under Admin → Indstillinger → Mail-skabeloner. Brugerdefinerede skabelonændringer overskrives aldrig af Mint.",
+        "adminHint": "Rediger tekst, oversættelser eller HTML pr. skabelon under Admin → Indstillinger → Mail-skabeloner. Mint overskriver aldrig manuelt redigerede skabeloner, medmindre du vælger \"Brug Mint-layout\".",
         "previewFrame": "E-mailforhåndsvisning",
         "previewTemplate": "E-mailskabelon",
         "templates": {
@@ -830,12 +837,12 @@
           "server_installed": "Server installeret",
           "server_restored": "Server gendannet"
         },
-        "overridesTitle": "Brugerdefineret HTML tilsidesætter Mint på nogle skabeloner",
-        "overridesDescription": "Disse skabeloner har gemt brugerdefineret HTML under Admin → Indstillinger → Mail-skabeloner, så sendte e-mails bruger det i stedet for Mint: {templates}.",
+        "overridesTitle": "Nogle skabeloner bruger ikke Mints layout",
+        "overridesDescription": "Disse skabeloner har deres egen HTML gemt eller er nulstillet til panelets standard under Admin → Indstillinger → Mail-skabeloner, så sendte e-mails bruger ikke Mints layout: {templates}.",
         "overridesReset": "Brug Mint-layout",
-        "overridesResetTitle": "Nulstil tilsidesatte e-maillayouts",
-        "overridesResetConfirm": "Ryd brugerdefineret HTML på {templates} så de bruger Mints layout? Emner, aktivering og tekstvariabler bevares.",
-        "overridesResetDone": "Tilsidesatte e-mailskabeloner bruger nu Mints layout."
+        "overridesResetTitle": "Brug Mints e-maillayout",
+        "overridesResetConfirm": "Erstat HTML'en i {templates} med Mints layout? Emner, aktiveringskontakter og tekstvariabler bevares.",
+        "overridesResetDone": "Disse e-mailskabeloner bruger nu Mints layout."
       }
     },
     "library": {

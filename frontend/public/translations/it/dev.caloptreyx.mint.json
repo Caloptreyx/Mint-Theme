@@ -310,7 +310,7 @@
         "login": "Pagina di accesso",
         "loginDescription": "Layout, sfondo, logo e link di supporto per le pagine di accesso, registrazione e password.",
         "emails": "Email",
-        "emailsDescription": "Modelli email personalizzati sincronizzati con i colori del tema, con anteprima live.",
+        "emailsDescription": "Modelli email personalizzati opzionali sincronizzati con i colori del tema, con anteprima dal vivo.",
         "interface": "Comportamento",
         "interfaceDescription": "Notifiche, titoli delle pagine e l'editor di file su telefono.",
         "motion": "Animazioni",
@@ -793,8 +793,15 @@
       "expandPreview": "Espandi anteprima",
       "restorePreview": "Mostra impostazioni",
       "email": {
+        "enabled": "Usa i modelli email di Mint",
+        "enabledDescription": "Disattivato per impostazione predefinita. Se attivo, Mint salva il suo layout nei modelli email del pannello e ne mantiene i colori allineati al tema. Disattivandolo si ripristinano i modelli originali del pannello. I modelli modificati a mano in Admin → Impostazioni → Modelli email non vengono mai toccati.",
+        "enabledOn": "I modelli email di Mint sono attivi.",
+        "enabledOff": "I modelli email di Mint sono disattivati. Le email usano di nuovo i modelli originali del pannello.",
+        "enabledNoPermission": "Per attivare o disattivare i modelli email di Mint serve il permesso di modificare i modelli email.",
+        "statusFailed": "Impossibile verificare se i modelli email di Mint sono attivi.",
+        "offNotice": "Le email inviate usano i modelli originali del pannello. L'anteprima e le impostazioni qui sotto mostrano come appariranno i modelli di Mint una volta attivati.",
         "sync": "Sincronizza i colori del tema con le email",
-        "syncDescription": "Aggiorna le variabili globali mint_email_* ogni volta che salvi il tema. Disattiva per gestirle manualmente in Admin → Impostazioni → Modelli email.",
+        "syncDescription": "Con i modelli email di Mint attivi, aggiorna le variabili globali mint_email_* a ogni salvataggio del tema. Disattiva per gestirle manualmente in Admin → Impostazioni → Modelli email.",
         "theme": "Tavolozza email",
         "themeDescription": "Scegli se le email in uscita seguono il tema scuro, il tema chiaro o colori personalizzati.",
         "themes": {
@@ -815,7 +822,7 @@
         "logoDescription": "Logo PNG, JPEG o WebP opzionale mostrato sopra il nome del pannello. I percorsi che iniziano con / usano l'URL del pannello.",
         "footer": "Nota piè di pagina",
         "footerDescription": "Breve riga opzionale mostrata sotto la scheda email (fino a {max} caratteri).",
-        "adminHint": "Modifica testo, traduzioni o HTML per modello in Admin → Impostazioni → Modelli email. Mint non sovrascrive mai le modifiche personalizzate.",
+        "adminHint": "Modifica testo, traduzioni o HTML per modello in Admin → Impostazioni → Modelli email. Mint non sovrascrive mai i modelli modificati a mano, a meno che tu non scelga \"Usa layout Mint\".",
         "previewFrame": "Anteprima email",
         "previewTemplate": "Modello email",
         "templates": {
@@ -830,12 +837,12 @@
           "server_installed": "Server installato",
           "server_restored": "Server ripristinato"
         },
-        "overridesTitle": "L'HTML personalizzato sovrascrive Mint su alcuni modelli",
-        "overridesDescription": "Questi modelli hanno HTML personalizzato salvato in Admin → Impostazioni → Modelli email, quindi le email inviate usano quello invece di Mint: {templates}.",
+        "overridesTitle": "Alcuni modelli non usano il layout di Mint",
+        "overridesDescription": "Questi modelli hanno un proprio HTML salvato, o sono stati ripristinati a quelli originali del pannello, in Admin → Impostazioni → Modelli email, quindi le email inviate non usano il layout di Mint: {templates}.",
         "overridesReset": "Usa layout Mint",
-        "overridesResetTitle": "Ripristina i layout email sovrascritti",
-        "overridesResetConfirm": "Rimuovere l'HTML personalizzato su {templates} per usare il layout di Mint? Oggetti, stato attivo e variabili di testo vengono mantenuti.",
-        "overridesResetDone": "I modelli email sovrascritti ora usano il layout di Mint."
+        "overridesResetTitle": "Usa il layout email di Mint",
+        "overridesResetConfirm": "Sostituire l'HTML di {templates} con il layout di Mint? Oggetti, interruttori di attivazione e variabili di testo vengono mantenuti.",
+        "overridesResetDone": "Questi modelli email ora usano il layout di Mint."
       }
     },
     "library": {

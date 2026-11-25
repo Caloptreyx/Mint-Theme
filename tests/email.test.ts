@@ -7,8 +7,10 @@ import { contrastRatio, luminance } from '../frontend/src/lib/color.ts';
 import { buildCss } from '../frontend/src/lib/css/index.ts';
 import {
   EMAIL_TEMPLATES,
+  parseEmailTemplatesStatus,
   renderEmailPreviewHtml,
   resolveEmailPalette,
+  templatesWithoutMint,
 } from '../frontend/src/lib/email.ts';
 import { normalizeTheme } from '../frontend/src/lib/normalize.ts';
 import { PRESETS } from '../frontend/src/lib/presets.ts';
@@ -77,6 +79,50 @@ describe('email theme fields', () => {
     assert.equal(footer.includes('}'), false);
     assert.equal(footer.includes('\n'), false);
     assert.equal([...footer].length, MAX_EMAIL_FOOTER);
+  });
+});
+
+describe('Mint email templates switch', () => {
+  test('is off unless the backend says it is on', () => {
+    for (const data of [undefined, null, '', {}, { enabled: 'true' }, { enabled: 1 }, { templates: [] }]) {
+      assert.equal(parseEmailTemplatesStatus(data).enabled, false, JSON.stringify(data));
+    }
+    assert.equal(parseEmailTemplatesStatus({ enabled: true, templates: [] }).enabled, true);
+  });
+
+  test('keeps known templates and states only', () => {
+    const status = parseEmailTemplatesStatus({
+      enabled: true,
+      templates: [
+        { identifier: 'password_reset', state: 'mint' },
+        { identifier: 'account_created', state: 'custom' },
+        { identifier: 'two_factor_code', state: 'stock' },
+        { identifier: 'unknown_template', state: 'mint' },
+        { identifier: 'session_created', state: 'weird' },
+        null,
+      ],
+    });
+    assert.deepEqual(status.templates, [
+      { identifier: 'password_reset', state: 'mint' },
+      { identifier: 'account_created', state: 'custom' },
+      { identifier: 'two_factor_code', state: 'stock' },
+    ]);
+  });
+
+  test('lists templates not using Mint only while on', () => {
+    const templates = [
+      { identifier: 'password_reset', state: 'mint' },
+      { identifier: 'account_created', state: 'custom' },
+      { identifier: 'two_factor_code', state: 'stock' },
+      { identifier: 'connection_test', state: 'outdated' },
+    ] as const;
+    assert.deepEqual(templatesWithoutMint({ enabled: true, templates: [...templates] }), [
+      'account_created',
+      'two_factor_code',
+      'connection_test',
+    ]);
+    // off: stock emails are the point, and custom HTML is the operator's, so nothing is flagged
+    assert.deepEqual(templatesWithoutMint({ enabled: false, templates: [...templates] }), []);
   });
 });
 

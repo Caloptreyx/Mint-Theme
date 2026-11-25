@@ -2,7 +2,7 @@ import { faRotateLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ColorInput } from '@mantine/core';
 import { useEffect, useState } from 'react';
-import { getEmailOverrides, resetEmailOverrides } from '../../api/emailOverrides.ts';
+import { getEmailTemplates, setEmailTemplates } from '../../api/emailTemplates.ts';
 import {
   ActionIcon,
   Alert,
@@ -17,7 +17,7 @@ import {
   useToast,
 } from '../../lib/core.ts';
 import { toHexColor } from '../../lib/editorDraft.ts';
-import { EMAIL_TEMPLATES, type EmailTemplateId, resolveEmailPalette } from '../../lib/email.ts';
+import { type EmailTemplatesStatus, resolveEmailPalette, templatesWithoutMint } from '../../lib/email.ts';
 import { EMAIL_THEMES, type EmailTheme, MAX_EMAIL_FOOTER, type NebulaTheme } from '../../lib/theme.ts';
 import { useExtTranslations } from '../../translations.ts';
 import ChoiceCards from './ChoiceCards.tsx';
@@ -74,39 +74,55 @@ function EmailMock({ valid, mode }: { valid: NebulaTheme; mode: EmailTheme }) {
   );
 }
 
-/** Emails section: override notice, sync toggle, dark/light/custom palette picker, custom colour overrides, logo and footer. */
+/**
+ * Emails section: the opt-in switch for Mint's templates (applied at once, not part of the draft), the notice for
+ * templates not using Mint's layout, then the sync toggle, palette picker, custom colours, logo and footer.
+ */
 export default function EmailFields({ theme, valid, set }: Props) {
   const { t } = useExtTranslations();
   const { addToast } = useToast();
-  const canResetTemplates = useAdminCan('email-templates.update');
+  const canUpdateTemplates = useAdminCan('email-templates.update');
   const customDefaults = resolveEmailPalette({ ...valid, emailTheme: 'custom' });
-  const [overridden, setOverridden] = useState<string[]>([]);
+  const [status, setStatus] = useState<EmailTemplatesStatus | null>(null);
+  const [statusFailed, setStatusFailed] = useState(false);
+  const [toggling, setToggling] = useState(false);
   const [confirmReset, setConfirmReset] = useState(false);
   const [resetting, setResetting] = useState(false);
 
   useEffect(() => {
     let active = true;
-    getEmailOverrides()
-      .then((list) => {
-        if (active) setOverridden(list);
+    getEmailTemplates()
+      .then((next) => {
+        if (active) setStatus(next);
       })
       .catch(() => {
-        // non-fatal: keep the rest of the section usable
+        if (active) setStatusFailed(true);
       });
     return () => {
       active = false;
     };
   }, []);
 
-  const overriddenLabels = overridden.map((id) =>
-    (EMAIL_TEMPLATES as readonly string[]).includes(id) ? t(`editor.email.templates.${id as EmailTemplateId}`, {}) : id,
-  );
+  const enabled = status?.enabled ?? false;
+  const withoutMint = status ? templatesWithoutMint(status) : [];
+  const withoutMintLabels = withoutMint.map((id) => t(`editor.email.templates.${id}`, {}));
 
-  const doResetOverrides = () => {
+  const toggle = (next: boolean) => {
+    setToggling(true);
+    setEmailTemplates(next)
+      .then((updated) => {
+        setStatus(updated);
+        addToast(t(updated.enabled ? 'editor.email.enabledOn' : 'editor.email.enabledOff', {}), 'success');
+      })
+      .catch((err) => addToast(httpErrorToHuman(err), 'error'))
+      .finally(() => setToggling(false));
+  };
+
+  const doUseMintLayout = () => {
     setResetting(true);
-    resetEmailOverrides()
-      .then(() => {
-        setOverridden([]);
+    setEmailTemplates(true, true)
+      .then((updated) => {
+        setStatus(updated);
         setConfirmReset(false);
         addToast(t('editor.email.overridesResetDone', {}), 'success');
       })
@@ -116,11 +132,37 @@ export default function EmailFields({ theme, valid, set }: Props) {
 
   return (
     <Stack gap='xl'>
-      {overridden.length > 0 && (
+      <Stack gap='xs'>
+        <Switch
+          label={t('editor.email.enabled', {})}
+          description={t('editor.email.enabledDescription', {})}
+          checked={enabled}
+          disabled={!status || toggling || !canUpdateTemplates}
+          onChange={(e) => toggle(e.currentTarget.checked)}
+        />
+        {statusFailed && (
+          <Text size='xs' c='red'>
+            {t('editor.email.statusFailed', {})}
+          </Text>
+        )}
+        {status && !canUpdateTemplates && (
+          <Text size='xs' c='dimmed'>
+            {t('editor.email.enabledNoPermission', {})}
+          </Text>
+        )}
+      </Stack>
+
+      {status && !enabled && (
+        <Alert color='blue'>
+          <Text size='xs'>{t('editor.email.offNotice', {})}</Text>
+        </Alert>
+      )}
+
+      {withoutMint.length > 0 && (
         <Alert color='yellow' title={t('editor.email.overridesTitle', {})}>
           <Stack gap='xs' align='flex-start'>
-            <Text size='xs'>{t('editor.email.overridesDescription', { templates: overriddenLabels.join(', ') })}</Text>
-            {canResetTemplates && (
+            <Text size='xs'>{t('editor.email.overridesDescription', { templates: withoutMintLabels.join(', ') })}</Text>
+            {canUpdateTemplates && (
               <Button
                 size='xs'
                 variant='light'
@@ -217,11 +259,11 @@ export default function EmailFields({ theme, valid, set }: Props) {
       <ConfirmationModal
         opened={confirmReset}
         onClose={() => setConfirmReset(false)}
-        onConfirmed={doResetOverrides}
+        onConfirmed={doUseMintLayout}
         title={t('editor.email.overridesResetTitle', {})}
         confirm={t('editor.email.overridesReset', {})}
       >
-        {t('editor.email.overridesResetConfirm', { templates: overriddenLabels.join(', ') })}
+        {t('editor.email.overridesResetConfirm', { templates: withoutMintLabels.join(', ') })}
       </ConfirmationModal>
     </Stack>
   );

@@ -269,6 +269,11 @@ export const SETTINGS: Setting[] = [
   },
   { section: 'login', label: 'editor.authLayout.linksPosition', also: ['editor.authLayout.positions.'] },
 
+  {
+    section: 'emails',
+    label: 'editor.email.enabled',
+    also: ['editor.email.enabledDescription', 'editor.email.overridesReset'],
+  },
   { section: 'emails', label: 'editor.email.sync', also: ['editor.email.syncDescription'] },
   {
     section: 'emails',
