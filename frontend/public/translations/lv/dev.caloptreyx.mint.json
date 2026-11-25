@@ -304,7 +304,7 @@
         "console": "Konsole",
         "consoleDescription": "Konsoles lapa: sagatave vai jūsu paša izkārtojums ap termināli, pats terminālis, reklāmkarogs, diagrammas un ātrās komandas.",
         "servers": "Serveru saraksts",
-        "serversDescription": "Serveru saraksta noklusējuma skats un kartīšu stils.",
+        "serversDescription": "Serveru saraksta izkārtojums un kartīšu stils.",
         "login": "Pieteikšanās lapa",
         "loginDescription": "Izkārtojums, fons, logotips un atbalsta saites pieteikšanās, reģistrācijas un paroles lapām.",
         "interface": "Uzvedība",
@@ -720,15 +720,10 @@
         }
       },
       "serverCards": {
-        "defaultView": "Noklusējuma skats",
-        "defaultViewDescription": "Kā pēc noklusējuma tiek atvērts serveru saraksts. Kartīšu stili attiecas uz režģa skatu; saraksta skats seko tabulas stilam. Lietotāji joprojām var pārslēgt skatus.",
-        "views": {
-          "list": "Saraksts",
-          "grid": "Režģis"
-        },
-        "cardStyle": "Servera kartīšu stils",
-        "cardStyleDescription": "Kartītes serveru saraksta režģa skatā. Katrs stils saglabā izvēles rūtiņu, statusu un barošanas izvēlni.",
+        "cardStyle": "Serveru saraksta izkārtojums",
+        "cardStyleDescription": "Tabula atver kārtojamu kolonnu sarakstu; kartīšu stili atver režģa skatu un noformē arī grupētos serverus. Katrs stils saglabā izvēles rūtiņu, statusu un strāvas izvēlni, un lietotāji joprojām var pārslēgt skatus.",
         "styles": {
+          "table": "Tabula",
           "default": "Noklusējums",
           "banner": "Reklāmkarogs",
           "flat": "Plakans",

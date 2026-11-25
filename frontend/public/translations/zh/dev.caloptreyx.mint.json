@@ -304,7 +304,7 @@
         "console": "主控台",
         "consoleDescription": "主控台頁面：圍繞終端機的預設或自訂版面、終端機本身、橫幅、圖表與快速指令。",
         "servers": "伺服器列表",
-        "serversDescription": "服务器列表的默认视图和卡片样式。",
+        "serversDescription": "伺服器清單的版面配置與卡片樣式。",
         "login": "登入頁面",
         "loginDescription": "登入、註冊與密碼頁面的版面配置、背景、標誌與支援連結。",
         "interface": "行為",
@@ -720,15 +720,10 @@
         }
       },
       "serverCards": {
-        "defaultView": "默认视图",
-        "defaultViewDescription": "服务器列表默认打开的视图方式。卡片样式适用于网格视图，列表视图遵循表格样式。用户仍可自由切换视图。",
-        "views": {
-          "list": "列表",
-          "grid": "网格"
-        },
-        "cardStyle": "伺服器卡片樣式",
-        "cardStyleDescription": "伺服器清單格狀檢視中的卡片。所有樣式都保留核取方塊、狀態與電源選單。",
+        "cardStyle": "伺服器清單版面",
+        "cardStyleDescription": "表格會開啟可排序的欄位清單；卡片樣式會開啟格狀檢視，也會套用於已分組的伺服器。所有樣式都保留核取方塊、狀態與電源選單，使用者仍可自由切換檢視。",
         "styles": {
+          "table": "表格",
           "default": "預設",
           "banner": "橫幅",
           "flat": "扁平",

@@ -304,7 +304,7 @@
         "console": "Konzola",
         "consoleDescription": "Stránka konzoly: predvoľba alebo vlastné rozloženie okolo terminálu, samotný terminál, banner, grafy a rýchle príkazy.",
         "servers": "Zoznam serverov",
-        "serversDescription": "Predvolené zobrazenie a štýl kariet zoznamu serverov.",
+        "serversDescription": "Rozloženie a štýl kariet zoznamu serverov.",
         "login": "Prihlasovacia stránka",
         "loginDescription": "Rozloženie, pozadie, logo a odkazy na podporu pre stránky prihlásenia, registrácie a hesla.",
         "interface": "Správanie",
@@ -720,15 +720,10 @@
         }
       },
       "serverCards": {
-        "defaultView": "Predvolené zobrazenie",
-        "defaultViewDescription": "Ako sa predvolene otvorí zoznam serverov. Štýly kariet platia pre zobrazenie mriežky; zobrazenie zoznamu používa štýl tabuliek. Používatelia si môžu zobrazenie naďalej prepínať.",
-        "views": {
-          "list": "Zoznam",
-          "grid": "Mriežka"
-        },
-        "cardStyle": "Štýl kariet serverov",
-        "cardStyleDescription": "Karty v zobrazení mriežky zoznamu serverov. Každý štýl zachováva zaškrtávacie políčko, stav a ponuku napájania.",
+        "cardStyle": "Rozloženie zoznamu serverov",
+        "cardStyleDescription": "Tabuľka otvorí zoraditeľný zoznam stĺpcov; štýly kariet otvoria zobrazenie mriežky a štýlujú aj zoskupené servery. Každý štýl zachováva zaškrtávacie políčko, stav a ponuku napájania a používatelia si môžu zobrazenie naďalej prepínať.",
         "styles": {
+          "table": "Tabuľka",
           "default": "Predvolený",
           "banner": "Banner",
           "flat": "Plochý",

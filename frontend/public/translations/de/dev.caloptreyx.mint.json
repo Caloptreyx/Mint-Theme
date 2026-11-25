@@ -304,7 +304,7 @@
         "console": "Konsole",
         "consoleDescription": "Die Konsolenseite: eine Vorlage oder dein eigenes Layout rund um das Terminal, das Terminal selbst, das Banner, die Diagramme und Schnellbefehle.",
         "servers": "Serverliste",
-        "serversDescription": "Standardansicht und Kartenstil der Serverliste.",
+        "serversDescription": "Layout und Kartenstil der Serverliste.",
         "login": "Anmeldeseite",
         "loginDescription": "Layout, Hintergrund, Logo und Support-Links für die Anmelde-, Registrierungs- und Passwortseiten.",
         "interface": "Verhalten",
@@ -720,15 +720,10 @@
         }
       },
       "serverCards": {
-        "defaultView": "Standardansicht",
-        "defaultViewDescription": "Wie die Serverliste standardmäßig geöffnet wird. Kartenstile gelten für die Rasteransicht; die Listenansicht folgt dem Tabellenstil. Nutzer können die Ansicht weiterhin wechseln.",
-        "views": {
-          "list": "Liste",
-          "grid": "Raster"
-        },
-        "cardStyle": "Stil der Serverkarten",
-        "cardStyleDescription": "Die Karten in der Rasteransicht der Serverliste. Jeder Stil behält das Kontrollkästchen, den Status und das Power-Menü.",
+        "cardStyle": "Layout der Serverliste",
+        "cardStyleDescription": "Tabelle öffnet die sortierbare Spaltenliste; die Kartenstile öffnen die Rasteransicht und gestalten auch gruppierte Server. Jeder Stil behält das Kontrollkästchen, den Status und das Power-Menü, und Nutzer können die Ansicht weiterhin wechseln.",
         "styles": {
+          "table": "Tabelle",
           "default": "Standard",
           "banner": "Banner",
           "flat": "Flach",

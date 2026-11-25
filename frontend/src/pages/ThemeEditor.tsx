@@ -46,7 +46,6 @@ import {
   holdSiteTheme,
   loadTheme,
   type PreviewScheme,
-  type PreviewServerView,
   READY_MSG,
   rememberTheme,
   savedTheme,
@@ -190,29 +189,19 @@ export default function ThemeEditor() {
   // wide screens: collapse the section menu or expand the preview full-width on 1280-1440px screens
   const [navCollapsed, setNavCollapsed] = useState(false);
   const [previewExpanded, setPreviewExpanded] = useState(false);
-  // forces the preview iframe onto Grid view while picking a card style, even if `serverListView` is 'list'
-  const [previewServerView, setPreviewServerView] = useState<PreviewServerView>({ view: null, seq: 0 });
 
   const frame = useRef<HTMLIFrameElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const importRef = useRef<HTMLInputElement>(null);
   const shown = useRef(draft);
-  const shownServerView = useRef(previewServerView);
   // tracks manual section/page navigation so the initial getServers() resolve never hijacks the preview
   const userNavigated = useRef(false);
   const history = useHistory(draft, setDraft);
   const hits = useSettingSearch(query);
   const shareCode = useShareCode(valid);
 
-  const set = (patch: Partial<NebulaTheme>) => {
-    if ('serverListView' in patch) {
-      setPreviewServerView((prev) => ({ view: null, seq: prev.seq + 1 }));
-    } else if (section === 'servers' && 'serverCardStyle' in patch) {
-      setPreviewServerView((prev) => ({ view: 'grid', seq: prev.seq + 1 }));
-    }
-    setDraft((d) => ({ ...d, ...patch }));
-  };
+  const set = (patch: Partial<NebulaTheme>) => setDraft((d) => ({ ...d, ...patch }));
   const dirty = JSON.stringify(normalizeTheme(draft, saved)) !== JSON.stringify(saved);
   const badUrls = invalidUrls(draft).length > 0;
   // without settings.update or mint-theme.update the draft can only be tried out with 'Apply in this browser'
@@ -285,17 +274,16 @@ export default function ThemeEditor() {
 
   useEffect(() => {
     shown.current = normalizeTheme(draft, shown.current);
-    shownServerView.current = previewServerView;
     setValid(shown.current);
-    const id = setTimeout(() => sendPreview(frame.current, shown.current, scheme, previewServerView), 60);
+    const id = setTimeout(() => sendPreview(frame.current, shown.current, scheme), 60);
     return () => clearTimeout(id);
-  }, [draft, scheme, previewServerView]);
+  }, [draft, scheme]);
 
   useEffect(() => {
     const onMessage = (event: MessageEvent) => {
       if (event.origin !== window.location.origin || event.source !== frame.current?.contentWindow) return;
       if ((event.data as { type?: string } | null)?.type === READY_MSG) {
-        sendPreview(frame.current, shown.current, scheme, shownServerView.current);
+        sendPreview(frame.current, shown.current, scheme);
       }
     };
     window.addEventListener('message', onMessage);
@@ -369,9 +357,6 @@ export default function ThemeEditor() {
     userNavigated.current = true;
     setSection(id);
     setListing(false);
-    if (id !== 'servers') {
-      setPreviewServerView((prev) => (prev.view === null ? prev : { view: null, seq: prev.seq + 1 }));
-    }
     // the real auth pages redirect signed in admins, so the login section jumps to its preview route
     if (id === 'login') setPage(LOGIN_PREVIEW_PATH);
     if (id === 'servers') setPage('/');

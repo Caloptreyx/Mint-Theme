@@ -304,7 +304,7 @@
         "console": "Konsol",
         "consoleDescription": "Konsolsiden: en skabelon eller dit eget layout omkring terminalen, selve terminalen, banneret, diagrammerne og hurtigkommandoer.",
         "servers": "Serverliste",
-        "serversDescription": "Standardvisning og kortstil for serverlisten.",
+        "serversDescription": "Layout og kortstil for serverlisten.",
         "login": "Loginside",
         "loginDescription": "Layout, baggrund, logo og supportlinks til login-, registrerings- og adgangskodesider.",
         "interface": "Adfærd",
@@ -720,15 +720,10 @@
         }
       },
       "serverCards": {
-        "defaultView": "Standardvisning",
-        "defaultViewDescription": "Hvordan serverlisten åbner som standard. Kortstile gælder for gittervisning; listevisning følger tabelstilen. Brugere kan stadig skifte visning.",
-        "views": {
-          "list": "Liste",
-          "grid": "Gitter"
-        },
-        "cardStyle": "Stil for serverkort",
-        "cardStyleDescription": "Kortene i gittervisningen af serverlisten. Alle stilarter beholder afkrydsningsfeltet, status og strømmenuen.",
+        "cardStyle": "Serverlistens layout",
+        "cardStyleDescription": "Tabel åbner den sorterbare kolonneliste; kortstilarterne åbner gittervisning og styler også grupperede servere. Alle stilarter beholder afkrydsningsfeltet, status og strømmenuen, og brugere kan stadig skifte visning.",
         "styles": {
+          "table": "Tabel",
           "default": "Standard",
           "banner": "Banner",
           "flat": "Flad",

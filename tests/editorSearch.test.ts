@@ -57,11 +57,12 @@ describe('expandTerms', () => {
     ]);
   });
 
-  test('servers section indexes both default view and card style', () => {
+  test('servers section indexes the unified servers list layout picker with all styles', () => {
     const serverSettings = SETTINGS.filter((setting) => setting.section === 'servers');
     assert.deepEqual(
       serverSettings.map((setting) => setting.label),
-      ['editor.serverCards.defaultView', 'editor.serverCards.cardStyle'],
+      ['editor.serverCards.cardStyle'],
     );
+    assert.deepEqual(serverSettings[0].also, ['editor.serverCards.cardStyleDescription', 'editor.serverCards.styles.']);
   });
 });

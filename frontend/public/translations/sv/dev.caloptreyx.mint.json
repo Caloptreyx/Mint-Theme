@@ -304,7 +304,7 @@
         "console": "Konsol",
         "consoleDescription": "Konsolsidan: en förinställning eller din egen layout runt terminalen, själva terminalen, bannern, diagrammen och snabbkommandon.",
         "servers": "Serverlista",
-        "serversDescription": "Standardvy och kortstil för serverlistan.",
+        "serversDescription": "Layout och kortstil för serverlistan.",
         "login": "Inloggningssida",
         "loginDescription": "Layout, bakgrund, logotyp och supportlänkar för inloggnings-, registrerings- och lösenordssidor.",
         "interface": "Beteende",
@@ -720,15 +720,10 @@
         }
       },
       "serverCards": {
-        "defaultView": "Standardvy",
-        "defaultViewDescription": "Hur serverlistan öppnas som standard. Kortstilar gäller för rutnätsvy; listvyn följer tabellstilen. Användare kan fortfarande byta vy.",
-        "views": {
-          "list": "Lista",
-          "grid": "Rutnät"
-        },
-        "cardStyle": "Stil för serverkort",
-        "cardStyleDescription": "Korten i rutnätsvyn av serverlistan. Alla stilar behåller kryssrutan, statusen och strömmenyn.",
+        "cardStyle": "Layout för serverlistan",
+        "cardStyleDescription": "Tabell öppnar den sorterbara kolumnlistan; kortstilarna öppnar rutnätsvyn och stylar även grupperade servrar. Alla stilar behåller kryssrutan, statusen och strömmenyn, och användare kan fortfarande byta vy.",
         "styles": {
+          "table": "Tabell",
           "default": "Standard",
           "banner": "Banner",
           "flat": "Platt",

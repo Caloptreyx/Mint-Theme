@@ -42,7 +42,7 @@ import {
 import ServerRow, { COLUMN_CLASS, COLUMNS, ROW_GRID, type Server } from '../elements/dashboard/ServerRow.tsx';
 import ServersHeader from '../elements/dashboard/ServersHeader.tsx';
 import { useSelectKeyHeld } from '../elements/dashboard/useSelectKeyHeld.ts';
-import { useNebulaTheme, usePreviewServerView } from '../lib/apply.ts';
+import { useNebulaTheme } from '../lib/apply.ts';
 import {
   ActionIcon,
   AdminCan,
@@ -101,21 +101,23 @@ export default function ServerList() {
   const { t, tItem } = useTranslations();
   const { t: tExt } = useExtTranslations();
   const theme = useNebulaTheme();
-  const previewView = usePreviewServerView();
   const inPreview = window.parent !== window;
   const [showOthers, setShowOthers] = useServerListShowOthers();
   // outside the preview iframe, an explicit user choice in localStorage overrides `theme.serverListView`;
-  // inside the preview iframe, follow the live theme & editor hint without reading or clobbering localStorage
+  // inside the preview iframe, follow `theme.serverListView` without reading or clobbering localStorage
   const [storedView, setStoredView] = useState<ServerListView | null>(() =>
     inPreview ? null : parseServerListView(stored(SERVER_VIEW_STORAGE_KEY)),
   );
-  const [iframeView, setIframeView] = useState<{ view: ServerListView; seq: number } | null>(null);
+  const previewKey = `${theme.serverListView}:${theme.serverCardStyle}`;
+  const [iframeView, setIframeView] = useState<{ view: ServerListView; key: string } | null>(null);
+  useEffect(() => {
+    setIframeView((prev) => (prev === null || prev.key === previewKey ? prev : null));
+  }, [previewKey]);
   const view = resolveServerListView({
     themeView: theme.serverListView,
     inPreview,
     storedView,
-    previewHint: previewView.view,
-    iframeOverride: iframeView && iframeView.seq === previewView.seq ? iframeView.view : null,
+    iframeOverride: iframeView && iframeView.key === previewKey ? iframeView.view : null,
   });
   const [sort, setSort] = useState<Sort | null>(() => parseSort(stored(SORT_STORAGE_KEY)));
   const [group, setGroup] = useState<GroupKey>(() => parseGroup(stored(GROUP_STORAGE_KEY)));
@@ -179,7 +181,7 @@ export default function ServerList() {
 
   const changeView = (next: ServerListView) => {
     if (inPreview) {
-      setIframeView({ view: next, seq: previewView.seq });
+      setIframeView({ view: next, key: previewKey });
       return;
     }
     setStoredView(next);

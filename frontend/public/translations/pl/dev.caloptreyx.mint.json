@@ -304,7 +304,7 @@
         "console": "Konsola",
         "consoleDescription": "Strona konsoli: szablon lub własny układ wokół terminala, sam terminal, baner, wykresy i szybkie polecenia.",
         "servers": "Lista serwerów",
-        "serversDescription": "Domyślny widok i styl kart listy serwerów.",
+        "serversDescription": "Układ i styl kart listy serwerów.",
         "login": "Strona logowania",
         "loginDescription": "Układ, tło, logo i linki pomocy na stronach logowania, rejestracji i hasła.",
         "interface": "Zachowanie",
@@ -720,15 +720,10 @@
         }
       },
       "serverCards": {
-        "defaultView": "Domyślny widok",
-        "defaultViewDescription": "Jak domyślnie otwiera się lista serwerów. Style kart dotyczą widoku siatki; widok listy korzysta ze stylu tabeli. Użytkownicy nadal mogą przełączać widok.",
-        "views": {
-          "list": "Lista",
-          "grid": "Siatka"
-        },
-        "cardStyle": "Styl kart serwerów",
-        "cardStyleDescription": "Karty w widoku siatki listy serwerów. Każdy styl zachowuje pole wyboru, status i menu zasilania.",
+        "cardStyle": "Układ listy serwerów",
+        "cardStyleDescription": "Tabela otwiera sortowalną listę kolumn; style kart otwierają widok siatki i stylizują też zgrupowane serwery. Każdy styl zachowuje pole wyboru, status i menu zasilania, a użytkownicy nadal mogą przełączać widok.",
         "styles": {
+          "table": "Tabela",
           "default": "Domyślny",
           "banner": "Baner",
           "flat": "Płaski",

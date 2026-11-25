@@ -245,11 +245,6 @@ export const SETTINGS: Setting[] = [
 
   {
     section: 'servers',
-    label: 'editor.serverCards.defaultView',
-    also: ['editor.serverCards.defaultViewDescription', 'editor.serverCards.views.'],
-  },
-  {
-    section: 'servers',
     label: 'editor.serverCards.cardStyle',
     also: ['editor.serverCards.cardStyleDescription', 'editor.serverCards.styles.'],
   },

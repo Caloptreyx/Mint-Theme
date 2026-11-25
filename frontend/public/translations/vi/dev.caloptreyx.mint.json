@@ -304,7 +304,7 @@
         "console": "Console",
         "consoleDescription": "Trang console: một mẫu có sẵn hoặc bố cục của riêng bạn quanh terminal, chính terminal, biểu ngữ, biểu đồ và lệnh nhanh.",
         "servers": "Danh sách máy chủ",
-        "serversDescription": "Chế độ xem mặc định và kiểu thẻ của danh sách máy chủ.",
+        "serversDescription": "Bố cục và kiểu thẻ của danh sách máy chủ.",
         "login": "Trang đăng nhập",
         "loginDescription": "Bố cục, nền, logo và liên kết hỗ trợ cho các trang đăng nhập, đăng ký và mật khẩu.",
         "interface": "Hành vi",
@@ -720,15 +720,10 @@
         }
       },
       "serverCards": {
-        "defaultView": "Chế độ xem mặc định",
-        "defaultViewDescription": "Cách danh sách máy chủ mở theo mặc định. Kiểu thẻ áp dụng cho chế độ lưới; chế độ danh sách dùng kiểu bảng. Người dùng vẫn có thể chuyển đổi chế độ xem.",
-        "views": {
-          "list": "Danh sách",
-          "grid": "Lưới"
-        },
-        "cardStyle": "Kiểu thẻ máy chủ",
-        "cardStyleDescription": "Các thẻ trong dạng lưới của danh sách máy chủ. Mọi kiểu đều giữ ô chọn, trạng thái và menu nguồn.",
+        "cardStyle": "Bố cục danh sách máy chủ",
+        "cardStyleDescription": "Bảng mở danh sách cột có thể sắp xếp; các kiểu thẻ mở dạng lưới và cũng áp dụng cho máy chủ theo nhóm. Mọi kiểu đều giữ ô chọn, trạng thái và menu nguồn, và người dùng vẫn có thể chuyển đổi chế độ xem.",
         "styles": {
+          "table": "Bảng",
           "default": "Mặc định",
           "banner": "Biểu ngữ",
           "flat": "Phẳng",

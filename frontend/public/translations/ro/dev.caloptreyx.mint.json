@@ -304,7 +304,7 @@
         "console": "Consolă",
         "consoleDescription": "Pagina consolei: un preset sau propriul aspect în jurul terminalului, terminalul în sine, bannerul, graficele și comenzile rapide.",
         "servers": "Lista serverelor",
-        "serversDescription": "Vizualizarea implicită și stilul cardurilor din lista de servere.",
+        "serversDescription": "Aspectul și stilul cardurilor din lista de servere.",
         "login": "Pagina de autentificare",
         "loginDescription": "Aranjament, fundal, logo și linkuri de asistență pentru paginile de autentificare, înregistrare și parolă.",
         "interface": "Comportament",
@@ -720,15 +720,10 @@
         }
       },
       "serverCards": {
-        "defaultView": "Vizualizare implicită",
-        "defaultViewDescription": "Cum se deschide implicit lista de servere. Stilurile de carduri se aplică vizualizării în grilă; vizualizarea listă urmează stilul tabelelor. Utilizatorii pot schimba în continuare vizualizarea.",
-        "views": {
-          "list": "Listă",
-          "grid": "Grilă"
-        },
-        "cardStyle": "Stil carduri server",
-        "cardStyleDescription": "Cardurile din vizualizarea grilă a listei de servere. Fiecare stil păstrează caseta de selectare, starea și meniul de alimentare.",
+        "cardStyle": "Aspect listă servere",
+        "cardStyleDescription": "Tabel deschide lista sortabilă pe coloane; stilurile de carduri deschid vizualizarea grilă și stilizează și serverele grupate. Fiecare stil păstrează caseta de selectare, starea și meniul de alimentare, iar utilizatorii pot schimba în continuare vizualizarea.",
         "styles": {
+          "table": "Tabel",
           "default": "Implicit",
           "banner": "Banner",
           "flat": "Plat",

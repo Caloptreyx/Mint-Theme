@@ -304,7 +304,7 @@
         "console": "Console",
         "consoleDescription": "La page console : un préréglage ou votre propre disposition autour du terminal, le terminal lui-même, la bannière, les graphiques et les commandes rapides.",
         "servers": "Liste des serveurs",
-        "serversDescription": "La vue par défaut et le style des cartes de la liste des serveurs.",
+        "serversDescription": "La disposition et le style des cartes de la liste des serveurs.",
         "login": "Page de connexion",
         "loginDescription": "Disposition, arrière-plan, logo et liens d'assistance des pages de connexion, d'inscription et de mot de passe.",
         "interface": "Comportement",
@@ -720,15 +720,10 @@
         }
       },
       "serverCards": {
-        "defaultView": "Vue par défaut",
-        "defaultViewDescription": "Comment la liste des serveurs s'ouvre par défaut. Les styles de cartes s'appliquent à la vue grille ; la vue liste suit le style des tableaux. Les utilisateurs peuvent toujours changer de vue.",
-        "views": {
-          "list": "Liste",
-          "grid": "Grille"
-        },
-        "cardStyle": "Style des cartes de serveur",
-        "cardStyleDescription": "Les cartes de la vue en grille de la liste des serveurs. Chaque style conserve la case à cocher, le statut et le menu d'alimentation.",
+        "cardStyle": "Disposition de la liste des serveurs",
+        "cardStyleDescription": "Tableau ouvre la liste triable en colonnes ; les styles de cartes ouvrent la vue grille et habillent aussi les serveurs groupés. Chaque style conserve la case à cocher, le statut et le menu d'alimentation, et les utilisateurs peuvent toujours changer de vue.",
         "styles": {
+          "table": "Tableau",
           "default": "Par défaut",
           "banner": "Bannière",
           "flat": "Plat",

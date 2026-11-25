@@ -304,7 +304,7 @@
         "console": "Console",
         "consoleDescription": "A página do console: um preset ou seu próprio layout ao redor do terminal, o próprio terminal, o banner, os gráficos e os comandos rápidos.",
         "servers": "Lista de servidores",
-        "serversDescription": "A visualização padrão e o estilo dos cartões da lista de servidores.",
+        "serversDescription": "O layout e o estilo dos cards da lista de servidores.",
         "login": "Página de login",
         "loginDescription": "Layout, fundo, logo e links de suporte das páginas de login, cadastro e senha.",
         "interface": "Comportamento",
@@ -720,15 +720,10 @@
         }
       },
       "serverCards": {
-        "defaultView": "Visualização padrão",
-        "defaultViewDescription": "Como a lista de servidores abre por padrão. Os estilos de cartão aplicam-se à visualização em grade; a visualização em lista segue o estilo de tabela. Os usuários ainda podem alternar entre as visualizações.",
-        "views": {
-          "list": "Lista",
-          "grid": "Grade"
-        },
-        "cardStyle": "Estilo dos cards de servidor",
-        "cardStyleDescription": "Os cards na visualização em grade da lista de servidores. Todos os estilos mantêm a caixa de seleção, o status e o menu de energia.",
+        "cardStyle": "Layout da lista de servidores",
+        "cardStyleDescription": "Tabela abre a lista ordenável em colunas; os estilos de card abrem a visualização em grade e também estilizam os servidores agrupados. Todos os estilos mantêm a caixa de seleção, o status e o menu de energia, e os usuários ainda podem alternar entre as visualizações.",
         "styles": {
+          "table": "Tabela",
           "default": "Padrão",
           "banner": "Banner",
           "flat": "Plano",

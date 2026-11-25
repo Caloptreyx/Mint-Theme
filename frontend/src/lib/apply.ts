@@ -5,8 +5,7 @@ import { buildCss } from './css/index.ts';
 import { normalizeChoices, type PresetLibrary, THEME_CHOICE_KEY, type ThemeChoice } from './library.ts';
 import { LOCAL_THEME_KEY, paintedTheme, parseLocalTheme } from './localTheme.ts';
 import { normalizeTheme } from './normalize.ts';
-import { parseServerListView } from './serverListView.ts';
-import { DEFAULT_THEME, type NebulaTheme, type ServerListView } from './theme.ts';
+import { DEFAULT_THEME, type NebulaTheme } from './theme.ts';
 import { clearStaleThemeVariant } from './themeVariant.ts';
 
 const STYLE_ID = 'nebula-theme';
@@ -405,28 +404,11 @@ export async function loadTheme(): Promise<{ theme: NebulaTheme; version: string
 
 export type PreviewScheme = 'light' | 'dark';
 
-export interface PreviewServerView {
-  view: ServerListView | null;
-  seq: number;
-}
-
 let previewScheme: PreviewScheme | null = null;
-let previewServerView: PreviewServerView = { view: null, seq: 0 };
-
-/** The preview iframe's live server-list view hint from the editor (for example 'grid' while picking a card style). */
-export const usePreviewServerView = () => useSyncExternalStore(subscribeTheme, () => previewServerView);
 
 /** The editor renders the panel in an iframe and streams drafts into it, with the scheme to show them in. */
-export function sendPreview(
-  frame: HTMLIFrameElement | null,
-  theme: NebulaTheme,
-  scheme: PreviewScheme,
-  serverView: PreviewServerView = { view: null, seq: 0 },
-) {
-  frame?.contentWindow?.postMessage(
-    { type: PREVIEW_MSG, theme, scheme, serverView: serverView.view, serverViewSeq: serverView.seq },
-    window.location.origin,
-  );
+export function sendPreview(frame: HTMLIFrameElement | null, theme: NebulaTheme, scheme: PreviewScheme) {
+  frame?.contentWindow?.postMessage({ type: PREVIEW_MSG, theme, scheme }, window.location.origin);
 }
 
 /**
@@ -449,22 +431,11 @@ export function listenForPreview() {
 
   window.addEventListener('message', (event) => {
     if (event.origin !== window.location.origin || event.source !== window.parent) return;
-    const msg = event.data as {
-      type?: string;
-      theme?: unknown;
-      scheme?: unknown;
-      serverView?: unknown;
-      serverViewSeq?: unknown;
-    } | null;
+    const msg = event.data as { type?: string; theme?: unknown; scheme?: unknown } | null;
     if (msg?.type !== PREVIEW_MSG) return;
 
     previewing = true;
-    const nextView = parseServerListView(typeof msg.serverView === 'string' ? msg.serverView : null);
-    const nextSeq = typeof msg.serverViewSeq === 'number' ? msg.serverViewSeq : previewServerView.seq;
-    const viewChanged = nextView !== previewServerView.view || nextSeq !== previewServerView.seq;
-    if (viewChanged) previewServerView = { view: nextView, seq: nextSeq };
     applyTheme(normalizeTheme(msg.theme));
-    if (viewChanged) notify();
     if (msg.scheme === 'light' || msg.scheme === 'dark') {
       previewScheme = msg.scheme;
       holdScheme();

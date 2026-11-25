@@ -1108,6 +1108,14 @@ describe('server cards and table style', () => {
     assert.equal(out.tableStyle, 'cards');
   });
 
+  test('serverListView and serverCardStyle stay independent and user-selectable for backward compatibility', () => {
+    assert.ok(USER_THEME_FIELDS.includes('serverListView'));
+    assert.ok(USER_THEME_FIELDS.includes('serverCardStyle'));
+    const tableWithBanner = normalizeTheme({ serverListView: 'list', serverCardStyle: 'banner' });
+    assert.equal(tableWithBanner.serverListView, 'list');
+    assert.equal(tableWithBanner.serverCardStyle, 'banner');
+  });
+
   test('cards make each row of core tables a card and keep the fills core puts on a row', () => {
     const rules = tableRules({ tableStyle: 'cards' });
     const css = rules.join('\n');

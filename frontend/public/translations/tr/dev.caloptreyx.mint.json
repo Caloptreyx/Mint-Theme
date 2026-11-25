@@ -304,7 +304,7 @@
         "console": "Konsol",
         "consoleDescription": "Konsol sayfası: terminalin etrafında bir hazır düzen veya kendi düzeniniz, terminalin kendisi, banner, grafikler ve hızlı komutlar.",
         "servers": "Sunucu listesi",
-        "serversDescription": "Sunucu listesinin varsayılan görünümü ve kart stili.",
+        "serversDescription": "Sunucu listesinin düzeni ve kart stili.",
         "login": "Giriş sayfası",
         "loginDescription": "Giriş, kayıt ve şifre sayfaları için düzen, arka plan, logo ve destek bağlantıları.",
         "interface": "Davranış",
@@ -720,15 +720,10 @@
         }
       },
       "serverCards": {
-        "defaultView": "Varsayılan görünüm",
-        "defaultViewDescription": "Sunucu listesinin varsayılan olarak nasıl açılacağı. Kart stilleri ızgara görünümüne uygulanır; liste görünümü tablo stilini izler. Kullanıcılar yine de görünümü değiştirebilir.",
-        "views": {
-          "list": "Liste",
-          "grid": "Izgara"
-        },
-        "cardStyle": "Sunucu kartı stili",
-        "cardStyleDescription": "Sunucu listesinin ızgara görünümündeki kartlar. Her stil onay kutusunu, durumu ve güç menüsünü korur.",
+        "cardStyle": "Sunucu listesi düzeni",
+        "cardStyleDescription": "Tablo, sıralanabilir sütun listesini açar; kart stilleri ızgara görünümünü açar ve gruplandırılmış sunucuları da stillendirir. Her stil onay kutusunu, durumu ve güç menüsünü korur ve kullanıcılar yine de görünümü değiştirebilir.",
         "styles": {
+          "table": "Tablo",
           "default": "Varsayılan",
           "banner": "Banner",
           "flat": "Düz",

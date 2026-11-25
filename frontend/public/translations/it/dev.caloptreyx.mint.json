@@ -304,7 +304,7 @@
         "console": "Console",
         "consoleDescription": "La pagina console: un preset o il tuo layout attorno al terminale, il terminale stesso, il banner, i grafici e i comandi rapidi.",
         "servers": "Elenco server",
-        "serversDescription": "La vista predefinita e lo stile delle schede nella lista dei server.",
+        "serversDescription": "Il layout e lo stile delle schede dell'elenco server.",
         "login": "Pagina di accesso",
         "loginDescription": "Layout, sfondo, logo e link di supporto per le pagine di accesso, registrazione e password.",
         "interface": "Comportamento",
@@ -720,15 +720,10 @@
         }
       },
       "serverCards": {
-        "defaultView": "Vista predefinita",
-        "defaultViewDescription": "Come si apre per impostazione predefinita la lista dei server. Gli stili delle schede si applicano alla vista a griglia; la vista a elenco segue lo stile delle tabelle. Gli utenti possono comunque cambiare vista.",
-        "views": {
-          "list": "Elenco",
-          "grid": "Griglia"
-        },
-        "cardStyle": "Stile delle schede server",
-        "cardStyleDescription": "Le schede nella vista griglia dell'elenco server. Ogni stile mantiene la casella di selezione, lo stato e il menu di alimentazione.",
+        "cardStyle": "Layout elenco server",
+        "cardStyleDescription": "Tabella apre l'elenco ordinabile a colonne; gli stili delle schede aprono la vista griglia e definiscono anche lo stile dei server raggruppati. Ogni stile mantiene la casella di selezione, lo stato e il menu di alimentazione, e gli utenti possono comunque cambiare vista.",
         "styles": {
+          "table": "Tabella",
           "default": "Predefinito",
           "banner": "Banner",
           "flat": "Piatto",
