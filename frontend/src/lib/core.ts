@@ -62,6 +62,7 @@ export { default as ConfirmationModal } from '@/elements/modals/ConfirmationModa
 export { Modal, ModalFooter } from '@/elements/modals/Modal.tsx';
 export { default as ServerSwitcher } from '@/elements/navigation/ServerSwitcher.tsx';
 export { default as Sidebar } from '@/elements/navigation/Sidebar.tsx';
+export { default as ConditionalTooltip } from '@/elements/overlays/ConditionalTooltip.tsx';
 export { default as Menu } from '@/elements/overlays/Menu.tsx';
 export { default as Tooltip } from '@/elements/overlays/Tooltip.tsx';
 export { default as QuickActionsTrigger } from '@/elements/quickActions/QuickActionsTrigger.tsx';
@@ -108,6 +109,7 @@ export { default as AuthWrapper } from '@/pages/auth/AuthWrapper.tsx';
 export { default as AvatarContainer } from '@/pages/dashboard/account/AvatarContainer.tsx';
 export { default as BulkActionBar } from '@/pages/dashboard/home/BulkActionBar.tsx';
 export { default as GroupAddServerModal } from '@/pages/dashboard/home/modals/GroupAddServerModal.tsx';
+export { default as ServerAddGroupModal } from '@/pages/dashboard/home/modals/ServerAddGroupModal.tsx';
 export { default as ServerGroupCreateModal } from '@/pages/dashboard/home/modals/ServerGroupCreateModal.tsx';
 export { default as ServerGroupEditModal } from '@/pages/dashboard/home/modals/ServerGroupEditModal.tsx';
 export { default as Console } from '@/pages/server/console/terminal/Console.tsx';

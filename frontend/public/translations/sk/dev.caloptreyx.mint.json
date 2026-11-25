@@ -70,7 +70,8 @@
         "loadFailed": "Skupiny sa nepodarilo načítať.",
         "retry": "Skúsiť znova",
         "reorder": "Potiahnutím zmeníte poradie {name}",
-        "selectGroup": "Vybrať všetky servery v {name}"
+        "selectGroup": "Vybrať všetky servery v {name}",
+        "limitReached": "Môžete mať najviac {max} skupín serverov."
       }
     },
     "serverSort": {
@@ -303,7 +304,7 @@
         "console": "Konzola",
         "consoleDescription": "Stránka konzoly: predvoľba alebo vlastné rozloženie okolo terminálu, samotný terminál, banner, grafy a rýchle príkazy.",
         "servers": "Zoznam serverov",
-        "serversDescription": "Karty v mriežkovom zobrazení zoznamu serverov.",
+        "serversDescription": "Predvolené zobrazenie a štýl kariet zoznamu serverov.",
         "login": "Prihlasovacia stránka",
         "loginDescription": "Rozloženie, pozadie, logo a odkazy na podporu pre stránky prihlásenia, registrácie a hesla.",
         "interface": "Správanie",
@@ -719,6 +720,12 @@
         }
       },
       "serverCards": {
+        "defaultView": "Predvolené zobrazenie",
+        "defaultViewDescription": "Ako sa predvolene otvorí zoznam serverov. Štýly kariet platia pre zobrazenie mriežky; zobrazenie zoznamu používa štýl tabuliek. Používatelia si môžu zobrazenie naďalej prepínať.",
+        "views": {
+          "list": "Zoznam",
+          "grid": "Mriežka"
+        },
         "cardStyle": "Štýl kariet serverov",
         "cardStyleDescription": "Karty v zobrazení mriežky zoznamu serverov. Každý štýl zachováva zaškrtávacie políčko, stav a ponuku napájania.",
         "styles": {
@@ -778,7 +785,12 @@
         "description": "Menu administrácie pre všetkých: presúvajte odkazy a celé kategórie a odkazy v rámci ich kategórie. Používatelia si stále môžu nad ním usporiadať vlastné menu. Menu servera a nástenky sa riadia poradím trás v konfiguráciách eggov a v nastaveniach používateľov.",
         "empty": "Administrátorské menu sa ešte nenačítalo.",
         "reset": "Späť na poradie panela"
-      }
+      },
+      "previewZoom": "Zmenšené na {percent}% ({width}px)",
+      "collapseNav": "Skryť ponuku sekcií",
+      "expandNav": "Zobraziť ponuku sekcií",
+      "expandPreview": "Rozšíriť náhľad",
+      "restorePreview": "Zobraziť nastavenia"
     },
     "library": {
       "saveAsPreset": "Uložiť ako predvoľbu",
@@ -821,7 +833,13 @@
         "label": "Vaša téma",
         "description": "Ako panel vyzerá pre vás. Vidíte ju iba vy, na každom zariadení, na ktorom sa prihlásite.",
         "default": "Predvolená téma panela"
-      }
+      },
+      "applyAction": "Použiť",
+      "active": "Aktívny",
+      "kindColours": "Farby",
+      "kindFull": "Plný štýl",
+      "offeredCount": "{count} ponúkaných používateľom",
+      "saveBehaviorHint": "Kliknutím na predvoľbu sa aktualizuje koncept; prepínače výberu používateľov sa ukladajú okamžite."
     },
     "share": {
       "copyCode": "Kopírovať kód na zdieľanie",

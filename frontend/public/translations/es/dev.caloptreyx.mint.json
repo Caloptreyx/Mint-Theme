@@ -70,7 +70,8 @@
         "loadFailed": "No se pudieron cargar los grupos.",
         "retry": "Reintentar",
         "reorder": "Arrastra para reordenar {name}",
-        "selectGroup": "Seleccionar todos los servidores de {name}"
+        "selectGroup": "Seleccionar todos los servidores de {name}",
+        "limitReached": "Tienes un límite de {max} grupos de servidores."
       }
     },
     "serverSort": {
@@ -303,7 +304,7 @@
         "console": "Consola",
         "consoleDescription": "La página de consola: un preajuste o tu propio diseño alrededor de la terminal, la terminal en sí, el banner, los gráficos y los comandos rápidos.",
         "servers": "Lista de servidores",
-        "serversDescription": "Las tarjetas de la vista en cuadrícula de la lista de servidores.",
+        "serversDescription": "La vista predeterminada y el estilo de tarjetas de la lista de servidores.",
         "login": "Página de inicio de sesión",
         "loginDescription": "Diseño, fondo, logo y enlaces de soporte de las páginas de inicio de sesión, registro y contraseña.",
         "interface": "Comportamiento",
@@ -719,6 +720,12 @@
         }
       },
       "serverCards": {
+        "defaultView": "Vista predeterminada",
+        "defaultViewDescription": "Cómo se abre la lista de servidores por defecto. Los estilos de tarjeta se aplican a la vista de cuadrícula; la vista de lista sigue el estilo de tabla. Los usuarios aún pueden cambiar de vista.",
+        "views": {
+          "list": "Lista",
+          "grid": "Cuadrícula"
+        },
         "cardStyle": "Estilo de tarjeta de servidor",
         "cardStyleDescription": "Las tarjetas de la vista de cuadrícula de la lista de servidores. Todos los estilos mantienen la casilla, el estado y el menú de encendido.",
         "styles": {
@@ -778,7 +785,12 @@
         "description": "El menú de la administración para todos: arrastra enlaces y categorías completas, y los enlaces dentro de su categoría. Los usuarios aún pueden ordenar sus propios menús encima. Los menús de servidor y del panel siguen el orden de rutas de las configuraciones de eggs y de los ajustes de usuario.",
         "empty": "El menú de administración aún no se ha cargado.",
         "reset": "Volver al orden del panel"
-      }
+      },
+      "previewZoom": "Escalado al {percent}% ({width}px)",
+      "collapseNav": "Ocultar menú de secciones",
+      "expandNav": "Mostrar menú de secciones",
+      "expandPreview": "Ampliar vista previa",
+      "restorePreview": "Mostrar ajustes"
     },
     "library": {
       "saveAsPreset": "Guardar como preajuste",
@@ -821,7 +833,13 @@
         "label": "Tu tema",
         "description": "Cómo se ve el panel para ti. Solo tú lo ves, en todos los dispositivos donde inicies sesión.",
         "default": "Predeterminado del panel"
-      }
+      },
+      "applyAction": "Aplicar",
+      "active": "Activo",
+      "kindColours": "Colores",
+      "kindFull": "Estilo completo",
+      "offeredCount": "{count} ofrecidos a usuarios",
+      "saveBehaviorHint": "Al hacer clic en un ajuste preestablecido se actualiza el borrador; las opciones de usuario se guardan al instante."
     },
     "share": {
       "copyCode": "Copiar código para compartir",

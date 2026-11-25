@@ -25,6 +25,9 @@ export const BOX_STYLES = ['default', 'line', 'fill', 'pill'] as const;
 export type BoxStyle = (typeof BOX_STYLES)[number];
 export const STAT_STYLES = ['default', 'reversed', 'minimal', 'minimalReversed'] as const;
 export type StatStyle = (typeof STAT_STYLES)[number];
+/** The servers list's default view: 'list' is the table/rows view, 'grid' shows cards. */
+export const SERVER_LIST_VIEWS = ['list', 'grid'] as const;
+export type ServerListView = (typeof SERVER_LIST_VIEWS)[number];
 /** The servers grid's cards: 'default' is the art header with the name over it. */
 export const SERVER_CARD_STYLES = ['default', 'banner', 'flat', 'linear', 'minimal', 'compact'] as const;
 export type ServerCardStyle = (typeof SERVER_CARD_STYLES)[number];
@@ -274,6 +277,8 @@ export interface NebulaTheme {
   authLogoPosition: AuthPosition;
   supportLinks: SupportLink[];
   supportLinksPosition: AuthPosition;
+  /** The servers list's default view before a user toggles their own locally. */
+  serverListView: ServerListView;
   /** The servers grid's cards; the grid's columns follow the style. */
   serverCardStyle: ServerCardStyle;
   tableStyle: TableStyle;
@@ -363,6 +368,7 @@ export const DEFAULT_THEME: NebulaTheme = {
   authLogoPosition: 'aboveForm',
   supportLinks: [],
   supportLinksPosition: 'header',
+  serverListView: 'list',
   serverCardStyle: 'default',
   tableStyle: 'table',
   navHover: 'default',
@@ -428,6 +434,7 @@ export const USER_THEME_FIELDS: readonly (keyof NebulaTheme)[] = [
   'pageTitles',
   'boxStyle',
   'statStyle',
+  'serverListView',
   'serverCardStyle',
   'tableStyle',
   'navHover',

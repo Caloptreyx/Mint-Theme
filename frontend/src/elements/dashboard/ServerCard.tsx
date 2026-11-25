@@ -8,10 +8,11 @@ import {
   faRotateRight,
   faSkull,
   faStop,
+  faUsers,
   type IconDefinition,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { type ReactNode, useEffect, useState } from 'react';
+import { type MouseEvent, type ReactNode, type RefObject, useEffect, useState } from 'react';
 import { NavLink } from 'react-router';
 import type { ServerCardStyle } from '../../lib/theme.ts';
 import type { Server } from './ServerRow.tsx';
@@ -28,6 +29,7 @@ import {
   mbToBytes,
   Text,
   Title,
+  Tooltip,
   useAuth,
   useBulkPowerActions,
   useServerStats,
@@ -73,11 +75,21 @@ interface Props {
   variant: ServerCardStyle;
   selected: boolean;
   onSelect: (selected: boolean) => void;
-  /** Menu items after the power actions (the grouped page's Remove from group); the menu shows for them alone too. */
+  sKeyPressedRef?: RefObject<boolean>;
+  /** Menu items after the power actions (e.g. Add to group or Remove from group); the menu shows for them alone too. */
   menuItems?: ReactNode;
 }
 
-export default function ServerCard({ server, art, icon, variant, selected, onSelect, menuItems }: Props) {
+export default function ServerCard({
+  server,
+  art,
+  icon,
+  variant,
+  selected,
+  onSelect,
+  sKeyPressedRef,
+  menuItems,
+}: Props) {
   const { t } = useTranslations();
   const { t: tExt } = useExtTranslations();
   const { user } = useAuth();
@@ -242,20 +254,42 @@ export default function ServerCard({ server, art, icon, variant, selected, onSel
     </CopyOnClick>
   );
 
+  const foreignBadge = !server.isOwner && (
+    <Tooltip label={t('pages.account.home.tooltip.foreign', {})}>
+      <span
+        className='relative z-1 inline-flex shrink-0 items-center text-(--mantine-color-yellow-filled)'
+        aria-label={t('pages.account.home.tooltip.foreign', {})}
+      >
+        <FontAwesomeIcon icon={faUsers} size='xs' />
+      </span>
+    </Tooltip>
+  );
+
   const names = (
     <>
-      <Text fw={600} truncate>
-        {server.name}
-      </Text>
+      <div className='flex min-w-0 items-center gap-1.5'>
+        <Text fw={600} truncate>
+          {server.name}
+        </Text>
+        {foreignBadge}
+      </div>
       <Text size='xs' c='dimmed' truncate>
         {server.egg.name}
       </Text>
     </>
   );
 
+  const handleLinkClick = (e: MouseEvent) => {
+    if (sKeyPressedRef?.current) {
+      e.preventDefault();
+      e.stopPropagation();
+      onSelect(!selected);
+    }
+  };
+
   // the link's ::after covers the whole card; the checkbox, the menu and the copy button sit above it
   const link = (className: string, children: React.ReactNode) => (
-    <NavLink to={to} className={`min-w-0 after:absolute after:inset-0 ${className}`}>
+    <NavLink to={to} onClick={handleLinkClick} className={`min-w-0 after:absolute after:inset-0 ${className}`}>
       {children}
     </NavLink>
   );
@@ -278,9 +312,12 @@ export default function ServerCard({ server, art, icon, variant, selected, onSel
             <Group gap='sm' wrap='nowrap'>
               <Emblem icon={icon} className='size-9' />
               <div className='min-w-0'>
-                <Title order={4} className='truncate!'>
-                  {server.name}
-                </Title>
+                <div className='flex min-w-0 items-center gap-1.5'>
+                  <Title order={4} className='truncate!'>
+                    {server.name}
+                  </Title>
+                  {foreignBadge}
+                </div>
                 <Text size='xs' c='dimmed' truncate>
                   {server.egg.name}
                 </Text>
@@ -371,6 +408,7 @@ export default function ServerCard({ server, art, icon, variant, selected, onSel
               <Text fw={600} truncate>
                 {server.name}
               </Text>
+              {foreignBadge}
             </>,
           )}
           {actions}
@@ -389,9 +427,12 @@ export default function ServerCard({ server, art, icon, variant, selected, onSel
           <div className='flex min-w-0 flex-1 flex-col items-start gap-0.5'>
             {link(
               'max-w-full',
-              <Text size='sm' fw={600} truncate>
-                {server.name}
-              </Text>,
+              <div className='flex max-w-full items-center gap-1'>
+                <Text size='sm' fw={600} truncate>
+                  {server.name}
+                </Text>
+                {foreignBadge}
+              </div>,
             )}
             {badge('xs')}
           </div>
@@ -410,7 +451,7 @@ export default function ServerCard({ server, art, icon, variant, selected, onSel
     <Card p={0} hoverable className={`relative overflow-hidden ${outline}`}>
       <div className='absolute top-3 left-3 z-1'>{checkbox}</div>
       <div className='flex items-end justify-between gap-3 p-4 min-h-32 bg-cover bg-center' style={{ backgroundImage }}>
-        <NavLink to={to} className='min-w-0 after:absolute after:inset-0'>
+        <NavLink to={to} onClick={handleLinkClick} className='min-w-0 after:absolute after:inset-0'>
           <Group gap='xs' wrap='nowrap'>
             {icon ? (
               <img src={icon} alt='' className='size-8 rounded-md object-cover shrink-0' />
@@ -418,9 +459,12 @@ export default function ServerCard({ server, art, icon, variant, selected, onSel
               <FontAwesomeIcon icon={faGamepad} className='text-(--mantine-color-dimmed)' />
             )}
             <div className='min-w-0'>
-              <Title order={4} className='truncate'>
-                {server.name}
-              </Title>
+              <div className='flex min-w-0 items-center gap-1.5'>
+                <Title order={4} className='truncate'>
+                  {server.name}
+                </Title>
+                {foreignBadge}
+              </div>
               <Text size='xs' c='dimmed' truncate>
                 {server.egg.name}
               </Text>

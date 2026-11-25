@@ -70,7 +70,8 @@
         "loadFailed": "Grupperne kunne ikke indlæses.",
         "retry": "Prøv igen",
         "reorder": "Træk for at flytte {name}",
-        "selectGroup": "Vælg alle servere i {name}"
+        "selectGroup": "Vælg alle servere i {name}",
+        "limitReached": "Du er begrænset til {max} servergrupper."
       }
     },
     "serverSort": {
@@ -303,7 +304,7 @@
         "console": "Konsol",
         "consoleDescription": "Konsolsiden: en skabelon eller dit eget layout omkring terminalen, selve terminalen, banneret, diagrammerne og hurtigkommandoer.",
         "servers": "Serverliste",
-        "serversDescription": "Kortene i gittervisningen af serverlisten.",
+        "serversDescription": "Standardvisning og kortstil for serverlisten.",
         "login": "Loginside",
         "loginDescription": "Layout, baggrund, logo og supportlinks til login-, registrerings- og adgangskodesider.",
         "interface": "Adfærd",
@@ -719,6 +720,12 @@
         }
       },
       "serverCards": {
+        "defaultView": "Standardvisning",
+        "defaultViewDescription": "Hvordan serverlisten åbner som standard. Kortstile gælder for gittervisning; listevisning følger tabelstilen. Brugere kan stadig skifte visning.",
+        "views": {
+          "list": "Liste",
+          "grid": "Gitter"
+        },
         "cardStyle": "Stil for serverkort",
         "cardStyleDescription": "Kortene i gittervisningen af serverlisten. Alle stilarter beholder afkrydsningsfeltet, status og strømmenuen.",
         "styles": {
@@ -778,7 +785,12 @@
         "description": "Adminområdets menu for alle: træk links og hele kategorier samt links inden for deres kategori. Brugere kan stadig arrangere deres egne menuer oven på den. Server- og dashboardmenuerne følger ruterækkefølgerne i egg-konfigurationerne og brugerindstillingerne.",
         "empty": "Adminmenuen er ikke indlæst endnu.",
         "reset": "Tilbage til panelets rækkefølge"
-      }
+      },
+      "previewZoom": "Skaleret til {percent}% ({width}px)",
+      "collapseNav": "Skjul sektionsmenu",
+      "expandNav": "Vis sektionsmenu",
+      "expandPreview": "Udvid forhåndsvisning",
+      "restorePreview": "Vis indstillinger"
     },
     "library": {
       "saveAsPreset": "Gem som forudindstilling",
@@ -821,7 +833,13 @@
         "label": "Dit tema",
         "description": "Sådan ser panelet ud for dig. Kun du kan se det, på alle enheder, du logger ind på.",
         "default": "Panelets standard"
-      }
+      },
+      "applyAction": "Anvend",
+      "active": "Aktiv",
+      "kindColours": "Farver",
+      "kindFull": "Fuld stil",
+      "offeredCount": "{count} tilbudt til brugere",
+      "saveBehaviorHint": "Klik på en forudindstilling opdaterer kladden; brugervalg gemmes med det samme."
     },
     "share": {
       "copyCode": "Kopiér delingskode",

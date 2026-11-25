@@ -70,7 +70,8 @@
         "loadFailed": "Les groupes n'ont pas pu être chargés.",
         "retry": "Réessayer",
         "reorder": "Faire glisser pour réordonner {name}",
-        "selectGroup": "Sélectionner tous les serveurs de {name}"
+        "selectGroup": "Sélectionner tous les serveurs de {name}",
+        "limitReached": "Vous êtes limité à {max} groupes de serveurs."
       }
     },
     "serverSort": {
@@ -303,7 +304,7 @@
         "console": "Console",
         "consoleDescription": "La page console : un préréglage ou votre propre disposition autour du terminal, le terminal lui-même, la bannière, les graphiques et les commandes rapides.",
         "servers": "Liste des serveurs",
-        "serversDescription": "Les cartes de la vue en grille de la liste des serveurs.",
+        "serversDescription": "La vue par défaut et le style des cartes de la liste des serveurs.",
         "login": "Page de connexion",
         "loginDescription": "Disposition, arrière-plan, logo et liens d'assistance des pages de connexion, d'inscription et de mot de passe.",
         "interface": "Comportement",
@@ -719,6 +720,12 @@
         }
       },
       "serverCards": {
+        "defaultView": "Vue par défaut",
+        "defaultViewDescription": "Comment la liste des serveurs s'ouvre par défaut. Les styles de cartes s'appliquent à la vue grille ; la vue liste suit le style des tableaux. Les utilisateurs peuvent toujours changer de vue.",
+        "views": {
+          "list": "Liste",
+          "grid": "Grille"
+        },
         "cardStyle": "Style des cartes de serveur",
         "cardStyleDescription": "Les cartes de la vue en grille de la liste des serveurs. Chaque style conserve la case à cocher, le statut et le menu d'alimentation.",
         "styles": {
@@ -778,7 +785,12 @@
         "description": "Le menu de l'administration pour tout le monde : faites glisser les liens et des catégories entières, et les liens au sein de leur catégorie. Les utilisateurs peuvent toujours organiser leurs propres menus par-dessus. Les menus serveur et tableau de bord suivent l'ordre des routes des configurations d'eggs et des paramètres utilisateur.",
         "empty": "Le menu d'administration n'est pas encore chargé.",
         "reset": "Revenir à l'ordre du panel"
-      }
+      },
+      "previewZoom": "Mis à l’échelle à {percent}% ({width}px)",
+      "collapseNav": "Masquer le menu des sections",
+      "expandNav": "Afficher le menu des sections",
+      "expandPreview": "Agrandir l’aperçu",
+      "restorePreview": "Afficher les paramètres"
     },
     "library": {
       "saveAsPreset": "Enregistrer comme préréglage",
@@ -821,7 +833,13 @@
         "label": "Votre thème",
         "description": "L'apparence du panel pour vous. Vous seul la voyez, sur chaque appareil où vous vous connectez.",
         "default": "Par défaut du panel"
-      }
+      },
+      "applyAction": "Appliquer",
+      "active": "Actif",
+      "kindColours": "Couleurs",
+      "kindFull": "Style complet",
+      "offeredCount": "{count} proposés aux utilisateurs",
+      "saveBehaviorHint": "Cliquer sur un préréglage met à jour le brouillon ; les choix proposés aux utilisateurs sont enregistrés immédiatement."
     },
     "share": {
       "copyCode": "Copier le code de partage",

@@ -70,7 +70,8 @@
         "loadFailed": "無法載入群組。",
         "retry": "重試",
         "reorder": "拖曳以重新排序 {name}",
-        "selectGroup": "選取 {name} 中的所有伺服器"
+        "selectGroup": "選取 {name} 中的所有伺服器",
+        "limitReached": "最多只能创建 {max} 个服务器分组。"
       }
     },
     "serverSort": {
@@ -303,7 +304,7 @@
         "console": "主控台",
         "consoleDescription": "主控台頁面：圍繞終端機的預設或自訂版面、終端機本身、橫幅、圖表與快速指令。",
         "servers": "伺服器列表",
-        "serversDescription": "伺服器列表格狀檢視中的卡片。",
+        "serversDescription": "服务器列表的默认视图和卡片样式。",
         "login": "登入頁面",
         "loginDescription": "登入、註冊與密碼頁面的版面配置、背景、標誌與支援連結。",
         "interface": "行為",
@@ -719,6 +720,12 @@
         }
       },
       "serverCards": {
+        "defaultView": "默认视图",
+        "defaultViewDescription": "服务器列表默认打开的视图方式。卡片样式适用于网格视图，列表视图遵循表格样式。用户仍可自由切换视图。",
+        "views": {
+          "list": "列表",
+          "grid": "网格"
+        },
         "cardStyle": "伺服器卡片樣式",
         "cardStyleDescription": "伺服器清單格狀檢視中的卡片。所有樣式都保留核取方塊、狀態與電源選單。",
         "styles": {
@@ -778,7 +785,12 @@
         "description": "面向所有人的管理区域菜单：拖动链接和整个类别，以及类别内的链接。用户仍可在其上排列自己的菜单。服务器和仪表盘菜单遵循 Egg 配置和用户设置中的路由顺序。",
         "empty": "管理菜单尚未加载。",
         "reset": "恢复面板的顺序"
-      }
+      },
+      "previewZoom": "缩放至 {percent}% ({width}px)",
+      "collapseNav": "隐藏分类菜单",
+      "expandNav": "显示分类菜单",
+      "expandPreview": "展开预览",
+      "restorePreview": "显示设置"
     },
     "library": {
       "saveAsPreset": "儲存為預設集",
@@ -821,7 +833,13 @@
         "label": "你的主題",
         "description": "面板在你眼中的外觀。僅你自己看得到，並套用於你登入的每部裝置。",
         "default": "面板預設"
-      }
+      },
+      "applyAction": "应用",
+      "active": "当前使用",
+      "kindColours": "配色",
+      "kindFull": "完整样式",
+      "offeredCount": "{count} 个对用户开放",
+      "saveBehaviorHint": "点击预设会更新草稿；用户可选开关会立即保存。"
     },
     "share": {
       "copyCode": "複製分享代碼",

@@ -42,6 +42,7 @@ import {
   pickUserTheme,
   SEARCH_COMPONENTS,
   SERVER_CARD_STYLES,
+  SERVER_LIST_VIEWS,
   SIDEBAR_LAYOUTS,
   STAT_STYLES,
   SUPPORT_LINK_ICONS,
@@ -271,6 +272,7 @@ export function normalizeTheme(raw: unknown, d: NebulaTheme = DEFAULT_THEME): Ne
     supportLinks: supportLinks(r.supportLinks, d.supportLinks),
     supportLinksPosition:
       AUTH_POSITIONS.find((position) => position === r.supportLinksPosition) ?? d.supportLinksPosition,
+    serverListView: SERVER_LIST_VIEWS.find((view) => view === r.serverListView) ?? d.serverListView,
     serverCardStyle: SERVER_CARD_STYLES.find((style) => style === r.serverCardStyle) ?? d.serverCardStyle,
     tableStyle: TABLE_STYLES.find((style) => style === r.tableStyle) ?? d.tableStyle,
     navHover: NAV_HOVERS.find((hover) => hover === r.navHover) ?? d.navHover,

@@ -5,11 +5,13 @@ import { startTransition, useEffect, useState } from 'react';
 import ServerCard from '../elements/dashboard/ServerCard.tsx';
 import ServerGroupCard, { type ServerGroupData } from '../elements/dashboard/ServerGroupCard.tsx';
 import ServersHeader from '../elements/dashboard/ServersHeader.tsx';
+import { useSelectKeyHeld } from '../elements/dashboard/useSelectKeyHeld.ts';
 import { useNebulaTheme } from '../lib/apply.ts';
 import {
   BulkActionBar,
   Button,
   Card,
+  ConditionalTooltip,
   DndBoard,
   DndSortableList,
   getServerGroups,
@@ -23,6 +25,7 @@ import {
   Title,
   updateServerGroupsOrder,
   useBulkPowerActions,
+  useGlobalStore,
   useServerGroupsDnd,
   useToast,
   useTranslations,
@@ -42,12 +45,14 @@ export default function GroupedServerList() {
   const { addToast } = useToast();
   const serverGroups = useUserStore((state) => state.serverGroups);
   const setServerGroups = useUserStore((state) => state.setServerGroups);
+  const maxServerGroupCount = useGlobalStore((state) => state.settings.user.maxServerGroupCount);
   const { handleBulkPowerAction, bulkActionLoading } = useBulkPowerActions();
 
   const [loading, setLoading] = useState(true);
   const [failed, setFailed] = useState(false);
   const [creating, setCreating] = useState(false);
   const [selected, setSelected] = useState<string[]>([]);
+  const sKeyPressedRef = useSelectKeyHeld();
 
   const load = () => {
     setLoading(true);
@@ -97,10 +102,17 @@ export default function GroupedServerList() {
     setSelected([]);
   };
 
+  const atGroupLimit = serverGroups.length >= maxServerGroupCount;
+
   const createButton = (
-    <Button onClick={() => setCreating(true)} leftSection={<FontAwesomeIcon icon={faPlus} />}>
-      {t('pages.account.home.tabs.groupedServers.page.button.createGroup', {})}
-    </Button>
+    <ConditionalTooltip
+      enabled={atGroupLimit}
+      label={tExt('servers.groups.limitReached', { max: maxServerGroupCount })}
+    >
+      <Button onClick={() => setCreating(true)} disabled={atGroupLimit} leftSection={<FontAwesomeIcon icon={faPlus} />}>
+        {t('pages.account.home.tabs.groupedServers.page.button.createGroup', {})}
+      </Button>
+    </ConditionalTooltip>
   );
 
   return (
@@ -170,6 +182,7 @@ export default function GroupedServerList() {
                         dragHandleProps={dragHandleProps}
                         selected={selected}
                         onSelect={onSelect}
+                        sKeyPressedRef={sKeyPressedRef}
                         isDropTarget={blocked || here}
                         dropBlockedReason={blocked ? blockedTarget.reason : null}
                         adoptedServer={here ? activeServer : null}

@@ -718,26 +718,26 @@ html:root .nebula-sb-items a:not(.active):hover::before{
 background:transparent;
 }
 
-html:root #sidebar-content a > .mantine-Button-root .mantine-Button-label > svg,html:root .nebula-topnav a > .mantine-Button-root .mantine-Button-label > svg,html:root .nebula-topnav-menu a > .mantine-Button-root .mantine-Button-label > svg{
+html:root #sidebar-content a > .mantine-Button-root .mantine-Button-label > :is(svg,.svg-inline--fa),html:root .nebula-topnav a > .mantine-Button-root .mantine-Button-label > :is(svg,.svg-inline--fa),html:root .nebula-topnav-menu a > .mantine-Button-root .mantine-Button-label > :is(svg,.svg-inline--fa){
 padding:0.375em 0.3em;
 border-radius:var(--mantine-radius-sm);
 transition:background-color 180ms ease,color 180ms ease;
 }
 
 @media (prefers-reduced-motion:reduce){
-html:root #sidebar-content a > .mantine-Button-root .mantine-Button-label > svg,html:root .nebula-topnav a > .mantine-Button-root .mantine-Button-label > svg,html:root .nebula-topnav-menu a > .mantine-Button-root .mantine-Button-label > svg{
+html:root #sidebar-content a > .mantine-Button-root .mantine-Button-label > :is(svg,.svg-inline--fa),html:root .nebula-topnav a > .mantine-Button-root .mantine-Button-label > :is(svg,.svg-inline--fa),html:root .nebula-topnav-menu a > .mantine-Button-root .mantine-Button-label > :is(svg,.svg-inline--fa){
 transition:none;
 }
 }
 
 @media (hover:hover){
-html:root #sidebar-content a > .mantine-Button-root:not(.active):hover .mantine-Button-label > svg,html:root .nebula-topnav a > .mantine-Button-root:not(.active):hover .mantine-Button-label > svg,html:root .nebula-topnav-menu a > .mantine-Button-root:not(.active):hover .mantine-Button-label > svg{
+html:root #sidebar-content a > .mantine-Button-root:not(.active):hover .mantine-Button-label > :is(svg,.svg-inline--fa),html:root .nebula-topnav a > .mantine-Button-root:not(.active):hover .mantine-Button-label > :is(svg,.svg-inline--fa),html:root .nebula-topnav-menu a > .mantine-Button-root:not(.active):hover .mantine-Button-label > :is(svg,.svg-inline--fa){
 background-color:var(--nebula-nav-tint);
 color:var(--nebula-nav-ink);
 }
 }
 
-html:root #sidebar-content a > .mantine-Button-root.active .mantine-Button-label > svg,html:root .nebula-topnav a > .mantine-Button-root.active .mantine-Button-label > svg,html:root .nebula-topnav-menu a > .mantine-Button-root.active .mantine-Button-label > svg{
+html:root #sidebar-content a > .mantine-Button-root.active .mantine-Button-label > :is(svg,.svg-inline--fa),html:root .nebula-topnav a > .mantine-Button-root.active .mantine-Button-label > :is(svg,.svg-inline--fa),html:root .nebula-topnav-menu a > .mantine-Button-root.active .mantine-Button-label > :is(svg,.svg-inline--fa){
 background-color:var(--nebula-nav-accent);
 color:var(--mantine-primary-color-contrast);
 }
@@ -762,7 +762,7 @@ justify-content:center;
 font-size:0;
 }
 
-html:root #sidebar-desktop:has(~ :is(#dashboard-root,#server-root,#admin-root)) :is(a > .mantine-Button-root,.nebula-arrange) .mantine-Button-label > svg{
+html:root #sidebar-desktop:has(~ :is(#dashboard-root,#server-root,#admin-root)) :is(a > .mantine-Button-root,.nebula-arrange) .mantine-Button-label > :is(svg,.svg-inline--fa){
 margin:0;
 font-size:1rem;
 }
@@ -867,7 +867,7 @@ html:root #sidebar-desktop:has(~ :is(#dashboard-root,#server-root,#admin-root)) 
 margin:0;
 }
 
-html:root #sidebar-desktop:has(~ :is(#dashboard-root,#server-root,#admin-root)) .nebula-rail-server .mantine-Card-root .mantine-Button-label > svg{
+html:root #sidebar-desktop:has(~ :is(#dashboard-root,#server-root,#admin-root)) .nebula-rail-server .mantine-Card-root .mantine-Button-label > :is(svg,.svg-inline--fa){
 font-size:0.75rem;
 }
 
@@ -1495,7 +1495,7 @@ html:root #sidebar-content a > .mantine-Button-root,html:root .nebula-topnav a >
 border-radius:999px;
 }
 
-html:root #sidebar-content a > .mantine-Button-root.active .mantine-Button-label > svg,html:root .nebula-topnav a > .mantine-Button-root.active .mantine-Button-label > svg,html:root .nebula-topnav-menu a > .mantine-Button-root.active .mantine-Button-label > svg{
+html:root #sidebar-content a > .mantine-Button-root.active .mantine-Button-label > :is(svg,.svg-inline--fa),html:root .nebula-topnav a > .mantine-Button-root.active .mantine-Button-label > :is(svg,.svg-inline--fa),html:root .nebula-topnav-menu a > .mantine-Button-root.active .mantine-Button-label > :is(svg,.svg-inline--fa){
 color:var(--nebula-nav-ink);
 }
 
@@ -4900,26 +4900,26 @@ html:root .nebula-sb-items a:not(.active):hover::before{
 background:transparent;
 }
 
-html:root #sidebar-content a > .mantine-Button-root .mantine-Button-label > svg,html:root .nebula-topnav a > .mantine-Button-root .mantine-Button-label > svg,html:root .nebula-topnav-menu a > .mantine-Button-root .mantine-Button-label > svg{
+html:root #sidebar-content a > .mantine-Button-root .mantine-Button-label > :is(svg,.svg-inline--fa),html:root .nebula-topnav a > .mantine-Button-root .mantine-Button-label > :is(svg,.svg-inline--fa),html:root .nebula-topnav-menu a > .mantine-Button-root .mantine-Button-label > :is(svg,.svg-inline--fa){
 padding:0.375em 0.3em;
 border-radius:var(--mantine-radius-sm);
 transition:background-color 120ms ease,color 120ms ease;
 }
 
 @media (prefers-reduced-motion:reduce){
-html:root #sidebar-content a > .mantine-Button-root .mantine-Button-label > svg,html:root .nebula-topnav a > .mantine-Button-root .mantine-Button-label > svg,html:root .nebula-topnav-menu a > .mantine-Button-root .mantine-Button-label > svg{
+html:root #sidebar-content a > .mantine-Button-root .mantine-Button-label > :is(svg,.svg-inline--fa),html:root .nebula-topnav a > .mantine-Button-root .mantine-Button-label > :is(svg,.svg-inline--fa),html:root .nebula-topnav-menu a > .mantine-Button-root .mantine-Button-label > :is(svg,.svg-inline--fa){
 transition:none;
 }
 }
 
 @media (hover:hover){
-html:root #sidebar-content a > .mantine-Button-root:not(.active):hover .mantine-Button-label > svg,html:root .nebula-topnav a > .mantine-Button-root:not(.active):hover .mantine-Button-label > svg,html:root .nebula-topnav-menu a > .mantine-Button-root:not(.active):hover .mantine-Button-label > svg{
+html:root #sidebar-content a > .mantine-Button-root:not(.active):hover .mantine-Button-label > :is(svg,.svg-inline--fa),html:root .nebula-topnav a > .mantine-Button-root:not(.active):hover .mantine-Button-label > :is(svg,.svg-inline--fa),html:root .nebula-topnav-menu a > .mantine-Button-root:not(.active):hover .mantine-Button-label > :is(svg,.svg-inline--fa){
 background-color:var(--nebula-nav-tint);
 color:var(--nebula-nav-ink);
 }
 }
 
-html:root #sidebar-content a > .mantine-Button-root.active .mantine-Button-label > svg,html:root .nebula-topnav a > .mantine-Button-root.active .mantine-Button-label > svg,html:root .nebula-topnav-menu a > .mantine-Button-root.active .mantine-Button-label > svg{
+html:root #sidebar-content a > .mantine-Button-root.active .mantine-Button-label > :is(svg,.svg-inline--fa),html:root .nebula-topnav a > .mantine-Button-root.active .mantine-Button-label > :is(svg,.svg-inline--fa),html:root .nebula-topnav-menu a > .mantine-Button-root.active .mantine-Button-label > :is(svg,.svg-inline--fa){
 background-color:var(--nebula-nav-accent);
 color:var(--mantine-primary-color-contrast);
 }

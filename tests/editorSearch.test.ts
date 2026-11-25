@@ -2,7 +2,7 @@
 // description or an option matched.
 import assert from 'node:assert/strict';
 import { describe, test } from 'node:test';
-import { expandTerms, searchSettings } from '../frontend/src/lib/editorSearch.ts';
+import { expandTerms, searchSettings, SETTINGS } from '../frontend/src/lib/editorSearch.ts';
 
 const docs = [
   { label: 'Toast style', section: 'Interface', also: ['The messages that pop up after saving', 'Default', 'Glassy'] },
@@ -55,5 +55,13 @@ describe('expandTerms', () => {
       'editor.boxes.styles.fill',
       'editor.font',
     ]);
+  });
+
+  test('servers section indexes both default view and card style', () => {
+    const serverSettings = SETTINGS.filter((setting) => setting.section === 'servers');
+    assert.deepEqual(
+      serverSettings.map((setting) => setting.label),
+      ['editor.serverCards.defaultView', 'editor.serverCards.cardStyle'],
+    );
   });
 });

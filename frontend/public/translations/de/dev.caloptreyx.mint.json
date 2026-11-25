@@ -70,7 +70,8 @@
         "loadFailed": "Die Gruppen konnten nicht geladen werden.",
         "retry": "Erneut versuchen",
         "reorder": "Ziehen, um {name} zu verschieben",
-        "selectGroup": "Alle Server in {name} auswählen"
+        "selectGroup": "Alle Server in {name} auswählen",
+        "limitReached": "Du bist auf {max} Servergruppen begrenzt."
       }
     },
     "serverSort": {
@@ -303,7 +304,7 @@
         "console": "Konsole",
         "consoleDescription": "Die Konsolenseite: eine Vorlage oder dein eigenes Layout rund um das Terminal, das Terminal selbst, das Banner, die Diagramme und Schnellbefehle.",
         "servers": "Serverliste",
-        "serversDescription": "Die Karten in der Rasteransicht der Serverliste.",
+        "serversDescription": "Standardansicht und Kartenstil der Serverliste.",
         "login": "Anmeldeseite",
         "loginDescription": "Layout, Hintergrund, Logo und Support-Links für die Anmelde-, Registrierungs- und Passwortseiten.",
         "interface": "Verhalten",
@@ -719,6 +720,12 @@
         }
       },
       "serverCards": {
+        "defaultView": "Standardansicht",
+        "defaultViewDescription": "Wie die Serverliste standardmäßig geöffnet wird. Kartenstile gelten für die Rasteransicht; die Listenansicht folgt dem Tabellenstil. Nutzer können die Ansicht weiterhin wechseln.",
+        "views": {
+          "list": "Liste",
+          "grid": "Raster"
+        },
         "cardStyle": "Stil der Serverkarten",
         "cardStyleDescription": "Die Karten in der Rasteransicht der Serverliste. Jeder Stil behält das Kontrollkästchen, den Status und das Power-Menü.",
         "styles": {
@@ -778,7 +785,12 @@
         "description": "Das Menü des Adminbereichs für alle: Ziehe Links und ganze Kategorien sowie Links innerhalb ihrer Kategorie. Benutzer können ihre eigenen Menüs weiterhin darüber anordnen. Server- und Dashboardmenü folgen den Routenreihenfolgen der Egg-Konfigurationen und der Benutzereinstellungen.",
         "empty": "Das Adminmenü ist noch nicht geladen.",
         "reset": "Zurück zur Reihenfolge des Panels"
-      }
+      },
+      "previewZoom": "Skaliert auf {percent}% ({width}px)",
+      "collapseNav": "Abschnittsmenü ausblenden",
+      "expandNav": "Abschnittsmenü einblenden",
+      "expandPreview": "Vorschau vergrößern",
+      "restorePreview": "Einstellungen anzeigen"
     },
     "library": {
       "saveAsPreset": "Als Vorlage speichern",
@@ -821,7 +833,13 @@
         "label": "Dein Design",
         "description": "So sieht das Panel für dich aus. Nur du siehst es, auf jedem Gerät, auf dem du dich anmeldest.",
         "default": "Panel-Standard"
-      }
+      },
+      "applyAction": "Anwenden",
+      "active": "Aktiv",
+      "kindColours": "Farben",
+      "kindFull": "Vollständiger Stil",
+      "offeredCount": "{count} für Nutzer freigegeben",
+      "saveBehaviorHint": "Ein Klick auf eine Vorlage aktualisiert den Entwurf; Nutzerfreigaben werden sofort gespeichert."
     },
     "share": {
       "copyCode": "Teilen-Code kopieren",

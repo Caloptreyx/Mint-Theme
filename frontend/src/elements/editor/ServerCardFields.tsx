@@ -2,7 +2,9 @@ import { Stack, Text } from '../../lib/core.ts';
 import {
   type NebulaTheme,
   SERVER_CARD_STYLES,
+  SERVER_LIST_VIEWS,
   type ServerCardStyle,
+  type ServerListView,
   TABLE_STYLES,
   type TableStyle,
 } from '../../lib/theme.ts';
@@ -154,23 +156,73 @@ function TableMock({ style }: { style: TableStyle }) {
   );
 }
 
-/** Servers list section: the servers grid's cards. */
+/** List view (rows) vs Grid view (cards) skeleton for the servers list's default view. */
+function ViewMock({ view }: { view: ServerListView }) {
+  if (view === 'grid') {
+    return (
+      <div className='grid size-full grid-cols-2 gap-1.5'>
+        {[0, 1].map((card) => (
+          <div key={card} className={`${CARD} flex flex-col`}>
+            <div className='flex flex-1 items-end justify-between gap-1 bg-linear-to-br from-(--mantine-color-blue-filled)/35 to-transparent px-1.5 pb-1'>
+              <span className={`${NAME} w-1/2`} />
+              {STATUS}
+            </div>
+            <div className='flex gap-1 border-t border-(--mantine-color-default-border) p-1'>{STATS}</div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  return (
+    <div className={`${CARD} flex size-full flex-col`}>
+      {[0, 1, 2].map((row) => (
+        <div
+          key={row}
+          className={`flex flex-1 items-center gap-1.5 px-1.5 ${
+            row > 0 ? 'border-t border-(--mantine-color-default-border)' : ''
+          }`}
+        >
+          {EMBLEM}
+          <span className={`${NAME} w-1/3`} />
+          {STATUS}
+          <span className={`${DIM} ml-auto w-1/5`} />
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/** Servers list section: the default view (list or grid) and the servers grid's cards. */
 export default function ServerCardFields({ theme, set }: Props) {
   const { t } = useExtTranslations();
 
   return (
-    <ChoiceCards
-      label={t('editor.serverCards.cardStyle', {})}
-      description={t('editor.serverCards.cardStyleDescription', {})}
-      value={theme.serverCardStyle}
-      columns={3}
-      choices={SERVER_CARD_STYLES.map((style) => ({
-        value: style,
-        label: t(`editor.serverCards.styles.${style}`, {}),
-        preview: <CardMock style={style} />,
-      }))}
-      onChange={(serverCardStyle) => set({ serverCardStyle })}
-    />
+    <Stack gap='xl'>
+      <ChoiceCards
+        label={t('editor.serverCards.defaultView', {})}
+        description={t('editor.serverCards.defaultViewDescription', {})}
+        value={theme.serverListView}
+        choices={SERVER_LIST_VIEWS.map((view) => ({
+          value: view,
+          label: t(`editor.serverCards.views.${view}`, {}),
+          preview: <ViewMock view={view} />,
+        }))}
+        onChange={(serverListView) => set({ serverListView })}
+      />
+      <ChoiceCards
+        label={t('editor.serverCards.cardStyle', {})}
+        description={t('editor.serverCards.cardStyleDescription', {})}
+        value={theme.serverCardStyle}
+        columns={3}
+        choices={SERVER_CARD_STYLES.map((style) => ({
+          value: style,
+          label: t(`editor.serverCards.styles.${style}`, {}),
+          preview: <CardMock style={style} />,
+        }))}
+        onChange={(serverCardStyle) => set({ serverCardStyle })}
+      />
+    </Stack>
   );
 }
 

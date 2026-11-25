@@ -1,8 +1,10 @@
+import type { RefObject } from 'react';
 import type { z } from 'zod';
-import { faGamepad } from '@fortawesome/free-solid-svg-icons';
+import { faGamepad, faPlus, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { NavLink } from 'react-router';
 import {
+  ActionIcon,
   bytesToString,
   Card,
   Checkbox,
@@ -12,7 +14,9 @@ import {
   Progress,
   type serverSchema,
   Text,
+  Tooltip,
   useServerStats,
+  useTranslations,
 } from '../../lib/core.ts';
 import { useExtTranslations } from '../../translations.ts';
 import StatusBadge from './StatusBadge.tsx';
@@ -22,11 +26,11 @@ export type Server = z.infer<typeof serverSchema>;
 /**
  * Shared by the header strip and every row so the columns line up. The panel's breakpoints are container
  * queries on the page content (beside the sidebar), not the window. Phones keep the checkbox, the game
- * icon, the name and the status; CPU and RAM come back at `md`, the ID, location and uptime at `lg`
+ * icon, the name, the status and the group action; CPU and RAM come back at `md`, the ID, location and uptime at `lg`
  * (the full table, as it always was there). The tracks here and COLUMN_CLASS below must change together.
  */
 export const ROW_GRID =
-  'grid grid-cols-[2rem_1.25rem_minmax(0,1fr)_6.5rem] md:grid-cols-[2rem_minmax(0,1fr)_minmax(0,1.4fr)_6.5rem_9rem_9rem] lg:grid-cols-[2rem_6rem_minmax(0,1fr)_minmax(0,1.4fr)_6.5rem_minmax(0,1fr)_9rem_9rem_5rem] items-center gap-3 px-4';
+  'grid grid-cols-[2rem_1.25rem_minmax(0,1fr)_6.5rem_2rem] md:grid-cols-[2rem_minmax(0,1fr)_minmax(0,1.4fr)_6.5rem_9rem_9rem_2rem] lg:grid-cols-[2rem_6rem_minmax(0,1fr)_minmax(0,1.4fr)_6.5rem_minmax(0,1fr)_9rem_9rem_5rem_2rem] items-center gap-3 px-4';
 
 export const COLUMNS = ['id', 'game', 'name', 'status', 'location', 'cpu', 'ram', 'uptime'] as const;
 
@@ -52,9 +56,23 @@ interface Props {
   card: boolean;
   selected: boolean;
   onSelect: (selected: boolean) => void;
+  sKeyPressedRef?: RefObject<boolean>;
+  canAddToGroup?: boolean;
+  onAddToGroup?: () => void;
 }
 
-export default function ServerRow({ server, art, icon, card, selected, onSelect }: Props) {
+export default function ServerRow({
+  server,
+  art,
+  icon,
+  card,
+  selected,
+  onSelect,
+  sKeyPressedRef,
+  canAddToGroup = false,
+  onAddToGroup,
+}: Props) {
+  const { t } = useTranslations();
   const { t: tExt } = useExtTranslations();
   const stats = useServerStats(server);
 
@@ -101,14 +119,33 @@ export default function ServerRow({ server, art, icon, card, selected, onSelect 
       </div>
 
       {/* a real link whose ::after covers the row: middle click and the keyboard work like any link */}
-      <NavLink
-        to={`/server/${server.uuidShort}`}
-        className='min-w-0 rounded-sm after:absolute after:inset-0 focus-visible:outline-2 focus-visible:outline-(--mantine-color-blue-filled)'
-      >
-        <Text fw={600} truncate>
-          {server.name}
-        </Text>
-      </NavLink>
+      <div className='flex min-w-0 items-center gap-1.5'>
+        <NavLink
+          to={`/server/${server.uuidShort}`}
+          onClick={(e) => {
+            if (sKeyPressedRef?.current) {
+              e.preventDefault();
+              e.stopPropagation();
+              onSelect(!selected);
+            }
+          }}
+          className='min-w-0 rounded-sm after:absolute after:inset-0 focus-visible:outline-2 focus-visible:outline-(--mantine-color-blue-filled)'
+        >
+          <Text fw={600} truncate>
+            {server.name}
+          </Text>
+        </NavLink>
+        {!server.isOwner && (
+          <Tooltip label={t('pages.account.home.tooltip.foreign', {})}>
+            <span
+              className='relative z-1 inline-flex shrink-0 items-center text-(--mantine-color-yellow-filled)'
+              aria-label={t('pages.account.home.tooltip.foreign', {})}
+            >
+              <FontAwesomeIcon icon={faUsers} size='xs' />
+            </span>
+          </Tooltip>
+        )}
+      </div>
 
       <StatusBadge server={server} state={stats?.state} size='sm' className='max-w-full' />
 
@@ -131,6 +168,31 @@ export default function ServerRow({ server, art, icon, card, selected, onSelect 
       <Text size='sm' c='dimmed' className={COLUMN_CLASS.uptime}>
         {running && stats?.uptime ? formatMilliseconds(stats.uptime, true, false) : NONE}
       </Text>
+
+      <div className='relative z-1 flex justify-end'>
+        <Tooltip
+          label={
+            canAddToGroup
+              ? t('pages.account.home.tooltip.addToGroup', {})
+              : t('pages.account.home.tooltip.noGroups', {})
+          }
+        >
+          <ActionIcon
+            variant='subtle'
+            color='gray'
+            size='sm'
+            disabled={!canAddToGroup}
+            aria-label={
+              canAddToGroup
+                ? t('pages.account.home.tooltip.addToGroup', {})
+                : t('pages.account.home.tooltip.noGroups', {})
+            }
+            onClick={onAddToGroup}
+          >
+            <FontAwesomeIcon icon={faPlus} className='size-3.5' />
+          </ActionIcon>
+        </Tooltip>
+      </div>
     </>
   );
 
@@ -141,7 +203,7 @@ export default function ServerRow({ server, art, icon, card, selected, onSelect 
       py='sm'
       hoverable
       style={{ backgroundImage }}
-      className={`${ROW_GRID} grid! relative bg-cover bg-right`}
+      className={`${ROW_GRID} grid! relative bg-cover bg-right ${selected ? 'outline-2! -outline-offset-1! outline-(--mantine-color-blue-filled)!' : ''}`}
     >
       {cells}
     </Card>

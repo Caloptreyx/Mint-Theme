@@ -70,7 +70,8 @@
         "loadFailed": "Não foi possível carregar os grupos.",
         "retry": "Tentar novamente",
         "reorder": "Arraste para reordenar {name}",
-        "selectGroup": "Selecionar todos os servidores em {name}"
+        "selectGroup": "Selecionar todos os servidores em {name}",
+        "limitReached": "Você está limitado a {max} grupos de servidores."
       }
     },
     "serverSort": {
@@ -303,7 +304,7 @@
         "console": "Console",
         "consoleDescription": "A página do console: um preset ou seu próprio layout ao redor do terminal, o próprio terminal, o banner, os gráficos e os comandos rápidos.",
         "servers": "Lista de servidores",
-        "serversDescription": "Os cartões na vista em grelha da lista de servidores.",
+        "serversDescription": "A visualização padrão e o estilo dos cartões da lista de servidores.",
         "login": "Página de login",
         "loginDescription": "Layout, fundo, logo e links de suporte das páginas de login, cadastro e senha.",
         "interface": "Comportamento",
@@ -719,6 +720,12 @@
         }
       },
       "serverCards": {
+        "defaultView": "Visualização padrão",
+        "defaultViewDescription": "Como a lista de servidores abre por padrão. Os estilos de cartão aplicam-se à visualização em grade; a visualização em lista segue o estilo de tabela. Os usuários ainda podem alternar entre as visualizações.",
+        "views": {
+          "list": "Lista",
+          "grid": "Grade"
+        },
         "cardStyle": "Estilo dos cards de servidor",
         "cardStyleDescription": "Os cards na visualização em grade da lista de servidores. Todos os estilos mantêm a caixa de seleção, o status e o menu de energia.",
         "styles": {
@@ -778,7 +785,12 @@
         "description": "O menu da administração para todos: arraste links e categorias inteiras, e links dentro da sua categoria. Os usuários ainda podem organizar os próprios menus por cima. Os menus de servidor e do painel seguem a ordem de rotas das configurações de eggs e das configurações de usuário.",
         "empty": "O menu de administração ainda não carregou.",
         "reset": "Voltar à ordem do painel"
-      }
+      },
+      "previewZoom": "Escalado para {percent}% ({width}px)",
+      "collapseNav": "Ocultar menu de seções",
+      "expandNav": "Mostrar menu de seções",
+      "expandPreview": "Expandir pré-visualização",
+      "restorePreview": "Mostrar configurações"
     },
     "library": {
       "saveAsPreset": "Salvar como predefinição",
@@ -821,7 +833,13 @@
         "label": "Seu tema",
         "description": "Como o painel aparece para você. Só você vê, em todos os dispositivos em que fizer login.",
         "default": "Padrão do painel"
-      }
+      },
+      "applyAction": "Aplicar",
+      "active": "Ativo",
+      "kindColours": "Cores",
+      "kindFull": "Estilo completo",
+      "offeredCount": "{count} oferecidos aos usuários",
+      "saveBehaviorHint": "Clicar em uma predefinição atualiza o rascunho; as opções de escolha do usuário são salvas imediatamente."
     },
     "share": {
       "copyCode": "Copiar código de compartilhamento",

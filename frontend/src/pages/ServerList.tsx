@@ -3,6 +3,7 @@ import {
   faArrowDownShortWide,
   faArrowDownWideShort,
   faList,
+  faPlus,
   faSort,
   faSortDown,
   faSortUp,
@@ -12,6 +13,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Pagination } from '@mantine/core';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
+import type { ServerListView } from '../lib/theme.ts';
 import ServerCard, { GRID_CLASS } from '../elements/dashboard/ServerCard.tsx';
 import {
   filterServers,
@@ -39,7 +41,8 @@ import {
 } from '../elements/dashboard/serverOrder.ts';
 import ServerRow, { COLUMN_CLASS, COLUMNS, ROW_GRID, type Server } from '../elements/dashboard/ServerRow.tsx';
 import ServersHeader from '../elements/dashboard/ServersHeader.tsx';
-import { useNebulaTheme } from '../lib/apply.ts';
+import { useSelectKeyHeld } from '../elements/dashboard/useSelectKeyHeld.ts';
+import { useNebulaTheme, usePreviewServerView } from '../lib/apply.ts';
 import {
   ActionIcon,
   AdminCan,
@@ -49,24 +52,25 @@ import {
   Checkbox,
   Group,
   getServers,
+  Menu,
   queryKeys,
   SegmentedControl,
   Select,
+  ServerAddGroupModal,
   Spinner,
   Switch,
   type serverPowerAction,
   Text,
   TextInput,
+  Tooltip,
   useBulkPowerActions,
   useSearchablePaginatedTable,
   useServerListShowOthers,
   useTranslations,
   useUserStore,
 } from '../lib/core.ts';
+import { parseServerListView, resolveServerListView, SERVER_VIEW_STORAGE_KEY } from '../lib/serverListView.ts';
 import { useExtTranslations } from '../translations.ts';
-
-type View = 'list' | 'grid';
-const VIEW_KEY = 'nebula:server-view';
 
 function stored(key: string): string | null {
   try {
@@ -97,12 +101,28 @@ export default function ServerList() {
   const { t, tItem } = useTranslations();
   const { t: tExt } = useExtTranslations();
   const theme = useNebulaTheme();
+  const previewView = usePreviewServerView();
+  const inPreview = window.parent !== window;
   const [showOthers, setShowOthers] = useServerListShowOthers();
-  const [view, setView] = useState<View>(() => (stored(VIEW_KEY) === 'grid' ? 'grid' : 'list'));
+  // outside the preview iframe, an explicit user choice in localStorage overrides `theme.serverListView`;
+  // inside the preview iframe, follow the live theme & editor hint without reading or clobbering localStorage
+  const [storedView, setStoredView] = useState<ServerListView | null>(() =>
+    inPreview ? null : parseServerListView(stored(SERVER_VIEW_STORAGE_KEY)),
+  );
+  const [iframeView, setIframeView] = useState<{ view: ServerListView; seq: number } | null>(null);
+  const view = resolveServerListView({
+    themeView: theme.serverListView,
+    inPreview,
+    storedView,
+    previewHint: previewView.view,
+    iframeOverride: iframeView && iframeView.seq === previewView.seq ? iframeView.view : null,
+  });
   const [sort, setSort] = useState<Sort | null>(() => parseSort(stored(SORT_STORAGE_KEY)));
   const [group, setGroup] = useState<GroupKey>(() => parseGroup(stored(GROUP_STORAGE_KEY)));
   const [filter, setFilter] = useState<StatusFilter>('all');
   const [selected, setSelected] = useState<string[]>([]);
+  const [addGroupModal, setAddGroupModal] = useState<{ server: Server; opened: boolean } | null>(null);
+  const sKeyPressedRef = useSelectKeyHeld();
   const { handleBulkPowerAction, bulkActionLoading } = useBulkPowerActions();
 
   // Status and the live values come from core's resource usage store, which core's useServerStats fills per node.
@@ -110,6 +130,7 @@ export default function ServerList() {
   const wantsUsage = needsUsage(sort, group, filter);
   const usage = useUserStore((state) => (wantsUsage ? state.serverResourceUsage : null));
   const subscribeToNode = useUserStore((state) => state.subscribeToNode);
+  const serverGroups = useUserStore((state) => state.serverGroups);
 
   const {
     data: servers,
@@ -123,6 +144,8 @@ export default function ServerList() {
     queryKey: queryKeys.user.servers.all(),
     fetcher: (page, query) => getServers(page, query, showOthers),
     deps: [showOthers],
+    // core's DashboardHomeAll stays mounted above this container with modifyParams: true; avoid fighting over URL params
+    modifyParams: false,
   });
 
   // The servers API has no sort parameter. While an ordering is active and the list spans a few pages, every
@@ -154,9 +177,13 @@ export default function ServerList() {
     };
   }, [nodeKey, subscribeToNode]);
 
-  const changeView = (next: View) => {
-    setView(next);
-    store(VIEW_KEY, next);
+  const changeView = (next: ServerListView) => {
+    if (inPreview) {
+      setIframeView({ view: next, seq: previewView.seq });
+      return;
+    }
+    setStoredView(next);
+    store(SERVER_VIEW_STORAGE_KEY, next);
   };
   // a new ordering of every server starts on its first page
   const restart = (nextSort: Sort | null, nextGroup: GroupKey, nextFilter: StatusFilter) => {
@@ -280,10 +307,12 @@ export default function ServerList() {
             </div>
           );
         })}
+        <div role='columnheader' />
       </div>
     </div>
   );
   // every row and heading stays a sibling, so a row that changes group moves instead of remounting
+  const hasAvailableGroup = (uuid: string) => serverGroups.some((g) => !g.serverOrder.includes(uuid));
   const listRows = groups.flatMap((entry) => [
     ...(grouped
       ? [
@@ -304,6 +333,9 @@ export default function ServerList() {
         card={cards}
         selected={chosen.includes(server.uuid)}
         onSelect={onSelect(server.uuid)}
+        sKeyPressedRef={sKeyPressedRef}
+        canAddToGroup={hasAvailableGroup(server.uuid)}
+        onAddToGroup={() => setAddGroupModal({ server, opened: true })}
       />
     )),
   ]);
@@ -359,7 +391,7 @@ export default function ServerList() {
         </div>
         <SegmentedControl
           value={view}
-          onChange={(value) => changeView(value as View)}
+          onChange={(value) => changeView(value as ServerListView)}
           data={[
             { value: 'list', label: <FontAwesomeIcon icon={faList} aria-label={tExt('servers.view.list', {})} /> },
             {
@@ -390,17 +422,37 @@ export default function ServerList() {
         <div className={GRID_CLASS[theme.serverCardStyle]}>
           {groups.flatMap((entry) => [
             ...(grouped ? [groupHeading(entry, 'col-span-full px-1 not-first:mt-2')] : []),
-            ...entry.servers.map((server) => (
-              <ServerCard
-                key={server.uuid}
-                server={server}
-                art={theme.eggs[server.egg.uuid]?.banner || theme.homeBanner}
-                variant={theme.serverCardStyle}
-                icon={theme.eggs[server.egg.uuid]?.icon}
-                selected={chosen.includes(server.uuid)}
-                onSelect={onSelect(server.uuid)}
-              />
-            )),
+            ...entry.servers.map((server) => {
+              const canAdd = hasAvailableGroup(server.uuid);
+              return (
+                <ServerCard
+                  key={server.uuid}
+                  server={server}
+                  art={theme.eggs[server.egg.uuid]?.banner || theme.homeBanner}
+                  variant={theme.serverCardStyle}
+                  icon={theme.eggs[server.egg.uuid]?.icon}
+                  selected={chosen.includes(server.uuid)}
+                  onSelect={onSelect(server.uuid)}
+                  sKeyPressedRef={sKeyPressedRef}
+                  menuItems={
+                    canAdd ? (
+                      <Menu.Item
+                        leftSection={<FontAwesomeIcon icon={faPlus} />}
+                        onClick={() => setAddGroupModal({ server, opened: true })}
+                      >
+                        {t('pages.account.home.tooltip.addToGroup', {})}
+                      </Menu.Item>
+                    ) : (
+                      <Tooltip label={t('pages.account.home.tooltip.noGroups', {})} innerClassName='block w-full'>
+                        <Menu.Item leftSection={<FontAwesomeIcon icon={faPlus} />} disabled>
+                          {t('pages.account.home.tooltip.addToGroup', {})}
+                        </Menu.Item>
+                      </Tooltip>
+                    )
+                  }
+                />
+              );
+            }),
           ])}
         </div>
       ) : cards ? (
@@ -440,6 +492,14 @@ export default function ServerList() {
         onAction={onBulkAction}
         loading={bulkActionLoading}
       />
+
+      {addGroupModal && (
+        <ServerAddGroupModal
+          server={addGroupModal.server}
+          opened={addGroupModal.opened}
+          onClose={() => setAddGroupModal((prev) => (prev ? { ...prev, opened: false } : null))}
+        />
+      )}
     </>
   );
 }

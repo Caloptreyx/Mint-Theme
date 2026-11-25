@@ -70,7 +70,8 @@
         "loadFailed": "Không thể tải các nhóm.",
         "retry": "Thử lại",
         "reorder": "Kéo để sắp xếp lại {name}",
-        "selectGroup": "Chọn mọi máy chủ trong {name}"
+        "selectGroup": "Chọn mọi máy chủ trong {name}",
+        "limitReached": "Bạn bị giới hạn tối đa {max} nhóm máy chủ."
       }
     },
     "serverSort": {
@@ -303,7 +304,7 @@
         "console": "Console",
         "consoleDescription": "Trang console: một mẫu có sẵn hoặc bố cục của riêng bạn quanh terminal, chính terminal, biểu ngữ, biểu đồ và lệnh nhanh.",
         "servers": "Danh sách máy chủ",
-        "serversDescription": "Các thẻ trong chế độ xem lưới của danh sách máy chủ.",
+        "serversDescription": "Chế độ xem mặc định và kiểu thẻ của danh sách máy chủ.",
         "login": "Trang đăng nhập",
         "loginDescription": "Bố cục, nền, logo và liên kết hỗ trợ cho các trang đăng nhập, đăng ký và mật khẩu.",
         "interface": "Hành vi",
@@ -719,6 +720,12 @@
         }
       },
       "serverCards": {
+        "defaultView": "Chế độ xem mặc định",
+        "defaultViewDescription": "Cách danh sách máy chủ mở theo mặc định. Kiểu thẻ áp dụng cho chế độ lưới; chế độ danh sách dùng kiểu bảng. Người dùng vẫn có thể chuyển đổi chế độ xem.",
+        "views": {
+          "list": "Danh sách",
+          "grid": "Lưới"
+        },
         "cardStyle": "Kiểu thẻ máy chủ",
         "cardStyleDescription": "Các thẻ trong dạng lưới của danh sách máy chủ. Mọi kiểu đều giữ ô chọn, trạng thái và menu nguồn.",
         "styles": {
@@ -778,7 +785,12 @@
         "description": "Menu khu vực quản trị cho mọi người: kéo các liên kết và cả danh mục, cũng như các liên kết trong danh mục của chúng. Người dùng vẫn có thể tự sắp xếp menu của mình đè lên. Menu máy chủ và bảng điều khiển theo thứ tự route của cấu hình egg và cài đặt người dùng.",
         "empty": "Menu quản trị chưa tải xong.",
         "reset": "Quay lại thứ tự của panel"
-      }
+      },
+      "previewZoom": "Thu phóng {percent}% ({width}px)",
+      "collapseNav": "Ẩn menu mục",
+      "expandNav": "Hiện menu mục",
+      "expandPreview": "Mở rộng xem trước",
+      "restorePreview": "Hiện cài đặt"
     },
     "library": {
       "saveAsPreset": "Lưu thành mẫu",
@@ -821,7 +833,13 @@
         "label": "Giao diện của bạn",
         "description": "Bảng điều khiển trông như thế nào đối với bạn. Chỉ bạn nhìn thấy, trên mọi thiết bị bạn đăng nhập.",
         "default": "Mặc định của bảng điều khiển"
-      }
+      },
+      "applyAction": "Áp dụng",
+      "active": "Đang dùng",
+      "kindColours": "Màu sắc",
+      "kindFull": "Kiểu đầy đủ",
+      "offeredCount": "{count} hiển thị cho người dùng",
+      "saveBehaviorHint": "Nhấp vào mẫu sẵn sẽ cập nhật bản nháp; công tắc cho người dùng chọn được lưu ngay."
     },
     "share": {
       "copyCode": "Sao chép mã chia sẻ",

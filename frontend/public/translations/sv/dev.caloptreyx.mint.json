@@ -70,7 +70,8 @@
         "loadFailed": "Grupperna kunde inte läsas in.",
         "retry": "Försök igen",
         "reorder": "Dra för att flytta {name}",
-        "selectGroup": "Markera alla servrar i {name}"
+        "selectGroup": "Markera alla servrar i {name}",
+        "limitReached": "Du är begränsad till {max} servergrupper."
       }
     },
     "serverSort": {
@@ -303,7 +304,7 @@
         "console": "Konsol",
         "consoleDescription": "Konsolsidan: en förinställning eller din egen layout runt terminalen, själva terminalen, bannern, diagrammen och snabbkommandon.",
         "servers": "Serverlista",
-        "serversDescription": "Korten i rutnätsvyn för serverlistan.",
+        "serversDescription": "Standardvy och kortstil för serverlistan.",
         "login": "Inloggningssida",
         "loginDescription": "Layout, bakgrund, logotyp och supportlänkar för inloggnings-, registrerings- och lösenordssidor.",
         "interface": "Beteende",
@@ -719,6 +720,12 @@
         }
       },
       "serverCards": {
+        "defaultView": "Standardvy",
+        "defaultViewDescription": "Hur serverlistan öppnas som standard. Kortstilar gäller för rutnätsvy; listvyn följer tabellstilen. Användare kan fortfarande byta vy.",
+        "views": {
+          "list": "Lista",
+          "grid": "Rutnät"
+        },
         "cardStyle": "Stil för serverkort",
         "cardStyleDescription": "Korten i rutnätsvyn av serverlistan. Alla stilar behåller kryssrutan, statusen och strömmenyn.",
         "styles": {
@@ -778,7 +785,12 @@
         "description": "Adminområdets meny för alla: dra länkar och hela kategorier, och länkar inom sin kategori. Användare kan fortfarande ordna sina egna menyer ovanpå. Server- och instrumentpanelsmenyerna följer ruttordningarna i egg-konfigurationerna och användarinställningarna.",
         "empty": "Adminmenyn har inte laddats än.",
         "reset": "Tillbaka till panelens ordning"
-      }
+      },
+      "previewZoom": "Skalad till {percent}% ({width}px)",
+      "collapseNav": "Dölj sektionsmeny",
+      "expandNav": "Visa sektionsmeny",
+      "expandPreview": "Expandera förhandsgranskning",
+      "restorePreview": "Visa inställningar"
     },
     "library": {
       "saveAsPreset": "Spara som förinställning",
@@ -821,7 +833,13 @@
         "label": "Ditt tema",
         "description": "Hur panelen ser ut för dig. Bara du ser det, på alla enheter du loggar in på.",
         "default": "Panelens standard"
-      }
+      },
+      "applyAction": "Använd",
+      "active": "Aktiv",
+      "kindColours": "Färger",
+      "kindFull": "Full stil",
+      "offeredCount": "{count} erbjudna till användare",
+      "saveBehaviorHint": "Klick på en förinställning uppdaterar utkastet; användarval sparas direkt."
     },
     "share": {
       "copyCode": "Kopiera delningskod",

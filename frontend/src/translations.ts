@@ -73,6 +73,7 @@ const translations = defineTranslations({
         retry: 'Try again',
         reorder: 'Drag to reorder {name}',
         selectGroup: 'Select every server in {name}',
+        limitReached: 'You are limited to {max} server groups.',
       },
     },
     serverSort: {
@@ -322,7 +323,7 @@ const translations = defineTranslations({
         consoleDescription:
           'The console page: a preset or your own layout around the terminal, the terminal itself, the banner, the charts and quick commands.',
         servers: 'Servers list',
-        serversDescription: 'The cards in the grid view of the servers list.',
+        serversDescription: 'The default view and card style of the servers list.',
         login: 'Login page',
         loginDescription: 'Layout, background, logo and support links for login, registration and password pages.',
         interface: 'Behaviour',
@@ -755,6 +756,13 @@ const translations = defineTranslations({
         },
       },
       serverCards: {
+        defaultView: 'Default view',
+        defaultViewDescription:
+          'How the servers list opens by default. Card styles apply to Grid view; List view follows the table style. Users can still switch views.',
+        views: {
+          list: 'List',
+          grid: 'Grid',
+        },
         cardStyle: 'Server card style',
         cardStyleDescription:
           'The cards in the grid view of the servers list. Every style keeps the checkbox, the status and the power menu.',

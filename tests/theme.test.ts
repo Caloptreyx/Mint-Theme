@@ -30,6 +30,7 @@ import {
   PAGE_TRANSITIONS,
   SEARCH_COMPONENTS,
   SERVER_CARD_STYLES,
+  SERVER_LIST_VIEWS,
   SIDEBAR_LAYOUTS,
   STAT_STYLES,
   SUPPORT_LINK_ICONS,
@@ -1058,9 +1059,11 @@ describe('server cards and table style', () => {
       .filter((rule) => rule.includes(SCROLL));
 
   test("defaults and themes saved before these options keep today's grid and tables", () => {
+    assert.equal(DEFAULT_THEME.serverListView, 'list');
     assert.equal(DEFAULT_THEME.serverCardStyle, 'default');
     assert.equal(DEFAULT_THEME.tableStyle, 'table');
     const old = normalizeTheme({ accent: '#2fbf8f', blockBorder: false, boxStyle: 'pill' });
+    assert.equal(old.serverListView, 'list');
     assert.equal(old.serverCardStyle, 'default');
     assert.equal(old.tableStyle, 'table');
     for (const css of [buildCss(DEFAULT_THEME), buildCss(old)]) {
@@ -1068,13 +1071,22 @@ describe('server cards and table style', () => {
         assert.equal(css.includes(marker), false, marker);
       }
     }
-    // the servers grid reads the card style itself; it never reaches the stylesheet
+    // the servers list reads its view and card style itself; neither reaches the stylesheet
+    for (const view of SERVER_LIST_VIEWS) {
+      assert.equal(buildCss(normalizeTheme({ serverListView: view })), buildCss(DEFAULT_THEME), view);
+    }
     for (const style of SERVER_CARD_STYLES) {
       assert.equal(buildCss(normalizeTheme({ serverCardStyle: style })), buildCss(DEFAULT_THEME), style);
     }
   });
 
-  test('serverCardStyle and tableStyle only accept their allow lists', () => {
+  test('serverListView, serverCardStyle and tableStyle only accept their allow lists', () => {
+    for (const view of SERVER_LIST_VIEWS) {
+      assert.equal(normalizeTheme({ serverListView: view }).serverListView, view);
+    }
+    for (const bad of ['List', 'Grid', 'cards', '', 'constructor', 'toString', 'grid;}', 1, null, true, ['grid']]) {
+      assert.equal(normalizeTheme({ serverListView: bad }).serverListView, 'list', String(bad));
+    }
     for (const style of SERVER_CARD_STYLES) {
       assert.equal(normalizeTheme({ serverCardStyle: style }).serverCardStyle, style);
     }
@@ -1089,8 +1101,9 @@ describe('server cards and table style', () => {
   });
 
   test('invalid values fall back to the given theme, not the defaults', () => {
-    const d = { ...DEFAULT_THEME, serverCardStyle: 'linear', tableStyle: 'cards' } as const;
-    const out = normalizeTheme({ serverCardStyle: 'tiles', tableStyle: 'rows' }, d);
+    const d = { ...DEFAULT_THEME, serverListView: 'grid', serverCardStyle: 'linear', tableStyle: 'cards' } as const;
+    const out = normalizeTheme({ serverListView: 'masonry', serverCardStyle: 'tiles', tableStyle: 'rows' }, d);
+    assert.equal(out.serverListView, 'grid');
     assert.equal(out.serverCardStyle, 'linear');
     assert.equal(out.tableStyle, 'cards');
   });
@@ -1140,12 +1153,12 @@ describe('server cards and table style', () => {
 describe('menu hover effect and search component', () => {
   const LINK = 'html:root #sidebar-content a > .mantine-Button-root';
   const TOP_LINK = 'html:root .nebula-topnav a > .mantine-Button-root';
-  const ICON = ' .mantine-Button-label > svg';
+  const ICON = ' .mantine-Button-label > :is(svg,.svg-inline--fa)';
   const styled = (navHover: NebulaTheme['navHover']) => buildCss(normalizeTheme({ navHover }));
   /** The declarations of every rule listing `selector`, with at-rules unwrapped. */
   const declarations = (css: string, selector: string) =>
     [...css.matchAll(/([^{}]+)\{([^{}]*)\}/g)]
-      .filter(([, selectors]) => selectors.split(',').some((listed) => listed.trim() === selector))
+      .filter(([, selectors]) => selectors.split(/,(?![^(]*\))/).some((listed) => listed.trim() === selector))
       .map(([, , body]) => body)
       .join('');
 
@@ -1343,11 +1356,19 @@ describe('dashboard layout and dock position', () => {
 
   test('the rail keeps the link names for screen readers and shows every section as a rule over its links', () => {
     const css = laid('slim');
-    // core's links and 'Arrange menu' shrink their names the same way
+    // core's links and 'Arrange menu' shrink their names the same way, and match both svg and 1.2.11 IconLike spans
     assert.ok(
       css.includes(
         `${SIDEBAR} :is(a > .mantine-Button-root,.nebula-arrange) .mantine-Button-label{justify-content:center;font-size:0;}`,
       ),
+    );
+    assert.ok(
+      css.includes(
+        `${SIDEBAR} :is(a > .mantine-Button-root,.nebula-arrange) .mantine-Button-label > :is(svg,.svg-inline--fa){margin:0;font-size:1rem;}`,
+      ),
+    );
+    assert.ok(
+      css.includes(`${SIDEBAR} .nebula-rail-server .mantine-Card-root .mantine-Button-label > :is(svg,.svg-inline--fa){font-size:0.75rem;}`),
     );
     assert.ok(css.includes(`${SIDEBAR} .nebula-sb-toggle,${SIDEBAR} .mantine-Divider-label{display:none;}`));
     assert.ok(css.includes(`${SIDEBAR} .nebula-sb-rule{display:block;}`));

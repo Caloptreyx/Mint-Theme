@@ -70,7 +70,8 @@
         "loadFailed": "Grupas neizdevās ielādēt.",
         "retry": "Mēģināt vēlreiz",
         "reorder": "Velc, lai pārkārtotu {name}",
-        "selectGroup": "Atlasīt visus serverus grupā {name}"
+        "selectGroup": "Atlasīt visus serverus grupā {name}",
+        "limitReached": "Jūs varat izveidot ne vairāk kā {max} serveru grupas."
       }
     },
     "serverSort": {
@@ -303,7 +304,7 @@
         "console": "Konsole",
         "consoleDescription": "Konsoles lapa: sagatave vai jūsu paša izkārtojums ap termināli, pats terminālis, reklāmkarogs, diagrammas un ātrās komandas.",
         "servers": "Serveru saraksts",
-        "serversDescription": "Kartītes serveru saraksta režģa skatā.",
+        "serversDescription": "Serveru saraksta noklusējuma skats un kartīšu stils.",
         "login": "Pieteikšanās lapa",
         "loginDescription": "Izkārtojums, fons, logotips un atbalsta saites pieteikšanās, reģistrācijas un paroles lapām.",
         "interface": "Uzvedība",
@@ -719,6 +720,12 @@
         }
       },
       "serverCards": {
+        "defaultView": "Noklusējuma skats",
+        "defaultViewDescription": "Kā pēc noklusējuma tiek atvērts serveru saraksts. Kartīšu stili attiecas uz režģa skatu; saraksta skats seko tabulas stilam. Lietotāji joprojām var pārslēgt skatus.",
+        "views": {
+          "list": "Saraksts",
+          "grid": "Režģis"
+        },
         "cardStyle": "Servera kartīšu stils",
         "cardStyleDescription": "Kartītes serveru saraksta režģa skatā. Katrs stils saglabā izvēles rūtiņu, statusu un barošanas izvēlni.",
         "styles": {
@@ -778,7 +785,12 @@
         "description": "Administrācijas izvēlne visiem: velc saites un veselas kategorijas, kā arī saites to kategorijā. Lietotāji joprojām var sakārtot savas izvēlnes virs tās. Servera un paneļa izvēlnes seko maršrutu secībām egg konfigurācijās un lietotāju iestatījumos.",
         "empty": "Administrācijas izvēlne vēl nav ielādēta.",
         "reset": "Atpakaļ uz paneļa secību"
-      }
+      },
+      "previewZoom": "Mērogots uz {percent}% ({width}px)",
+      "collapseNav": "Paslēpt sadaļu izvēlni",
+      "expandNav": "Rādīt sadaļu izvēlni",
+      "expandPreview": "Paplašināt priekšskatījumu",
+      "restorePreview": "Rādīt iestatījumus"
     },
     "library": {
       "saveAsPreset": "Saglabāt kā sagatavi",
@@ -821,7 +833,13 @@
         "label": "Jūsu motīvs",
         "description": "Kā panelis izskatās jums. To redzat tikai jūs, katrā ierīcē, kurā piesakāties.",
         "default": "Paneļa noklusējums"
-      }
+      },
+      "applyAction": "Lietot",
+      "active": "Aktīvs",
+      "kindColours": "Krāsas",
+      "kindFull": "Pilns stils",
+      "offeredCount": "{count} pieejami lietotājiem",
+      "saveBehaviorHint": "Noklikšķinot uz sagataves, tiek atjaunināts melnraksts; lietotāju izvēles slēdži tiek saglabāti uzreiz."
     },
     "share": {
       "copyCode": "Kopēt kopīgošanas kodu",

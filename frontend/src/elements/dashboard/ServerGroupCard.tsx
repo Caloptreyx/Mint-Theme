@@ -14,7 +14,7 @@ import {
   faTrash,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { type ComponentProps, useMemo, useState } from 'react';
+import { type ComponentProps, type RefObject, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { z } from 'zod';
 import type { Server } from './ServerRow.tsx';
@@ -80,6 +80,7 @@ interface Props extends DropState {
   dragHandleProps?: ComponentProps<'div'>;
   selected: string[];
   onSelect: (uuids: string[], checked: boolean) => void;
+  sKeyPressedRef?: RefObject<boolean>;
 }
 
 /**
@@ -92,6 +93,7 @@ export default function ServerGroupCard({
   dragHandleProps,
   selected,
   onSelect,
+  sKeyPressedRef,
   isDropTarget = false,
   dropBlockedReason = null,
   adoptedServer = null,
@@ -389,6 +391,7 @@ export default function ServerGroupCard({
                         variant={theme.serverCardStyle}
                         selected={selected.includes(server.uuid)}
                         onSelect={(checked) => onSelect([server.uuid], checked)}
+                        sKeyPressedRef={sKeyPressedRef}
                         menuItems={
                           <Menu.Item
                             color='red'

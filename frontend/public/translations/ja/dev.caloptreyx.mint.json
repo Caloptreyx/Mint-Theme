@@ -70,7 +70,8 @@
         "loadFailed": "グループを読み込めませんでした。",
         "retry": "再試行",
         "reorder": "ドラッグして {name} を並べ替え",
-        "selectGroup": "{name} のすべてのサーバーを選択"
+        "selectGroup": "{name} のすべてのサーバーを選択",
+        "limitReached": "サーバーグループは最大 {max} 個までです。"
       }
     },
     "serverSort": {
@@ -303,7 +304,7 @@
         "console": "コンソール",
         "consoleDescription": "コンソールページ：ターミナルを囲むプリセットまたは独自のレイアウト、ターミナル本体、バナー、グラフ、クイックコマンド。",
         "servers": "サーバー一覧",
-        "serversDescription": "サーバー一覧のグリッド表示のカード。",
+        "serversDescription": "サーバー一覧のデフォルト表示とカードスタイル。",
         "login": "ログインページ",
         "loginDescription": "ログイン、登録、パスワードページのレイアウト、背景、ロゴ、サポートリンク。",
         "interface": "動作",
@@ -719,6 +720,12 @@
         }
       },
       "serverCards": {
+        "defaultView": "デフォルト表示",
+        "defaultViewDescription": "サーバー一覧を既定で開く表示形式です。カードスタイルはグリッド表示に適用され、リスト表示はテーブルスタイルに従います。ユーザーは引き続き表示を切り替えられます。",
+        "views": {
+          "list": "リスト",
+          "grid": "グリッド"
+        },
         "cardStyle": "サーバーカードのスタイル",
         "cardStyleDescription": "サーバー一覧のグリッド表示でのカード。どのスタイルでもチェックボックス、ステータス、電源メニューは残ります。",
         "styles": {
@@ -778,7 +785,12 @@
         "description": "全員向けの管理エリアのメニュー：リンクやカテゴリ全体、カテゴリ内のリンクをドラッグします。ユーザーはその上で自分のメニューを並べ替えられます。サーバーとダッシュボードのメニューは、Egg 設定とユーザー設定のルート順に従います。",
         "empty": "管理メニューはまだ読み込まれていません。",
         "reset": "パネルの順序に戻す"
-      }
+      },
+      "previewZoom": "{percent}% に縮小表示 ({width}px)",
+      "collapseNav": "セクションメニューを隠す",
+      "expandNav": "セクションメニューを表示",
+      "expandPreview": "プレビューを拡大",
+      "restorePreview": "設定を表示"
     },
     "library": {
       "saveAsPreset": "プリセットとして保存",
@@ -821,7 +833,13 @@
         "label": "あなたのテーマ",
         "description": "あなたに表示されるパネルの見た目です。あなただけに適用され、サインインするすべてのデバイスで反映されます。",
         "default": "パネルのデフォルト"
-      }
+      },
+      "applyAction": "適用",
+      "active": "有効",
+      "kindColours": "カラー",
+      "kindFull": "フルスタイル",
+      "offeredCount": "{count} 件をユーザーに提供中",
+      "saveBehaviorHint": "プリセットをクリックすると下書きが更新されます。ユーザー向け公開設定は即座に保存されます。"
     },
     "share": {
       "copyCode": "共有コードをコピー",

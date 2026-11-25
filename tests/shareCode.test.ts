@@ -29,6 +29,8 @@ const SOURCE: NebulaTheme = normalizeTheme({
   radius: 4,
   glass: true,
   buttonStyle: 'outline',
+  serverListView: 'grid',
+  serverCardStyle: 'banner',
   backgroundImage: 'https://example.com/bg.png',
   lightSurface: '#fdfcff',
   // not part of the look: must never travel

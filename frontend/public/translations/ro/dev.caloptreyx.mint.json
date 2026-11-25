@@ -70,7 +70,8 @@
         "loadFailed": "Grupurile nu au putut fi încărcate.",
         "retry": "Încearcă din nou",
         "reorder": "Trage pentru a reordona {name}",
-        "selectGroup": "Selectează toate serverele din {name}"
+        "selectGroup": "Selectează toate serverele din {name}",
+        "limitReached": "Ești limitat la {max} grupuri de servere."
       }
     },
     "serverSort": {
@@ -303,7 +304,7 @@
         "console": "Consolă",
         "consoleDescription": "Pagina consolei: un preset sau propriul aspect în jurul terminalului, terminalul în sine, bannerul, graficele și comenzile rapide.",
         "servers": "Lista serverelor",
-        "serversDescription": "Cardurile din vizualizarea grilă a listei de servere.",
+        "serversDescription": "Vizualizarea implicită și stilul cardurilor din lista de servere.",
         "login": "Pagina de autentificare",
         "loginDescription": "Aranjament, fundal, logo și linkuri de asistență pentru paginile de autentificare, înregistrare și parolă.",
         "interface": "Comportament",
@@ -719,6 +720,12 @@
         }
       },
       "serverCards": {
+        "defaultView": "Vizualizare implicită",
+        "defaultViewDescription": "Cum se deschide implicit lista de servere. Stilurile de carduri se aplică vizualizării în grilă; vizualizarea listă urmează stilul tabelelor. Utilizatorii pot schimba în continuare vizualizarea.",
+        "views": {
+          "list": "Listă",
+          "grid": "Grilă"
+        },
         "cardStyle": "Stil carduri server",
         "cardStyleDescription": "Cardurile din vizualizarea grilă a listei de servere. Fiecare stil păstrează caseta de selectare, starea și meniul de alimentare.",
         "styles": {
@@ -778,7 +785,12 @@
         "description": "Meniul zonei de administrare pentru toată lumea: trage linkuri și categorii întregi, precum și linkuri în cadrul categoriei lor. Utilizatorii își pot aranja în continuare propriile meniuri peste el. Meniurile de server și de panou urmează ordinea rutelor din configurațiile egg și din setările utilizatorilor.",
         "empty": "Meniul de administrare nu s-a încărcat încă.",
         "reset": "Înapoi la ordinea panoului"
-      }
+      },
+      "previewZoom": "Scalat la {percent}% ({width}px)",
+      "collapseNav": "Ascunde meniul de secțiuni",
+      "expandNav": "Afișează meniul de secțiuni",
+      "expandPreview": "Extinde previzualizarea",
+      "restorePreview": "Afișează setările"
     },
     "library": {
       "saveAsPreset": "Salvează ca presetare",
@@ -821,7 +833,13 @@
         "label": "Tema ta",
         "description": "Cum arată panoul pentru tine. Doar tu o vezi, pe fiecare dispozitiv pe care te autentifici.",
         "default": "Implicitul panoului"
-      }
+      },
+      "applyAction": "Aplică",
+      "active": "Activ",
+      "kindColours": "Culori",
+      "kindFull": "Stil complet",
+      "offeredCount": "{count} oferite utilizatorilor",
+      "saveBehaviorHint": "Făcând clic pe o presetare se actualizează ciorna; opțiunile pentru utilizatori se salvează imediat."
     },
     "share": {
       "copyCode": "Copiază codul de partajare",

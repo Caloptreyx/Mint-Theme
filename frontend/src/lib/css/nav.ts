@@ -48,7 +48,7 @@ function navHoverCss(hover: Exclude<NavHover, 'default'>, motion: Motion): strin
       .map((scope) => `html:root ${scope} a${suffix}`)
       .join(',');
   const BUTTON = ' > .mantine-Button-root';
-  const ICON = ' .mantine-Button-label > svg';
+  const ICON = ' .mantine-Button-label > :is(svg,.svg-inline--fa)';
 
   const css = [
     `${on('')}{--nebula-nav-accent:var(--mantine-color-blue-filled);--nebula-nav-tint:var(--mantine-color-blue-light);--nebula-nav-ink:var(--mantine-color-blue-light-color);}`,
@@ -106,7 +106,7 @@ function railCss(): string[] {
     // the names shrink to nothing rather than going, so screen readers still read them
     `${LINK}{padding-inline:0;}`,
     `${LINK} .mantine-Button-label{justify-content:center;font-size:0;}`,
-    `${LINK} .mantine-Button-label > svg{margin:0;font-size:1rem;}`,
+    `${LINK} .mantine-Button-label > :is(svg,.svg-inline--fa){margin:0;font-size:1rem;}`,
     // RailLogo's square icon stands in for the logo or banner
     `${SIDEBAR} .nebula-rail-logo{display:block;}`,
     `${SIDEBAR} a:has(> .nebula-rail-logo) > :not(.nebula-rail-logo){display:none;}`,
@@ -131,7 +131,7 @@ function railCss(): string[] {
     `${SERVER} .mantine-Button-label{font-size:0;}`,
     `${SERVER} .mantine-Button-section{margin:0;}`,
     // the restart button's icon is its label, not a section
-    `${SERVER} .mantine-Button-label > svg{font-size:0.75rem;}`,
+    `${SERVER} .mantine-Button-label > :is(svg,.svg-inline--fa){font-size:0.75rem;}`,
     // the footer keeps the account: its avatar at the menu icons' size over the menu button, turned to lie flat
     `${SIDEBAR_FOOTER} > :not(#sidebar-account-card){display:none;}`,
     `${ACCOUNT}{flex-wrap:wrap;justify-content:center;row-gap:0.125rem;padding:0.375rem 0 0.125rem!important;}`,

@@ -70,7 +70,8 @@
         "loadFailed": "Gruplar yüklenemedi.",
         "retry": "Tekrar dene",
         "reorder": "{name} grubunu sıralamak için sürükleyin",
-        "selectGroup": "{name} içindeki tüm sunucuları seç"
+        "selectGroup": "{name} içindeki tüm sunucuları seç",
+        "limitReached": "En fazla {max} sunucu grubuna sahip olabilirsiniz."
       }
     },
     "serverSort": {
@@ -303,7 +304,7 @@
         "console": "Konsol",
         "consoleDescription": "Konsol sayfası: terminalin etrafında bir hazır düzen veya kendi düzeniniz, terminalin kendisi, banner, grafikler ve hızlı komutlar.",
         "servers": "Sunucu listesi",
-        "serversDescription": "Sunucu listesinin ızgara görünümündeki kartlar.",
+        "serversDescription": "Sunucu listesinin varsayılan görünümü ve kart stili.",
         "login": "Giriş sayfası",
         "loginDescription": "Giriş, kayıt ve şifre sayfaları için düzen, arka plan, logo ve destek bağlantıları.",
         "interface": "Davranış",
@@ -719,6 +720,12 @@
         }
       },
       "serverCards": {
+        "defaultView": "Varsayılan görünüm",
+        "defaultViewDescription": "Sunucu listesinin varsayılan olarak nasıl açılacağı. Kart stilleri ızgara görünümüne uygulanır; liste görünümü tablo stilini izler. Kullanıcılar yine de görünümü değiştirebilir.",
+        "views": {
+          "list": "Liste",
+          "grid": "Izgara"
+        },
         "cardStyle": "Sunucu kartı stili",
         "cardStyleDescription": "Sunucu listesinin ızgara görünümündeki kartlar. Her stil onay kutusunu, durumu ve güç menüsünü korur.",
         "styles": {
@@ -778,7 +785,12 @@
         "description": "Herkes için yönetim alanının menüsü: bağlantıları ve kategorilerin tamamını, kategorileri içindeki bağlantıları sürükleyin. Kullanıcılar yine de kendi menülerini bunun üzerine düzenleyebilir. Sunucu ve pano menüleri egg yapılandırmalarının ve kullanıcı ayarlarının rota sıralarını izler.",
         "empty": "Yönetim menüsü henüz yüklenmedi.",
         "reset": "Panelin sırasına dön"
-      }
+      },
+      "previewZoom": "%{percent} ölçeklendi ({width}px)",
+      "collapseNav": "Bölüm menüsünü gizle",
+      "expandNav": "Bölüm menüsünü göster",
+      "expandPreview": "Önizlemeyi genişlet",
+      "restorePreview": "Ayarları göster"
     },
     "library": {
       "saveAsPreset": "Hazır ayar olarak kaydet",
@@ -821,7 +833,13 @@
         "label": "Temanız",
         "description": "Panelin size nasıl göründüğü. Yalnızca siz görürsünüz, oturum açtığınız her cihazda.",
         "default": "Panel varsayılanı"
-      }
+      },
+      "applyAction": "Uygula",
+      "active": "Etkin",
+      "kindColours": "Renkler",
+      "kindFull": "Tam stil",
+      "offeredCount": "{count} kullanıcıya sunuluyor",
+      "saveBehaviorHint": "Bir ön ayara tıklamak taslağı günceller; kullanıcı seçim anahtarları anında kaydedilir."
     },
     "share": {
       "copyCode": "Paylaşım kodunu kopyala",

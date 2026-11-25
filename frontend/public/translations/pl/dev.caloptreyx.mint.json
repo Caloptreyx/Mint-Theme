@@ -70,7 +70,8 @@
         "loadFailed": "Nie udało się wczytać grup.",
         "retry": "Spróbuj ponownie",
         "reorder": "Przeciągnij, aby zmienić kolejność {name}",
-        "selectGroup": "Zaznacz wszystkie serwery w {name}"
+        "selectGroup": "Zaznacz wszystkie serwery w {name}",
+        "limitReached": "Limit grup serwerów wynosi {max}."
       }
     },
     "serverSort": {
@@ -303,7 +304,7 @@
         "console": "Konsola",
         "consoleDescription": "Strona konsoli: szablon lub własny układ wokół terminala, sam terminal, baner, wykresy i szybkie polecenia.",
         "servers": "Lista serwerów",
-        "serversDescription": "Karty w widoku siatki listy serwerów.",
+        "serversDescription": "Domyślny widok i styl kart listy serwerów.",
         "login": "Strona logowania",
         "loginDescription": "Układ, tło, logo i linki pomocy na stronach logowania, rejestracji i hasła.",
         "interface": "Zachowanie",
@@ -719,6 +720,12 @@
         }
       },
       "serverCards": {
+        "defaultView": "Domyślny widok",
+        "defaultViewDescription": "Jak domyślnie otwiera się lista serwerów. Style kart dotyczą widoku siatki; widok listy korzysta ze stylu tabeli. Użytkownicy nadal mogą przełączać widok.",
+        "views": {
+          "list": "Lista",
+          "grid": "Siatka"
+        },
         "cardStyle": "Styl kart serwerów",
         "cardStyleDescription": "Karty w widoku siatki listy serwerów. Każdy styl zachowuje pole wyboru, status i menu zasilania.",
         "styles": {
@@ -778,7 +785,12 @@
         "description": "Menu panelu administracyjnego dla wszystkich: przeciągaj linki i całe kategorie oraz linki w obrębie ich kategorii. Użytkownicy nadal mogą układać własne menu ponad nim. Menu serwera i pulpitu stosują kolejność tras z konfiguracji eggów i ustawień użytkownika.",
         "empty": "Menu administracyjne jeszcze się nie wczytało.",
         "reset": "Wróć do kolejności panelu"
-      }
+      },
+      "previewZoom": "Skalowanie do {percent}% ({width}px)",
+      "collapseNav": "Ukryj menu sekcji",
+      "expandNav": "Pokaż menu sekcji",
+      "expandPreview": "Rozwiń podgląd",
+      "restorePreview": "Pokaż ustawienia"
     },
     "library": {
       "saveAsPreset": "Zapisz jako preset",
@@ -821,7 +833,13 @@
         "label": "Twój motyw",
         "description": "Jak wygląda panel dla Ciebie. Widzisz go tylko Ty, na każdym urządzeniu, na którym się logujesz.",
         "default": "Domyślny panelu"
-      }
+      },
+      "applyAction": "Zastosuj",
+      "active": "Aktywny",
+      "kindColours": "Kolory",
+      "kindFull": "Pełny styl",
+      "offeredCount": "{count} udostępnionych użytkownikom",
+      "saveBehaviorHint": "Kliknięcie motywu aktualizuje szkic; przełączniki wyboru dla użytkowników zapisują się od razu."
     },
     "share": {
       "copyCode": "Kopiuj kod udostępniania",
