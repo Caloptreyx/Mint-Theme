@@ -222,6 +222,7 @@
       "imported": "Design importiert; klicke auf Speichern, um es zu verwenden.",
       "save": "Speichern",
       "saved": "Design gespeichert.",
+      "savedEmailSyncFailed": "Design gespeichert, aber die E-Mail-Farben konnten nicht synchronisiert werden. Speichere erneut oder prüfe das Serverprotokoll.",
       "loading": "Gespeichertes Design wird geladen…",
       "loadFailed": "Das gespeicherte Design konnte nicht geladen werden",
       "loadFailedDescription": "Speichern bleibt deaktiviert, bis es geladen ist, damit das gespeicherte Design nie durch ein veraltetes ersetzt wird.",

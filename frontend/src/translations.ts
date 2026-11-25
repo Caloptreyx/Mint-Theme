@@ -230,6 +230,7 @@ const translations = defineTranslations({
       imported: 'Theme imported; press Save to use it.',
       save: 'Save',
       saved: 'Theme saved.',
+      savedEmailSyncFailed: 'Theme saved, but email colours could not be synced. Save again or check the server log.',
       loading: 'Loading the saved theme…',
       loadFailed: 'The saved theme could not be loaded',
       loadFailedDescription:

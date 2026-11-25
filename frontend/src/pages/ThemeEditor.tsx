@@ -341,7 +341,10 @@ export default function ThemeEditor() {
         // edits made while the request was out stay in the draft (and count as unsaved)
         setDraft((d) => (d === sent ? theme : d));
         setConflict(null);
-        addToast(t('editor.saved', {}), 'success');
+        addToast(
+          t(res.emailSyncFailed ? 'editor.savedEmailSyncFailed' : 'editor.saved', {}),
+          res.emailSyncFailed ? 'warning' : 'success',
+        );
       })
       .catch((err) => {
         if (base !== undefined && isAxiosError(err) && err.response?.status === 409) setConflict(theme);

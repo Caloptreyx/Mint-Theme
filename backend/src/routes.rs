@@ -221,6 +221,9 @@ mod put {
     struct Response {
         /// The saved theme's version, the `base` for the next save.
         version: String,
+        /// Non-fatal signal when the theme saved cleanly but syncing `mint_email_*` globals failed.
+        #[serde(skip_serializing_if = "std::ops::Not::not")]
+        email_sync_failed: bool,
     }
 
     #[utoipa::path(put, path = "/", responses(
@@ -270,19 +273,25 @@ mod put {
             }
             Err(super::StoreError::Internal(err)) => return Err(err.into()),
         };
-        let stored_theme = stored.theme.to_string();
-        let app_url = settings.app.url.to_string();
         settings.save().await?;
 
-        if let Err(err) = crate::mail::sync(&state, &stored_theme, &app_url).await {
-            tracing::warn!("failed to sync mint email theme variables: {err:#}");
-        }
+        let email_sync_failed = match crate::mail::sync_current(&state).await {
+            Ok(()) => false,
+            Err(err) => {
+                tracing::warn!("failed to sync mint email theme variables: {err:#}");
+                true
+            }
+        };
 
         activity_logger
             .log("mint:theme.update", serde_json::json!({}))
             .await;
 
-        ApiResponse::new_serialized(Response { version }).ok()
+        ApiResponse::new_serialized(Response {
+            version,
+            email_sync_failed,
+        })
+        .ok()
     }
 }
 

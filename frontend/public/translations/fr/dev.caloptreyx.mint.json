@@ -222,6 +222,7 @@
       "imported": "Thème importé ; appuyez sur Enregistrer pour l'utiliser.",
       "save": "Enregistrer",
       "saved": "Thème enregistré.",
+      "savedEmailSyncFailed": "Thème enregistré, mais les couleurs des e-mails n'ont pas pu être synchronisées. Enregistrez à nouveau ou consultez les journaux du serveur.",
       "loading": "Chargement du thème enregistré…",
       "loadFailed": "Le thème enregistré n'a pas pu être chargé",
       "loadFailedDescription": "L'enregistrement reste désactivé jusqu'au chargement, afin que le thème stocké ne soit jamais remplacé par une version obsolète.",

@@ -222,6 +222,7 @@
       "imported": "Đã nhập giao diện; nhấn Lưu để sử dụng.",
       "save": "Lưu",
       "saved": "Đã lưu giao diện.",
+      "savedEmailSyncFailed": "Đã lưu giao diện, nhưng không thể đồng bộ màu email. Hãy lưu lại hoặc kiểm tra nhật ký máy chủ.",
       "loading": "Đang tải giao diện đã lưu…",
       "loadFailed": "Không thể tải giao diện đã lưu",
       "loadFailedDescription": "Nút Lưu bị tắt cho đến khi tải xong, để giao diện đã lưu không bao giờ bị thay bằng phiên bản cũ.",

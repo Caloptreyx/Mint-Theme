@@ -222,6 +222,7 @@
       "imported": "Zaimportowano motyw; kliknij Zapisz, aby go użyć.",
       "save": "Zapisz",
       "saved": "Zapisano motyw.",
+      "savedEmailSyncFailed": "Motyw zapisany, ale nie udało się zsynchronizować kolorów e-maili. Zapisz ponownie lub sprawdź logi serwera.",
       "loading": "Wczytywanie zapisanego motywu…",
       "loadFailed": "Nie udało się wczytać zapisanego motywu",
       "loadFailedDescription": "Zapisywanie pozostaje wyłączone do czasu wczytania, aby zapisany motyw nigdy nie został zastąpiony nieaktualnym.",

@@ -222,6 +222,7 @@
       "imported": "Motīvs importēts; nospiediet Saglabāt, lai to izmantotu.",
       "save": "Saglabāt",
       "saved": "Motīvs saglabāts.",
+      "savedEmailSyncFailed": "Tēma saglabāta, taču e-pasta krāsas neizdevās sinhronizēt. Saglabājiet vēlreiz vai pārbaudiet servera žurnālu.",
       "loading": "Ielādē saglabāto motīvu…",
       "loadFailed": "Saglabāto motīvu neizdevās ielādēt",
       "loadFailedDescription": "Saglabāšana ir izslēgta, līdz tas ielādējas, lai saglabātais motīvs nekad netiktu aizstāts ar novecojušu.",

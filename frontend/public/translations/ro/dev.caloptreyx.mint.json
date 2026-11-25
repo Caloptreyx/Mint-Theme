@@ -222,6 +222,7 @@
       "imported": "Tema a fost importată; apasă Salvează pentru a o folosi.",
       "save": "Salvează",
       "saved": "Tema a fost salvată.",
+      "savedEmailSyncFailed": "Tema a fost salvată, dar culorile e-mailurilor nu au putut fi sincronizate. Salvează din nou sau verifică jurnalul serverului.",
       "loading": "Se încarcă tema salvată…",
       "loadFailed": "Tema salvată nu a putut fi încărcată",
       "loadFailedDescription": "Salvarea rămâne dezactivată până la încărcare, ca tema stocată să nu fie niciodată înlocuită cu una învechită.",
