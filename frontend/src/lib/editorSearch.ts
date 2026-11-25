@@ -273,7 +273,12 @@ export const SETTINGS: Setting[] = [
   {
     section: 'emails',
     label: 'editor.email.theme',
-    also: ['editor.email.themeDescription', 'editor.email.themes.', 'editor.email.customColorsTitle', 'editor.email.colors.'],
+    also: [
+      'editor.email.themeDescription',
+      'editor.email.themes.',
+      'editor.email.customColorsTitle',
+      'editor.email.colors.',
+    ],
   },
   {
     section: 'emails',

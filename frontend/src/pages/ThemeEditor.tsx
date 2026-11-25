@@ -78,12 +78,7 @@ import {
   useToast,
 } from '../lib/core.ts';
 import { invalidUrls, isThemeFile } from '../lib/editorDraft.ts';
-import {
-  EMAIL_PREVIEW_PAGE,
-  EMAIL_TEMPLATES,
-  type EmailTemplateId,
-  renderEmailPreviewHtml,
-} from '../lib/email.ts';
+import { EMAIL_PREVIEW_PAGE, EMAIL_TEMPLATES, type EmailTemplateId, renderEmailPreviewHtml } from '../lib/email.ts';
 import { normalizeTheme } from '../lib/normalize.ts';
 import { useCanSaveTheme } from '../lib/permissions.ts';
 import { type PreviewDevice, previewViewport } from '../lib/previewViewport.ts';
