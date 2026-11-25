@@ -46,12 +46,15 @@ export type SidebarLayout = (typeof SIDEBAR_LAYOUTS)[number];
 /** Where the sidebar's header block (logo, search, the server block) sits; the horizontal layout ignores it. */
 export const DOCK_POSITIONS = ['sidebar', 'header', 'top'] as const;
 export type DockPosition = (typeof DOCK_POSITIONS)[number];
-/**
- * Phone navigation below lg: 'drawer' is core's floating menu button, 'bottomBar' a fixed bar of links on the bottom
+/** Phone navigation below lg: 'drawer' is core's floating menu button, 'bottomBar' a fixed bar of links on the bottom
  * edge and 'floatingBar' the same bar as a rounded pill above it (BottomNav).
  */
 export const MOBILE_NAVS = ['drawer', 'bottomBar', 'floatingBar'] as const;
 export type MobileNav = (typeof MOBILE_NAVS)[number];
+/** Outbound emails: match the dark palette, the light palette, or custom email colours. */
+export const EMAIL_THEMES = ['dark', 'light', 'custom'] as const;
+export type EmailTheme = (typeof EMAIL_THEMES)[number];
+export const MAX_EMAIL_FOOTER = 200;
 
 export interface Article {
   title: string;
@@ -297,6 +300,20 @@ export interface NebulaTheme {
   adminNavOrder: NavOrder;
   /** Per menu, whether users get 'Arrange menu' and their own order there (admins included). */
   userArrange: NavArrange;
+  /** Syncs Mint's resolved email palette to core's global email template variables on save. */
+  emailSync: boolean;
+  /** Which palette Mint's email templates use: dark panel colours, light panel colours, or custom overrides. */
+  emailTheme: EmailTheme;
+  /** Optional custom email overrides (`#rrggbb`, empty falls back to the panel's dark palette). */
+  emailBackground: string;
+  emailSurface: string;
+  emailText: string;
+  emailAccent: string;
+  emailAccentText: string;
+  /** Optional logo image URL shown in the email header; '' shows the panel name alone. */
+  emailLogo: string;
+  /** Optional plain-text line shown below the email card (max 200 chars). */
+  emailFooter: string;
 }
 
 export const DEFAULT_THEME: NebulaTheme = {
@@ -383,6 +400,15 @@ export const DEFAULT_THEME: NebulaTheme = {
   allowPureBlack: false,
   adminNavOrder: EMPTY_NAV_ORDER,
   userArrange: ALL_ARRANGEABLE,
+  emailSync: true,
+  emailTheme: 'dark',
+  emailBackground: '',
+  emailSurface: '',
+  emailText: '',
+  emailAccent: '',
+  emailAccentText: '',
+  emailLogo: '',
+  emailFooter: '',
 };
 
 /**

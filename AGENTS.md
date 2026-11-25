@@ -1,6 +1,6 @@
 # Working on this theme
 
-Mint is a Calagopus Panel extension (`dev.caloptreyx.mint`). It needs panel **1.2.0 or newer**.
+Mint is a Calagopus Panel extension (`dev.caloptreyx.mint`). It needs panel **1.2.1 or newer**.
 Up to 1.2.1 it was `dev.s4way.nebula`; the migration in `migrations/` copies that ID's saved theme and
 announcement buttons to the new one. Names nobody sees keep the old name on purpose: `NebulaTheme`,
 `--nebula-*`, `nebula:` browser storage keys, the `nebula::account_banner` user setting and the
@@ -21,6 +21,7 @@ backend/src/banner.rs      per user account banner GET/upload/remove (client API
 backend/src/cta.rs         announcement call to action buttons: GET (client API) and PUT (admin API)
 backend/src/presets.rs     custom presets and user selectable presets: GET/POST/PATCH/DELETE (admin API), theme-choices GET (client API)
 backend/src/history.rs     the last 10 replaced themes (written by the theme PUT), GET (admin API)
+backend/src/mail.rs        overrides all 10 core email templates (`backend/mails/*.html`), declares `mint_email_*` global variables and syncs them from the saved theme
 backend/src/updates.rs     check_for_updates: GitHub releases of Caloptreyx/Mint-Theme, cached 10 min in memory, ETag revalidated
 frontend/src/index.ts      entry point: hooks, route interceptors, Mantine theme
 frontend/src/lib/core.ts   the one module that re-exports every core import (see the end of "How it hooks into the panel")
@@ -38,6 +39,7 @@ frontend/src/lib/permissions.ts  useCanSaveTheme(): settings.update or mint-them
 frontend/src/lib/library.ts  presets, users' theme choices and history: ids, normalizers, resolveUserTheme()
 frontend/src/lib/editorSearch.ts  the editor's settings index (SETTINGS, COLOR_GROUPS) and searchSettings()
 frontend/src/lib/editorDraft.ts   checks on the editor's raw draft: urlValid, invalidUrls, isThemeFile, toHexColor
+frontend/src/lib/email.ts  resolveEmailPalette() (matches backend/src/mail.rs) and renderEmailPreviewHtml() for the editor's live email preview
 frontend/src/lib/redact.ts  core's 'Hide server addresses' setting: useRedactAddresses(), shownAddress(), maskAddress()
 frontend/src/lib/initials.ts  railInitials(): the slim rail's server tile letters, as a CSS string
 frontend/src/pages/        ServerHome, ServerConsole, ServerList and GroupedServerList (dashboard), ThemeEditor

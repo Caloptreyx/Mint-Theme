@@ -276,7 +276,8 @@
         "servers": "Servere",
         "account": "Cont",
         "admin": "Admin",
-        "login": "Pagina de autentificare"
+        "login": "Pagina de autentificare",
+        "emails": "E-mailuri"
       },
       "groups": {
         "look": "Aspect",
@@ -307,6 +308,8 @@
         "serversDescription": "Aspectul și stilul cardurilor din lista de servere.",
         "login": "Pagina de autentificare",
         "loginDescription": "Aranjament, fundal, logo și linkuri de asistență pentru paginile de autentificare, înregistrare și parolă.",
+        "emails": "E-mailuri",
+        "emailsDescription": "Șabloane de e-mail sincronizate cu culorile temei, cu previzualizare live.",
         "interface": "Comportament",
         "interfaceDescription": "Notificări, titluri de pagină și editorul de fișiere pe telefon.",
         "motion": "Animații",
@@ -787,7 +790,52 @@
       "collapseNav": "Ascunde meniul de secțiuni",
       "expandNav": "Afișează meniul de secțiuni",
       "expandPreview": "Extinde previzualizarea",
-      "restorePreview": "Afișează setările"
+      "restorePreview": "Afișează setările",
+      "email": {
+        "sync": "Sincronizează culorile temei cu e-mailurile",
+        "syncDescription": "Actualizează variabilele globale mint_email_* ori de câte ori salvezi tema. Dezactivează pentru a le gestiona manual în Admin → Setări → Șabloane e-mail.",
+        "theme": "Paletă e-mail",
+        "themeDescription": "Alege dacă e-mailurile trimise folosesc tema întunecată, tema deschisă sau culori personalizate.",
+        "themes": {
+          "dark": "Temă întunecată",
+          "light": "Temă deschisă",
+          "custom": "Personalizat"
+        },
+        "customColorsTitle": "Culori e-mail",
+        "colors": {
+          "emailBackground": "Fundal exterior",
+          "emailSurface": "Suprafață card",
+          "emailText": "Titlu și text",
+          "emailAccent": "Buton și accent",
+          "emailAccentText": "Text buton"
+        },
+        "brandingTitle": "Branding și subsol",
+        "logo": "URL logo e-mail",
+        "logoDescription": "Logo PNG, JPEG sau WebP opțional afișat deasupra numelui panoului. Căile care încep cu / folosesc URL-ul panoului.",
+        "footer": "Notă subsol",
+        "footerDescription": "Rând scurt opțional afișat sub cardul de e-mail (până la {max} caractere).",
+        "adminHint": "Editează textele, traducerile sau HTML-ul fiecărui șablon în Admin → Setări → Șabloane e-mail. Mint nu suprascrie niciodată modificările tale.",
+        "previewFrame": "Previzualizare e-mail",
+        "previewTemplate": "Șablon e-mail",
+        "templates": {
+          "account_created": "Cont creat",
+          "password_reset": "Resetare parolă",
+          "email_verification": "Verificare e-mail",
+          "two_factor_code": "Cod de autentificare (2FA)",
+          "session_created": "Sesiune nouă",
+          "connection_test": "Test de conexiune",
+          "added_to_server": "Adăugat la server",
+          "removed_from_server": "Eliminat de pe server",
+          "server_installed": "Server instalat",
+          "server_restored": "Server restaurat"
+        },
+        "overridesTitle": "HTML personalizat suprascrie Mint pe unele șabloane",
+        "overridesDescription": "Aceste șabloane au HTML personalizat salvat în Admin → Setări → Șabloane e-mail, așa că e-mailurile trimise îl folosesc în locul Mint: {templates}.",
+        "overridesReset": "Folosește aspectul Mint",
+        "overridesResetTitle": "Resetează aspectele de e-mail suprascrise",
+        "overridesResetConfirm": "Ștergi HTML-ul personalizat pentru {templates} ca să folosească aspectul Mint? Subiectele, stările activate și variabilele de text sunt păstrate.",
+        "overridesResetDone": "Șabloanele de e-mail suprascrise folosesc acum aspectul Mint."
+      }
     },
     "library": {
       "saveAsPreset": "Salvează ca presetare",

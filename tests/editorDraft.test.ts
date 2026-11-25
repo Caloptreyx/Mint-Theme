@@ -38,12 +38,14 @@ describe('invalidUrls', () => {
     const theme = {
       ...DEFAULT_THEME,
       backgroundImage: 'example.com/bg.png',
+      emailLogo: 'https://x.y/{{bad}}.png',
       articles: [{ title: 'a', description: '', url: 'https://x.y/a(1)' }],
       supportLinks: [{ label: 'b', url: '//evil.example' }],
       eggs: { '00000000-0000-0000-0000-000000000000': { banner: 'javascript:alert(1)', icon: '' } },
     };
     assert.deepEqual(invalidUrls(theme), [
       'example.com/bg.png',
+      'https://x.y/{{bad}}.png',
       'https://x.y/a(1)',
       '//evil.example',
       'javascript:alert(1)',

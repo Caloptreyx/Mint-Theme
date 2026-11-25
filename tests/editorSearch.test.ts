@@ -92,4 +92,12 @@ describe('expandTerms', () => {
       );
     }
   });
+
+  test('emails section indexes sync, palette, logo and footer settings', () => {
+    const emailSettings = SETTINGS.filter((setting) => setting.section === 'emails');
+    assert.deepEqual(
+      emailSettings.map((setting) => setting.label),
+      ['editor.email.sync', 'editor.email.theme', 'editor.email.logo', 'editor.email.footer'],
+    );
+  });
 });

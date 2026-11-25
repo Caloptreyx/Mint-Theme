@@ -293,6 +293,7 @@ const translations = defineTranslations({
         account: 'Account',
         admin: 'Admin',
         login: 'Login page',
+        emails: 'Emails',
       },
       groups: {
         look: 'Look',
@@ -326,6 +327,8 @@ const translations = defineTranslations({
         serversDescription: 'The layout and card style of the servers list.',
         login: 'Login page',
         loginDescription: 'Layout, background, logo and support links for login, registration and password pages.',
+        emails: 'Emails',
+        emailsDescription: 'Branded email templates synced to your theme colours, with a live preview.',
         interface: 'Behaviour',
         interfaceDescription: 'Toasts, page titles and the phone file editor.',
         motion: 'Animations',
@@ -826,6 +829,56 @@ const translations = defineTranslations({
           "The admin area's menu for everyone: drag links and whole categories, and links within their category. Users can still arrange their own menus over it. The server and dashboard menus follow the route orders of the egg configurations and the user settings.",
         empty: 'The admin menu has not loaded yet.',
         reset: "Back to the panel's order",
+      },
+      email: {
+        sync: 'Sync theme colours to emails',
+        syncDescription:
+          'Updates the global mint_email_* template variables whenever you save the theme. Turn off to manage them manually in Admin → Settings → Mail Templates.',
+        theme: 'Email palette',
+        themeDescription: 'Choose whether outbound emails follow your dark theme, light theme, or custom colours.',
+        themes: {
+          dark: 'Dark theme',
+          light: 'Light theme',
+          custom: 'Custom',
+        },
+        customColorsTitle: 'Email colours',
+        colors: {
+          emailBackground: 'Outer background',
+          emailSurface: 'Card surface',
+          emailText: 'Heading & text',
+          emailAccent: 'Button & accent',
+          emailAccentText: 'Button text',
+        },
+        brandingTitle: 'Branding & footer',
+        logo: 'Email logo URL',
+        logoDescription:
+          'Optional PNG, JPEG or WebP logo shown above the panel name. Root-relative / paths resolve against the panel URL.',
+        footer: 'Footer note',
+        footerDescription: 'Optional short line shown below the email card (up to {max} characters).',
+        adminHint:
+          'Edit wording, translations or per-template HTML under Admin → Settings → Mail Templates. Custom template edits are never overwritten by Mint.',
+        overridesTitle: 'Custom HTML is overriding Mint on some templates',
+        overridesDescription:
+          'These templates have custom HTML saved under Admin → Settings → Mail Templates, so sent emails use that instead of Mint: {templates}.',
+        overridesReset: 'Use Mint layout',
+        overridesResetTitle: 'Reset overridden email layouts',
+        overridesResetConfirm:
+          'Clear custom HTML on {templates} so they use Mint’s layout? Subjects, enabled toggles and wording variables are kept.',
+        overridesResetDone: 'Overridden email templates now use Mint’s layout.',
+        previewFrame: 'Email preview',
+        previewTemplate: 'Email template',
+        templates: {
+          account_created: 'Account created',
+          password_reset: 'Password reset',
+          email_verification: 'Verify email',
+          two_factor_code: 'Login code (2FA)',
+          session_created: 'New session',
+          connection_test: 'Connection test',
+          added_to_server: 'Added to server',
+          removed_from_server: 'Removed from server',
+          server_installed: 'Server installed',
+          server_restored: 'Server restored',
+        },
       },
     },
     library: {

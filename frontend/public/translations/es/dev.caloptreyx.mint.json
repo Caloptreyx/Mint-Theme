@@ -276,7 +276,8 @@
         "servers": "Servidores",
         "account": "Cuenta",
         "admin": "Administración",
-        "login": "Página de inicio de sesión"
+        "login": "Página de inicio de sesión",
+        "emails": "Correos"
       },
       "groups": {
         "look": "Aspecto",
@@ -307,6 +308,8 @@
         "serversDescription": "El diseño y el estilo de tarjetas de la lista de servidores.",
         "login": "Página de inicio de sesión",
         "loginDescription": "Diseño, fondo, logo y enlaces de soporte de las páginas de inicio de sesión, registro y contraseña.",
+        "emails": "Correos",
+        "emailsDescription": "Plantillas de correo personalizadas sincronizadas con los colores del tema y vista previa en vivo.",
         "interface": "Comportamiento",
         "interfaceDescription": "Notificaciones, títulos de página y el editor de archivos en el móvil.",
         "motion": "Animaciones",
@@ -787,7 +790,52 @@
       "collapseNav": "Ocultar menú de secciones",
       "expandNav": "Mostrar menú de secciones",
       "expandPreview": "Ampliar vista previa",
-      "restorePreview": "Mostrar ajustes"
+      "restorePreview": "Mostrar ajustes",
+      "email": {
+        "sync": "Sincronizar colores del tema con correos",
+        "syncDescription": "Actualiza las variables globales mint_email_* cada vez que guardas el tema. Desactívalo para gestionarlas manualmente en Admin → Ajustes → Plantillas de correo.",
+        "theme": "Paleta de correos",
+        "themeDescription": "Elige si los correos salientes usan tu tema oscuro, tu tema claro o colores personalizados.",
+        "themes": {
+          "dark": "Tema oscuro",
+          "light": "Tema claro",
+          "custom": "Personalizado"
+        },
+        "customColorsTitle": "Colores del correo",
+        "colors": {
+          "emailBackground": "Fondo exterior",
+          "emailSurface": "Superficie de tarjeta",
+          "emailText": "Título y texto",
+          "emailAccent": "Botón y acento",
+          "emailAccentText": "Texto del botón"
+        },
+        "brandingTitle": "Marca y pie de página",
+        "logo": "URL del logotipo del correo",
+        "logoDescription": "Logotipo PNG, JPEG o WebP opcional sobre el nombre del panel. Las rutas que empiezan por / usan la URL del panel.",
+        "footer": "Nota al pie",
+        "footerDescription": "Línea breve opcional debajo de la tarjeta del correo (hasta {max} caracteres).",
+        "adminHint": "Edita los textos, traducciones o HTML por plantilla en Admin → Ajustes → Plantillas de correo. Mint nunca sobrescribe tus ediciones personalizadas.",
+        "previewFrame": "Vista previa del correo",
+        "previewTemplate": "Plantilla de correo",
+        "templates": {
+          "account_created": "Cuenta creada",
+          "password_reset": "Restablecer contraseña",
+          "email_verification": "Verificar correo",
+          "two_factor_code": "Código de acceso (2FA)",
+          "session_created": "Nueva sesión",
+          "connection_test": "Prueba de conexión",
+          "added_to_server": "Añadido al servidor",
+          "removed_from_server": "Eliminado del servidor",
+          "server_installed": "Servidor instalado",
+          "server_restored": "Servidor restaurado"
+        },
+        "overridesTitle": "El HTML personalizado sobrescribe Mint en algunas plantillas",
+        "overridesDescription": "Estas plantillas tienen HTML personalizado guardado en Admin → Ajustes → Plantillas de correo, por lo que los correos enviados usan ese diseño en lugar de Mint: {templates}.",
+        "overridesReset": "Usar diseño de Mint",
+        "overridesResetTitle": "Restablecer diseños de correo sobrescritos",
+        "overridesResetConfirm": "¿Borrar el HTML personalizado de {templates} para que usen el diseño de Mint? Se conservarán los asuntos, el estado activado y las variables de texto.",
+        "overridesResetDone": "Las plantillas de correo sobrescritas ahora usan el diseño de Mint."
+      }
     },
     "library": {
       "saveAsPreset": "Guardar como preajuste",

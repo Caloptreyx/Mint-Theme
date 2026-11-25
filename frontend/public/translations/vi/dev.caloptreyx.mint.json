@@ -276,7 +276,8 @@
         "servers": "Máy chủ",
         "account": "Tài khoản",
         "admin": "Quản trị",
-        "login": "Trang đăng nhập"
+        "login": "Trang đăng nhập",
+        "emails": "Email"
       },
       "groups": {
         "look": "Diện mạo",
@@ -307,6 +308,8 @@
         "serversDescription": "Bố cục và kiểu thẻ của danh sách máy chủ.",
         "login": "Trang đăng nhập",
         "loginDescription": "Bố cục, nền, logo và liên kết hỗ trợ cho các trang đăng nhập, đăng ký và mật khẩu.",
+        "emails": "Email",
+        "emailsDescription": "Mẫu email đồng bộ với màu giao diện của bạn kèm bản xem trước trực tiếp.",
         "interface": "Hành vi",
         "interfaceDescription": "Thông báo, tiêu đề trang và trình sửa tệp trên điện thoại.",
         "motion": "Hoạt ảnh",
@@ -787,7 +790,52 @@
       "collapseNav": "Ẩn menu mục",
       "expandNav": "Hiện menu mục",
       "expandPreview": "Mở rộng xem trước",
-      "restorePreview": "Hiện cài đặt"
+      "restorePreview": "Hiện cài đặt",
+      "email": {
+        "sync": "Đồng bộ màu giao diện sang email",
+        "syncDescription": "Cập nhật các biến mẫu toàn cục mint_email_* mỗi khi bạn lưu giao diện. Tắt đi để tự chỉnh trong Quản trị → Cài đặt → Mẫu email.",
+        "theme": "Bảng màu email",
+        "themeDescription": "Chọn email gửi đi dùng giao diện tối, giao diện sáng hay màu tùy chỉnh.",
+        "themes": {
+          "dark": "Giao diện tối",
+          "light": "Giao diện sáng",
+          "custom": "Tùy chỉnh"
+        },
+        "customColorsTitle": "Màu email",
+        "colors": {
+          "emailBackground": "Nền ngoài",
+          "emailSurface": "Nền thẻ",
+          "emailText": "Tiêu đề và văn bản",
+          "emailAccent": "Nút và màu nhấn",
+          "emailAccentText": "Chữ trên nút"
+        },
+        "brandingTitle": "Thương hiệu & chân trang",
+        "logo": "URL logo email",
+        "logoDescription": "Logo PNG, JPEG hoặc WebP tùy chọn hiển thị trên tên bảng điều khiển. Đường dẫn bắt đầu bằng / sẽ ghép với URL bảng điều khiển.",
+        "footer": "Ghi chú chân trang",
+        "footerDescription": "Dòng ngắn tùy chọn hiển thị dưới thẻ email (tối đa {max} ký tự).",
+        "adminHint": "Chỉnh nội dung, bản dịch hoặc HTML từng mẫu tại Quản trị → Cài đặt → Mẫu email. Mint không bao giờ ghi đè các mẫu bạn đã tùy chỉnh.",
+        "previewFrame": "Xem trước email",
+        "previewTemplate": "Mẫu email",
+        "templates": {
+          "account_created": "Tạo tài khoản",
+          "password_reset": "Đặt lại mật khẩu",
+          "email_verification": "Xác minh email",
+          "two_factor_code": "Mã đăng nhập (2FA)",
+          "session_created": "Phiên mới",
+          "connection_test": "Kiểm tra kết nối",
+          "added_to_server": "Đã thêm vào máy chủ",
+          "removed_from_server": "Đã xóa khỏi máy chủ",
+          "server_installed": "Máy chủ đã cài xong",
+          "server_restored": "Máy chủ đã khôi phục"
+        },
+        "overridesTitle": "HTML tùy chỉnh đang ghi đè Mint trên một số mẫu",
+        "overridesDescription": "Các mẫu này đang có HTML tùy chỉnh trong Quản trị → Cài đặt → Mẫu email nên email gửi đi dùng bố cục đó thay vì Mint: {templates}.",
+        "overridesReset": "Dùng bố cục Mint",
+        "overridesResetTitle": "Đặt lại bố cục email bị ghi đè",
+        "overridesResetConfirm": "Xóa HTML tùy chỉnh trên {templates} để dùng bố cục của Mint? Tiêu đề, trạng thái bật/tắt và các biến nội dung vẫn được giữ nguyên.",
+        "overridesResetDone": "Các mẫu email bị ghi đè hiện đã dùng bố cục của Mint."
+      }
     },
     "library": {
       "saveAsPreset": "Lưu thành mẫu",

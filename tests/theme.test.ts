@@ -591,8 +591,8 @@ describe('buildCss', () => {
 
       const theme = normalizeTheme(hostile);
       const serialized = JSON.stringify(theme);
-      // article titles are plain text rendered by React, so they may carry the payload; nothing else may
-      const { articles: _articles, ...styled } = theme;
+      // article titles and the email footer are plain text (never placed in CSS), so they may carry the payload; nothing else may
+      const { articles: _articles, emailFooter: _emailFooter, ...styled } = theme;
       assert.equal(JSON.stringify(styled).includes(MARK), false, JSON.stringify(styled));
       assert.ok(serialized.length > 0);
 

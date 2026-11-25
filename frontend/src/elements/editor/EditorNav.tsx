@@ -3,6 +3,7 @@ import {
   faChevronDown,
   faCubes,
   faDroplet,
+  faEnvelope,
   faFont,
   faHouse,
   faImage,
@@ -50,6 +51,7 @@ const SECTION_GROUPS: { id: SectionGroup; sections: { id: Section; icon: IconDef
       { id: 'console', icon: faTerminal },
       { id: 'servers', icon: faServer },
       { id: 'login', icon: faRightToBracket },
+      { id: 'emails', icon: faEnvelope },
     ],
   },
   {
