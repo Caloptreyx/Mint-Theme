@@ -276,7 +276,8 @@
         "servers": "Servery",
         "account": "Účet",
         "admin": "Administrácia",
-        "login": "Prihlasovacia stránka"
+        "login": "Prihlasovacia stránka",
+        "emails": "E-maily"
       },
       "groups": {
         "look": "Vzhľad",
@@ -307,6 +308,8 @@
         "serversDescription": "Rozloženie a štýl kariet zoznamu serverov.",
         "login": "Prihlasovacia stránka",
         "loginDescription": "Rozloženie, pozadie, logo a odkazy na podporu pre stránky prihlásenia, registrácie a hesla.",
+        "emails": "E-maily",
+        "emailsDescription": "E-mailové šablóny synchronizované s farbami témy a živý náhľad.",
         "interface": "Správanie",
         "interfaceDescription": "Upozornenia, názvy stránok a editor súborov v telefóne.",
         "motion": "Animácie",
@@ -787,7 +790,52 @@
       "collapseNav": "Skryť ponuku sekcií",
       "expandNav": "Zobraziť ponuku sekcií",
       "expandPreview": "Rozšíriť náhľad",
-      "restorePreview": "Zobraziť nastavenia"
+      "restorePreview": "Zobraziť nastavenia",
+      "email": {
+        "sync": "Synchronizovať farby témy s e-mailami",
+        "syncDescription": "Aktualizuje globálne premenné šablón mint_email_* pri každom uložení témy. Vypnite, ak ich chcete spravovať ručne v Admin → Nastavenia → E-mailové šablóny.",
+        "theme": "Paleta e-mailov",
+        "themeDescription": "Vyberte, či odchádzajúce e-maily používajú tmavú tému, svetlú tému alebo vlastné farby.",
+        "themes": {
+          "dark": "Tmavá téma",
+          "light": "Svetlá téma",
+          "custom": "Vlastné"
+        },
+        "customColorsTitle": "Farby e-mailov",
+        "colors": {
+          "emailBackground": "Vonkajšie pozadie",
+          "emailSurface": "Povrch karty",
+          "emailText": "Nadpis a text",
+          "emailAccent": "Tlačidlo a akcent",
+          "emailAccentText": "Text tlačidla"
+        },
+        "brandingTitle": "Značka a pätička",
+        "logo": "URL loga v e-maile",
+        "logoDescription": "Voliteľné logo PNG, JPEG alebo WebP nad názvom panela. Cesty začínajúce / sa doplnia o URL panela.",
+        "footer": "Poznámka v pätičke",
+        "footerDescription": "Voliteľný krátky riadok pod kartou e-mailu (do {max} znakov).",
+        "adminHint": "Texty, preklady alebo HTML jednotlivých šablón upravte v Admin → Nastavenia → E-mailové šablóny. Mint nikdy neprepíše vaše vlastné úpravy.",
+        "previewFrame": "Náhľad e-mailu",
+        "previewTemplate": "E-mailová šablóna",
+        "templates": {
+          "account_created": "Účet vytvorený",
+          "password_reset": "Obnovenie hesla",
+          "email_verification": "Overenie e-mailu",
+          "two_factor_code": "Prihlasovací kód (2FA)",
+          "session_created": "Nová relácia",
+          "connection_test": "Test pripojenia",
+          "added_to_server": "Pridaný na server",
+          "removed_from_server": "Odobraný zo servera",
+          "server_installed": "Server nainštalovaný",
+          "server_restored": "Server obnovený"
+        },
+        "overridesTitle": "Vlastné HTML prepisuje Mint v niektorých šablónach",
+        "overridesDescription": "Tieto šablóny majú uložené vlastné HTML v Admin → Nastavenia → E-mailové šablóny, takže odoslané e-maily používajú ho namiesto Mint: {templates}.",
+        "overridesReset": "Použiť rozloženie Mint",
+        "overridesResetTitle": "Obnoviť prepísané rozloženia e-mailov",
+        "overridesResetConfirm": "Vymazať vlastné HTML v {templates}, aby používali rozloženie Mint? Predmety, zapnutie a textové premenné zostanú zachované.",
+        "overridesResetDone": "Prepísané e-mailové šablóny teraz používajú rozloženie Mint."
+      }
     },
     "library": {
       "saveAsPreset": "Uložiť ako predvoľbu",

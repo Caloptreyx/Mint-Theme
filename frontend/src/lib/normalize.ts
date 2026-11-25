@@ -22,6 +22,7 @@ import {
   DEFAULT_LAYOUT,
   DEFAULT_THEME,
   DOCK_POSITIONS,
+  EMAIL_THEMES,
   type EggImages,
   FONTS,
   HOME_CARDS,
@@ -31,6 +32,7 @@ import {
   MAX_COMMAND_LABEL,
   MAX_COMMAND_LENGTH,
   MAX_CONSOLE_COMMANDS,
+  MAX_EMAIL_FOOTER,
   MAX_SUPPORT_LINK_LABEL,
   MAX_SUPPORT_LINKS,
   MOBILE_NAVS,
@@ -288,5 +290,17 @@ export function normalizeTheme(raw: unknown, d: NebulaTheme = DEFAULT_THEME): Ne
         ? normalizeNavOrder(r.adminNavOrder)
         : d.adminNavOrder,
     userArrange: normalizeNavArrange(r.userArrange, d.userArrange),
+    emailSync: typeof r.emailSync === 'boolean' ? r.emailSync : d.emailSync,
+    emailTheme: EMAIL_THEMES.find((mode) => mode === r.emailTheme) ?? d.emailTheme,
+    emailBackground: optional(r.emailBackground, d.emailBackground),
+    emailSurface: optional(r.emailSurface, d.emailSurface),
+    emailText: optional(r.emailText, d.emailText),
+    emailAccent: optional(r.emailAccent, d.emailAccent),
+    emailAccentText: optional(r.emailAccentText, d.emailAccentText),
+    emailLogo: url(r.emailLogo, d.emailLogo),
+    emailFooter:
+      typeof r.emailFooter === 'string'
+        ? [...r.emailFooter.replace(CONTROL, '').replace(/[{}]/g, '')].slice(0, MAX_EMAIL_FOOTER).join('')
+        : d.emailFooter,
   };
 }

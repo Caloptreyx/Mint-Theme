@@ -276,7 +276,8 @@
         "servers": "Servere",
         "account": "Konto",
         "admin": "Admin",
-        "login": "Loginside"
+        "login": "Loginside",
+        "emails": "E-mails"
       },
       "groups": {
         "look": "Udseende",
@@ -307,6 +308,8 @@
         "serversDescription": "Layout og kortstil for serverlisten.",
         "login": "Loginside",
         "loginDescription": "Layout, baggrund, logo og supportlinks til login-, registrerings- og adgangskodesider.",
+        "emails": "E-mails",
+        "emailsDescription": "Brandede e-mailskabeloner synkroniseret med dine temafarver og en live forhåndsvisning.",
         "interface": "Adfærd",
         "interfaceDescription": "Notifikationer, sidetitler og fileditoren på telefonen.",
         "motion": "Animationer",
@@ -787,7 +790,52 @@
       "collapseNav": "Skjul sektionsmenu",
       "expandNav": "Vis sektionsmenu",
       "expandPreview": "Udvid forhåndsvisning",
-      "restorePreview": "Vis indstillinger"
+      "restorePreview": "Vis indstillinger",
+      "email": {
+        "sync": "Synkroniser temafarver til e-mails",
+        "syncDescription": "Opdaterer de globale mint_email_*-skabelonvariabler hver gang du gemmer temaet. Slå fra for at styre dem manuelt under Admin → Indstillinger → Mail-skabeloner.",
+        "theme": "E-mailpalet",
+        "themeDescription": "Vælg om udgående e-mails skal følge dit mørke tema, lyse tema eller brugerdefinerede farver.",
+        "themes": {
+          "dark": "Mørkt tema",
+          "light": "Lyst tema",
+          "custom": "Brugerdefineret"
+        },
+        "customColorsTitle": "E-mailfarver",
+        "colors": {
+          "emailBackground": "Ydre baggrund",
+          "emailSurface": "Kortflade",
+          "emailText": "Overskrift og tekst",
+          "emailAccent": "Knap og accent",
+          "emailAccentText": "Knaptekst"
+        },
+        "brandingTitle": "Branding og sidefod",
+        "logo": "E-mail-logo-URL",
+        "logoDescription": "Valgfrit PNG-, JPEG- eller WebP-logo vist over panelnavnet. Rodrelative /-stier løses mod panelets URL.",
+        "footer": "Sidefodsnote",
+        "footerDescription": "Valgfri kort linje vist under e-mailkortet (op til {max} tegn).",
+        "adminHint": "Rediger tekst, oversættelser eller HTML pr. skabelon under Admin → Indstillinger → Mail-skabeloner. Brugerdefinerede skabelonændringer overskrives aldrig af Mint.",
+        "previewFrame": "E-mailforhåndsvisning",
+        "previewTemplate": "E-mailskabelon",
+        "templates": {
+          "account_created": "Konto oprettet",
+          "password_reset": "Nulstil adgangskode",
+          "email_verification": "Bekræft e-mail",
+          "two_factor_code": "Loginkode (2FA)",
+          "session_created": "Ny session",
+          "connection_test": "Forbindelsestest",
+          "added_to_server": "Tilføjet til server",
+          "removed_from_server": "Fjernet fra server",
+          "server_installed": "Server installeret",
+          "server_restored": "Server gendannet"
+        },
+        "overridesTitle": "Brugerdefineret HTML tilsidesætter Mint på nogle skabeloner",
+        "overridesDescription": "Disse skabeloner har gemt brugerdefineret HTML under Admin → Indstillinger → Mail-skabeloner, så sendte e-mails bruger det i stedet for Mint: {templates}.",
+        "overridesReset": "Brug Mint-layout",
+        "overridesResetTitle": "Nulstil tilsidesatte e-maillayouts",
+        "overridesResetConfirm": "Ryd brugerdefineret HTML på {templates} så de bruger Mints layout? Emner, aktivering og tekstvariabler bevares.",
+        "overridesResetDone": "Tilsidesatte e-mailskabeloner bruger nu Mints layout."
+      }
     },
     "library": {
       "saveAsPreset": "Gem som forudindstilling",

@@ -276,7 +276,8 @@
         "servers": "サーバー",
         "account": "アカウント",
         "admin": "管理",
-        "login": "ログインページ"
+        "login": "ログインページ",
+        "emails": "メール"
       },
       "groups": {
         "look": "外観",
@@ -307,6 +308,8 @@
         "serversDescription": "サーバー一覧のレイアウトとカードスタイル。",
         "login": "ログインページ",
         "loginDescription": "ログイン、登録、パスワードページのレイアウト、背景、ロゴ、サポートリンク。",
+        "emails": "メール",
+        "emailsDescription": "テーマカラーと同期するメールテンプレートとライブプレビュー。",
         "interface": "動作",
         "interfaceDescription": "トースト、ページタイトル、スマートフォンのファイルエディター。",
         "motion": "アニメーション",
@@ -787,7 +790,52 @@
       "collapseNav": "セクションメニューを隠す",
       "expandNav": "セクションメニューを表示",
       "expandPreview": "プレビューを拡大",
-      "restorePreview": "設定を表示"
+      "restorePreview": "設定を表示",
+      "email": {
+        "sync": "テーマカラーをメールに同期",
+        "syncDescription": "テーマを保存するたびにグローバル変数 mint_email_* を更新します。管理 → 設定 → メールテンプレートで手動管理する場合はオフにしてください。",
+        "theme": "メールパレット",
+        "themeDescription": "送信メールにダークテーマ、ライトテーマ、カスタムカラーのどれを使うか選択します。",
+        "themes": {
+          "dark": "ダークテーマ",
+          "light": "ライトテーマ",
+          "custom": "カスタム"
+        },
+        "customColorsTitle": "メールカラー",
+        "colors": {
+          "emailBackground": "外側の背景",
+          "emailSurface": "カード背景",
+          "emailText": "見出しと本文",
+          "emailAccent": "ボタンとアクセント",
+          "emailAccentText": "ボタンテキスト"
+        },
+        "brandingTitle": "ブランディングとフッター",
+        "logo": "メールロゴ URL",
+        "logoDescription": "パネル名の上に表示する任意の PNG / JPEG / WebP ロゴ。/ で始まるパスはパネル URL 基準で解決されます。",
+        "footer": "フッター注記",
+        "footerDescription": "メールカードの下に表示する任意の短いテキスト（最大 {max} 文字）。",
+        "adminHint": "文言・翻訳・各テンプレートの HTML は管理 → 設定 → メールテンプレートで編集できます。Mint がカスタム編集を上書きすることはありません。",
+        "previewFrame": "メールプレビュー",
+        "previewTemplate": "メールテンプレート",
+        "templates": {
+          "account_created": "アカウント作成",
+          "password_reset": "パスワードリセット",
+          "email_verification": "メール確認",
+          "two_factor_code": "ログインコード (2FA)",
+          "session_created": "新しいセッション",
+          "connection_test": "接続テスト",
+          "added_to_server": "サーバーに追加",
+          "removed_from_server": "サーバーから削除",
+          "server_installed": "サーバーインストール完了",
+          "server_restored": "サーバー復元完了"
+        },
+        "overridesTitle": "一部のテンプレートでカスタム HTML が Mint を上書きしています",
+        "overridesDescription": "次のテンプレートには管理 → 設定 → メールテンプレートでカスタム HTML が保存されているため、Mint ではなくそちらが送信されます: {templates}。",
+        "overridesReset": "Mint レイアウトを使う",
+        "overridesResetTitle": "上書きされたメールレイアウトをリセット",
+        "overridesResetConfirm": "{templates} のカスタム HTML をクリアして Mint のレイアウトを使いますか？件名・有効設定・テキスト変数は保持されます。",
+        "overridesResetDone": "上書きされていたメールテンプレートが Mint のレイアウトを使うようになりました。"
+      }
     },
     "library": {
       "saveAsPreset": "プリセットとして保存",

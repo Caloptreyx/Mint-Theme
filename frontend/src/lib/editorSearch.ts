@@ -269,6 +269,23 @@ export const SETTINGS: Setting[] = [
   },
   { section: 'login', label: 'editor.authLayout.linksPosition', also: ['editor.authLayout.positions.'] },
 
+  { section: 'emails', label: 'editor.email.sync', also: ['editor.email.syncDescription'] },
+  {
+    section: 'emails',
+    label: 'editor.email.theme',
+    also: ['editor.email.themeDescription', 'editor.email.themes.', 'editor.email.customColorsTitle', 'editor.email.colors.'],
+  },
+  {
+    section: 'emails',
+    label: 'editor.email.logo',
+    also: ['editor.email.brandingTitle', 'editor.email.logoDescription'],
+  },
+  {
+    section: 'emails',
+    label: 'editor.email.footer',
+    also: ['editor.email.brandingTitle', 'editor.email.footerDescription'],
+  },
+
   {
     section: 'interface',
     label: 'editor.interface.toastStyle',

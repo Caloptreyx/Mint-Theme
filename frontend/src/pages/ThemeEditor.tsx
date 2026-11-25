@@ -73,10 +73,17 @@ import {
   Tooltip,
   useAdminCan,
   useBlocker,
+  useGlobalStore,
   useKeyboardShortcuts,
   useToast,
 } from '../lib/core.ts';
 import { invalidUrls, isThemeFile } from '../lib/editorDraft.ts';
+import {
+  EMAIL_PREVIEW_PAGE,
+  EMAIL_TEMPLATES,
+  type EmailTemplateId,
+  renderEmailPreviewHtml,
+} from '../lib/email.ts';
 import { normalizeTheme } from '../lib/normalize.ts';
 import { useCanSaveTheme } from '../lib/permissions.ts';
 import { type PreviewDevice, previewViewport } from '../lib/previewViewport.ts';
@@ -172,7 +179,9 @@ export default function ThemeEditor() {
   const adminScheme = useComputedColorScheme('dark', { getInitialValueInEffect: false });
   const [scheme, setScheme] = useState<PreviewScheme>(adminScheme);
   const [page, setPage] = useState('/');
+  const [emailTemplate, setEmailTemplate] = useState<EmailTemplateId>('account_created');
   const [serverId, setServerId] = useState<string | null>(null);
+  const app = useGlobalStore((state) => state.settings.app);
   const [saving, setSaving] = useState(false);
   const [historyOpen, setHistoryOpen] = useState(false);
   // the text in the 'Paste share code' modal, null while it is closed
@@ -305,8 +314,14 @@ export default function ThemeEditor() {
       { value: '/account', label: t('editor.pages.account', {}) },
       { value: '/admin', label: t('editor.pages.admin', {}) },
       { value: LOGIN_PREVIEW_PATH, label: t('editor.pages.login', {}) },
+      { value: EMAIL_PREVIEW_PAGE, label: t('editor.pages.emails', {}) },
     ],
     [serverId, home, consolePage, t],
+  );
+  const isEmailPreview = page === EMAIL_PREVIEW_PAGE;
+  const emailHtml = useMemo(
+    () => (isEmailPreview ? renderEmailPreviewHtml(emailTemplate, valid, app.name, app.url) : ''),
+    [isEmailPreview, emailTemplate, valid, app.name, app.url],
   );
 
   // core builds the server routes once per server router, so turning Home on or off reloads the preview; without
@@ -359,6 +374,7 @@ export default function ThemeEditor() {
     setListing(false);
     // the real auth pages redirect signed in admins, so the login section jumps to its preview route
     if (id === 'login') setPage(LOGIN_PREVIEW_PATH);
+    if (id === 'emails') setPage(EMAIL_PREVIEW_PAGE);
     if (id === 'servers') setPage('/');
     if (id === 'home' && serverId) setPage(`/server/${serverId}`);
     if (id === 'console' && serverId) setPage(consolePage);
@@ -714,16 +730,31 @@ export default function ThemeEditor() {
               value={device}
               onChange={(value) => setDevice(value as PreviewDevice)}
             />
-            <SegmentedControl
-              size={wide ? 'sm' : 'xs'}
-              aria-label={t('editor.previewScheme', {})}
-              data={(['dark', 'light'] as PreviewScheme[]).map((s) => ({
-                value: s,
-                label: t(`editor.scheme.${s}`, {}),
-              }))}
-              value={scheme}
-              onChange={(value) => setScheme(value as PreviewScheme)}
-            />
+            {isEmailPreview ? (
+              <Select
+                aria-label={t('editor.email.previewTemplate', {})}
+                data={EMAIL_TEMPLATES.map((id) => ({
+                  value: id,
+                  label: t(`editor.email.templates.${id}`, {}),
+                }))}
+                value={emailTemplate}
+                onChange={(value) => value && setEmailTemplate(value as EmailTemplateId)}
+                size={wide ? 'sm' : 'xs'}
+                w={wide ? 190 : undefined}
+                className={wide ? undefined : 'flex-1 min-w-36'}
+              />
+            ) : (
+              <SegmentedControl
+                size={wide ? 'sm' : 'xs'}
+                aria-label={t('editor.previewScheme', {})}
+                data={(['dark', 'light'] as PreviewScheme[]).map((s) => ({
+                  value: s,
+                  label: t(`editor.scheme.${s}`, {}),
+                }))}
+                value={scheme}
+                onChange={(value) => setScheme(value as PreviewScheme)}
+              />
+            )}
             <Select
               aria-label={t('editor.previewPage', {})}
               data={pages}
@@ -755,10 +786,12 @@ export default function ThemeEditor() {
                 previewExpanded ? faCompress : faExpand,
                 () => setPreviewExpanded((v) => !v),
               )}
-            {iconButton(t('editor.refresh', {}), faRotateRight, () => frame.current?.contentWindow?.location.reload())}
-            {iconButton(t('editor.openTab', {}), faArrowUpRightFromSquare, () =>
-              window.open(page, '_blank', 'noopener,noreferrer'),
-            )}
+            {!isEmailPreview &&
+              iconButton(t('editor.refresh', {}), faRotateRight, () => frame.current?.contentWindow?.location.reload())}
+            {!isEmailPreview &&
+              iconButton(t('editor.openTab', {}), faArrowUpRightFromSquare, () =>
+                window.open(page, '_blank', 'noopener,noreferrer'),
+              )}
           </Group>
 
           <div
@@ -770,13 +803,25 @@ export default function ThemeEditor() {
               className='shrink-0 overflow-hidden rounded-lg border border-(--mantine-color-default-border) shadow-xl'
               style={{ width: logicalWidth * scale, height: logicalHeight * scale }}
             >
-              <iframe
-                ref={frame}
-                title={t('editor.previewFrame', {})}
-                src={page}
-                className={`border-0 origin-top-left ${resizing ? 'pointer-events-none' : ''}`}
-                style={{ width: logicalWidth, height: logicalHeight, transform: `scale(${scale})` }}
-              />
+              {isEmailPreview ? (
+                <iframe
+                  key='email-preview'
+                  title={t('editor.email.previewFrame', {})}
+                  srcDoc={emailHtml}
+                  sandbox=''
+                  className={`border-0 origin-top-left ${resizing ? 'pointer-events-none' : ''}`}
+                  style={{ width: logicalWidth, height: logicalHeight, transform: `scale(${scale})` }}
+                />
+              ) : (
+                <iframe
+                  key='panel-preview'
+                  ref={frame}
+                  title={t('editor.previewFrame', {})}
+                  src={page}
+                  className={`border-0 origin-top-left ${resizing ? 'pointer-events-none' : ''}`}
+                  style={{ width: logicalWidth, height: logicalHeight, transform: `scale(${scale})` }}
+                />
+              )}
             </div>
           </div>
         </main>

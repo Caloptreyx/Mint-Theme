@@ -276,7 +276,8 @@
         "servers": "Serveri",
         "account": "Konts",
         "admin": "Administrēšana",
-        "login": "Pieteikšanās lapa"
+        "login": "Pieteikšanās lapa",
+        "emails": "E-pasti"
       },
       "groups": {
         "look": "Izskats",
@@ -307,6 +308,8 @@
         "serversDescription": "Serveru saraksta izkārtojums un kartīšu stils.",
         "login": "Pieteikšanās lapa",
         "loginDescription": "Izkārtojums, fons, logotips un atbalsta saites pieteikšanās, reģistrācijas un paroles lapām.",
+        "emails": "E-pasti",
+        "emailsDescription": "Pielāgotas e-pasta veidnes, sinhronizētas ar tēmas krāsām, ar tiešraides priekšskatījumu.",
         "interface": "Uzvedība",
         "interfaceDescription": "Paziņojumi, lapu virsraksti un failu redaktors tālrunī.",
         "motion": "Animācijas",
@@ -787,7 +790,52 @@
       "collapseNav": "Paslēpt sadaļu izvēlni",
       "expandNav": "Rādīt sadaļu izvēlni",
       "expandPreview": "Paplašināt priekšskatījumu",
-      "restorePreview": "Rādīt iestatījumus"
+      "restorePreview": "Rādīt iestatījumus",
+      "email": {
+        "sync": "Sinhronizēt tēmas krāsas ar e-pastiem",
+        "syncDescription": "Saglabājot tēmu, atjaunina globālos mint_email_* mainīgos. Izslēdziet, lai tos pārvaldītu manuāli sadaļā Admin → Iestatījumi → E-pasta veidnes.",
+        "theme": "E-pasta palete",
+        "themeDescription": "Izvēlieties, vai izejošie e-pasti izmanto tumšo tēmu, gaišo tēmu vai pielāgotas krāsas.",
+        "themes": {
+          "dark": "Tumšā tēma",
+          "light": "Gaišā tēma",
+          "custom": "Pielāgota"
+        },
+        "customColorsTitle": "E-pasta krāsas",
+        "colors": {
+          "emailBackground": "Ārējais fons",
+          "emailSurface": "Kartītes virsma",
+          "emailText": "Virsraksts un teksts",
+          "emailAccent": "Poga un akcents",
+          "emailAccentText": "Pogas teksts"
+        },
+        "brandingTitle": "Zīmols un kājene",
+        "logo": "E-pasta logotipa URL",
+        "logoDescription": "Neobligāts PNG, JPEG vai WebP logotips virs paneļa nosaukuma. Ceļi ar / tiek atrisināti pret paneļa URL.",
+        "footer": "Kājenes piezīme",
+        "footerDescription": "Neobligāta īsa rinda zem e-pasta kartītes (līdz {max} rakstzīmēm).",
+        "adminHint": "Rediģējiet tekstu, tulkojumus vai HTML katrai veidnei sadaļā Admin → Iestatījumi → E-pasta veidnes. Mint nekad nepārraksta jūsu pielāgotās veidnes.",
+        "previewFrame": "E-pasta priekšskatījums",
+        "previewTemplate": "E-pasta veidne",
+        "templates": {
+          "account_created": "Konts izveidots",
+          "password_reset": "Paroles atiestatīšana",
+          "email_verification": "E-pasta apstiprināšana",
+          "two_factor_code": "Pieteikšanās kods (2FA)",
+          "session_created": "Jauna sesija",
+          "connection_test": "Savienojuma tests",
+          "added_to_server": "Pievienots serverim",
+          "removed_from_server": "Noņemts no servera",
+          "server_installed": "Serveris instalēts",
+          "server_restored": "Serveris atjaunots"
+        },
+        "overridesTitle": "Pielāgots HTML pārraksta Mint dažās veidnēs",
+        "overridesDescription": "Šīm veidnēm sadaļā Admin → Iestatījumi → E-pasta veidnes ir saglabāts pielāgots HTML, tāpēc nosūtītie e-pasti izmanto to, nevis Mint: {templates}.",
+        "overridesReset": "Izmantot Mint izkārtojumu",
+        "overridesResetTitle": "Atiestatīt pārrakstītos e-pasta izkārtojumus",
+        "overridesResetConfirm": "Notīrīt pielāgoto HTML veidnēm {templates}, lai tās izmantotu Mint izkārtojumu? Temati, ieslēgšanas stāvoklis un teksta mainīgie tiks saglabāti.",
+        "overridesResetDone": "Pārrakstītās e-pasta veidnes tagad izmanto Mint izkārtojumu."
+      }
     },
     "library": {
       "saveAsPreset": "Saglabāt kā sagatavi",

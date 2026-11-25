@@ -23,6 +23,7 @@ import ChoiceCards from './ChoiceCards.tsx';
 import ConsoleLayoutField from './ConsoleLayoutField.tsx';
 import { ContrastSummary, ContrastWarnings } from './ContrastWarnings.tsx';
 import EggImagesField from './EggImagesField.tsx';
+import EmailFields from './EmailFields.tsx';
 import FaviconField from './FaviconField.tsx';
 import InterfaceField from './InterfaceField.tsx';
 import LayoutField from './LayoutField.tsx';
@@ -48,6 +49,7 @@ export type Section =
   | 'console'
   | 'servers'
   | 'login'
+  | 'emails'
   | 'interface'
   | 'motion'
   | 'components';
@@ -411,5 +413,7 @@ export default function Sections({ section, theme, valid, set }: Props) {
       );
     case 'console':
       return <ConsoleLayoutField theme={theme} set={set} />;
+    case 'emails':
+      return <EmailFields theme={theme} valid={valid} set={set} />;
   }
 }

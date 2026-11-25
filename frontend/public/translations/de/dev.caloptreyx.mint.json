@@ -276,7 +276,8 @@
         "servers": "Server",
         "account": "Account",
         "admin": "Admin",
-        "login": "Anmeldeseite"
+        "login": "Anmeldeseite",
+        "emails": "E-Mails"
       },
       "groups": {
         "look": "Aussehen",
@@ -307,6 +308,8 @@
         "serversDescription": "Layout und Kartenstil der Serverliste.",
         "login": "Anmeldeseite",
         "loginDescription": "Layout, Hintergrund, Logo und Support-Links für die Anmelde-, Registrierungs- und Passwortseiten.",
+        "emails": "E-Mails",
+        "emailsDescription": "Gebrandete E-Mail-Vorlagen, synchronisiert mit deinen Designfarben, inklusive Live-Vorschau.",
         "interface": "Verhalten",
         "interfaceDescription": "Toasts, Seitentitel und der Dateieditor auf dem Handy.",
         "motion": "Animationen",
@@ -787,7 +790,52 @@
       "collapseNav": "Abschnittsmenü ausblenden",
       "expandNav": "Abschnittsmenü einblenden",
       "expandPreview": "Vorschau vergrößern",
-      "restorePreview": "Einstellungen anzeigen"
+      "restorePreview": "Einstellungen anzeigen",
+      "email": {
+        "sync": "Designfarben mit E-Mails synchronisieren",
+        "syncDescription": "Aktualisiert die globalen mint_email_*-Vorlagenvariablen beim Speichern des Designs. Deaktivieren, um sie manuell unter Admin → Einstellungen → Mail-Vorlagen zu verwalten.",
+        "theme": "E-Mail-Farbpalette",
+        "themeDescription": "Wähle, ob ausgehende E-Mails deinem dunklen Design, hellen Design oder eigenen Farben folgen.",
+        "themes": {
+          "dark": "Dunkles Design",
+          "light": "Helles Design",
+          "custom": "Benutzerdefiniert"
+        },
+        "customColorsTitle": "E-Mail-Farben",
+        "colors": {
+          "emailBackground": "Äußerer Hintergrund",
+          "emailSurface": "Kartenfläche",
+          "emailText": "Überschrift & Text",
+          "emailAccent": "Button & Akzent",
+          "emailAccentText": "Buttontext"
+        },
+        "brandingTitle": "Branding & Fußzeile",
+        "logo": "E-Mail-Logo-URL",
+        "logoDescription": "Optionales PNG-, JPEG- oder WebP-Logo über dem Panelnamen. Relative /-Pfade werden über die Panel-URL aufgelöst.",
+        "footer": "Fußzeilenhinweis",
+        "footerDescription": "Optionale kurze Zeile unterhalb der E-Mail-Karte (bis zu {max} Zeichen).",
+        "adminHint": "Texte, Übersetzungen oder individuelles HTML kannst du unter Admin → Einstellungen → Mail-Vorlagen bearbeiten. Eigene Vorlagen werden von Mint nie überschrieben.",
+        "previewFrame": "E-Mail-Vorschau",
+        "previewTemplate": "E-Mail-Vorlage",
+        "templates": {
+          "account_created": "Konto erstellt",
+          "password_reset": "Passwort zurücksetzen",
+          "email_verification": "E-Mail bestätigen",
+          "two_factor_code": "Anmeldecode (2FA)",
+          "session_created": "Neue Sitzung",
+          "connection_test": "Verbindungstest",
+          "added_to_server": "Zum Server hinzugefügt",
+          "removed_from_server": "Vom Server entfernt",
+          "server_installed": "Server installiert",
+          "server_restored": "Server wiederhergestellt"
+        },
+        "overridesTitle": "Benutzerdefiniertes HTML überschreibt Mint bei einigen Vorlagen",
+        "overridesDescription": "Diese Vorlagen haben eigenes HTML unter Admin → Einstellungen → Mail-Vorlagen gespeichert, daher nutzen gesendete E-Mails dieses statt Mint: {templates}.",
+        "overridesReset": "Mint-Layout verwenden",
+        "overridesResetTitle": "Überschriebene E-Mail-Layouts zurücksetzen",
+        "overridesResetConfirm": "Eigenes HTML für {templates} entfernen, damit sie das Mint-Layout verwenden? Betreffs, Aktivierungen und Textvariablen bleiben erhalten.",
+        "overridesResetDone": "Die überschriebenen E-Mail-Vorlagen verwenden jetzt das Mint-Layout."
+      }
     },
     "library": {
       "saveAsPreset": "Als Vorlage speichern",

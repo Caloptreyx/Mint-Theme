@@ -14,6 +14,7 @@ export function invalidUrls(theme: NebulaTheme): string[] {
     theme.loginBackground,
     theme.loginLogo,
     theme.favicon,
+    theme.emailLogo,
     ...theme.articles.map((article) => article.url),
     ...theme.supportLinks.map((link) => link.url),
     ...Object.values(theme.eggs).flatMap((egg) => [egg.banner, egg.icon]),

@@ -276,7 +276,8 @@
         "servers": "Serveurs",
         "account": "Compte",
         "admin": "Admin",
-        "login": "Page de connexion"
+        "login": "Page de connexion",
+        "emails": "E-mails"
       },
       "groups": {
         "look": "Apparence",
@@ -307,6 +308,8 @@
         "serversDescription": "La disposition et le style des cartes de la liste des serveurs.",
         "login": "Page de connexion",
         "loginDescription": "Disposition, arrière-plan, logo et liens d'assistance des pages de connexion, d'inscription et de mot de passe.",
+        "emails": "E-mails",
+        "emailsDescription": "Modèles d'e-mails personnalisés synchronisés avec les couleurs de votre thème, avec aperçu en direct.",
         "interface": "Comportement",
         "interfaceDescription": "Notifications, titres de page et l'éditeur de fichiers sur téléphone.",
         "motion": "Animations",
@@ -787,7 +790,52 @@
       "collapseNav": "Masquer le menu des sections",
       "expandNav": "Afficher le menu des sections",
       "expandPreview": "Agrandir l’aperçu",
-      "restorePreview": "Afficher les paramètres"
+      "restorePreview": "Afficher les paramètres",
+      "email": {
+        "sync": "Synchroniser les couleurs du thème avec les e-mails",
+        "syncDescription": "Met à jour les variables globales mint_email_* à chaque enregistrement du thème. Désactivez pour les gérer manuellement dans Admin → Paramètres → Modèles d'e-mails.",
+        "theme": "Palette des e-mails",
+        "themeDescription": "Choisissez si les e-mails sortants suivent votre thème sombre, clair ou des couleurs personnalisées.",
+        "themes": {
+          "dark": "Thème sombre",
+          "light": "Thème clair",
+          "custom": "Personnalisé"
+        },
+        "customColorsTitle": "Couleurs des e-mails",
+        "colors": {
+          "emailBackground": "Arrière-plan extérieur",
+          "emailSurface": "Surface de la carte",
+          "emailText": "Titre et texte",
+          "emailAccent": "Bouton et accent",
+          "emailAccentText": "Texte du bouton"
+        },
+        "brandingTitle": "Image de marque et pied de page",
+        "logo": "URL du logo e-mail",
+        "logoDescription": "Logo PNG, JPEG ou WebP facultatif affiché au-dessus du nom du panneau. Les chemins commençant par / utilisent l'URL du panneau.",
+        "footer": "Note de pied de page",
+        "footerDescription": "Courte ligne facultative affichée sous la carte d'e-mail (jusqu'à {max} caractères).",
+        "adminHint": "Modifiez le texte, les traductions ou le HTML de chaque modèle dans Admin → Paramètres → Modèles d'e-mails. Mint n'écrase jamais vos modifications personnalisées.",
+        "previewFrame": "Aperçu de l'e-mail",
+        "previewTemplate": "Modèle d'e-mail",
+        "templates": {
+          "account_created": "Compte créé",
+          "password_reset": "Réinitialisation du mot de passe",
+          "email_verification": "Vérifier l'e-mail",
+          "two_factor_code": "Code de connexion (2FA)",
+          "session_created": "Nouvelle session",
+          "connection_test": "Test de connexion",
+          "added_to_server": "Ajouté au serveur",
+          "removed_from_server": "Retiré du serveur",
+          "server_installed": "Serveur installé",
+          "server_restored": "Serveur restauré"
+        },
+        "overridesTitle": "Du HTML personnalisé remplace Mint sur certains modèles",
+        "overridesDescription": "Ces modèles ont du HTML personnalisé enregistré dans Admin → Paramètres → Modèles d'e-mails, les e-mails envoyés l'utilisent donc à la place de Mint : {templates}.",
+        "overridesReset": "Utiliser la mise en page Mint",
+        "overridesResetTitle": "Réinitialiser les mises en page remplacées",
+        "overridesResetConfirm": "Effacer le HTML personnalisé de {templates} pour utiliser la mise en page Mint ? Les objets, états activés et variables de texte sont conservés.",
+        "overridesResetDone": "Les modèles remplacés utilisent désormais la mise en page Mint."
+      }
     },
     "library": {
       "saveAsPreset": "Enregistrer comme préréglage",

@@ -276,7 +276,8 @@
         "servers": "Server",
         "account": "Account",
         "admin": "Admin",
-        "login": "Pagina di accesso"
+        "login": "Pagina di accesso",
+        "emails": "Email"
       },
       "groups": {
         "look": "Aspetto",
@@ -307,6 +308,8 @@
         "serversDescription": "Il layout e lo stile delle schede dell'elenco server.",
         "login": "Pagina di accesso",
         "loginDescription": "Layout, sfondo, logo e link di supporto per le pagine di accesso, registrazione e password.",
+        "emails": "Email",
+        "emailsDescription": "Modelli email personalizzati sincronizzati con i colori del tema, con anteprima live.",
         "interface": "Comportamento",
         "interfaceDescription": "Notifiche, titoli delle pagine e l'editor di file su telefono.",
         "motion": "Animazioni",
@@ -787,7 +790,52 @@
       "collapseNav": "Nascondi menu sezioni",
       "expandNav": "Mostra menu sezioni",
       "expandPreview": "Espandi anteprima",
-      "restorePreview": "Mostra impostazioni"
+      "restorePreview": "Mostra impostazioni",
+      "email": {
+        "sync": "Sincronizza i colori del tema con le email",
+        "syncDescription": "Aggiorna le variabili globali mint_email_* ogni volta che salvi il tema. Disattiva per gestirle manualmente in Admin → Impostazioni → Modelli email.",
+        "theme": "Tavolozza email",
+        "themeDescription": "Scegli se le email in uscita seguono il tema scuro, il tema chiaro o colori personalizzati.",
+        "themes": {
+          "dark": "Tema scuro",
+          "light": "Tema chiaro",
+          "custom": "Personalizzato"
+        },
+        "customColorsTitle": "Colori email",
+        "colors": {
+          "emailBackground": "Sfondo esterno",
+          "emailSurface": "Superficie scheda",
+          "emailText": "Titolo e testo",
+          "emailAccent": "Pulsante e accento",
+          "emailAccentText": "Testo pulsante"
+        },
+        "brandingTitle": "Branding e piè di pagina",
+        "logo": "URL logo email",
+        "logoDescription": "Logo PNG, JPEG o WebP opzionale mostrato sopra il nome del pannello. I percorsi che iniziano con / usano l'URL del pannello.",
+        "footer": "Nota piè di pagina",
+        "footerDescription": "Breve riga opzionale mostrata sotto la scheda email (fino a {max} caratteri).",
+        "adminHint": "Modifica testo, traduzioni o HTML per modello in Admin → Impostazioni → Modelli email. Mint non sovrascrive mai le modifiche personalizzate.",
+        "previewFrame": "Anteprima email",
+        "previewTemplate": "Modello email",
+        "templates": {
+          "account_created": "Account creato",
+          "password_reset": "Reimposta password",
+          "email_verification": "Verifica email",
+          "two_factor_code": "Codice di accesso (2FA)",
+          "session_created": "Nuova sessione",
+          "connection_test": "Test di connessione",
+          "added_to_server": "Aggiunto al server",
+          "removed_from_server": "Rimosso dal server",
+          "server_installed": "Server installato",
+          "server_restored": "Server ripristinato"
+        },
+        "overridesTitle": "L'HTML personalizzato sovrascrive Mint su alcuni modelli",
+        "overridesDescription": "Questi modelli hanno HTML personalizzato salvato in Admin → Impostazioni → Modelli email, quindi le email inviate usano quello invece di Mint: {templates}.",
+        "overridesReset": "Usa layout Mint",
+        "overridesResetTitle": "Ripristina i layout email sovrascritti",
+        "overridesResetConfirm": "Rimuovere l'HTML personalizzato su {templates} per usare il layout di Mint? Oggetti, stato attivo e variabili di testo vengono mantenuti.",
+        "overridesResetDone": "I modelli email sovrascritti ora usano il layout di Mint."
+      }
     },
     "library": {
       "saveAsPreset": "Salva come preset",

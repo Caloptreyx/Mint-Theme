@@ -276,7 +276,8 @@
         "servers": "Serwery",
         "account": "Konto",
         "admin": "Administracja",
-        "login": "Strona logowania"
+        "login": "Strona logowania",
+        "emails": "E-maile"
       },
       "groups": {
         "look": "Wygląd",
@@ -307,6 +308,8 @@
         "serversDescription": "Układ i styl kart listy serwerów.",
         "login": "Strona logowania",
         "loginDescription": "Układ, tło, logo i linki pomocy na stronach logowania, rejestracji i hasła.",
+        "emails": "E-maile",
+        "emailsDescription": "Szablony e-maili zsynchronizowane z kolorami motywu wraz z podglądem na żywo.",
         "interface": "Zachowanie",
         "interfaceDescription": "Powiadomienia, tytuły stron i edytor plików na telefonie.",
         "motion": "Animacje",
@@ -787,7 +790,52 @@
       "collapseNav": "Ukryj menu sekcji",
       "expandNav": "Pokaż menu sekcji",
       "expandPreview": "Rozwiń podgląd",
-      "restorePreview": "Pokaż ustawienia"
+      "restorePreview": "Pokaż ustawienia",
+      "email": {
+        "sync": "Synchronizuj kolory motywu z e-mailami",
+        "syncDescription": "Aktualizuje globalne zmienne szablonów mint_email_* przy każdym zapisaniu motywu. Wyłącz, aby zarządzać nimi ręcznie w Admin → Ustawienia → Szablony e-maili.",
+        "theme": "Paleta e-maili",
+        "themeDescription": "Wybierz, czy wychodzące e-maile korzystają z ciemnego motywu, jasnego motywu czy własnych kolorów.",
+        "themes": {
+          "dark": "Ciemny motyw",
+          "light": "Jasny motyw",
+          "custom": "Własne"
+        },
+        "customColorsTitle": "Kolory e-maili",
+        "colors": {
+          "emailBackground": "Tło zewnętrzne",
+          "emailSurface": "Powierzchnia karty",
+          "emailText": "Nagłówek i tekst",
+          "emailAccent": "Przycisk i akcent",
+          "emailAccentText": "Tekst przycisku"
+        },
+        "brandingTitle": "Branding i stopka",
+        "logo": "URL logo e-maila",
+        "logoDescription": "Opcjonalne logo PNG, JPEG lub WebP wyświetlane nad nazwą panelu. Ścieżki zaczynające się od / korzystają z adresu URL panelu.",
+        "footer": "Notatka w stopce",
+        "footerDescription": "Opcjonalna krótka linia pod kartą e-maila (do {max} znaków).",
+        "adminHint": "Treść, tłumaczenia lub kod HTML szablonów edytuj w Admin → Ustawienia → Szablony e-maili. Mint nigdy nie nadpisuje własnych zmian w szablonach.",
+        "previewFrame": "Podgląd e-maila",
+        "previewTemplate": "Szablon e-maila",
+        "templates": {
+          "account_created": "Utworzono konto",
+          "password_reset": "Resetowanie hasła",
+          "email_verification": "Weryfikacja e-maila",
+          "two_factor_code": "Kod logowania (2FA)",
+          "session_created": "Nowa sesja",
+          "connection_test": "Test połączenia",
+          "added_to_server": "Dodano do serwera",
+          "removed_from_server": "Usunięto z serwera",
+          "server_installed": "Serwer zainstalowany",
+          "server_restored": "Serwer przywrócony"
+        },
+        "overridesTitle": "Własny kod HTML nadpisuje Mint w części szablonów",
+        "overridesDescription": "Te szablony mają zapisany własny HTML w Admin → Ustawienia → Szablony e-maili, więc wysyłane wiadomości używają go zamiast Mint: {templates}.",
+        "overridesReset": "Użyj układu Mint",
+        "overridesResetTitle": "Zresetuj nadpisane układy e-maili",
+        "overridesResetConfirm": "Wyczyścić własny HTML w {templates}, aby używały układu Mint? Tematy, przełączniki włączenia i zmienne tekstowe zostaną zachowane.",
+        "overridesResetDone": "Nadpisane szablony e-maili korzystają teraz z układu Mint."
+      }
     },
     "library": {
       "saveAsPreset": "Zapisz jako preset",

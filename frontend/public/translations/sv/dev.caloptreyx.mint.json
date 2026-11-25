@@ -276,7 +276,8 @@
         "servers": "Servrar",
         "account": "Konto",
         "admin": "Admin",
-        "login": "Inloggningssida"
+        "login": "Inloggningssida",
+        "emails": "E-post"
       },
       "groups": {
         "look": "Utseende",
@@ -307,6 +308,8 @@
         "serversDescription": "Layout och kortstil för serverlistan.",
         "login": "Inloggningssida",
         "loginDescription": "Layout, bakgrund, logotyp och supportlänkar för inloggnings-, registrerings- och lösenordssidor.",
+        "emails": "E-post",
+        "emailsDescription": "E-postmallar synkroniserade med dina temafärger och en förhandsvisning i realtid.",
         "interface": "Beteende",
         "interfaceDescription": "Notiser, sidrubriker och filredigeraren i mobilen.",
         "motion": "Animationer",
@@ -787,7 +790,52 @@
       "collapseNav": "Dölj sektionsmeny",
       "expandNav": "Visa sektionsmeny",
       "expandPreview": "Expandera förhandsgranskning",
-      "restorePreview": "Visa inställningar"
+      "restorePreview": "Visa inställningar",
+      "email": {
+        "sync": "Synkronisera temafärger till e-post",
+        "syncDescription": "Uppdaterar de globala mallvariablerna mint_email_* varje gång du sparar temat. Stäng av för att hantera dem manuellt i Admin → Inställningar → E-postmallar.",
+        "theme": "E-postpalett",
+        "themeDescription": "Välj om utgående e-post ska följa ditt mörka tema, ljusa tema eller egna färger.",
+        "themes": {
+          "dark": "Mörkt tema",
+          "light": "Ljust tema",
+          "custom": "Anpassad"
+        },
+        "customColorsTitle": "E-postfärger",
+        "colors": {
+          "emailBackground": "Yttre bakgrund",
+          "emailSurface": "Kortyta",
+          "emailText": "Rubrik och text",
+          "emailAccent": "Knapp och accent",
+          "emailAccentText": "Knapptext"
+        },
+        "brandingTitle": "Varumärke och sidfot",
+        "logo": "URL för e-postlogotyp",
+        "logoDescription": "Valfri PNG-, JPEG- eller WebP-logotyp ovanför panelnamnet. Sökvägar som börjar med / använder panelens URL.",
+        "footer": "Sidfotstext",
+        "footerDescription": "Valfri kort rad under e-postkortet (upp till {max} tecken).",
+        "adminHint": "Redigera text, översättningar eller HTML per mall under Admin → Inställningar → E-postmallar. Egna malländringar skrivs aldrig över av Mint.",
+        "previewFrame": "Förhandsvisning av e-post",
+        "previewTemplate": "E-postmall",
+        "templates": {
+          "account_created": "Konto skapat",
+          "password_reset": "Återställ lösenord",
+          "email_verification": "Verifiera e-post",
+          "two_factor_code": "Inloggningskod (2FA)",
+          "session_created": "Ny session",
+          "connection_test": "Anslutningstest",
+          "added_to_server": "Tillagd på server",
+          "removed_from_server": "Borttagen från server",
+          "server_installed": "Server installerad",
+          "server_restored": "Server återställd"
+        },
+        "overridesTitle": "Anpassad HTML åsidosätter Mint i vissa mallar",
+        "overridesDescription": "Dessa mallar har anpassad HTML sparad under Admin → Inställningar → E-postmallar, så skickade mejl använder den i stället för Mint: {templates}.",
+        "overridesReset": "Använd Mint-layout",
+        "overridesResetTitle": "Återställ åsidosatta e-postlayouter",
+        "overridesResetConfirm": "Rensa anpassad HTML på {templates} så att de använder Mints layout? Ämnesrader, aktiveringslägen och textvariabler behålls.",
+        "overridesResetDone": "Åsidosatta e-postmallar använder nu Mints layout."
+      }
     },
     "library": {
       "saveAsPreset": "Spara som förinställning",

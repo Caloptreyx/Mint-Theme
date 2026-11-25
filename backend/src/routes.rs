@@ -270,7 +270,13 @@ mod put {
             }
             Err(super::StoreError::Internal(err)) => return Err(err.into()),
         };
+        let stored_theme = stored.theme.to_string();
+        let app_url = settings.app.url.to_string();
         settings.save().await?;
+
+        if let Err(err) = crate::mail::sync(&state, &stored_theme, &app_url).await {
+            tracing::warn!("failed to sync mint email theme variables: {err:#}");
+        }
 
         activity_logger
             .log("mint:theme.update", serde_json::json!({}))

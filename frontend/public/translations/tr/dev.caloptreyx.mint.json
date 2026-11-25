@@ -276,7 +276,8 @@
         "servers": "Sunucular",
         "account": "Hesap",
         "admin": "Yönetici",
-        "login": "Giriş sayfası"
+        "login": "Giriş sayfası",
+        "emails": "E-postalar"
       },
       "groups": {
         "look": "Görünüm",
@@ -307,6 +308,8 @@
         "serversDescription": "Sunucu listesinin düzeni ve kart stili.",
         "login": "Giriş sayfası",
         "loginDescription": "Giriş, kayıt ve şifre sayfaları için düzen, arka plan, logo ve destek bağlantıları.",
+        "emails": "E-postalar",
+        "emailsDescription": "Tema renklerinizle senkronize edilen markalı e-posta şablonları ve canlı önizleme.",
         "interface": "Davranış",
         "interfaceDescription": "Bildirimler, sayfa başlıkları ve telefondaki dosya düzenleyici.",
         "motion": "Animasyonlar",
@@ -787,7 +790,52 @@
       "collapseNav": "Bölüm menüsünü gizle",
       "expandNav": "Bölüm menüsünü göster",
       "expandPreview": "Önizlemeyi genişlet",
-      "restorePreview": "Ayarları göster"
+      "restorePreview": "Ayarları göster",
+      "email": {
+        "sync": "Tema renklerini e-postalara senkronize et",
+        "syncDescription": "Temayı her kaydettiğinizde genel mint_email_* şablon değişkenlerini günceller. Yönetici → Ayarlar → Posta Şablonları bölümünden elle yönetmek için kapatın.",
+        "theme": "E-posta paleti",
+        "themeDescription": "Giden e-postaların koyu temanızı, açık temanızı veya özel renkleri kullanıp kullanmayacağını seçin.",
+        "themes": {
+          "dark": "Koyu tema",
+          "light": "Açık tema",
+          "custom": "Özel"
+        },
+        "customColorsTitle": "E-posta renkleri",
+        "colors": {
+          "emailBackground": "Dış arka plan",
+          "emailSurface": "Kart yüzeyi",
+          "emailText": "Başlık ve metin",
+          "emailAccent": "Düğme ve vurgu",
+          "emailAccentText": "Düğme metni"
+        },
+        "brandingTitle": "Marka ve alt bilgi",
+        "logo": "E-posta logosu URL",
+        "logoDescription": "Panel adının üzerinde gösterilen isteğe bağlı PNG, JPEG veya WebP logosu. / ile başlayan yollar panel URL'sine göre çözümlenir.",
+        "footer": "Alt bilgi notu",
+        "footerDescription": "E-posta kartının altında gösterilen isteğe bağlı kısa satır (en fazla {max} karakter).",
+        "adminHint": "Metinleri, çevirileri veya şablon HTML'lerini Yönetici → Ayarlar → Posta Şablonları bölümünden düzenleyin. Mint özel şablon düzenlemelerinizi asla ezmez.",
+        "previewFrame": "E-posta önizlemesi",
+        "previewTemplate": "E-posta şablonu",
+        "templates": {
+          "account_created": "Hesap oluşturuldu",
+          "password_reset": "Şifre sıfırlama",
+          "email_verification": "E-posta doğrulama",
+          "two_factor_code": "Giriş kodu (2FA)",
+          "session_created": "Yeni oturum",
+          "connection_test": "Bağlantı testi",
+          "added_to_server": "Sunucuya eklendi",
+          "removed_from_server": "Sunucudan çıkarıldı",
+          "server_installed": "Sunucu kuruldu",
+          "server_restored": "Sunucu geri yüklendi"
+        },
+        "overridesTitle": "Özel HTML bazı şablonlarda Mint düzenini geçersiz kılıyor",
+        "overridesDescription": "Bu şablonlarda Yönetici → Ayarlar → Posta Şablonları altında kayıtlı özel HTML var; bu yüzden gönderilen e-postalar Mint yerine onu kullanıyor: {templates}.",
+        "overridesReset": "Mint düzenini kullan",
+        "overridesResetTitle": "Geçersiz kılınan e-posta düzenlerini sıfırla",
+        "overridesResetConfirm": "{templates} için özel HTML temizlenip Mint düzeni kullanılsın mı? Konular, etkin durumları ve metin değişkenleri korunur.",
+        "overridesResetDone": "Geçersiz kılınan e-posta şablonları artık Mint düzenini kullanıyor."
+      }
     },
     "library": {
       "saveAsPreset": "Hazır ayar olarak kaydet",

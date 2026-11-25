@@ -2,6 +2,7 @@ use shared::{
     State,
     extensions::{
         Extension, ExtensionPermissionsBuilder, ExtensionRouteBuilder, ExtensionUpdateInfo,
+        email_templates::ExtensionEmailTemplateBuilder,
     },
 };
 use std::sync::Arc;
@@ -9,6 +10,7 @@ use std::sync::Arc;
 mod banner;
 mod cta;
 mod history;
+mod mail;
 mod permissions;
 mod presets;
 mod routes;
@@ -59,6 +61,10 @@ impl Extension for ExtensionStruct {
                         "/extensions/dev.caloptreyx.mint/history",
                         history::admin(&state),
                     )
+                    .nest(
+                        "/extensions/dev.caloptreyx.mint/email-overrides",
+                        mail::admin(&state),
+                    )
             })
             .add_client_api_router(|routes| {
                 routes
@@ -81,6 +87,15 @@ impl Extension for ExtensionStruct {
                     cta::server(&state),
                 )
             })
+    }
+
+    async fn initialize_email_templates(
+        &mut self,
+        state: State,
+        builder: ExtensionEmailTemplateBuilder,
+    ) -> ExtensionEmailTemplateBuilder {
+        mail::spawn_boot_sync(state);
+        mail::register(builder)
     }
 
     /// `mint-theme.update`: saving the theme without the panel wide `settings.update`.
