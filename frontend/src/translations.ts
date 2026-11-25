@@ -535,6 +535,9 @@ const translations = defineTranslations({
         mobileEditor: 'Phone-friendly file editor',
         mobileEditorDescription:
           'On phones the code editor wraps lines, hides the minimap and popups, uses a 16px font and gets a row of keys above the keyboard: undo, indent, find, symbols and arrows. Desktops stay as they are.',
+        allowPureBlack: 'Allow Pure Black',
+        allowPureBlackDescription:
+          "Let users pick Calagopus Panel's Pure Black (OLED) dark variant in the sidebar theme menu. Off keeps Mint's own dark palette.",
       },
       motion: {
         cardEntrance: 'Card entrance',

@@ -510,7 +510,9 @@
         "pageTitles": "Mostrar títulos de página",
         "pageTitlesDescription": "El encabezado de páginas del servidor como Archivos y Bases de datos. Su búsqueda y sus botones se mantienen.",
         "mobileEditor": "Editor de archivos adaptado a móviles",
-        "mobileEditorDescription": "En móviles el editor de código ajusta las líneas, oculta el minimapa y las ventanas emergentes, usa una fuente de 16px y muestra una fila de teclas sobre el teclado: deshacer, sangría, buscar, símbolos y flechas. En escritorio no cambia nada."
+        "mobileEditorDescription": "En móviles el editor de código ajusta las líneas, oculta el minimapa y las ventanas emergentes, usa una fuente de 16px y muestra una fila de teclas sobre el teclado: deshacer, sangría, buscar, símbolos y flechas. En escritorio no cambia nada.",
+        "allowPureBlack": "Permitir Pure Black",
+        "allowPureBlackDescription": "Permite a los usuarios elegir la variante oscura Pure Black (OLED) de Calagopus Panel en el menú de temas de la barra lateral. Desactivado mantiene la paleta oscura propia de Mint."
       },
       "motion": {
         "cardEntrance": "Entrada de tarjetas",

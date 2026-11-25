@@ -197,6 +197,27 @@ export function colorCss(t: NebulaTheme): string[] {
     `html:root[data-mantine-color-scheme="light"]{${vars(lightScheme)}}`,
   ];
 
+  // when the admin allows Calagopus 1.2.11+'s Pure Black dark variant, pair its OLED palette with Mint's card and
+  // default surface tokens (respecting blockOpacity); left off, emit nothing so existing output stays unchanged
+  if (t.allowPureBlack) {
+    const pureBlack: [string, string][] = [
+      ['--nebula-card', t.blockOpacity < 100 ? alpha('#0a0a0a', blockAlpha) : '#0a0a0a'],
+      ['--mantine-color-body', '#000000'],
+      ['--mantine-color-dark-4', '#2a2a2a'],
+      ['--mantine-color-dark-5', '#1f1f1f'],
+      ['--mantine-color-dark-6', '#141414'],
+      ['--mantine-color-dark-7', '#000000'],
+      ['--mantine-color-dark-8', '#000000'],
+      ['--mantine-color-dark-9', '#000000'],
+      ['--mantine-color-dark-light', 'rgba(255,255,255,0.06)'],
+      ['--mantine-color-dark-light-hover', 'rgba(255,255,255,0.1)'],
+      ['--mantine-color-default', '#141414'],
+      ['--mantine-color-default-hover', '#1f1f1f'],
+      ['--mantine-color-default-border', '#2a2a2a'],
+    ];
+    css.push(`html:root[data-mantine-color-scheme="dark"][data-theme-variant="pure-black"]{${vars(pureBlack)}}`);
+  }
+
   // light mode repaints what core hardcodes for a white page. xterm paints its viewport in the terminal theme's
   // background, inline, and core's light one is `#ffffff` (its xterm.css only clears the other layers); the
   // Tailwind greys on auth subtitles, links and hints are `!` utilities, which live in a layer and so beat any

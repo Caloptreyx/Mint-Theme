@@ -510,7 +510,9 @@
         "pageTitles": "ページタイトルを表示",
         "pageTitlesDescription": "ファイルやデータベースなどのサーバーページの見出し。検索とボタンは残ります。",
         "mobileEditor": "スマホ向けファイルエディター",
-        "mobileEditorDescription": "スマートフォンではコードエディターが行を折り返し、ミニマップとポップアップを隠し、16px のフォントを使い、キーボードの上にキーの列（元に戻す、インデント、検索、記号、矢印）を表示します。デスクトップは変わりません。"
+        "mobileEditorDescription": "スマートフォンではコードエディターが行を折り返し、ミニマップとポップアップを隠し、16px のフォントを使い、キーボードの上にキーの列（元に戻す、インデント、検索、記号、矢印）を表示します。デスクトップは変わりません。",
+        "allowPureBlack": "Pure Black を許可",
+        "allowPureBlackDescription": "サイドバーのテーマメニューから Calagopus Panel の Pure Black（OLED）ダークバリアントを選択できるようにします。オフにすると Mint 独自のダークパレットを維持します。"
       },
       "motion": {
         "cardEntrance": "カードの登場",

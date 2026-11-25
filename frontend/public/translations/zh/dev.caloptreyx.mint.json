@@ -510,7 +510,9 @@
         "pageTitles": "顯示頁面標題",
         "pageTitlesDescription": "「檔案」與「資料庫」等伺服器頁面上的標題。其搜尋與按鈕仍會保留。",
         "mobileEditor": "手機友善的檔案編輯器",
-        "mobileEditorDescription": "在手機上，程式碼編輯器會自動換行、隱藏縮圖與彈出視窗、使用 16px 字型，並在鍵盤上方顯示一排按鍵：復原、縮排、尋找、符號與方向鍵。桌面裝置維持不變。"
+        "mobileEditorDescription": "在手機上，程式碼編輯器會自動換行、隱藏縮圖與彈出視窗、使用 16px 字型，並在鍵盤上方顯示一排按鍵：復原、縮排、尋找、符號與方向鍵。桌面裝置維持不變。",
+        "allowPureBlack": "允許 Pure Black",
+        "allowPureBlackDescription": "讓使用者在側邊欄主題選單中選擇 Calagopus Panel 的 Pure Black（OLED）深色變體。關閉則保留 Mint 自己的深色配色。"
       },
       "motion": {
         "cardEntrance": "卡片進場",

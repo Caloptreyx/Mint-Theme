@@ -510,7 +510,9 @@
         "pageTitles": "Afficher les titres de page",
         "pageTitlesDescription": "Le titre des pages serveur comme Fichiers et Bases de données. Leur recherche et leurs boutons restent.",
         "mobileEditor": "Éditeur de fichiers adapté aux téléphones",
-        "mobileEditorDescription": "Sur téléphone, l'éditeur de code renvoie les lignes à la ligne, masque la minimap et les fenêtres contextuelles, utilise une police de 16px et affiche une rangée de touches au-dessus du clavier : annuler, retrait, rechercher, symboles et flèches. Rien ne change sur ordinateur."
+        "mobileEditorDescription": "Sur téléphone, l'éditeur de code renvoie les lignes à la ligne, masque la minimap et les fenêtres contextuelles, utilise une police de 16px et affiche une rangée de touches au-dessus du clavier : annuler, retrait, rechercher, symboles et flèches. Rien ne change sur ordinateur.",
+        "allowPureBlack": "Autoriser Pure Black",
+        "allowPureBlackDescription": "Permet aux utilisateurs de choisir la variante sombre Pure Black (OLED) de Calagopus Panel dans le menu des thèmes de la barre latérale. Désactivé conserve la palette sombre propre à Mint."
       },
       "motion": {
         "cardEntrance": "Arrivée des cartes",

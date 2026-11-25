@@ -510,7 +510,9 @@
         "pageTitles": "Mostra i titoli delle pagine",
         "pageTitlesDescription": "L'intestazione nelle pagine del server come File e Database. La ricerca e i pulsanti restano.",
         "mobileEditor": "Editor di file adatto ai telefoni",
-        "mobileEditorDescription": "Sui telefoni l'editor di codice manda a capo le righe, nasconde la minimappa e i popup, usa un carattere da 16px e mostra una fila di tasti sopra la tastiera: annulla, rientro, trova, simboli e frecce. Sui computer non cambia nulla."
+        "mobileEditorDescription": "Sui telefoni l'editor di codice manda a capo le righe, nasconde la minimappa e i popup, usa un carattere da 16px e mostra una fila di tasti sopra la tastiera: annulla, rientro, trova, simboli e frecce. Sui computer non cambia nulla.",
+        "allowPureBlack": "Consenti Pure Black",
+        "allowPureBlackDescription": "Consente agli utenti di scegliere la variante scura Pure Black (OLED) di Calagopus Panel nel menu dei temi della barra laterale. Disattivato mantiene la tavolozza scura di Mint."
       },
       "motion": {
         "cardEntrance": "Ingresso delle schede",

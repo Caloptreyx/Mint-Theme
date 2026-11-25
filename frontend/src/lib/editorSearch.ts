@@ -280,6 +280,11 @@ export const SETTINGS: Setting[] = [
     label: 'editor.interface.mobileEditor',
     also: ['editor.interface.mobileEditorDescription'],
   },
+  {
+    section: 'interface',
+    label: 'editor.interface.allowPureBlack',
+    also: ['editor.interface.allowPureBlackDescription'],
+  },
 
   {
     section: 'motion',

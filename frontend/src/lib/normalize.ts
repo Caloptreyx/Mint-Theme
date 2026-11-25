@@ -282,6 +282,7 @@ export function normalizeTheme(raw: unknown, d: NebulaTheme = DEFAULT_THEME): Ne
     favicon: url(r.favicon, d.favicon),
     mobileNav: MOBILE_NAVS.find((nav) => nav === r.mobileNav) ?? d.mobileNav,
     mobileEditor: typeof r.mobileEditor === 'boolean' ? r.mobileEditor : d.mobileEditor,
+    allowPureBlack: typeof r.allowPureBlack === 'boolean' ? r.allowPureBlack : d.allowPureBlack,
     adminNavOrder:
       r.adminNavOrder && typeof r.adminNavOrder === 'object' && !Array.isArray(r.adminNavOrder)
         ? normalizeNavOrder(r.adminNavOrder)

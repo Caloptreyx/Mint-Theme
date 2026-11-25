@@ -510,7 +510,9 @@
         "pageTitles": "Visa sidrubriker",
         "pageTitlesDescription": "Rubriken på serversidor som Filer och Databaser. Deras sökning och knappar finns kvar.",
         "mobileEditor": "Mobilvänlig filredigerare",
-        "mobileEditorDescription": "På telefoner radbryter kodredigeraren rader, döljer minikartan och popup-fönster, använder ett 16px-teckensnitt och får en rad tangenter ovanför tangentbordet: ångra, indrag, sök, symboler och pilar. Datorer förblir som de är."
+        "mobileEditorDescription": "På telefoner radbryter kodredigeraren rader, döljer minikartan och popup-fönster, använder ett 16px-teckensnitt och får en rad tangenter ovanför tangentbordet: ångra, indrag, sök, symboler och pilar. Datorer förblir som de är.",
+        "allowPureBlack": "Tillåt Pure Black",
+        "allowPureBlackDescription": "Låt användare välja Calagopus Panels mörka Pure Black-variant (OLED) i sidomenyns temameny. Avstängt behåller Mints egen mörka palett."
       },
       "motion": {
         "cardEntrance": "Kortintåg",

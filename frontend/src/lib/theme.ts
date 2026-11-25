@@ -291,6 +291,8 @@ export interface NebulaTheme {
   mobileNav: MobileNav;
   /** Phones (touch, editor under 768px wide): Monaco gets phone settings and the file editor a key row. */
   mobileEditor: boolean;
+  /** Calagopus 1.2.11+: lets users pick the panel's Pure Black dark variant in the sidebar theme menu. */
+  allowPureBlack: boolean;
   /** The admin area's menu for everyone, over core's order; users can still arrange their own on top. */
   adminNavOrder: NavOrder;
   /** Per menu, whether users get 'Arrange menu' and their own order there (admins included). */
@@ -378,6 +380,7 @@ export const DEFAULT_THEME: NebulaTheme = {
   favicon: '',
   mobileNav: 'drawer',
   mobileEditor: true,
+  allowPureBlack: false,
   adminNavOrder: EMPTY_NAV_ORDER,
   userArrange: ALL_ARRANGEABLE,
 };

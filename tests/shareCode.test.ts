@@ -36,6 +36,7 @@ const SOURCE: NebulaTheme = normalizeTheme({
   // not part of the look: must never travel
   homeBanner: 'https://example.com/banner.png',
   serverHome: false,
+  allowPureBlack: true,
 });
 
 const DRAFT: NebulaTheme = normalizeTheme({
@@ -47,6 +48,7 @@ const DRAFT: NebulaTheme = normalizeTheme({
   backgroundImage: 'https://draft.example/bg.png',
   homeBanner: 'https://draft.example/banner.png',
   serverHome: true,
+  allowPureBlack: false,
 });
 
 const apply = (draft: NebulaTheme, look: Partial<NebulaTheme>) => normalizeTheme({ ...draft, ...look }, draft);
@@ -120,17 +122,20 @@ describe('share codes', () => {
           accent: '#abcdef',
           homeBanner: 'https://evil.example/x.png',
           serverHome: false,
+          allowPureBlack: true,
           supportLinks: [{ label: 'x', url: 'https://evil.example' }],
           adminNavOrder: { top: ['x'], sections: {} },
         }),
       ),
     );
     assert.ok(look);
+    assert.equal('allowPureBlack' in look, false);
     for (const key of Object.keys(look)) assert.ok(USER_THEME_FIELDS.includes(key as keyof NebulaTheme), key);
     const result = apply(DRAFT, look);
     assert.equal(result.accent, '#abcdef');
     assert.equal(result.homeBanner, DRAFT.homeBanner);
     assert.equal(result.serverHome, DRAFT.serverHome);
+    assert.equal(result.allowPureBlack, DRAFT.allowPureBlack);
     assert.deepEqual(result.supportLinks, DRAFT.supportLinks);
     assert.deepEqual(result.adminNavOrder, DRAFT.adminNavOrder);
   });

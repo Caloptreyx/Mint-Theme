@@ -510,7 +510,9 @@
         "pageTitles": "Seitentitel anzeigen",
         "pageTitlesDescription": "Die Überschrift auf Serverseiten wie Dateien und Datenbanken. Suche und Buttons bleiben erhalten.",
         "mobileEditor": "Handyfreundlicher Dateieditor",
-        "mobileEditorDescription": "Auf Handys bricht der Code-Editor Zeilen um, blendet Minimap und Popups aus, nutzt eine 16px-Schrift und bekommt eine Tastenleiste über der Tastatur: Rückgängig, Einrücken, Suchen, Symbole und Pfeile. Am Desktop bleibt alles, wie es ist."
+        "mobileEditorDescription": "Auf Handys bricht der Code-Editor Zeilen um, blendet Minimap und Popups aus, nutzt eine 16px-Schrift und bekommt eine Tastenleiste über der Tastatur: Rückgängig, Einrücken, Suchen, Symbole und Pfeile. Am Desktop bleibt alles, wie es ist.",
+        "allowPureBlack": "Reines Schwarz erlauben",
+        "allowPureBlackDescription": "Erlaubt Benutzern, die dunkle Variante „Reines Schwarz“ (OLED) von Calagopus Panel im Design-Menü der Seitenleiste zu wählen. Ausgeschaltet bleibt Mints eigene dunkle Farbpalette aktiv."
       },
       "motion": {
         "cardEntrance": "Karteneinblendung",

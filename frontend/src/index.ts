@@ -21,7 +21,7 @@ import GroupedNav from './elements/sidebar/GroupedNav.tsx';
 import { withNavSearch } from './elements/sidebar/NavSearch.tsx';
 import { RailLogo, RailTip, withRailServer } from './elements/sidebar/Rail.tsx';
 import SidebarShell from './elements/sidebar/SidebarShell.tsx';
-import { bootTheme, currentTheme, listenForPreview, startTheme, watchUserTheme } from './lib/apply.ts';
+import { bootTheme, currentTheme, listenForPreview, savedTheme, startTheme, watchUserTheme } from './lib/apply.ts';
 import {
   Alert,
   AppIcon,
@@ -34,7 +34,7 @@ import {
 import { mountMobileEditor } from './lib/mobileEditor.ts';
 import { THEME_UPDATE_PERMISSION } from './lib/permissions.ts';
 import { attachTerminal, detachTerminal, initTerminal } from './lib/terminal.ts';
-import { disablePanelThemeVariants } from './lib/themeVariant.ts';
+import { syncPanelThemeVariants } from './lib/themeVariant.ts';
 import GroupedServerList from './pages/GroupedServerList.tsx';
 import ServerConsole from './pages/ServerConsole.tsx';
 import ServerHome from './pages/ServerHome.tsx';
@@ -55,9 +55,8 @@ class DevCaloptreyxMintExtension extends Extension {
   public cardComponent: React.FC | null = null;
 
   public initialize(ctx: ExtensionContext): void {
-    // panel 1.2.11+ ships theme variants (Pure Black) whose `:root[data-mantine-color-scheme='dark'][data-theme-variant='pure-black']`
-    // outranks Mint's dark palette; disable variants on panels that expose the registry
-    disablePanelThemeVariants(ctx.extensionRegistry);
+    // panel 1.2.11+ ships theme variants (Pure Black); disable them unless the admin opted in
+    syncPanelThemeVariants(ctx.extensionRegistry, savedTheme().allowPureBlack);
 
     // the server menu is split into collapsible groups; GroupedNav leaves other sidebars alone
     Sidebar.addPropsInterceptor((props) => ({

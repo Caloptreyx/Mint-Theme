@@ -510,7 +510,9 @@
         "pageTitles": "Zobraziť nadpisy stránok",
         "pageTitlesDescription": "Nadpis na stránkach servera, ako sú Súbory a Databázy. Ich vyhľadávanie a tlačidlá zostanú.",
         "mobileEditor": "Editor súborov vhodný pre mobil",
-        "mobileEditorDescription": "Na telefónoch editor kódu zalamuje riadky, skryje minimapu a vyskakovacie okná, použije písmo 16px a nad klávesnicou zobrazí rad kláves: späť, odsadenie, hľadať, symboly a šípky. Na počítačoch zostáva všetko po starom."
+        "mobileEditorDescription": "Na telefónoch editor kódu zalamuje riadky, skryje minimapu a vyskakovacie okná, použije písmo 16px a nad klávesnicou zobrazí rad kláves: späť, odsadenie, hľadať, symboly a šípky. Na počítačoch zostáva všetko po starom.",
+        "allowPureBlack": "Povoliť Pure Black",
+        "allowPureBlackDescription": "Umožní používateľom vybrať tmavý variant Pure Black (OLED) panelu Calagopus v ponuke motívov bočného panela. Vypnuté zachová vlastnú tmavú paletu Mint."
       },
       "motion": {
         "cardEntrance": "Nábeh kariet",

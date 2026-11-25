@@ -510,7 +510,9 @@
         "pageTitles": "Sayfa başlıklarını göster",
         "pageTitlesDescription": "Dosyalar ve Veritabanları gibi sunucu sayfalarındaki başlık. Arama ve butonları yerinde kalır.",
         "mobileEditor": "Telefon dostu dosya düzenleyici",
-        "mobileEditorDescription": "Telefonlarda kod düzenleyici satırları kaydırır, mini haritayı ve açılır pencereleri gizler, 16px yazı tipi kullanır ve klavyenin üstünde bir tuş sırası gösterir: geri al, girinti, bul, semboller ve oklar. Masaüstü olduğu gibi kalır."
+        "mobileEditorDescription": "Telefonlarda kod düzenleyici satırları kaydırır, mini haritayı ve açılır pencereleri gizler, 16px yazı tipi kullanır ve klavyenin üstünde bir tuş sırası gösterir: geri al, girinti, bul, semboller ve oklar. Masaüstü olduğu gibi kalır.",
+        "allowPureBlack": "Pure Black'e izin ver",
+        "allowPureBlackDescription": "Kullanıcıların kenar çubuğu tema menüsünden Calagopus Panel'in Pure Black (OLED) koyu varyantını seçmesine izin verir. Kapalıyken Mint'in kendi koyu paleti korunur."
       },
       "motion": {
         "cardEntrance": "Kart girişi",

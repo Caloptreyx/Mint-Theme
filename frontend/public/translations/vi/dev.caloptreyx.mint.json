@@ -510,7 +510,9 @@
         "pageTitles": "Hiện tiêu đề trang",
         "pageTitlesDescription": "Tiêu đề trên các trang máy chủ như Tệp và Cơ sở dữ liệu. Ô tìm kiếm và các nút vẫn được giữ.",
         "mobileEditor": "Trình sửa tệp thân thiện với điện thoại",
-        "mobileEditorDescription": "Trên điện thoại, trình soạn mã sẽ ngắt dòng, ẩn bản đồ thu nhỏ và cửa sổ bật lên, dùng phông chữ 16px và có một hàng phím phía trên bàn phím: hoàn tác, thụt lề, tìm, ký hiệu và mũi tên. Máy tính giữ nguyên."
+        "mobileEditorDescription": "Trên điện thoại, trình soạn mã sẽ ngắt dòng, ẩn bản đồ thu nhỏ và cửa sổ bật lên, dùng phông chữ 16px và có một hàng phím phía trên bàn phím: hoàn tác, thụt lề, tìm, ký hiệu và mũi tên. Máy tính giữ nguyên.",
+        "allowPureBlack": "Cho phép Pure Black",
+        "allowPureBlackDescription": "Cho phép người dùng chọn biến thể tối Pure Black (OLED) của Calagopus Panel trong menu giao diện ở thanh bên. Tắt để giữ bảng màu tối riêng của Mint."
       },
       "motion": {
         "cardEntrance": "Thẻ xuất hiện",

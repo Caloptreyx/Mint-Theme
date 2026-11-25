@@ -64,6 +64,12 @@ export default function InterfaceField({ theme, set }: Props) {
         checked={theme.mobileEditor}
         onChange={(e) => set({ mobileEditor: e.currentTarget.checked })}
       />
+      <Switch
+        label={t('editor.interface.allowPureBlack', {})}
+        description={t('editor.interface.allowPureBlackDescription', {})}
+        checked={theme.allowPureBlack}
+        onChange={(e) => set({ allowPureBlack: e.currentTarget.checked })}
+      />
     </Stack>
   );
 }

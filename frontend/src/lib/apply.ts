@@ -6,7 +6,7 @@ import { normalizeChoices, type PresetLibrary, THEME_CHOICE_KEY, type ThemeChoic
 import { LOCAL_THEME_KEY, paintedTheme, parseLocalTheme } from './localTheme.ts';
 import { normalizeTheme } from './normalize.ts';
 import { DEFAULT_THEME, type NebulaTheme } from './theme.ts';
-import { clearStaleThemeVariant } from './themeVariant.ts';
+import { clearStaleThemeVariant, clearStoredThemeVariant, syncPanelThemeVariants } from './themeVariant.ts';
 
 const STYLE_ID = 'nebula-theme';
 const CACHE_KEY = 'nebula:theme';
@@ -223,7 +223,15 @@ function applyFavicon(href: string) {
  */
 function applyTheme(theme: NebulaTheme) {
   if (dropped) return;
-  clearStaleThemeVariant(document.documentElement);
+  syncPanelThemeVariants(
+    (window as { extensionContext?: { extensionRegistry?: unknown } }).extensionContext?.extensionRegistry,
+    theme.allowPureBlack,
+  );
+  if (!theme.allowPureBlack) {
+    clearStaleThemeVariant(document.documentElement);
+    // never wipe the admin's own stored variant from inside the editor's preview iframe
+    if (!previewing) clearStoredThemeVariant();
+  }
   let el = document.getElementById(STYLE_ID);
   if (!el) {
     el = document.createElement('style');
@@ -361,9 +369,9 @@ export function bootTheme() {
   const inactive = document.querySelector<HTMLMetaElement>('meta[name="inactive-extensions"]')?.content.split(',');
   if (inactive?.includes(IDENTIFIER)) return;
   booted = true;
-  clearStaleThemeVariant(document.documentElement);
   seedScheme();
   applyCachedTheme();
+  if (!siteTheme().allowPureBlack) clearStaleThemeVariant(document.documentElement);
   void loadTheme();
 
   const root = document.getElementById('root');

@@ -65,4 +65,31 @@ describe('expandTerms', () => {
     );
     assert.deepEqual(serverSettings[0].also, ['editor.serverCards.cardStyleDescription', 'editor.serverCards.styles.']);
   });
+
+  test('interface section indexes allowPureBlack so pure black, oled, variant and dark queries find it', () => {
+    const setting = SETTINGS.find(
+      (entry) => entry.section === 'interface' && entry.label === 'editor.interface.allowPureBlack',
+    );
+    assert.deepEqual(setting, {
+      section: 'interface',
+      label: 'editor.interface.allowPureBlack',
+      also: ['editor.interface.allowPureBlackDescription'],
+    });
+    const pureBlackDoc = [
+      {
+        label: 'Allow Pure Black',
+        section: 'Behaviour',
+        also: [
+          "Let users pick Calagopus Panel's Pure Black (OLED) dark variant in the sidebar theme menu. Off keeps Mint's own dark palette.",
+        ],
+      },
+    ];
+    for (const query of ['pure black', 'oled', 'variant', 'dark']) {
+      assert.deepEqual(
+        searchSettings(pureBlackDoc, query).map((hit) => hit.doc.label),
+        ['Allow Pure Black'],
+        query,
+      );
+    }
+  });
 });

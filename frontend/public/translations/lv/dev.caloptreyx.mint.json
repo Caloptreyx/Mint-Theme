@@ -510,7 +510,9 @@
         "pageTitles": "Rādīt lapu virsrakstus",
         "pageTitlesDescription": "Virsraksts servera lapās, piemēram, Faili un Datubāzes. To meklēšana un pogas paliek.",
         "mobileEditor": "Tālrunim piemērots failu redaktors",
-        "mobileEditorDescription": "Tālruņos koda redaktors aplauž rindas, paslēpj minikarti un uznirstošos logus, izmanto 16px fontu un virs tastatūras rāda taustiņu rindu: atsaukt, atkāpe, meklēt, simboli un bultiņas. Datoros viss paliek kā bijis."
+        "mobileEditorDescription": "Tālruņos koda redaktors aplauž rindas, paslēpj minikarti un uznirstošos logus, izmanto 16px fontu un virs tastatūras rāda taustiņu rindu: atsaukt, atkāpe, meklēt, simboli un bultiņas. Datoros viss paliek kā bijis.",
+        "allowPureBlack": "Atļaut Pure Black",
+        "allowPureBlackDescription": "Ļauj lietotājiem sānjoslas motīvu izvēlnē izvēlēties Calagopus Panel tumšo Pure Black (OLED) variantu. Izslēgtā stāvoklī tiek saglabāta Mint tumšā palete."
       },
       "motion": {
         "cardEntrance": "Kartīšu parādīšanās",

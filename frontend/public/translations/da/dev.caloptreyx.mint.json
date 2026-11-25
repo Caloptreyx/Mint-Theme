@@ -510,7 +510,9 @@
         "pageTitles": "Vis sidetitler",
         "pageTitlesDescription": "Overskriften på serversider som Filer og Databaser. Deres søgning og knapper bliver.",
         "mobileEditor": "Telefonvenlig fileditor",
-        "mobileEditorDescription": "På telefoner ombryder kodeeditoren linjer, skjuler minikortet og pop op-vinduer, bruger en 16px skrift og får en række taster over tastaturet: fortryd, indryk, søg, symboler og pile. Computere forbliver som de er."
+        "mobileEditorDescription": "På telefoner ombryder kodeeditoren linjer, skjuler minikortet og pop op-vinduer, bruger en 16px skrift og får en række taster over tastaturet: fortryd, indryk, søg, symboler og pile. Computere forbliver som de er.",
+        "allowPureBlack": "Tillad Pure Black",
+        "allowPureBlackDescription": "Lad brugere vælge Calagopus Panels mørke Pure Black-variant (OLED) i sidepanelets temamenu. Slået fra beholder Mints egen mørke palet."
       },
       "motion": {
         "cardEntrance": "Kortindgang",

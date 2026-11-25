@@ -1638,6 +1638,67 @@ describe('phone navigation', () => {
   });
 });
 
+describe('Pure Black variant toggle', () => {
+  test('is off by default, also for themes saved before the option', () => {
+    assert.equal(DEFAULT_THEME.allowPureBlack, false);
+    assert.equal(normalizeTheme({ accent: '#2fbf8f' }).allowPureBlack, false);
+  });
+
+  test('allowPureBlack only accepts booleans and falls back to the given theme', () => {
+    assert.equal(normalizeTheme({ allowPureBlack: true }).allowPureBlack, true);
+    assert.equal(normalizeTheme({ allowPureBlack: false }, { ...DEFAULT_THEME, allowPureBlack: true }).allowPureBlack, false);
+    for (const bad of ['true', 'false', 0, 1, null, [], {}]) {
+      assert.equal(normalizeTheme({ allowPureBlack: bad }).allowPureBlack, false, String(bad));
+      assert.equal(
+        normalizeTheme({ allowPureBlack: bad }, { ...DEFAULT_THEME, allowPureBlack: true }).allowPureBlack,
+        true,
+        String(bad),
+      );
+    }
+  });
+
+  test('allowPureBlack is admin-only and never part of USER_THEME_FIELDS or a picked preset', () => {
+    assert.equal(USER_THEME_FIELDS.includes('allowPureBlack'), false);
+    assert.equal(withUserTheme(DEFAULT_THEME, { allowPureBlack: true }).allowPureBlack, false);
+    assert.equal(
+      withUserTheme({ ...DEFAULT_THEME, allowPureBlack: true }, { allowPureBlack: false }).allowPureBlack,
+      true,
+    );
+  });
+
+  test('emits nothing extra when off, and pairs Pure Black with Mint surface tokens when on', () => {
+    assert.equal(buildCss(DEFAULT_THEME).includes('data-theme-variant'), false);
+
+    const css = buildCss(normalizeTheme({ allowPureBlack: true }));
+    const head = 'html:root[data-mantine-color-scheme="dark"][data-theme-variant="pure-black"]{';
+    const start = css.indexOf(head);
+    assert.ok(start > css.indexOf('html:root[data-mantine-color-scheme="light"]{'), 'emitted after dark/light rules');
+    const body = css.slice(start + head.length, css.indexOf('}', start));
+    for (const decl of [
+      '--nebula-card:#0a0a0a;',
+      '--mantine-color-body:#000000;',
+      '--mantine-color-dark-4:#2a2a2a;',
+      '--mantine-color-dark-5:#1f1f1f;',
+      '--mantine-color-dark-6:#141414;',
+      '--mantine-color-dark-7:#000000;',
+      '--mantine-color-dark-8:#000000;',
+      '--mantine-color-dark-9:#000000;',
+      '--mantine-color-dark-light:rgba(255,255,255,0.06);',
+      '--mantine-color-dark-light-hover:rgba(255,255,255,0.1);',
+      '--mantine-color-default:#141414;',
+      '--mantine-color-default-hover:#1f1f1f;',
+      '--mantine-color-default-border:#2a2a2a;',
+    ]) {
+      assert.ok(body.includes(decl), decl);
+    }
+
+    const translucent = buildCss(normalizeTheme({ allowPureBlack: true, blockOpacity: 80 }));
+    const tStart = translucent.indexOf(head);
+    const tBody = translucent.slice(tStart + head.length, translucent.indexOf('}', tStart));
+    assert.ok(tBody.includes('--nebula-card:rgba(10, 10, 10, 0.8);'), tBody);
+  });
+});
+
 describe('admin menu order', () => {
   test('the default and themes saved before the option keep core order', () => {
     assert.deepEqual(DEFAULT_THEME.adminNavOrder, { top: [], sections: {} });

@@ -510,7 +510,9 @@
         "pageTitles": "Pokazuj tytuły stron",
         "pageTitlesDescription": "Nagłówek na stronach serwera, takich jak Pliki i Bazy danych. Wyszukiwarka i przyciski pozostają.",
         "mobileEditor": "Edytor plików przyjazny telefonom",
-        "mobileEditorDescription": "Na telefonach edytor kodu zawija wiersze, ukrywa minimapę i wyskakujące okienka, używa czcionki 16px i pokazuje nad klawiaturą rząd klawiszy: cofnij, wcięcie, znajdź, symbole i strzałki. Na komputerach nic się nie zmienia."
+        "mobileEditorDescription": "Na telefonach edytor kodu zawija wiersze, ukrywa minimapę i wyskakujące okienka, używa czcionki 16px i pokazuje nad klawiaturą rząd klawiszy: cofnij, wcięcie, znajdź, symbole i strzałki. Na komputerach nic się nie zmienia.",
+        "allowPureBlack": "Zezwól na Pure Black",
+        "allowPureBlackDescription": "Pozwala użytkownikom wybrać ciemny wariant Pure Black (OLED) panelu Calagopus w menu motywów na pasku bocznym. Wyłączenie zachowuje własną ciemną paletę Mint."
       },
       "motion": {
         "cardEntrance": "Pojawianie się kart",

@@ -510,7 +510,9 @@
         "pageTitles": "Afișează titlurile paginilor",
         "pageTitlesDescription": "Titlul de pe paginile serverului, precum Fișiere și Baze de date. Căutarea și butoanele lor rămân.",
         "mobileEditor": "Editor de fișiere potrivit pentru telefon",
-        "mobileEditorDescription": "Pe telefoane, editorul de cod încadrează rândurile, ascunde minimap-ul și ferestrele pop-up, folosește un font de 16px și afișează un rând de taste deasupra tastaturii: anulare, indentare, căutare, simboluri și săgeți. Pe desktop nu se schimbă nimic."
+        "mobileEditorDescription": "Pe telefoane, editorul de cod încadrează rândurile, ascunde minimap-ul și ferestrele pop-up, folosește un font de 16px și afișează un rând de taste deasupra tastaturii: anulare, indentare, căutare, simboluri și săgeți. Pe desktop nu se schimbă nimic.",
+        "allowPureBlack": "Permite Pure Black",
+        "allowPureBlackDescription": "Permite utilizatorilor să aleagă varianta întunecată Pure Black (OLED) a Calagopus Panel din meniul de teme al barei laterale. Dezactivat păstrează paleta întunecată proprie a Mint."
       },
       "motion": {
         "cardEntrance": "Apariția cardurilor",
